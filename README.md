@@ -6,7 +6,9 @@ public pages here.
 
 | Path | What |
 |---|---|
-| `index.html` | Home page: one card per published game |
+| `index.html` | Home page: one card per game, linking to its landing page and privacy policy |
+| `<game>/index.html` | Each game's landing page: description, screenshots, store and portal links (they say "Coming soon" until the listings are live), how to play. Exitwise's has a small playable board. |
+| `<game>/img/` | That game's icon, feature graphic and store screenshots, copied from its store kit |
 | `<game>/privacy.html` | Each game's privacy policy, e.g. `exitwise/privacy.html` |
 | `app-ads.txt` | Shared by every game: the lines that each game's ad networks (LevelPlay, AdMob, …) ask for. Add it when the first ad account exists. It must stay at the root. |
 

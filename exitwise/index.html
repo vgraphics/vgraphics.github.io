@@ -1,0 +1,525 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exitwise: Arrow Escape Puzzle</title>
+  <meta name="description" content="Tap an arrow and it slides off the board, but only if nothing is in its way. A calm, colorful logic puzzle with hundreds of levels.">
+  <meta name="theme-color" content="#F4EFE6">
+  <meta name="color-scheme" content="light">
+  <link rel="canonical" href="https://vgraphics.github.io/exitwise/">
+  <link rel="icon" href="img/icon-512.png">
+  <link rel="apple-touch-icon" href="img/icon-512.png">
+  <meta property="og:type" content="website">
+  <meta property="og:title" content="Exitwise: Arrow Escape Puzzle">
+  <meta property="og:description" content="Slide every arrow off the board. A calm, colorful logic puzzle with hundreds of levels.">
+  <meta property="og:url" content="https://vgraphics.github.io/exitwise/">
+  <meta property="og:image" content="https://vgraphics.github.io/exitwise/img/feature-1024x500.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --paper: #F4EFE6;
+      --card: #FFFDF8;
+      --board: #E9E1D3;
+      --dot: #D2C6B2;
+      --line: #DED4C4;
+      --ink: #3B3355;
+      --muted: #6B6385;
+      --heart: #FF5A6E;
+      --mistake: #E03131;
+      --red: #FF6B6B;
+      --orange: #FF922B;
+      --yellow: #F2B705;
+      --green: #3BB273;
+      --blue: #1C9FD8;
+      --purple: #8C5CF0;
+      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+      --body: "Nunito", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; }
+    body {
+      margin: 0;
+      color: var(--ink);
+      font: 500 18px/1.6 var(--body);
+      background-color: var(--paper);
+      background-image: radial-gradient(var(--dot) 1.6px, transparent 1.9px);
+      background-size: 30px 30px;
+      background-position: 15px 15px;
+      overflow-x: hidden;
+    }
+    a { color: var(--blue); }
+    img { max-width: 100%; }
+
+    .top {
+      max-width: 1120px;
+      margin: 0 auto;
+      padding: 18px 20px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 800;
+    }
+    .top a { color: var(--ink); text-decoration: none; }
+    .top a:hover { color: var(--blue); }
+    .top .brand { font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.02em; }
+
+    main { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+    /* Hero */
+    .hero {
+      position: relative;
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 48px;
+      align-items: center;
+      padding: 28px 0 64px;
+    }
+    .hero-copy > * { animation: rise 700ms cubic-bezier(.2, .8, .2, 1) both; }
+    .hero-copy > :nth-child(2) { animation-delay: 80ms; }
+    .hero-copy > :nth-child(3) { animation-delay: 160ms; }
+    .hero-copy > :nth-child(4) { animation-delay: 240ms; }
+    .hero-copy > :nth-child(5) { animation-delay: 320ms; }
+    @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
+    .app-icon {
+      width: 84px; height: 84px;
+      border-radius: 22px;
+      box-shadow: 0 10px 24px rgba(59, 51, 85, 0.18);
+      display: block;
+    }
+    h1 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(3.6rem, 10vw, 6.4rem);
+      line-height: 0.95;
+      margin: 22px 0 6px;
+      letter-spacing: 0.01em;
+    }
+    .kicker {
+      font-family: var(--display);
+      font-size: clamp(1.4rem, 3.4vw, 1.9rem);
+      color: #8A80A3;
+      margin: 0 0 18px;
+    }
+    .lede { font-size: 1.2rem; max-width: 30em; margin: 0 0 28px; }
+    .stores { display: flex; flex-wrap: wrap; gap: 12px; }
+    .store {
+      display: inline-flex;
+      flex-direction: column;
+      padding: 10px 18px 9px;
+      border-radius: 16px;
+      border: 2px dashed var(--line);
+      background: rgba(255, 253, 248, 0.7);
+      line-height: 1.25;
+      min-width: 150px;
+    }
+    .store b { font-weight: 800; }
+    .store small { color: var(--muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+
+    /* Playable board */
+    .play { animation: rise 800ms 200ms cubic-bezier(.2, .8, .2, 1) both; }
+    .board-card {
+      position: relative;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 32px;
+      padding: 18px 18px 10px;
+      box-shadow: 0 30px 60px -28px rgba(59, 51, 85, 0.35);
+      transform: rotate(2.5deg);
+      max-width: 460px;
+      margin: 0 auto;
+    }
+    .hud {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 2px 6px 8px;
+      font-weight: 800;
+    }
+    .hearts { display: flex; gap: 6px; font-size: 1.5rem; line-height: 1; }
+    .heart { color: var(--heart); transition: color 200ms, transform 200ms; }
+    .heart.lost { color: var(--line); animation: crack 420ms; }
+    @keyframes crack { 30% { transform: scale(1.35) rotate(-12deg); color: var(--mistake); } }
+    .left { color: var(--muted); font-size: 0.95rem; }
+    .reset {
+      font: inherit;
+      font-size: 0.9rem;
+      color: var(--ink);
+      background: var(--board);
+      border: 0;
+      border-radius: 999px;
+      padding: 6px 14px;
+      cursor: pointer;
+    }
+    .reset:hover { background: var(--line); }
+    #board { display: block; width: 100%; height: auto; overflow: visible; touch-action: manipulation; }
+    .arrow { cursor: pointer; outline: none; }
+    .arrow .halo { stroke: transparent; transition: stroke 150ms; }
+    .arrow:focus-visible .halo { stroke: rgba(59, 51, 85, 0.16); }
+    .arrow.enter { animation: drop 520ms cubic-bezier(.2, .9, .3, 1.3) both; transform-box: fill-box; transform-origin: center; }
+    @keyframes drop { from { opacity: 0; transform: scale(0.6); } }
+    .try { text-align: center; color: var(--muted); font-weight: 700; margin: 22px 0 0; }
+
+    .overlay {
+      position: absolute;
+      inset: 0;
+      display: grid;
+      place-items: center;
+      background: rgba(244, 239, 230, 0.86);
+      border-radius: 32px;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 250ms;
+      text-align: center;
+      padding: 24px;
+    }
+    .overlay.show { opacity: 1; pointer-events: auto; }
+    .overlay h3 { font-family: var(--display); font-weight: 400; font-size: 2.2rem; margin: 0 0 6px; }
+    .overlay p { margin: 0 0 18px; }
+    .overlay button {
+      font: 800 1rem var(--body);
+      color: #fff;
+      background: var(--green);
+      border: 0;
+      border-bottom: 4px solid #2A8A57;
+      border-radius: 16px;
+      padding: 12px 24px;
+      cursor: pointer;
+    }
+    .overlay button:active { transform: translateY(2px); border-bottom-width: 2px; }
+
+    /* Sections */
+    section.block { padding: 56px 0; }
+    h2 {
+      font-family: var(--display);
+      font-weight: 400;
+      font-size: clamp(2rem, 5vw, 2.8rem);
+      line-height: 1.1;
+      margin: 0 0 28px;
+    }
+    .shots {
+      display: flex;
+      gap: 20px;
+      overflow-x: auto;
+      scroll-snap-type: x mandatory;
+      padding: 6px 4px 22px;
+      margin: 0 -20px;
+      padding-left: 20px;
+      scrollbar-width: thin;
+    }
+    .shots img {
+      height: clamp(340px, 62vh, 540px);
+      width: auto;
+      aspect-ratio: 9 / 16;
+      border-radius: 24px;
+      scroll-snap-align: start;
+      box-shadow: 0 18px 36px -20px rgba(59, 51, 85, 0.45);
+      background: var(--board);
+      flex: none;
+    }
+    .steps {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 18px;
+      counter-reset: step;
+    }
+    .steps li {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 24px;
+      padding: 22px 20px 20px;
+      counter-increment: step;
+    }
+    .steps li::before {
+      content: counter(step);
+      display: grid;
+      place-items: center;
+      width: 44px; height: 44px;
+      border-radius: 14px;
+      font: 400 1.5rem var(--display);
+      color: #fff;
+      background: var(--c);
+      margin-bottom: 12px;
+    }
+    .features {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 14px 28px;
+    }
+    .features li { display: flex; gap: 14px; align-items: flex-start; }
+    .features svg { flex: none; margin-top: 4px; }
+    .features b { display: block; font-weight: 800; }
+
+    footer {
+      max-width: 1120px;
+      margin: 40px auto 0;
+      padding: 28px 20px 48px;
+      border-top: 2px dashed var(--line);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px 24px;
+      color: var(--muted);
+      font-weight: 700;
+    }
+    footer a { color: var(--ink); }
+
+    @media (max-width: 900px) {
+      .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 8px; }
+      .board-card { transform: rotate(1.2deg); }
+      .steps { grid-template-columns: repeat(2, 1fr); }
+      .features { grid-template-columns: 1fr 1fr; }
+    }
+    @media (max-width: 560px) {
+      body { font-size: 17px; }
+      .steps, .features { grid-template-columns: 1fr; }
+      .store { min-width: 0; flex: 1 1 140px; }
+      .board-card { padding: 14px 12px 6px; border-radius: 26px; }
+      .overlay { border-radius: 26px; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      *, *::before, *::after { animation: none !important; transition: none !important; }
+    }
+  </style>
+</head>
+<body>
+  <header class="top">
+    <a class="brand" href="/">VGraphics</a>
+    <a href="privacy.html">Privacy</a>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="hero-copy">
+        <img class="app-icon" src="img/icon-512.png" alt="" width="84" height="84">
+        <h1>Exitwise</h1>
+        <p class="kicker">Arrow Escape Puzzle</p>
+        <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, hundreds of levels.</p>
+        <div class="stores" aria-label="Where to play">
+          <span class="store"><b>Google Play</b><small>Coming soon</small></span>
+          <span class="store"><b>App Store</b><small>Coming soon</small></span>
+          <span class="store"><b>Play in your browser</b><small>Coming soon</small></span>
+        </div>
+      </div>
+
+      <div class="play">
+        <div class="board-card">
+          <div class="hud">
+            <div class="hearts" aria-label="Hearts left"><span class="heart">&#9829;</span><span class="heart">&#9829;</span><span class="heart">&#9829;</span></div>
+            <span class="left" aria-live="polite"></span>
+            <button class="reset" type="button">Restart</button>
+          </div>
+          <svg id="board" viewBox="0 0 420 480" role="group" aria-label="Playable Exitwise board"></svg>
+          <div class="overlay" role="dialog" aria-live="polite">
+            <div>
+              <h3></h3>
+              <p></p>
+              <button type="button">Play again</button>
+            </div>
+          </div>
+        </div>
+        <p class="try">Try it: tap an arrow whose path to the edge is clear.</p>
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>A peek inside</h2>
+      <div class="shots">
+        <img src="img/1-board.png" alt="A board full of colorful bendy arrows" width="1080" height="1920" loading="lazy">
+        <img src="img/2-action.png" alt="An arrow sliding off the board" width="1080" height="1920" loading="lazy">
+        <img src="img/3-giant.png" alt="A giant board with hundreds of arrows" width="1080" height="1920" loading="lazy">
+        <img src="img/4-mistake.png" alt="A blocked arrow bumping into its neighbor" width="1080" height="1920" loading="lazy">
+        <img src="img/5-win.png" alt="The level complete screen" width="1080" height="1920" loading="lazy">
+      </div>
+    </section>
+
+    <section class="block">
+      <h2>How to play</h2>
+      <ol class="steps">
+        <li style="--c: var(--blue)">Find an arrow whose path to the edge is clear.</li>
+        <li style="--c: var(--green)">Tap it, and it snakes off the board.</li>
+        <li style="--c: var(--orange)">Every arrow you clear can free others. Keep going until the board is empty.</li>
+        <li style="--c: var(--red)">Mind your hearts: tapping a blocked arrow costs one of three.</li>
+      </ol>
+    </section>
+
+    <section class="block">
+      <h2>Why you'll love it</h2>
+      <ul class="features">
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#1C9FD8" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#1C9FD8" stroke="#1C9FD8" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Easy to learn</b>One tap, one rule.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#3BB273" stroke="#3BB273" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Hundreds of levels</b>From small warm-ups to giant 100&times;100 brain-teasers.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#F2B705" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#F2B705" stroke="#F2B705" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Always solvable</b>No luck, just logic.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF922B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF922B" stroke="#FF922B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Play at your own pace</b>Think first, then tap.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF6B6B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF6B6B" stroke="#FF6B6B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Hints when you're stuck</b>Light up an arrow that's free to go.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#8C5CF0" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#8C5CF0" stroke="#8C5CF0" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Plays offline</b>On the commute, on a break, anywhere.</span></li>
+      </ul>
+    </section>
+  </main>
+
+  <footer>
+    <span>&copy; 2026 VGraphics</span>
+    <a href="privacy.html">Privacy policy</a>
+    <a href="mailto:gvergidis90@gmail.com">Contact</a>
+  </footer>
+
+  <script>
+  (() => {
+    // A small solvable level: cells run tail to head, then the head's direction.
+    const LEVEL = [[[1,6],[2,6],[2,5],"U"],[[0,1],[0,0],[1,0],[2,0],[3,0],"R"],[[4,2],[5,2],[5,3],"D"],[[2,3],[1,3],"L"],[[4,1],[5,1],[5,0],"U"],[[1,2],[0,2],[0,3],[0,4],"D"],[[0,5],[1,5],[1,4],[2,4],[3,4],"R"],[[3,2],[3,3],[4,3],[4,4],"D"],[[3,5],[4,5],"R"],[[5,4],[5,5],"D"],[[3,6],[4,6],[5,6],"R"]];
+    const COLS = 6, ROWS = 7, CELL = 60, PAD = 30, STROKE = 22;
+    const COLORS = ["#FF6B6B", "#FF922B", "#F2B705", "#3BB273", "#1C9FD8", "#8C5CF0"];
+    const DIRS = { U: [0, -1, -90], D: [0, 1, 90], L: [-1, 0, 180], R: [1, 0, 0] };
+    const NS = "http://www.w3.org/2000/svg";
+    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
+
+    const svg = document.getElementById("board");
+    const hearts = [...document.querySelectorAll(".heart")];
+    const left = document.querySelector(".left");
+    const overlay = document.querySelector(".overlay");
+    let arrows, alive, lives, over;
+
+    const center = ([x, y]) => [PAD + x * CELL + CELL / 2, PAD + y * CELL + CELL / 2];
+    const el = (name, attrs, parent) => {
+      const node = document.createElementNS(NS, name);
+      for (const k in attrs) node.setAttribute(k, attrs[k]);
+      if (parent) parent.appendChild(node);
+      return node;
+    };
+    const animate = (ms, step) => new Promise(done => {
+      if (reduced) ms = 1;
+      const start = performance.now();
+      const frame = now => {
+        const t = Math.min(1, (now - start) / ms);
+        step(t);
+        t < 1 ? requestAnimationFrame(frame) : done();
+      };
+      requestAnimationFrame(frame);
+    });
+
+    function rayCells(a) {
+      const [dx, dy] = DIRS[a.dir];
+      let [x, y] = a.cells[a.cells.length - 1];
+      const out = [];
+      for (x += dx, y += dy; x >= 0 && x < COLS && y >= 0 && y < ROWS; x += dx, y += dy) out.push(x + "," + y);
+      return out;
+    }
+
+    function blockerDistance(a) {
+      const taken = new Set();
+      for (const b of alive) if (b !== a) b.cells.forEach(c => taken.add(c[0] + "," + c[1]));
+      const ray = rayCells(a);
+      const i = ray.findIndex(c => taken.has(c));
+      return i < 0 ? 0 : i + 1;
+    }
+
+    function placeHead(a, along) {
+      const p = a.path.getPointAtLength(a.body + along);
+      a.head.setAttribute("transform", `translate(${p.x} ${p.y}) rotate(${DIRS[a.dir][2]})`);
+      a.line.style.strokeDashoffset = -along;
+    }
+
+    function setLeft() {
+      left.textContent = alive.size + (alive.size === 1 ? " arrow left" : " arrows left");
+    }
+
+    function showOverlay(title, text, button) {
+      overlay.querySelector("h3").textContent = title;
+      overlay.querySelector("p").textContent = text;
+      overlay.querySelector("button").textContent = button;
+      overlay.classList.add("show");
+      overlay.querySelector("button").focus({ preventScroll: true });
+    }
+
+    async function tap(a) {
+      if (over || a.busy || !alive.has(a)) return;
+      a.busy = true;
+      const blocked = blockerDistance(a);
+      if (!blocked) {
+        alive.delete(a);
+        setLeft();
+        a.g.style.pointerEvents = "none";
+        await animate(560 + a.travel * 0.35, t => {
+          placeHead(a, a.travel * t * t);
+          a.g.style.opacity = t < 0.7 ? 1 : 1 - (t - 0.7) / 0.3;
+        });
+        a.g.remove();
+        if (!alive.size) {
+          over = true;
+          setTimeout(() => showOverlay("Board clear!", "That's Exitwise. The full game has hundreds of levels, up to 100×100.", "Play again"), 250);
+        }
+        return;
+      }
+      const push = (blocked - 1) * CELL + CELL * 0.3;
+      a.line.style.stroke = "var(--mistake)";
+      a.head.style.fill = a.head.style.stroke = "var(--mistake)";
+      if (navigator.vibrate) navigator.vibrate(40);
+      lives -= 1;
+      hearts[lives]?.classList.add("lost");
+      await animate(110 + push * 0.5, t => placeHead(a, push * t));
+      await animate(320, t => placeHead(a, push * (1 - t) * (1 - t)));
+      a.line.style.stroke = a.color;
+      a.head.style.fill = a.head.style.stroke = a.color;
+      a.busy = false;
+      if (lives <= 0) {
+        over = true;
+        showOverlay("Out of hearts", "Look for an arrow with nothing in its way, then tap.", "Try again");
+      }
+    }
+
+    function build() {
+      svg.querySelectorAll("g, rect, circle").forEach(n => n.remove());
+      overlay.classList.remove("show");
+      hearts.forEach(h => h.classList.remove("lost"));
+      lives = 3;
+      over = false;
+
+      el("rect", { x: 6, y: 6, width: 408, height: 468, rx: 26, fill: "var(--board)" }, svg);
+      for (let y = 0; y < ROWS; y++)
+        for (let x = 0; x < COLS; x++) {
+          const [cx, cy] = center([x, y]);
+          el("circle", { cx, cy, r: 4, fill: "var(--dot)" }, svg);
+        }
+
+      arrows = LEVEL.map((spec, i) => {
+        const cells = spec.slice(0, -1), dir = spec[spec.length - 1];
+        const [dx, dy] = DIRS[dir];
+        const pts = cells.map(center);
+        const [hx, hy] = pts[pts.length - 1];
+        const body = (cells.length - 1) * CELL;
+        const travel = body + CELL * (Math.max(COLS, ROWS) + 2);
+        const d = "M" + pts.map(p => p.join(" ")).join(" L") + ` L${hx + dx * travel} ${hy + dy * travel}`;
+        const color = COLORS[i % COLORS.length];
+
+        const g = el("g", { class: "arrow enter", tabindex: 0, role: "button", "aria-label": `${color} arrow pointing ${{ U: "up", D: "down", L: "left", R: "right" }[dir]}` }, svg);
+        g.style.animationDelay = i * 45 + "ms";
+        el("path", { class: "halo", d: "M" + pts.map(p => p.join(" ")).join(" L"), fill: "none", "stroke-width": CELL * 0.9, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+        const path = el("path", { d, fill: "none", stroke: color, "stroke-width": STROKE, "stroke-linecap": "round", "stroke-linejoin": "round" }, g);
+        const total = path.getTotalLength();
+        path.style.strokeDasharray = `${body} ${total + body}`;
+        const head = el("path", { d: "M27 0 L-5 -19 L-5 19 Z", fill: color, stroke: color, "stroke-width": 6, "stroke-linejoin": "round" }, g);
+
+        const a = { cells, dir, color, g, path, line: path, head, body, travel, busy: false };
+        placeHead(a, 0);
+        g.addEventListener("click", () => tap(a));
+        g.addEventListener("keydown", e => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); tap(a); } });
+        return a;
+      });
+      alive = new Set(arrows);
+      setLeft();
+    }
+
+    document.querySelector(".reset").addEventListener("click", build);
+    overlay.querySelector("button").addEventListener("click", build);
+    build();
+  })();
+  </script>
+</body>
+</html>
