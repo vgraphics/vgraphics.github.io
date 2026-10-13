@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VGraphics</title>
+  <meta name="description" content="VGraphics makes small casual games for Android, iOS and the web.">
+  <style>
+    :root {
+      --bg: #F4EFE6;
+      --card: #FFFDF8;
+      --ink: #3B3355;
+      --muted: #6B6385;
+      --line: #DED4C4;
+      --accent: #1C9FD8;
+    }
+    @media (prefers-color-scheme: dark) {
+      :root {
+        --bg: #1E1B26;
+        --card: #28243A;
+        --ink: #F1ECF8;
+        --muted: #B8B0CC;
+        --line: #3D3754;
+        --accent: #5BC0EB;
+      }
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    }
+    main {
+      max-width: 720px;
+      margin: 0 auto;
+      padding: 40px 16px 64px;
+    }
+    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; }
+    .lede { color: var(--muted); margin: 0 0 2em; }
+    .card {
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: 20px;
+      padding: 24px;
+      margin-bottom: 16px;
+    }
+    h2 { font-size: 1.3rem; margin: 0 0 0.3em; }
+    .card p { margin: 0 0 0.8em; }
+    a { color: var(--accent); }
+    footer { color: var(--muted); margin-top: 2em; font-size: 0.95rem; }
+  </style>
+</head>
+<body>
+<main>
+  <h1>VGraphics</h1>
+  <p class="lede">Small casual games for Android, iOS and the web.</p>
+
+  <section class="card">
+    <h2>Exitwise</h2>
+    <p>An arrow puzzle: tap each arrow to send it off the board, but only when its path is clear.</p>
+    <a href="exitwise/privacy.html">Privacy policy</a>
+  </section>
+
+  <footer>
+    Contact: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </footer>
+</main>
+</body>
+</html>
