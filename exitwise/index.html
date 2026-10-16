@@ -7,19 +7,30 @@
   <meta name="description" content="Tap an arrow and it slides off the board, but only if nothing is in its way. A calm, colorful logic puzzle with hundreds of levels.">
   <meta name="theme-color" content="#F4EFE6">
   <meta name="color-scheme" content="light">
-  <link rel="canonical" href="https://vgraphics.github.io/exitwise/">
+  <link rel="canonical" href="https://vgraphics.gr/exitwise/">
   <link rel="icon" href="img/icon-512.png">
   <link rel="apple-touch-icon" href="img/icon-512.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Exitwise: Arrow Escape Puzzle">
   <meta property="og:description" content="Slide every arrow off the board. A calm, colorful logic puzzle with hundreds of levels.">
-  <meta property="og:url" content="https://vgraphics.github.io/exitwise/">
-  <meta property="og:image" content="https://vgraphics.github.io/exitwise/img/feature-1024x500.png">
+  <meta property="og:url" content="https://vgraphics.gr/exitwise/">
+  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Lilita+One&family=Nunito:wght@500;700;800&display=swap" rel="stylesheet">
+  <link rel="preload" href="fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <style>
+    /* Self-hosted (OFL, see fonts/): no requests to Google Fonts. */
+    @font-face {
+      font-family: "Lilita One";
+      src: url("fonts/lilita-one-latin.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Nunito";
+      src: url("fonts/nunito-latin.woff2") format("woff2");
+      font-weight: 500 800;
+      font-display: swap;
+    }
     :root {
       --paper: #F4EFE6;
       --card: #FFFDF8;
@@ -272,6 +283,8 @@
       font-weight: 700;
     }
     footer a { color: var(--ink); }
+    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: 0.9rem; }
+    footer .legal a { color: var(--muted); }
 
     @media (max-width: 900px) {
       .hero { grid-template-columns: 1fr; gap: 36px; padding-top: 8px; }
@@ -366,9 +379,10 @@
   </main>
 
   <footer>
-    <span>&copy; 2026 VGraphics</span>
+    <a href="/">More from VGraphics</a>
     <a href="privacy.html">Privacy policy</a>
     <a href="mailto:gvergidis90@gmail.com">Contact</a>
+    <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
   </footer>
 
   <script>
