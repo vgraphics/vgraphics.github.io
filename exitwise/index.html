@@ -65,7 +65,8 @@
     }
     .top a { color: var(--ink); text-decoration: none; }
     .top a:hover { color: var(--blue); }
-    .top .brand { font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.02em; }
+    .top .brand { font-family: var(--display); font-size: 1.15rem; letter-spacing: 0.02em; display: inline-flex; align-items: center; gap: 10px; }
+    .top .brand img { height: 30px; width: auto; }
 
     main { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
@@ -292,7 +293,7 @@
 </head>
 <body>
   <header class="top">
-    <a class="brand" href="/">VGraphics</a>
+    <a class="brand" href="/"><img src="/img/vgraphics.png" alt="" width="52" height="44">VGraphics</a>
     <a href="privacy.html">Privacy</a>
   </header>
 
