@@ -139,6 +139,7 @@
     .part .body[hidden] { display: none; }
     .part .body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
     .part .body b { color: var(--chrome); font-weight: 600; }
+    .part .body .more { justify-self: start; display: inline-flex; min-height: 44px; align-items: center; color: var(--chrome); font: 800 1rem/1 var(--display); letter-spacing: .1em; text-transform: uppercase; text-decoration-color: var(--red); text-underline-offset: 5px; }
 
     /* Gallery */
     .shots { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(190px, 230px); gap: 18px; overflow-x: auto; padding: 6px 2px 18px; scroll-snap-type: x mandatory; scrollbar-color: var(--rim) transparent; }
@@ -195,6 +196,7 @@
       <nav class="subnav" aria-label="Speedometer Live Wallpaper">
         <a href="/speedometer-wallpaper/" aria-current="page">Overview</a>
         <a href="#tour">Tour</a>
+        <a href="/speedometer-wallpaper/wiki/">Wiki</a>
         <a href="privacy.html">Privacy</a>
       </nav>
     </div>
@@ -283,11 +285,11 @@
 
           <ol class="parts">
             <li class="part"><button type="button" aria-controls="p1" aria-expanded="true"><span class="n">1</span>Signal<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p1"><p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p></div></li>
+              <div class="body" id="p1"><p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p><a class="more" href="/speedometer-wallpaper/wiki/signal/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p2" aria-expanded="true"><span class="n">2</span>RAM<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p2"><p>The small gauge at the top right shows how much of the phone's memory is in use.</p></div></li>
+              <div class="body" id="p2"><p>The small gauge at the top right shows how much of the phone's memory is in use.</p><a class="more" href="/speedometer-wallpaper/wiki/ram/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p3" aria-expanded="true"><span class="n">3</span>The big gauge<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p3"><p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen to switch. The digits above the needle show the same value.</p></div></li>
+              <div class="body" id="p3"><p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen to switch. The digits above the needle show the same value.</p><a class="more" href="/speedometer-wallpaper/wiki/big-gauge/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p4" aria-expanded="true"><span class="n">4</span>Warning lights<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
               <div class="body" id="p4"><p>Four lights on the big gauge. Each one can be switched off in Settings.</p>
                 <ul>
@@ -295,13 +297,13 @@
                   <li><b>Bluetooth:</b> while Bluetooth is on.</li>
                   <li><b>High temperature:</b> when the battery is hotter than 45 °C, unless you change it.</li>
                   <li><b>Low temperature:</b> when the battery is colder than 0 °C, unless you change it.</li>
-                </ul></div></li>
+                </ul><a class="more" href="/speedometer-wallpaper/wiki/#lights">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p5" aria-expanded="true"><span class="n">5</span>Date and time<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p5"><p>The LCD under the big gauge. The time format, date order, separators and seconds are all in Settings.</p></div></li>
+              <div class="body" id="p5"><p>The LCD under the big gauge. The time format, date order, separators and seconds are all in Settings.</p><a class="more" href="/speedometer-wallpaper/wiki/date-and-time/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p6" aria-expanded="true"><span class="n">6</span>Wi-Fi<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p6"><p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p></div></li>
+              <div class="body" id="p6"><p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p><a class="more" href="/speedometer-wallpaper/wiki/wifi/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p7" aria-expanded="true"><span class="n">7</span>Battery<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p7"><p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p></div></li>
+              <div class="body" id="p7"><p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p><a class="more" href="/speedometer-wallpaper/wiki/battery/">More in the wiki →</a></div></li>
           </ol>
         </div>
       </div>

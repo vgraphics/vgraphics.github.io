@@ -1,0 +1,147 @@
+{
+  "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png" },
+  "title": "Exitwise wiki",
+  "intro": "Every trap, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
+  "source": "Written from the game on main (44cadf9, 2026-10-16). Later generated from Core's WikiCatalog.",
+  "nav": [
+    { "label": "Overview", "href": "/exitwise/" },
+    { "label": "Wiki", "href": "/exitwise/wiki/", "current": true },
+    { "label": "Privacy", "href": "/exitwise/privacy.html" }
+  ],
+  "sections": [
+    { "id": "traps", "title": "Traps & obstacles", "intro": "Things on the board that get in your arrows' way, and the arrows that deal with them." },
+    { "id": "powerups", "title": "Powerups", "intro": "One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop." },
+    { "id": "basics", "title": "Basics", "intro": "How the game works: hearts, coins, hints, hard levels and more." }
+  ],
+  "entries": [
+    {
+      "slug": "rock", "section": "traps", "name": "Rock", "firstLevel": 21,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#8E857B'/><path d='M14 19l11-7 12 8-11 4z' fill='#A8A096'/><path d='M26 24l11-4 3 14-14 5z' fill='#766D64'/></svg>",
+      "summary": "Stops every arrow. Only a bomb can clear it.",
+      "what": ["A rock holds no arrow and stops every arrow that runs into it. It stays there until a bomb arrow aimed at it blows it up."],
+      "how": ["Look for the bomb arrow whose path leads to the rock.", "Free the bomb's path first, then tap the bomb.", "Until the rock is gone, plan around it: any arrow pointing at it is blocked."],
+      "notes": ["Rocks first appear on level 21, two single rocks. They get more common until level 70."],
+      "related": ["bomb-arrow", "colour-gate", "hearts"]
+    },
+    {
+      "slug": "bomb-arrow", "section": "traps", "name": "Bomb arrow", "firstLevel": 21,
+      "icon": "<svg viewBox='0 0 48 48'><circle cx='20' cy='28' r='12' fill='#2F2B38'/><path d='M27 18l6-6' stroke='#2F2B38' stroke-width='4' stroke-linecap='round'/><path d='M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z' fill='#FF922B'/><circle cx='16' cy='24' r='3' fill='#5A5466'/></svg>",
+      "summary": "Flies to the first rock on its path and blows it up.",
+      "what": ["A bomb arrow is drawn in charcoal with a lit spark. When you tap it, it flies along its path to the first rock and blows that rock up.", "Bombs have no colour, so colour gates stop them."],
+      "how": ["Tap the bomb once its path to the rock is clear.", "Use it to open the way for the arrows that were stuck behind the rock."],
+      "notes": ["In-game tip: \"Tap a bomb to blow up its rock.\""],
+      "related": ["rock", "colour-gate"]
+    },
+    {
+      "slug": "colour-gate", "section": "traps", "name": "Colour gate", "firstLevel": 41,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='8' y='8' width='32' height='32' rx='8' fill='#1C9FD8'/><rect x='14' y='14' width='20' height='20' rx='4' fill='none' stroke='#fff' stroke-width='3'/><circle cx='24' cy='24' r='4' fill='#fff'/></svg>",
+      "summary": "Lets only arrows of its own colour through, then opens.",
+      "what": ["A gate is one cell in an arrow colour. An arrow of the same colour passes through it and the gate opens; after that it lets every arrow through.", "Arrows of any other colour, and bombs, bump into a closed gate. Each gate also shows a symbol, so you can match it without relying on colour."],
+      "how": ["Find the arrow with the gate's colour and symbol, and send it through first.", "Once the gate is open, every arrow can pass."],
+      "notes": ["Gates first appear on level 41. They come in blue and yellow, plus purple from level 101.", "In-game tip: \"Only a gate's own colour gets through.\""],
+      "related": ["rock", "bomb-arrow", "hearts"]
+    },
+    {
+      "slug": "auto-play", "section": "powerups", "name": "Auto-play", "firstLevel": 5,
+      "icon": "<svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='18' fill='#1C9FD8'/><path d='M20 15l12 9-12 9z' fill='#fff'/></svg>",
+      "summary": "Plays a free arrow for you.",
+      "what": ["Auto-play picks an arrow that can leave right now and plays it for you."],
+      "how": ["Use it when you're stuck and don't want to spend a heart finding the way.", "A pack of 3 costs 100 coins in the shop. It's also a daily-challenge milestone reward."],
+      "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
+      "related": ["hints", "magic-wand", "leaderboards"]
+    },
+    {
+      "slug": "grid-lines", "section": "powerups", "name": "Grid lines", "firstLevel": 25,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#3BB273'/><path d='M18 10v28M30 10v28M10 18h28M10 30h28' stroke='#fff' stroke-width='2.5'/></svg>",
+      "summary": "Shows every arrow's path for 5 seconds.",
+      "what": ["Grid lines draw each arrow's lane to the edge for 5 seconds of play. Anything on a line blocks that arrow."],
+      "how": ["Use it on big boards to spot which arrows are free.", "A pack of 3 costs 150 coins."],
+      "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
+      "related": ["auto-play", "board-shapes"]
+    },
+    {
+      "slug": "remove-arrow", "section": "powerups", "name": "Remove arrow", "firstLevel": 45,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#FF6B6B'/><path d='M14 20h14l-4-6M28 20l-4 6' stroke='#fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M16 34l16-16' stroke='#fff' stroke-width='4' stroke-linecap='round'/></svg>",
+      "summary": "Removes any arrow, even a blocked one, without costing a heart.",
+      "what": ["Tap Remove arrow, then tap any arrow: it disappears, even if it was blocked, and you don't lose a heart."],
+      "how": ["Save it for the one arrow that blocks everything else.", "A pack of 3 costs 250 coins."],
+      "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
+      "related": ["hearts", "magic-wand"]
+    },
+    {
+      "slug": "magic-wand", "section": "powerups", "name": "Magic wand", "firstLevel": 65,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M10 38l20-20' stroke='#8C5CF0' stroke-width='5' stroke-linecap='round'/><path d='M34 6l2.2 5.8L42 14l-5.8 2.2L34 22l-2.2-5.8L26 14l5.8-2.2z' fill='#F2B705'/></svg>",
+      "summary": "Clears up to 5 free arrows at once.",
+      "what": ["The magic wand clears up to 5 arrows that are free to leave, all at once."],
+      "how": ["Use it on big boards to thin out the easy arrows quickly.", "A pack of 3 costs 300 coins. It's also the reward for 25 daily challenges in a month."],
+      "notes": ["The shop also sells a bundle with one of each powerup for 200 coins."],
+      "related": ["auto-play", "daily-challenge"]
+    },
+    {
+      "slug": "how-to-play", "section": "basics", "name": "How to play", "firstLevel": 1,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M8 24h22' stroke='#1C9FD8' stroke-width='7' stroke-linecap='round'/><path d='M42 24l-13-10v20z' fill='#1C9FD8'/></svg>",
+      "summary": "Tap an arrow with a clear path. Clear the board.",
+      "what": ["Every arrow points somewhere. Tap one and it slides off the board along its path, but only if nothing is in its way.", "Clear every arrow to win the level. Each arrow you clear can free others."],
+      "how": ["Start with arrows whose path to the edge is already empty.", "On big boards, pinch or scroll to zoom and drag to move."],
+      "related": ["hearts", "hints", "board-shapes"]
+    },
+    {
+      "slug": "hearts", "section": "basics", "name": "Hearts", "firstLevel": 1,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z' fill='#FF5A6E'/></svg>",
+      "summary": "You have 3. Tapping a blocked arrow costs one.",
+      "what": ["You start every level with 3 hearts. Tapping an arrow that's blocked costs a heart. When you run out, the attempt is over."],
+      "how": ["When you're out of hearts you can continue once with 100 coins for 3 hearts, or, on Android, watch a video for full hearts. Each continue works once per attempt.", "Or tap Retry to start the level again."],
+      "notes": ["A run with a continue doesn't go on the leaderboard."],
+      "related": ["coins", "remove-arrow", "leaderboards"]
+    },
+    {
+      "slug": "coins", "section": "basics", "name": "Coins", "firstLevel": 1,
+      "icon": "<svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='17' fill='#F2B705'/><circle cx='24' cy='24' r='12' fill='none' stroke='#fff' stroke-width='3'/><path d='M24 17v14' stroke='#fff' stroke-width='3' stroke-linecap='round'/></svg>",
+      "summary": "Earned every level; spent on hints, continues and powerups.",
+      "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect."],
+      "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.", "Coin packs are also for sale in the app's shop."],
+      "related": ["hints", "hearts", "hard-levels", "daily-challenge"]
+    },
+    {
+      "slug": "hints", "section": "basics", "name": "Hints", "firstLevel": 1,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M24 6a12 12 0 0 0-7 21.7V32h14v-4.3A12 12 0 0 0 24 6z' fill='#F2B705'/><rect x='18' y='35' width='12' height='4' rx='2' fill='#B5890A'/></svg>",
+      "summary": "Lights up an arrow that can leave right now.",
+      "what": ["A hint highlights an arrow whose path is clear. You get 3 free hints; after that a hint costs 30 coins, or, on Android, a short video."],
+      "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues."],
+      "related": ["auto-play", "coins", "leaderboards"]
+    },
+    {
+      "slug": "hard-levels", "section": "basics", "name": "Hard levels", "firstLevel": 10,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M4 40l13-22 7 11 6-8 14 19z' fill='#3B3355'/><path d='M17 18l4 7-4-2-4 3z' fill='#fff'/></svg>",
+      "summary": "Every 10th level: a bigger board, and 30 coins.",
+      "what": ["Every 10th level, from level 10, is a hard level: about half as big again as the levels around it, and the trickiest of several candidate boards.", "From level 20, hard levels are always picture shapes. The two levels after a hard level are a little smaller, to catch your breath."],
+      "how": ["Zoom out first to see the whole board, then work from the edges in.", "A hard level pays 30 coins, plus 5 for a perfect clear."],
+      "related": ["board-shapes", "coins"]
+    },
+    {
+      "slug": "board-shapes", "section": "basics", "name": "Board shapes", "firstLevel": 5,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M24 41S6 30 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 13-18 24-18 24z' fill='none' stroke='#8C5CF0' stroke-width='3' stroke-dasharray='2 4' stroke-linecap='round'/></svg>",
+      "summary": "20 shapes, from rectangles to hearts, cats and butterflies.",
+      "what": ["Boards come in 20 shapes: rectangle, rounded, circle, diamond, heart, cross, ring, holes, notches, hourglass, star, blob, tree, house, cat, fish, mushroom, cup, butterfly and arch. Levels 1 to 4 are always rectangles.", "From level 25 about 1 in 6 levels is a zig-zag level, where arrows twist into knots. The longest board side grows up to 100 cells."],
+      "how": ["Holes and notches change which edge an arrow can reach: check the path, not just the direction."],
+      "related": ["hard-levels", "grid-lines"]
+    },
+    {
+      "slug": "daily-challenge", "section": "basics", "name": "Daily challenge", "firstLevel": null,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='10' width='34' height='30' rx='6' fill='#FF922B'/><rect x='7' y='10' width='34' height='9' rx='4' fill='#E0761A'/><path d='M16 6v8M32 6v8' stroke='#3B3355' stroke-width='3' stroke-linecap='round'/><path d='M17 29l5 5 9-10' stroke='#fff' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+      "summary": "One board a day, the same for everyone, with monthly rewards.",
+      "what": ["Each calendar day has one board, the same for every player. It's harder later in the week, and it has no rocks, bombs or gates.", "You can play any day of the current month up to today. Only the first win of each day pays: 20 coins, plus 5 for perfect."],
+      "how": ["Days you complete count towards this month's milestones: 2 days: 50 coins · 7 days: 100 coins · 13 days: 150 coins and an Auto-play · 19 days: 200 coins and a Grid lines · 25 days: 300 coins and a Magic wand.", "Progress starts again each month."],
+      "notes": ["Daily runs don't go on the level leaderboards."],
+      "related": ["coins", "auto-play", "magic-wand"]
+    },
+    {
+      "slug": "leaderboards", "section": "basics", "name": "Leaderboards & profiles", "firstLevel": null,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='22' width='11' height='18' rx='3' fill='#1C9FD8'/><rect x='18.5' y='12' width='11' height='28' rx='3' fill='#F2B705'/><rect x='31' y='27' width='11' height='13' rx='3' fill='#FF6B6B'/></svg>",
+      "summary": "Every level has a board: fewest hearts lost, then fastest time.",
+      "what": ["Each level has its own leaderboard, ranked by fewest hearts lost, then by the fastest time. You see the top 10 and your own row.", "Only clean runs count: no continue and no powerup. Hints are fine. Your best run stays on the board."],
+      "how": ["The first time you open a leaderboard you can pick a username (3 to 16 letters, digits or _) and one of 12 avatars. Without one you show as \"Player\" and a short code.", "Settings → Profile → \"Delete my leaderboard data\" removes your name and results."],
+      "related": ["hearts", "hints", "auto-play"]
+    }
+  ]
+}

@@ -5,7 +5,8 @@ import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
-const SKIP = ['.git', '.claude', 'tools', join('exitwise', 'play')]
+// _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
+const SKIP = ['.git', '.claude', 'tools', '_mockups', join('exitwise', 'play')]
 const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 
 const COMPANY = [
