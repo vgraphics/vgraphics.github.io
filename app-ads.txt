@@ -1,0 +1,2 @@
+# VGraphics: ad networks for every game and app (https://iabtechlab.com/app-ads-txt/)
+google.com, pub-7821189101210154, DIRECT, f08c47fec0942fa0

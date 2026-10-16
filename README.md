@@ -1,17 +1,26 @@
 # vgraphics.github.io
 
-The VGraphics developer website, served by GitHub Pages at **https://vgraphics.github.io**. Use this URL as the
-developer website in Play Console, App Store Connect and the web game portals. This repo is **public**, so only put
-public pages here.
+The VGraphics company website, served by GitHub Pages at **https://vgraphics.gr** (custom domain; DNS at papaki).
+The old address https://vgraphics.github.io redirects there. Use **https://vgraphics.gr** as the developer website in
+Play Console, App Store Connect and the web game portals. This repo is **public**, so only put public pages here.
 
 | Path | What |
 |---|---|
-| `index.html` | Home page: one card per game, linking to its landing page and privacy policy |
-| `<game>/index.html` | Each game's landing page: description, screenshots, store and portal links (they say "Coming soon" until the listings are live), how to play. Exitwise's has a small playable board. |
-| `<game>/img/` | That game's icon, feature graphic and store screenshots, copied from its store kit |
-| `<game>/privacy.html` | Each game's privacy policy, e.g. `exitwise/privacy.html` |
-| `app-ads.txt` | Shared by every game: the lines that each game's ad networks (LevelPlay, AdMob, …) ask for. Add it when the first ad account exists. It must stay at the root. |
+| `index.html` | Home page: the studio, one card per game or app, contact |
+| `company/index.html` | Company information / Στοιχεία εταιρείας: the legal details from ΓΕΜΗ, in English and Greek |
+| `404.html` | Not-found page |
+| `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`) and the self-hosted fonts (OFL) |
+| `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
+| `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
+| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html` |
+| `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
+| `CNAME` | The custom domain, `vgraphics.gr` |
+| `tools/check-site.mjs` | The site's content rules (legal footer, links, no trackers, company details, app-ads.txt) |
 
-The source of each policy lives in that game's own repo (for Exitwise, `docs/store/privacy-policy.html` in
-`vgraphics/exitwise`). After you edit a policy there, copy it here, push, and check that the live page has
-updated.
+Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, link to `/company/`), a canonical URL on
+`https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages, and no phone
+number. **Run `node tools/check-site.mjs` before every push.**
+
+Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
+Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
+check that the live page has updated.
