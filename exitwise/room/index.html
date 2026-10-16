@@ -6,6 +6,7 @@
   <title>Join a room: Exitwise</title>
   <meta name="description" content="A friend invited you to race them in Exitwise.">
   <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/exitwise/room/">
   <meta name="theme-color" content="#F4EFE6">
   <meta name="color-scheme" content="light">
   <link rel="icon" href="../img/icon-512.png">
@@ -42,6 +43,7 @@
       margin: 0;
       min-height: 100vh;
       display: flex;
+      flex-direction: column;
       align-items: center;
       justify-content: center;
       padding: 24px 16px;
@@ -78,6 +80,8 @@
     .steps { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 16px; }
     .steps li { margin: 4px 0; }
     .hidden { display: none; }
+    .legal { max-width: 420px; margin: 18px 0 0; font-size: 13px; color: var(--muted); text-align: center; }
+    .legal a { color: inherit; }
   </style>
 </head>
 <body>
@@ -94,6 +98,7 @@
       <li>Type the code and tap <strong>Join</strong>.</li>
     </ol>
   </main>
+  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
   <script>
     (function () {
       // Codes have 6 capitals and digits, never I, O, 0 or 1 (RoomCode.cs).

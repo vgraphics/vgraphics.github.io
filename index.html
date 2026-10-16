@@ -85,14 +85,13 @@
     .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
     .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; background: #FFFFFF; color: #16151B; text-decoration: none; transition: transform 180ms var(--ease); }
     a.pill:hover { transform: translateY(-2px); }
-    .pill.soon { background: rgba(255, 255, 255, .55); }
     .pill svg { width: 16px; height: 16px; }
 
     .x-game { background: #F4EFE6 radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 0 0 / 30px 30px; color: #3B3355; border: 1px solid #DED4C4; min-height: 540px; }
     .x-game .copy { max-width: 46%; display: grid; gap: 12px; position: relative; z-index: 1; }
     .x-game .icon { width: 64px; height: 64px; border-radius: 16px; }
     .x-game .pill { background: #3B3355; color: #FFFDF8; }
-    .x-game .pill.soon { background: #E9E1D3; color: #3B3355; }
+    .x-game .pill.play { background: #23784B; color: #FFFFFF; }
     .x-game .shots { position: absolute; right: -28px; bottom: -40px; width: 50%; height: 80%; }
     .x-game .shots img { position: absolute; width: 62%; border-radius: 22px; box-shadow: 0 30px 50px -24px rgba(0,0,0,.5); transition: transform 300ms var(--ease); }
     .x-game .shots img:nth-child(1) { left: 0; top: 10%; transform: rotate(-7deg); }
@@ -229,13 +228,13 @@
         <article class="b x-game s7 r2" aria-labelledby="exitwise-title">
           <div class="copy">
             <img class="icon" src="/exitwise/img/icon-512.png" alt="" width="64" height="64">
-            <span class="kicker">Puzzle game · Android</span>
+            <span class="kicker">Puzzle game · Android &amp; web</span>
             <h3 id="exitwise-title">Exitwise</h3>
             <p>Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, hundreds of levels.</p>
             <div class="pill-row">
+              <a class="pill play" href="/exitwise/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play in your browser</a>
               <a class="pill" href="/exitwise/">Visit Exitwise</a>
               <a class="pill" href="/exitwise/wiki/">Wiki</a>
-              <span class="pill soon">Play in browser · soon</span>
             </div>
           </div>
           <div class="shots" aria-hidden="true"><img src="/assets/img/exitwise-giant.webp" alt="" width="480" height="853" loading="lazy"><img src="/assets/img/exitwise-win.webp" alt="" width="480" height="853" loading="lazy"></div>
