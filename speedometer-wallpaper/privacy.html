@@ -3,161 +3,254 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Speedometer Live Wallpaper Privacy Policy</title>
+  <title>Privacy policy · Speedometer Live Wallpaper</title>
   <meta name="description" content="Privacy policy for the Speedometer Live Wallpaper app for Android.">
+  <meta name="theme-color" content="#0B0B0C">
+  <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://vgraphics.gr/speedometer-wallpaper/privacy.html">
+  <link rel="icon" href="/speedometer-wallpaper/img/icon.png">
   <style>
+    /* Self-hosted (OFL): Saira Condensed and DSEG7 from the Speedometer page, Commissioner from the VGraphics pages. */
+    @font-face { font-family: "Saira Condensed"; src: url("/speedometer-wallpaper/fonts/saira-condensed-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+    @font-face { font-family: "Saira Condensed"; src: url("/speedometer-wallpaper/fonts/saira-condensed-800.woff2") format("woff2"); font-weight: 800; font-display: swap; }
+    @font-face { font-family: "DSEG7"; src: url("/speedometer-wallpaper/fonts/dseg7-classic-bold.ttf") format("truetype"); font-display: swap; }
+    @font-face { font-family: "Commissioner"; src: url("/assets/fonts/commissioner-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+    @font-face { font-family: "Commissioner"; src: url("/assets/fonts/commissioner-greek.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0370-03FF; }
+
     :root {
-      --bg: #141414;
-      --card: #1E1E1E;
-      --ink: #EDEDED;
-      --muted: #A8A8A8;
-      --line: #333333;
-      --accent: #FF5A3C;
+      --asphalt: #0B0B0C; --panel: #161618; --panel-2: #1F1F22; --rim: #34343A;
+      --chrome: #ECECEE; --text: #D4D4D8; --muted: #A9A9B1; --red: #F04A2C; --amber: #FFB547; --green: #4BD66B;
+      --display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
+      --body: "Commissioner", system-ui, -apple-system, "Segoe UI", sans-serif;
     }
     * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      background: var(--bg);
-      color: var(--ink);
-      font: 17px/1.6 system-ui, -apple-system, "Segoe UI", Roboto, sans-serif;
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--text); font: 400 17px/1.7 var(--body); background: var(--asphalt) url("/speedometer-wallpaper/img/asphalt.webp") center top / 1200px auto fixed; }
+    a { color: var(--chrome); text-underline-offset: 3px; text-decoration-color: var(--red); }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+    .skip { position: absolute; left: 16px; top: -60px; padding: 10px 16px; border-radius: 10px; background: var(--chrome); color: var(--asphalt); font-weight: 700; z-index: 10; text-decoration: none; }
+    .skip:focus { top: 12px; }
+    [id] { scroll-margin-top: 20px; }
+
+    .bar { max-width: 1160px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; border-bottom: 1px solid rgba(255,255,255,.06); }
+    .bar .back img { height: 30px; width: auto; display: block; }
+    .bar .product { display: inline-flex; align-items: center; gap: 10px; color: var(--chrome); text-decoration: none; font: 800 1.2rem/1 var(--display); text-transform: uppercase; letter-spacing: .06em; margin-right: auto; }
+    .bar .product img { width: 34px; height: 34px; border-radius: 9px; }
+    .subnav { display: flex; gap: 4px; }
+    .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; color: var(--muted); text-decoration: none; font: 600 1.05rem/1 var(--display); letter-spacing: .1em; text-transform: uppercase; }
+    .subnav a:hover { color: var(--chrome); }
+    .subnav a[aria-current] { color: var(--chrome); box-shadow: inset 0 -3px 0 var(--red); }
+
+    .wrap { max-width: 1160px; margin: 0 auto; padding: 0 20px; }
+    .head { padding: 44px 0 26px; display: grid; gap: 10px; }
+    .kicker { margin: 0; font: 600 .95rem/1 var(--display); letter-spacing: .22em; text-transform: uppercase; color: var(--red); }
+    h1, h2, h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; color: var(--chrome); line-height: 1; margin: 0; letter-spacing: .01em; }
+    h1 { font-size: clamp(2.6rem, 6vw, 4.4rem); }
+    .updated { display: inline-flex; align-items: center; gap: 12px; color: var(--muted); }
+    .lcd { font: 400 .95rem/1 "DSEG7", monospace; color: #EAF1F3; padding: .45em .6em; border-radius: .3em; background: #060607; box-shadow: inset 0 0 0 1px #2a2a2e; text-shadow: 0 0 8px rgba(234,241,243,.35); }
+    .intro { max-width: 46em; color: var(--text); margin: 6px 0 0; }
+
+    /* The short version: one card per promise */
+    .short { display: grid; grid-template-columns: repeat(auto-fit, minmax(210px, 1fr)); gap: 12px; margin: 10px 0 34px; padding: 0; list-style: none; }
+    .short li { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--rim); border-radius: 18px; padding: 18px; display: grid; gap: 10px; align-content: start; }
+    .short .ico { width: 42px; height: 42px; border-radius: 12px; display: grid; place-items: center; background: rgba(240,74,44,.14); color: var(--red); }
+    .short .ico svg { width: 22px; height: 22px; }
+    .short b { color: var(--chrome); font: 800 1.15rem/1.1 var(--display); text-transform: uppercase; letter-spacing: .03em; }
+    .short span { font-size: .95rem; line-height: 1.5; }
+
+    .layout { display: grid; grid-template-columns: 240px 1fr; gap: 40px; align-items: start; }
+    .toc { position: sticky; top: 20px; padding: 18px; border: 1px solid var(--rim); border-radius: 18px; background: rgba(14,14,16,.85); }
+    .toc p { margin: 0 0 8px; font: 600 .85rem/1 var(--display); letter-spacing: .2em; text-transform: uppercase; color: var(--muted); }
+    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; counter-reset: t; }
+    .toc li { counter-increment: t; }
+    .toc a { display: flex; gap: 10px; align-items: center; min-height: 36px; padding: 0 8px; border-radius: 8px; color: var(--text); text-decoration: none; font-size: .95rem; }
+    .toc a::before { content: counter(t, decimal-leading-zero); font: 400 .72rem/1 "DSEG7", monospace; color: var(--red); }
+    .toc a:hover { background: rgba(255,255,255,.06); color: var(--chrome); }
+
+    .doc { background: rgba(14,14,16,.9); border: 1px solid var(--rim); border-top: 4px solid var(--red); border-radius: 24px; padding: clamp(22px, 4vw, 44px); }
+    .doc section + section { border-top: 1px solid var(--rim); margin-top: 26px; padding-top: 26px; }
+    .doc h2 { font-size: 1.7rem; margin-bottom: 10px; }
+    .doc p { margin: 0 0 12px; max-width: 46em; }
+    .doc ul { margin: 0; padding-left: 1.2em; display: grid; gap: 6px; max-width: 46em; }
+    .doc .contact { padding: 18px 20px; border-radius: 16px; background: rgba(255,255,255,.04); border: 1px solid var(--rim); font-style: normal; color: var(--chrome); line-height: 1.6; }
+
+    footer { max-width: 1160px; margin: 40px auto 0; padding: 26px 20px 44px; border-top: 1px solid var(--rim); display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-weight: 600; }
+    footer a { color: var(--chrome); display: inline-flex; min-height: 44px; align-items: center; text-decoration: none; }
+    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 400; font-size: .9rem; }
+    footer .legal a { color: var(--muted); display: inline; min-height: 0; text-decoration: underline; }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .bar .product span { display: none; }
     }
-    main {
-      max-width: 720px;
-      margin: 0 auto;
-      padding: 40px 16px 64px;
-    }
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-top: 4px solid var(--accent);
-      border-radius: 20px;
-      padding: 28px 24px;
-    }
-    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; }
-    h2 { font-size: 1.2rem; margin: 2em 0 0.4em; }
-    p, li { color: var(--ink); }
-    .updated { color: var(--muted); margin: 0 0 1.5em; }
-    a { color: var(--accent); }
-    ul { padding-left: 1.2em; }
-    .legal { color: var(--muted); font-size: 0.9rem; margin: 24px 8px 0; }
-    .legal a { color: var(--muted); }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
 <body>
-<main>
-  <div class="card">
-    <h1>Speedometer Live Wallpaper Privacy Policy</h1>
-    <p class="updated">Last updated: 16 October 2026</p>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"></a>
+  <a class="product" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="34" height="34"><span>Speedometer Live Wallpaper</span></a>
+  <nav class="subnav" aria-label="Speedometer Live Wallpaper">
+    <a href="/speedometer-wallpaper/">Overview</a>
+    <a href="/speedometer-wallpaper/wiki/">Wiki</a>
+    <a href="/speedometer-wallpaper/privacy.html" aria-current="page">Privacy</a>
+  </nav>
+</header>
 
-    <p>
-      This policy explains what happens to your information when you use <strong>Speedometer Live Wallpaper</strong>
-      (the "app") on Android. The app is made by VGraphics ("we", "us").
-    </p>
-
-    <h2>The short version</h2>
-    <ul>
-      <li>There are no accounts. We never ask for your name, email or any other contact details.</li>
-      <li>The gauges show readings from your phone: battery, CPU, memory, signal, Wi-Fi and Bluetooth state, and,
-        if you choose GPS mode, your speed. These readings are used on your phone to draw the wallpaper and are never
-        sent to us or anyone else.</li>
-      <li>Your location is only used in GPS mode, only while the wallpaper or the app is on screen, and only to
-        show your speed. It is never stored or sent anywhere.</li>
-      <li>The free app shows a small ad banner on its menu screens, never on the wallpaper itself. Our advertising
-        partner may collect device information to show and measure ads.</li>
-      <li>We use Firebase (by Google) to see how the app is used and to receive crash reports. This data doesn't
-        include your name, your location or your phone's readings.</li>
-    </ul>
-
-    <h2>Readings from your phone</h2>
-    <p>
-      To move its needles and lights, the wallpaper reads your battery level, temperature and charging state, the power
-      going into or out of the battery, how fast your CPU runs (its clock speed), your memory use, your mobile signal
-      strength, your Wi-Fi signal strength, state and link speed, whether Bluetooth is on, and the date and time. The app doesn't read your Wi-Fi network's name, your contacts, your files or
-      your phone number. The readings stay on your phone, are used only to draw the wallpaper, and aren't saved.
-    </p>
-
-    <h2>Location (GPS mode only)</h2>
-    <p>
-      The big gauge can show your speed using GPS. This is off until you choose GPS mode in Settings. The app then asks
-      for location permission "while using the app", which Android also grants while the wallpaper is on your screen.
-      The app never asks for location in the background. Your position is used on your phone only to work out your
-      speed; it is not stored, not sent to us and not shared with anyone, including our advertising partner. You can
-      switch GPS mode off, or take the permission away in your phone's settings, at any time.
-    </p>
-
-    <h2>Information stored on your device</h2>
-    <p>
-      The app saves your settings (gauge mode, units, which date, time and lights to show) and which designs you own.
-      This stays in the app's storage on your phone. Uninstalling the app deletes it.
-    </p>
-
-    <h2>Analytics and crash reports</h2>
-    <p>
-      We use Google Firebase Analytics and Firebase Crashlytics. Analytics tells us things like which screens and
-      settings are used, so we can improve the app. Crashlytics sends a report when the app crashes, so we can fix it.
-      They collect an app instance identifier, your device model, operating system and language, your approximate
-      country, and in-app events or crash details. They don't receive your location or your phone's readings. We use
-      this only to improve the app, never to identify you or to show you ads. See
-      <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
-    </p>
-
-    <h2>Advertising</h2>
-    <p>
-      To keep the app free, its menu screens show a small banner ad delivered by Google AdMob. The live wallpaper on
-      your home screen never shows ads. See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
-      and <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from apps that
-      use its services</a>.
-    </p>
-    <p>
-      AdMob may automatically collect information such as your device's advertising ID, IP address (and the rough
-      location it reveals), device model, operating system, language, and how you interact with ads. It uses it to show
-      ads, limit how often you see the same ad, measure results, prevent fraud and, where you allow it, to personalize
-      ads. We don't receive this information about you personally.
-    </p>
-    <p>
-      Where the law requires it (for example in the European Economic Area, the UK and Switzerland), we ask for your
-      consent before your data is used for personalized ads, using Google's consent tool. If you live in a US state
-      with a consumer privacy law, you can opt out of the sale or sharing of your personal information for ads. You can
-      change these choices at any time in the app under Settings → Privacy options. You can also reset your
-      advertising ID or turn off ad personalization in your device's privacy or ads settings.
-    </p>
-
-    <h2>In-app purchases</h2>
-    <p>
-      Extra wallpaper designs can be bought in the app. The payment is handled entirely by Google Play under the
-      <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. We never see your payment details. The
-      app only receives a confirmation that the purchase was made, so it can unlock the design.
-    </p>
-
-    <h2>Children</h2>
-    <p>
-      The app is not directed at children under 13, and we don't knowingly collect personal information from them.
-      If you believe a child has provided personal information through the app, contact us and we will help remove it.
-    </p>
-
-    <h2>Your rights</h2>
-    <p>
-      We don't hold your name, contact details or location, and analytics data isn't tied to them. If you have a
-      question about your data or would like anything deleted, email us and we'll help as far as we can. For data
-      collected by our advertising partner, use the links above or your device's ad settings.
-    </p>
-
-    <h2>Changes to this policy</h2>
-    <p>
-      If the app starts handling information differently, we will update this page and the date at the top.
-    </p>
-
-    <h2>Contact</h2>
-    <p>
-      The app is published by, and your data is controlled by:<br>
-      VGRAPHICS SINGLE MEMBER P.C. (VGRAPHICS ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.)<br>
-      Kafkasou 10, 551 33 Kalamaria, Thessaloniki, Greece<br>
-      ΓΕΜΗ 181823306000<br>
-      Email: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
-    </p>
+<main id="main" class="wrap">
+  <div class="head">
+    <p class="kicker">Speedometer Live Wallpaper</p>
+    <h1>Privacy policy</h1>
+    <p class="updated">Last updated <span class="lcd">16.10.2026</span></p>
+    <p class="intro">This policy explains what happens to your information when you use <strong>Speedometer Live Wallpaper</strong>
+      (the "app") on Android. The app is made by VGraphics ("we", "us").</p>
   </div>
-  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · <a href="/company/">Company information</a> · <a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></p>
+
+  <h2 id="short" style="font-size:1.6rem;margin-bottom:12px">The short version</h2>
+  <ul class="short">
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/><path d="M3 3l18 18"/></svg></span><b>No accounts</b><span>We never ask for your name, email or any other contact details.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></svg></span><b>Readings stay on your phone</b><span>Battery, CPU, memory, signal, Wi-Fi and Bluetooth are used to draw the wallpaper and never sent anywhere.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Location only for speed</b><span>Only in GPS mode, only while on screen, never stored or sent.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15h18"/></svg></span><b>Ads on menus only</b><span>A small banner on the app's menu screens, never on the wallpaper.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>Crash reports &amp; analytics</b><span>Firebase, without your name, location or readings.</span></li>
+  </ul>
+
+  <div class="layout">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#readings">Readings from your phone</a></li>
+        <li><a href="#location">Location (GPS mode)</a></li>
+        <li><a href="#device">Stored on your device</a></li>
+        <li><a href="#analytics">Analytics &amp; crash reports</a></li>
+        <li><a href="#ads">Advertising</a></li>
+        <li><a href="#purchases">In-app purchases</a></li>
+        <li><a href="#children">Children</a></li>
+        <li><a href="#rights">Your rights</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="doc">
+      <section id="readings">
+        <h2>Readings from your phone</h2>
+        <p>
+          To move its needles and lights, the wallpaper reads your battery level, temperature and charging state, the power
+          going into or out of the battery, how fast your CPU runs (its clock speed), your memory use, your mobile signal
+          strength, your Wi-Fi signal strength, state and link speed, whether Bluetooth is on, and the date and time. The app doesn't read your Wi-Fi network's name, your contacts, your files or
+          your phone number. The readings stay on your phone, are used only to draw the wallpaper, and aren't saved.
+        </p>
+      </section>
+
+      <section id="location">
+        <h2>Location (GPS mode only)</h2>
+        <p>
+          The big gauge can show your speed using GPS. This is off until you choose GPS mode in Settings. The app then asks
+          for location permission "while using the app", which Android also grants while the wallpaper is on your screen.
+          The app never asks for location in the background. Your position is used on your phone only to work out your
+          speed; it is not stored, not sent to us and not shared with anyone, including our advertising partner. You can
+          switch GPS mode off, or take the permission away in your phone's settings, at any time.
+        </p>
+      </section>
+
+      <section id="device">
+        <h2>Information stored on your device</h2>
+        <p>
+          The app saves your settings (gauge mode, units, which date, time and lights to show) and which designs you own.
+          This stays in the app's storage on your phone. Uninstalling the app deletes it.
+        </p>
+      </section>
+
+      <section id="analytics">
+        <h2>Analytics and crash reports</h2>
+        <p>
+          We use Google Firebase Analytics and Firebase Crashlytics. Analytics tells us things like which screens and
+          settings are used, so we can improve the app. Crashlytics sends a report when the app crashes, so we can fix it.
+          They collect an app instance identifier, your device model, operating system and language, your approximate
+          country, and in-app events or crash details. They don't receive your location or your phone's readings. We use
+          this only to improve the app, never to identify you or to show you ads. See
+          <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+        </p>
+      </section>
+
+      <section id="ads">
+        <h2>Advertising</h2>
+        <p>
+          To keep the app free, its menu screens show a small banner ad delivered by Google AdMob. The live wallpaper on
+          your home screen never shows ads. See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>
+          and <a href="https://policies.google.com/technologies/partner-sites">how Google uses information from apps that
+          use its services</a>.
+        </p>
+        <p>
+          AdMob may automatically collect information such as your device's advertising ID, IP address (and the rough
+          location it reveals), device model, operating system, language, and how you interact with ads. It uses it to show
+          ads, limit how often you see the same ad, measure results, prevent fraud and, where you allow it, to personalize
+          ads. We don't receive this information about you personally.
+        </p>
+        <p>
+          Where the law requires it (for example in the European Economic Area, the UK and Switzerland), we ask for your
+          consent before your data is used for personalized ads, using Google's consent tool. If you live in a US state
+          with a consumer privacy law, you can opt out of the sale or sharing of your personal information for ads. You can
+          change these choices at any time in the app under Settings → Privacy options. You can also reset your
+          advertising ID or turn off ad personalization in your device's privacy or ads settings.
+        </p>
+      </section>
+
+      <section id="purchases">
+        <h2>In-app purchases</h2>
+        <p>
+          Extra wallpaper designs can be bought in the app. The payment is handled entirely by Google Play under the
+          <a href="https://policies.google.com/privacy">Google Privacy Policy</a>. We never see your payment details. The
+          app only receives a confirmation that the purchase was made, so it can unlock the design.
+        </p>
+      </section>
+
+      <section id="children">
+        <h2>Children</h2>
+        <p>
+          The app is not directed at children under 13, and we don't knowingly collect personal information from them.
+          If you believe a child has provided personal information through the app, contact us and we will help remove it.
+        </p>
+      </section>
+
+      <section id="rights">
+        <h2>Your rights</h2>
+        <p>
+          We don't hold your name, contact details or location, and analytics data isn't tied to them. If you have a
+          question about your data or would like anything deleted, email us and we'll help as far as we can. For data
+          collected by our advertising partner, use the links above or your device's ad settings.
+        </p>
+      </section>
+
+      <section id="changes">
+        <h2>Changes to this policy</h2>
+        <p>
+          If the app starts handling information differently, we will update this page and the date at the top.
+        </p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>The app is published by, and your data is controlled by:</p>
+        <address class="contact">
+          VGRAPHICS SINGLE MEMBER P.C. (VGRAPHICS ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.)<br>
+          Kafkasou 10, 551 33 Kalamaria, Thessaloniki, Greece<br>
+          ΓΕΜΗ 181823306000<br>
+          Email: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+        </address>
+      </section>
+    </div>
+  </div>
 </main>
+
+<footer>
+  <a href="/">More from VGraphics</a>
+  <a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a>
+  <a href="/speedometer-wallpaper/wiki/">Wiki</a>
+  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+</footer>
 </body>
 </html>
