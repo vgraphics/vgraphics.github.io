@@ -1,0 +1,158 @@
+/* VGraphics: the company pages (home, company, 404). Product pages keep their own looks. */
+
+@font-face {
+  font-family: "Unbounded";
+  src: url("fonts/unbounded-latin.woff2") format("woff2");
+  font-weight: 500 800;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Commissioner";
+  src: url("fonts/commissioner-latin.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0000-00FF, U+0131, U+0152-0153, U+02BB-02BC, U+02C6, U+02DA, U+02DC, U+0304, U+0308, U+0329, U+2000-206F, U+20AC, U+2122, U+2191, U+2193, U+2212, U+2215, U+FEFF, U+FFFD;
+}
+@font-face {
+  font-family: "Commissioner";
+  src: url("fonts/commissioner-greek.woff2") format("woff2");
+  font-weight: 400 700;
+  font-display: swap;
+  unicode-range: U+0370-0377, U+037A-037F, U+0384-038A, U+038C, U+038E-03A1, U+03A3-03FF;
+}
+
+:root {
+  --paper: #F3EEE4;
+  --card: #FFFCF6;
+  --ink: #1D1B22;
+  --muted: #5F5A6C;
+  --line: #DCD3C3;
+  --yellow: #E4B436;
+  --coral: #D7686B;
+  --blue: #5A8EF8;
+  --indigo: #4E4FD8;
+  --link: #3F40C4;
+  --display: "Unbounded", "Commissioner", system-ui, sans-serif;
+  --body: "Commissioner", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --radius: 22px;
+  color-scheme: light dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --paper: #15141A;
+    --card: #1F1D26;
+    --ink: #F2EEF7;
+    --muted: #ABA5BB;
+    --line: #34313F;
+    --link: #9C9DFF;
+  }
+}
+
+* { box-sizing: border-box; }
+html { -webkit-text-size-adjust: 100%; }
+body {
+  margin: 0;
+  background: var(--paper);
+  color: var(--ink);
+  font: 400 17px/1.65 var(--body);
+  overflow-x: hidden;
+}
+a { color: var(--link); text-underline-offset: 3px; }
+img { max-width: 100%; height: auto; }
+.wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+
+/* Header */
+.site-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 12px;
+  color: var(--ink);
+  text-decoration: none;
+  font: 800 1rem/1 var(--display);
+  letter-spacing: 0.06em;
+}
+.brand img { height: 40px; width: auto; }
+.site-nav { display: flex; gap: 22px; font-weight: 600; }
+.site-nav a { color: var(--ink); text-decoration: none; }
+.site-nav a:hover, .site-nav a[aria-current="page"] { color: var(--link); }
+
+/* Type */
+h1, h2, h3 { font-family: var(--display); line-height: 1.12; letter-spacing: -0.01em; margin: 0; }
+h1 { font-size: clamp(2.3rem, 6.4vw, 4.6rem); font-weight: 800; }
+h2 { font-size: clamp(1.5rem, 3vw, 2.1rem); font-weight: 700; }
+h3 { font-size: 1.25rem; font-weight: 700; }
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  margin: 0 0 18px;
+  color: var(--muted);
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  font-size: 0.82rem;
+}
+.lede { font-size: clamp(1.05rem, 1.6vw, 1.22rem); color: var(--muted); max-width: 34em; }
+
+/* The logo's four dots, used as ornaments */
+.dots { display: inline-flex; gap: 6px; }
+.dots i { width: 10px; height: 10px; border-radius: 50%; display: block; }
+.dots i:nth-child(1) { background: var(--yellow); }
+.dots i:nth-child(2) { background: var(--coral); }
+.dots i:nth-child(3) { background: var(--blue); }
+.dots i:nth-child(4) { background: var(--indigo); }
+
+/* Badges and buttons */
+.badge {
+  display: inline-block;
+  padding: 5px 12px;
+  border: 1.5px solid var(--line);
+  border-radius: 999px;
+  font-size: 0.84rem;
+  font-weight: 600;
+  color: var(--muted);
+}
+.more {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: 700;
+  color: var(--ink);
+  text-decoration: none;
+}
+.more::after { content: "→"; transition: transform 0.2s ease; }
+.more:hover::after { transform: translateX(4px); }
+
+/* Sections */
+section { padding: 56px 0; }
+.section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; margin-bottom: 26px; }
+
+/* Footer with the legal line on every page */
+.legal {
+  margin-top: 40px;
+  border-top: 1px solid var(--line);
+  padding: 26px 0 40px;
+  color: var(--muted);
+  font-size: 0.9rem;
+}
+.legal p { margin: 0; }
+.legal a { color: var(--muted); }
+
+@media (max-width: 640px) {
+  body { font-size: 16px; }
+  .brand span { display: none; }
+  .site-nav { gap: 16px; }
+  section { padding: 40px 0; }
+}
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation: none !important; transition: none !important; }
+}
