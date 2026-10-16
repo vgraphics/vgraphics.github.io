@@ -5,7 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>VGraphics</title>
   <meta name="description" content="VGraphics makes small casual games for Android, iOS and the web.">
-  <link rel="icon" href="img/vgraphics.png">
+  <link rel="icon" href="img/vgraphics-logo.png">
   <style>
     :root {
       --bg: #F4EFE6;
@@ -37,10 +37,8 @@
       margin: 0 auto;
       padding: 40px 16px 64px;
     }
-    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; display: flex; align-items: center; gap: 12px; }
-    h1 img { height: 40px; width: auto; }
-    /* The logo is near-black; in dark mode flip its lightness and keep the dots' colours. */
-    @media (prefers-color-scheme: dark) { h1 img { filter: invert(1) hue-rotate(180deg); } }
+    h1 { font-size: 2rem; line-height: 1.2; margin: 0 0 4px; display: flex; }
+    h1 img { height: 56px; width: auto; }
     .lede { color: var(--muted); margin: 0 0 2em; }
     .card {
       background: var(--card);
@@ -57,7 +55,12 @@
 </head>
 <body>
 <main>
-  <h1><img src="img/vgraphics.png" alt="" width="52" height="44">VGraphics</h1>
+  <h1>
+    <picture>
+      <source srcset="img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+      <img src="img/vgraphics-logo.png" alt="VGraphics" width="555" height="473">
+    </picture>
+  </h1>
   <p class="lede">Small casual games for Android, iOS and the web.</p>
 
   <section class="card">
