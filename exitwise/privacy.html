@@ -104,7 +104,7 @@
   <div class="head">
     <p class="kicker">Exitwise</p>
     <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 16 October 2026</span>
+    <span class="updated">Last updated: 17 October 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -123,6 +123,8 @@
       players, with a username and picture you choose, or "Player" and a short code if you don't choose one.</li>
     <li>On Android you can use your own photo as your picture. It is checked automatically before anyone else can
       see it, and other players can report pictures and names.</li>
+    <li>When you play with friends in a room, the others in the room see your username, preset picture and results.
+      Rooms are deleted automatically a day after they were made.</li>
     <li>You can delete your cloud save, your username, your picture and your leaderboard results in the game at any
       time.</li>
     <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
@@ -138,6 +140,7 @@
         <li><a href="#account">Your game account</a></li>
         <li><a href="#cloud">Cloud save</a></li>
         <li><a href="#leaderboards">Leaderboards &amp; profile</a></li>
+        <li><a href="#rooms">Playing with friends</a></li>
         <li><a href="#pictures">Profile pictures</a></li>
         <li><a href="#reports">Reports &amp; blocking</a></li>
         <li><a href="#delete">Deleting your data</a></li>
@@ -211,6 +214,23 @@
           once it's set, so choose carefully; your picture can be changed in Settings → Profile. Please don't use your
           real name or anything that identifies you. Names that are rude or pretend to be us are refused, and names that
           other players report are taken away (see "Reports and blocking").
+        </p>
+      </section>
+
+      <section id="rooms">
+        <h2>Playing with friends (rooms)</h2>
+        <p>
+          To play with friends, the game needs your username (it asks you to choose one first). When you create or join a
+          room, the room is stored in Google Firebase Cloud Firestore under its 6-character code: the room's settings, and
+          for each player their game account identifier, username and preset picture, when they joined and were last
+          active, and how each game ended for them (cleared, out of hearts or out of time, with the time and the hearts
+          lost). Anyone who has the room's code can see this. Rooms are deleted automatically a day after they were made.
+        </p>
+        <p>
+          Inviting friends shows a QR code with the room's link and opens your phone's share sheet, or copies the invite.
+          On the web the link leads to the game where you are playing it: on CrazyGames, where the game also tells
+          CrazyGames which room you are in so that your CrazyGames friends can join you there, or on our website
+          (vgraphics.gr). In the app it leads to a page on our website that opens the game in that room.
         </p>
       </section>
 
