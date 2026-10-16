@@ -1,0 +1,115 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Join a room: Exitwise</title>
+  <meta name="description" content="A friend invited you to race them in Exitwise.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F4EFE6">
+  <meta name="color-scheme" content="light">
+  <link rel="icon" href="../img/icon-512.png">
+  <link rel="preload" href="../fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <style>
+    /* The page a room invite's QR code opens (the game's RoomPlatform.cs): on Android it opens the game in the room,
+       or Google Play when the game isn't installed; elsewhere it shows the code to type in. */
+    @font-face {
+      font-family: "Lilita One";
+      src: url("../fonts/lilita-one-latin.woff2") format("woff2");
+      font-weight: 400;
+      font-display: swap;
+    }
+    @font-face {
+      font-family: "Nunito";
+      src: url("../fonts/nunito-latin.woff2") format("woff2");
+      font-weight: 500 800;
+      font-display: swap;
+    }
+    :root {
+      --paper: #F4EFE6;
+      --card: #FFFDF8;
+      --dot: #D2C6B2;
+      --line: #DED4C4;
+      --ink: #3B3355;
+      --muted: #6B6385;
+      --green: #3BB273;
+      --green-dark: #2A8A57;
+      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+      --body: "Nunito", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 24px 16px;
+      color: var(--ink);
+      font: 500 18px/1.5 var(--body);
+      background-color: var(--paper);
+      background-image: radial-gradient(var(--dot) 1.6px, transparent 1.9px);
+      background-size: 28px 28px;
+    }
+    main {
+      width: 100%;
+      max-width: 420px;
+      padding: 32px 24px 28px;
+      border-radius: 32px;
+      background: var(--card);
+      box-shadow: 0 10px 40px rgba(59, 51, 85, 0.12);
+      text-align: center;
+    }
+    .icon { width: 88px; height: 88px; border-radius: 22px; }
+    h1 { margin: 12px 0 4px; font: 400 36px/1.1 var(--display); }
+    .lead { margin: 0 0 20px; color: var(--muted); }
+    .caption { margin: 0; font-size: 15px; color: var(--muted); }
+    .code { margin: 2px 0 22px; font: 400 52px/1.1 var(--display); letter-spacing: 6px; }
+    .button {
+      display: block;
+      margin: 10px 0;
+      padding: 16px 20px;
+      border-radius: 40px;
+      font: 400 24px/1 var(--display);
+      text-decoration: none;
+    }
+    .primary { color: #fff; background: var(--green); border-bottom: 6px solid var(--green-dark); }
+    .secondary { color: var(--ink); background: #fff; border: 2px solid var(--line); border-bottom-width: 6px; }
+    .steps { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 16px; }
+    .steps li { margin: 4px 0; }
+    .hidden { display: none; }
+  </style>
+</head>
+<body>
+  <main>
+    <img class="icon" src="../img/icon-512.png" alt="">
+    <h1>Join the race</h1>
+    <p class="lead">A friend invited you to their room in Exitwise.</p>
+    <p class="caption">Room code</p>
+    <p class="code" id="code">······</p>
+    <a class="button primary hidden" id="open" href="../">Open Exitwise</a>
+    <a class="button secondary" id="get" href="../">Get Exitwise</a>
+    <ol class="steps">
+      <li>In Exitwise, tap <strong>Play with friends</strong>.</li>
+      <li>Type the code and tap <strong>Join</strong>.</li>
+    </ol>
+  </main>
+  <script>
+    (function () {
+      // Codes have 6 capitals and digits, never I, O, 0 or 1 (RoomCode.cs).
+      var code = (new URLSearchParams(location.search).get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
+      if (!/^[A-HJ-NP-Z2-9]{6}$/.test(code)) return;
+      document.getElementById("code").textContent = code;
+      if (!/Android/i.test(navigator.userAgent)) return;
+      // Chrome on Android opens the game in the room, or this fallback (the game's page with its store link) when it
+      // isn't installed.
+      var fallback = encodeURIComponent(location.origin + "/exitwise/");
+      var intent = "intent://room/" + code + "#Intent;scheme=exitwise;package=com.vgraphics.exitwise;S.browser_fallback_url=" + fallback + ";end";
+      var open = document.getElementById("open");
+      open.href = intent;
+      open.classList.remove("hidden");
+      location.href = intent;
+    })();
+  </script>
+</body>
+</html>
