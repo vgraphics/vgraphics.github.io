@@ -73,86 +73,81 @@
     .fan.bare img { border: 0; border-radius: 22px; }
     .t-speedo .phone { --tilt: 5deg; top: 64px; width: 56%; }
 
-    /* Products: one large block per product, each in its own look */
-    .feature {
-      display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: center;
-      border-radius: var(--r-lg); padding: clamp(28px, 5vw, 64px); overflow: hidden; position: relative;
-    }
-    .feature + .feature { margin-top: var(--s4); }
-    .feature .copy { display: grid; gap: var(--s3); justify-items: start; position: relative; z-index: 1; }
-    .feature .title { display: flex; align-items: center; gap: 16px; }
-    .feature .title img { width: 64px; height: 64px; border-radius: 16px; }
-    .feature ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
-    .feature li { display: flex; gap: 12px; align-items: flex-start; }
-    .feature li svg { width: 22px; height: 22px; flex: none; margin-top: 2px; }
-    .feature .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
-    .fan { position: relative; min-height: 460px; }
-    .fan img { position: absolute; width: 46%; border-radius: 26px; border: 7px solid #16151B; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.6); background: #16151B; }
-    .fan img:nth-child(1) { left: 8%; top: 4%; transform: rotate(-6deg); }
-    .fan img:nth-child(2) { right: 8%; top: 14%; transform: rotate(5deg); }
+    /* Below the hero: the same bento language carries the whole page (direction 1, George's pick). */
+    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
+    .b { position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 26px; display: grid; gap: 12px; align-content: start; text-decoration: none; color: var(--on-block); transition: transform 220ms var(--ease), box-shadow 220ms var(--ease); }
+    a.b:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .b h3 { font-size: clamp(1.5rem, 2.6vw, 2.2rem); }
+    .b p { max-width: 30em; margin: 0; }
+    .b .kicker { color: inherit; opacity: .8; }
+    .s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; } .s6 { grid-column: span 6; } .s7 { grid-column: span 7; } .s8 { grid-column: span 8; }
+    .r2 { grid-row: span 2; }
+    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; background: #FFFFFF; color: #16151B; text-decoration: none; transition: transform 180ms var(--ease); }
+    a.pill:hover { transform: translateY(-2px); }
+    .pill.soon { background: rgba(255, 255, 255, .55); }
+    .pill svg { width: 16px; height: 16px; }
 
-    .feature-exitwise {
-      --fx-ink: #3B3355; --fx-muted: #5E5675;
-      background-color: #F4EFE6;
-      background-image: radial-gradient(#D2C6B2 1.6px, transparent 1.9px);
-      background-size: 30px 30px;
-      color: var(--fx-ink);
-      border: 1px solid #DED4C4;
-    }
-    .feature-exitwise .lede { color: var(--fx-muted); }
-    .feature-exitwise .chip { background: #E9E1D3; color: var(--fx-ink); }
-    .feature-exitwise .title h3 { font-family: var(--display); }
-    .feature-exitwise .status { color: var(--fx-muted); }
-    .feature-exitwise .btn-primary { background: #3B3355; color: #FFFDF8; }
-    .feature-exitwise .btn-primary:hover { background: #1C9FD8; color: #0B2230; }
-    .feature-exitwise a.link { color: #3B3355; font-weight: 700; }
+    .x-game { background: #F4EFE6 radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 0 0 / 30px 30px; color: #3B3355; border: 1px solid #DED4C4; min-height: 540px; }
+    .x-game .copy { max-width: 46%; display: grid; gap: 12px; position: relative; z-index: 1; }
+    .x-game .icon { width: 64px; height: 64px; border-radius: 16px; }
+    .x-game .pill { background: #3B3355; color: #FFFDF8; }
+    .x-game .pill.soon { background: #E9E1D3; color: #3B3355; }
+    .x-game .shots { position: absolute; right: -28px; bottom: -40px; width: 50%; height: 80%; }
+    .x-game .shots img { position: absolute; width: 62%; border-radius: 22px; box-shadow: 0 30px 50px -24px rgba(0,0,0,.5); transition: transform 300ms var(--ease); }
+    .x-game .shots img:nth-child(1) { left: 0; top: 10%; transform: rotate(-7deg); }
+    .x-game .shots img:nth-child(2) { right: 0; top: 0; transform: rotate(6deg); }
+    .x-game:hover .shots img:nth-child(1) { transform: rotate(-10deg) translateX(-8px); }
+    .x-game:hover .shots img:nth-child(2) { transform: rotate(9deg) translateX(8px); }
 
-    .feature-speedo {
-      --fx-ink: #EDEDED; --fx-muted: #ABABB2;
-      background: #0E0E0F url("/speedometer-wallpaper/img/asphalt.webp") center / cover;
-      color: var(--fx-ink);
-    }
-    .feature-speedo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 8, 9, 0.15) 30%, rgba(8, 8, 9, 0.78) 62%); }
-    .feature-speedo .copy { order: 2; }
-    .feature-speedo .fan { z-index: 1; }
-    .feature-speedo .lede { color: var(--fx-muted); }
-    .feature-speedo .chip { background: rgba(255, 255, 255, 0.1); color: var(--fx-ink); }
-    .feature-speedo .status { color: var(--fx-muted); }
-    .feature-speedo .status::before { background: #F04A2C; box-shadow: 0 0 0 4px rgba(240, 74, 44, 0.3); }
-    .feature-speedo .logo { width: min(400px, 100%); }
-    .feature-speedo .btn-primary { background: #F04A2C; color: #160402; }
-    .feature-speedo .btn-primary:hover { background: #FFFFFF; color: #0E0E0F; }
-    .feature-speedo a.link { color: #FFFFFF; font-weight: 700; }
-    .feature-speedo .fan img { border-color: #2A2A2E; }
+    .x-wiki { background: var(--sky); }
+    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
+    .chipcard { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: rgba(255,255,255,.85); }
+    .chipcard svg { width: 34px; height: 34px; }
 
-    /* Studio principles */
-    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
-    .principle { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px; display: grid; gap: 14px; align-content: start; }
-    .principle .icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: var(--on-block); }
-    .principle .icon svg { width: 26px; height: 26px; }
-    .principle p { color: var(--ink-2); }
-    .principle:nth-child(1) .icon { background: var(--sun); }
-    .principle:nth-child(2) .icon { background: var(--coral); }
-    .principle:nth-child(3) .icon { background: var(--sky); }
-    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); margin: var(--s5) 0 0; }
-    .facts div { border-top: 4px solid var(--ink); padding-top: 14px; }
-    .facts dt { color: var(--ink-2); font-weight: 600; font-size: 0.92rem; }
-    .facts dd { margin: 6px 0 0; font: 800 clamp(1.2rem, 2.2vw, 1.6rem)/1.15 var(--display); }
+    .x-board { background: var(--coral); }
+    .podium { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 10px; height: 130px; margin-top: 4px; }
+    .podium span { border-radius: 14px 14px 6px 6px; background: rgba(255,255,255,.8); display: grid; place-items: center; font: 800 1.6rem/1 var(--display); color: #16151B; }
+    .podium span:nth-child(1) { height: 68%; } .podium span:nth-child(2) { height: 100%; background: #fff; } .podium span:nth-child(3) { height: 50%; }
+    .badge-soon { justify-self: start; padding: 6px 12px; border-radius: 999px; background: #16151B; color: #fff; font-weight: 700; font-size: .82rem; }
 
-    /* Contact */
-    .contact { background: var(--violet); color: var(--on-violet); border-radius: var(--r-lg); padding: clamp(32px, 6vw, 72px); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--s4); align-items: center; position: relative; overflow: hidden; }
-    .contact::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 260px; height: 260px; border-radius: 50%; background: var(--sun); opacity: 0.95; }
-    .contact::before { content: ""; position: absolute; right: 150px; top: -40px; width: 110px; height: 110px; border-radius: 50%; background: var(--coral); }
-    .contact p { color: rgba(255, 255, 255, 0.85); margin-top: 14px; max-width: 30em; }
-    .contact .btn { position: relative; z-index: 1; background: #FFFFFF; color: #16151B; justify-self: start; max-width: 100%; overflow-wrap: anywhere; }
-    .contact .btn:hover { background: #16151B; color: #FFFFFF; }
+    .x-speedo { background: #0E0E0F url("/speedometer-wallpaper/img/asphalt.webp") center / cover; color: #EDEDED; min-height: 540px; }
+    .x-speedo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,8,9,.88) 32%, rgba(8,8,9,.15)); }
+    .x-speedo > * { position: relative; }
+    .x-speedo .copy { max-width: 50%; display: grid; gap: 12px; z-index: 1; }
+    .x-speedo .logo { width: min(380px, 100%); }
+    .x-speedo .dial { position: absolute; right: -40px; bottom: -40px; width: 54%; max-width: 400px; filter: drop-shadow(0 30px 40px rgba(0,0,0,.8)); animation: idle 7s ease-in-out infinite alternate; }
+    @keyframes idle { to { transform: rotate(-5deg) scale(1.03); } }
+    .x-speedo .pill { background: #F04A2C; color: #170402; }
+    .x-speedo .pill.alt { background: rgba(255,255,255,.12); color: #fff; }
+
+    .x-gauges { background: var(--violet); color: #fff; }
+    .x-gauges ol { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: g; }
+    .x-gauges li { counter-increment: g; display: flex; align-items: center; gap: 12px; font-weight: 600; }
+    .x-gauges li::before { content: counter(g); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #F04A2C; color: #fff; font: 800 .9rem/1 var(--display); flex: none; }
+
+    .x-stat { align-content: end; min-height: 170px; }
+    .x-stat b { font: 800 clamp(2.4rem, 4.4vw, 3.6rem)/1 var(--display); letter-spacing: -0.03em; }
+    .x-sun { background: var(--sun); } .x-sky { background: var(--sky); } .x-coral { background: var(--coral); }
+    .x-principle { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
+    .x-principle p { color: var(--ink-2); }
+    .x-principle .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--on-block); }
+    .x-principle .icon svg { width: 24px; height: 24px; }
+    .x-contact { background: #16151B; color: #fff; grid-template-columns: 1fr auto; align-items: center; align-content: center; }
+    .x-contact p { color: rgba(255,255,255,.75); }
+    .x-contact .btn { background: var(--sun); color: #16151B; max-width: 100%; overflow-wrap: anywhere; }
+    .x-contact .btn:hover { background: #fff; }
+    @media (prefers-color-scheme: dark) { .x-contact { background: #25222F; } }
 
     @media (max-width: 960px) {
-      .hero .wrap, .feature, .contact { grid-template-columns: 1fr; }
-      .feature-speedo .copy { order: 0; }
-      .feature-speedo::before { background: linear-gradient(180deg, rgba(8, 8, 9, 0.8) 45%, rgba(8, 8, 9, 0.2)); }
-      .fan { min-height: 400px; max-width: 520px; width: 100%; justify-self: center; }
-      .principles, .facts { grid-template-columns: 1fr; }
+      .hero .wrap { grid-template-columns: 1fr; }
+      .s3, .s4, .s5, .s6, .s7, .s8 { grid-column: 1 / -1; }
+      .r2 { grid-row: auto; }
+      .x-game, .x-speedo { min-height: 0; }
+      .x-game .copy, .x-speedo .copy { max-width: none; }
+      .x-game .shots { position: relative; right: auto; bottom: auto; width: 100%; height: 320px; margin-top: 8px; }
+      .x-speedo .dial { position: relative; right: auto; bottom: auto; width: 72%; margin: 6px auto -70px; }
+      .x-contact { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .hero { padding-top: var(--s3); }
@@ -160,8 +155,7 @@
       .tile { padding: 14px; border-radius: 24px; }
       .t-place { flex-direction: column; align-items: flex-start; }
       .phone { border-width: 5px; border-radius: 20px; }
-      .fan { min-height: 330px; }
-      .fan img { border-width: 5px; border-radius: 18px; }
+      .b { padding: 22px; border-radius: 24px; }
     }
   </style>
 </head>
@@ -225,103 +219,85 @@
     </div>
   </section>
 
-  <section class="section" id="games" aria-labelledby="games-title">
+  <section class="section" id="games" aria-labelledby="games-title" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
-        <span class="kicker">Our work</span>
-        <h2 id="games-title">Games &amp; apps</h2>
-        <p class="lede">Each one with its own look, made from the first sketch to the store listing.</p>
+        <span class="kicker">Everything VGraphics</span>
+        <h2 id="games-title">Play, learn, compete</h2>
       </div>
-
-      <article class="feature feature-exitwise" aria-labelledby="exitwise-title">
-        <div class="copy">
-          <div class="chips"><span class="chip">Puzzle game</span><span class="chip">Android</span><span class="chip">Web soon</span></div>
-          <div class="title"><img src="/exitwise/img/icon-512.png" alt="" width="64" height="64"><h3 id="exitwise-title">Exitwise</h3></div>
-          <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, hundreds of levels.</p>
-          <ul>
-            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#1C9FD8" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#1C9FD8"/></svg>Every level is generated from a fixed seed and proven solvable.</li>
-            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#3BB273"/></svg>From small warm-ups to giant 100×100 brain-teasers.</li>
-            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF922B" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#FF922B"/></svg>Hints when you're stuck, and it plays offline.</li>
-          </ul>
-          <div class="row">
-            <a class="btn btn-primary" href="/exitwise/">Visit Exitwise
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <span class="status">Coming soon to Google Play</span>
+      <div class="grid">
+        <article class="b x-game s7 r2" aria-labelledby="exitwise-title">
+          <div class="copy">
+            <img class="icon" src="/exitwise/img/icon-512.png" alt="" width="64" height="64">
+            <span class="kicker">Puzzle game · Android</span>
+            <h3 id="exitwise-title">Exitwise</h3>
+            <p>Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, hundreds of levels.</p>
+            <div class="pill-row">
+              <a class="pill" href="/exitwise/">Visit Exitwise</a>
+              <a class="pill" href="/exitwise/wiki/">Wiki</a>
+              <span class="pill soon">Play in browser · soon</span>
+            </div>
           </div>
-        </div>
-        <div class="fan bare" aria-hidden="true">
-          <img src="/assets/img/exitwise-giant.webp" alt="" width="480" height="853" loading="lazy">
-          <img src="/assets/img/exitwise-win.webp" alt="" width="480" height="853" loading="lazy">
-        </div>
-      </article>
+          <div class="shots" aria-hidden="true"><img src="/assets/img/exitwise-giant.webp" alt="" width="480" height="853" loading="lazy"><img src="/assets/img/exitwise-win.webp" alt="" width="480" height="853" loading="lazy"></div>
+        </article>
 
-      <article class="feature feature-speedo" aria-labelledby="speedo-title">
-        <div class="copy">
-          <div class="chips"><span class="chip">Live wallpaper</span><span class="chip">Android</span></div>
-          <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
-          <h3 id="speedo-title" class="sr-only">Speedometer Live Wallpaper</h3>
-          <p class="lede">Your home screen as a car dashboard. Real gauges for battery, CPU, memory, signal and Wi-Fi, and GPS speed when you want it.</p>
-          <ul>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></svg>Every needle reads your phone, live.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Readings never leave your phone.</li>
-            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Fits phones and tablets of any shape.</li>
-          </ul>
-          <div class="row">
-            <a class="btn btn-primary" href="/speedometer-wallpaper/">Visit Speedometer
-              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-            <span class="status">Coming soon to Google Play</span>
+        <a class="b x-wiki s5" href="/exitwise/wiki/">
+          <span class="kicker">Exitwise wiki</span>
+          <h3>Traps, powerups &amp; tips</h3>
+          <p>Rocks, bombs, colour gates and every powerup: what they do and how to beat them.</p>
+          <div class="chips" aria-hidden="true">
+            <span class="chipcard"><svg viewBox="0 0 48 48"><path d="M9 34l5-15 11-7 12 8 3 14-14 5z" fill="#8E857B"/><path d="M14 19l11-7 12 8-11 4z" fill="#A8A096"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="20" cy="28" r="12" fill="#2F2B38"/><path d="M27 18l6-6" stroke="#2F2B38" stroke-width="4" stroke-linecap="round"/><path d="M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z" fill="#FF922B"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="8" fill="#1C9FD8"/><rect x="14" y="14" width="20" height="20" rx="4" fill="none" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="#fff"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#1C9FD8"/><path d="M20 15l12 9-12 9z" fill="#fff"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><path d="M10 38l20-20" stroke="#8C5CF0" stroke-width="5" stroke-linecap="round"/><path d="M34 6l2.2 5.8L42 14l-5.8 2.2L34 22l-2.2-5.8L26 14l5.8-2.2z" fill="#F2B705"/></svg></span>
           </div>
-        </div>
-        <div class="fan" aria-hidden="true">
-          <img src="/speedometer-wallpaper/img/shot-cpu.webp" alt="" width="540" height="1200" loading="lazy">
-          <img src="/speedometer-wallpaper/img/shot-power.webp" alt="" width="540" height="1200" loading="lazy">
-        </div>
-      </article>
-    </div>
-  </section>
+        </a>
 
-  <section class="section" id="studio" aria-labelledby="studio-title">
-    <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">The studio</span>
-        <h2 id="studio-title">One person, a long to-do list, high standards</h2>
-        <p class="lede">VGraphics is a single-member private company (ΙΚΕ) founded in 2025 in Thessaloniki, Greece. We design, build and publish our own games and apps.</p>
-      </div>
-      <div class="principles">
-        <div class="principle">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
-          <h3>Fair by design</h3>
-          <p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable. No luck, just logic.</p>
+        <div class="b x-board s5" aria-labelledby="board-title">
+          <span class="kicker">Leaderboards</span>
+          <h3 id="board-title">Global ranking</h3>
+          <div class="podium" aria-hidden="true"><span>2</span><span>1</span><span>3</span></div>
+          <span class="badge-soon">Coming soon to this site</span>
         </div>
-        <div class="principle">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span>
-          <h3>Made for short breaks</h3>
-          <p>Quick to pick up, easy to pause, and playable offline: on a commute, in a queue, or with a coffee.</p>
-        </div>
-        <div class="principle">
-          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-          <h3>Privacy in plain words</h3>
-          <p>Short privacy policies you can actually read. Nothing on our pages tracks you without asking first.</p>
-        </div>
-      </div>
-      <dl class="facts">
-        <div><dt>Founded</dt><dd>2025</dd></div>
-        <div><dt>Based in</dt><dd>Thessaloniki, Greece</dd></div>
-        <div><dt>Play on</dt><dd>Android &amp; web</dd></div>
-      </dl>
-    </div>
-  </section>
 
-  <section class="section" id="contact" aria-labelledby="contact-title">
-    <div class="wrap">
-      <div class="contact">
-        <div>
-          <h2 id="contact-title">Let's talk</h2>
-          <p>Feedback, a bug you found, or a partnership idea. Every email gets read.</p>
+        <article class="b x-speedo s7 r2" aria-labelledby="speedo-title">
+          <div class="copy">
+            <span class="kicker">Live wallpaper · Android</span>
+            <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
+            <h3 id="speedo-title" class="sr-only">Speedometer Live Wallpaper</h3>
+            <p>Your home screen as a car dashboard. Power, CPU clock or GPS speed on the big dial; battery, RAM, signal and Wi-Fi around it.</p>
+            <div class="pill-row">
+              <a class="pill" href="/speedometer-wallpaper/">Visit Speedometer</a>
+              <a class="pill alt" href="/speedometer-wallpaper/#tour">Tour the dashboard</a>
+            </div>
+          </div>
+          <img class="dial" src="/speedometer-wallpaper/img/dial-speed.webp" alt="" width="480" height="480" loading="lazy">
+        </article>
+
+        <a class="b x-gauges s5" href="/speedometer-wallpaper/wiki/">
+          <span class="kicker">Speedometer wiki</span>
+          <h3>What every gauge shows</h3>
+          <ol><li>The big gauge and its three modes</li><li>Signal, RAM, Wi-Fi and battery</li><li>Every warning light</li><li>Clock, settings and help</li></ol>
+        </a>
+
+        <div class="b x-stat x-sun s5"><span class="kicker">Board shapes</span><b>20</b><p>From rectangles to hearts, cats and butterflies.</p></div>
+
+        <div class="b x-stat x-sky s4"><span class="kicker">Levels</span><b>500+</b><p>Harder all the way to level 500, then it stays hard.</p></div>
+        <div class="b x-principle s4">
+          <span class="icon" style="background:var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>Fair by design</h3><p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable.</p>
         </div>
-        <a class="btn" href="mailto:gvergidis90@gmail.com">
-          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
-          gvergidis90@gmail.com</a>
+        <div class="b x-principle s4">
+          <span class="icon" style="background:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <h3>Privacy in plain words</h3><p>Short privacy policies you can actually read. Nothing on our pages tracks you without asking first.</p>
+        </div>
+
+        <div class="b x-contact s8" id="contact">
+          <div><h3>Let's talk</h3><p>Feedback, a bug you found, or a partnership idea. Every email gets read.</p></div>
+          <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+        </div>
+        <div class="b x-stat x-coral s4" id="studio"><span class="kicker">The studio</span><b>One person</b><p>An independent ΙΚΕ in Thessaloniki, Greece, since 2025.</p></div>
       </div>
     </div>
   </section>
