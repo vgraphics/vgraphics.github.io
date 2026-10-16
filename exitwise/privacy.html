@@ -97,6 +97,7 @@
     <a href="/exitwise/">Overview</a>
     <a href="/exitwise/wiki/">Wiki</a>
     <a href="/exitwise/privacy.html" aria-current="page">Privacy</a>
+    <a href="/exitwise/map-rules.html">Map rules</a>
   </nav>
 </header>
 
@@ -125,6 +126,8 @@
       see it, and other players can report pictures and names.</li>
     <li>When you play with friends in a room, the others in the room see your username, preset picture and results.
       Rooms are deleted automatically a day after they were made.</li>
+    <li>If you publish a custom map, every player can see and play it, with your username as its creator. Reports about
+      maps, and any message you add to them, are read only by us.</li>
     <li>You can delete your cloud save, your username, your picture and your leaderboard results in the game at any
       time.</li>
     <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
@@ -142,6 +145,7 @@
         <li><a href="#leaderboards">Leaderboards &amp; profile</a></li>
         <li><a href="#rooms">Playing with friends</a></li>
         <li><a href="#pictures">Profile pictures</a></li>
+        <li><a href="#maps">Custom maps</a></li>
         <li><a href="#reports">Reports &amp; blocking</a></li>
         <li><a href="#delete">Deleting your data</a></li>
         <li><a href="#analytics">Analytics &amp; crash reports</a></li>
@@ -253,6 +257,36 @@
         </p>
       </section>
 
+      <section id="maps">
+        <h2>Custom maps</h2>
+        <p>
+          You can make your own maps in the game's map editor. Maps you haven't published yet (drafts) are saved on your
+          device and, when you are online, under your game account in Google Firebase Cloud Firestore, so they follow your
+          account to another device. Other players can't see your drafts.
+        </p>
+        <p>
+          To publish a map you need a username and must accept the <a href="/exitwise/map-rules.html">map rules</a>. A
+          published map is stored in Google Firebase Cloud Firestore with its name, size, shape, arrows and obstacles, the
+          world look you chose, its share code and difficulty, when it was published, and your game account identifier.
+          Every player can see a published map, with your username and picture as its creator, and its totals: plays,
+          clears and average rating. The clear you made before publishing becomes the first entry on the map's leaderboard.
+          A published map can't be edited, but you can unpublish it, and then nobody else can see or play it.
+        </p>
+        <p>
+          When you play someone else's map, the game stores that you started it and whether you cleared it, and, if you
+          rate it, your rating (1 to 5 stars), each with your game account identifier. The map's creator and other
+          players never see these records, only the totals. Your best run on a map goes on that map's leaderboard,
+          which works like the level leaderboards above. The number of other players' maps you have cleared, and for a
+          creator the plays, ratings and stars their maps received, are also counted in your player stats under your game
+          account, which other players can see.
+        </p>
+        <p>
+          Your saved game (on your device, and in your cloud save) also keeps the maps you have cleared and been paid coins
+          for, your best times on maps, the maps you reported, the creators whose maps you hid (their game account
+          identifiers and names), and which version of the map rules you accepted.
+        </p>
+      </section>
+
       <section id="reports">
         <h2>Reports and blocking</h2>
         <p>
@@ -266,6 +300,21 @@
           the game account identifiers of the reporters and of the uploader (linked to their Google Play Games player ID,
           Google account or CrazyGames user ID), and a username that is being reported or was removed.
         </p>
+        <p>
+          You can also report a custom map, from its page or after playing it. You choose a reason (an offensive drawing or
+          shape, an offensive name, broken, spam or a copy, or something else) and can add a message of up to 500
+          characters. The report is stored in Google Firebase Cloud Firestore with the map, your reason and message, the
+          time, and your game account identifier. Only we read map reports; the map's creator and other players can't.
+          The map disappears for you at once. When three different players report the same map, it is hidden from
+          everyone until we have reviewed it, and we then keep, hide or remove it. We can also stop a creator from
+          publishing, which hides all their maps; we keep their game account identifier on a list of banned creators for
+          as long as the ban lasts. Map reports and that list are moderation records too, and we keep them even after you
+          delete your data.
+        </p>
+        <p>
+          On a map's page you can also hide every map by its creator ("Hide <i>name</i>'s maps"). This only changes what
+          you see, and the creator isn't told. You can show their maps again in Settings → Hidden creators.
+        </p>
       </section>
 
       <section id="delete" class="delete">
@@ -276,12 +325,15 @@
             leaderboard. You can then choose a new username.</li>
           <li><strong>Cloud save and account (Android, and our website):</strong> Settings → "Delete cloud save" deletes
             your cloud save, your profile, picture and leaderboard results, and your game account with the Google account
-            details linked to it. The progress on your device or in your browser stays.</li>
+            details linked to it. It also deletes your map drafts, your plays and ratings of maps and your player stats, and
+            takes all your published maps down, so nobody can see or play them any more. The progress on your device or in
+            your browser stays.</li>
+          <li><strong>One published map:</strong> open it in the Mine tab of Custom maps and unpublish it.</li>
           <li><strong>On CrazyGames:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
           <li>You can also email us at the address below and we will delete it for you.</li>
         </ul>
         <p>
-          Data you don't delete is kept for as long as the game runs its leaderboards and cloud saves.
+          Data you don't delete is kept for as long as the game runs its leaderboards, custom maps and cloud saves.
         </p>
       </section>
 
