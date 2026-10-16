@@ -71,7 +71,10 @@
         CrazyGames account (web), they are also saved to that account so you can continue on another device.</li>
       <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
         players, with a username and picture you choose, or "Player" and a short code if you don't choose one.</li>
-      <li>You can delete your cloud save, your username and your leaderboard results in the game at any time.</li>
+      <li>On Android you can use your own photo as your picture. It is checked automatically before anyone else can
+        see it, and other players can report pictures and names.</li>
+      <li>You can delete your cloud save, your username, your picture and your leaderboard results in the game at any
+        time.</li>
       <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
       <li>We use Firebase (by Google) to see how the game is played and to receive crash reports. This data doesn't
         include your name or contact details.</li>
@@ -115,17 +118,49 @@
       Leaderboards are visible to everyone who plays the game. They show your username and picture if you set a
       profile, or "Player" and the first characters of your account identifier if you didn't. The first time you open
       a leaderboard, the game asks whether you want to choose a username (3 to 16 letters, digits or underscores) and
-      one of the game's preset pictures; you can change both in Settings → Profile. Please don't use your real name or
-      anything that identifies you. Names that are rude or pretend to be us are refused, and we may remove names that
-      break these rules.
+      one of the game's preset pictures, or on Android a photo of your own (see below). A username can't be changed
+      once it's set, so choose carefully; your picture can be changed in Settings → Profile. Please don't use your
+      real name or anything that identifies you. Names that are rude or pretend to be us are refused, and names that
+      other players report are taken away (see "Reports and blocking").
+    </p>
+
+    <h2>Profile pictures</h2>
+    <p>
+      On Android, if you sign in with Google Play Games, you can use a photo from your phone as your picture instead
+      of a preset one. You choose it with Android's photo picker, so the game only ever sees the photo you pick. The
+      game cuts it to a square and sends it to our server (Google Cloud Functions). The server makes a small copy
+      (192 × 192 pixels) without the photo's hidden details, such as where and with which camera it was taken. It then
+      checks that copy with Google Cloud Vision SafeSearch for nudity, violence and similar content, before anyone else
+      can see it. Google processes the picture on our behalf only to check it. Pictures that pass are stored in Google
+      Firebase Cloud Firestore and shown to every player next to your name. Pictures that don't pass aren't kept. You
+      can remove your picture at any time in Settings → Profile.
+    </p>
+    <p>
+      Don't use pictures with nudity or sexual content, violence or gore, hate symbols, someone else's photo without
+      their permission, or personal details such as a phone number or address. The game shows these rules before your
+      first picture.
+    </p>
+
+    <h2>Reports and blocking</h2>
+    <p>
+      Tap another player on a leaderboard to report their picture or name, or to block them. Blocking hides their
+      picture and name on your device only. A report hides them for you too, and is stored with your game account
+      identifier and the reported player's. When three different players who are signed in (with Google Play Games, or
+      with CrazyGames on the web) report the same picture, it is removed automatically. A player who loses two
+      pictures this way can't upload pictures any more. When three report the same username, it is taken away and
+      stays reserved so that nobody can use it again, and its owner chooses a new one. So that a removed picture or
+      name can't come straight back, we keep these moderation records even after you delete your data: the counts,
+      the game account identifiers of the reporters and of the uploader (linked to their Google Play Games player ID
+      or CrazyGames user ID), and a username that is being reported or was removed.
     </p>
 
     <h2 id="delete">Deleting your data</h2>
     <ul>
-      <li><strong>Username and leaderboard results:</strong> Settings → Profile → "Delete my leaderboard data" deletes
-        your profile, frees your username and removes all your results from every leaderboard.</li>
+      <li><strong>Username, picture and leaderboard results:</strong> Settings → Profile → "Delete my leaderboard
+        data" deletes your profile and picture, frees your username and removes all your results from every
+        leaderboard. You can then choose a new username.</li>
       <li><strong>Cloud save and account (Android):</strong> Settings → "Delete cloud save" deletes your cloud save,
-        your profile and leaderboard results, and your game account. The progress on your device stays.</li>
+        your profile, picture and leaderboard results, and your game account. The progress on your device stays.</li>
       <li><strong>On the web:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
       <li>You can also email us at the address below and we will delete it for you.</li>
     </ul>
@@ -202,7 +237,8 @@
     <h2>Your rights</h2>
     <p>
       We don't hold your real name or contact details, and analytics data isn't tied to them. You can see your
-      username and results in the game, change them, and delete them as described under "Deleting your data". If
+      username, picture and results in the game, change your picture, and delete all of them as described under
+      "Deleting your data". If
       you'd like anything else deleted or have a question about your data, email us and we'll help as far as we can.
       For data collected by our advertising partners, use the links above or your device's ad settings. Firebase
       services are provided by Google; see <a href="https://firebase.google.com/support/privacy">Privacy and
