@@ -54,7 +54,7 @@
 <main>
   <div class="card">
     <h1>Exitwise Privacy Policy</h1>
-    <p class="updated">Last updated: 13 October 2026</p>
+    <p class="updated">Last updated: 16 October 2026</p>
 
     <p>
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
@@ -63,8 +63,12 @@
 
     <h2>The short version</h2>
     <ul>
-      <li>You don't need an account, and we never ask for your name, email or any other personal details.</li>
-      <li>Your progress and settings are saved on your device.</li>
+      <li>You don't need to sign in, and we never ask for your real name, email or any other contact details.</li>
+      <li>Your progress and settings are saved on your device. If you sign in with Google Play Games (Android) or your
+        CrazyGames account (web), they are also saved to that account so you can continue on another device.</li>
+      <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
+        players, with a username and picture you choose, or "Player" and a short code if you don't choose one.</li>
+      <li>You can delete your cloud save, your username and your leaderboard results in the game at any time.</li>
       <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
       <li>We use Firebase (by Google) to see how the game is played and to receive crash reports. This data doesn't
         include your name or contact details.</li>
@@ -72,9 +76,58 @@
 
     <h2>Information stored on your device</h2>
     <p>
-      The game saves your current level, your coins and hints, your sound and vibration settings, and what you have
-      bought (such as "Remove Ads"). This is kept in the app's local storage on your phone or tablet, or in your
-      browser's storage on the web. Uninstalling the app, or clearing the site's data in your browser, deletes it.
+      The game saves your current level, your coins and hints, your best time on each level, your sound and vibration
+      settings, and what you have bought (such as "Remove Ads"). This is kept in the app's local storage on your phone
+      or tablet, or in your browser's storage on the web. Uninstalling the app, or clearing the site's data in your
+      browser, deletes it.
+    </p>
+
+    <h2>Your game account</h2>
+    <p>
+      So that leaderboards know which results are yours, the game gives every player an account with Google Firebase
+      Authentication. It is a random identifier with no name or email attached. If you sign in with Google Play Games
+      on Android, that account is linked to your Play Games player ID, and your Play Games name may be offered as a
+      username suggestion. On the web (CrazyGames), the game keeps this identifier in your CrazyGames save data, so it
+      follows your CrazyGames account to other browsers; CrazyGames handles its own login under the
+      <a href="https://www.crazygames.com/privacy-policy">CrazyGames Privacy Policy</a>, and we receive your
+      CrazyGames username only to suggest it as your name.
+    </p>
+
+    <h2>Cloud save</h2>
+    <p>
+      On Android, when you sign in with Google Play Games, a copy of your saved game (the same information as on your
+      device) is stored in Google Firebase Cloud Firestore under your game account, so you can continue on another
+      device. If this device and your account both have progress, the game asks which one to keep. On the web, your
+      save is kept by CrazyGames in your browser or, once you log in, in your CrazyGames account.
+    </p>
+
+    <h2>Leaderboards and your profile</h2>
+    <p>
+      When you win a level without a continue or a powerup, your result for that level (the hearts you lost and your
+      time) is sent to the level's leaderboard in Google Firebase Cloud Firestore, together with your game account
+      identifier. Only your best result per level is kept. If you are offline, the result waits on your device and is
+      sent later.
+    </p>
+    <p>
+      Leaderboards are visible to everyone who plays the game. They show your username and picture if you set a
+      profile, or "Player" and the first characters of your account identifier if you didn't. The first time you open
+      a leaderboard, the game asks whether you want to choose a username (3 to 16 letters, digits or underscores) and
+      one of the game's preset pictures; you can change both in Settings → Profile. Please don't use your real name or
+      anything that identifies you. Names that are rude or pretend to be us are refused, and we may remove names that
+      break these rules.
+    </p>
+
+    <h2 id="delete">Deleting your data</h2>
+    <ul>
+      <li><strong>Username and leaderboard results:</strong> Settings → Profile → "Delete my leaderboard data" deletes
+        your profile, frees your username and removes all your results from every leaderboard.</li>
+      <li><strong>Cloud save and account (Android):</strong> Settings → "Delete cloud save" deletes your cloud save,
+        your profile and leaderboard results, and your game account. The progress on your device stays.</li>
+      <li><strong>On the web:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
+      <li>You can also email us at the address below and we will delete it for you.</li>
+    </ul>
+    <p>
+      Data you don't delete is kept for as long as the game runs its leaderboards and cloud saves.
     </p>
 
     <h2>Analytics and crash reports</h2>
@@ -139,9 +192,12 @@
 
     <h2>Your rights</h2>
     <p>
-      We don't hold your name or contact details, and analytics data isn't tied to them. If you'd like your analytics
-      data deleted, email us and we'll help as far as we can. For data collected by our advertising partners, use
-      the links above or your device's ad settings. Questions are always welcome at the address below.
+      We don't hold your real name or contact details, and analytics data isn't tied to them. You can see your
+      username and results in the game, change them, and delete them as described under "Deleting your data". If
+      you'd like anything else deleted or have a question about your data, email us and we'll help as far as we can.
+      For data collected by our advertising partners, use the links above or your device's ad settings. Firebase
+      services are provided by Google; see <a href="https://firebase.google.com/support/privacy">Privacy and
+      Security in Firebase</a>.
     </p>
 
     <h2>Changes to this policy</h2>
