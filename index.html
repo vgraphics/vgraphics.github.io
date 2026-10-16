@@ -7,200 +7,339 @@
   <meta name="description" content="VGraphics is an independent studio in Thessaloniki, Greece, making calm, clever games and apps for Android and the web.">
   <link rel="canonical" href="https://vgraphics.gr/">
   <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:title" content="VGraphics">
   <meta property="og:description" content="Small games, carefully made. Puzzle games and apps for Android and the web.">
   <meta property="og:url" content="https://vgraphics.gr/">
   <meta property="og:image" content="https://vgraphics.gr/img/vgraphics-logo.png">
-  <link rel="preload" href="/assets/fonts/unbounded-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
   <style>
-    .hero {
-      display: grid;
-      grid-template-columns: 1.15fr 0.85fr;
-      align-items: center;
-      gap: 40px;
-      padding: 36px 0 72px;
+    /* Hero: headline on the left, a bento of the products on the right */
+    .hero { position: relative; padding-block: var(--s5) var(--s7); isolation: isolate; }
+    .hero::before {
+      content: ""; position: absolute; inset: -72px 0 0; z-index: -1;
+      background-image: radial-gradient(color-mix(in srgb, var(--ink) 16%, transparent) 1.4px, transparent 1.6px);
+      background-size: 26px 26px;
+      mask-image: radial-gradient(ellipse 70% 70% at 70% 35%, #000 20%, transparent 75%);
+      -webkit-mask-image: radial-gradient(ellipse 70% 70% at 70% 35%, #000 20%, transparent 75%);
+      animation: pattern 40s linear infinite;
     }
-    .hero h1 span { display: block; }
-    .hero h1 .soft { color: var(--muted); }
-    .hero .lede { margin: 26px 0 32px; }
-    .actions { display: flex; flex-wrap: wrap; gap: 14px; align-items: center; }
-    .button {
-      display: inline-flex;
-      align-items: center;
-      padding: 14px 24px;
-      border-radius: 999px;
-      background: var(--ink);
-      color: var(--paper);
-      font-weight: 700;
-      text-decoration: none;
-      transition: transform 0.2s ease;
-    }
-    .button:hover { transform: translateY(-2px); }
+    @keyframes pattern { to { background-position: 260px 130px; } }
+    .hero .wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--s5); align-items: center; }
+    .hero-copy { display: grid; gap: var(--s3); justify-items: start; }
+    .hero h1 { font-size: clamp(3rem, 7.6vw, 6rem); line-height: 0.98; letter-spacing: -0.035em; }
+    .hero h1 > span { display: block; }
+    .hero h1 .marker { display: inline-block; margin: 0.06em 0; padding: 0 0.12em 0.04em; }
+    .hero h1 .soft { color: var(--ink-2); }
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
+    .platforms { display: flex; flex-wrap: wrap; gap: 18px; color: var(--ink-2); font-weight: 600; font-size: 0.95rem; }
+    .platforms span { display: inline-flex; align-items: center; gap: 8px; }
+    .platforms svg { width: 18px; height: 18px; }
 
-    /* The monogram with its dots drifting loose around it */
-    .mark { position: relative; aspect-ratio: 1; max-width: 420px; justify-self: end; width: 100%; }
-    .mark picture img { position: absolute; inset: 12% 8% 10% 6%; width: 86%; height: auto; }
-    .float {
-      position: absolute;
-      border-radius: 50%;
-      animation: drift 9s ease-in-out infinite alternate, pop 0.7s cubic-bezier(.3,1.6,.5,1) both;
+    .bento { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 250px 190px auto; gap: 14px; }
+    .tile {
+      position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 20px;
+      color: var(--on-block); text-decoration: none;
+      transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
     }
-    .float.y { width: 9%; aspect-ratio: 1; background: var(--yellow); left: 2%; top: 4%; animation-delay: -3s, 0.15s; }
-    .float.c { width: 6%; aspect-ratio: 1; background: var(--coral); right: 2%; bottom: 14%; animation-delay: -6s, 0.3s; }
-    .float.b { width: 4%; aspect-ratio: 1; background: var(--blue); left: 20%; bottom: 2%; animation-delay: -1s, 0.45s; }
-    .float.i { width: 5%; aspect-ratio: 1; background: var(--indigo); right: 32%; top: 0; animation-delay: -4s, 0.6s; }
-    @keyframes drift { to { transform: translate(10px, -14px); } }
-    @keyframes pop { from { scale: 0; } to { scale: 1; } }
+    a.tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    a.tile:hover .phone { transform: translateY(-8px) rotate(var(--tilt, 0deg)); }
+    .tile .label { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.82); font: 700 0.8rem/1 var(--body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--on-block); }
+    .tile .label svg { width: 14px; height: 14px; }
+    .t-exitwise { grid-row: 1 / 3; background: var(--sun); }
+    .t-speedo { background: var(--violet); }
+    .t-stat { background: var(--coral); display: grid; align-content: end; gap: 4px; }
+    .t-place { grid-column: 1 / -1; background: var(--sky); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; }
+    .t-stat b { font: 800 clamp(2rem, 4vw, 2.8rem)/1 var(--display); letter-spacing: -0.03em; }
+    .t-stat span, .t-place span { font-weight: 600; }
+    .t-place b { font: 700 1.05rem/1.2 var(--display); display: inline-flex; align-items: center; gap: 10px; }
+    .t-place svg { width: 22px; height: 22px; flex: none; }
 
-    /* Products */
-    .products { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 22px; }
-    .product {
-      display: flex;
-      flex-direction: column;
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: var(--radius);
-      overflow: hidden;
-      color: var(--ink);
-      text-decoration: none;
-      transition: transform 0.25s ease, box-shadow 0.25s ease;
+    .phone {
+      position: absolute; left: 50%; width: 62%; aspect-ratio: 9 / 16;
+      border: 7px solid #16151B; border-radius: 28px; overflow: hidden; background: #16151B;
+      box-shadow: 0 24px 40px -18px rgba(0, 0, 0, 0.55);
+      transform: rotate(var(--tilt, 0deg));
+      transition: transform 260ms var(--ease);
+      translate: -50% 0;
     }
-    .product:hover { transform: translateY(-4px); box-shadow: 0 18px 40px -24px rgba(20, 16, 40, 0.45); }
-    .product .media { aspect-ratio: 1024 / 500; overflow: hidden; background: #111; }
-    .product .media img { width: 100%; height: 100%; object-fit: cover; display: block; }
-    .product .body { padding: 22px 24px 26px; display: grid; gap: 10px; }
-    .product .kind { color: var(--muted); font-size: 0.85rem; font-weight: 600; letter-spacing: 0.06em; text-transform: uppercase; }
-    .product .body p { margin: 0; color: var(--muted); }
-    .product .row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; margin-top: 6px; }
-    .product.exitwise .media { background: #F4EFE6; }
-    .product:nth-child(2) { margin-top: 48px; }
+    .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
+    .t-exitwise .phone { --tilt: -4deg; top: 74px; width: 68%; }
+    /* Exitwise's store screenshots carry their own frame and caption */
+    .phone.bare { border: 0; border-radius: 22px; background: none; }
+    .fan.bare img { border: 0; border-radius: 22px; }
+    .t-speedo .phone { --tilt: 5deg; top: 64px; width: 56%; }
 
-    /* Studio */
-    .studio { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 40px; align-items: start; }
-    .studio p { margin: 0 0 1em; }
-    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; margin: 0; }
-    .facts div { border-top: 3px solid var(--ink); padding-top: 12px; }
-    .facts dt { color: var(--muted); font-size: 0.85rem; font-weight: 600; }
-    .facts dd { margin: 4px 0 0; font: 700 1.05rem/1.25 var(--display); }
-    .facts div:nth-child(1) { border-color: var(--yellow); }
-    .facts div:nth-child(2) { border-color: var(--coral); }
-    .facts div:nth-child(3) { border-color: var(--blue); }
-
-    .contact {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 20px;
-      padding: 34px;
-      border-radius: var(--radius);
-      background: var(--ink);
-      color: var(--paper);
+    /* Products: one large block per product, each in its own look */
+    .feature {
+      display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: center;
+      border-radius: var(--r-lg); padding: clamp(28px, 5vw, 64px); overflow: hidden; position: relative;
     }
-    .contact p { margin: 6px 0 0; opacity: 0.8; }
-    .contact a { color: var(--paper); font: 700 clamp(1rem, 2.4vw, 1.3rem)/1.2 var(--display); overflow-wrap: anywhere; }
+    .feature + .feature { margin-top: var(--s4); }
+    .feature .copy { display: grid; gap: var(--s3); justify-items: start; position: relative; z-index: 1; }
+    .feature .title { display: flex; align-items: center; gap: 16px; }
+    .feature .title img { width: 64px; height: 64px; border-radius: 16px; }
+    .feature ul { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; }
+    .feature li { display: flex; gap: 12px; align-items: flex-start; }
+    .feature li svg { width: 22px; height: 22px; flex: none; margin-top: 2px; }
+    .feature .row { display: flex; flex-wrap: wrap; align-items: center; gap: 12px 20px; }
+    .fan { position: relative; min-height: 460px; }
+    .fan img { position: absolute; width: 46%; border-radius: 26px; border: 7px solid #16151B; box-shadow: 0 30px 50px -24px rgba(0, 0, 0, 0.6); background: #16151B; }
+    .fan img:nth-child(1) { left: 8%; top: 4%; transform: rotate(-6deg); }
+    .fan img:nth-child(2) { right: 8%; top: 14%; transform: rotate(5deg); }
 
-    @media (max-width: 860px) {
-      .hero, .products, .studio { grid-template-columns: 1fr; }
-      .hero { padding-top: 12px; }
-      .mark { max-width: 300px; justify-self: start; order: -1; }
-      .product:nth-child(2) { margin-top: 0; }
+    .feature-exitwise {
+      --fx-ink: #3B3355; --fx-muted: #5E5675;
+      background-color: #F4EFE6;
+      background-image: radial-gradient(#D2C6B2 1.6px, transparent 1.9px);
+      background-size: 30px 30px;
+      color: var(--fx-ink);
+      border: 1px solid #DED4C4;
     }
-    @media (max-width: 520px) {
-      .facts { grid-template-columns: 1fr; }
-      .contact { padding: 26px 22px; }
+    .feature-exitwise .lede { color: var(--fx-muted); }
+    .feature-exitwise .chip { background: #E9E1D3; color: var(--fx-ink); }
+    .feature-exitwise .title h3 { font-family: var(--display); }
+    .feature-exitwise .status { color: var(--fx-muted); }
+    .feature-exitwise .btn-primary { background: #3B3355; color: #FFFDF8; }
+    .feature-exitwise .btn-primary:hover { background: #1C9FD8; color: #0B2230; }
+    .feature-exitwise a.link { color: #3B3355; font-weight: 700; }
+
+    .feature-speedo {
+      --fx-ink: #EDEDED; --fx-muted: #ABABB2;
+      background: #0E0E0F url("/speedometer-wallpaper/img/asphalt.webp") center / cover;
+      color: var(--fx-ink);
+    }
+    .feature-speedo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8, 8, 9, 0.15) 30%, rgba(8, 8, 9, 0.78) 62%); }
+    .feature-speedo .copy { order: 2; }
+    .feature-speedo .fan { z-index: 1; }
+    .feature-speedo .lede { color: var(--fx-muted); }
+    .feature-speedo .chip { background: rgba(255, 255, 255, 0.1); color: var(--fx-ink); }
+    .feature-speedo .status { color: var(--fx-muted); }
+    .feature-speedo .status::before { background: #F04A2C; box-shadow: 0 0 0 4px rgba(240, 74, 44, 0.3); }
+    .feature-speedo .logo { width: min(400px, 100%); }
+    .feature-speedo .btn-primary { background: #F04A2C; color: #160402; }
+    .feature-speedo .btn-primary:hover { background: #FFFFFF; color: #0E0E0F; }
+    .feature-speedo a.link { color: #FFFFFF; font-weight: 700; }
+    .feature-speedo .fan img { border-color: #2A2A2E; }
+
+    /* Studio principles */
+    .principles { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); }
+    .principle { background: var(--surface); border: 1px solid var(--line); border-radius: var(--r-md); padding: 28px; display: grid; gap: 14px; align-content: start; }
+    .principle .icon { width: 52px; height: 52px; border-radius: 16px; display: grid; place-items: center; color: var(--on-block); }
+    .principle .icon svg { width: 26px; height: 26px; }
+    .principle p { color: var(--ink-2); }
+    .principle:nth-child(1) .icon { background: var(--sun); }
+    .principle:nth-child(2) .icon { background: var(--coral); }
+    .principle:nth-child(3) .icon { background: var(--sky); }
+    .facts { display: grid; grid-template-columns: repeat(3, 1fr); gap: var(--s3); margin: var(--s5) 0 0; }
+    .facts div { border-top: 4px solid var(--ink); padding-top: 14px; }
+    .facts dt { color: var(--ink-2); font-weight: 600; font-size: 0.92rem; }
+    .facts dd { margin: 6px 0 0; font: 800 clamp(1.2rem, 2.2vw, 1.6rem)/1.15 var(--display); }
+
+    /* Contact */
+    .contact { background: var(--violet); color: var(--on-violet); border-radius: var(--r-lg); padding: clamp(32px, 6vw, 72px); display: grid; grid-template-columns: 1.2fr 0.8fr; gap: var(--s4); align-items: center; position: relative; overflow: hidden; }
+    .contact::after { content: ""; position: absolute; right: -60px; bottom: -80px; width: 260px; height: 260px; border-radius: 50%; background: var(--sun); opacity: 0.95; }
+    .contact::before { content: ""; position: absolute; right: 150px; top: -40px; width: 110px; height: 110px; border-radius: 50%; background: var(--coral); }
+    .contact p { color: rgba(255, 255, 255, 0.85); margin-top: 14px; max-width: 30em; }
+    .contact .btn { position: relative; z-index: 1; background: #FFFFFF; color: #16151B; justify-self: start; max-width: 100%; overflow-wrap: anywhere; }
+    .contact .btn:hover { background: #16151B; color: #FFFFFF; }
+
+    @media (max-width: 960px) {
+      .hero .wrap, .feature, .contact { grid-template-columns: 1fr; }
+      .feature-speedo .copy { order: 0; }
+      .feature-speedo::before { background: linear-gradient(180deg, rgba(8, 8, 9, 0.8) 45%, rgba(8, 8, 9, 0.2)); }
+      .fan { min-height: 400px; max-width: 520px; width: 100%; justify-self: center; }
+      .principles, .facts { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .hero { padding-top: var(--s3); }
+      .bento { grid-template-rows: 230px 170px auto; gap: 10px; }
+      .tile { padding: 14px; border-radius: 24px; }
+      .t-place { flex-direction: column; align-items: flex-start; }
+      .phone { border-width: 5px; border-radius: 20px; }
+      .fan { min-height: 330px; }
+      .fan img { border-width: 5px; border-radius: 18px; }
     }
   </style>
 </head>
 <body>
-<header class="wrap site-head">
-  <a class="brand" href="/">
-    <picture>
-      <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
-      <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
-    </picture>
-    <span>VGRAPHICS</span>
-  </a>
-  <nav class="site-nav" aria-label="Main">
-    <a href="#products">Games &amp; apps</a>
-    <a href="/company/">Company</a>
-  </nav>
-</header>
+<a class="skip" href="#main">Skip to content</a>
 
-<main class="wrap">
-  <section class="hero" aria-labelledby="hero-title">
-    <div>
-      <p class="eyebrow"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Independent studio · Thessaloniki</p>
-      <h1 id="hero-title"><span>Small games,</span> <span class="soft">carefully made.</span></h1>
-      <p class="lede">VGraphics makes calm, clever puzzle games and playful apps for Android and the web. Fair puzzles, clear privacy policies, and games that respect your time.</p>
-      <div class="actions">
-        <a class="button" href="#products">See our games</a>
-        <a class="more" href="/company/">Company information</a>
-      </div>
-    </div>
-    <div class="mark" aria-hidden="true">
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
       <picture>
         <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
         <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
       </picture>
-      <span class="float y"></span><span class="float c"></span><span class="float b"></span><span class="float i"></span>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="#games">Games</a>
+      <a class="hide-sm" href="#studio">Studio</a>
+      <a href="/company/">Company</a>
+      <a class="cta hide-sm" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="hero" aria-labelledby="hero-title">
+    <div class="wrap">
+      <div class="hero-copy">
+        <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Independent game studio · Greece</span>
+        <h1 id="hero-title"><span>Small games,</span> <span><span class="marker">carefully</span></span> <span class="soft">made.</span></h1>
+        <p class="lede">VGraphics makes calm, clever puzzle games and playful apps for Android and the web. Fair puzzles, plain-language privacy, and games that fit into a coffee break.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#games">Explore our games
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+          <a class="btn btn-ghost" href="/company/">Company info</a>
+        </div>
+        <div class="platforms">
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Android</span>
+          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>Web</span>
+        </div>
+      </div>
+
+      <div class="bento">
+        <a class="tile t-exitwise" href="/exitwise/">
+          <span class="label">Exitwise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="phone bare"><img src="/assets/img/exitwise-board.webp" alt="An Exitwise board full of colourful arrows" width="480" height="853"></span>
+        </a>
+        <a class="tile t-speedo" href="/speedometer-wallpaper/">
+          <span class="label">Speedometer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="phone"><img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="The Speedometer Live Wallpaper dashboard" width="540" height="1200"></span>
+        </a>
+        <div class="tile t-stat">
+          <b>100×100</b>
+          <span>Exitwise's biggest boards</span>
+        </div>
+        <div class="tile t-place">
+          <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Made in Thessaloniki</b>
+          <span>Since 2025</span>
+        </div>
+      </div>
     </div>
   </section>
 
-  <section id="products" aria-labelledby="products-title">
-    <div class="section-head">
-      <h2 id="products-title">Games &amp; apps</h2>
-    </div>
-    <div class="products">
-      <a class="product exitwise" href="/exitwise/">
-        <div class="media"><img src="/exitwise/img/feature-1024x500.png" alt="Exitwise: colourful arrows on a dotted board" width="1024" height="500" loading="lazy"></div>
-        <div class="body">
-          <span class="kind">Puzzle game · Android</span>
-          <h3>Exitwise</h3>
-          <p>Slide every arrow off the board. A calm, colorful logic puzzle with hundreds of levels.</p>
-          <div class="row"><span class="badge">Coming soon to Google Play</span><span class="more">Visit page</span></div>
+  <section class="section" id="games" aria-labelledby="games-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">Our work</span>
+        <h2 id="games-title">Games &amp; apps</h2>
+        <p class="lede">Each one with its own look, made from the first sketch to the store listing.</p>
+      </div>
+
+      <article class="feature feature-exitwise" aria-labelledby="exitwise-title">
+        <div class="copy">
+          <div class="chips"><span class="chip">Puzzle game</span><span class="chip">Android</span><span class="chip">Web soon</span></div>
+          <div class="title"><img src="/exitwise/img/icon-512.png" alt="" width="64" height="64"><h3 id="exitwise-title">Exitwise</h3></div>
+          <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, hundreds of levels.</p>
+          <ul>
+            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#1C9FD8" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#1C9FD8"/></svg>Every level is generated from a fixed seed and proven solvable.</li>
+            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#3BB273"/></svg>From small warm-ups to giant 100×100 brain-teasers.</li>
+            <li><svg viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF922B" stroke-width="5" stroke-linecap="round"/><path d="M27 15l-9-7v14z" fill="#FF922B"/></svg>Hints when you're stuck, and it plays offline.</li>
+          </ul>
+          <div class="row">
+            <a class="btn btn-primary" href="/exitwise/">Visit Exitwise
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <span class="status">Coming soon to Google Play</span>
+          </div>
         </div>
-      </a>
-      <a class="product" href="/speedometer-wallpaper/">
-        <div class="media"><img src="/speedometer-wallpaper/img/card.webp" alt="Speedometer Live Wallpaper: a car dashboard with live phone stats" width="1024" height="500" loading="lazy"></div>
-        <div class="body">
-          <span class="kind">Live wallpaper · Android</span>
-          <h3>Speedometer Live Wallpaper</h3>
-          <p>Your phone's battery, CPU, RAM and signal on a car dashboard, live on your home screen.</p>
-          <div class="row"><span class="badge">Coming soon to Google Play</span><span class="more">Visit page</span></div>
+        <div class="fan bare" aria-hidden="true">
+          <img src="/assets/img/exitwise-giant.webp" alt="" width="480" height="853" loading="lazy">
+          <img src="/assets/img/exitwise-win.webp" alt="" width="480" height="853" loading="lazy">
         </div>
-      </a>
+      </article>
+
+      <article class="feature feature-speedo" aria-labelledby="speedo-title">
+        <div class="copy">
+          <div class="chips"><span class="chip">Live wallpaper</span><span class="chip">Android</span></div>
+          <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
+          <h3 id="speedo-title" class="sr-only">Speedometer Live Wallpaper</h3>
+          <p class="lede">Your home screen as a car dashboard. Real gauges for battery, CPU, memory, signal and Wi-Fi, and GPS speed when you want it.</p>
+          <ul>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></svg>Every needle reads your phone, live.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>Readings never leave your phone.</li>
+            <li><svg viewBox="0 0 24 24" fill="none" stroke="#F04A2C" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Fits phones and tablets of any shape.</li>
+          </ul>
+          <div class="row">
+            <a class="btn btn-primary" href="/speedometer-wallpaper/">Visit Speedometer
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+            <span class="status">Coming soon to Google Play</span>
+          </div>
+        </div>
+        <div class="fan" aria-hidden="true">
+          <img src="/speedometer-wallpaper/img/shot-cpu.webp" alt="" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/shot-power.webp" alt="" width="540" height="1200" loading="lazy">
+        </div>
+      </article>
     </div>
   </section>
 
-  <section class="studio" aria-labelledby="studio-title">
-    <h2 id="studio-title">A one-person studio with a long to-do list</h2>
-    <div>
-      <p>VGraphics is a single-member private company (ΙΚΕ) founded in 2025 in Thessaloniki, Greece. We design, build and publish our own games and apps, from the first level to the store listing.</p>
-      <p>Our puzzles are generated from fixed seeds, so every player gets the same levels, and every level is tested to be solvable.</p>
+  <section class="section" id="studio" aria-labelledby="studio-title">
+    <div class="wrap">
+      <div class="section-head">
+        <span class="kicker">The studio</span>
+        <h2 id="studio-title">One person, a long to-do list, high standards</h2>
+        <p class="lede">VGraphics is a single-member private company (ΙΚΕ) founded in 2025 in Thessaloniki, Greece. We design, build and publish our own games and apps.</p>
+      </div>
+      <div class="principles">
+        <div class="principle">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>Fair by design</h3>
+          <p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable. No luck, just logic.</p>
+        </div>
+        <div class="principle">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 8h1a4 4 0 0 1 0 8h-1"/><path d="M3 8h14v9a4 4 0 0 1-4 4H7a4 4 0 0 1-4-4z"/><path d="M6 2v2M10 2v2M14 2v2"/></svg></span>
+          <h3>Made for short breaks</h3>
+          <p>Quick to pick up, easy to pause, and playable offline: on a commute, in a queue, or with a coffee.</p>
+        </div>
+        <div class="principle">
+          <span class="icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <h3>Privacy in plain words</h3>
+          <p>Short privacy policies you can actually read. Nothing on our pages tracks you without asking first.</p>
+        </div>
+      </div>
       <dl class="facts">
         <div><dt>Founded</dt><dd>2025</dd></div>
-        <div><dt>Based in</dt><dd>Thessaloniki</dd></div>
+        <div><dt>Based in</dt><dd>Thessaloniki, Greece</dd></div>
         <div><dt>Play on</dt><dd>Android &amp; web</dd></div>
       </dl>
     </div>
   </section>
 
-  <section aria-labelledby="contact-title">
-    <div class="contact">
-      <div>
-        <h2 id="contact-title">Say hello</h2>
-        <p>Questions, feedback or partnerships.</p>
+  <section class="section" id="contact" aria-labelledby="contact-title">
+    <div class="wrap">
+      <div class="contact">
+        <div>
+          <h2 id="contact-title">Let's talk</h2>
+          <p>Feedback, a bug you found, or a partnership idea. Every email gets read.</p>
+        </div>
+        <a class="btn" href="mailto:gvergidis90@gmail.com">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><path d="M22 7l-10 6L2 7"/></svg>
+          gvergidis90@gmail.com</a>
       </div>
-      <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
     </div>
   </section>
 </main>
 
-<footer class="wrap legal">
-  <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a></p>
+<footer class="site-foot">
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <p>Small games, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games">Games &amp; apps</h2><ul><li><a href="/exitwise/">Exitwise</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company">Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a></li></ul></nav>
+    <nav aria-labelledby="f-legal"><h2 id="f-legal">Privacy</h2><ul><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+  </div>
 </footer>
 </body>
 </html>
