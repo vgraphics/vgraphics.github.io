@@ -1,0 +1,16 @@
+[
+  {
+    "relation": ["delegate_permission/common.handle_all_urls"],
+    "target": {
+      "namespace": "android_app",
+      "package_name": "com.vgraphics.exitwise",
+      "sha256_cert_fingerprints": [
+        "89:B8:28:10:62:3E:F5:49:2B:C2:EB:5F:D0:94:9D:D2:B0:D8:A7:93:C2:91:6F:01:2C:4A:AA:59:A1:9B:FA:FE",
+        "5B:72:B6:18:D8:C0:0B:D1:42:FE:95:55:83:D0:46:F9:8B:53:44:97:F8:2C:87:DC:E3:71:B5:1E:60:99:BF:5C",
+        "68:91:9B:A1:78:A5:A6:C2:40:66:6F:3F:A9:75:CC:B4:9F:E0:B5:53:47:3B:21:66:9D:8F:CA:3E:DD:4E:EB:56",
+        "F1:28:99:D9:26:E2:05:C8:3D:36:4B:B1:42:75:45:D1:06:7E:B2:E2:CD:A0:1F:54:51:ED:F3:B5:26:C1:7D:8D",
+        "6E:D0:47:AF:B5:FE:99:FE:ED:13:66:CB:0D:03:06:53:96:B9:46:CD:93:F1:2A:84:43:AB:30:8B:A1:22:9F:FB"
+      ]
+    }
+  }
+]

@@ -15,6 +15,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html` |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
 | `exitwise/room/` | The page a room invite's QR code opens: opens the game in the room on Android, otherwise shows the code |
+| `.well-known/assetlinks.json` | Android App Links: lets the Exitwise app open `https://vgraphics.gr/exitwise/room/…` links itself. It lists the SHA-256 fingerprints of the Play app signing keys (current and previous, from Play Console › App integrity), the upload key and the build PC's debug key. Public fingerprints only. Add another app's entry to the same array. `.nojekyll` makes Pages serve the dot-folder. |
 | `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `tools/check-site.mjs` | The site's content rules (legal footer, links, no trackers, company details, app-ads.txt) |
