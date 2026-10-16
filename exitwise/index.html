@@ -133,6 +133,9 @@
       min-width: 150px;
     }
     .store b { font-weight: 800; }
+    a.store { color: var(--ink); text-decoration: none; border: 2px solid var(--green); background: var(--card); transition: transform 120ms ease, box-shadow 120ms ease; }
+    a.store small { color: var(--green); }
+    a.store:hover, a.store:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 51, 85, 0.12); }
     .store small { color: var(--muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
 
     /* Playable board */
@@ -328,7 +331,7 @@
         <div class="stores" aria-label="Where to play">
           <span class="store"><b>Google Play</b><small>Coming soon</small></span>
           <span class="store"><b>App Store</b><small>Coming soon</small></span>
-          <span class="store"><b>Play in your browser</b><small>Coming soon</small></span>
+          <a class="store" href="play/"><b>Play in your browser</b><small>Play now, free</small></a>
         </div>
       </div>
 
