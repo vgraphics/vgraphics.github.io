@@ -4,236 +4,414 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Speedometer Live Wallpaper for Android · VGraphics</title>
-  <meta name="description" content="Turn your home screen into a car dashboard: live gauges for battery, CPU, RAM, signal and Wi-Fi, plus GPS speed. A live wallpaper for Android by VGraphics.">
-  <meta name="theme-color" content="#0E0E0F">
+  <meta name="description" content="Turn your home screen into a car dashboard: a live wallpaper with real gauges for power, CPU clock, GPS speed, battery, RAM, signal and Wi-Fi. By VGraphics.">
+  <meta name="theme-color" content="#0B0B0C">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://vgraphics.gr/speedometer-wallpaper/">
   <link rel="icon" href="img/icon.png">
   <link rel="apple-touch-icon" href="img/icon.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Speedometer Live Wallpaper">
-  <meta property="og:description" content="Your phone's battery, CPU, RAM and signal on a car dashboard, live on your home screen.">
+  <meta property="og:description" content="Your phone as a car dashboard: live gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.">
   <meta property="og:url" content="https://vgraphics.gr/speedometer-wallpaper/">
   <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="preload" href="fonts/dseg7-classic-bold.ttf" as="font" type="font/ttf" crossorigin>
+  <link rel="preload" href="fonts/saira-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
   <style>
-    /* Self-hosted (OFL): DSEG7 here, Unbounded and Commissioner shared with the VGraphics pages. */
+    /* Self-hosted, all OFL: Saira Condensed and DSEG7 here (see fonts/), Commissioner shared with the VGraphics pages. */
+    @font-face { font-family: "Saira Condensed"; src: url("fonts/saira-condensed-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
+    @font-face { font-family: "Saira Condensed"; src: url("fonts/saira-condensed-800.woff2") format("woff2"); font-weight: 800; font-display: swap; }
     @font-face { font-family: "DSEG7"; src: url("fonts/dseg7-classic-bold.ttf") format("truetype"); font-display: swap; }
-    @font-face { font-family: "Unbounded"; src: url("/assets/fonts/unbounded-latin.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
     @font-face { font-family: "Commissioner"; src: url("/assets/fonts/commissioner-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
 
     :root {
-      --asphalt: #0E0E0F;
-      --panel: #19191B;
-      --panel-2: #222225;
-      --rim: #3A3A3E;
-      --chrome: #E4E4E6;
-      --muted: #9C9CA3;
+      --asphalt: #0B0B0C;
+      --panel: #161618;
+      --panel-2: #1F1F22;
+      --rim: #34343A;
+      --chrome: #ECECEE;
+      --muted: #A9A9B1;
       --red: #F04A2C;
-      --blue: #2E7BFF;
+      --red-ink: #170402;
+      --amber: #FFB547;
+      --green: #4BD66B;
       --lcd: #EAF1F3;
-      --display: "Unbounded", system-ui, sans-serif;
+      --display: "Saira Condensed", "Arial Narrow", system-ui, sans-serif;
       --body: "Commissioner", system-ui, -apple-system, "Segoe UI", sans-serif;
       --digits: "DSEG7", ui-monospace, monospace;
+      --ease: cubic-bezier(.2, .8, .2, 1);
     }
     * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0;
-      color: var(--chrome);
-      background: var(--asphalt) url("img/asphalt.webp") center top / 1200px auto repeat-y;
-      font: 400 17px/1.65 var(--body);
-      overflow-x: hidden;
-    }
-    a { color: var(--red); text-underline-offset: 3px; }
-    img { max-width: 100%; height: auto; }
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--chrome); background: var(--asphalt); font: 400 17px/1.65 var(--body); overflow-x: hidden; }
+    img { max-width: 100%; height: auto; display: block; }
+    a { color: var(--chrome); text-underline-offset: 3px; }
+    :focus-visible { outline: 3px solid var(--amber); outline-offset: 3px; border-radius: 6px; }
+    .wrap { width: min(1160px, 100% - 40px); margin-inline: auto; }
+    [id] { scroll-margin-top: 84px; }
+    .skip { position: absolute; left: 16px; top: -60px; z-index: 100; padding: 10px 16px; border-radius: 10px; background: var(--chrome); color: var(--asphalt); font-weight: 700; text-decoration: none; }
+    .skip:focus { top: 12px; }
+    .sr-only { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
-    .top { display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 20px; max-width: 1120px; margin: 0 auto; }
-    .top a { color: var(--chrome); text-decoration: none; font-weight: 600; }
-    .top .back { display: inline-flex; align-items: center; gap: 10px; font: 700 0.85rem/1 var(--display); letter-spacing: 0.08em; }
-    .top .back img { height: 32px; width: auto; }
+    h1, h2, h3 { font-family: var(--display); font-weight: 800; text-transform: uppercase; letter-spacing: 0.01em; line-height: 0.98; margin: 0; }
+    h2 { font-size: clamp(2.2rem, 5vw, 3.6rem); }
+    h3 { font-size: 1.45rem; letter-spacing: 0.03em; }
+    p { margin: 0; }
+    .eyebrow { font: 600 0.95rem/1 var(--display); letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); }
+    .lede { color: var(--muted); font-size: clamp(1.05rem, 1.5vw, 1.2rem); max-width: 34em; }
+
+    /* Bar: back to VGraphics, and the product's own navigation */
+    .bar { position: sticky; top: 0; z-index: 40; background: rgba(11, 11, 12, 0.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
+    .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+    .back { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font: 800 1rem/1 var(--display); letter-spacing: 0.14em; }
+    .back img { height: 30px; width: auto; }
+    .subnav { display: flex; gap: 4px; }
+    .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; text-decoration: none; font: 600 1.05rem/1 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+    .subnav a:hover { color: var(--chrome); background: rgba(255, 255, 255, 0.06); }
+    .subnav a[aria-current="page"] { color: var(--chrome); box-shadow: inset 0 -3px 0 var(--red); border-radius: 0; }
 
     /* Hero */
-    .hero { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding: 20px 0 70px; }
-    .brand { position: relative; margin: 0 0 22px; }
-    .brand .smoke { position: absolute; left: -18%; top: 40%; width: 140%; max-width: none; opacity: 0.85; pointer-events: none; transform: translateY(-50%); }
-    .brand .logo { position: relative; width: min(560px, 100%); display: block; }
-    .hero h1 { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
-    .tagline { font: 800 clamp(1.4rem, 3.4vw, 2.2rem)/1.15 var(--display); text-transform: uppercase; letter-spacing: 0.01em; margin: 0 0 14px; }
-    .tagline em { font-style: normal; color: var(--red); }
-    .lede { color: var(--muted); font-size: 1.12rem; max-width: 32em; margin: 0 0 26px; }
-    .badges { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; }
-    .store { display: inline-flex; flex-direction: column; padding: 10px 18px; border: 1.5px solid var(--rim); border-radius: 14px; background: rgba(0, 0, 0, 0.35); }
-    .store b { font-size: 1rem; }
+    .hero { position: relative; isolation: isolate; overflow: hidden; }
+    .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("img/asphalt.webp") center / cover; opacity: 0.9; }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(240, 74, 44, 0.16), transparent 70%), linear-gradient(180deg, rgba(11, 11, 12, 0.2), var(--asphalt) 96%); }
+    .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding-block: 40px 90px; }
+    .brand { position: relative; }
+    .brand .smoke { position: absolute; left: -20%; top: 46%; width: 150%; max-width: none; transform: translateY(-50%); opacity: 0.9; pointer-events: none; }
+    .brand .logo { position: relative; width: min(600px, 100%); }
+    .tagline { font: italic 800 clamp(2.4rem, 5.4vw, 4.4rem)/0.92 var(--display); text-transform: uppercase; margin: 26px 0 18px; }
+    .tagline em { color: var(--red); font-style: inherit; }
+    .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
+    .store { display: inline-flex; flex-direction: column; justify-content: center; min-height: 56px; padding: 8px 18px; border: 1.5px solid var(--rim); border-radius: 14px; background: rgba(0, 0, 0, 0.45); }
+    .store b { font: 800 1.15rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; }
     .store small { color: var(--muted); }
+    .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 24px; border-radius: 14px; background: var(--red); color: var(--red-ink); font: 800 1.15rem/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: transform 180ms var(--ease), background-color 180ms var(--ease); }
+    .btn:hover { background: #FF6A4F; }
+    .btn:active { transform: scale(0.97); }
+    .btn svg { width: 20px; height: 20px; }
 
-    /* Phone with the live render */
-    .phone {
-      position: relative;
-      width: min(300px, 78vw);
-      aspect-ratio: 1080 / 2400;
-      border-radius: 40px;
-      padding: 10px;
-      background: linear-gradient(145deg, #4a4a50, #121214 40%, #2b2b30);
-      box-shadow: 0 40px 80px -30px rgba(0, 0, 0, 0.9), 0 0 0 1px #000, 0 0 60px -10px rgba(240, 74, 44, 0.25);
-      justify-self: center;
-    }
-    .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 31px; display: block; background: #111; }
-    .phone::after { content: ""; position: absolute; top: 18px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #050505; }
+    .stage { position: relative; justify-self: center; width: min(330px, 80vw); isolation: isolate; }
+    .phone { position: relative; aspect-ratio: 1080 / 2400; border-radius: 42px; padding: 10px; background: linear-gradient(145deg, #55555c, #121214 38%, #2c2c31); box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px #000, 0 0 80px -10px rgba(240, 74, 44, 0.3); }
+    .phone img { width: 100%; height: 100%; object-fit: cover; border-radius: 32px; background: #111; }
+    .phone::after { content: ""; position: absolute; top: 20px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #050505; }
 
-    /* LCD readouts */
-    .lcd {
-      position: relative;
-      display: inline-block;
-      font: 400 1em/1 var(--digits);
-      color: var(--lcd);
-      padding: 0.35em 0.5em;
-      border-radius: 0.25em;
-      background: #070708;
-      box-shadow: inset 0 0 0 1px #2a2a2e, inset 0 2px 10px rgba(0, 0, 0, 0.8);
-      text-shadow: 0 0 8px rgba(234, 241, 243, 0.35);
-      font-variant-numeric: tabular-nums;
-    }
-    .lcd::before { content: attr(data-ghost); position: absolute; inset: 0.35em 0.5em; color: rgba(234, 241, 243, 0.07); text-shadow: none; }
-    .speed { display: flex; align-items: flex-end; gap: 12px; margin: 0 0 26px; }
-    .speed .lcd { font-size: clamp(2.4rem, 6vw, 3.4rem); }
-    .speed span { font: 700 0.95rem/1.2 var(--display); color: var(--muted); text-transform: uppercase; }
+    /* The live gauge that floats next to the phone */
+    .gauge { position: absolute; z-index: -1; left: -38%; bottom: 16%; width: 56%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #2a2a2e, #0d0d0f 70%); box-shadow: 0 0 0 6px #1a1a1d, 0 0 0 8px #3c3c42, 0 30px 50px -18px #000; }
+    .gauge svg { width: 100%; height: 100%; display: block; }
+    .gauge .tick { stroke: #E8E8EA; stroke-linecap: round; }
+    .gauge .tick.red { stroke: var(--red); }
+    .gauge .num { fill: #E8E8EA; font: 700 13px var(--display); text-anchor: middle; dominant-baseline: middle; }
+    .gauge .needle { transform-origin: 100px 100px; transition: transform 140ms linear; }
+    .gauge .read { position: absolute; left: 50%; top: 66%; transform: translateX(-50%); font-size: clamp(0.9rem, 2.2vw, 1.25rem); }
+    .gauge .unit { position: absolute; left: 50%; top: 80%; transform: translateX(-50%); font: 600 0.8rem/1 var(--display); letter-spacing: 0.12em; color: var(--muted); }
 
-    /* Sections */
-    section { padding: 60px 0; }
-    h2 { font: 800 clamp(1.5rem, 3vw, 2.2rem)/1.15 var(--display); text-transform: uppercase; margin: 0 0 10px; }
-    h2 + p { color: var(--muted); margin: 0 0 28px; max-width: 40em; }
+    .lcd { position: relative; display: inline-block; font: 400 1em/1 var(--digits); color: var(--lcd); padding: 0.3em 0.45em; border-radius: 0.25em; background: #060607; box-shadow: inset 0 0 0 1px #2a2a2e, inset 0 2px 10px rgba(0, 0, 0, 0.8); text-shadow: 0 0 8px rgba(234, 241, 243, 0.35); white-space: nowrap; }
+    .lcd::before { content: attr(data-ghost); position: absolute; inset: 0.3em 0.45em; color: rgba(234, 241, 243, 0.08); text-shadow: none; }
 
-    .gauges { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; list-style: none; padding: 0; margin: 0; }
-    .gauges li { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--rim); border-radius: 18px; padding: 18px 18px 20px; }
-    .gauges .lcd { font-size: 1.5rem; margin-bottom: 14px; }
-    .gauges b { display: block; font: 700 0.95rem/1.3 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
-    .gauges p { margin: 6px 0 0; color: var(--muted); font-size: 0.95rem; }
+    section { padding-block: 84px; }
+    .head { display: grid; gap: 14px; margin-bottom: 40px; max-width: 760px; }
 
-    .shots { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(180px, 220px); gap: 18px; overflow-x: auto; padding: 6px 2px 18px; scroll-snap-type: x mandatory; }
+    /* One dial, three jobs */
+    .modes { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .mode { background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--rim); border-radius: 24px; padding: 22px; display: grid; gap: 12px; align-content: start; }
+    .mode img { width: 78%; margin: 4px auto 6px; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.7)); }
+    .mode p { color: var(--muted); }
+    .mode .tag { justify-self: start; font: 600 0.85rem/1 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
+
+    /* Tour the dashboard */
+    .tour { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
+    .tour .stage { width: min(380px, 86vw); position: sticky; top: 84px; }
+    .spot { position: absolute; width: 44px; height: 44px; margin: -22px 0 0 -22px; border-radius: 50%; border: 0; padding: 0; cursor: pointer; background: transparent; display: grid; place-items: center; }
+    .spot::before { content: ""; width: 26px; height: 26px; border-radius: 50%; background: rgba(240, 74, 44, 0.92); box-shadow: 0 0 0 4px rgba(240, 74, 44, 0.3), 0 4px 10px rgba(0, 0, 0, 0.6); transition: transform 180ms var(--ease); }
+    .spot span { position: absolute; font: 800 0.9rem/1 var(--display); color: #fff; }
+    .spot::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 2px solid rgba(240, 74, 44, 0.8); animation: ping 2.4s var(--ease) infinite; }
+    .spot[aria-expanded="true"]::before { background: var(--amber); transform: scale(1.18); }
+    .spot[aria-expanded="true"] span { color: #1a1206; }
+    @keyframes ping { 0% { transform: scale(0.8); opacity: 1; } 70%, 100% { transform: scale(1.7); opacity: 0; } }
+    .parts { list-style: none; margin: 0; padding: 0; display: grid; gap: 10px; counter-reset: part; }
+    .part { border: 1px solid var(--rim); border-radius: 18px; background: var(--panel); overflow: hidden; }
+    .part > button { all: unset; box-sizing: border-box; display: flex; align-items: center; gap: 14px; width: 100%; min-height: 56px; padding: 12px 18px; cursor: pointer; font: 800 1.3rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
+    .part > button:focus-visible { outline: 3px solid var(--amber); outline-offset: -3px; border-radius: 18px; }
+    .part > button .n { flex: none; width: 30px; height: 30px; border-radius: 50%; display: grid; place-items: center; background: var(--red); color: #fff; font-size: 0.95rem; }
+    .part > button .chev { margin-left: auto; width: 20px; height: 20px; transition: transform 200ms var(--ease); color: var(--muted); }
+    .part > button[aria-expanded="true"] .chev { transform: rotate(180deg); }
+    .part > button[aria-expanded="true"] .n { background: var(--amber); color: #1a1206; }
+    .part .body { padding: 0 18px 18px 62px; color: var(--muted); display: grid; gap: 8px; }
+    .part .body[hidden] { display: none; }
+    .part .body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
+    .part .body b { color: var(--chrome); font-weight: 600; }
+
+    /* Gallery */
+    .shots { display: grid; grid-auto-flow: column; grid-auto-columns: minmax(190px, 230px); gap: 18px; overflow-x: auto; padding: 6px 2px 18px; scroll-snap-type: x mandatory; scrollbar-color: var(--rim) transparent; }
     .shots figure { margin: 0; scroll-snap-align: start; }
-    .shots img { border-radius: 22px; border: 6px solid #18181a; box-shadow: 0 20px 40px -24px #000; display: block; }
-    .shots figcaption { color: var(--muted); font-size: 0.9rem; margin-top: 10px; text-align: center; }
+    .shots img { border-radius: 24px; border: 6px solid #1a1a1d; box-shadow: 0 20px 40px -24px #000; }
+    .shots figcaption { color: var(--muted); font: 600 1rem/1 var(--display); letter-spacing: 0.12em; text-transform: uppercase; margin-top: 12px; text-align: center; }
 
     .steps { counter-reset: step; list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(3, 1fr); gap: 16px; }
-    .steps li { counter-increment: step; padding: 20px; border-left: 3px solid var(--red); background: rgba(0, 0, 0, 0.35); border-radius: 0 16px 16px 0; }
-    .steps li::before { content: counter(step); display: block; font: 400 1.8rem/1 var(--digits); color: var(--red); margin-bottom: 10px; }
+    .steps li { counter-increment: step; padding: 22px; border-left: 3px solid var(--red); background: var(--panel); border-radius: 0 18px 18px 0; color: var(--muted); }
+    .steps li::before { content: counter(step); display: block; font: 400 2rem/1 var(--digits); color: var(--red); margin-bottom: 12px; }
+    .steps b { color: var(--chrome); }
 
-    .privacy { display: grid; grid-template-columns: auto 1fr; gap: 22px; align-items: center; padding: 26px; border: 1px solid var(--rim); border-radius: 20px; background: rgba(0, 0, 0, 0.45); }
-    .privacy .lcd { font-size: 1.6rem; }
-    .privacy p { margin: 0; color: var(--muted); }
-    .privacy strong { color: var(--chrome); }
+    .promise { display: grid; grid-template-columns: auto 1fr auto; gap: 26px; align-items: center; padding: 30px; border: 1px solid var(--rim); border-radius: 24px; background: linear-gradient(120deg, #19191c, #101012); }
+    .promise .lcd { font-size: 1.8rem; }
+    .promise p { color: var(--muted); }
+    .promise h2 { font-size: 1.8rem; margin-bottom: 6px; }
+    .promise .link { font: 800 1.05rem/1 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--chrome); display: inline-flex; min-height: 44px; align-items: center; }
 
-    footer { max-width: 1120px; margin: 30px auto 0; padding: 26px 20px 44px; border-top: 1px solid var(--rim); color: var(--muted); display: flex; flex-wrap: wrap; gap: 8px 24px; font-weight: 600; }
-    footer a { color: var(--chrome); }
-    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 400; font-size: 0.9rem; }
-    footer .legal a { color: var(--muted); }
+    footer { border-top: 1px solid var(--rim); margin-top: 40px; color: var(--muted); }
+    footer .wrap { display: flex; flex-wrap: wrap; gap: 8px 24px; padding-block: 28px 44px; font-weight: 600; }
+    footer a { color: var(--chrome); display: inline-flex; min-height: 44px; align-items: center; }
+    footer .legal { flex-basis: 100%; font-weight: 400; font-size: 0.9rem; }
+    footer .legal a { color: var(--muted); display: inline; min-height: 0; }
 
     @media (max-width: 900px) {
-      .hero { grid-template-columns: 1fr; padding-top: 0; }
-      .gauges { grid-template-columns: 1fr 1fr; }
-      .steps { grid-template-columns: 1fr; }
+      .hero .wrap, .tour { grid-template-columns: 1fr; }
+      .stage { margin-top: 20px; }
+      .gauge { left: -36%; width: 58%; bottom: 10%; }
+      .tour .stage { position: relative; top: 0; justify-self: center; }
+      .modes, .steps { grid-template-columns: 1fr; }
+      .mode img { width: 60%; }
+      .promise { grid-template-columns: 1fr; }
     }
     @media (max-width: 520px) {
       body { font-size: 16px; }
-      .gauges { grid-template-columns: 1fr; }
-      .privacy { grid-template-columns: 1fr; }
-      .top .back span { display: none; }
+      .back span { display: none; }
+      .subnav a { padding: 0 10px; }
+      .gauge { display: none; }
+      section { padding-block: 64px; }
+      .part .body { padding-left: 18px; }
     }
     @media (prefers-reduced-motion: reduce) {
+      html { scroll-behavior: auto; }
       *, *::before, *::after { animation: none !important; transition: none !important; }
     }
   </style>
 </head>
 <body>
-  <header class="top">
-    <a class="back" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
-    <a href="privacy.html">Privacy</a>
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar">
+    <div class="wrap">
+      <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <nav class="subnav" aria-label="Speedometer Live Wallpaper">
+        <a href="/speedometer-wallpaper/" aria-current="page">Overview</a>
+        <a href="#tour">Tour</a>
+        <a href="privacy.html">Privacy</a>
+      </nav>
+    </div>
   </header>
 
-  <main class="wrap">
-    <section class="hero">
-      <div>
-        <div class="brand">
-          <img class="smoke" src="img/smoke.webp" alt="" width="1600" height="271">
-          <img class="logo" src="img/logo.webp" alt="" width="820" height="219">
-          <h1>Speedometer Live Wallpaper</h1>
+  <main id="main">
+    <section class="hero" aria-labelledby="title">
+      <div class="wrap">
+        <div>
+          <div class="brand">
+            <img class="smoke" src="img/smoke.webp" alt="" width="1600" height="271">
+            <img class="logo" src="img/logo.webp" alt="" width="820" height="219">
+            <h1 id="title" class="sr-only">Speedometer Live Wallpaper</h1>
+          </div>
+          <p class="tagline">Your phone, as a <em>car dashboard.</em></p>
+          <p class="lede">A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.</p>
+          <div class="badges">
+            <a class="btn" href="#tour">Tour the dashboard
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+            <span class="store"><b>Google Play</b><small>Coming soon · Free</small></span>
+          </div>
         </div>
-        <p class="tagline">Your phone, as a <em>car dashboard.</em></p>
-        <p class="lede">A live wallpaper with real gauges. The big dial shows your speed by GPS, the power your phone is drawing, or its CPU. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.</p>
-        <div class="speed" aria-hidden="true"><span class="lcd" data-ghost="888" id="speed">087</span><span>km/h<br>live</span></div>
-        <div class="badges">
-          <span class="store"><b>Google Play</b><small>Coming soon</small></span>
-          <span class="store"><b>Free</b><small>Extra designs in the app</small></span>
+
+        <div class="stage">
+          <div class="phone"><img src="img/shot-kmh.webp" alt="The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges" width="540" height="1200"></div>
+          <div class="gauge" aria-hidden="true">
+            <svg viewBox="0 0 200 200"><g id="ticks"></g><g class="needle" id="needle"><path d="M98.5 104 L100 30 L101.5 104 Z" fill="#F04A2C"/><circle cx="100" cy="100" r="11" fill="#2b2b2f" stroke="#9a9aa2" stroke-width="3"/></g></svg>
+            <span class="lcd read" data-ghost="888" id="readout">087</span>
+            <span class="unit">km/h</span>
+          </div>
         </div>
       </div>
-      <div class="phone"><img src="img/shot-kmh.webp" alt="The wallpaper in speed mode at 87 km/h, with battery, RAM, Wi-Fi and signal gauges" width="540" height="1200"></div>
     </section>
 
-    <section aria-labelledby="gauges-title">
-      <h2 id="gauges-title">Every needle is real</h2>
-      <p>Each gauge reads your phone as it runs, a few times a second. Pick what the big dial shows in Settings.</p>
-      <ul class="gauges">
-        <li><span class="lcd" data-ghost="888">240</span><b>Speed</b><p>GPS speed in km/h or mph, while the wallpaper is on screen.</p></li>
-        <li><span class="lcd" data-ghost="88.8">4.2</span><b>Power and CPU</b><p>The watts your phone draws, or how hard its CPU works.</p></li>
-        <li><span class="lcd" data-ghost="888">064</span><b>Battery and RAM</b><p>Charge level and memory use on their own dials.</p></li>
-        <li><span class="lcd" data-ghost="888">433</span><b>Signal and Wi-Fi</b><p>Mobile signal strength and Wi-Fi link speed.</p></li>
-      </ul>
+    <section aria-labelledby="modes-title">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">The big gauge</span>
+          <h2 id="modes-title">One dial, three jobs</h2>
+          <p class="lede">Pick the mode in Settings, or tap the gauge on your home screen to switch. The digits above the needle show the same value.</p>
+        </div>
+        <div class="modes">
+          <article class="mode">
+            <img src="img/dial-power.webp" alt="The big dial in power mode, at 18.5 watts" width="480" height="480" loading="lazy">
+            <span class="tag">Mode 1</span>
+            <h3>Power</h3>
+            <p>Watts going into the battery (to the right) or out of it (to the left, with a minus).</p>
+          </article>
+          <article class="mode">
+            <img src="img/dial-cpu.webp" alt="The big dial in CPU clock mode" width="480" height="480" loading="lazy">
+            <span class="tag">Mode 2</span>
+            <h3>CPU clock</h3>
+            <p>How fast the processor runs, as a share of its top speed. On phones that allow reading it.</p>
+          </article>
+          <article class="mode">
+            <img src="img/dial-speed.webp" alt="The big dial in GPS speed mode, at 87 km/h" width="480" height="480" loading="lazy">
+            <span class="tag">Mode 3</span>
+            <h3>GPS speed</h3>
+            <p>Your speed in km/h or mph. A red mark shows the top speed of the current drive.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="tour" aria-labelledby="tour-title">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Tour the dashboard</span>
+          <h2 id="tour-title">What every gauge shows</h2>
+          <p class="lede">Tap a red dot on the dashboard, or open a part below.</p>
+        </div>
+        <div class="tour">
+          <div class="stage">
+            <div class="phone">
+              <img src="img/shot-kmh.webp" alt="The full dashboard, with numbered parts" width="540" height="1200" loading="lazy">
+              <button class="spot" type="button" style="left:19.5%;top:24%" aria-controls="p1" aria-expanded="false" aria-label="1, Signal"><span>1</span></button>
+              <button class="spot" type="button" style="left:80%;top:24%" aria-controls="p2" aria-expanded="false" aria-label="2, RAM"><span>2</span></button>
+              <button class="spot" type="button" style="left:53%;top:31%" aria-controls="p3" aria-expanded="false" aria-label="3, The big gauge"><span>3</span></button>
+              <button class="spot" type="button" style="left:35%;top:40.5%" aria-controls="p4" aria-expanded="false" aria-label="4, Warning lights"><span>4</span></button>
+              <button class="spot" type="button" style="left:65%;top:40.5%" aria-controls="p4" aria-expanded="false" aria-label="4, Warning lights"><span>4</span></button>
+              <button class="spot" type="button" style="left:50%;top:50%" aria-controls="p5" aria-expanded="false" aria-label="5, Date and time"><span>5</span></button>
+              <button class="spot" type="button" style="left:24%;top:66%" aria-controls="p6" aria-expanded="false" aria-label="6, Wi-Fi"><span>6</span></button>
+              <button class="spot" type="button" style="left:75%;top:66%" aria-controls="p7" aria-expanded="false" aria-label="7, Battery"><span>7</span></button>
+            </div>
+          </div>
+
+          <ol class="parts">
+            <li class="part"><button type="button" aria-controls="p1" aria-expanded="true"><span class="n">1</span>Signal<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p1"><p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p></div></li>
+            <li class="part"><button type="button" aria-controls="p2" aria-expanded="true"><span class="n">2</span>RAM<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p2"><p>The small gauge at the top right shows how much of the phone's memory is in use.</p></div></li>
+            <li class="part"><button type="button" aria-controls="p3" aria-expanded="true"><span class="n">3</span>The big gauge<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p3"><p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen to switch. The digits above the needle show the same value.</p></div></li>
+            <li class="part"><button type="button" aria-controls="p4" aria-expanded="true"><span class="n">4</span>Warning lights<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p4"><p>Four lights on the big gauge. Each one can be switched off in Settings.</p>
+                <ul>
+                  <li><b>Low battery:</b> at or below the low battery level, 15 % unless you change it.</li>
+                  <li><b>Bluetooth:</b> while Bluetooth is on.</li>
+                  <li><b>High temperature:</b> when the battery is hotter than 45 °C, unless you change it.</li>
+                  <li><b>Low temperature:</b> when the battery is colder than 0 °C, unless you change it.</li>
+                </ul></div></li>
+            <li class="part"><button type="button" aria-controls="p5" aria-expanded="true"><span class="n">5</span>Date and time<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p5"><p>The LCD under the big gauge. The time format, date order, separators and seconds are all in Settings.</p></div></li>
+            <li class="part"><button type="button" aria-controls="p6" aria-expanded="true"><span class="n">6</span>Wi-Fi<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p6"><p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p></div></li>
+            <li class="part"><button type="button" aria-controls="p7" aria-expanded="true"><span class="n">7</span>Battery<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+              <div class="body" id="p7"><p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p></div></li>
+          </ol>
+        </div>
+      </div>
     </section>
 
     <section aria-labelledby="shots-title">
-      <h2 id="shots-title">On your home screen</h2>
-      <p>Rendered by the app itself. The dashboard fits phones and tablets of any shape.</p>
-      <div class="shots">
-        <figure><img src="img/shot-kmh.webp" alt="Speed mode" width="540" height="1200" loading="lazy"><figcaption>Speed</figcaption></figure>
-        <figure><img src="img/shot-power.webp" alt="Power mode in watts" width="540" height="1200" loading="lazy"><figcaption>Power</figcaption></figure>
-        <figure><img src="img/shot-cpu.webp" alt="CPU mode" width="540" height="1200" loading="lazy"><figcaption>CPU</figcaption></figure>
-        <figure><img src="img/shot-wifi.webp" alt="Fast Wi-Fi on the Wi-Fi gauge" width="540" height="1200" loading="lazy"><figcaption>Wi-Fi</figcaption></figure>
-        <figure><img src="img/shot-home.webp" alt="The app's home screen" width="540" height="1200" loading="lazy"><figcaption>The app</figcaption></figure>
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">On your home screen</span>
+          <h2 id="shots-title">Rendered by the app itself</h2>
+          <p class="lede">These are real renders. The dashboard fits phones and tablets of any shape.</p>
+        </div>
+        <div class="shots">
+          <figure><img src="img/shot-kmh.webp" alt="GPS speed mode" width="540" height="1200" loading="lazy"><figcaption>GPS speed</figcaption></figure>
+          <figure><img src="img/shot-power.webp" alt="Power mode in watts" width="540" height="1200" loading="lazy"><figcaption>Power</figcaption></figure>
+          <figure><img src="img/shot-cpu.webp" alt="CPU clock mode" width="540" height="1200" loading="lazy"><figcaption>CPU clock</figcaption></figure>
+          <figure><img src="img/shot-wifi.webp" alt="A fast Wi-Fi link on the Wi-Fi gauge" width="540" height="1200" loading="lazy"><figcaption>Wi-Fi</figcaption></figure>
+          <figure><img src="img/shot-home.webp" alt="The app's home screen" width="540" height="1200" loading="lazy"><figcaption>The app</figcaption></figure>
+        </div>
       </div>
     </section>
 
     <section aria-labelledby="how-title">
-      <h2 id="how-title">Start your engine</h2>
-      <p>Three steps from install to dashboard.</p>
-      <ol class="steps">
-        <li>Install Speedometer Live Wallpaper from Google Play.</li>
-        <li>Open it and tap <strong>Set wallpaper</strong>, then confirm on your home screen.</li>
-        <li>In <strong>Settings</strong>, choose what the big dial shows, your units, and which lights and clock to show.</li>
-      </ol>
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Start your engine</span>
+          <h2 id="how-title">Three steps to your dashboard</h2>
+        </div>
+        <ol class="steps">
+          <li>Install <b>Speedometer Live Wallpaper</b> from Google Play.</li>
+          <li>Open it and tap <b>Set wallpaper</b>, then confirm on your home screen.</li>
+          <li>In <b>Settings</b>, choose what the big gauge shows, your units, and which lights and clock to show.</li>
+        </ol>
+      </div>
     </section>
 
     <section aria-labelledby="privacy-title">
-      <div class="privacy">
-        <span class="lcd" data-ghost="88">00</span>
-        <div>
-          <h2 id="privacy-title" style="font-size:1.1rem">Your readings stay on your phone</h2>
-          <p><strong>Nothing the gauges read is sent anywhere,</strong> and your location is used only for the speed in GPS mode. Read the <a href="privacy.html">privacy policy</a>.</p>
+      <div class="wrap">
+        <div class="promise">
+          <span class="lcd" data-ghost="88">00</span>
+          <div>
+            <h2 id="privacy-title">Your readings stay on your phone</h2>
+            <p>Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen.</p>
+          </div>
+          <a class="link" href="privacy.html">Privacy policy →</a>
         </div>
       </div>
     </section>
   </main>
 
   <footer>
-    <a href="/">More from VGraphics</a>
-    <a href="privacy.html">Privacy policy</a>
-    <a href="mailto:gvergidis90@gmail.com">Contact</a>
-    <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <div class="wrap">
+      <a href="/">More from VGraphics</a>
+      <a href="privacy.html">Privacy policy</a>
+      <a href="mailto:gvergidis90@gmail.com">Contact</a>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    </div>
   </footer>
 
   <script>
-    // The hero readout drifts like a real speedometer.
     (() => {
-      const el = document.getElementById("speed");
-      if (!el || matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+      // The floating gauge: ticks 0-240 km/h over a 270-degree sweep, and a needle that follows the LCD.
+      const ticks = document.getElementById("ticks");
+      const needle = document.getElementById("needle");
+      const readout = document.getElementById("readout");
+      const NS = "http://www.w3.org/2000/svg";
+      const angle = (v) => -135 + (v / 240) * 270;
+      const at = (a, r) => [100 + r * Math.sin(a * Math.PI / 180), 100 - r * Math.cos(a * Math.PI / 180)];
+      for (let v = 0; v <= 240; v += 10) {
+        const major = v % 20 === 0;
+        const [x1, y1] = at(angle(v), major ? 74 : 79);
+        const [x2, y2] = at(angle(v), 86);
+        const line = document.createElementNS(NS, "line");
+        Object.entries({ x1, y1, x2, y2, "stroke-width": major ? 3.4 : 1.6 }).forEach(([k, val]) => line.setAttribute(k, val));
+        line.setAttribute("class", v >= 200 ? "tick red" : "tick");
+        ticks.appendChild(line);
+        if (major && v % 40 === 0) {
+          const [tx, ty] = at(angle(v), 61);
+          const t = document.createElementNS(NS, "text");
+          t.setAttribute("x", tx); t.setAttribute("y", ty); t.setAttribute("class", "num");
+          t.textContent = v;
+          ticks.appendChild(t);
+        }
+      }
       let v = 87, target = 87;
-      setInterval(() => {
-        if (Math.abs(target - v) < 1) target = 40 + Math.round(Math.random() * 90);
-        v += Math.sign(target - v);
-        el.textContent = String(v).padStart(3, "0");
-      }, 120);
+      const show = () => { needle.style.transform = `rotate(${angle(v)}deg)`; readout.textContent = String(v).padStart(3, "0"); };
+      show();
+      if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
+        setInterval(() => {
+          if (Math.abs(target - v) < 1) target = 30 + Math.round(Math.random() * 170);
+          v += Math.sign(target - v);
+          show();
+        }, 90);
+      }
+
+      // Tour: one part open at a time. Without JavaScript every part stays open.
+      const parts = [...document.querySelectorAll(".part > button")];
+      const spots = [...document.querySelectorAll(".spot")];
+      const open = (id, scroll) => {
+        parts.forEach((b) => {
+          const on = b.getAttribute("aria-controls") === id;
+          b.setAttribute("aria-expanded", on);
+          document.getElementById(b.getAttribute("aria-controls")).hidden = !on;
+          if (on && scroll && matchMedia("(max-width: 900px)").matches) b.scrollIntoView({ block: "nearest" });
+        });
+        spots.forEach((s) => s.setAttribute("aria-expanded", s.getAttribute("aria-controls") === id));
+      };
+      parts.forEach((b) => b.addEventListener("click", () => open(b.getAttribute("aria-controls"), false)));
+      spots.forEach((s) => s.addEventListener("click", () => open(s.getAttribute("aria-controls"), true)));
+      open("p3", false);
     })();
   </script>
 </body>
