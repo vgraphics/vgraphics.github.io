@@ -72,6 +72,19 @@ for (const file of pages) {
   }
 }
 
+// url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.
+for (const file of files.filter((f) => /\.(css|html)$/.test(f))) {
+  const text = readFileSync(join(root, file), 'utf8')
+  const css = file.endsWith('.css') ? text : [...text.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n')
+  for (const [, raw] of css.matchAll(/url\(\s*['"]?([^'")]+)['"]?\s*\)/g)) {
+    if (/^(data:|[a-z]+:|#)/i.test(raw)) continue
+    links++
+    const clean = raw.replace(/[?#].*$/, '')
+    const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
+    if (!existsSync(target)) report(file, 'css-urls', `missing ${raw}`)
+  }
+}
+
 const company = join(root, 'company', 'index.html')
 if (!existsSync(company)) report('company/index.html', 'company', 'missing')
 else {
