@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
+    <title>Play Exitwise</title>
+    <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
+    <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
+    <!-- The vgraphics.gr play page (BuildScript.WebGLPortfolio). Google Analytics only runs once the player allows it
+         here (ArrowPuzzleAnalytics.jslib); the answer stays in localStorage under "exitwise.analytics". -->
+    <style>
+      :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px; }
+      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink);
+                   font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      #unity-canvas { position: fixed; left: 0; top: 0; right: 0; bottom: var(--bar); width: 100%; height: calc(100% - var(--bar));
+                      display: block; background: var(--paper); outline: none; }
+      #loading { position: fixed; left: 50%; top: 50%; width: 220px; height: 14px; margin: -7px 0 0 -110px;
+                 border-radius: 7px; background: #E9E1D3; overflow: hidden; }
+      #loading-fill { width: 0; height: 100%; border-radius: 7px; background: var(--green); transition: width 0.2s; }
+      footer { position: fixed; left: 0; right: 0; bottom: 0; height: var(--bar); box-sizing: border-box; padding: 0 16px;
+               display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); background: var(--card);
+               font-size: 13px; white-space: nowrap; overflow: hidden; }
+      footer a, footer button { color: var(--ink); font: inherit; font-weight: 600; text-decoration: none; background: none; border: 0;
+                                padding: 6px 0; cursor: pointer; }
+      footer a:hover, footer button:hover { text-decoration: underline; }
+      footer .legal { margin-left: auto; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
+      footer .legal a { color: var(--muted); font-weight: 400; }
+      @media (max-width: 640px) { footer .legal .long { display: none; } }
+      #consent { position: fixed; inset: 0; z-index: 900; display: none; align-items: flex-end; justify-content: center; padding: 16px;
+                 padding-bottom: calc(var(--bar) + 16px); background: rgba(59, 51, 85, 0.25); }
+      #consent.open { display: flex; }
+      #consent .card { width: 100%; max-width: 420px; box-sizing: border-box; padding: 20px 20px 16px; border-radius: 20px;
+                       background: var(--card); box-shadow: 0 18px 50px rgba(46, 42, 36, 0.28); }
+      #consent h2 { margin: 0 0 6px; font-size: 18px; }
+      #consent p { margin: 0 0 16px; font-size: 14px; line-height: 1.45; color: var(--muted); }
+      #consent .buttons { display: flex; gap: 10px; justify-content: flex-end; }
+      #consent button { font: inherit; font-weight: 700; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: pointer;
+                        border: 2px solid var(--line); background: var(--card); color: var(--ink); }
+      #consent button.allow { background: var(--green); border-color: var(--green); color: #fff; }
+    </style>
+  </head>
+  <body>
+    <canvas id="unity-canvas" tabindex="-1"></canvas>
+    <div id="loading"><div id="loading-fill"></div></div>
+    <footer>
+      <a href="/exitwise/">&larr; Exitwise</a>
+      <a href="/exitwise/privacy.html">Privacy</a>
+      <button type="button" id="statistics">Statistics</button>
+      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373</span> · <a href="/company/">Company</a></span>
+    </footer>
+    <div id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title">
+      <div class="card">
+        <h2 id="consent-title">Help improve Exitwise?</h2>
+        <p>May we count anonymous game statistics, such as the levels players finish and where they get stuck, with Google
+          Analytics? It stores an identifier in your browser. The game works the same either way.
+          <a href="/exitwise/privacy.html">Privacy policy</a></p>
+        <div class="buttons">
+          <button type="button" data-answer="denied">No thanks</button>
+          <button type="button" class="allow" data-answer="granted">Allow</button>
+        </div>
+      </div>
+    </div>
+    <script>
+      (function () {
+        var KEY = "exitwise.analytics";
+        var dialog = document.getElementById("consent");
+        var stored = function () { try { return window.localStorage.getItem(KEY); } catch (e) { return null; } };
+        var answer = function (value) {
+          var before = stored();
+          try { window.localStorage.setItem(KEY, value); } catch (e) {}
+          dialog.classList.remove("open");
+          window.dispatchEvent(new CustomEvent("exitwise-analytics-consent", { detail: value }));
+          // Withdrawn after Google Analytics loaded: reload so nothing of it stays on the page.
+          if (before === "granted" && value === "denied") window.location.reload();
+        };
+        Array.prototype.forEach.call(dialog.querySelectorAll("button[data-answer]"), function (button) {
+          button.addEventListener("click", function () { answer(button.getAttribute("data-answer")); });
+        });
+        document.getElementById("statistics").addEventListener("click", function () { dialog.classList.add("open"); });
+        if (stored() !== "granted" && stored() !== "denied") dialog.classList.add("open");
+      })();
+    </script>
+    <script src="Build/WebGLPortfolio.loader.js"></script>
+    <script>
+      var canvas = document.querySelector("#unity-canvas");
+      var fill = document.querySelector("#loading-fill");
+      createUnityInstance(canvas, {
+        arguments: [],
+        dataUrl: "Build/WebGLPortfolio.data.unityweb",
+        frameworkUrl: "Build/WebGLPortfolio.framework.js.unityweb",
+        codeUrl: "Build/WebGLPortfolio.wasm.unityweb",
+        streamingAssetsUrl: "StreamingAssets",
+        companyName: "VGraphics",
+        productName: "Exitwise",
+        productVersion: "0.1.0",
+      }, function (progress) {
+        fill.style.width = (progress * 100) + "%";
+      }).then(function () {
+        document.querySelector("#loading").remove();
+        canvas.focus();
+      }).catch(function (message) {
+        alert(message);
+      });
+    </script>
+  </body>
+</html>

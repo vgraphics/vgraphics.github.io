@@ -113,9 +113,12 @@
 
   <h2 class="short-title" id="short">The short version</h2>
   <ul class="short">
-    <li>You don't need to sign in, and we never ask for your real name, email or any other contact details.</li>
-    <li>Your progress and settings are saved on your device. If you sign in with Google Play Games (Android) or your
-      CrazyGames account (web), they are also saved to that account so you can continue on another device.</li>
+    <li>You don't need to sign in. We never ask for your real name or contact details; if you choose to sign in with a
+      Google account, Google tells our sign-in service your email address and name, and we use them only to sign you
+      in.</li>
+    <li>Your progress and settings are saved on your device. If you sign in with Google Play Games or a Google account
+      (Android), with Google on our website, or with your CrazyGames account (CrazyGames), they are also saved to that
+      account so you can continue on another device.</li>
     <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
       players, with a username and picture you choose, or "Player" and a short code if you don't choose one.</li>
     <li>On Android you can use your own photo as your picture. It is checked automatically before anyone else can
@@ -170,15 +173,25 @@
           <a href="https://www.crazygames.com/privacy-policy">CrazyGames Privacy Policy</a>, and we receive your
           CrazyGames username only to suggest it as your name.
         </p>
+        <p>
+          You can also sign in with a Google account: on Android in Settings → "Link Google account", and on our website
+          (vgraphics.gr) with "Sign in". This lets you play with the same progress on your phone and on the website.
+          Google then shares your Google account's email address, name and profile picture link with Firebase
+          Authentication, which keeps them with your game account. We use them only to sign you in and to show which Google
+          account is linked; they are never shown to other players, shared or used for ads. If your Google account
+          already belongs to another game account, the game joins the two into one: it asks which progress to keep, and
+          deletes the other game account with its username and leaderboard results.
+        </p>
       </section>
 
       <section id="cloud">
         <h2>Cloud save</h2>
         <p>
-          On Android, when you sign in with Google Play Games, a copy of your saved game (the same information as on your
-          device) is stored in Google Firebase Cloud Firestore under your game account, so you can continue on another
-          device. If this device and your account both have progress, the game asks which one to keep. On the web, your
-          save is kept by CrazyGames in your browser or, once you log in, in your CrazyGames account.
+          On Android, when you sign in with Google Play Games, and on our website when you sign in with Google, a copy of
+          your saved game (the same information as on your device) is stored in Google Firebase Cloud Firestore under your
+          game account, so you can continue on another device. If this device and your account both have progress, the game
+          asks which one to keep. On CrazyGames, your save is kept by CrazyGames in your browser or, once you log in, in
+          your CrazyGames account.
         </p>
       </section>
 
@@ -225,13 +238,13 @@
         <p>
           Tap another player on a leaderboard to report their picture or name, or to block them. Blocking hides their
           picture and name on your device only. A report hides them for you too, and is stored with your game account
-          identifier and the reported player's. When three different players who are signed in (with Google Play Games, or
-          with CrazyGames on the web) report the same picture, it is removed automatically. A player who loses two
+          identifier and the reported player's. When three different players who are signed in (with Google Play Games or
+          Google, or with CrazyGames) report the same picture, it is removed automatically. A player who loses two
           pictures this way can't upload pictures any more. When three report the same username, it is taken away and
           stays reserved so that nobody can use it again, and its owner chooses a new one. So that a removed picture or
           name can't come straight back, we keep these moderation records even after you delete your data: the counts,
-          the game account identifiers of the reporters and of the uploader (linked to their Google Play Games player ID
-          or CrazyGames user ID), and a username that is being reported or was removed.
+          the game account identifiers of the reporters and of the uploader (linked to their Google Play Games player ID,
+          Google account or CrazyGames user ID), and a username that is being reported or was removed.
         </p>
       </section>
 
@@ -241,9 +254,10 @@
           <li><strong>Username, picture and leaderboard results:</strong> Settings → Profile → "Delete my leaderboard
             data" deletes your profile and picture, frees your username and removes all your results from every
             leaderboard. You can then choose a new username.</li>
-          <li><strong>Cloud save and account (Android):</strong> Settings → "Delete cloud save" deletes your cloud save,
-            your profile, picture and leaderboard results, and your game account. The progress on your device stays.</li>
-          <li><strong>On the web:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
+          <li><strong>Cloud save and account (Android, and our website):</strong> Settings → "Delete cloud save" deletes
+            your cloud save, your profile, picture and leaderboard results, and your game account with the Google account
+            details linked to it. The progress on your device or in your browser stays.</li>
+          <li><strong>On CrazyGames:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
           <li>You can also email us at the address below and we will delete it for you.</li>
         </ul>
         <p>
@@ -260,6 +274,12 @@
           language, your approximate country, and in-game events or crash details. We use this only to improve the game,
           never to identify you or to show you ads. See
           <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+        </p>
+        <p>
+          On the web we use Google Analytics for the same purpose: the same game events, and error reports when something
+          goes wrong in the game. It doesn't receive your name, email or Google account, and it uses an identifier stored in
+          your browser. On our website it only runs if you allow it when the game first opens; you can change your answer
+          with the "Statistics" link under the game.
         </p>
       </section>
 

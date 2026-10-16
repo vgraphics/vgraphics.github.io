@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "401889084172",
+    "project_id": "exitwise-b8e6f",
+    "storage_bucket": "exitwise-b8e6f.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:401889084172:android:908b7370611b46ef80bf29",
+        "android_client_info": {
+          "package_name": "com.vgraphics.exitwise"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "401889084172-7brkj3d45h1cssseokk2nnkvs19tl7oh.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vgraphics.exitwise",
+            "certificate_hash": "90b9f9468d87da54cc0cff03f1649f29672387c6"
+          }
+        },
+        {
+          "client_id": "401889084172-rvcrhmcspn60fd2290jbfak8uj0tgok5.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vgraphics.exitwise",
+            "certificate_hash": "e8128551b5745477e3fd88ae6231920b98f43fc9"
+          }
+        },
+        {
+          "client_id": "401889084172-tq50cubnre0uj1h7eq7bivbn71sim1du.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.vgraphics.exitwise",
+            "certificate_hash": "30fcf841fa9e4e57486417c627c743b17e30e73c"
+          }
+        },
+        {
+          "client_id": "401889084172-kjhcg9pouk53ojsf39fnb8nn6oqk5f43.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCr9DTTkc9Us5D5D1yR9wvRJ5L-cQs_4jQ"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "401889084172-kjhcg9pouk53ojsf39fnb8nn6oqk5f43.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
