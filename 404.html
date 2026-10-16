@@ -8,44 +8,57 @@
   <link rel="icon" href="/img/vgraphics-logo.png">
   <link rel="stylesheet" href="/assets/vgraphics.css">
   <style>
-    .lost { min-height: 62vh; display: grid; align-content: center; gap: 22px; padding: 40px 0; }
-    .lost .code { font: 800 clamp(5rem, 22vw, 11rem)/0.9 var(--display); letter-spacing: -0.04em; display: flex; align-items: flex-end; gap: 0.06em; }
-    .lost .code i { width: 0.22em; height: 0.22em; border-radius: 50%; display: inline-block; margin-bottom: 0.08em; }
-    .lost .code i:nth-of-type(1) { background: var(--yellow); }
-    .lost .code i:nth-of-type(2) { background: var(--coral); }
-    .lost .code i:nth-of-type(3) { background: var(--blue); }
-    .lost ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px 26px; }
+    .lost { min-height: 64vh; display: grid; grid-template-columns: 1fr 1fr; gap: var(--s5); align-items: center; padding-block: var(--s6); }
+    .lost .copy { display: grid; gap: var(--s3); justify-items: start; }
+    .blocks { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; }
+    .blocks span { aspect-ratio: 1; border-radius: var(--r-md); display: grid; place-items: center; font: 800 clamp(3rem, 8vw, 6rem)/1 var(--display); color: var(--on-block); }
+    .blocks span:nth-child(1) { background: var(--sun); transform: rotate(-4deg); }
+    .blocks span:nth-child(2) { background: var(--coral); transform: translateY(18px); }
+    .blocks span:nth-child(3) { background: var(--sky); transform: rotate(5deg); }
+    .lost ul { list-style: none; padding: 0; margin: 0; display: flex; flex-wrap: wrap; gap: 10px; }
+    @media (max-width: 860px) { .lost { grid-template-columns: 1fr; } .blocks { order: -1; max-width: 360px; } }
   </style>
 </head>
 <body>
-<header class="wrap site-head">
-  <a class="brand" href="/">
-    <picture>
-      <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
-      <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
-    </picture>
-    <span>VGRAPHICS</span>
-  </a>
-  <nav class="site-nav" aria-label="Main">
-    <a href="/#products">Games &amp; apps</a>
-    <a href="/company/">Company</a>
-  </nav>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a href="/#games">Games</a>
+      <a class="hide-sm" href="/#studio">Studio</a>
+      <a href="/company/">Company</a>
+      <a class="cta hide-sm" href="/#contact">Contact</a>
+    </nav>
+  </div>
 </header>
 
-<main class="wrap lost">
-  <p class="code" aria-hidden="true">404<i></i><i></i><i></i></p>
-  <h1>This page slid off the board.</h1>
-  <p class="lede">The address may be old or mistyped. Try one of these instead:</p>
-  <ul>
-    <li><a class="more" href="/">Home</a></li>
-    <li><a class="more" href="/exitwise/">Exitwise</a></li>
-    <li><a class="more" href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li>
-    <li><a class="more" href="/company/">Company information</a></li>
-  </ul>
+<main id="main" class="wrap lost">
+  <div class="copy">
+    <span class="kicker">Error 404</span>
+    <h1>This page slid off the board.</h1>
+    <p class="lede">The address may be old or mistyped. Try one of these instead:</p>
+    <ul>
+      <li><a class="btn btn-primary" href="/">Home</a></li>
+      <li><a class="btn btn-ghost" href="/exitwise/">Exitwise</a></li>
+      <li><a class="btn btn-ghost" href="/speedometer-wallpaper/">Speedometer</a></li>
+      <li><a class="btn btn-ghost" href="/company/">Company</a></li>
+    </ul>
+  </div>
+  <div class="blocks" aria-hidden="true"><span>4</span><span>0</span><span>4</span></div>
 </main>
 
-<footer class="wrap legal">
-  <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a></p>
+<footer class="site-foot">
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a></p>
+  </div>
 </footer>
 </body>
 </html>
