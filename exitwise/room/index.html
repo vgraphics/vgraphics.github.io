@@ -92,6 +92,7 @@
     <p class="caption">Room code</p>
     <p class="code" id="code">······</p>
     <a class="button primary hidden" id="open" href="../">Open Exitwise</a>
+    <a class="button secondary" id="play" href="../play/">Play in your browser</a>
     <a class="button secondary" id="get" href="../">Get Exitwise</a>
     <ol class="steps">
       <li>In Exitwise, tap <strong>Play with friends</strong>.</li>
@@ -105,6 +106,8 @@
       var code = (new URLSearchParams(location.search).get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
       if (!/^[A-HJ-NP-Z2-9]{6}$/.test(code)) return;
       document.getElementById("code").textContent = code;
+      // The browser game joins the room it is opened with (?room=).
+      document.getElementById("play").href = "../play/?room=" + code;
       if (!/Android/i.test(navigator.userAgent)) return;
       // Chrome on Android opens the game in the room, or this fallback (the game's page with its store link) when it
       // isn't installed.
