@@ -11,7 +11,7 @@
   ],
   "sections": [
     { "id": "traps", "title": "Obstacles", "intro": "Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it." },
-    { "id": "powerups", "title": "Powerups", "intro": "One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop." },
+    { "id": "powerups", "title": "Powerups", "intro": "One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop. None of them ever costs a heart, and none touches an arrow hidden under a shutter." },
     { "id": "basics", "title": "Basics", "intro": "How the game works: hearts, coins, hints, hard levels, worlds, and the ways to play with others." }
   ],
   "entries": [
@@ -29,7 +29,7 @@
       "slug": "bomb-arrow", "section": "traps", "name": "Bomb arrow", "firstLevel": 21,
       "icon": "<svg viewBox='0 0 48 48'><circle cx='20' cy='28' r='12' fill='#2F2B38'/><path d='M27 18l6-6' stroke='#2F2B38' stroke-width='4' stroke-linecap='round'/><path d='M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z' fill='#FF922B'/><circle cx='16' cy='24' r='3' fill='#5A5466'/></svg>",
       "summary": "Flies to its rock and blows it up, once its path is clear.",
-      "what": ["A bomb arrow is drawn in charcoal (pale grey on night boards) with a flickering orange spark at its tip. Tap it and it flies along its path to the first rock and hits it.", "No bomb starts free: every bomb has a guard, an arrow standing on its path between the bomb and its rock. Clear the guard first, and whatever holds the guard up.", "Bombs have no colour, so arrows and closed colour gates stop them. A blocked bomb bumps like any arrow and costs a heart."],
+      "what": ["A bomb arrow is drawn in charcoal (pale grey on night boards) with a flickering orange spark at its tip. Tap it and it flies along its path to the first rock and hits it.", "No bomb starts free: every bomb has a guard, an arrow standing on its path between the bomb and its rock. Clear the guard first, and whatever holds the guard up.", "Bombs have no colour, so closed colour gates stop them, and so do arrows, ice and shutters. A blocked bomb bumps like any arrow and costs a heart."],
       "how": ["Trace the bomb's path to its rock and find the arrow in the way.", "Free that arrow, then tap the bomb.", "Each bomb hits once: a level-2 or level-3 rock needs that many bombs, usually from different sides."],
       "notes": ["The level-21 tutorial points out a rock (\"New: rocks and bombs\"), then the arrow in a bomb's way, then the bomb."],
       "figure": { "src": "/exitwise/img/5-bombs.webp", "alt": "A Lagoon board with charcoal bomb arrows aimed at grey rocks", "width": 720, "height": 1280, "caption": "Bomb arrows and their rocks on a Lagoon level." },
@@ -107,7 +107,7 @@
       "icon": "<svg viewBox='0 0 48 48'><rect x='5' y='7' width='38' height='34' rx='5' fill='#9AA3AE'/><path d='M5 14h38M5 21h38M5 28h38M5 35h38' stroke='#7B8590' stroke-width='2'/><rect x='16' y='17' width='16' height='15' rx='3' fill='#2F2B38'/><path d='M21 21h6v3.5h-5m5 0V28h-6' fill='none' stroke='#F2F4F6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>",
       "summary": "A roller door that hides arrows until it rolls up.",
       "what": ["A shutter is a steel roller door over a rectangle of cells, 2×2 to 3×3 at first and up to 5 cells a side later, with a number on a plate. The arrows under it, even partly, are hidden and locked.", "No path gets through a shutter that's down. Each time any arrow leaves the board the number drops by one, and at 0 the shutter rolls up and shows what was underneath."],
-      "how": ["Tapping a shutter only rattles it: it costs no heart.", "Powerups leave hidden arrows alone: Remove arrow can't take them, and hints, Auto-play and the wand never pick them.", "Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it."],
+      "how": ["Tapping a shutter only rattles it: it costs no heart.", "No powerup touches a hidden arrow, because you can't see it. Remove arrow can't take one: tap the shutter with it and nothing is used. Hints, Auto-play and the wand never pick one, and grid lines draw no path for it.", "Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it."],
       "notes": ["Level 221 introduces shutters with one, counting from 5. Bigger ones arrive from levels 320 and 420.", "In-game tip: \"Shutters roll up as arrows leave.\""],
       "figure": { "src": "/exitwise/img/5-shutters.webp", "alt": "Level 221 in the Crystal caves: a steel shutter with its number on a diamond-shaped board", "width": 720, "height": 1280, "caption": "Level 221 introduces shutters." },
       "related": ["ice", "remove-arrow", "hints"]
@@ -116,8 +116,8 @@
       "slug": "two-colour-gate", "section": "traps", "name": "Two-colour gate", "firstLevel": 251,
       "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#1C9FD8'/><rect x='12' y='12' width='24' height='24' rx='5' fill='#FFFDF8'/><circle cx='20' cy='24' r='5.5' fill='#1C9FD8'/><path d='M31 20l4.5 8h-9z' fill='#F2B705'/></svg>",
       "summary": "A gate that needs two colours, in order.",
-      "what": ["A two-colour gate holds two symbols: the first on the left and bigger. Its frame shows the colour it lets through next.", "At first only the first colour gets through, which uses up its pip. Then the second colour gets through too, and when it passes the gate opens for good. Other colours and bombs bump until then."],
-      "how": ["Send an arrow of the big symbol's colour first, then one of the small symbol's colour.", "If a powerup removes an arrow of the second colour early, its pip is still used, so the gate never closes on you."],
+      "what": ["A two-colour gate holds two symbols: the first on the left and bigger. Its frame shows the colour it lets through next.", "At first only the first colour gets through, which uses up its pip. Then the second colour gets through too, and when it passes the gate opens for good. Other colours and bombs bump until then, and colour switches don't open it."],
+      "how": ["Send an arrow of the big symbol's colour first, then one of the small symbol's colour.", "If Remove arrow takes an arrow of the second colour whose path runs through the gate before the first colour has passed, its pip is still used: the gate then opens for good as soon as the first colour passes."],
       "notes": ["Level 251 introduces them with a single two-colour gate.", "In-game tip: \"Two-colour gate: big symbol goes first.\""],
       "figure": { "src": "/exitwise/wiki/img/two-colour-gate.webp", "alt": "Level 251 in the Crystal caves: a two-colour gate near the bottom of the board", "width": 720, "height": 1280, "caption": "Level 251 introduces two-colour gates." },
       "related": ["colour-gate", "paint-tile", "colour-switch"]
@@ -135,7 +135,7 @@
     {
       "slug": "colour-switch", "section": "traps", "name": "Colour switch", "firstLevel": 311,
       "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='9' width='34' height='32' rx='8' fill='#3B3355'/><circle cx='24' cy='24' r='11' fill='#6E44D6'/><circle cx='24' cy='22' r='11' fill='#8C5CF0'/><path d='M24 15.5l6.5 6.5-6.5 6.5-6.5-6.5z' fill='#fff'/></svg>",
-      "summary": "Opens every gate of its colour at once.",
+      "summary": "Opens every gate of its colour at once, but not two-colour gates.",
       "what": ["A colour switch is a dark square base with a round button in its colour, and that colour's symbol. It never blocks.", "The first arrow, or bomb on its way to its rock, that passes over it presses it: every one-colour gate of that colour on the board opens, wherever it is, and the switch is used up. Two-colour gates don't react to switches."],
       "how": ["A gate far away with no arrow of its colour in sight? Look for a switch of its colour on a free arrow's path.", "A switch earlier on an arrow's own path opens a gate further along that same path before the arrow gets there."],
       "notes": ["Level 311 introduces switches with one switch and its gate.", "In-game tip: \"A switch opens every gate of its colour.\""],
@@ -146,7 +146,7 @@
       "slug": "auto-play", "section": "powerups", "name": "Auto-play", "firstLevel": 5,
       "icon": "<svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='18' fill='#1C9FD8'/><path d='M20 15l12 9-12 9z' fill='#fff'/></svg>",
       "summary": "Plays a free arrow for you.",
-      "what": ["Auto-play picks an arrow that can leave right now and plays it for you."],
+      "what": ["Auto-play picks an arrow that can leave right now and plays it for you, so it never costs a heart. That can be a bomb whose path to its rock is clear. It never picks an arrow hidden under a shutter."],
       "how": ["Use it when you're stuck and don't want to spend a heart finding the way.", "A pack of 3 costs 100 coins in the shop. It's also a daily-challenge milestone reward."],
       "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
       "related": ["hints", "magic-wand", "leaderboards"]
@@ -154,8 +154,8 @@
     {
       "slug": "grid-lines", "section": "powerups", "name": "Grid lines", "firstLevel": 25,
       "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#3BB273'/><path d='M18 10v28M30 10v28M10 18h28M10 30h28' stroke='#fff' stroke-width='2.5'/></svg>",
-      "summary": "Shows every arrow's path for 5 seconds.",
-      "what": ["Grid lines draw each arrow's lane to the edge for 5 seconds of play, turning at mirrors and jumping through portals. Anything on a line blocks that arrow."],
+      "summary": "Shows the path of every arrow you can see, for 5 seconds.",
+      "what": ["Grid lines draw the lane of every arrow you can see, from its head to the edge, for 5 seconds of play, turning at mirrors and jumping through portals. A bomb's lane ends at the rock it will hit.", "A lane is drawn whatever is in the way: if an arrow, a rock, ice, a shutter or a gate of another colour stands on it, that arrow is blocked. Arrows hidden under a shutter get no lane, so the lines don't give them away."],
       "how": ["Use it on big boards to spot which arrows are free.", "A pack of 3 costs 150 coins."],
       "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
       "related": ["auto-play", "mirror", "board-shapes"]
@@ -163,17 +163,17 @@
     {
       "slug": "remove-arrow", "section": "powerups", "name": "Remove arrow", "firstLevel": 45,
       "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#FF6B6B'/><path d='M14 20h14l-4-6M28 20l-4 6' stroke='#fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M16 34l16-16' stroke='#fff' stroke-width='4' stroke-linecap='round'/></svg>",
-      "summary": "Removes any arrow, even a blocked one, without costing a heart.",
-      "what": ["Tap Remove arrow, then tap any arrow: it disappears, even if it was blocked, and you don't lose a heart. Whatever that arrow would have done on its way out still happens: bombs hit their rock, gates of its colour on its path open, and ice and shutters count down."],
+      "summary": "Removes any arrow you can see, even a blocked one, without costing a heart.",
+      "what": ["Tap Remove arrow, then tap any arrow you can see: it disappears, even if it was blocked, and you don't lose a heart.", "Whatever that arrow would have done on its way out still happens, all along its path, even past whatever blocked it: a bomb hits the first rock on its path, gates of its colour open (the colour it has there, after any paint tile), switches it passes are pressed, a two-colour gate uses up its pip, and every ice block and shutter counts down by one."],
       "how": ["Save it for the one arrow that blocks everything else.", "A pack of 3 costs 250 coins."],
-      "notes": ["It can't take an arrow hidden under a shutter.", "A run that uses a powerup doesn't go on the leaderboard."],
+      "notes": ["It never takes an arrow hidden under a shutter, even partly hidden, because you can't see it. Tapping the shutter only rattles it and tells you hidden arrows can't be removed: nothing is used, and Remove arrow stays ready for an arrow you can see.", "A run that uses a powerup doesn't go on the leaderboard."],
       "related": ["hearts", "magic-wand", "shutter"]
     },
     {
       "slug": "magic-wand", "section": "powerups", "name": "Magic wand", "firstLevel": 65,
       "icon": "<svg viewBox='0 0 48 48'><path d='M10 38l20-20' stroke='#8C5CF0' stroke-width='5' stroke-linecap='round'/><path d='M34 6l2.2 5.8L42 14l-5.8 2.2L34 22l-2.2-5.8L26 14l5.8-2.2z' fill='#F2B705'/></svg>",
       "summary": "Clears up to 5 free arrows at once.",
-      "what": ["The magic wand clears up to 5 arrows that are free to leave, all at once: the ones nearest the middle of the screen."],
+      "what": ["The magic wand clears up to 5 arrows that are free to leave, all at once: the ones nearest the middle of the screen. It never costs a heart.", "A bomb with a clear path to its rock counts as free and hits the rock. An arrow hidden under a shutter is never free, so the wand never takes one. Arrows the wand frees stay on the board for your next move."],
       "how": ["Use it on big boards to thin out the easy arrows quickly, or to count down ice and shutters fast.", "A pack of 3 costs 300 coins. It's also the reward for 25 daily challenges in a month."],
       "notes": ["The shop also sells a bundle with one of each powerup for 200 coins."],
       "related": ["auto-play", "ice", "daily-challenge"]
@@ -209,7 +209,7 @@
       "slug": "hints", "section": "basics", "name": "Hints", "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><path d='M24 6a12 12 0 0 0-7 21.7V32h14v-4.3A12 12 0 0 0 24 6z' fill='#F2B705'/><rect x='18' y='35' width='12' height='4' rx='2' fill='#B5890A'/></svg>",
       "summary": "Lights up an arrow that can leave right now.",
-      "what": ["A hint highlights an arrow whose path is clear. You get 3 free hints; after that a hint costs 30 coins, or, on Android, a short video."],
+      "what": ["A hint highlights an arrow whose path is clear, never one hidden under a shutter. You get 3 free hints; after that a hint costs 30 coins, or, on Android, a short video."],
       "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues."],
       "related": ["auto-play", "coins", "leaderboards"]
     },
