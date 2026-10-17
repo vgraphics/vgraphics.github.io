@@ -51,6 +51,7 @@
       "what": ["A mirror is one cell with a diagonal bar of glass, / or \\. It holds no arrow and blocks nothing: an arrow whose path reaches it turns 90 degrees there and carries on.", "A / turns a path heading right to go up, and one heading left to go down; a \\ turns right into down and left into up. A path can bend more than once, and the arrow is free if the bent path is clear to the edge."],
       "how": ["Follow the path, not the arrowhead: an arrow that looks blocked straight ahead may be free round the corner, and one that looks free may turn into a crowd.", "Grid lines (the powerup) draw the bent paths for you."],
       "notes": ["Mirrors first appear on level 61, three of them and nothing else; the tutorial taps an arrow that escapes round a bend.", "In-game tip: \"Mirrors turn arrows by 90 degrees.\""],
+      "figure": { "src": "/exitwise/img/3-mirrors.webp", "alt": "Level 61 in the Volcano world: three diagonal glass mirrors among the arrows", "width": 720, "height": 1280, "caption": "Level 61 introduces mirrors." },
       "related": ["portal", "grid-lines", "how-to-play"]
     },
     {
@@ -69,6 +70,7 @@
       "what": ["Portals come in pairs of one colour: a coloured rim round a dark hole, with the pair's symbol. An arrow whose path reaches one portal comes out of the other, going the same way, and carries on.", "Nothing rests on a portal and nothing is stopped by one. A pair's two cells are never in the same row or column."],
       "how": ["When a path reaches a portal, jump to its pair (same colour and symbol) and keep following the path from there.", "On a zoomed-in board the camera follows an escaping arrow through the portal, so you see where it comes out."],
       "notes": ["Level 101 introduces portals with a single pair. Later levels have up to 6 pairs, each in its own colour.", "In-game tip: \"Portals send arrows out of their pair.\""],
+      "figure": { "src": "/exitwise/img/4-portals.webp", "alt": "Level 101 in the Lagoon world: a pair of green portals on a cloud-shaped board", "width": 720, "height": 1280, "caption": "Level 101 introduces portals." },
       "related": ["mirror", "grid-lines", "colour-gate"]
     },
     {
@@ -78,6 +80,7 @@
       "what": ["Ice is one cell showing a number. It holds no arrow and stops every arrow, bombs too, and a bomb can't break it.", "Each time any arrow leaves the board, by a tap or a powerup, the number drops by one. At 0 the ice melts and the way is open."],
       "how": ["Arrows pointing at the ice have to wait: clear the other arrows first.", "The number is just big enough: the ice melts right as you run out of other arrows to clear, so spend your moves on the arrows that don't wait on it."],
       "notes": ["Level 131 introduces ice with one block counting from 5, and a tutorial that shows an arrow waiting on it.", "In-game tip: \"Ice melts as arrows leave.\""],
+      "figure": { "src": "/exitwise/wiki/img/ice.webp", "alt": "Level 131 in the Lagoon world: an ice cell showing 4 at the edge of the board", "width": 720, "height": 1280, "caption": "Level 131 introduces ice." },
       "related": ["shutter", "magic-wand", "hearts"]
     },
     {
@@ -96,6 +99,7 @@
       "what": ["A paint tile is a round splash of colour with that colour's symbol. It never blocks.", "An arrow that flies over it takes its colour and symbol for the rest of its path, so it can get through, and open, a gate of that colour further on. Bombs stay bombs. The paint stays for later arrows too."],
       "how": ["A gate with no arrow of its colour in sight? Look for a paint tile on some arrow's path in front of it.", "The tutorial shows an arrow of another colour picking up paint and opening a gate."],
       "notes": ["Level 191 introduces paint with one tile and the one gate only its paint opens.", "In-game tip: \"Paint gives an arrow its colour.\""],
+      "figure": { "src": "/exitwise/img/7-paint.webp", "alt": "Level 191 in the Autumn woods: blue paint tiles on a ring-shaped board", "width": 720, "height": 1280, "caption": "Level 191 introduces paint tiles." },
       "related": ["colour-gate", "two-colour-gate", "colour-switch"]
     },
     {
@@ -105,6 +109,7 @@
       "what": ["A shutter is a steel roller door over a rectangle of cells, 2×2 to 3×3 at first and up to 5 cells a side later, with a number on a plate. The arrows under it, even partly, are hidden and locked.", "No path gets through a shutter that's down. Each time any arrow leaves the board the number drops by one, and at 0 the shutter rolls up and shows what was underneath."],
       "how": ["Tapping a shutter only rattles it: it costs no heart.", "Powerups leave hidden arrows alone: Remove arrow can't take them, and hints, Auto-play and the wand never pick them.", "Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it."],
       "notes": ["Level 221 introduces shutters with one, counting from 5. Bigger ones arrive from levels 320 and 420.", "In-game tip: \"Shutters roll up as arrows leave.\""],
+      "figure": { "src": "/exitwise/img/5-shutters.webp", "alt": "Level 221 in the Crystal caves: a steel shutter with its number on a diamond-shaped board", "width": 720, "height": 1280, "caption": "Level 221 introduces shutters." },
       "related": ["ice", "remove-arrow", "hints"]
     },
     {
@@ -114,6 +119,7 @@
       "what": ["A two-colour gate holds two symbols: the first on the left and bigger. Its frame shows the colour it lets through next.", "At first only the first colour gets through, which uses up its pip. Then the second colour gets through too, and when it passes the gate opens for good. Other colours and bombs bump until then."],
       "how": ["Send an arrow of the big symbol's colour first, then one of the small symbol's colour.", "If a powerup removes an arrow of the second colour early, its pip is still used, so the gate never closes on you."],
       "notes": ["Level 251 introduces them with a single two-colour gate.", "In-game tip: \"Two-colour gate: big symbol goes first.\""],
+      "figure": { "src": "/exitwise/wiki/img/two-colour-gate.webp", "alt": "Level 251 in the Crystal caves: a two-colour gate near the bottom of the board", "width": 720, "height": 1280, "caption": "Level 251 introduces two-colour gates." },
       "related": ["colour-gate", "paint-tile", "colour-switch"]
     },
     {
@@ -123,6 +129,7 @@
       "what": ["A chain bomb is a bomb with a spark on every cell of its body, like a fuse. Its blast runs through every rock touching the one it hits, and on through the rocks touching those: each takes one hit.", "Rock walls are lines of 3 to 8 one-cell rocks, sometimes with one bend. One chain bomb opens the whole wall. A level-2 or level-3 rock in a wall takes one hit from the blast and needs bombs of its own for the rest."],
       "how": ["Find the chain bomb aimed at the wall and clear its path, like any bomb.", "Check the wall for dotted rocks: they need their own bombs as well."],
       "notes": ["Level 281 introduces walls with one wall of 4 or 5 rocks and its chain bomb. From level 282 every level has at least one wall, and hard levels one more."],
+      "figure": { "src": "/exitwise/img/6-chain.webp", "alt": "Level 281 in Clockwork town: a wall of rocks and its chain bomb beside the clock tower", "width": 720, "height": 1280, "caption": "Level 281 introduces chain bombs." },
       "related": ["rock", "bomb-arrow", "level-3-rock"]
     },
     {
@@ -132,6 +139,7 @@
       "what": ["A colour switch is a dark square base with a round button in its colour, and that colour's symbol. It never blocks.", "The first arrow, or bomb on its way to its rock, that passes over it presses it: every one-colour gate of that colour on the board opens, wherever it is, and the switch is used up. Two-colour gates don't react to switches."],
       "how": ["A gate far away with no arrow of its colour in sight? Look for a switch of its colour on a free arrow's path.", "A switch earlier on an arrow's own path opens a gate further along that same path before the arrow gets there."],
       "notes": ["Level 311 introduces switches with one switch and its gate.", "In-game tip: \"A switch opens every gate of its colour.\""],
+      "figure": { "src": "/exitwise/img/8-switches.webp", "alt": "Level 311 in Clockwork town: colour switches on a heart-shaped board", "width": 720, "height": 1280, "caption": "Level 311 introduces colour switches." },
       "related": ["colour-gate", "two-colour-gate", "paint-tile"]
     },
     {
@@ -176,7 +184,7 @@
       "summary": "Tap an arrow with a clear path. Clear the board.",
       "what": ["Every arrow points somewhere. Tap one and it slides off the board along its path, but only if nothing is in its way. The path runs straight on, except where a mirror turns it or a portal carries it across the board.", "Clear every arrow to win the level. Each arrow you clear can only free others, so a level can never become impossible."],
       "how": ["Start with arrows whose path to the edge is already empty.", "Big boards open zoomed in: pinch or scroll to zoom, and drag to move."],
-      "figure": { "src": "/exitwise/img/1-board.webp", "alt": "A Jungle level: an oval board packed with bendy arrows in six colours", "width": 720, "height": 1280, "caption": "Level 33, in the Jungle world." },
+      "figure": { "src": "/exitwise/img/1-board.webp", "alt": "Level 33 in the Jungle world: a zigzag board packed with bendy arrows in six colours", "width": 720, "height": 1280, "caption": "Level 33, in the Jungle world." },
       "related": ["hearts", "hints", "board-shapes"]
     },
     {
