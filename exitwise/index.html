@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exitwise: Arrow Escape Puzzle</title>
-  <meta name="description" content="Tap an arrow and it slides off the board, but only if nothing is in its way. A calm, colorful logic puzzle with hundreds of levels.">
+  <meta name="description" content="Tap an arrow and it slides off the board, but only if nothing is in its way. A calm, colorful logic puzzle with 600 levels in 17 worlds, bombs, mirrors, portals and more.">
   <meta name="theme-color" content="#F4EFE6">
   <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://vgraphics.gr/exitwise/">
@@ -12,7 +12,7 @@
   <link rel="apple-touch-icon" href="img/icon-512.png">
   <meta property="og:type" content="website">
   <meta property="og:title" content="Exitwise: Arrow Escape Puzzle">
-  <meta property="og:description" content="Slide every arrow off the board. A calm, colorful logic puzzle with hundreds of levels.">
+  <meta property="og:description" content="Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.">
   <meta property="og:url" content="https://vgraphics.gr/exitwise/">
   <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
   <meta name="twitter:card" content="summary_large_image">
@@ -137,6 +137,11 @@
     a.store small { color: var(--green); }
     a.store:hover, a.store:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 51, 85, 0.12); }
     .store small { color: var(--muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
+    /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
+    .gp { display: inline-flex; margin: -15px 0 -15px -15px; border-radius: 18px; transition: transform 120ms ease; }
+    .gp img { display: block; height: 90px; width: auto; }
+    .gp:hover, .gp:focus-visible { transform: translateY(-2px); }
+    .gp:focus-visible { outline: 3px solid var(--blue); outline-offset: -12px; }
 
     /* Playable board */
     .play { animation: rise 800ms 200ms cubic-bezier(.2, .8, .2, 1) both; }
@@ -277,6 +282,23 @@
     .features li { display: flex; gap: 14px; align-items: flex-start; }
     .features svg { flex: none; margin-top: 4px; }
     .features b { display: block; font-weight: 800; }
+    .intro { max-width: 40em; margin: -12px 0 28px; color: var(--muted); }
+
+    /* A new obstacle every few worlds: one card each, linking to its wiki entry */
+    .twists { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(250px, 1fr)); gap: 14px; }
+    .twists a {
+      display: grid; grid-template-columns: 56px 1fr; gap: 14px; align-items: center;
+      padding: 14px 16px; border-radius: 22px; background: var(--card); border: 1px solid var(--line);
+      color: var(--ink); text-decoration: none; height: 100%;
+      transition: transform 150ms ease, box-shadow 150ms ease;
+    }
+    .twists a:hover, .twists a:focus-visible { transform: translateY(-3px) rotate(-0.4deg); box-shadow: 0 16px 28px -18px rgba(59, 51, 85, 0.5); }
+    .twists .pic { width: 56px; height: 56px; border-radius: 16px; background: var(--board); display: grid; place-items: center; }
+    .twists svg { width: 40px; height: 40px; }
+    .twists b { display: block; font: 400 1.2rem/1.15 var(--display); }
+    .twists span span { display: block; color: var(--muted); font-size: 0.95rem; line-height: 1.4; }
+    .twists .lvl { display: inline-block; margin-bottom: 4px; padding: 1px 9px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 800; font-size: 0.72rem; letter-spacing: 0.04em; }
+    .more { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; font-weight: 800; }
 
     footer {
       max-width: 1120px;
@@ -301,6 +323,8 @@
     }
     @media (max-width: 560px) {
       body { font-size: 17px; }
+      .top .brand { flex: none; }
+      .subnav .wide-only { display: none; }
       .steps, .features { grid-template-columns: 1fr; }
       .store { min-width: 0; flex: 1 1 140px; }
       .board-card { padding: 14px 12px 6px; border-radius: 26px; }
@@ -318,7 +342,7 @@
       <a href="/exitwise/" aria-current="page">Overview</a>
       <a href="/exitwise/wiki/">Wiki</a>
       <a href="privacy.html">Privacy</a>
-      <a href="map-rules.html">Map rules</a>
+      <a class="wide-only" href="map-rules.html">Map rules</a>
     </nav>
   </header>
 
@@ -328,9 +352,9 @@
         <img class="app-icon" src="img/icon-512.png" alt="" width="84" height="84">
         <h1>Exitwise</h1>
         <p class="kicker">Arrow Escape Puzzle</p>
-        <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, hundreds of levels.</p>
+        <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.</p>
         <div class="stores" aria-label="Where to play">
-          <span class="store"><b>Google Play</b><small>Coming soon</small></span>
+          <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
           <span class="store"><b>App Store</b><small>Coming soon</small></span>
           <a class="store" href="play/"><b>Play in your browser</b><small>Play now, free</small></a>
         </div>
@@ -359,11 +383,13 @@
     <section class="block">
       <h2>A peek inside</h2>
       <div class="shots">
-        <img src="img/1-board.png" alt="A board full of colorful bendy arrows" width="1080" height="1920" loading="lazy">
-        <img src="img/2-action.png" alt="An arrow sliding off the board" width="1080" height="1920" loading="lazy">
-        <img src="img/3-giant.png" alt="A giant board with hundreds of arrows" width="1080" height="1920" loading="lazy">
-        <img src="img/4-mistake.png" alt="A blocked arrow bumping into its neighbor" width="1080" height="1920" loading="lazy">
-        <img src="img/5-win.png" alt="The level complete screen" width="1080" height="1920" loading="lazy">
+        <img src="img/1-board.webp" alt="Tap an arrow to set it free: a Jungle level packed with bendy arrows" width="720" height="1280" loading="lazy">
+        <img src="img/2-map.webp" alt="Explore 17 colorful worlds: the level map in Candy land" width="720" height="1280" loading="lazy">
+        <img src="img/3-shapes.webp" alt="Boards in every shape: a heart-shaped board in the Volcano world" width="720" height="1280" loading="lazy">
+        <img src="img/4-giant.webp" alt="500+ levels, ever trickier: a giant hard level at night" width="720" height="1280" loading="lazy">
+        <img src="img/5-bombs.webp" alt="Blast rocks with bomb arrows: rocks, bombs and colour gates on a Lagoon level" width="720" height="1280" loading="lazy">
+        <img src="img/6-daily.webp" alt="A new puzzle every day: the daily challenge calendar with monthly rewards" width="720" height="1280" loading="lazy">
+        <img src="img/7-win.webp" alt="Earn coins on every level: the Level complete card" width="720" height="1280" loading="lazy">
       </div>
     </section>
 
@@ -377,15 +403,41 @@
       </ol>
     </section>
 
+    <section class="block" aria-labelledby="twists-title">
+      <h2 id="twists-title">A new twist every few worlds</h2>
+      <p class="intro">From level 21 a new obstacle arrives every 20 to 30 levels and then stays, mixed in with the ones before it. Each one starts on an easy level built to teach it, with a hand that shows you the move.</p>
+      <ol class="twists">
+        <li><a href="/exitwise/wiki/bomb-arrow/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="20" cy="28" r="12" fill="#2F2B38"/><path d="M27 18l6-6" stroke="#2F2B38" stroke-width="4" stroke-linecap="round"/><path d="M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z" fill="#FF922B"/><circle cx="16" cy="24" r="3" fill="#5A5466"/></svg></span><span><small class="lvl">Level 21</small><b>Rocks &amp; bombs</b><span>Clear the arrow guarding a bomb's path, then blast its rock.</span></span></a></li>
+        <li><a href="/exitwise/wiki/colour-gate/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="8" y="8" width="32" height="32" rx="8" fill="#1C9FD8"/><rect x="14" y="14" width="20" height="20" rx="4" fill="none" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="#fff"/></svg></span><span><small class="lvl">Level 41</small><b>Colour gates</b><span>Only their own colour gets through, then they open.</span></span></a></li>
+        <li><a href="/exitwise/wiki/mirror/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="7" width="34" height="34" rx="8" fill="#EAF4F8" stroke="#C9DCE4" stroke-width="2"/><path d="M14 34L34 14" stroke="#4A5568" stroke-width="9" stroke-linecap="round"/><path d="M14 34L34 14" stroke="#BFE6F5" stroke-width="5" stroke-linecap="round"/><path d="M4 24h20V9" fill="none" stroke="#1C9FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 1l-6 8h12z" fill="#1C9FD8"/></svg></span><span><small class="lvl">Level 61</small><b>Mirrors</b><span>Turn an arrow's path by 90 degrees.</span></span></a></li>
+        <li><a href="/exitwise/wiki/level-2-rock/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 34l5-15 11-7 12 8 3 14-14 5z" fill="#6E665E"/><path d="M14 19l11-7 12 8-11 4z" fill="#857C72"/><path d="M26 24l11-4 3 14-14 5z" fill="#57504A"/><circle cx="20" cy="33" r="3" fill="#fff" stroke="#3B3355" stroke-width="1.5"/><circle cx="28.5" cy="32" r="3" fill="#fff" stroke="#3B3355" stroke-width="1.5"/></svg></span><span><small class="lvl">Level 81</small><b>Level-2 rocks</b><span>Two bombs, usually from two sides.</span></span></a></li>
+        <li><a href="/exitwise/wiki/portal/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="15" cy="32" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M15 27.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/><circle cx="34" cy="15" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M34 10.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/></svg></span><span><small class="lvl">Level 101</small><b>Portals</b><span>In one, out of its pair, across the board.</span></span></a></li>
+        <li><a href="/exitwise/wiki/ice/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="7" width="34" height="34" rx="8" fill="#CFEFFB" stroke="#7CC6E6" stroke-width="3"/><path d="M13 13l5 3" stroke="#fff" stroke-width="2.5" stroke-linecap="round"/><path d="M29 15H19v8h10v9H19" fill="none" stroke="#1B4F8A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small class="lvl">Level 131</small><b>Ice</b><span>Melts as arrows leave. Its number is just enough.</span></span></a></li>
+        <li><a href="/exitwise/wiki/level-3-rock/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><path d="M9 34l5-15 11-7 12 8 3 14-14 5z" fill="#5C554E"/><path d="M14 19l11-7 12 8-11 4z" fill="#746B62"/><path d="M26 24l11-4 3 14-14 5z" fill="#47413C"/><circle cx="17" cy="32" r="3" fill="#fff" stroke="#2F2B38" stroke-width="1.5"/><circle cx="24.5" cy="34" r="3" fill="#fff" stroke="#2F2B38" stroke-width="1.5"/><circle cx="32" cy="31" r="3" fill="#fff" stroke="#2F2B38" stroke-width="1.5"/></svg></span><span><small class="lvl">Level 161</small><b>Level-3 rocks</b><span>The toughest stone: three bomb hits.</span></span></a></li>
+        <li><a href="/exitwise/wiki/paint-tile/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><g fill="#F2B705"><circle cx="24" cy="24" r="13"/><circle cx="36" cy="25" r="5"/><circle cx="14" cy="30" r="5"/><circle cx="9" cy="16" r="3.5"/><circle cx="39" cy="12" r="3"/><circle cx="40" cy="36" r="3"/><circle cx="12" cy="39" r="2.5"/></g><path d="M24 16l7.5 13h-15z" fill="#fff"/></svg></span><span><small class="lvl">Level 191</small><b>Paint tiles</b><span>Fly over one and take its colour.</span></span></a></li>
+        <li><a href="/exitwise/wiki/shutter/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="5" y="7" width="38" height="34" rx="5" fill="#9AA3AE"/><path d="M5 14h38M5 21h38M5 28h38M5 35h38" stroke="#7B8590" stroke-width="2"/><rect x="16" y="17" width="16" height="15" rx="3" fill="#2F2B38"/><path d="M21 21h6v3.5h-5m5 0V28h-6" fill="none" stroke="#F2F4F6" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span><span><small class="lvl">Level 221</small><b>Shutters</b><span>Hide the arrows under them until they roll up.</span></span></a></li>
+        <li><a href="/exitwise/wiki/two-colour-gate/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="7" width="34" height="34" rx="8" fill="#1C9FD8"/><rect x="12" y="12" width="24" height="24" rx="5" fill="#FFFDF8"/><circle cx="20" cy="24" r="5.5" fill="#1C9FD8"/><path d="M31 20l4.5 8h-9z" fill="#F2B705"/></svg></span><span><small class="lvl">Level 251</small><b>Two-colour gates</b><span>Two colours, and the big symbol goes first.</span></span></a></li>
+        <li><a href="/exitwise/wiki/chain-bomb/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="4" y="5" width="13" height="12" rx="3" fill="#8E857B"/><rect x="17" y="5" width="13" height="12" rx="3" fill="#A8A096"/><rect x="30" y="5" width="13" height="12" rx="3" fill="#8E857B"/><circle cx="20" cy="33" r="10" fill="#2F2B38"/><path d="M26 25l4-5" stroke="#2F2B38" stroke-width="3.5" stroke-linecap="round"/><g fill="#FF922B"><circle cx="32" cy="19" r="2.5"/><circle cx="9" cy="31" r="2"/><circle cx="32" cy="37" r="2"/><circle cx="20" cy="45" r="2"/></g></svg></span><span><small class="lvl">Level 281</small><b>Chain bombs &amp; rock walls</b><span>One blast runs along a whole wall.</span></span></a></li>
+        <li><a href="/exitwise/wiki/colour-switch/"><span class="pic"><svg viewBox="0 0 48 48" aria-hidden="true"><rect x="7" y="9" width="34" height="32" rx="8" fill="#3B3355"/><circle cx="24" cy="24" r="11" fill="#6E44D6"/><circle cx="24" cy="22" r="11" fill="#8C5CF0"/><path d="M24 15.5l6.5 6.5-6.5 6.5-6.5-6.5z" fill="#fff"/></svg></span><span><small class="lvl">Level 311</small><b>Colour switches</b><span>Press one to open every gate of its colour.</span></span></a></li>
+      </ol>
+      <a class="more" href="/exitwise/wiki/">Every obstacle and powerup in the wiki →</a>
+    </section>
+
     <section class="block">
       <h2>Why you'll love it</h2>
       <ul class="features">
         <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#1C9FD8" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#1C9FD8" stroke="#1C9FD8" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Easy to learn</b>One tap, one rule.</span></li>
-        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#3BB273" stroke="#3BB273" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Hundreds of levels</b>From small warm-ups to giant 100&times;100 brain-teasers.</span></li>
-        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#F2B705" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#F2B705" stroke="#F2B705" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Always solvable</b>No luck, just logic.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#3BB273" stroke="#3BB273" stroke-width="3" stroke-linejoin="round"/></svg><span><b>600 levels</b>Harder all the way, with a hard level every 10th, from small warm-ups to giant 100&times;100 brain-teasers.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#F2B705" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#F2B705" stroke="#F2B705" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Always solvable</b>No luck, just logic. Every player gets the same levels.</span></li>
         <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF922B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF922B" stroke="#FF922B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Play at your own pace</b>Think first, then tap.</span></li>
         <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF6B6B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF6B6B" stroke="#FF6B6B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Hints when you're stuck</b>Light up an arrow that's free to go.</span></li>
         <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#8C5CF0" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#8C5CF0" stroke="#8C5CF0" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Plays offline</b>On the commute, on a break, anywhere.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#1C9FD8" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#1C9FD8" stroke="#1C9FD8" stroke-width="3" stroke-linejoin="round"/></svg><span><b>17 worlds, 49 shapes</b>From Meadow to Starlight on one level map, on boards shaped like hexagons, spirals, rockets and castles.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#3BB273" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#3BB273" stroke="#3BB273" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Daily challenge</b>One new board a day, the same for everyone, with monthly rewards.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#F2B705" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#F2B705" stroke="#F2B705" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Play with friends</b>Race 2 to 8 players on the same boards with a room code.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF922B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF922B" stroke="#FF922B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Custom maps</b>Build your own levels, share them, and play everyone else's.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#FF6B6B" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#FF6B6B" stroke="#FF6B6B" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Leaderboards</b>A board for every level, plus global ranks for progress, perfect clears and maps.</span></li>
+        <li><svg width="30" height="30" viewBox="0 0 30 30" aria-hidden="true"><path d="M5 15h14" stroke="#8C5CF0" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="#8C5CF0" stroke="#8C5CF0" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Powerups</b>Auto-play, grid lines, remove arrow and the magic wand, for the toughest boards.</span></li>
       </ul>
     </section>
   </main>
@@ -395,7 +447,7 @@
     <a href="privacy.html">Privacy policy</a>
     <a href="map-rules.html">Map rules</a>
     <a href="mailto:gvergidis90@gmail.com">Contact</a>
-    <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </footer>
 
   <script>
@@ -481,7 +533,7 @@
         a.g.remove();
         if (!alive.size) {
           over = true;
-          setTimeout(() => showOverlay("Board clear!", "That's Exitwise. The full game has hundreds of levels, up to 100×100.", "Play again"), 250);
+          setTimeout(() => showOverlay("Board clear!", "That's Exitwise. The full game has 600 levels, up to 100×100.", "Play again"), 250);
         }
         return;
       }

@@ -1,26 +1,34 @@
 {
   "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png" },
   "title": "Speedometer wiki",
-  "intro": "Every gauge, light and setting on your dashboard: what it shows, and how to set it up.",
-  "source": "Written from the app's Info and Settings screens (branch speedometer-plan-3, 2026-10-16). Later generated from the app's own strings.",
+  "intro": "Every gauge, light, design and setting on your dashboard: what it shows, and how to set it up.",
+  "source": "Written from the app's Info, Settings and Designs screens and docs/speedometer-wallpaper.md (Games main 39aa208, 2026-10-17: version 2.0.0 with the Future design). Later generated from the app's own strings.",
   "nav": [
     { "label": "Overview", "href": "/speedometer-wallpaper/" },
     { "label": "Wiki", "href": "/speedometer-wallpaper/wiki/", "current": true },
     { "label": "Privacy", "href": "/speedometer-wallpaper/privacy.html" }
   ],
   "sections": [
-    { "id": "big", "title": "The big gauge", "intro": "The dial in the middle. It shows one of three things; pick it in Settings or tap it on your home screen." },
+    { "id": "big", "title": "The big gauge", "intro": "The dial in the middle. It shows one of three things; pick it in Settings, tap it on your home screen, or use the Big gauge tile." },
     { "id": "gauges", "title": "Small gauges", "intro": "The four dials around it, and the little temperature dial." },
     { "id": "lights", "title": "Warning lights", "intro": "Lights on the big gauge and the small gauges. Each warning light can be switched off in Settings." },
-    { "id": "setup", "title": "Clock, settings & help", "intro": "The digital clock, every setting, and answers to common questions." }
+    { "id": "setup", "title": "Clock, settings & help", "intro": "The digital clock, every setting, and answers to common questions." },
+    { "id": "designs", "title": "Designs", "intro": "Classic is free. Future, the 2016 chrome cluster, is a one-time €0.99 purchase. Switch between them on the Designs screen." }
   ],
   "entries": [
     {
       "slug": "big-gauge", "section": "big", "name": "The big gauge", "image": "/speedometer-wallpaper/img/dial-speed.webp",
       "summary": "One dial, three jobs: power, CPU clock or GPS speed.",
       "what": ["The big gauge shows one of three things: power, CPU clock or GPS speed. The digits above the needle show the same value as the needle."],
-      "how": ["Pick the mode in Settings → Big gauge → Mode, or tap the gauge on your home screen to switch."],
-      "related": ["power", "cpu-clock", "gps-speed", "date-and-time"]
+      "how": ["Pick the mode in Settings → Big gauge → Mode, tap the gauge on your home screen, or use the Big gauge tile in Quick Settings to switch."],
+      "related": ["power", "cpu-clock", "gps-speed", "big-gauge-tile"]
+    },
+    {
+      "slug": "big-gauge-tile", "section": "big", "name": "Big gauge tile", "image": "/speedometer-wallpaper/img/dial-power.webp",
+      "summary": "A Quick Settings tile that switches the big gauge on any phone.",
+      "what": ["Some launchers, Samsung's included, don't pass taps on to the wallpaper, so tapping the big gauge does nothing there. The Big gauge tile in Quick Settings switches the mode on every phone, in the same order: power, CPU clock, GPS speed.", "Its subtitle shows the mode the gauge is in now. It skips modes your phone can't show, like CPU clock on phones that don't allow reading it."],
+      "how": ["On Android 13 and later, Settings offers to add the tile for you.", "Or open the Quick Settings editor and drag Big gauge into your tiles."],
+      "related": ["big-gauge", "settings"]
     },
     {
       "slug": "power", "section": "big", "name": "Power mode", "image": "/speedometer-wallpaper/img/dial-power.webp",
@@ -132,15 +140,53 @@
       "slug": "settings", "section": "setup", "name": "Settings", "image": "/speedometer-wallpaper/wiki/img/settings.webp",
       "summary": "Everything you can change.",
       "what": ["Open the app and tap Settings. You'll find:"],
-      "how": ["Big gauge: the mode (power, CPU clock or GPS speed) and the speed unit (km/h or mph).", "Date and time: time format, time separator, seconds, date order and date separator.", "Leds: switch each warning light on or off, and set the low battery level and the low and high temperatures."],
-      "related": ["big-gauge", "date-and-time", "low-battery-light"]
+      "how": ["Design: opens the Designs screen, and Music, calls and messages turns on notification access for the Future design.", "Big gauge: the mode (power, CPU clock or GPS speed) and the speed unit (km/h or mph).", "Date and time: time format, time separator, seconds, date order and date separator.", "Leds: switch each warning light on or off, and set the low battery level and the low and high temperatures.", "Privacy: Ad choices (where your region requires it) and the privacy policy."],
+      "related": ["big-gauge", "designs-screen", "date-and-time", "low-battery-light"]
     },
     {
       "slug": "set-as-wallpaper", "section": "setup", "name": "Setting it as your wallpaper", "image": "/speedometer-wallpaper/img/shot-home.webp",
       "summary": "Two taps from the app, and how to get it back.",
       "what": ["Open the app and tap Set wallpaper, then confirm on the preview. The dashboard is now your home-screen wallpaper."],
       "how": ["If you force-stop the app or clear its data, Android puts your old wallpaper back. Open the app and tap Set wallpaper again.", "The wallpaper never shows ads."],
-      "related": ["settings", "gps-speed"]
+      "notes": ["Speedometer Live Wallpaper is for Android phones and tablets only: iPhones don't allow live wallpapers from other apps."],
+      "related": ["settings", "designs-screen"]
+    },
+    {
+      "slug": "designs-screen", "section": "designs", "name": "The Designs screen", "image": "/speedometer-wallpaper/img/designs.webp",
+      "summary": "Swipe through the designs, use one, or buy Future.",
+      "what": ["Open the app and tap Designs. Each design is shown as a preview drawn by the wallpaper itself at your phone's shape, with its name, a short description and its status: In use, Free, Owned or its price."],
+      "how": ["Tap Use this design to switch: the wallpaper changes at once.", "Tap Buy for €0.99 to buy Future through Google Play."],
+      "notes": ["If a payment is still pending, or Google Play isn't available, the screen tells you."],
+      "related": ["classic-design", "future-design", "restoring-future"]
+    },
+    {
+      "slug": "classic-design", "section": "designs", "name": "Classic design", "image": "/speedometer-wallpaper/img/shot-kmh.webp",
+      "summary": "Free: the 2016 dashboard with five gauges, four lights and an LCD clock.",
+      "what": ["Classic is the original 2016 dashboard on a brushed-metal background: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and the LCD clock.", "It's free and it's the design you start with. It never asks for notification access."],
+      "related": ["big-gauge", "future-design", "designs-screen"]
+    },
+    {
+      "slug": "future-design", "section": "designs", "name": "Future design", "image": "/speedometer-wallpaper/img/future-power.webp",
+      "summary": "The 2016 chrome cluster, rebuilt, for €0.99.",
+      "what": ["Future is one big chrome dial that follows the same three modes as Classic (power, CPU clock or GPS speed), with the value in its blue glass hub and battery and RAM arcs at the bottom.", "Above it, the clock and date. Below it, the music area, the Bluetooth and Wi-Fi status, and how many calls you missed and messages you haven't read.", "In landscape, on tablets and unfolded foldables, it becomes the 2016 two-dial cluster: the big gauge on the left, mobile signal and battery temperature on the right, music in the middle."],
+      "how": ["Buy it once on the Designs screen for €0.99. It's a one-time purchase, not a subscription.", "Tap the dial, or use the Big gauge tile, to switch its mode.", "The music and the call and message counts need notification access."],
+      "related": ["music-calls-messages", "restoring-future", "big-gauge-tile"]
+    },
+    {
+      "slug": "music-calls-messages", "section": "designs", "name": "Music, calls and messages", "image": "/speedometer-wallpaper/img/future-kmh.webp",
+      "summary": "On Future: the song that's playing, missed calls and new messages.",
+      "what": ["Future shows the song that's playing, with its cover and the media volume, and how many calls you missed and messages you haven't read.", "For that, Android has to give the app notification access. Android warns that an app with it could read all your notifications: this one only reads the song that's playing and counts missed calls and messages. Nothing leaves your phone."],
+      "how": ["The app asks after you pick or buy Future. You can also go to Settings → Design → Music, calls and messages and tap Open Android settings.", "Without access, the music area reads MUSIC AND CALLS ARE OFF: the volume bar still works and the counts are hidden.", "You can turn the access off any time in Android's settings."],
+      "notes": ["Calls and messages are counted from their notifications, never from your call log or your messages. Classic never asks for notification access."],
+      "related": ["future-design", "settings"]
+    },
+    {
+      "slug": "restoring-future", "section": "designs", "name": "Restoring Future on a new phone", "image": "/speedometer-wallpaper/img/designs.webp",
+      "summary": "Bought once, back by itself on any phone with the same Google account.",
+      "what": ["Future is a one-time purchase tied to your Google account. The app checks your purchases with Google Play every time you open it, so on a new phone signed in with the same account, Future comes back by itself."],
+      "how": ["Install the app on the new phone, open it once, then pick Future on the Designs screen.", "Your purchase is also remembered on the phone, so the wallpaper never waits for Google Play."],
+      "notes": ["A refunded purchase is removed the next time the app checks."],
+      "related": ["future-design", "designs-screen"]
     }
   ]
 }

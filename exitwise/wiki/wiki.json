@@ -1,45 +1,138 @@
 {
   "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png" },
   "title": "Exitwise wiki",
-  "intro": "Every trap, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
-  "source": "Written from the game on main (44cadf9, 2026-10-16). Later generated from Core's WikiCatalog.",
+  "intro": "Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
+  "source": "Written from the game on main (39aa208, 2026-10-17: the update with mirrors, portals, ice, shutters, the colour family and chain bombs). Later generated from Core's WikiCatalog.",
+  "figureTitle": "In the game",
   "nav": [
     { "label": "Overview", "href": "/exitwise/" },
     { "label": "Wiki", "href": "/exitwise/wiki/", "current": true },
     { "label": "Privacy", "href": "/exitwise/privacy.html" }
   ],
   "sections": [
-    { "id": "traps", "title": "Traps & obstacles", "intro": "Things on the board that get in your arrows' way, and the arrows that deal with them." },
+    { "id": "traps", "title": "Obstacles", "intro": "Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it." },
     { "id": "powerups", "title": "Powerups", "intro": "One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop." },
-    { "id": "basics", "title": "Basics", "intro": "How the game works: hearts, coins, hints, hard levels and more." }
+    { "id": "basics", "title": "Basics", "intro": "How the game works: hearts, coins, hints, hard levels, worlds, and the ways to play with others." }
   ],
   "entries": [
     {
       "slug": "rock", "section": "traps", "name": "Rock", "firstLevel": 21,
       "icon": "<svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#8E857B'/><path d='M14 19l11-7 12 8-11 4z' fill='#A8A096'/><path d='M26 24l11-4 3 14-14 5z' fill='#766D64'/></svg>",
-      "summary": "Stops every arrow. Only a bomb can clear it.",
-      "what": ["A rock holds no arrow and stops every arrow that runs into it. It stays there until a bomb arrow aimed at it blows it up."],
-      "how": ["Look for the bomb arrow whose path leads to the rock.", "Free the bomb's path first, then tap the bomb.", "Until the rock is gone, plan around it: any arrow pointing at it is blocked."],
-      "notes": ["Rocks first appear on level 21, two single rocks. They get more common until level 70."],
-      "related": ["bomb-arrow", "colour-gate", "hearts"]
+      "summary": "Stops every arrow until its bombs blow it up.",
+      "what": ["A rock is 1 to 4 connected cells that hold no arrow and stop every arrow that runs into it. It stays until the bomb arrows aimed at it have hit it.", "Arrows may point straight at a rock: they're blocked until it's gone."],
+      "how": ["Find the bomb whose path leads to the rock.", "Clear the arrows in the bomb's way first, then tap the bomb.", "Until then, plan around the rock: any arrow pointing at it bumps and costs a heart."],
+      "notes": ["Rocks first appear on level 21, where a short tutorial walks you through clearing a bomb's path and firing it.", "Tougher rocks come later: level-2 rocks from level 81, level-3 rocks from 161, and whole rock walls from 281."],
+      "figure": { "src": "/exitwise/img/5-bombs.webp", "alt": "A Lagoon board with grey rocks, charcoal bomb arrows and colour gates among the arrows", "width": 720, "height": 1280, "caption": "Rocks, bombs and colour gates on a Lagoon level." },
+      "related": ["bomb-arrow", "level-2-rock", "chain-bomb", "hearts"]
     },
     {
       "slug": "bomb-arrow", "section": "traps", "name": "Bomb arrow", "firstLevel": 21,
       "icon": "<svg viewBox='0 0 48 48'><circle cx='20' cy='28' r='12' fill='#2F2B38'/><path d='M27 18l6-6' stroke='#2F2B38' stroke-width='4' stroke-linecap='round'/><path d='M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z' fill='#FF922B'/><circle cx='16' cy='24' r='3' fill='#5A5466'/></svg>",
-      "summary": "Flies to the first rock on its path and blows it up.",
-      "what": ["A bomb arrow is drawn in charcoal with a lit spark. When you tap it, it flies along its path to the first rock and blows that rock up.", "Bombs have no colour, so colour gates stop them."],
-      "how": ["Tap the bomb once its path to the rock is clear.", "Use it to open the way for the arrows that were stuck behind the rock."],
-      "notes": ["In-game tip: \"Tap a bomb to blow up its rock.\""],
-      "related": ["rock", "colour-gate"]
+      "summary": "Flies to its rock and blows it up, once its path is clear.",
+      "what": ["A bomb arrow is drawn in charcoal (pale grey on night boards) with a flickering orange spark at its tip. Tap it and it flies along its path to the first rock and hits it.", "No bomb starts free: every bomb has a guard, an arrow standing on its path between the bomb and its rock. Clear the guard first, and whatever holds the guard up.", "Bombs have no colour, so arrows and closed colour gates stop them. A blocked bomb bumps like any arrow and costs a heart."],
+      "how": ["Trace the bomb's path to its rock and find the arrow in the way.", "Free that arrow, then tap the bomb.", "Each bomb hits once: a level-2 or level-3 rock needs that many bombs, usually from different sides."],
+      "notes": ["The level-21 tutorial points out a rock (\"New: rocks and bombs\"), then the arrow in a bomb's way, then the bomb."],
+      "figure": { "src": "/exitwise/img/5-bombs.webp", "alt": "A Lagoon board with charcoal bomb arrows aimed at grey rocks", "width": 720, "height": 1280, "caption": "Bomb arrows and their rocks on a Lagoon level." },
+      "related": ["rock", "chain-bomb", "colour-gate", "colour-switch"]
     },
     {
       "slug": "colour-gate", "section": "traps", "name": "Colour gate", "firstLevel": 41,
       "icon": "<svg viewBox='0 0 48 48'><rect x='8' y='8' width='32' height='32' rx='8' fill='#1C9FD8'/><rect x='14' y='14' width='20' height='20' rx='4' fill='none' stroke='#fff' stroke-width='3'/><circle cx='24' cy='24' r='4' fill='#fff'/></svg>",
-      "summary": "Lets only arrows of its own colour through, then opens.",
-      "what": ["A gate is one cell in an arrow colour. An arrow of the same colour passes through it and the gate opens; after that it lets every arrow through.", "Arrows of any other colour, and bombs, bump into a closed gate. Each gate also shows a symbol, so you can match it without relying on colour."],
-      "how": ["Find the arrow with the gate's colour and symbol, and send it through first.", "Once the gate is open, every arrow can pass."],
-      "notes": ["Gates first appear on level 41. They come in blue and yellow, plus purple from level 101.", "In-game tip: \"Only a gate's own colour gets through.\""],
-      "related": ["rock", "bomb-arrow", "hearts"]
+      "summary": "Lets only its own colour through, then opens for good.",
+      "what": ["A gate is one cell in blue or yellow (purple from level 101), drawn as a coloured frame with a symbol: a circle, a triangle or a diamond, so you can match it without relying on colour.", "An arrow of the gate's colour passes through and the gate opens behind it for good; after that every arrow gets through. Arrows of other colours, and bombs, bump into a closed gate."],
+      "how": ["Find the arrow with the gate's colour and symbol, and send it through first.", "Later obstacles open gates too: a paint tile can give an arrow the gate's colour, and a colour switch opens every gate of its colour at once."],
+      "notes": ["Gates first appear on level 41, with one gate and a free arrow of its colour heading through it.", "In-game tip: \"Only a gate's own colour gets through.\""],
+      "related": ["paint-tile", "two-colour-gate", "colour-switch", "bomb-arrow"]
+    },
+    {
+      "slug": "mirror", "section": "traps", "name": "Mirror", "firstLevel": 61,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#EAF4F8' stroke='#C9DCE4' stroke-width='2'/><path d='M14 34L34 14' stroke='#4A5568' stroke-width='9' stroke-linecap='round'/><path d='M14 34L34 14' stroke='#BFE6F5' stroke-width='5' stroke-linecap='round'/><path d='M4 24h20V9' fill='none' stroke='#1C9FD8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><path d='M24 1l-6 8h12z' fill='#1C9FD8'/></svg>",
+      "summary": "Turns an arrow's path by 90 degrees.",
+      "what": ["A mirror is one cell with a diagonal bar of glass, / or \\. It holds no arrow and blocks nothing: an arrow whose path reaches it turns 90 degrees there and carries on.", "A / turns a path heading right to go up, and one heading left to go down; a \\ turns right into down and left into up. A path can bend more than once, and the arrow is free if the bent path is clear to the edge."],
+      "how": ["Follow the path, not the arrowhead: an arrow that looks blocked straight ahead may be free round the corner, and one that looks free may turn into a crowd.", "Grid lines (the powerup) draw the bent paths for you."],
+      "notes": ["Mirrors first appear on level 61, three of them and nothing else; the tutorial taps an arrow that escapes round a bend.", "In-game tip: \"Mirrors turn arrows by 90 degrees.\""],
+      "related": ["portal", "grid-lines", "how-to-play"]
+    },
+    {
+      "slug": "level-2-rock", "section": "traps", "name": "Level-2 rock", "firstLevel": 81,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#6E665E'/><path d='M14 19l11-7 12 8-11 4z' fill='#857C72'/><path d='M26 24l11-4 3 14-14 5z' fill='#57504A'/><circle cx='20' cy='33' r='3' fill='#fff' stroke='#3B3355' stroke-width='1.5'/><circle cx='28.5' cy='32' r='3' fill='#fff' stroke='#3B3355' stroke-width='1.5'/></svg>",
+      "summary": "A tougher rock that takes two bomb hits.",
+      "what": ["A level-2 rock is darker stone with two white dots, one for each hit it still needs. Each bomb that hits it cracks it and takes a dot away; the second hit breaks it.", "Its two bombs come from different arrows and, where the board allows, from different sides."],
+      "how": ["Count the dots: that's how many bombs you still have to free.", "Look for the second bomb on another side of the rock before you plan the arrows behind it."],
+      "notes": ["Level 81 introduces them with two level-2 rocks and nothing else. After that about 15% of rocks are level 2, rising to 30% by level 160, and twice that share on hard levels."],
+      "related": ["rock", "level-3-rock", "bomb-arrow"]
+    },
+    {
+      "slug": "portal", "section": "traps", "name": "Portal", "firstLevel": 101,
+      "icon": "<svg viewBox='0 0 48 48'><circle cx='15' cy='32' r='10' fill='#2F2B38' stroke='#8C5CF0' stroke-width='4'/><path d='M15 27.5l4.5 4.5-4.5 4.5-4.5-4.5z' fill='#8C5CF0'/><circle cx='34' cy='15' r='10' fill='#2F2B38' stroke='#8C5CF0' stroke-width='4'/><path d='M34 10.5l4.5 4.5-4.5 4.5-4.5-4.5z' fill='#8C5CF0'/></svg>",
+      "summary": "Carries an arrow's path across the board to its pair.",
+      "what": ["Portals come in pairs of one colour: a coloured rim round a dark hole, with the pair's symbol. An arrow whose path reaches one portal comes out of the other, going the same way, and carries on.", "Nothing rests on a portal and nothing is stopped by one. A pair's two cells are never in the same row or column."],
+      "how": ["When a path reaches a portal, jump to its pair (same colour and symbol) and keep following the path from there.", "On a zoomed-in board the camera follows an escaping arrow through the portal, so you see where it comes out."],
+      "notes": ["Level 101 introduces portals with a single pair. Later levels have up to 6 pairs, each in its own colour.", "In-game tip: \"Portals send arrows out of their pair.\""],
+      "related": ["mirror", "grid-lines", "colour-gate"]
+    },
+    {
+      "slug": "ice", "section": "traps", "name": "Ice", "firstLevel": 131,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#CFEFFB' stroke='#7CC6E6' stroke-width='3'/><path d='M13 13l5 3' stroke='#fff' stroke-width='2.5' stroke-linecap='round'/><path d='M29 15H19v8h10v9H19' fill='none' stroke='#1B4F8A' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+      "summary": "A block with a number that melts as arrows leave.",
+      "what": ["Ice is one cell showing a number. It holds no arrow and stops every arrow, bombs too, and a bomb can't break it.", "Each time any arrow leaves the board, by a tap or a powerup, the number drops by one. At 0 the ice melts and the way is open."],
+      "how": ["Arrows pointing at the ice have to wait: clear the other arrows first.", "The number is just big enough: the ice melts right as you run out of other arrows to clear, so spend your moves on the arrows that don't wait on it."],
+      "notes": ["Level 131 introduces ice with one block counting from 5, and a tutorial that shows an arrow waiting on it.", "In-game tip: \"Ice melts as arrows leave.\""],
+      "related": ["shutter", "magic-wand", "hearts"]
+    },
+    {
+      "slug": "level-3-rock", "section": "traps", "name": "Level-3 rock", "firstLevel": 161,
+      "icon": "<svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#5C554E'/><path d='M14 19l11-7 12 8-11 4z' fill='#746B62'/><path d='M26 24l11-4 3 14-14 5z' fill='#47413C'/><circle cx='17' cy='32' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/><circle cx='24.5' cy='34' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/><circle cx='32' cy='31' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/></svg>",
+      "summary": "The toughest rock: three bomb hits.",
+      "what": ["A level-3 rock has three white dots and needs three bombs. Each hit cracks it and takes a dot away; the third breaks it.", "Its bombs come from different arrows, usually from different sides of the rock."],
+      "how": ["Find all three bombs before you start: some are buried deeper than others.", "The arrows behind the rock can only go once the last bomb has hit."],
+      "notes": ["Level 161 introduces them with two level-3 rocks and nothing else. From then on about 8% of rocks are level 3, rising to 18% by level 300."],
+      "related": ["level-2-rock", "rock", "chain-bomb"]
+    },
+    {
+      "slug": "paint-tile", "section": "traps", "name": "Paint tile", "firstLevel": 191,
+      "icon": "<svg viewBox='0 0 48 48'><g fill='#F2B705'><circle cx='24' cy='24' r='13'/><circle cx='36' cy='25' r='5'/><circle cx='14' cy='30' r='5'/><circle cx='9' cy='16' r='3.5'/><circle cx='39' cy='12' r='3'/><circle cx='40' cy='36' r='3'/><circle cx='12' cy='39' r='2.5'/></g><path d='M24 16l7.5 13h-15z' fill='#fff'/></svg>",
+      "summary": "Gives an arrow that passes over it its colour.",
+      "what": ["A paint tile is a round splash of colour with that colour's symbol. It never blocks.", "An arrow that flies over it takes its colour and symbol for the rest of its path, so it can get through, and open, a gate of that colour further on. Bombs stay bombs. The paint stays for later arrows too."],
+      "how": ["A gate with no arrow of its colour in sight? Look for a paint tile on some arrow's path in front of it.", "The tutorial shows an arrow of another colour picking up paint and opening a gate."],
+      "notes": ["Level 191 introduces paint with one tile and the one gate only its paint opens.", "In-game tip: \"Paint gives an arrow its colour.\""],
+      "related": ["colour-gate", "two-colour-gate", "colour-switch"]
+    },
+    {
+      "slug": "shutter", "section": "traps", "name": "Shutter", "firstLevel": 221,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='5' y='7' width='38' height='34' rx='5' fill='#9AA3AE'/><path d='M5 14h38M5 21h38M5 28h38M5 35h38' stroke='#7B8590' stroke-width='2'/><rect x='16' y='17' width='16' height='15' rx='3' fill='#2F2B38'/><path d='M21 21h6v3.5h-5m5 0V28h-6' fill='none' stroke='#F2F4F6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg>",
+      "summary": "A roller door that hides arrows until it rolls up.",
+      "what": ["A shutter is a steel roller door over a rectangle of cells, 2×2 to 3×3 at first and up to 5 cells a side later, with a number on a plate. The arrows under it, even partly, are hidden and locked.", "No path gets through a shutter that's down. Each time any arrow leaves the board the number drops by one, and at 0 the shutter rolls up and shows what was underneath."],
+      "how": ["Tapping a shutter only rattles it: it costs no heart.", "Powerups leave hidden arrows alone: Remove arrow can't take them, and hints, Auto-play and the wand never pick them.", "Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it."],
+      "notes": ["Level 221 introduces shutters with one, counting from 5. Bigger ones arrive from levels 320 and 420.", "In-game tip: \"Shutters roll up as arrows leave.\""],
+      "related": ["ice", "remove-arrow", "hints"]
+    },
+    {
+      "slug": "two-colour-gate", "section": "traps", "name": "Two-colour gate", "firstLevel": 251,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#1C9FD8'/><rect x='12' y='12' width='24' height='24' rx='5' fill='#FFFDF8'/><circle cx='20' cy='24' r='5.5' fill='#1C9FD8'/><path d='M31 20l4.5 8h-9z' fill='#F2B705'/></svg>",
+      "summary": "A gate that needs two colours, in order.",
+      "what": ["A two-colour gate holds two symbols: the first on the left and bigger. Its frame shows the colour it lets through next.", "At first only the first colour gets through, which uses up its pip. Then the second colour gets through too, and when it passes the gate opens for good. Other colours and bombs bump until then."],
+      "how": ["Send an arrow of the big symbol's colour first, then one of the small symbol's colour.", "If a powerup removes an arrow of the second colour early, its pip is still used, so the gate never closes on you."],
+      "notes": ["Level 251 introduces them with a single two-colour gate.", "In-game tip: \"Two-colour gate: big symbol goes first.\""],
+      "related": ["colour-gate", "paint-tile", "colour-switch"]
+    },
+    {
+      "slug": "chain-bomb", "section": "traps", "name": "Chain bomb & rock walls", "firstLevel": 281,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='4' y='5' width='13' height='12' rx='3' fill='#8E857B'/><rect x='17' y='5' width='13' height='12' rx='3' fill='#A8A096'/><rect x='30' y='5' width='13' height='12' rx='3' fill='#8E857B'/><circle cx='20' cy='33' r='10' fill='#2F2B38'/><path d='M26 25l4-5' stroke='#2F2B38' stroke-width='3.5' stroke-linecap='round'/><g fill='#FF922B'><circle cx='32' cy='19' r='2.5'/><circle cx='9' cy='31' r='2'/><circle cx='32' cy='37' r='2'/><circle cx='20' cy='45' r='2'/></g></svg>",
+      "summary": "One blast runs along a whole wall of touching rocks.",
+      "what": ["A chain bomb is a bomb with a spark on every cell of its body, like a fuse. Its blast runs through every rock touching the one it hits, and on through the rocks touching those: each takes one hit.", "Rock walls are lines of 3 to 8 one-cell rocks, sometimes with one bend. One chain bomb opens the whole wall. A level-2 or level-3 rock in a wall takes one hit from the blast and needs bombs of its own for the rest."],
+      "how": ["Find the chain bomb aimed at the wall and clear its path, like any bomb.", "Check the wall for dotted rocks: they need their own bombs as well."],
+      "notes": ["Level 281 introduces walls with one wall of 4 or 5 rocks and its chain bomb. From level 282 every level has at least one wall, and hard levels one more."],
+      "related": ["rock", "bomb-arrow", "level-3-rock"]
+    },
+    {
+      "slug": "colour-switch", "section": "traps", "name": "Colour switch", "firstLevel": 311,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='9' width='34' height='32' rx='8' fill='#3B3355'/><circle cx='24' cy='24' r='11' fill='#6E44D6'/><circle cx='24' cy='22' r='11' fill='#8C5CF0'/><path d='M24 15.5l6.5 6.5-6.5 6.5-6.5-6.5z' fill='#fff'/></svg>",
+      "summary": "Opens every gate of its colour at once.",
+      "what": ["A colour switch is a dark square base with a round button in its colour, and that colour's symbol. It never blocks.", "The first arrow, or bomb on its way to its rock, that passes over it presses it: every one-colour gate of that colour on the board opens, wherever it is, and the switch is used up. Two-colour gates don't react to switches."],
+      "how": ["A gate far away with no arrow of its colour in sight? Look for a switch of its colour on a free arrow's path.", "A switch earlier on an arrow's own path opens a gate further along that same path before the arrow gets there."],
+      "notes": ["Level 311 introduces switches with one switch and its gate.", "In-game tip: \"A switch opens every gate of its colour.\""],
+      "related": ["colour-gate", "two-colour-gate", "paint-tile"]
     },
     {
       "slug": "auto-play", "section": "powerups", "name": "Auto-play", "firstLevel": 5,
@@ -54,35 +147,36 @@
       "slug": "grid-lines", "section": "powerups", "name": "Grid lines", "firstLevel": 25,
       "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#3BB273'/><path d='M18 10v28M30 10v28M10 18h28M10 30h28' stroke='#fff' stroke-width='2.5'/></svg>",
       "summary": "Shows every arrow's path for 5 seconds.",
-      "what": ["Grid lines draw each arrow's lane to the edge for 5 seconds of play. Anything on a line blocks that arrow."],
+      "what": ["Grid lines draw each arrow's lane to the edge for 5 seconds of play, turning at mirrors and jumping through portals. Anything on a line blocks that arrow."],
       "how": ["Use it on big boards to spot which arrows are free.", "A pack of 3 costs 150 coins."],
       "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
-      "related": ["auto-play", "board-shapes"]
+      "related": ["auto-play", "mirror", "board-shapes"]
     },
     {
       "slug": "remove-arrow", "section": "powerups", "name": "Remove arrow", "firstLevel": 45,
       "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#FF6B6B'/><path d='M14 20h14l-4-6M28 20l-4 6' stroke='#fff' stroke-width='3' fill='none' stroke-linecap='round' stroke-linejoin='round'/><path d='M16 34l16-16' stroke='#fff' stroke-width='4' stroke-linecap='round'/></svg>",
       "summary": "Removes any arrow, even a blocked one, without costing a heart.",
-      "what": ["Tap Remove arrow, then tap any arrow: it disappears, even if it was blocked, and you don't lose a heart."],
+      "what": ["Tap Remove arrow, then tap any arrow: it disappears, even if it was blocked, and you don't lose a heart. Whatever that arrow would have done on its way out still happens: bombs hit their rock, gates of its colour on its path open, and ice and shutters count down."],
       "how": ["Save it for the one arrow that blocks everything else.", "A pack of 3 costs 250 coins."],
-      "notes": ["A run that uses a powerup doesn't go on the leaderboard."],
-      "related": ["hearts", "magic-wand"]
+      "notes": ["It can't take an arrow hidden under a shutter.", "A run that uses a powerup doesn't go on the leaderboard."],
+      "related": ["hearts", "magic-wand", "shutter"]
     },
     {
       "slug": "magic-wand", "section": "powerups", "name": "Magic wand", "firstLevel": 65,
       "icon": "<svg viewBox='0 0 48 48'><path d='M10 38l20-20' stroke='#8C5CF0' stroke-width='5' stroke-linecap='round'/><path d='M34 6l2.2 5.8L42 14l-5.8 2.2L34 22l-2.2-5.8L26 14l5.8-2.2z' fill='#F2B705'/></svg>",
       "summary": "Clears up to 5 free arrows at once.",
-      "what": ["The magic wand clears up to 5 arrows that are free to leave, all at once."],
-      "how": ["Use it on big boards to thin out the easy arrows quickly.", "A pack of 3 costs 300 coins. It's also the reward for 25 daily challenges in a month."],
+      "what": ["The magic wand clears up to 5 arrows that are free to leave, all at once: the ones nearest the middle of the screen."],
+      "how": ["Use it on big boards to thin out the easy arrows quickly, or to count down ice and shutters fast.", "A pack of 3 costs 300 coins. It's also the reward for 25 daily challenges in a month."],
       "notes": ["The shop also sells a bundle with one of each powerup for 200 coins."],
-      "related": ["auto-play", "daily-challenge"]
+      "related": ["auto-play", "ice", "daily-challenge"]
     },
     {
       "slug": "how-to-play", "section": "basics", "name": "How to play", "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><path d='M8 24h22' stroke='#1C9FD8' stroke-width='7' stroke-linecap='round'/><path d='M42 24l-13-10v20z' fill='#1C9FD8'/></svg>",
       "summary": "Tap an arrow with a clear path. Clear the board.",
-      "what": ["Every arrow points somewhere. Tap one and it slides off the board along its path, but only if nothing is in its way.", "Clear every arrow to win the level. Each arrow you clear can free others."],
-      "how": ["Start with arrows whose path to the edge is already empty.", "On big boards, pinch or scroll to zoom and drag to move."],
+      "what": ["Every arrow points somewhere. Tap one and it slides off the board along its path, but only if nothing is in its way. The path runs straight on, except where a mirror turns it or a portal carries it across the board.", "Clear every arrow to win the level. Each arrow you clear can only free others, so a level can never become impossible."],
+      "how": ["Start with arrows whose path to the edge is already empty.", "Big boards open zoomed in: pinch or scroll to zoom, and drag to move."],
+      "figure": { "src": "/exitwise/img/1-board.webp", "alt": "A Jungle level: an oval board packed with bendy arrows in six colours", "width": 720, "height": 1280, "caption": "Level 33, in the Jungle world." },
       "related": ["hearts", "hints", "board-shapes"]
     },
     {
@@ -98,8 +192,9 @@
       "slug": "coins", "section": "basics", "name": "Coins", "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='17' fill='#F2B705'/><circle cx='24' cy='24' r='12' fill='none' stroke='#fff' stroke-width='3'/><path d='M24 17v14' stroke='#fff' stroke-width='3' stroke-linecap='round'/></svg>",
       "summary": "Earned every level; spent on hints, continues and powerups.",
-      "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect."],
+      "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30."],
       "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.", "Coin packs are also for sale in the app's shop."],
+      "figure": { "src": "/exitwise/img/7-win.webp", "alt": "The Level complete card: time 00:08, 2 hearts lost and +10 coins", "width": 720, "height": 1280, "caption": "Every win pays coins." },
       "related": ["hints", "hearts", "hard-levels", "daily-challenge"]
     },
     {
@@ -113,35 +208,65 @@
     {
       "slug": "hard-levels", "section": "basics", "name": "Hard levels", "firstLevel": 10,
       "icon": "<svg viewBox='0 0 48 48'><path d='M4 40l13-22 7 11 6-8 14 19z' fill='#3B3355'/><path d='M17 18l4 7-4-2-4 3z' fill='#fff'/></svg>",
-      "summary": "Every 10th level: a bigger board, and 30 coins.",
-      "what": ["Every 10th level, from level 10, is a hard level: about half as big again as the levels around it, and the trickiest of several candidate boards.", "From level 20, hard levels are always picture shapes. The two levels after a hard level are a little smaller, to catch your breath."],
+      "summary": "Every 10th level: bigger, deeper, at night, for 30 coins.",
+      "what": ["Every 10th level, from level 10, is a hard level: about 1.45 times as big as the levels around it, always a picture shape, played at night on a dark board. It keeps the deepest of three boards, so it's always harder than the nine levels before it.", "Hard levels get more of the newer obstacles too. The two levels after a hard level are a little smaller, to catch your breath."],
       "how": ["Zoom out first to see the whole board, then work from the edges in.", "A hard level pays 30 coins, plus 5 for a perfect clear."],
-      "related": ["board-shapes", "coins"]
+      "figure": { "src": "/exitwise/img/4-giant.webp", "alt": "Hard level 170 at night: a huge dark board packed with arrows", "width": 720, "height": 1280, "caption": "Hard level 170." },
+      "related": ["board-shapes", "worlds", "coins"]
     },
     {
       "slug": "board-shapes", "section": "basics", "name": "Board shapes", "firstLevel": 5,
       "icon": "<svg viewBox='0 0 48 48'><path d='M24 41S6 30 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 13-18 24-18 24z' fill='none' stroke='#8C5CF0' stroke-width='3' stroke-dasharray='2 4' stroke-linecap='round'/></svg>",
-      "summary": "20 shapes, from rectangles to hearts, cats and butterflies.",
-      "what": ["Boards come in 20 shapes: rectangle, rounded, circle, diamond, heart, cross, ring, holes, notches, hourglass, star, blob, tree, house, cat, fish, mushroom, cup, butterfly and arch. Levels 1 to 4 are always rectangles.", "From level 25 about 1 in 6 levels is a zig-zag level, where arrows twist into knots. The longest board side grows up to 100 cells."],
-      "how": ["Holes and notches change which edge an arrow can reach: check the path, not just the direction."],
-      "related": ["hard-levels", "grid-lines"]
+      "summary": "49 shapes, from hexagons and spirals to rockets and castles.",
+      "what": ["Boards come in 49 shapes. 18 plain shapes stretch to fit the phone: the rectangle, rounded, circle, diamond, cross, notches, holes, ring, hourglass, arch, blob, hexagon, triangle, ell, zigzag, stairs, chevron and spiral. 31 pictures keep their own proportions: heart, star, tree, house, cat, fish, mushroom, cup, butterfly, flower, leaf, flame, gem, lightning, moon, cactus, pyramid, rocket, anchor, boat, crown, key, bell, ghost, snowflake, gear, cloud, candy, acorn, turtle and castle.", "Levels 1 to 4 are rectangles; after that only a few are. New shapes unlock a few at a time up to level 100, and many worlds have pictures of their own, like the flame and gem in Volcano or the snowflake in Glacier. The longest board side grows up to 100 cells.", "From level 25 about 1 in 6 normal levels is a knot level, where arrows zig-zag at nearly every cell."],
+      "how": ["Holes, notches and narrow parts change which edge an arrow can reach: check the path, not just the direction.", "Cells outside the shape are empty space that arrows fly over."],
+      "figure": { "src": "/exitwise/wiki/img/shapes.webp", "alt": "All 49 board shapes as white silhouettes, each at its smallest and largest board size", "width": 1200, "height": 1014, "caption": "Every shape at its smallest and largest board, with the level it first appears on." },
+      "related": ["hard-levels", "worlds", "grid-lines"]
+    },
+    {
+      "slug": "worlds", "section": "basics", "name": "Worlds & the level map", "firstLevel": null,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='9' fill='#3BB273'/><path d='M14 35c0-9 20-5 20-13s-12-5-12-12' fill='none' stroke='#FFFDF8' stroke-width='3' stroke-dasharray='1 5' stroke-linecap='round'/><circle cx='14' cy='35' r='4' fill='#FF922B'/><circle cx='22' cy='11' r='4' fill='#F2B705'/></svg>",
+      "summary": "17 worlds, each with its own look, on one scrolling map.",
+      "what": ["The levels are split into 17 worlds: Meadow (1–20), Jungle (21–40), Volcano (41–80), Desert (81–100), Lagoon (101–140), Mushroom forest (141–160), Autumn woods (161–200), Glacier (201–220), Crystal caves (221–260), Cherry blossom (261–280), Clockwork town (281–320), Coral reef (321–340), Bayou (341–380), Candy land (381–400), Temple ruins (401–440), Sky islands (441–460) and Starlight (461–500). After level 500 they come round again from Jungle.", "Each world has its own scenery, board colours, arrow style and the puff an arrow leaves as it takes off. Hard levels are the same world at night."],
+      "how": ["The map is the home screen: scroll it, tap a finished level to play it again, or tap Play for the next one.", "Replays don't pay coins. Winning a world's last level opens the next world."],
+      "figure": { "src": "/exitwise/img/2-map.webp", "alt": "The level map in the Candy land world, with level bubbles along a winding path", "width": 720, "height": 1280, "caption": "The level map, in Candy land." },
+      "related": ["hard-levels", "board-shapes", "coins"]
     },
     {
       "slug": "daily-challenge", "section": "basics", "name": "Daily challenge", "firstLevel": null,
       "icon": "<svg viewBox='0 0 48 48'><rect x='7' y='10' width='34' height='30' rx='6' fill='#FF922B'/><rect x='7' y='10' width='34' height='9' rx='4' fill='#E0761A'/><path d='M16 6v8M32 6v8' stroke='#3B3355' stroke-width='3' stroke-linecap='round'/><path d='M17 29l5 5 9-10' stroke='#fff' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg>",
       "summary": "One board a day, the same for everyone, with monthly rewards.",
-      "what": ["Each calendar day has one board, the same for every player. It's harder later in the week, and it has no rocks, bombs or gates.", "You can play any day of the current month up to today. Only the first win of each day pays: 20 coins, plus 5 for perfect."],
+      "what": ["Each calendar day has one board, the same for every player. It's harder later in the week, and it has no obstacles.", "You can play any day of the current month up to today. Only the first win of each day pays: 20 coins, plus 5 for perfect."],
       "how": ["Days you complete count towards this month's milestones: 2 days: 50 coins · 7 days: 100 coins · 13 days: 150 coins and an Auto-play · 19 days: 200 coins and a Grid lines · 25 days: 300 coins and a Magic wand.", "Progress starts again each month."],
       "notes": ["Daily runs don't go on the level leaderboards."],
+      "figure": { "src": "/exitwise/img/6-daily.webp", "alt": "The daily challenge calendar for October 2026, with the monthly milestone bar above it", "width": 720, "height": 1280, "caption": "This month's calendar and milestones." },
       "related": ["coins", "auto-play", "magic-wand"]
     },
     {
       "slug": "leaderboards", "section": "basics", "name": "Leaderboards & profiles", "firstLevel": null,
       "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='22' width='11' height='18' rx='3' fill='#1C9FD8'/><rect x='18.5' y='12' width='11' height='28' rx='3' fill='#F2B705'/><rect x='31' y='27' width='11' height='13' rx='3' fill='#FF6B6B'/></svg>",
-      "summary": "Every level has a board: fewest hearts lost, then fastest time.",
-      "what": ["Each level has its own leaderboard, ranked by fewest hearts lost, then by the fastest time. You see the top 10 and your own row.", "Only clean runs count: no continue and no powerup. Hints are fine. Your best run stays on the board."],
-      "how": ["The first time you open a leaderboard you can pick a username (3 to 16 letters, digits or _) and one of 12 avatars. Without one you show as \"Player\" and a short code.", "Settings → Profile → \"Delete my leaderboard data\" removes your name and results."],
-      "related": ["hearts", "hints", "auto-play"]
+      "summary": "A board for every level, plus four global boards.",
+      "what": ["Each level has its own leaderboard, ranked by fewest hearts lost, then by the fastest time. You see the top 10 and your own row.", "Only clean runs count: no continue and no powerup. Hints are fine. Your best run stays on the board.", "The Global tab ranks everyone on four boards: Progress (highest level won, then perfect clears), Perfect (levels won without losing a heart), Maps (other players' custom maps cleared) and Creators (plays of your own maps)."],
+      "how": ["The first time you open a leaderboard you can pick a username (3 to 16 letters, digits or _) and one of 12 avatars. A name is yours for good once saved. Without one you show as \"Player\" and a short code.", "Tap any row to see that player's profile: their stats and published maps.", "On Android, players signed in with Play Games can use a picture of their own; every picture is checked before anyone sees it.", "Settings → Profile → \"Delete my leaderboard data\" removes your name, picture, results and stats."],
+      "related": ["hearts", "custom-maps", "rooms"]
+    },
+    {
+      "slug": "rooms", "section": "basics", "name": "Play with friends", "firstLevel": null,
+      "icon": "<svg viewBox='0 0 48 48'><circle cx='17' cy='17' r='7' fill='#1C9FD8'/><path d='M5 40c0-8 5.5-13 12-13s12 5 12 13z' fill='#1C9FD8'/><circle cx='33' cy='19' r='6' fill='#FF6B6B'/><path d='M23 40c0-7 4.5-11 10-11s10 4 10 11z' fill='#FF6B6B'/></svg>",
+      "summary": "Race 2 to 8 players on the same boards with a room code.",
+      "what": ["Home → Play with friends → Create room makes a 6-character code. Friends join by typing it, scanning the invite's QR code or opening the invite link, in the app or in the browser.", "The host picks the difficulty (Easy, Medium, Hard or Expert) and how many games to play, up to 20. Every game is a new board, the same for everyone, after a 3-2-1 countdown."],
+      "how": ["Clear the board fastest: the first to finish scores the most points. Out of hearts or out of time scores 0.", "Once someone finishes, the others get as long again as they took, at least a minute.", "Rooms have no powerups, hints, restarts, continues or ads. After the last game a podium shows the winners, and the host can start Play again."],
+      "notes": ["Rooms need a profile name, so everyone can see who's who."],
+      "related": ["leaderboards", "hearts", "custom-maps"]
+    },
+    {
+      "slug": "custom-maps", "section": "basics", "name": "Custom maps", "firstLevel": null,
+      "icon": "<svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#FF922B'/><path d='M18 10v28M30 10v28M10 18h28M10 30h28' stroke='#FFFDF8' stroke-width='2' opacity='.6'/><path d='M14 34l3-9 16-16 6 6-16 16z' fill='#3B3355'/><path d='M14 34l3-9 6 6z' fill='#FFFDF8'/></svg>",
+      "summary": "Build your own levels, and play other players' maps.",
+      "what": ["Custom maps, on the level map, opens players' own levels: browse Popular, New and Top rated, search by name or share code, and filter by size and difficulty.", "Each map has its own leaderboard, a rating and a clear rate. Your first clear of another player's map pays 10 to 30 coins, depending on how hard it is."],
+      "how": ["In the editor, pick a size (5 to 40 cells each way), a starting shape and a world look, then draw arrows with one finger and add bombs, rocks and gates.", "Test your map: you have to clear it yourself before you can publish it with a share code.", "Every map follows the <a href='/exitwise/map-rules.html'>map rules</a>. From a map's page you can report it or hide a creator's maps."],
+      "notes": ["Ice, shutters, mirrors, portals, the colour family, level-2 and level-3 rocks and chain bombs aren't in the editor yet."],
+      "related": ["rooms", "leaderboards", "coins"]
     }
   ]
 }

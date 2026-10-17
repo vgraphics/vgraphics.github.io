@@ -73,6 +73,10 @@ h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.05; margi
 .block ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; max-width: 46em; }
 .block.note { background: #FFF6DA; border: 0; border-radius: 20px; padding: 18px 22px; }
 .cards.small { grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); }
+.shot { margin: 0; display: grid; gap: 10px; justify-items: start; }
+.shot img { width: min(300px, 100%); height: auto; border-radius: 22px; background: var(--board); box-shadow: 0 18px 36px -20px rgba(59,51,85,.45); }
+.shot.wide img { width: 100%; max-width: 900px; border-radius: 18px; }
+.shot figcaption { color: var(--muted); font-weight: 700; font-size: .95rem; }
 .pager { display: grid; grid-template-columns: 1fr 1fr; gap: 14px; margin: 22px 0 10px; }
 .pager a { display: grid; padding: 16px 20px; border-radius: 20px; background: var(--board); color: var(--ink); text-decoration: none; font: 400 1.3rem/1.1 var(--display); }
 .pager a span { font: 800 .78rem/1.4 var(--body); letter-spacing: .1em; text-transform: uppercase; color: var(--muted); }

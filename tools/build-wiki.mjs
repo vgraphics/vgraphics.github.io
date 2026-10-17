@@ -105,8 +105,10 @@ function entryPage(w, e, i) {
   const list = (items) => `<ul>${items.map((x) => `<li>${x}</li>`).join('')}</ul>`
   const blocks = [
     e.what && `<section class="block"><h2>What it does</h2>${e.what.map((x) => `<p>${x}</p>`).join('')}</section>`,
-    e.how && `<section class="block"><h2>${s.id === 'powerups' || s.id === 'traps' ? 'How to use it' : 'How it works for you'}</h2>${list(e.how)}</section>`,
+    e.how && `<section class="block"><h2>${s.id === 'powerups' ? 'How to use it' : s.id === 'traps' ? 'How to beat it' : 'How it works for you'}</h2>${list(e.how)}</section>`,
     e.notes && `<section class="block note"><h2>Good to know</h2>${list(e.notes)}</section>`,
+    // An optional real screenshot: { src, alt, width, height, caption? }. Wider than tall spans the entry.
+    e.figure && `<section class="block"><h2>${esc(w.figureTitle || 'See it')}</h2><figure class="shot${e.figure.width > e.figure.height ? ' wide' : ''}"><img src="${esc(e.figure.src)}" alt="${esc(e.figure.alt)}" width="${e.figure.width}" height="${e.figure.height}" loading="lazy">${e.figure.caption ? `<figcaption>${e.figure.caption}</figcaption>` : ''}</figure></section>`,
   ].filter(Boolean).join('\n    ')
   const related = (e.related || []).filter((r) => bySlug[r])
   const body = `  <nav class="crumbs" aria-label="Breadcrumb"><a href="/${w.product.slug}/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/${w.product.slug}/wiki/#${s.id}">${esc(s.title)}</a></nav>

@@ -86,6 +86,11 @@
     .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; background: #FFFFFF; color: #16151B; text-decoration: none; transition: transform 180ms var(--ease); }
     a.pill:hover { transform: translateY(-2px); }
     .pill svg { width: 16px; height: 16px; }
+    /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
+    .gp { justify-self: start; display: inline-flex; margin: -11px 0 -11px -11px; border-radius: 14px; transition: transform 180ms var(--ease); }
+    .gp img { display: block; height: 66px; width: auto; }
+    .gp:hover { transform: translateY(-2px); }
+    .gp:focus-visible { outline-offset: -9px; }
 
     .x-game { background: #F4EFE6 radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 0 0 / 30px 30px; color: #3B3355; border: 1px solid #DED4C4; min-height: 540px; }
     .x-game .copy { max-width: 46%; display: grid; gap: 12px; position: relative; z-index: 1; }
@@ -230,7 +235,8 @@
             <img class="icon" src="/exitwise/img/icon-512.png" alt="" width="64" height="64">
             <span class="kicker">Puzzle game · Android &amp; web</span>
             <h3 id="exitwise-title">Exitwise</h3>
-            <p>Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, hundreds of levels.</p>
+            <p>Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, 600 levels in 17 worlds, with bombs, mirrors, portals and more along the way.</p>
+            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get Exitwise on Google Play" width="646" height="250" loading="lazy"></a>
             <div class="pill-row">
               <a class="pill play" href="/exitwise/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play in your browser</a>
               <a class="pill" href="/exitwise/">Visit Exitwise</a>
@@ -242,14 +248,14 @@
 
         <a class="b x-wiki s5" href="/exitwise/wiki/">
           <span class="kicker">Exitwise wiki</span>
-          <h3>Traps, powerups &amp; tips</h3>
-          <p>Rocks, bombs, colour gates and every powerup: what they do and how to beat them.</p>
+          <h3>Obstacles, powerups &amp; tips</h3>
+          <p>Bombs, colour gates, mirrors, portals, ice, shutters and every powerup: what they do and how to beat them.</p>
           <div class="chips" aria-hidden="true">
-            <span class="chipcard"><svg viewBox="0 0 48 48"><path d="M9 34l5-15 11-7 12 8 3 14-14 5z" fill="#8E857B"/><path d="M14 19l11-7 12 8-11 4z" fill="#A8A096"/></svg></span>
             <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="20" cy="28" r="12" fill="#2F2B38"/><path d="M27 18l6-6" stroke="#2F2B38" stroke-width="4" stroke-linecap="round"/><path d="M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z" fill="#FF922B"/></svg></span>
             <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="8" fill="#1C9FD8"/><rect x="14" y="14" width="20" height="20" rx="4" fill="none" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="#fff"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="24" cy="24" r="18" fill="#1C9FD8"/><path d="M20 15l12 9-12 9z" fill="#fff"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><path d="M10 38l20-20" stroke="#8C5CF0" stroke-width="5" stroke-linecap="round"/><path d="M34 6l2.2 5.8L42 14l-5.8 2.2L34 22l-2.2-5.8L26 14l5.8-2.2z" fill="#F2B705"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="34" height="34" rx="8" fill="#EAF4F8" stroke="#C9DCE4" stroke-width="2"/><path d="M14 34L34 14" stroke="#4A5568" stroke-width="9" stroke-linecap="round"/><path d="M14 34L34 14" stroke="#BFE6F5" stroke-width="5" stroke-linecap="round"/><path d="M4 24h20V9" fill="none" stroke="#1C9FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 1l-6 8h12z" fill="#1C9FD8"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="15" cy="32" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M15 27.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/><circle cx="34" cy="15" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M34 10.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/></svg></span>
+            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="34" height="34" rx="8" fill="#CFEFFB" stroke="#7CC6E6" stroke-width="3"/><path d="M29 15H19v8h10v9H19" fill="none" stroke="#1B4F8A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
           </div>
         </a>
 
@@ -265,7 +271,8 @@
             <span class="kicker">Live wallpaper · Android</span>
             <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
             <h3 id="speedo-title" class="sr-only">Speedometer Live Wallpaper</h3>
-            <p>Your home screen as a car dashboard. Power, CPU clock or GPS speed on the big dial; battery, RAM, signal and Wi-Fi around it.</p>
+            <p>Your home screen as a car dashboard. Power, CPU clock or GPS speed on the big dial; battery, RAM, signal and Wi-Fi around it. Free Classic design, or the chrome Future cluster with your music.</p>
+            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get Speedometer Live Wallpaper on Google Play" width="646" height="250" loading="lazy"></a>
             <div class="pill-row">
               <a class="pill" href="/speedometer-wallpaper/">Visit Speedometer</a>
               <a class="pill alt" href="/speedometer-wallpaper/#tour">Tour the dashboard</a>
@@ -277,12 +284,12 @@
         <a class="b x-gauges s5" href="/speedometer-wallpaper/wiki/">
           <span class="kicker">Speedometer wiki</span>
           <h3>What every gauge shows</h3>
-          <ol><li>The big gauge and its three modes</li><li>Signal, RAM, Wi-Fi and battery</li><li>Every warning light</li><li>Clock, settings and help</li></ol>
+          <ol><li>The big gauge and its three modes</li><li>Signal, RAM, Wi-Fi and battery</li><li>Every warning light</li><li>Classic and Future designs</li><li>Clock, settings and help</li></ol>
         </a>
 
-        <div class="b x-stat x-sun s5"><span class="kicker">Board shapes</span><b>20</b><p>From rectangles to hearts, cats and butterflies.</p></div>
+        <div class="b x-stat x-sun s5"><span class="kicker">Board shapes</span><b>49</b><p>From hexagons and spirals to hearts, rockets and castles.</p></div>
 
-        <div class="b x-stat x-sky s4"><span class="kicker">Levels</span><b>500+</b><p>Harder all the way to level 500, then it stays hard.</p></div>
+        <div class="b x-stat x-sky s4"><span class="kicker">Levels</span><b>600</b><p>In 17 worlds, harder all the way, with a hard level every 10th.</p></div>
         <div class="b x-principle s4">
           <span class="icon" style="background:var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <h3>Fair by design</h3><p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable.</p>
@@ -314,6 +321,7 @@
   </div>
   <div class="wrap legal">
     <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>
 </body>

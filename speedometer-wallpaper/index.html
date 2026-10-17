@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Speedometer Live Wallpaper for Android · VGraphics</title>
-  <meta name="description" content="Turn your home screen into a car dashboard: a live wallpaper with real gauges for power, CPU clock, GPS speed, battery, RAM, signal and Wi-Fi. By VGraphics.">
+  <meta name="description" content="Turn your Android home screen into a car dashboard: a live wallpaper with real gauges for power, CPU clock, GPS speed, battery, RAM, signal and Wi-Fi, in the free Classic design or the chrome Future design. By VGraphics.">
   <meta name="theme-color" content="#0B0B0C">
   <meta name="color-scheme" content="dark">
   <link rel="canonical" href="https://vgraphics.gr/speedometer-wallpaper/">
@@ -81,9 +81,11 @@
     .tagline { font: italic 800 clamp(2.4rem, 5.4vw, 4.4rem)/0.92 var(--display); text-transform: uppercase; margin: 26px 0 18px; }
     .tagline em { color: var(--red); font-style: inherit; }
     .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
-    .store { display: inline-flex; flex-direction: column; justify-content: center; min-height: 56px; padding: 8px 18px; border: 1.5px solid var(--rim); border-radius: 14px; background: rgba(0, 0, 0, 0.45); }
-    .store b { font: 800 1.15rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.04em; }
-    .store small { color: var(--muted); }
+    /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
+    .gp { display: inline-flex; margin: -8px 0; border-radius: 16px; transition: transform 180ms var(--ease); }
+    .gp img { display: block; height: 84px; width: auto; }
+    .gp:hover { transform: translateY(-2px); }
+    .gp:focus-visible { outline-offset: -12px; }
     .btn { display: inline-flex; align-items: center; gap: 10px; min-height: 56px; padding: 0 24px; border-radius: 14px; background: var(--red); color: var(--red-ink); font: 800 1.15rem/1 var(--display); letter-spacing: 0.08em; text-transform: uppercase; text-decoration: none; transition: transform 180ms var(--ease), background-color 180ms var(--ease); }
     .btn:hover { background: #FF6A4F; }
     .btn:active { transform: scale(0.97); }
@@ -116,6 +118,20 @@
     .mode img { width: 78%; margin: 4px auto 6px; filter: drop-shadow(0 18px 24px rgba(0, 0, 0, 0.7)); }
     .mode p { color: var(--muted); }
     .mode .tag { justify-self: start; font: 600 0.85rem/1 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
+
+    /* Designs: Classic and Future, then the small print that matters */
+    .designs { display: grid; grid-template-columns: 1fr 1fr; gap: 18px; }
+    .design { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 22px; align-items: start; padding: 22px; background: linear-gradient(180deg, var(--panel-2), var(--panel)); border: 1px solid var(--rim); border-radius: 24px; }
+    .design img { border-radius: 20px; border: 5px solid #1a1a1d; box-shadow: 0 20px 40px -24px #000; }
+    .design > div { display: grid; gap: 12px; align-content: start; }
+    .design p, .design li { color: var(--muted); }
+    .design ul { margin: 0; padding-left: 1.1em; display: grid; gap: 8px; }
+    .design b { color: var(--chrome); font-weight: 600; }
+    .design .tag { justify-self: start; font: 600 0.85rem/1 var(--display); letter-spacing: 0.16em; text-transform: uppercase; color: var(--red); }
+    .design .tag.paid { color: var(--amber); }
+    .facts { list-style: none; padding: 0; margin: 18px 0 0; display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
+    .facts li { padding: 20px; border-left: 3px solid var(--red); background: var(--panel); border-radius: 0 18px 18px 0; color: var(--muted); }
+    .facts b { display: block; margin-bottom: 6px; color: var(--chrome); font: 800 1.2rem/1.1 var(--display); text-transform: uppercase; letter-spacing: 0.03em; }
 
     /* Tour the dashboard */
     .tour { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
@@ -169,7 +185,8 @@
       .stage { margin-top: 20px; }
       .gauge { left: -36%; width: 58%; bottom: 10%; }
       .tour .stage { position: relative; top: 0; justify-self: center; }
-      .modes, .steps { grid-template-columns: 1fr; }
+      .modes, .steps, .designs { grid-template-columns: 1fr; }
+      .facts { grid-template-columns: 1fr 1fr; }
       .mode img { width: 60%; }
       .promise { grid-template-columns: 1fr; }
     }
@@ -180,6 +197,9 @@
       .gauge { display: none; }
       section { padding-block: 64px; }
       .part .body { padding-left: 18px; }
+      .design { grid-template-columns: 1fr; }
+      .design img { width: 62%; margin-inline: auto; }
+      .facts { grid-template-columns: 1fr; }
     }
     @media (prefers-reduced-motion: reduce) {
       html { scroll-behavior: auto; }
@@ -216,7 +236,7 @@
           <div class="badges">
             <a class="btn" href="#tour">Tour the dashboard
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
-            <span class="store"><b>Google Play</b><small>Coming soon · Free</small></span>
+            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
           </div>
         </div>
 
@@ -236,7 +256,7 @@
         <div class="head">
           <span class="eyebrow">The big gauge</span>
           <h2 id="modes-title">One dial, three jobs</h2>
-          <p class="lede">Pick the mode in Settings, or tap the gauge on your home screen to switch. The digits above the needle show the same value.</p>
+          <p class="lede">Pick the mode in Settings, tap the gauge on your home screen, or use the <b>Big gauge</b> tile in Quick Settings, which switches it on every phone, Samsung's included. The digits above the needle show the same value.</p>
         </div>
         <div class="modes">
           <article class="mode">
@@ -258,6 +278,44 @@
             <p>Your speed in km/h or mph. A red mark shows the top speed of the current drive.</p>
           </article>
         </div>
+      </div>
+    </section>
+
+    <section id="designs" aria-labelledby="designs-title">
+      <div class="wrap">
+        <div class="head">
+          <span class="eyebrow">Designs</span>
+          <h2 id="designs-title">Classic, or Future</h2>
+          <p class="lede">Open Designs in the app and swipe through them. Each preview is drawn by the wallpaper itself, at your phone's shape.</p>
+        </div>
+        <div class="designs">
+          <article class="design">
+            <img src="img/shot-kmh.webp" alt="The Classic design: the big speed dial with signal, RAM, Wi-Fi and battery gauges around it" width="540" height="1200" loading="lazy">
+            <div>
+              <span class="tag">Free</span>
+              <h3>Classic</h3>
+              <p>The 2016 dashboard: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and an LCD clock.</p>
+            </div>
+          </article>
+          <article class="design">
+            <img src="img/future-kmh.webp" alt="The Future design: a chrome dial at 72 km/h, the song that's playing, and 3 missed calls and 2 messages" width="540" height="1200" loading="lazy">
+            <div>
+              <span class="tag paid">€0.99, one time</span>
+              <h3>Future</h3>
+              <p>The 2016 chrome cluster, rebuilt: one big dial with the same three modes, battery and RAM arcs, the clock and date, and the Bluetooth and Wi-Fi status.</p>
+              <ul>
+                <li><b>Your music on the dashboard.</b> The song that's playing, its cover and the media volume, plus how many calls you missed and messages you haven't read. Turn on notification access for it in Android's settings; nothing it reads leaves your phone.</li>
+                <li><b>Buy once, keep it.</b> On a new phone with the same Google account, Future comes back by itself when you open the app.</li>
+              </ul>
+            </div>
+          </article>
+        </div>
+        <ul class="facts">
+          <li><b>Big gauge tile</b>Add the Big gauge tile to Quick Settings to switch the dial's mode from anywhere. Its subtitle shows the mode it's in.</li>
+          <li><b>Easy on the battery</b>Nothing redraws unless something changed, and everything stops while the wallpaper is hidden.</li>
+          <li><b>No ads on your wallpaper</b>A small banner shows inside the app only, never on your home screen.</li>
+          <li><b>Android only</b>Live wallpapers are an Android feature, so there's no iPhone version.</li>
+        </ul>
       </div>
     </section>
 
@@ -289,7 +347,7 @@
             <li class="part"><button type="button" aria-controls="p2" aria-expanded="true"><span class="n">2</span>RAM<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
               <div class="body" id="p2"><p>The small gauge at the top right shows how much of the phone's memory is in use.</p><a class="more" href="/speedometer-wallpaper/wiki/ram/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p3" aria-expanded="true"><span class="n">3</span>The big gauge<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
-              <div class="body" id="p3"><p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen to switch. The digits above the needle show the same value.</p><a class="more" href="/speedometer-wallpaper/wiki/big-gauge/">More in the wiki →</a></div></li>
+              <div class="body" id="p3"><p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen, or use the Big gauge tile in Quick Settings, to switch. The digits above the needle show the same value.</p><a class="more" href="/speedometer-wallpaper/wiki/big-gauge/">More in the wiki →</a></div></li>
             <li class="part"><button type="button" aria-controls="p4" aria-expanded="true"><span class="n">4</span>Warning lights<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
               <div class="body" id="p4"><p>Four lights on the big gauge. Each one can be switched off in Settings.</p>
                 <ul>
@@ -321,7 +379,9 @@
           <figure><img src="img/shot-power.webp" alt="Power mode in watts" width="540" height="1200" loading="lazy"><figcaption>Power</figcaption></figure>
           <figure><img src="img/shot-cpu.webp" alt="CPU clock mode" width="540" height="1200" loading="lazy"><figcaption>CPU clock</figcaption></figure>
           <figure><img src="img/shot-wifi.webp" alt="A fast Wi-Fi link on the Wi-Fi gauge" width="540" height="1200" loading="lazy"><figcaption>Wi-Fi</figcaption></figure>
-          <figure><img src="img/shot-home.webp" alt="The app's home screen" width="540" height="1200" loading="lazy"><figcaption>The app</figcaption></figure>
+          <figure><img src="img/future-power.webp" alt="The Future design in power mode, at 18.5 watts" width="540" height="1200" loading="lazy"><figcaption>Future</figcaption></figure>
+          <figure><img src="img/designs.webp" alt="The Designs screen, with Future and its Buy for €0.99 button" width="540" height="1200" loading="lazy"><figcaption>Designs</figcaption></figure>
+          <figure><img src="img/shot-home.webp" alt="The app's home screen: Set wallpaper, Designs, Settings and Info" width="540" height="1200" loading="lazy"><figcaption>The app</figcaption></figure>
         </div>
       </div>
     </section>
@@ -335,7 +395,7 @@
         <ol class="steps">
           <li>Install <b>Speedometer Live Wallpaper</b> from Google Play.</li>
           <li>Open it and tap <b>Set wallpaper</b>, then confirm on your home screen.</li>
-          <li>In <b>Settings</b>, choose what the big gauge shows, your units, and which lights and clock to show.</li>
+          <li>In <b>Settings</b>, choose what the big gauge shows, your units, and which lights and clock to show. In <b>Designs</b>, pick Classic or Future.</li>
         </ol>
       </div>
     </section>
@@ -346,7 +406,7 @@
           <span class="lcd" data-ghost="88">00</span>
           <div>
             <h2 id="privacy-title">Your readings stay on your phone</h2>
-            <p>Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen.</p>
+            <p>Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen. Future's music, calls and messages are read on the phone and stay there.</p>
           </div>
           <a class="link" href="privacy.html">Privacy policy →</a>
         </div>
@@ -359,7 +419,7 @@
       <a href="/">More from VGraphics</a>
       <a href="privacy.html">Privacy policy</a>
       <a href="mailto:gvergidis90@gmail.com">Contact</a>
-      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </footer>
 

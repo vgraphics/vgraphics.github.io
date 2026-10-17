@@ -4,11 +4,11 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Exitwise wiki · Exitwise</title>
-  <meta name="description" content="Every trap, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.">
+  <meta name="description" content="Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.">
   <link rel="canonical" href="https://vgraphics.gr/exitwise/wiki/">
   <link rel="icon" href="/exitwise/img/icon-512.png">
   <meta property="og:title" content="Exitwise wiki · Exitwise">
-  <meta property="og:description" content="Every trap, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.">
+  <meta property="og:description" content="Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.">
   <meta property="og:url" content="https://vgraphics.gr/exitwise/wiki/">
   <link rel="stylesheet" href="/exitwise/wiki/wiki.css">
 </head>
@@ -23,24 +23,64 @@
   <section class="hero">
     <p class="kicker">Exitwise · Wiki</p>
     <h1>Exitwise wiki</h1>
-    <p class="lede">Every trap, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.</p>
-    <label class="search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search 15 entries…" autocomplete="off"></label>
-    <nav class="jump" aria-label="Sections"><a href="#traps">Traps &amp; obstacles</a><a href="#powerups">Powerups</a><a href="#basics">Basics</a></nav>
+    <p class="lede">Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.</p>
+    <label class="search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search 28 entries…" autocomplete="off"></label>
+    <nav class="jump" aria-label="Sections"><a href="#traps">Obstacles</a><a href="#powerups">Powerups</a><a href="#basics">Basics</a></nav>
   </section>
   <section class="sec" id="traps" aria-labelledby="h-traps">
-    <div class="sec-head"><h2 id="h-traps">Traps &amp; obstacles</h2><p>Things on the board that get in your arrows' way, and the arrows that deal with them.</p></div>
+    <div class="sec-head"><h2 id="h-traps">Obstacles</h2><p>Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it.</p></div>
     <div class="cards">
-    <a class="card" href="/exitwise/wiki/rock/" data-text="rock stops every arrow. only a bomb can clear it.">
+    <a class="card" href="/exitwise/wiki/rock/" data-text="rock stops every arrow until its bombs blow it up.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#8E857B'/><path d='M14 19l11-7 12 8-11 4z' fill='#A8A096'/><path d='M26 24l11-4 3 14-14 5z' fill='#766D64'/></svg></span>
-      <span class="card-body"><b>Rock</b><span>Stops every arrow. Only a bomb can clear it.</span><span class="chip">Level 21+</span></span>
+      <span class="card-body"><b>Rock</b><span>Stops every arrow until its bombs blow it up.</span><span class="chip">Level 21+</span></span>
     </a>
-    <a class="card" href="/exitwise/wiki/bomb-arrow/" data-text="bomb arrow flies to the first rock on its path and blows it up.">
+    <a class="card" href="/exitwise/wiki/bomb-arrow/" data-text="bomb arrow flies to its rock and blows it up, once its path is clear.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><circle cx='20' cy='28' r='12' fill='#2F2B38'/><path d='M27 18l6-6' stroke='#2F2B38' stroke-width='4' stroke-linecap='round'/><path d='M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z' fill='#FF922B'/><circle cx='16' cy='24' r='3' fill='#5A5466'/></svg></span>
-      <span class="card-body"><b>Bomb arrow</b><span>Flies to the first rock on its path and blows it up.</span><span class="chip">Level 21+</span></span>
+      <span class="card-body"><b>Bomb arrow</b><span>Flies to its rock and blows it up, once its path is clear.</span><span class="chip">Level 21+</span></span>
     </a>
-    <a class="card" href="/exitwise/wiki/colour-gate/" data-text="colour gate lets only arrows of its own colour through, then opens.">
+    <a class="card" href="/exitwise/wiki/colour-gate/" data-text="colour gate lets only its own colour through, then opens for good.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='8' y='8' width='32' height='32' rx='8' fill='#1C9FD8'/><rect x='14' y='14' width='20' height='20' rx='4' fill='none' stroke='#fff' stroke-width='3'/><circle cx='24' cy='24' r='4' fill='#fff'/></svg></span>
-      <span class="card-body"><b>Colour gate</b><span>Lets only arrows of its own colour through, then opens.</span><span class="chip">Level 41+</span></span>
+      <span class="card-body"><b>Colour gate</b><span>Lets only its own colour through, then opens for good.</span><span class="chip">Level 41+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/mirror/" data-text="mirror turns an arrow's path by 90 degrees.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#EAF4F8' stroke='#C9DCE4' stroke-width='2'/><path d='M14 34L34 14' stroke='#4A5568' stroke-width='9' stroke-linecap='round'/><path d='M14 34L34 14' stroke='#BFE6F5' stroke-width='5' stroke-linecap='round'/><path d='M4 24h20V9' fill='none' stroke='#1C9FD8' stroke-width='4' stroke-linecap='round' stroke-linejoin='round'/><path d='M24 1l-6 8h12z' fill='#1C9FD8'/></svg></span>
+      <span class="card-body"><b>Mirror</b><span>Turns an arrow's path by 90 degrees.</span><span class="chip">Level 61+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/level-2-rock/" data-text="level-2 rock a tougher rock that takes two bomb hits.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#6E665E'/><path d='M14 19l11-7 12 8-11 4z' fill='#857C72'/><path d='M26 24l11-4 3 14-14 5z' fill='#57504A'/><circle cx='20' cy='33' r='3' fill='#fff' stroke='#3B3355' stroke-width='1.5'/><circle cx='28.5' cy='32' r='3' fill='#fff' stroke='#3B3355' stroke-width='1.5'/></svg></span>
+      <span class="card-body"><b>Level-2 rock</b><span>A tougher rock that takes two bomb hits.</span><span class="chip">Level 81+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/portal/" data-text="portal carries an arrow's path across the board to its pair.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><circle cx='15' cy='32' r='10' fill='#2F2B38' stroke='#8C5CF0' stroke-width='4'/><path d='M15 27.5l4.5 4.5-4.5 4.5-4.5-4.5z' fill='#8C5CF0'/><circle cx='34' cy='15' r='10' fill='#2F2B38' stroke='#8C5CF0' stroke-width='4'/><path d='M34 10.5l4.5 4.5-4.5 4.5-4.5-4.5z' fill='#8C5CF0'/></svg></span>
+      <span class="card-body"><b>Portal</b><span>Carries an arrow's path across the board to its pair.</span><span class="chip">Level 101+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/ice/" data-text="ice a block with a number that melts as arrows leave.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#CFEFFB' stroke='#7CC6E6' stroke-width='3'/><path d='M13 13l5 3' stroke='#fff' stroke-width='2.5' stroke-linecap='round'/><path d='M29 15H19v8h10v9H19' fill='none' stroke='#1B4F8A' stroke-width='3.5' stroke-linecap='round' stroke-linejoin='round'/></svg></span>
+      <span class="card-body"><b>Ice</b><span>A block with a number that melts as arrows leave.</span><span class="chip">Level 131+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/level-3-rock/" data-text="level-3 rock the toughest rock: three bomb hits.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#5C554E'/><path d='M14 19l11-7 12 8-11 4z' fill='#746B62'/><path d='M26 24l11-4 3 14-14 5z' fill='#47413C'/><circle cx='17' cy='32' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/><circle cx='24.5' cy='34' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/><circle cx='32' cy='31' r='3' fill='#fff' stroke='#2F2B38' stroke-width='1.5'/></svg></span>
+      <span class="card-body"><b>Level-3 rock</b><span>The toughest rock: three bomb hits.</span><span class="chip">Level 161+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/paint-tile/" data-text="paint tile gives an arrow that passes over it its colour.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><g fill='#F2B705'><circle cx='24' cy='24' r='13'/><circle cx='36' cy='25' r='5'/><circle cx='14' cy='30' r='5'/><circle cx='9' cy='16' r='3.5'/><circle cx='39' cy='12' r='3'/><circle cx='40' cy='36' r='3'/><circle cx='12' cy='39' r='2.5'/></g><path d='M24 16l7.5 13h-15z' fill='#fff'/></svg></span>
+      <span class="card-body"><b>Paint tile</b><span>Gives an arrow that passes over it its colour.</span><span class="chip">Level 191+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/shutter/" data-text="shutter a roller door that hides arrows until it rolls up.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='5' y='7' width='38' height='34' rx='5' fill='#9AA3AE'/><path d='M5 14h38M5 21h38M5 28h38M5 35h38' stroke='#7B8590' stroke-width='2'/><rect x='16' y='17' width='16' height='15' rx='3' fill='#2F2B38'/><path d='M21 21h6v3.5h-5m5 0V28h-6' fill='none' stroke='#F2F4F6' stroke-width='2.5' stroke-linecap='round' stroke-linejoin='round'/></svg></span>
+      <span class="card-body"><b>Shutter</b><span>A roller door that hides arrows until it rolls up.</span><span class="chip">Level 221+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/two-colour-gate/" data-text="two-colour gate a gate that needs two colours, in order.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='7' width='34' height='34' rx='8' fill='#1C9FD8'/><rect x='12' y='12' width='24' height='24' rx='5' fill='#FFFDF8'/><circle cx='20' cy='24' r='5.5' fill='#1C9FD8'/><path d='M31 20l4.5 8h-9z' fill='#F2B705'/></svg></span>
+      <span class="card-body"><b>Two-colour gate</b><span>A gate that needs two colours, in order.</span><span class="chip">Level 251+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/chain-bomb/" data-text="chain bomb &amp; rock walls one blast runs along a whole wall of touching rocks.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='4' y='5' width='13' height='12' rx='3' fill='#8E857B'/><rect x='17' y='5' width='13' height='12' rx='3' fill='#A8A096'/><rect x='30' y='5' width='13' height='12' rx='3' fill='#8E857B'/><circle cx='20' cy='33' r='10' fill='#2F2B38'/><path d='M26 25l4-5' stroke='#2F2B38' stroke-width='3.5' stroke-linecap='round'/><g fill='#FF922B'><circle cx='32' cy='19' r='2.5'/><circle cx='9' cy='31' r='2'/><circle cx='32' cy='37' r='2'/><circle cx='20' cy='45' r='2'/></g></svg></span>
+      <span class="card-body"><b>Chain bomb &amp; rock walls</b><span>One blast runs along a whole wall of touching rocks.</span><span class="chip">Level 281+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/colour-switch/" data-text="colour switch opens every gate of its colour at once.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='9' width='34' height='32' rx='8' fill='#3B3355'/><circle cx='24' cy='24' r='11' fill='#6E44D6'/><circle cx='24' cy='22' r='11' fill='#8C5CF0'/><path d='M24 15.5l6.5 6.5-6.5 6.5-6.5-6.5z' fill='#fff'/></svg></span>
+      <span class="card-body"><b>Colour switch</b><span>Opens every gate of its colour at once.</span><span class="chip">Level 311+</span></span>
     </a>
     </div>
   </section>
@@ -66,7 +106,7 @@
     </div>
   </section>
   <section class="sec" id="basics" aria-labelledby="h-basics">
-    <div class="sec-head"><h2 id="h-basics">Basics</h2><p>How the game works: hearts, coins, hints, hard levels and more.</p></div>
+    <div class="sec-head"><h2 id="h-basics">Basics</h2><p>How the game works: hearts, coins, hints, hard levels, worlds, and the ways to play with others.</p></div>
     <div class="cards">
     <a class="card" href="/exitwise/wiki/how-to-play/" data-text="how to play tap an arrow with a clear path. clear the board.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M8 24h22' stroke='#1C9FD8' stroke-width='7' stroke-linecap='round'/><path d='M42 24l-13-10v20z' fill='#1C9FD8'/></svg></span>
@@ -84,21 +124,33 @@
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M24 6a12 12 0 0 0-7 21.7V32h14v-4.3A12 12 0 0 0 24 6z' fill='#F2B705'/><rect x='18' y='35' width='12' height='4' rx='2' fill='#B5890A'/></svg></span>
       <span class="card-body"><b>Hints</b><span>Lights up an arrow that can leave right now.</span><span class="chip">Level 1+</span></span>
     </a>
-    <a class="card" href="/exitwise/wiki/hard-levels/" data-text="hard levels every 10th level: a bigger board, and 30 coins.">
+    <a class="card" href="/exitwise/wiki/hard-levels/" data-text="hard levels every 10th level: bigger, deeper, at night, for 30 coins.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M4 40l13-22 7 11 6-8 14 19z' fill='#3B3355'/><path d='M17 18l4 7-4-2-4 3z' fill='#fff'/></svg></span>
-      <span class="card-body"><b>Hard levels</b><span>Every 10th level: a bigger board, and 30 coins.</span><span class="chip">Level 10+</span></span>
+      <span class="card-body"><b>Hard levels</b><span>Every 10th level: bigger, deeper, at night, for 30 coins.</span><span class="chip">Level 10+</span></span>
     </a>
-    <a class="card" href="/exitwise/wiki/board-shapes/" data-text="board shapes 20 shapes, from rectangles to hearts, cats and butterflies.">
+    <a class="card" href="/exitwise/wiki/board-shapes/" data-text="board shapes 49 shapes, from hexagons and spirals to rockets and castles.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M24 41S6 30 6 17a9 9 0 0 1 18-3 9 9 0 0 1 18 3c0 13-18 24-18 24z' fill='none' stroke='#8C5CF0' stroke-width='3' stroke-dasharray='2 4' stroke-linecap='round'/></svg></span>
-      <span class="card-body"><b>Board shapes</b><span>20 shapes, from rectangles to hearts, cats and butterflies.</span><span class="chip">Level 5+</span></span>
+      <span class="card-body"><b>Board shapes</b><span>49 shapes, from hexagons and spirals to rockets and castles.</span><span class="chip">Level 5+</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/worlds/" data-text="worlds &amp; the level map 17 worlds, each with its own look, on one scrolling map.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='9' fill='#3BB273'/><path d='M14 35c0-9 20-5 20-13s-12-5-12-12' fill='none' stroke='#FFFDF8' stroke-width='3' stroke-dasharray='1 5' stroke-linecap='round'/><circle cx='14' cy='35' r='4' fill='#FF922B'/><circle cx='22' cy='11' r='4' fill='#F2B705'/></svg></span>
+      <span class="card-body"><b>Worlds &amp; the level map</b><span>17 worlds, each with its own look, on one scrolling map.</span></span>
     </a>
     <a class="card" href="/exitwise/wiki/daily-challenge/" data-text="daily challenge one board a day, the same for everyone, with monthly rewards.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='10' width='34' height='30' rx='6' fill='#FF922B'/><rect x='7' y='10' width='34' height='9' rx='4' fill='#E0761A'/><path d='M16 6v8M32 6v8' stroke='#3B3355' stroke-width='3' stroke-linecap='round'/><path d='M17 29l5 5 9-10' stroke='#fff' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg></span>
       <span class="card-body"><b>Daily challenge</b><span>One board a day, the same for everyone, with monthly rewards.</span></span>
     </a>
-    <a class="card" href="/exitwise/wiki/leaderboards/" data-text="leaderboards &amp; profiles every level has a board: fewest hearts lost, then fastest time.">
+    <a class="card" href="/exitwise/wiki/leaderboards/" data-text="leaderboards &amp; profiles a board for every level, plus four global boards.">
       <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='6' y='22' width='11' height='18' rx='3' fill='#1C9FD8'/><rect x='18.5' y='12' width='11' height='28' rx='3' fill='#F2B705'/><rect x='31' y='27' width='11' height='13' rx='3' fill='#FF6B6B'/></svg></span>
-      <span class="card-body"><b>Leaderboards &amp; profiles</b><span>Every level has a board: fewest hearts lost, then fastest time.</span></span>
+      <span class="card-body"><b>Leaderboards &amp; profiles</b><span>A board for every level, plus four global boards.</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/rooms/" data-text="play with friends race 2 to 8 players on the same boards with a room code.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><circle cx='17' cy='17' r='7' fill='#1C9FD8'/><path d='M5 40c0-8 5.5-13 12-13s12 5 12 13z' fill='#1C9FD8'/><circle cx='33' cy='19' r='6' fill='#FF6B6B'/><path d='M23 40c0-7 4.5-11 10-11s10 4 10 11z' fill='#FF6B6B'/></svg></span>
+      <span class="card-body"><b>Play with friends</b><span>Race 2 to 8 players on the same boards with a room code.</span></span>
+    </a>
+    <a class="card" href="/exitwise/wiki/custom-maps/" data-text="custom maps build your own levels, and play other players' maps.">
+      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='6' y='6' width='36' height='36' rx='8' fill='#FF922B'/><path d='M18 10v28M30 10v28M10 18h28M10 30h28' stroke='#FFFDF8' stroke-width='2' opacity='.6'/><path d='M14 34l3-9 16-16 6 6-16 16z' fill='#3B3355'/><path d='M14 34l3-9 6 6z' fill='#FFFDF8'/></svg></span>
+      <span class="card-body"><b>Custom maps</b><span>Build your own levels, and play other players' maps.</span></span>
     </a>
     </div>
   </section>
