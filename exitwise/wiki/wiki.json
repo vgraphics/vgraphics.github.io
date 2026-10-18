@@ -264,7 +264,7 @@
       "summary": "Race 2 to 8 players on the same boards with a room code.",
       "what": ["Home → Play with friends → Create room makes a 6-character code. Friends join by typing it, scanning the invite's QR code or opening the invite link, in the app or in the browser.", "The host picks the difficulty (Easy, Medium, Hard or Expert) and how many games to play, up to 20. Every game is a new board, the same for everyone, after a 3-2-1 countdown."],
       "how": ["Clear the board fastest: the first to finish scores the most points. Out of hearts or out of time scores 0.", "Once someone finishes, the others get as long again as they took, at least a minute.", "Rooms have no powerups, hints, restarts, continues or ads. After the last game a podium shows the winners, and the host can start Play again."],
-      "notes": ["Rooms need a profile name, so everyone can see who's who."],
+      "notes": ["Rooms need a profile name, so everyone can see who's who.", "The invite link joins the room by itself: in the app on an Android phone that has Exitwise, and in the browser game on a computer or an iPhone. An Android phone without the app offers the browser game or Google Play."],
       "related": ["leaderboards", "hearts", "custom-maps"]
     },
     {
