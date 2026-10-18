@@ -258,6 +258,22 @@
     .heart { width: 15px; height: 15px; flex: none; }
     .big .heart { width: 18px; height: 18px; }
 
+    /* A board's top 3 as trophies, in the empty board's style: 2nd, 1st, 3rd. */
+    .trophies {
+      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end;
+      column-gap: 8px; padding: 4px 20px 18px;
+    }
+    .trophies[hidden] { display: none; }
+    .trophy { display: grid; justify-items: center; gap: 3px; min-width: 0; text-align: center; line-height: 1.2; }
+    .trophy.t1 { order: 2; } .trophy.t2 { order: 1; } .trophy.t3 { order: 3; }
+    .trophy.enter { animation: rowin 320ms cubic-bezier(.2, .8, .2, 1) both; }
+    .trophy .cup { width: 76px; height: 76px; }
+    .trophy.t1 .cup { width: 100px; height: 100px; }
+    .trophy .avatar { margin-top: -2px; box-shadow: 0 0 0 3px var(--card, #FFFDF8); }
+    .tname { max-width: 100%; font-weight: 800; font-size: 0.98rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .tname.anon { color: var(--muted); font-weight: 700; }
+    .tstat { color: var(--muted); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
+
     /* Loading: rows to come */
     .skeleton .rank, .skeleton .avatar, .skeleton .bar {
       background: linear-gradient(90deg, var(--board) 0%, #F3EEE5 50%, var(--board) 100%);
@@ -339,6 +355,9 @@
       .rank { min-width: 30px; height: 30px; font-size: 0.98rem; border-radius: 10px; }
       .avatar { width: 36px; height: 36px; }
       .row { min-height: 58px; }
+      .trophies { padding-left: 12px; padding-right: 12px; }
+      .trophy .cup { width: 62px; height: 62px; }
+      .trophy.t1 .cup { width: 84px; height: 84px; }
       .count { padding-left: 14px; padding-right: 14px; }
       .state { padding-left: 16px; padding-right: 16px; }
     }
@@ -401,6 +420,7 @@
             <button class="refresh" type="button" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Refresh</button>
           </p>
         </div>
+        <div class="trophies" id="trophies" aria-hidden="true" hidden></div>
         <div class="cols" id="cols" aria-hidden="true"><span>#</span><span>Player</span><span id="col-stat">Level</span></div>
         <ol class="rows" id="rows" aria-labelledby="board-title" aria-busy="true"></ol>
         <div class="state" id="state" hidden>
@@ -519,6 +539,36 @@
       });
     }
 
+    function trophyStat(id, s) {
+      if (id === "score") return plural(s.score, "point", "points");
+      if (id === "perfect") return plural(s.perfectClears, "perfect clear", "perfect clears");
+      if (id === "maps") return plural(s.customCleared, "map", "maps");
+      return plural(s.creatorPlays, "play", "plays");
+    }
+
+    // The first three as trophies above the list (the list still has them, for screen readers too).
+    function drawTrophies(id, players, animate) {
+      const trophies = $("trophies");
+      trophies.textContent = "";
+      players.slice(0, 3).forEach((p, i) => {
+        const rank = Math.min(p.rank, 3);
+        const div = document.createElement("div");
+        div.className = "trophy t" + (i + 1) + (animate && !reduced ? " enter" : "");
+        if (animate && !reduced) div.style.animationDelay = [80, 0, 160][i] + "ms";
+        div.innerHTML = `<svg class="cup" viewBox="0 0 48 48">${trophyArt(CUPS[rank - 1], cupMark(rank))}</svg>`;
+        const name = document.createElement("span");
+        name.className = "tname" + (p.name ? "" : " anon");
+        name.textContent = p.name || anonymous(p.uid);
+        name.title = name.textContent;
+        const stat = document.createElement("span");
+        stat.className = "tstat";
+        stat.textContent = trophyStat(id, p.stats);
+        div.append(avatarCell(p), name, stat);
+        trophies.appendChild(div);
+      });
+      trophies.hidden = players.length === 0;
+    }
+
     function skeleton() {
       rows.textContent = "";
       for (let i = 0; i < 8; i++) {
@@ -531,7 +581,12 @@
     }
 
     const PLAY = `<div class="stores"><a class="btn" href="/exitwise/play/"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play in your browser</a><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>`;
-    const TROPHY = `<rect x="6" y="40" width="36" height="5" rx="2.5" fill="#DED4C4"/><path d="M14 8h20v12a10 10 0 0 1-20 0z" fill="#F2B705"/><path d="M14 11H8a6 6 0 0 0 6 9M34 11h6a6 6 0 0 1-6 9" fill="none" stroke="#F2B705" stroke-width="3"/><rect x="21" y="29" width="6" height="7" fill="#F2B705"/><rect x="15" y="35" width="18" height="5" rx="2" fill="#3B3355"/><path d="M24 12l1.8 3.7 4 .6-2.9 2.8.7 4L24 21.2 20.4 23l.7-4-2.9-2.8 4-.6z" fill="#FFFDF8"/>`;
+    // The trophy of an empty board, also drawn for each board's top 3: gold, silver and bronze, the rank on the cup.
+    const trophyArt = (cup, mark) => `<rect x="6" y="40" width="36" height="5" rx="2.5" fill="#DED4C4"/><path d="M14 8h20v12a10 10 0 0 1-20 0z" fill="${cup}"/><path d="M14 11H8a6 6 0 0 0 6 9M34 11h6a6 6 0 0 1-6 9" fill="none" stroke="${cup}" stroke-width="3"/><rect x="21" y="29" width="6" height="7" fill="${cup}"/><rect x="15" y="35" width="18" height="5" rx="2" fill="#3B3355"/>${mark}`;
+    const STAR = `<path d="M24 12l1.8 3.7 4 .6-2.9 2.8.7 4L24 21.2 20.4 23l.7-4-2.9-2.8 4-.6z" fill="#FFFDF8"/>`;
+    const TROPHY = trophyArt("#F2B705", STAR);
+    const CUPS = ["#F2B705", "#C3CAD6", "#E39A5E"];
+    const cupMark = rank => rank === 1 ? STAR : `<text x="24" y="22" text-anchor="middle" font-family="Lilita One, Arial Rounded MT Bold, sans-serif" font-size="12" fill="#3B3355">${rank}</text>`;
     const CLOUD = `<path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 2 8 8 0 0 1-1 16z" fill="#E9E1D3"/><path d="M24 22v8" stroke="#3B3355" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="35" r="2.4" fill="#3B3355"/>`;
 
     function showState(kind) {
@@ -557,11 +612,13 @@
       const n = data.players.length;
       if (!n) {
         rows.textContent = "";
+        $("trophies").hidden = true;
         showState("empty");
         count.hidden = true;
         status.textContent = `${BOARDS[id].title}: nobody on this board yet.`;
         return;
       }
+      drawTrophies(id, data.players, animate);
       drawRows(id, data.players, animate);
       count.textContent = n >= TOP ? `The top ${TOP}` : plural(n, "player", "players") + " on this board";
       count.hidden = false;
@@ -582,6 +639,7 @@
         return;
       }
       count.hidden = true;
+      $("trophies").hidden = true;
       rows.setAttribute("aria-busy", "true");
       skeleton();
       $("updated").textContent = "Loading…";
@@ -593,7 +651,10 @@
         cache[id] = data;
         render(id, data, true);
         if (await loadPhotos(data.players).catch(() => false)) {
-          if (mine === request && cache[id] === data) drawRows(id, data.players, false);
+          if (mine === request && cache[id] === data) {
+            drawTrophies(id, data.players, false);
+            drawRows(id, data.players, false);
+          }
         }
       } catch (e) {
         if (mine !== request) return;
