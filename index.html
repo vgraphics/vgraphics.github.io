@@ -113,7 +113,7 @@
     .podium { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 10px; height: 130px; margin-top: 4px; }
     .podium span { border-radius: 14px 14px 6px 6px; background: rgba(255,255,255,.8); display: grid; place-items: center; font: 800 1.6rem/1 var(--display); color: #16151B; }
     .podium span:nth-child(1) { height: 68%; } .podium span:nth-child(2) { height: 100%; background: #fff; } .podium span:nth-child(3) { height: 50%; }
-    .badge-soon { justify-self: start; padding: 6px 12px; border-radius: 999px; background: #16151B; color: #fff; font-weight: 700; font-size: .82rem; }
+    .badge-go { justify-self: start; padding: 6px 12px; border-radius: 999px; background: #16151B; color: #fff; font-weight: 700; font-size: .82rem; }
 
     .x-speedo { background: #0E0E0F url("/speedometer-wallpaper/img/asphalt.webp") center / cover; color: #EDEDED; min-height: 540px; }
     .x-speedo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,8,9,.88) 32%, rgba(8,8,9,.15)); }
@@ -260,12 +260,12 @@
           </div>
         </a>
 
-        <div class="b x-board s5" aria-labelledby="board-title">
+        <a class="b x-board s5" href="/exitwise/ranking/">
           <span class="kicker">Leaderboards</span>
-          <h3 id="board-title">Global ranking</h3>
+          <h3>Global ranking</h3>
           <div class="podium" aria-hidden="true"><span>2</span><span>1</span><span>3</span></div>
-          <span class="badge-soon">Coming soon to this site</span>
-        </div>
+          <span class="badge-go">See the full ranking</span>
+        </a>
 
         <article class="b x-speedo s7 r2" aria-labelledby="speedo-title">
           <div class="copy">

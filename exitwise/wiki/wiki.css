@@ -93,4 +93,8 @@ h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.05; margi
   .pager { grid-template-columns: 1fr; }
   .product span { display: none; }
 }
+@media (max-width: 560px) {
+  .subnav .wide-only:not([aria-current]) { display: none; }
+  .subnav a { padding: 0 14px; }
+}
 @media (prefers-reduced-motion: reduce) { *, *::before, *::after { transition: none !important; animation: none !important; } html { scroll-behavior: auto; } }

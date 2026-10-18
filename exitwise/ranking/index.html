@@ -77,6 +77,7 @@
       margin: 0 auto;
       padding: 18px var(--gutter);
       display: flex;
+      flex-wrap: wrap;
       justify-content: space-between;
       align-items: center;
       gap: 12px;
@@ -86,6 +87,8 @@
     .top a:hover { color: var(--blue); }
     .top .brand { display: inline-flex; flex: none; }
     .top .brand img { height: 36px; width: auto; }
+    .top .product { display: inline-flex; align-items: center; gap: 10px; margin: 0 auto 0 4px; font: 400 1.35rem/1 var(--display); }
+    .top .product img { width: 36px; height: 36px; border-radius: 10px; }
     .subnav { display: flex; gap: 6px; }
     .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; }
     .subnav a:hover { background: var(--board); color: var(--ink); }
@@ -316,8 +319,9 @@
     @media (max-width: 560px) {
       :root { --gutter: 16px; }
       body { font-size: 17px; }
-      .subnav .wide-only { display: none; }
+      .subnav .wide-only:not([aria-current]) { display: none; }
       .subnav a { padding: 0 14px; }
+      .top .product span { display: none; }
       .intro { padding-top: 4px; }
       .app-icon { width: 56px; height: 56px; border-radius: 15px; }
       .icon-link { border-radius: 15px; }
@@ -343,11 +347,13 @@
 <body>
   <header class="top">
     <a class="brand" href="/"><img src="/img/vgraphics-logo.png" alt="VGraphics" width="555" height="473"></a>
+    <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
     <nav class="subnav" aria-label="Exitwise">
       <a href="/exitwise/">Overview</a>
       <a href="/exitwise/wiki/">Wiki</a>
       <a href="/exitwise/ranking/" aria-current="page">Ranking</a>
       <a class="wide-only" href="/exitwise/privacy.html">Privacy</a>
+      <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
     </nav>
   </header>
 

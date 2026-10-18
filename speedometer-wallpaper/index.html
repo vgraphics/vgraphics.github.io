@@ -65,6 +65,8 @@
     .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
     .back { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font: 800 1rem/1 var(--display); letter-spacing: 0.14em; }
     .back img { height: 30px; width: auto; }
+    .product { display: inline-flex; align-items: center; gap: 10px; color: var(--chrome); text-decoration: none; font: 800 1.2rem/1 var(--display); text-transform: uppercase; letter-spacing: .06em; margin-right: auto; }
+    .product img { width: 34px; height: 34px; border-radius: 9px; }
     .subnav { display: flex; gap: 4px; }
     .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 14px; border-radius: 999px; text-decoration: none; font: 600 1.05rem/1 var(--display); letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
     .subnav a:hover { color: var(--chrome); background: rgba(255, 255, 255, 0.06); }
@@ -192,7 +194,7 @@
     }
     @media (max-width: 520px) {
       body { font-size: 16px; }
-      .back span { display: none; }
+      .product span { display: none; }
       .subnav a { padding: 0 10px; }
       .gauge { display: none; }
       section { padding-block: 64px; }
@@ -212,12 +214,12 @@
 
   <header class="bar">
     <div class="wrap">
-      <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"></a>
+      <a class="product" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
       <nav class="subnav" aria-label="Speedometer Live Wallpaper">
         <a href="/speedometer-wallpaper/" aria-current="page">Overview</a>
-        <a href="#tour">Tour</a>
         <a href="/speedometer-wallpaper/wiki/">Wiki</a>
-        <a href="privacy.html">Privacy</a>
+        <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
       </nav>
     </div>
   </header>

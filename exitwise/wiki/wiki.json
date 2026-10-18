@@ -7,7 +7,9 @@
   "nav": [
     { "label": "Overview", "href": "/exitwise/" },
     { "label": "Wiki", "href": "/exitwise/wiki/", "current": true },
-    { "label": "Privacy", "href": "/exitwise/privacy.html" }
+    { "label": "Ranking", "href": "/exitwise/ranking/" },
+    { "label": "Privacy", "href": "/exitwise/privacy.html", "wide": true },
+    { "label": "Map rules", "href": "/exitwise/map-rules.html", "wide": true }
   ],
   "sections": [
     { "id": "traps", "title": "Obstacles", "intro": "Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it." },

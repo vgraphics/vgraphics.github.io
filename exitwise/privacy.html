@@ -85,6 +85,10 @@
       .toc { position: static; }
       .bar .product span { display: none; }
     }
+    @media (max-width: 560px) {
+      .subnav .wide-only:not([aria-current]) { display: none; }
+      .subnav a { padding: 0 14px; }
+    }
     @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
   </style>
 </head>
@@ -96,8 +100,9 @@
   <nav class="subnav" aria-label="Exitwise">
     <a href="/exitwise/">Overview</a>
     <a href="/exitwise/wiki/">Wiki</a>
-    <a href="/exitwise/privacy.html" aria-current="page">Privacy</a>
-    <a href="/exitwise/map-rules.html">Map rules</a>
+    <a href="/exitwise/ranking/">Ranking</a>
+    <a class="wide-only" href="/exitwise/privacy.html" aria-current="page">Privacy</a>
+    <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
   </nav>
 </header>
 
