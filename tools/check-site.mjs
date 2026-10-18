@@ -101,7 +101,9 @@ if (!existsSync(appAds)) report('app-ads.txt', 'app-ads', 'missing')
 else {
   const lines = readFileSync(appAds, 'utf8').split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#'))
   for (const l of lines) {
-    if (!/^[a-z0-9.-]+, [A-Za-z0-9-]+, (DIRECT|RESELLER)(, [a-z0-9]+)?$/.test(l)) report('app-ads.txt', 'app-ads', `bad line "${l}"`)
+    // IAB variable lines (OWNERDOMAIN=…) are allowed; seller account ids may hold underscores (pub_11113).
+    if (/^(OWNERDOMAIN|MANAGERDOMAIN|CONTACT|SUBDOMAIN|INVENTORYPARTNERDOMAIN)=\S+$/.test(l)) continue
+    if (!/^[a-z0-9.-]+, [A-Za-z0-9_-]+, (DIRECT|RESELLER)(, [a-z0-9]+)?$/.test(l)) report('app-ads.txt', 'app-ads', `bad line "${l}"`)
   }
   if (!lines.includes(ADMOB)) report('app-ads.txt', 'app-ads', 'no AdMob line')
 }
