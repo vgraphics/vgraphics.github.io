@@ -14,6 +14,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
 | `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html` |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
+| `exitwise/ranking/` | Exitwise's global ranking: the game's four global boards (top 100 each), read live from the game's Firestore without signing in. The game repo's `docs/firebase/exitwise-firestore.rules` allows exactly those reads; `?emulator=127.0.0.1:PORT` reads a local emulator, on localhost only. |
 | `exitwise/room/` | The page a room invite's QR code opens: opens the game in the room on Android, otherwise shows the code |
 | `.well-known/assetlinks.json` | Android App Links: lets the Exitwise app open `https://vgraphics.gr/exitwise/room/…` links itself. It lists the SHA-256 fingerprints of the Play app signing keys (current and previous, from Play Console › App integrity), the upload key and the build PC's debug key. Public fingerprints only. Add another app's entry to the same array. `.nojekyll` makes Pages serve the dot-folder. |
 | `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
