@@ -32,6 +32,10 @@ function shell(w, { title, description, path, body }) {
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">${p.image ? `
+  <meta property="og:image" content="https://vgraphics.gr${esc(p.image)}">
+  <meta name="twitter:card" content="summary_large_image">` : ''}
   <link rel="stylesheet" href="/${p.slug}/wiki/wiki.css">
 </head>
 <body>

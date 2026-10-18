@@ -1,5 +1,5 @@
 {
-  "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png" },
+  "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png", "image": "/exitwise/img/feature-1024x500.png" },
   "title": "Exitwise wiki",
   "intro": "Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
   "source": "Written from the game on main (39aa208, 2026-10-17: the update with mirrors, portals, ice, shutters, the colour family and chain bombs). Later generated from Core's WikiCatalog.",

@@ -1,5 +1,5 @@
 {
-  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png" },
+  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card.jpg" },
   "title": "Speedometer wiki",
   "intro": "Every gauge, light, design and setting on your dashboard: what it shows, and how to set it up.",
   "source": "Written from the app's Info, Settings and Designs screens and docs/speedometer-wallpaper.md (Games main 39aa208, 2026-10-17: version 2.0.0 with the Future design). Later generated from the app's own strings.",
