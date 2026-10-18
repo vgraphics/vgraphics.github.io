@@ -17,8 +17,8 @@ window.ExitwiseBoards = (() => {
   const ROOT = `projects/${project}/databases/(default)/documents`;
 
   const BOARDS = {
-    progress: { title: "Progress", caption: "Highest level, then perfect clears", column: "Level", order: ["highestLevel", "perfectClears"], field: "highestLevel",
-      empty: "Nobody has a global rank yet. Win level 1 to get one." },
+    score: { title: "Score", caption: "Points for every level won: fewer hearts lost and faster wins earn more", column: "Score", order: ["score", "highestLevel"], field: "score",
+      empty: "Nobody has a score yet. Win level 1 to get one." },
     perfect: { title: "Perfect", caption: "Levels won without losing a heart", column: "Perfect clears", order: ["perfectClears"], field: "perfectClears",
       empty: "Win a level without losing a heart to get on this board." },
     maps: { title: "Maps", caption: "Other players' maps cleared", column: "Maps cleared", order: ["customCleared"], field: "customCleared",
@@ -26,7 +26,7 @@ window.ExitwiseBoards = (() => {
     creators: { title: "Creators", caption: "Plays of their maps by other players", column: "Plays", order: ["creatorPlays"], field: "creatorPlays",
       empty: "Publish a custom map. Its plays put you on this board." },
   };
-  const STAT_FIELDS = ["highestLevel", "perfectClears", "customCleared", "creatorPlays"];
+  const STAT_FIELDS = ["score", "highestLevel", "perfectClears", "customCleared", "creatorPlays"];
 
   // The game's 12 preset avatars (Game AvatarElement): a coloured disc with a white symbol, on a 100 × 100 grid.
   const DISCS = ["#EE4D5C", "#1E88DA", "#1F9F52", "#8C5CF0", "#D9580E", "#BE8508", "#E0457B", "#0E9AA7", "#5B6CF0", "#C2410C", "#4D7C0F", "#3B3355"];
@@ -108,7 +108,7 @@ window.ExitwiseBoards = (() => {
       for (const key of STAT_FIELDS) stats[key] = int(f, key);
       return { uid: idOf(x.document.name), stats };
     }).filter(p => /^[A-Za-z0-9_-]{1,128}$/.test(p.uid) && p.stats[b.field] > 0);
-    const compare = (x, y) => (y.stats[b.field] - x.stats[b.field]) || (id === "progress" ? y.stats.perfectClears - x.stats.perfectClears : 0);
+    const compare = (x, y) => (y.stats[b.field] - x.stats[b.field]) || (id === "score" ? y.stats.highestLevel - x.stats.highestLevel : 0);
     players.sort(compare);
     players.forEach((p, i) => { p.rank = i > 0 && compare(players[i - 1], p) === 0 ? players[i - 1].rank : i + 1; });
 

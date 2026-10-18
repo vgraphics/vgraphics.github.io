@@ -110,7 +110,7 @@
     .chipcard svg { width: 34px; height: 34px; }
 
     .x-board { background: var(--coral); }
-    /* The live top 3 of Exitwise's Progress board (filled in by the script at the end; plain steps until then). */
+    /* The live top 3 of Exitwise's Score board (filled in by the script at the end; plain steps until then). */
     .podium { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 10px; margin-top: 4px; }
     .podium .place { display: grid; gap: 8px; justify-items: center; min-width: 0; }
     .podium .step { width: 100%; border-radius: 14px 14px 6px 6px; background: rgba(255,255,255,.8); display: grid; place-items: center; font: 800 1.6rem/1 var(--display); color: #16151B; }
@@ -121,6 +121,7 @@
     .podium .p1 .av { width: 54px; height: 54px; }
     .podium .av img, .podium .av svg { display: block; width: 100%; height: 100%; object-fit: cover; }
     .podium .name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: .92rem; }
+    .podium .pts { font: 800 .95rem/1 var(--display); font-variant-numeric: tabular-nums; }
     .podium .lv { font: 800 .82rem/1 var(--display); opacity: .75; }
     .badge-go { justify-self: start; padding: 6px 12px; border-radius: 999px; background: #16151B; color: #fff; font-weight: 700; font-size: .82rem; }
 
@@ -341,14 +342,14 @@
 </footer>
 <script src="/exitwise/ranking/boards.js"></script>
 <script>
-  // The Global ranking card's podium: the live top 3 of Exitwise's Progress board, as on /exitwise/ranking/.
+  // The Global ranking card's podium: the live top 3 of Exitwise's Score board, as on /exitwise/ranking/.
   // Anything that fails leaves the plain 2-1-3 steps.
   (async () => {
     const podium = document.getElementById("podium");
     if (!podium || !window.ExitwiseBoards) return;
     const { loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
     try {
-      const top = (await loadBoard("progress", 3)).players.slice(0, 3);
+      const top = (await loadBoard("score", 3)).players.slice(0, 3);
       if (!top.length) return;
       await loadPhotos(top).catch(() => false);
       top.forEach((p, i) => {
@@ -366,14 +367,17 @@
         const name = document.createElement("span");
         name.className = "name";
         name.textContent = p.name || anonymous(p.uid);
+        const pts = document.createElement("span");
+        pts.className = "pts";
+        pts.textContent = p.stats.score.toLocaleString("en-US");
         const lv = document.createElement("span");
         lv.className = "lv";
         lv.textContent = "Lv " + p.stats.highestLevel.toLocaleString("en-US");
-        place.querySelector(".who").replaceChildren(av, name, lv);
+        place.querySelector(".who").replaceChildren(av, name, pts, lv);
         place.querySelector(".step").textContent = p.rank;
       });
       document.getElementById("podium-text").textContent = "Top players: " +
-        top.map(p => `${p.rank}. ${p.name || anonymous(p.uid)}, level ${p.stats.highestLevel}`).join("; ") + ".";
+        top.map(p => `${p.rank}. ${p.name || anonymous(p.uid)}, ${p.stats.score.toLocaleString("en-US")} points, level ${p.stats.highestLevel}`).join("; ") + ".";
     } catch (e) { /* keep the plain podium */ }
   })();
 </script>

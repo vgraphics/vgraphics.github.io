@@ -249,6 +249,9 @@
     .avatar img { object-fit: cover; }
     .name { font-weight: 800; font-size: 1.02rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
     .name.anon { color: var(--muted); font-weight: 700; }
+    /* Score rows: the player's level under the name. */
+    .who { display: grid; min-width: 0; line-height: 1.2; }
+    .who .lv { color: var(--muted); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
     .stat { text-align: right; line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; }
     .stat .big { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font: 400 1.22rem/1.1 var(--display); }
     .stat .small { display: flex; align-items: center; justify-content: flex-end; gap: 3px; color: var(--muted); font-size: 0.82rem; font-weight: 700; }
@@ -372,7 +375,7 @@
         <a class="store" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a>
       </div>
       <ul class="how">
-        <li style="--c: var(--blue)"><span><b>Progress:</b> highest level won, then perfect clears.</span></li>
+        <li style="--c: var(--blue)"><span><b>Score:</b> 1,000 points for each level won, less for each heart lost and for the time taken.</span></li>
         <li style="--c: var(--red)"><span><b>Perfect:</b> levels won without losing a heart.</span></li>
         <li style="--c: var(--orange)"><span><b>Maps:</b> other players' custom maps cleared.</span></li>
         <li style="--c: var(--purple)"><span><b>Creators:</b> plays of their own maps by other players.</span></li>
@@ -382,17 +385,17 @@
 
     <section class="boards" aria-label="Global boards">
       <div class="tabs" role="tablist" aria-label="Board">
-        <button class="tab" type="button" role="tab" id="tab-progress" data-board="progress" aria-controls="panel" aria-selected="true">Progress</button>
+        <button class="tab" type="button" role="tab" id="tab-score" data-board="score" aria-controls="panel" aria-selected="true">Score</button>
         <button class="tab" type="button" role="tab" id="tab-perfect" data-board="perfect" aria-controls="panel" aria-selected="false" tabindex="-1">Perfect</button>
         <button class="tab" type="button" role="tab" id="tab-maps" data-board="maps" aria-controls="panel" aria-selected="false" tabindex="-1">Maps</button>
         <button class="tab" type="button" role="tab" id="tab-creators" data-board="creators" aria-controls="panel" aria-selected="false" tabindex="-1">Creators</button>
       </div>
 
-      <div class="card" id="panel" role="tabpanel" aria-labelledby="tab-progress">
+      <div class="card" id="panel" role="tabpanel" aria-labelledby="tab-score">
         <div class="card-head">
           <div>
-            <h2 id="board-title">Progress</h2>
-            <p class="caption" id="caption">Highest level, then perfect clears</p>
+            <h2 id="board-title">Score</h2>
+            <p class="caption" id="caption">Points for every level won: fewer hearts lost and faster wins earn more</p>
           </div>
           <p class="updated"><span id="updated">Loading…</span>
             <button class="refresh" type="button" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Refresh</button>
@@ -415,7 +418,7 @@
       <!-- Narrow screens: the board comes first, then where to play (wide screens have it in the intro). -->
       <section class="cta-end" aria-labelledby="cta-title">
         <h2 id="cta-title">Climb the ranking</h2>
-        <p>Win levels for Progress, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.</p>
+        <p>Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.</p>
         <div class="stores" aria-label="Where to play">
           <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
           <a class="store" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a>
@@ -448,16 +451,16 @@
     const tabs = [...document.querySelectorAll(".tab")];
     const rows = $("rows"), state = $("state"), count = $("count"), refresh = $("refresh"), status = $("status");
     const cache = {};
-    let board = "progress", request = 0;
+    let board = "score", request = 0;
     const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
 
     function statCell(id, s) {
       const cell = document.createElement("span");
       cell.className = "stat";
       let html, label;
-      if (id === "progress") {
-        html = `<span class="big">Lv ${fmt(s.highestLevel)}</span><span class="small">${HEART}${fmt(s.perfectClears)}</span>`;
-        label = `level ${fmt(s.highestLevel)}, ${plural(s.perfectClears, "perfect clear", "perfect clears")}`;
+      if (id === "score") {
+        html = `<span class="big">${fmt(s.score)}</span><span class="small">${s.score === 1 ? "point" : "points"}</span>`;
+        label = `${plural(s.score, "point", "points")}, level ${fmt(s.highestLevel)}`;
       } else if (id === "perfect") {
         html = `<span class="big">${HEART}${fmt(s.perfectClears)}</span>`;
         label = plural(s.perfectClears, "perfect clear", "perfect clears");
@@ -501,7 +504,17 @@
         name.className = "name" + (p.name ? "" : " anon");
         name.textContent = p.name || anonymous(p.uid);
         name.title = name.textContent;
-        li.append(rank, avatarCell(p), name, statCell(id, p.stats));
+        let who = name;
+        if (id === "score") {
+          who = document.createElement("span");
+          who.className = "who";
+          const lv = document.createElement("span");
+          lv.className = "lv";
+          lv.setAttribute("aria-hidden", "true");
+          lv.textContent = "Lv " + fmt(p.stats.highestLevel);
+          who.append(name, lv);
+        }
+        li.append(rank, avatarCell(p), who, statCell(id, p.stats));
         rows.appendChild(li);
       });
     }
@@ -606,7 +619,7 @@
       $("panel").setAttribute("aria-labelledby", tab.id);
       if (focus) tab.focus();
       const id = tab.dataset.board;
-      history.replaceState(null, "", id === "progress" ? location.pathname + location.search : "#" + id);
+      history.replaceState(null, "", id === "score" ? location.pathname + location.search : "#" + id);
       show(id, false);
     }
 
