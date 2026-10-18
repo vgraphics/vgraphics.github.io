@@ -6,14 +6,37 @@
     <title>Play Exitwise</title>
     <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
+    <!-- The preview chat apps and social sites show for a link. -->
+    <meta property="og:type" content="website">
+    <meta property="og:site_name" content="VGraphics">
+    <meta property="og:title" content="Play Exitwise">
+    <meta property="og:description" content="Play the Exitwise arrow puzzle in your browser, with the same progress as on your phone.">
+    <meta property="og:url" content="https://vgraphics.gr/exitwise/play/">
+    <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+    <meta name="twitter:card" content="summary_large_image">
     <!-- The vgraphics.gr play page (BuildScript.WebGLPortfolio). Google Analytics only runs once the player allows it
-         here (ArrowPuzzleAnalytics.jslib); the answer stays in localStorage under "exitwise.analytics". -->
+         here (ArrowPuzzleAnalytics.jslib); the answer stays in localStorage under "exitwise.analytics". Ads come from
+         Google AdSense once EXITWISE_ADSENSE below has George's ids (ArrowPuzzleAdSense.jslib, docs/web-ads-adsense.md):
+         H5 Games Ads' interstitials and rewarded videos over the page, and a banner in #ad-banner, under the game. -->
     <style>
-      :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px; }
+      :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
+              --ad: 0px; }
+      html.with-banner { --ad: 58px; }
       html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink);
                    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
-      #unity-canvas { position: fixed; left: 0; top: 0; right: 0; bottom: var(--bar); width: 100%; height: calc(100% - var(--bar));
-                      display: block; background: var(--paper); outline: none; }
+      #unity-canvas { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); width: 100%;
+                      height: calc(100% - var(--bar) - var(--ad)); display: block; background: var(--paper); outline: none; }
+      /* The banner's strip, between the game and the footer, so the ad never covers the game. It opens with the first
+         level and stays (exact sizes per screen width, as AdSense allows for a responsive unit). */
+      #ad-banner { position: fixed; left: 0; right: 0; bottom: var(--bar); height: var(--ad); box-sizing: border-box; display: none;
+                   align-items: center; justify-content: center; overflow: hidden; border-top: 1px solid var(--line);
+                   background: var(--paper); color: var(--muted); font-size: 12px; }
+      html.with-banner #ad-banner { display: flex; }
+      .exitwise_banner { display: block; width: 320px; height: 50px; }
+      @media (min-width: 768px) and (min-height: 640px) {
+        html.with-banner { --ad: 98px; }
+        .exitwise_banner { width: 728px; height: 90px; }
+      }
       #loading { position: fixed; left: 50%; top: 50%; width: 220px; height: 14px; margin: -7px 0 0 -110px;
                  border-radius: 7px; background: #E9E1D3; overflow: hidden; }
       #loading-fill { width: 0; height: 100%; border-radius: 7px; background: var(--green); transition: width 0.2s; }
@@ -27,7 +50,7 @@
       footer .legal a { color: var(--muted); font-weight: 400; }
       @media (max-width: 640px) { footer .legal .long { display: none; } }
       #consent { position: fixed; inset: 0; z-index: 900; display: none; align-items: flex-end; justify-content: center; padding: 16px;
-                 padding-bottom: calc(var(--bar) + 16px); background: rgba(59, 51, 85, 0.25); }
+                 padding-bottom: calc(var(--bar) + var(--ad) + 16px); background: rgba(59, 51, 85, 0.25); }
       #consent.open { display: flex; }
       #consent .card { width: 100%; max-width: 420px; box-sizing: border-box; padding: 20px 20px 16px; border-radius: 20px;
                        background: var(--card); box-shadow: 0 18px 50px rgba(46, 42, 36, 0.28); }
@@ -38,14 +61,137 @@
                         border: 2px solid var(--line); background: var(--card); color: var(--ink); }
       #consent button.allow { background: var(--green); border-color: var(--green); color: #fff; }
     </style>
+    <script>
+      // AdSense (docs/web-ads-adsense.md). While client is null nothing loads from Google and the game shows no ads,
+      // exactly as before. George's ids go here once AdSense has approved vgraphics.gr and H5 Games Ads; the Deployer's
+      // exitwise-web verify step reads these two values. ?adtest=on on the page's address shows Google's test ads
+      // instead (data-adbreak-test), with or without the ids.
+      var EXITWISE_ADSENSE = {
+        client: null,     // the publisher id: "ca-pub-" and 16 digits
+        bannerSlot: null  // the data-ad-slot of the "Exitwise play banner" display ad unit
+      };
+      (function () {
+        var test = /[?&]adtest=on(&|$)/.test(window.location.search);
+        // Test mode never asks Google's servers for an ad, so it needs no real id.
+        var client = EXITWISE_ADSENSE.client || (test ? "ca-pub-0000000000000000" : null);
+        // What the page offers the game (ArrowPuzzleAdSense.jslib) and its own statistics question below.
+        var ads = window.exitwiseAds = {
+          enabled: !!client,
+          test: test,
+          loaded: false,
+          failed: false,
+          gdprApplies: false,
+          afterConsentMessages: function (then) { then(); },
+          analyticsAnswer: function () { return null; },
+          privacyOptionsRequired: function () { return ads.gdprApplies; },
+          showPrivacyOptions: function () {},
+          showBanner: function () {}
+        };
+        if (!client) return;
+
+        var tag = document.createElement("script");
+        tag.async = true;
+        tag.crossOrigin = "anonymous";
+        tag.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(client);
+        tag.setAttribute("data-ad-client", client);
+        // At most one ad every 30 s on average, the most AdSense allows: the game itself asks only every 10 levels.
+        tag.setAttribute("data-ad-frequency-hint", "30s");
+        if (test) tag.setAttribute("data-adbreak-test", "on");
+        // Until it has loaded the game asks for no ad break, so none waits in the queue to show up later mid-level.
+        tag.onload = function () { ads.loaded = true; };
+        // Blocked (an ad blocker) or offline: the game stops asking and carries on without ads.
+        tag.onerror = function () { ads.failed = true; };
+        document.head.appendChild(tag);
+        window.adsbygoogle = window.adsbygoogle || [];
+        window.adBreak = window.adConfig = function (o) { window.adsbygoogle.push(o); };
+        // The first break, after level 10, should find an ad ready. The game plays music and sounds.
+        window.adConfig({ preloadAdBreaks: "on", sound: "on" });
+
+        // Google's consent messages (AdSense → Privacy & messaging) come with the tag: the EU regulations message in the
+        // EEA, the UK and Switzerland, and the "Do Not Sell or Share" link in US states with a privacy law. The page's
+        // own statistics question waits until Google's message is answered, so the two never stack.
+        var settled = false, waiting = [], messageOpen = false;
+        var settle = function () {
+          if (settled) return;
+          settled = true;
+          waiting.splice(0).forEach(function (then) { then(); });
+        };
+        ads.afterConsentMessages = function (then) {
+          if (settled) then();
+          else waiting.push(then);
+        };
+        // When Google's EU message also asks about analytics (consent mode), its answer is the statistics answer too.
+        ads.analyticsAnswer = function () {
+          try {
+            var status = window.googlefc.getGoogleConsentModeValues().analyticsStoragePurposeConsentStatus;
+            return status === 1 ? "granted" : status === 2 ? "denied" : null;
+          } catch (e) {
+            return null;
+          }
+        };
+        ads.showPrivacyOptions = function () {
+          window.googlefc.callbackQueue.push(function () { window.googlefc.showRevocationMessage(); });
+        };
+        window.googlefc = window.googlefc || {};
+        window.googlefc.callbackQueue = window.googlefc.callbackQueue || [];
+        window.googlefc.callbackQueue.push({
+          CONSENT_API_READY: function () {
+            if (typeof window.__tcfapi !== "function") return;
+            window.__tcfapi("addEventListener", 2, function (data, ok) {
+              if (!ok || !data) return;
+              ads.gdprApplies = data.gdprApplies === true;
+              var choices = document.getElementById("ad-choices");
+              if (choices) choices.hidden = !ads.gdprApplies;
+              messageOpen = data.eventStatus === "cmpuishown";
+              // Answered, now or on an earlier visit: consent mode's values follow right after.
+              if (!messageOpen) setTimeout(settle, 1000);
+            });
+          },
+          // Ready once consent mode doesn't apply to this player, or once they have answered the EU message.
+          CONSENT_MODE_DATA_READY: settle
+        });
+        // No message at all (none published for this site yet, or blocked): don't hold the statistics question back.
+        setTimeout(function () { if (!messageOpen) settle(); }, 4000);
+
+        // The banner under the game, which the game asks for once the first level is on screen: an AdSense display unit,
+        // 320x50, or 728x90 on wide screens (.exitwise_banner).
+        ads.showBanner = function (onFilled) {
+          var slot = EXITWISE_ADSENSE.bannerSlot;
+          if (ads.bannerShown || ads.failed || (!slot && !test)) return;
+          ads.bannerShown = true;
+          document.documentElement.classList.add("with-banner");
+          var box = document.getElementById("ad-banner");
+          if (!slot) {
+            // ?adtest=on before the banner unit exists: only its space, to see the layout.
+            box.textContent = "Banner space (test mode)";
+            return;
+          }
+          var unit = document.createElement("ins");
+          unit.className = "adsbygoogle exitwise_banner";
+          unit.setAttribute("data-ad-client", client);
+          unit.setAttribute("data-ad-slot", slot);
+          if (test) unit.setAttribute("data-adtest", "on");
+          box.appendChild(unit);
+          // AdSense marks the unit data-ad-status="filled" once an ad shows in it.
+          new MutationObserver(function (changes, observer) {
+            if (unit.getAttribute("data-ad-status") !== "filled") return;
+            observer.disconnect();
+            onFilled();
+          }).observe(unit, { attributes: true, attributeFilter: ["data-ad-status"] });
+          window.adsbygoogle.push({});
+        };
+      })();
+    </script>
   </head>
   <body>
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <div id="loading"><div id="loading-fill"></div></div>
+    <div id="ad-banner" aria-label="Advertisement"></div>
     <footer>
       <a href="/exitwise/">&larr; Exitwise</a>
       <a href="/exitwise/privacy.html">Privacy</a>
       <button type="button" id="statistics">Statistics</button>
+      <button type="button" id="ad-choices" hidden>Ad choices</button>
       <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373</span> · <a href="/company/">Company</a></span>
     </footer>
     <div id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title">
@@ -77,7 +223,18 @@
           button.addEventListener("click", function () { answer(button.getAttribute("data-answer")); });
         });
         document.getElementById("statistics").addEventListener("click", function () { dialog.classList.add("open"); });
-        if (stored() !== "granted" && stored() !== "denied") dialog.classList.add("open");
+        var ads = window.exitwiseAds;
+        var choices = document.getElementById("ad-choices");
+        choices.hidden = !ads.privacyOptionsRequired();
+        choices.addEventListener("click", function () { ads.showPrivacyOptions(); });
+        // With ads, Google's consent message comes first; at once without.
+        ads.afterConsentMessages(function () {
+          if (stored() === "granted" || stored() === "denied") return;
+          // Already answered in Google's message: don't ask twice.
+          var google = ads.analyticsAnswer();
+          if (google) answer(google);
+          else dialog.classList.add("open");
+        });
       })();
     </script>
     <script src="Build/WebGLPortfolio.loader.js"></script>
