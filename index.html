@@ -3,21 +3,22 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VGraphics: small games, carefully made</title>
-  <meta name="description" content="VGraphics is an independent studio in Thessaloniki, Greece, making calm, clever games and apps for Android and the web.">
+  <title>VGraphics: games, apps and software, carefully made</title>
+  <meta name="description" content="VGraphics is an independent studio in Thessaloniki, Greece. We make games and apps for Android and the web, and we build apps, games, backends, multiplayer and community features for clients.">
   <link rel="canonical" href="https://vgraphics.gr/">
   <link rel="icon" href="/img/vgraphics-logo.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="VGraphics">
-  <meta property="og:description" content="Small games, carefully made. Puzzle games and apps for Android and the web.">
+  <meta property="og:description" content="Games, apps and software, carefully made. Our own games and apps, and the apps, games, backends and multiplayer we build for clients.">
   <meta property="og:url" content="https://vgraphics.gr/">
   <meta property="og:image" content="https://vgraphics.gr/img/vgraphics-logo.png">
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
   <style>
-    /* Hero: headline on the left, a bento of the products on the right */
+    /* Hero: the headline on the left; on the right the four menus as four doors, each in its dot's colour */
     .hero { position: relative; padding-block: var(--s5) var(--s7); isolation: isolate; }
     .hero::before {
       content: ""; position: absolute; inset: -72px 0 0; z-index: -1;
@@ -28,148 +29,102 @@
       animation: pattern 40s linear infinite;
     }
     @keyframes pattern { to { background-position: 260px 130px; } }
-    .hero .wrap { display: grid; grid-template-columns: 1.05fr 0.95fr; gap: var(--s5); align-items: center; }
+    .hero > .wrap { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: var(--s5); align-items: center; }
     .hero-copy { display: grid; gap: var(--s3); justify-items: start; }
-    .hero h1 { font-size: clamp(3rem, 7.6vw, 6rem); line-height: 0.98; letter-spacing: -0.035em; }
+    .hero h1 { font-size: clamp(2.7rem, 7vw, 5.4rem); line-height: 0.98; letter-spacing: -0.035em; }
     .hero h1 > span { display: block; }
     .hero h1 .marker { display: inline-block; margin: 0.06em 0; padding: 0 0.12em 0.04em; }
     .hero h1 .soft { color: var(--ink-2); }
-    .actions { display: flex; flex-wrap: wrap; gap: 12px; }
-    .platforms { display: flex; flex-wrap: wrap; gap: 18px; color: var(--ink-2); font-weight: 600; font-size: 0.95rem; }
-    .platforms span { display: inline-flex; align-items: center; gap: 8px; }
-    .platforms svg { width: 18px; height: 18px; }
 
-    .bento { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 250px 190px auto; gap: 14px; }
-    .tile {
+    .doors { display: grid; grid-template-columns: 1fr 1fr; grid-template-rows: 250px 190px auto; gap: 14px; }
+    .door {
       position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 20px;
       color: var(--on-block); text-decoration: none;
       transition: transform 220ms var(--ease), box-shadow 220ms var(--ease);
+      animation: rise 700ms var(--ease) both;
     }
-    a.tile:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    a.tile:hover .phone { transform: translateY(-8px) rotate(var(--tilt, 0deg)); }
-    .tile .label { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 7px 12px; border-radius: 999px; background: rgba(255, 255, 255, 0.82); font: 700 0.8rem/1 var(--body); letter-spacing: 0.04em; text-transform: uppercase; color: var(--on-block); }
-    .tile .label svg { width: 14px; height: 14px; }
-    .t-exitwise { grid-row: 1 / 3; background: var(--sun); }
-    .t-speedo { background: var(--violet); }
-    .t-stat { background: var(--coral); display: grid; align-content: end; gap: 4px; }
-    .t-place { grid-column: 1 / -1; background: var(--sky); display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 18px 22px; }
-    .t-stat b { font: 800 clamp(2rem, 4vw, 2.8rem)/1 var(--display); letter-spacing: -0.03em; }
-    .t-stat span, .t-place span { font-weight: 600; }
-    .t-place b { font: 700 1.05rem/1.2 var(--display); display: inline-flex; align-items: center; gap: 10px; }
-    .t-place svg { width: 22px; height: 22px; flex: none; }
+    .door:nth-child(2) { animation-delay: 90ms; }
+    .door:nth-child(3) { animation-delay: 180ms; }
+    .door:nth-child(4) { animation-delay: 270ms; }
+    .door:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
+    .door:hover .phone { transform: translateY(-8px) rotate(var(--tilt, 0deg)); }
+    .door .label { position: relative; z-index: 1; display: inline-flex; align-items: center; gap: 8px; padding: 8px 13px; border-radius: 999px; background: rgba(255, 255, 255, 0.86); font: 700 0.84rem/1 var(--body); letter-spacing: 0.06em; text-transform: uppercase; color: var(--on-block); }
+    .door .label svg { width: 14px; height: 14px; transition: translate var(--fast) var(--ease); }
+    .door:hover .label svg { translate: 3px 0; }
+    .d-games { grid-row: 1 / 3; background: var(--sun); }
+    .d-games .phone { --tilt: -4deg; top: 74px; width: 68%; }
+    .d-apps { background: var(--coral); }
+    .d-apps .phone { --tilt: 5deg; top: 64px; width: 56%; }
+    .d-services { background: var(--sky); }
+    /* Services: the tools, as stickers */
+    .stack { position: absolute; right: 18px; bottom: 18px; display: grid; justify-items: end; gap: 7px; }
+    .stack i { display: inline-flex; align-items: center; gap: 7px; padding: 7px 12px; border-radius: 11px; background: #fff; color: #16151B; font: 700 0.88rem/1 var(--body); font-style: normal; box-shadow: 0 10px 18px -12px rgba(0, 0, 0, 0.45); rotate: var(--r, 0deg); transition: translate 260ms var(--ease), rotate 260ms var(--ease); }
+    .stack i::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: var(--c); }
+    .stack i:nth-child(1) { --r: -3deg; --c: var(--violet); }
+    .stack i:nth-child(2) { --r: 2deg; --c: var(--coral); translate: -14px 0; }
+    .stack i:nth-child(3) { --r: -2deg; --c: var(--sun); }
+    .stack i:nth-child(4) { --r: 4deg; --c: #16151B; translate: -8px 0; }
+    .d-services:hover .stack i { rotate: 0deg; translate: 0 0; }
+    .d-hub { grid-column: 1 / -1; background: var(--violet); color: var(--on-violet); display: flex; align-items: center; gap: 16px; padding: 16px 20px; }
+    .d-hub .hub-copy { display: grid; gap: 8px; justify-items: start; margin-right: auto; }
+    .d-hub .hub-copy b { font: 700 1.05rem/1.25 var(--display); }
+    .faces { display: flex; flex: none; }
+    .faces svg { width: 40px; height: 40px; border-radius: 50%; box-shadow: 0 0 0 3px var(--violet); }
+    .faces svg + svg { margin-left: -10px; }
 
-    .phone {
-      position: absolute; left: 50%; width: 62%; aspect-ratio: 9 / 16;
-      border: 7px solid #16151B; border-radius: 28px; overflow: hidden; background: #16151B;
-      box-shadow: 0 24px 40px -18px rgba(0, 0, 0, 0.55);
-      transform: rotate(var(--tilt, 0deg));
-      transition: transform 260ms var(--ease);
-      translate: -50% 0;
-    }
-    .phone img { width: 100%; height: 100%; object-fit: cover; object-position: top; }
-    .t-exitwise .phone { --tilt: -4deg; top: 74px; width: 68%; }
-    /* Exitwise's store screenshots carry their own frame and caption */
-    .phone.bare { border: 0; border-radius: 22px; background: none; }
-    .fan.bare img { border: 0; border-radius: 22px; }
-    .t-speedo .phone { --tilt: 5deg; top: 64px; width: 56%; }
-
-    /* Below the hero: the same bento language carries the whole page (direction 1, George's pick). */
-    .grid { display: grid; grid-template-columns: repeat(12, 1fr); gap: 14px; }
-    .b { position: relative; overflow: hidden; border-radius: var(--r-lg); padding: 26px; display: grid; gap: 12px; align-content: start; text-decoration: none; color: var(--on-block); transition: transform 220ms var(--ease), box-shadow 220ms var(--ease); }
-    a.b:hover { transform: translateY(-4px); box-shadow: var(--shadow); }
-    .b h3 { font-size: clamp(1.5rem, 2.6vw, 2.2rem); }
-    .b p { max-width: 30em; margin: 0; }
-    .b .kicker { color: inherit; opacity: .8; }
-    .s3 { grid-column: span 3; } .s4 { grid-column: span 4; } .s5 { grid-column: span 5; } .s6 { grid-column: span 6; } .s7 { grid-column: span 7; } .s8 { grid-column: span 8; }
-    .r2 { grid-row: span 2; }
-    .pill-row { display: flex; flex-wrap: wrap; gap: 8px; margin-top: 6px; }
-    .pill { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 16px; border-radius: 999px; font-weight: 700; font-size: 0.92rem; background: #FFFFFF; color: #16151B; text-decoration: none; transition: transform 180ms var(--ease); }
-    a.pill:hover { transform: translateY(-2px); }
-    .pill svg { width: 16px; height: 16px; }
-    /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
-    .gp { justify-self: start; display: inline-flex; margin: -11px 0 -11px -11px; border-radius: 14px; transition: transform 180ms var(--ease); }
-    .gp img { display: block; height: 66px; width: auto; }
-    .gp:hover { transform: translateY(-2px); }
-    .gp:focus-visible { outline-offset: -9px; }
-
-    .x-game { background: #F4EFE6 radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 0 0 / 30px 30px; color: #3B3355; border: 1px solid #DED4C4; min-height: 540px; }
-    .x-game .copy { max-width: 46%; display: grid; gap: 12px; position: relative; z-index: 1; }
-    .x-game .icon { width: 64px; height: 64px; border-radius: 16px; }
-    .x-game .pill { background: #3B3355; color: #FFFDF8; }
-    .x-game .pill.play { background: #23784B; color: #FFFFFF; }
-    .x-game .shots { position: absolute; right: -28px; bottom: -40px; width: 50%; height: 80%; }
-    .x-game .shots img { position: absolute; width: 62%; border-radius: 22px; box-shadow: 0 30px 50px -24px rgba(0,0,0,.5); transition: transform 300ms var(--ease); }
-    .x-game .shots img:nth-child(1) { left: 0; top: 10%; transform: rotate(-7deg); }
-    .x-game .shots img:nth-child(2) { right: 0; top: 0; transform: rotate(6deg); }
-    .x-game:hover .shots img:nth-child(1) { transform: rotate(-10deg) translateX(-8px); }
-    .x-game:hover .shots img:nth-child(2) { transform: rotate(9deg) translateX(8px); }
-
-    .x-wiki { background: var(--sky); }
-    .chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 6px; }
-    .chipcard { display: grid; place-items: center; width: 58px; height: 58px; border-radius: 16px; background: rgba(255,255,255,.85); }
-    .chipcard svg { width: 34px; height: 34px; }
-
-    .x-board { background: var(--coral); }
-    /* The live top 3 of Exitwise's Score board (filled in by the script at the end; plain steps until then). */
-    .podium { display: grid; grid-template-columns: 1fr 1fr 1fr; align-items: end; gap: 10px; margin-top: 4px; }
-    .podium .place { display: grid; gap: 8px; justify-items: center; min-width: 0; }
-    .podium .step { width: 100%; border-radius: 14px 14px 6px 6px; background: rgba(255,255,255,.8); display: grid; place-items: center; font: 800 1.6rem/1 var(--display); color: #16151B; }
-    .podium .p1 .step { height: 130px; background: #fff; } .podium .p2 .step { height: 88px; } .podium .p3 .step { height: 65px; }
-    .podium .who { display: grid; justify-items: center; gap: 3px; max-width: 100%; min-width: 0; color: #16151B; text-align: center; }
-    .podium .who:empty { display: none; }
-    .podium .av { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #fff; background: #fff; }
-    .podium .p1 .av { width: 54px; height: 54px; }
-    .podium .av img, .podium .av svg { display: block; width: 100%; height: 100%; object-fit: cover; }
-    .podium .name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: .92rem; }
-    .podium .pts { font: 800 .95rem/1 var(--display); font-variant-numeric: tabular-nums; }
-    .podium .lv { font: 800 .82rem/1 var(--display); opacity: .75; }
-    .badge-go { justify-self: start; padding: 6px 12px; border-radius: 999px; background: #16151B; color: #fff; font-weight: 700; font-size: .82rem; }
-
-    .x-speedo { background: #0E0E0F url("/speedometer-wallpaper/img/asphalt.webp") center / cover; color: #EDEDED; min-height: 540px; }
-    .x-speedo::before { content: ""; position: absolute; inset: 0; background: linear-gradient(90deg, rgba(8,8,9,.88) 32%, rgba(8,8,9,.15)); }
-    .x-speedo > * { position: relative; }
-    .x-speedo .copy { max-width: 50%; display: grid; gap: 12px; z-index: 1; }
-    .x-speedo .logo { width: min(380px, 100%); }
-    .x-speedo .dial { position: absolute; right: -40px; bottom: -40px; width: 54%; max-width: 400px; filter: drop-shadow(0 30px 40px rgba(0,0,0,.8)); animation: idle 7s ease-in-out infinite alternate; }
-    @keyframes idle { to { transform: rotate(-5deg) scale(1.03); } }
-    .x-speedo .pill { background: #F04A2C; color: #170402; }
-    .x-speedo .pill.alt { background: rgba(255,255,255,.12); color: #fff; }
+    /* Section blocks */
+    .x-party { color: #fff; min-height: 263px; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); align-content: stretch; align-items: center; column-gap: 8px; }
+    .x-party .copy { display: grid; gap: 10px; justify-items: start; align-content: center; }
+    .x-party h3 { font-size: clamp(1.35rem, 2.2vw, 1.75rem); line-height: 1.1; }
+    .x-party p { font-size: 0.95rem; opacity: 0.92; }
+    .x-party img { width: 100%; margin-right: -26px; transition: transform 300ms var(--ease); }
+    a.x-party:hover img { transform: translateY(-4px) rotate(-1.5deg); }
+    .x-palermo { background: #24205A; }
+    .x-quiz { background: var(--sun); color: var(--on-block); }
+    .x-quiz .soon { background: #16151B; color: #fff; }
 
     .x-gauges { background: var(--violet); color: #fff; }
     .x-gauges ol { margin: 4px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; counter-reset: g; }
     .x-gauges li { counter-increment: g; display: flex; align-items: center; gap: 12px; font-weight: 600; }
     .x-gauges li::before { content: counter(g); width: 28px; height: 28px; border-radius: 50%; display: grid; place-items: center; background: #F04A2C; color: #fff; font: 800 .9rem/1 var(--display); flex: none; }
+    .x-hire { background: var(--coral); align-content: space-between; }
 
-    .x-stat { align-content: end; min-height: 170px; }
-    .x-stat b { font: 800 clamp(2.4rem, 4.4vw, 3.6rem)/1 var(--display); letter-spacing: -0.03em; }
-    .x-sun { background: var(--sun); } .x-sky { background: var(--sky); } .x-coral { background: var(--coral); }
-    .x-principle { background: var(--surface); border: 1px solid var(--line); color: var(--ink); }
-    .x-principle p { color: var(--ink-2); }
-    .x-principle .icon { width: 48px; height: 48px; border-radius: 14px; display: grid; place-items: center; color: var(--on-block); }
-    .x-principle .icon svg { width: 24px; height: 24px; }
-    .x-contact { background: #16151B; color: #fff; grid-template-columns: 1fr auto; align-items: center; align-content: center; }
-    .x-contact p { color: rgba(255,255,255,.75); }
-    .x-contact .btn { background: var(--sun); color: #16151B; max-width: 100%; overflow-wrap: anywhere; }
-    .x-contact .btn:hover { background: #fff; }
-    @media (prefers-color-scheme: dark) { .x-contact { background: #25222F; } }
+    /* Play together (the dark band) */
+    .shield { width: 46px; height: 46px; border-radius: 14px; display: grid; place-items: center; background: var(--sun); color: #16151B; }
+    .shield svg { width: 24px; height: 24px; }
+
+    /* Services, in short */
+    .svc { background: var(--sky); color: var(--on-block); border-radius: var(--r-lg); padding: clamp(26px, 5vw, 56px); display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--s5); align-items: start; }
+    .svc-copy { display: grid; gap: var(--s3); justify-items: start; }
+    .svc-copy p { font-size: 1.12rem; max-width: 30em; }
+    .svc .btn-ghost { border-color: #16151B; color: #16151B; }
+    .svc .btn-ghost:hover { background: #16151B; color: #fff; }
+    .svc .btn-primary { background: #16151B; color: #fff; }
+    .svc .btn-primary:hover { background: var(--violet); }
+    .svc-list { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0 28px; }
+    .svc-list li { display: grid; gap: 2px; padding: 14px 0; border-top: 1.5px solid rgba(22, 21, 27, 0.18); }
+    .svc-list b { font: 700 1.08rem/1.25 var(--display); letter-spacing: -0.01em; }
+    .svc-list span { font-size: 0.95rem; color: rgba(22, 21, 27, 0.78); }
 
     @media (max-width: 960px) {
-      .hero .wrap { grid-template-columns: 1fr; }
-      .s3, .s4, .s5, .s6, .s7, .s8 { grid-column: 1 / -1; }
-      .r2 { grid-row: auto; }
-      .x-game, .x-speedo { min-height: 0; }
-      .x-game .copy, .x-speedo .copy { max-width: none; }
-      .x-game .shots { position: relative; right: auto; bottom: auto; width: 100%; height: 320px; margin-top: 8px; }
-      .x-speedo .dial { position: relative; right: auto; bottom: auto; width: 72%; margin: 6px auto -70px; }
-      .x-contact { grid-template-columns: 1fr; }
+      .hero > .wrap { grid-template-columns: 1fr; }
+      .svc { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 720px) {
+      .x-party { grid-template-columns: 1fr; }
+      .x-party img { width: min(100%, 340px); margin: 4px auto -30px; }
+      .svc-list { grid-template-columns: 1fr; }
     }
     @media (max-width: 560px) {
       .hero { padding-top: var(--s3); }
-      .bento { grid-template-rows: 230px 170px auto; gap: 10px; }
-      .tile { padding: 14px; border-radius: 24px; }
-      .t-place { flex-direction: column; align-items: flex-start; }
+      .doors { grid-template-rows: 230px 170px auto; gap: 10px; }
+      .door { padding: 14px; border-radius: 24px; }
+      .d-games .phone { width: 84%; top: 64px; }
+      .d-hub { flex-wrap: wrap; }
+      .stack { left: 14px; right: 14px; bottom: 14px; display: flex; flex-wrap: wrap; justify-content: flex-end; gap: 6px; }
+      .stack i { padding: 6px 10px; font-size: 0.8rem; translate: 0 0 !important; }
       .phone { border-width: 5px; border-radius: 20px; }
-      .b { padding: 22px; border-radius: 24px; }
+      .band { padding-block: var(--s6); }
     }
   </style>
 </head>
@@ -186,10 +141,11 @@
       <span>VGRAPHICS</span>
     </a>
     <nav class="site-nav" aria-label="Main">
-      <a href="#games">Games</a>
-      <a class="hide-sm" href="#studio">Studio</a>
-      <a href="/company/">Company</a>
-      <a class="cta hide-sm" href="#contact">Contact</a>
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
     </nav>
   </div>
 </header>
@@ -198,46 +154,54 @@
   <section class="hero" aria-labelledby="hero-title">
     <div class="wrap">
       <div class="hero-copy">
-        <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Independent game studio · Greece</span>
-        <h1 id="hero-title"><span>Small games,</span> <span><span class="marker">carefully</span></span> <span class="soft">made.</span></h1>
-        <p class="lede">VGraphics makes calm, clever puzzle games and playful apps for Android and the web. Fair puzzles, plain-language privacy, and games that fit into a coffee break.</p>
+        <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Independent studio · Thessaloniki, Greece</span>
+        <h1 id="hero-title"><span>Games, apps</span> <span>and software,</span> <span><span class="marker">carefully</span> <span class="soft">made.</span></span></h1>
+        <p class="lede">We make our own games and apps, and we build them for clients too: Android and iOS apps, games and websites, with the backends, multiplayer and community features behind them.</p>
         <div class="actions">
-          <a class="btn btn-primary" href="#games">Explore our games
+          <a class="btn btn-primary" href="/games/">Explore our games
             <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
-          <a class="btn btn-ghost" href="/company/">Company info</a>
-        </div>
-        <div class="platforms">
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="6" y="2" width="12" height="20" rx="2.5"/><path d="M11 18h2"/></svg>Android</span>
-          <span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="10"/><path d="M2 12h20M12 2a15 15 0 0 1 0 20 15 15 0 0 1 0-20"/></svg>Web</span>
+          <a class="btn btn-ghost" href="/services/">Work with us</a>
         </div>
       </div>
 
-      <div class="bento">
-        <a class="tile t-exitwise" href="/exitwise/">
-          <span class="label">Exitwise <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          <span class="phone bare"><img src="/assets/img/exitwise-board.webp" alt="An Exitwise board full of colourful arrows" width="480" height="853"></span>
+      <div class="doors">
+        <a class="door d-games" href="/games/">
+          <span class="label">Games <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sr-only">: Exitwise, and two party games in design</span>
+          <span class="phone bare"><img src="/assets/img/exitwise-board.webp" alt="" width="480" height="853"></span>
         </a>
-        <a class="tile t-speedo" href="/speedometer-wallpaper/">
-          <span class="label">Speedometer <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
-          <span class="phone"><img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="The Speedometer Live Wallpaper dashboard" width="540" height="1200"></span>
+        <a class="door d-apps" href="/apps/">
+          <span class="label">Apps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sr-only">: Speedometer Live Wallpaper</span>
+          <span class="phone"><img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="" width="540" height="1200"></span>
         </a>
-        <div class="tile t-stat">
-          <b>100×100</b>
-          <span>Exitwise's biggest boards</span>
-        </div>
-        <div class="tile t-place">
-          <b><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg>Made in Thessaloniki</b>
-          <span>Since 2025</span>
-        </div>
+        <a class="door d-services" href="/services/">
+          <span class="label">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+          <span class="sr-only">: apps, games, backends and multiplayer, built for you</span>
+          <span class="stack" aria-hidden="true"><i>Kotlin</i><i>Unity</i><i>Firebase</i><i>WebGL</i></span>
+        </a>
+        <a class="door d-hub" href="/hub/">
+          <span class="hub-copy">
+            <span class="label">VHub <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+            <b>One account for every game and app</b>
+          </span>
+          <span class="faces" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1E88DA"/><g fill="#fff"><polygon points="50.00,26.00 57.05,43.29 75.68,44.66 61.41,56.71 65.87,74.84 50.00,65.00 34.13,74.84 38.59,56.71 24.32,44.66 42.95,43.29"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1F9F52"/><g fill="#fff"><path d="M50 74C33 62 22 50 24 39C26 27 43 24 50 36C57 24 74 27 76 39C78 50 67 62 50 74Z"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#D9580E"/><g fill="#fff"><polygon points="26,68 24,36 38,50 50,30 62,50 76,36 74,68"/></g></svg>
+          </span>
+          <span class="soon">Coming soon</span>
+        </a>
       </div>
     </div>
   </section>
 
   <section class="section" id="games" aria-labelledby="games-title" style="padding-top:0">
     <div class="wrap">
-      <div class="section-head">
-        <span class="kicker">Everything VGraphics</span>
-        <h2 id="games-title">Play, learn, compete</h2>
+      <div class="section-head split">
+        <h2 id="games-title"><span class="dot c-sun" aria-hidden="true"></span>Games</h2>
+        <p class="lede">A puzzle game you can play today on Android and in your browser, and two party games for phones and the TV in design.</p>
+        <a class="more c-sun" href="/games/">All games <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="grid">
         <article class="b x-game s7 r2" aria-labelledby="exitwise-title">
@@ -251,37 +215,39 @@
               <a class="pill play" href="/exitwise/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play in your browser</a>
               <a class="pill" href="/exitwise/">Visit Exitwise</a>
               <a class="pill" href="/exitwise/wiki/">Wiki</a>
-              <a class="pill" href="/exitwise/ranking/">Global ranking</a>
             </div>
           </div>
           <div class="shots" aria-hidden="true"><img src="/assets/img/exitwise-giant.webp" alt="" width="480" height="853" loading="lazy"><img src="/assets/img/exitwise-win.webp" alt="" width="480" height="853" loading="lazy"></div>
         </article>
 
-        <a class="b x-wiki s5" href="/exitwise/wiki/">
-          <span class="kicker">Exitwise wiki</span>
-          <h3>Obstacles, powerups &amp; tips</h3>
-          <p>Bombs, colour gates, mirrors, portals, ice, shutters and every powerup: what they do and how to beat them.</p>
-          <div class="chips" aria-hidden="true">
-            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="20" cy="28" r="12" fill="#2F2B38"/><path d="M27 18l6-6" stroke="#2F2B38" stroke-width="4" stroke-linecap="round"/><path d="M36 6l1.6 4 4 1.6-4 1.6L36 17l-1.6-3.8-4-1.6 4-1.6z" fill="#FF922B"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="8" y="8" width="32" height="32" rx="8" fill="#1C9FD8"/><rect x="14" y="14" width="20" height="20" rx="4" fill="none" stroke="#fff" stroke-width="3"/><circle cx="24" cy="24" r="4" fill="#fff"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="34" height="34" rx="8" fill="#EAF4F8" stroke="#C9DCE4" stroke-width="2"/><path d="M14 34L34 14" stroke="#4A5568" stroke-width="9" stroke-linecap="round"/><path d="M14 34L34 14" stroke="#BFE6F5" stroke-width="5" stroke-linecap="round"/><path d="M4 24h20V9" fill="none" stroke="#1C9FD8" stroke-width="4" stroke-linecap="round" stroke-linejoin="round"/><path d="M24 1l-6 8h12z" fill="#1C9FD8"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><circle cx="15" cy="32" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M15 27.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/><circle cx="34" cy="15" r="10" fill="#2F2B38" stroke="#8C5CF0" stroke-width="4"/><path d="M34 10.5l4.5 4.5-4.5 4.5-4.5-4.5z" fill="#8C5CF0"/></svg></span>
-            <span class="chipcard"><svg viewBox="0 0 48 48"><rect x="7" y="7" width="34" height="34" rx="8" fill="#CFEFFB" stroke="#7CC6E6" stroke-width="3"/><path d="M29 15H19v8h10v9H19" fill="none" stroke="#1B4F8A" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"/></svg></span>
+        <a class="b x-party x-palermo s5" href="/games/#palermo">
+          <div class="copy">
+            <span class="soon">In design</span>
+            <h3 lang="el">Μια νύχτα στο Παλέρμο</h3>
+            <p>A hidden-role party game. Phones are the controllers, the TV is the town, and a narrator runs every night.</p>
           </div>
+          <img src="/assets/img/palermo.svg" alt="" width="640" height="420" loading="lazy">
         </a>
-
-        <a class="b x-board s5" href="/exitwise/ranking/">
-          <span class="kicker">Leaderboards</span>
-          <h3>Global ranking</h3>
-          <div class="podium" id="podium" aria-hidden="true">
-            <div class="place p2"><span class="who"></span><span class="step">2</span></div>
-            <div class="place p1"><span class="who"></span><span class="step">1</span></div>
-            <div class="place p3"><span class="who"></span><span class="step">3</span></div>
+        <a class="b x-party x-quiz s5" href="/games/#last-one-standing">
+          <div class="copy">
+            <span class="soon">In design</span>
+            <h3 lang="el">Ποιος θα μείνει τελευταίος;</h3>
+            <p>A party quiz on your phones. A wrong answer knocks you out, and the last one standing wins.</p>
           </div>
-          <span class="sr-only" id="podium-text"></span>
-          <span class="badge-go">See the full ranking</span>
+          <img src="/assets/img/last-one-standing.svg" alt="" width="640" height="420" loading="lazy">
         </a>
+      </div>
+    </div>
+  </section>
 
+  <section class="section" id="apps" aria-labelledby="apps-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head split">
+        <h2 id="apps-title"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2>
+        <p class="lede">A live wallpaper that turns an Android home screen into a car dashboard, with real readings from the phone.</p>
+        <a class="more c-coral" href="/apps/">All apps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="grid">
         <article class="b x-speedo s7 r2" aria-labelledby="speedo-title">
           <div class="copy">
             <span class="kicker">Live wallpaper · Android</span>
@@ -300,40 +266,130 @@
         <a class="b x-gauges s5" href="/speedometer-wallpaper/wiki/">
           <span class="kicker">Speedometer wiki</span>
           <h3>What every gauge shows</h3>
-          <ol><li>The big gauge and its three modes</li><li>Signal, RAM, Wi-Fi and battery</li><li>Every warning light</li><li>Classic and Future designs</li><li>Clock, settings and help</li></ol>
+          <ol><li>The big gauge and its three modes</li><li>Signal, RAM, Wi-Fi and battery</li><li>Every warning light</li><li>Classic and Future designs</li></ol>
+        </a>
+        <a class="b x-hire s5" href="/services/#build">
+          <span class="kicker">For clients</span>
+          <h3>Need an app like this?</h3>
+          <p>We build Android apps in Kotlin, and Android and iOS apps from one codebase with Kotlin Multiplatform.</p>
+          <span class="go">See what we build <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="play-together" aria-labelledby="play-title">
+    <div class="wrap">
+      <div class="section-head split">
+        <h2 id="play-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Play together</h2>
+        <p class="lede">Rooms to race your friends, live leaderboards, profiles, and the moderation that keeps them friendly. All of it runs in Exitwise today.</p>
+        <a class="more c-coral" href="/multiplayer/">How it all works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
+      </div>
+      <div class="grid">
+        <a class="b x-board s5" href="/exitwise/ranking/">
+          <span class="kicker">Live from Exitwise</span>
+          <h3>Global ranking</h3>
+          <div class="podium" id="podium" aria-hidden="true">
+            <div class="place p2"><span class="who"></span><span class="step">2</span></div>
+            <div class="place p1"><span class="who"></span><span class="step">1</span></div>
+            <div class="place p3"><span class="who"></span><span class="step">3</span></div>
+          </div>
+          <span class="sr-only" id="podium-text"></span>
+          <span class="go">See the full ranking</span>
         </a>
 
-        <div class="b x-stat x-sun s5"><span class="kicker">Board shapes</span><b>49</b><p>From hexagons and spirals to hearts, rockets and castles.</p></div>
+        <a class="b x-dark x-rooms s7" href="/multiplayer/#rooms">
+          <div class="copy">
+            <span class="kicker">Rooms</span>
+            <h3>Race friends on the same board</h3>
+            <p>2 to 8 players join with a 6-character code, a QR code or a link. After a 3-2-1, everyone gets the same board.</p>
+          </div>
+          <img src="/exitwise/img/room-invite-1200x630.jpg" alt="An Exitwise room invite: race me in a room! Same board, who clears it first?" width="1200" height="630" loading="lazy">
+        </a>
 
-        <div class="b x-stat x-sky s4"><span class="kicker">Levels</span><b>600</b><p>In 17 worlds, harder all the way, with a hard level every 10th.</p></div>
+        <a class="b x-dark s4" href="/multiplayer/#profiles">
+          <span class="avatars" aria-hidden="true">
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#EE4D5C"/><g fill="#fff"><path d="M30 74V46h26" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polygon points="76,46 54,30 54,62"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#8C5CF0"/><g fill="#fff"><polygon points="56,20 32,54 48,54 42,80 68,44 52,44"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#BE8508"/><g fill="#fff"><circle cx="50" cy="50" r="25"/><circle cx="60" cy="42" r="21" fill="#BE8508"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0E9AA7"/><g fill="#fff"><circle cx="38" cy="40" r="5.5"/><circle cx="62" cy="40" r="5.5"/><path d="M68.79 56.84A20 20 0 0 1 31.21 56.84" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g></svg>
+            <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#E0457B"/><g fill="#fff"><polygon points="50,22 76,50 50,78 24,50"/></g></svg>
+          </span>
+          <h3>Profiles</h3>
+          <p>A name that's yours for good, one of 12 avatars or your own picture, checked before anyone sees it.</p>
+        </a>
+        <a class="b x-dark s4" href="/multiplayer/#moderation">
+          <span class="shield" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
+          <h3>Moderation</h3>
+          <p>Name filters, picture checks, reports and blocking. Three reports take a picture or a name down, or hide a map until it's reviewed.</p>
+        </a>
+        <a class="b x-violet s4" href="/hub/">
+          <span class="kicker">Coming soon</span>
+          <h3>VHub</h3>
+          <p>One account for every VGraphics game and app, with a level, achievements and friends.</p>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="services" aria-labelledby="services-title">
+    <div class="wrap">
+      <div class="svc">
+        <div class="svc-copy">
+          <h2 id="services-title">We can build yours</h2>
+          <p>Everything on this site was designed, built and released by VGraphics: the games, the apps, their backends and this website. We do the same for clients.</p>
+          <div class="actions">
+            <a class="btn btn-primary" href="/services/">See our services</a>
+            <a class="btn btn-ghost" href="#contact">Email us</a>
+          </div>
+        </div>
+        <ul class="svc-list">
+          <li><b>Android and iOS apps</b><span>Kotlin and Kotlin Multiplatform</span></li>
+          <li><b>Games and the web</b><span>Unity, WebGL and fast websites</span></li>
+          <li><b>Backends and real-time multiplayer</b><span>Firebase sign-in, data, functions and rooms</span></li>
+          <li><b>Community features</b><span>Profiles, leaderboards, friends, achievements, moderation</span></li>
+          <li><b>Store releases</b><span>Listings, signing and automated releases</span></li>
+          <li><b>Analytics, ads and in-app purchases</b><span>Firebase, consent forms, Google Play Billing</span></li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="studio" aria-labelledby="studio-title" style="padding-top:0">
+    <div class="wrap">
+      <h2 class="sr-only" id="studio-title">The studio</h2>
+      <div class="grid">
+        <div class="b x-stat x-coral s4"><span class="kicker">The studio</span><b>One person</b><p>An independent ΙΚΕ in Thessaloniki, Greece, since 2025. You talk to the person who builds it.</p></div>
         <div class="b x-principle s4">
           <span class="icon" style="background:var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <h3>Fair by design</h3><p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable.</p>
         </div>
         <div class="b x-principle s4">
-          <span class="icon" style="background:var(--coral)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
+          <span class="icon" style="background:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
           <h3>Privacy in plain words</h3><p>Short privacy policies you can actually read. Nothing on our pages tracks you without asking first.</p>
         </div>
-
-        <div class="b x-contact s8" id="contact">
-          <div><h3>Let's talk</h3><p>Feedback, a bug you found, or a partnership idea. Every email gets read.</p></div>
-          <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
-        </div>
-        <div class="b x-stat x-coral s4" id="studio"><span class="kicker">The studio</span><b>One person</b><p>An independent ΙΚΕ in Thessaloniki, Greece, since 2025.</p></div>
       </div>
     </div>
   </section>
 </main>
 
 <footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
-      <p>Small games, carefully made. An independent studio in Thessaloniki, Greece.</p>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games">Games &amp; apps</h2><ul><li><a href="/exitwise/">Exitwise</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company">Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a></li></ul></nav>
-    <nav aria-labelledby="f-legal"><h2 id="f-legal">Privacy</h2><ul><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
     <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
@@ -341,45 +397,6 @@
   </div>
 </footer>
 <script src="/exitwise/ranking/boards.js"></script>
-<script>
-  // The Global ranking card's podium: the live top 3 of Exitwise's Score board, as on /exitwise/ranking/.
-  // Anything that fails leaves the plain 2-1-3 steps.
-  (async () => {
-    const podium = document.getElementById("podium");
-    if (!podium || !window.ExitwiseBoards) return;
-    const { loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
-    try {
-      const top = (await loadBoard("score", 3)).players.slice(0, 3);
-      if (!top.length) return;
-      await loadPhotos(top).catch(() => false);
-      top.forEach((p, i) => {
-        const place = podium.querySelector(".p" + (i + 1));
-        const av = document.createElement("span");
-        av.className = "av";
-        if (p.picture) {
-          const img = document.createElement("img");
-          img.alt = "";
-          img.src = "data:image/jpeg;base64," + p.picture;
-          av.appendChild(img);
-        } else {
-          av.innerHTML = avatarSvg(p.avatar);
-        }
-        const name = document.createElement("span");
-        name.className = "name";
-        name.textContent = p.name || anonymous(p.uid);
-        const pts = document.createElement("span");
-        pts.className = "pts";
-        pts.textContent = p.stats.score.toLocaleString("en-US");
-        const lv = document.createElement("span");
-        lv.className = "lv";
-        lv.textContent = "Lv " + p.stats.highestLevel.toLocaleString("en-US");
-        place.querySelector(".who").replaceChildren(av, name, pts, lv);
-        place.querySelector(".step").textContent = p.rank;
-      });
-      document.getElementById("podium-text").textContent = "Top players: " +
-        top.map(p => `${p.rank}. ${p.name || anonymous(p.uid)}, ${p.stats.score.toLocaleString("en-US")} points, level ${p.stats.highestLevel}`).join("; ") + ".";
-    } catch (e) { /* keep the plain podium */ }
-  })();
-</script>
+<script src="/assets/podium.js"></script>
 </body>
 </html>

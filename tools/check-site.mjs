@@ -73,6 +73,29 @@ for (const file of pages) {
   }
 }
 
+// The company pages (every page on /assets/vgraphics.css) share the home page's header and footer, word for word.
+// Only aria-current may differ, and it may only mark the page's own menu item.
+const chrome = (html) => ({
+  head: html.match(/<header class="site-head">[\s\S]*?<\/header>/)?.[0],
+  foot: html.match(/<footer class="site-foot">[\s\S]*?<\/footer>/)?.[0],
+})
+const plain = (s) => s?.replace(/ aria-current="page"/g, '').replace(/\s+/g, ' ')
+const home = chrome(readFileSync(join(root, 'index.html'), 'utf8'))
+for (const menu of ['/games/', '/apps/', '/services/', '/hub/']) {
+  if (!home.head?.includes(`href="${menu}"`)) report('index.html', 'menu', `the header has no link to ${menu}`)
+}
+for (const file of pages) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!html.includes('href="/assets/vgraphics.css"')) continue
+  const { head, foot } = chrome(html)
+  if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
+  if (plain(foot) !== plain(home.foot)) report(file, 'menu', "footer differs from the home page's")
+  for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
+    const href = tag.match(/href="([^"]*)"/)?.[1]
+    if (href !== urlPath(file)) report(file, 'menu', `marks ${href} as the current page`)
+  }
+}
+
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.
 for (const file of files.filter((f) => /\.(css|html)$/.test(f))) {
   const text = readFileSync(join(root, file), 'utf8')
