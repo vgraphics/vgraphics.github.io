@@ -18,8 +18,9 @@
     <meta name="twitter:card" content="summary_large_image">
     <!-- The vgraphics.gr play page (BuildScript.WebGLPortfolio). Google Analytics only runs once the player allows it
          here (ArrowPuzzleAnalytics.jslib); the answer stays in localStorage under "exitwise.analytics". Ads come from
-         Google AdSense once EXITWISE_ADSENSE below has George's ids (ArrowPuzzleAdSense.jslib, docs/web-ads-adsense.md):
-         H5 Games Ads' interstitials and rewarded videos over the page, and a banner in #ad-banner, under the game. -->
+         Google AdSense once the site's ad switch, /assets/web-ads.js, turns them on (ArrowPuzzleAdSense.jslib,
+         docs/web-ads-adsense.md): a banner in #ad-banner, under the game, and H5 Games Ads' interstitials and rewarded
+         videos over the page. -->
     <style>
       :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
               --ad: 0px; }
@@ -66,22 +67,33 @@
                         border: 2px solid var(--line); background: var(--card); color: var(--ink); }
       #consent button.allow { background: var(--green); border-color: var(--green); color: #fff; }
     </style>
+    <!-- The ad switch of every VGraphics web game: the site's /assets/web-ads.js (window.VGRAPHICS_WEB_ADS), read before
+         the page decides about ads. A local build has no such file, so it shows no ads, as before. -->
+    <script src="/assets/web-ads.js"></script>
     <script>
-      // AdSense (docs/web-ads-adsense.md). While client is null nothing loads from Google and the game shows no ads,
-      // exactly as before. George's ids go here once AdSense has approved vgraphics.gr and H5 Games Ads; the Deployer's
-      // exitwise-web verify step reads these two values. ?adtest=on on the page's address shows Google's test ads
-      // instead (data-adbreak-test), with or without the ids.
-      var EXITWISE_ADSENSE = {
-        client: null,     // the publisher id: "ca-pub-" and 16 digits
-        bannerSlot: null  // the data-ad-slot of the "Exitwise play banner" display ad unit
-      };
+      // AdSense (docs/web-ads-adsense.md). The site's switch says which ads this game runs: the banner under it once
+      // Google has approved vgraphics.gr, the in-game ads (H5 Games Ads) once Google has approved those too. Off, missing
+      // or not well formed: nothing loads from Google and the game shows no ads. No ids live in this page; the
+      // Deployer's exitwise-web checks the switch. ?adtest=on on the page's address shows Google's test ads instead
+      // (data-adbreak-test), with the switch on or off.
       (function () {
+        var GAME = "exitwise"; // this game's entry in the switch
         var test = /[?&]adtest=on(&|$)/.test(window.location.search);
-        // Test mode never asks Google's servers for an ad, so it needs no real id.
-        var client = EXITWISE_ADSENSE.client || (test ? "ca-pub-0000000000000000" : null);
+        var site = window.VGRAPHICS_WEB_ADS || {};
+        var entry = (site.games && site.games[GAME]) || {};
+        var publisher = typeof site.client === "string" && /^ca-pub-\d{16}$/.test(site.client) ? site.client : null;
+        var slot = publisher && site.banners === true && typeof entry.bannerSlot === "string" && /^\d{6,}$/.test(entry.bannerSlot) ?
+          entry.bannerSlot : null;
+        var inGame = !!publisher && site.gameAds === true;
+        // Test mode never asks Google's servers for an ad, so while the switch is off it needs no real id.
+        var client = (slot || inGame) ? publisher : (test ? "ca-pub-0000000000000000" : null);
         // What the page offers the game (ArrowPuzzleAdSense.jslib) and its own statistics question below.
         var ads = window.exitwiseAds = {
           enabled: !!client,
+          // H5 Games Ads: the interstitial every 10 levels and the rewarded videos.
+          breaks: !!client && (inGame || test),
+          // The banner under the game (in test mode while the switch is off, only its space).
+          banner: !!client && (!!slot || test),
           test: test,
           loaded: false,
           failed: false,
@@ -99,18 +111,23 @@
         tag.crossOrigin = "anonymous";
         tag.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(client);
         tag.setAttribute("data-ad-client", client);
-        // At most one ad every 30 s on average, the most AdSense allows: the game itself asks only every 10 levels.
-        tag.setAttribute("data-ad-frequency-hint", "30s");
-        if (test) tag.setAttribute("data-adbreak-test", "on");
+        if (ads.breaks) {
+          // At most one ad every 30 s on average, the most AdSense allows: the game itself asks only every 10 levels.
+          tag.setAttribute("data-ad-frequency-hint", "30s");
+          if (test) tag.setAttribute("data-adbreak-test", "on");
+        }
         // Until it has loaded the game asks for no ad break, so none waits in the queue to show up later mid-level.
         tag.onload = function () { ads.loaded = true; };
         // Blocked (an ad blocker) or offline: the game stops asking and carries on without ads, and no empty strip stays.
         tag.onerror = function () { ads.failed = true; document.documentElement.classList.remove("with-banner"); };
         document.head.appendChild(tag);
         window.adsbygoogle = window.adsbygoogle || [];
-        window.adBreak = window.adConfig = function (o) { window.adsbygoogle.push(o); };
-        // The first break, after level 10, should find an ad ready. The game plays music and sounds.
-        window.adConfig({ preloadAdBreaks: "on", sound: "on" });
+        // Without in-game ads there is no adBreak, so the game offers no video buttons and shows no interstitials.
+        if (ads.breaks) {
+          window.adBreak = window.adConfig = function (o) { window.adsbygoogle.push(o); };
+          // The first break, after level 10, should find an ad ready. The game plays music and sounds.
+          window.adConfig({ preloadAdBreaks: "on", sound: "on" });
+        }
 
         // Google's consent messages (AdSense → Privacy & messaging) come with the tag: the EU regulations message in the
         // EEA, the UK and Switzerland, and the "Do Not Sell or Share" link in US states with a privacy law. The page's
@@ -161,13 +178,12 @@
         // The banner under the game, which the game asks for once the first level is on screen: an AdSense display unit,
         // 320x50, or 728x90 on wide screens (.exitwise_banner).
         ads.showBanner = function (onFilled) {
-          var slot = EXITWISE_ADSENSE.bannerSlot;
-          if (ads.bannerShown || ads.failed || (!slot && !test)) return;
+          if (ads.bannerShown || ads.failed || !ads.banner) return;
           ads.bannerShown = true;
           document.documentElement.classList.add("with-banner");
           var box = document.getElementById("ad-banner");
           if (!slot) {
-            // ?adtest=on before the banner unit exists: only its space, to see the layout.
+            // ?adtest=on while the banners are off: only their space, to see the layout.
             box.textContent = "Banner space (test mode)";
             return;
           }
