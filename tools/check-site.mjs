@@ -39,6 +39,7 @@ for (const file of files.filter((f) => TEXT.test(f))) {
   const text = readFileSync(join(root, file), 'utf8')
   if (/\.(html|txt|xml)$/.test(file) && text.includes('vgraphics.github.io')) report(file, 'old-domain', 'mentions vgraphics.github.io')
   if (/6955395543|695 539 5543/.test(text)) report(file, 'no-phone', 'contains the phone number')
+  if (/kafkasou|καυκ[άα]σου/i.test(text)) report(file, 'no-street', 'contains the street address')
 }
 
 for (const file of pages) {

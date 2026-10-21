@@ -31,7 +31,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 
 Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, link to `/company/`), a canonical URL on
 `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages, and no phone
-number. **Run `node tools/check-site.mjs` before every push.**
+number or street address. **Run `node tools/check-site.mjs` before every push.**
 
 The company pages (home, games, apps, services, multiplayer, hub, company, 404) share one header (Games, Apps,
 Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services sky,
