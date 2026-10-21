@@ -13,6 +13,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub and the TV party games next |
 | `hub/index.html` | VHub "coming soon". The VHub web app replaces it at the same address. |
 | `company/index.html` | Company information / Στοιχεία εταιρείας: the legal details from ΓΕΜΗ, in English and Greek |
+| `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
@@ -29,15 +30,15 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/check-site.mjs` | The site's content rules (legal footer, links, no trackers, company details, app-ads.txt, ads.txt, the ad switch, one header and footer) |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
-Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, link to `/company/`), a canonical URL on
-`https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages, and no phone
-number or street address. **Run `node tools/check-site.mjs` before every push.**
+Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, links to `/company/` and `/privacy/`), a
+canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages,
+and no phone number or street address. **Run `node tools/check-site.mjs` before every push.**
 
-The company pages (home, games, apps, services, multiplayer, hub, company, 404) share one header (Games, Apps,
-Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services sky,
-VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it into
-the other seven pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu item
-may differ).
+The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
+Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
+sky, VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it
+into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
+item may differ).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and

@@ -49,6 +49,8 @@ for (const file of pages) {
     if (!html.includes(s)) report(file, 'legal-footer', `missing "${s}"`)
   }
   if (!/href="\/company\/"/.test(html)) report(file, 'legal-footer', 'no link to /company/')
+  // The site's privacy policy: Google's OAuth consent screen (VGraphics Deployer) and AdSense look for it.
+  if (!/href="\/privacy\/"/.test(html)) report(file, 'legal-footer', 'no link to /privacy/')
 
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
   if (!/<meta name="viewport"/.test(html)) report(file, 'head', 'no viewport meta')

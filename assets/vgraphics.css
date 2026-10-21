@@ -1,4 +1,4 @@
-/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, 404).
+/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, privacy, 404).
    Style: vibrant and block-based. The logo's four dots are the colour blocks, and each menu wears one of them:
    Games sun, Apps coral, Services sky, VHub violet. Ink and paper carry the text.
    Every company page has the same header and footer (tools/check-site.mjs compares them).
