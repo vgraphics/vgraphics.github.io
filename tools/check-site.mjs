@@ -12,8 +12,8 @@ const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 
 const COMPANY = [
   'VGRAPHICS ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.', 'VGRAPHICS SINGLE MEMBER P.C.', 'Ιδιωτική Κεφαλαιουχική Εταιρεία', 'private company',
-  '181823306000', 'ELGEMI.181823306000', '802736373', 'Καυκάσου 10', '551 33', 'Καλαμαριά', 'Θεσσαλονίκη',
-  'Kafkasou 10', 'Kalamaria', 'Thessaloniki', '22/01/2025', 'https://publicity.businessportal.gr/company/181823306000',
+  '181823306000', 'ELGEMI.181823306000', '802736373', 'Καλαμαριά', 'Θεσσαλονίκη',
+  'Kalamaria', 'Thessaloniki', '22/01/2025', 'https://publicity.businessportal.gr/company/181823306000',
   'gvergidis90@gmail.com', 'lang="el"',
 ]
 const ADMOB = 'google.com, pub-7821189101210154, DIRECT, f08c47fec0942fa0'
