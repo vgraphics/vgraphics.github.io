@@ -3,6 +3,7 @@
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { runInNewContext } from 'node:vm'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -129,6 +130,61 @@ else {
     if (!/^[a-z0-9.-]+, [A-Za-z0-9_-]+, (DIRECT|RESELLER)(, [a-z0-9]+)?$/.test(l)) report('app-ads.txt', 'app-ads', `bad line "${l}"`)
   }
   if (!lines.includes(ADMOB)) report('app-ads.txt', 'app-ads', 'no AdMob line')
+}
+
+// ads.txt: the sellers of the ads on vgraphics.gr itself (AdSense), apart from the apps' app-ads.txt.
+const adsTxt = join(root, 'ads.txt')
+const sellers = existsSync(adsTxt) ? readFileSync(adsTxt, 'utf8').split(/\r?\n/).map((l) => l.trim()).filter((l) => l && !l.startsWith('#')) : []
+if (!existsSync(adsTxt)) report('ads.txt', 'ads-txt', 'missing')
+for (const l of sellers) {
+  if (/^(OWNERDOMAIN|MANAGERDOMAIN|CONTACT|SUBDOMAIN|INVENTORYPARTNERDOMAIN)=\S+$/.test(l)) continue
+  if (!/^[a-z0-9.-]+, [A-Za-z0-9_-]+, (DIRECT|RESELLER)(, [a-z0-9]+)?$/.test(l)) report('ads.txt', 'ads-txt', `bad line "${l}"`)
+}
+
+// assets/web-ads.js: the ad switch every web game's play page loads before it decides about ads (README, "Ads on the
+// web games"). Run as a browser runs it, it must define these settings and no others, well formed, nothing switched on
+// without a publisher id, that publisher in ads.txt, and an entry for every game with a play page (<game>/play/).
+const WEB_ADS = join('assets', 'web-ads.js')
+const isObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
+if (!existsSync(join(root, WEB_ADS))) report(WEB_ADS, 'web-ads', 'missing')
+else {
+  const page = {}
+  page.window = page
+  try {
+    runInNewContext(readFileSync(join(root, WEB_ADS), 'utf8'), page, { timeout: 1000 })
+  } catch (e) {
+    report(WEB_ADS, 'web-ads', `doesn't run: ${e.message}`)
+  }
+  const ads = page.VGRAPHICS_WEB_ADS
+  if (!isObject(ads)) report(WEB_ADS, 'web-ads', 'defines no window.VGRAPHICS_WEB_ADS object')
+  else {
+    for (const k of Object.keys(ads)) {
+      if (!['client', 'banners', 'gameAds', 'games'].includes(k)) report(WEB_ADS, 'web-ads', `unknown setting "${k}" (the settings are client, banners, gameAds and games)`)
+    }
+    const client = typeof ads.client === 'string' && /^ca-pub-\d{16}$/.test(ads.client) ? ads.client : null
+    if (ads.client !== null && !client) report(WEB_ADS, 'web-ads', 'client is not null or a publisher id ("ca-pub-" and 16 digits)')
+    for (const k of ['banners', 'gameAds']) if (typeof ads[k] !== 'boolean') report(WEB_ADS, 'web-ads', `${k} is not true or false`)
+    if ((ads.banners === true || ads.gameAds === true) && !client) report(WEB_ADS, 'web-ads', 'ads are switched on without a publisher id (client)')
+    if (client && !sellers.includes(`google.com, ${client.replace(/^ca-/, '')}, DIRECT, f08c47fec0942fa0`)) {
+      report('ads.txt', 'ads-txt', `no line for ${client}, the publisher in ${WEB_ADS}`)
+    }
+    const games = isObject(ads.games) ? ads.games : {}
+    if (!isObject(ads.games)) report(WEB_ADS, 'web-ads', 'games is not an object with an entry per game')
+    for (const [id, game] of Object.entries(games)) {
+      if (!/^[a-z0-9-]+$/.test(id)) report(WEB_ADS, 'web-ads', `game "${id}": names are lower-case letters, digits and dashes`)
+      if (!isObject(game)) {
+        report(WEB_ADS, 'web-ads', `games.${id} is not { bannerSlot }`)
+        continue
+      }
+      for (const k of Object.keys(game)) if (k !== 'bannerSlot') report(WEB_ADS, 'web-ads', `games.${id}: unknown setting "${k}" (a game has only bannerSlot)`)
+      if (game.bannerSlot !== null && !(typeof game.bannerSlot === 'string' && /^\d{6,}$/.test(game.bannerSlot))) {
+        report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
+      }
+    }
+    for (const dir of readdirSync(root)) {
+      if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
+    }
+  }
 }
 
 if (problems.length) {
