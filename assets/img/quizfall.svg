@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 420">
-  <!-- Ποιος θα μείνει τελευταίος; (working title), in design: one question on the TV, the answers on every phone,
+  <!-- Quizfall (Ποιος θα μείνει τελευταίος;), in design: one question on the TV, the answers on every phone,
        and the room's players along the bottom of the screen, the ones knocked out greyed. -->
   <defs>
     <clipPath id="screen"><rect x="96" y="36" width="448" height="252" rx="12"/></clipPath>

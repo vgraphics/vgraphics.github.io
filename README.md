@@ -14,7 +14,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `hub/index.html` | VHub "coming soon". The VHub web app replaces it at the same address. |
 | `company/index.html` | Company information / Στοιχεία εταιρείας: the legal details from ΓΕΜΗ, in English and Greek |
 | `404.html` | Not-found page |
-| `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations) |
+| `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
 | `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html` |
@@ -25,6 +25,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `tools/check-site.mjs` | The site's content rules (legal footer, links, no trackers, company details, app-ads.txt, one header and footer) |
+| `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
 Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, link to `/company/`), a canonical URL on
 `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages, and no phone
