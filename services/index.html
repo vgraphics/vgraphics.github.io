@@ -1,0 +1,296 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Services: apps, games, backends and multiplayer · VGraphics</title>
+  <meta name="description" content="VGraphics builds software for clients: Android and iOS apps in Kotlin and Kotlin Multiplatform, Unity and WebGL games, websites, Firebase backends, real-time multiplayer, community features, store releases, analytics, ads and in-app purchases.">
+  <link rel="canonical" href="https://vgraphics.gr/services/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Services · VGraphics">
+  <meta property="og:description" content="Apps, games, backends, multiplayer and community features, built by the studio that made Exitwise. See it all working on this site.">
+  <meta property="og:url" content="https://vgraphics.gr/services/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <style>
+    /* Hero: every layer of a product, stacked on the Services colour */
+    .layers { margin: 0; padding: 34px clamp(20px, 3.4vw, 34px); list-style: none; display: grid; gap: 10px; border-radius: var(--r-lg); background: var(--sky); animation: rise 700ms 120ms var(--ease) both; }
+    .layers li { display: grid; grid-template-columns: auto 1fr; gap: 3px 14px; align-items: center; padding: 15px 18px; border-radius: 16px; background: #fff; color: #16151B; box-shadow: 0 14px 26px -18px rgba(0, 0, 0, 0.55); translate: var(--x, 0) 0; transition: translate 320ms var(--ease); }
+    .layers li:nth-child(odd) { --x: -12px; }
+    .layers li:nth-child(even) { --x: 12px; }
+    .layers:hover li { --x: 0px; }
+    .layers .dot { grid-row: span 2; width: 14px; height: 14px; }
+    .layers b { font: 700 1.08rem/1.2 var(--display); }
+    .layers span:not(.dot) { font-size: 0.9rem; color: #4A4658; line-height: 1.35; }
+
+    /* What we build: one row per kind of work, each with the real thing on this site */
+    .ledger { margin: 0; padding: 0; list-style: none; border-top: 1px solid var(--line); counter-reset: none; }
+    .ledger > li { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.8fr) minmax(0, 0.75fr); gap: var(--s2) var(--s4); padding-block: var(--s4); border-bottom: 1px solid var(--line); }
+    .ledger h3 { display: flex; align-items: baseline; gap: 12px; font-size: clamp(1.35rem, 2.2vw, 1.75rem); margin-bottom: 8px; }
+    .ledger h3 .dot { width: 12px; height: 12px; transform: translateY(-2px); }
+    .ledger p { color: var(--ink-2); max-width: 38em; }
+    .ledger .label { display: block; margin-bottom: 10px; font: 700 0.76rem/1 var(--body); letter-spacing: 0.1em; text-transform: uppercase; color: var(--ink-2); }
+    .ledger .proof ul { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+    .ledger .proof a { display: inline-flex; align-items: center; gap: 8px; min-height: 40px; color: var(--ink); font-weight: 700; text-decoration: underline; text-decoration-color: var(--c); text-decoration-thickness: 2px; text-underline-offset: 5px; }
+    .ledger .proof a:hover { text-decoration-thickness: 3px; }
+    .ledger .proof small { display: block; color: var(--ink-2); font-size: 0.86rem; }
+
+    /* See it working */
+    .x-play { background: var(--sun); align-content: space-between; }
+    .x-play .big { width: 64px; height: 64px; border-radius: 50%; display: grid; place-items: center; background: #23784B; color: #fff; }
+    .x-play .big svg { width: 26px; height: 26px; margin-left: 4px; }
+    .x-maps { background: #232840; color: #EEF0F8; align-content: start; padding-bottom: 0; }
+    .x-maps p { color: rgba(238, 240, 248, 0.8); }
+    .x-maps img { margin: 6px -26px 0; width: calc(100% + 52px); max-width: none; height: 190px; object-fit: cover; object-position: top; border-top: 1px solid rgba(255, 255, 255, 0.08); }
+    .x-wikis .pill-row .pill { background: var(--surface-2); color: var(--ink); }
+    .x-tour { align-content: space-between; }
+
+    /* How we work: a real sequence, so it is numbered */
+    .steps { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; counter-reset: step; }
+    .steps li { counter-increment: step; display: grid; gap: 10px; align-content: start; padding: 24px 22px 26px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); }
+    .steps li::before { content: counter(step); width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; font: 800 1.3rem/1 var(--display); background: var(--c); color: var(--on-c, #16151B); }
+    .steps li:nth-child(1) { --c: var(--sun); } .steps li:nth-child(2) { --c: var(--coral); } .steps li:nth-child(3) { --c: var(--sky); } .steps li:nth-child(4) { --c: var(--violet); --on-c: #fff; }
+    .steps b { font: 700 1.15rem/1.25 var(--display); }
+    .steps span { color: var(--ink-2); font-size: 0.97rem; }
+
+    /* What you can count on: three plain statements, no cards */
+    .counts { margin: var(--s5) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: var(--s4); }
+    .counts li { display: grid; gap: 8px; padding-top: 18px; border-top: 3px solid var(--ink); }
+    .counts b { font: 700 1.2rem/1.25 var(--display); }
+    .counts span { color: var(--ink-2); }
+
+    /* Start a project */
+    .start { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s4) var(--s5); align-items: center; padding: clamp(28px, 5vw, 60px); border-radius: var(--r-lg); background: var(--sky); color: #16151B; }
+    .start h2 { font-size: clamp(2rem, 4.4vw, 3.2rem); }
+    .start p { margin-top: 14px; font-size: 1.1rem; max-width: 36em; }
+    .start .btn { background: #16151B; color: #fff; overflow-wrap: anywhere; }
+    .start .btn:hover { background: var(--violet); }
+
+    @media (max-width: 960px) {
+      .ledger > li { grid-template-columns: 1fr 1fr; }
+      .ledger .what { grid-column: 1 / -1; }
+      .steps { grid-template-columns: 1fr 1fr; }
+      .counts { grid-template-columns: 1fr; gap: var(--s3); }
+      .start { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .ledger > li { grid-template-columns: 1fr; }
+      .steps { grid-template-columns: 1fr; }
+      .layers { padding: 24px 18px; }
+      .layers li { padding: 13px 14px; }
+    }
+  </style>
+</head>
+<body class="pg-services">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" aria-current="page" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="copy">
+        <span class="kicker"><span class="dot" aria-hidden="true"></span> Software for clients</span>
+        <h1 id="page-title"><span class="marker">Services</span></h1>
+        <p class="sub">We built Exitwise end to end: the game, its backend, the rooms, the leaderboards, the moderation and the store releases. We can build yours the same way.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#start">Start a project</a>
+          <a class="btn btn-ghost" href="#proof">See it working</a>
+        </div>
+      </div>
+      <ol class="layers" aria-label="Every layer of a product we can build">
+        <li><span class="dot c-sun" aria-hidden="true"></span><b>Your app or game</b><span>Android, iOS, Unity and the web</span></li>
+        <li><span class="dot c-coral" aria-hidden="true"></span><b>Multiplayer and community</b><span>Rooms, profiles, leaderboards and moderation</span></li>
+        <li><span class="dot c-violet" aria-hidden="true"></span><b>The backend</b><span>Sign-in, cloud saves, functions and security rules</span></li>
+        <li><span class="dot" style="--c:#16151B" aria-hidden="true"></span><b>Release and grow</b><span>Store listings, analytics, ads and purchases</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <section class="section" id="build" aria-labelledby="build-title" style="padding-top:var(--s4)">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="build-title">What we build</h2>
+        <p class="lede">Each of these runs in our own products today, so you can try the real thing before you write to us.</p>
+      </div>
+      <ul class="ledger">
+        <li class="c-sun">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Android and iOS apps</h3><p>Native Android apps in Kotlin, or Android and iOS from one codebase with Kotlin Multiplatform. Live wallpapers, Quick Settings tiles, work that's light on the battery, and purchases that follow the user to a new phone.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Kotlin</li><li>Kotlin Multiplatform</li><li>Android</li><li>iOS</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/apps/">Speedometer Live Wallpaper</a></li></ul></div>
+        </li>
+        <li class="c-coral">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Games</h3><p>Unity games for phones and the browser: level generators with fixed seeds and tests that prove every level can be solved, a real introduction for every new mechanic, sound and haptics, and WebGL builds that play on any computer.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Unity</li><li>C#</li><li>WebGL</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/games/">Exitwise</a></li><li><a href="/exitwise/play/">Exitwise in your browser</a></li></ul></div>
+        </li>
+        <li class="c-sky">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Websites and web apps</h3><p>Fast websites with no trackers, like this one: product pages, wikis, privacy policies, and live pages that read a game's data straight from its database.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>HTML</li><li>CSS</li><li>JavaScript</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/exitwise/wiki/">The Exitwise wiki</a></li><li><a href="/exitwise/ranking/">The live global ranking</a></li></ul></div>
+        </li>
+        <li class="c-violet">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Backends and real-time multiplayer</h3><p>Firebase backends: sign-in that starts anonymous and links to Google later, cloud saves that merge between devices, Cloud Functions, and security rules tested on the emulator. Rooms where friends race on the same board, with invite links that open the app on Android and the browser game anywhere else.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Firebase Auth</li><li>Firestore</li><li>Cloud Functions</li><li>Android App Links</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/multiplayer/#rooms">Exitwise rooms</a></li></ul></div>
+        </li>
+        <li class="c-sun">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Community features</h3><p>Accounts, profiles, leaderboards, friends and achievements, and the moderation that keeps them friendly: name filters, picture checks with Google Cloud Vision, reports and blocking.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Firestore</li><li>Cloud Vision</li><li>Cloud Functions</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/multiplayer/#moderation">Profiles and moderation</a></li><li><a href="/hub/">VHub</a><small>Friends and achievements, coming soon</small></li></ul></div>
+        </li>
+        <li class="c-coral">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Store releases and release automation</h3><p>Google Play listings, screenshots, privacy and data-safety answers, signing keys, and an automated pipeline that builds the signed bundle, picks the next version code, checks the package and its signing key, and releases to internal testing before production.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Google Play Console</li><li>Play Developer API</li><li>App signing</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise">Exitwise on Google Play</a></li><li><a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Speedometer on Google Play</a></li></ul></div>
+        </li>
+        <li class="c-sky">
+          <div class="what"><h3><span class="dot" aria-hidden="true"></span>Analytics, ads and in-app purchases</h3><p>Firebase Analytics and Crashlytics with an event for every step that matters, ads through mediation behind Google's consent forms for the EU and US states, a banner that never covers the controls, rewarded videos, and in-app purchases with restore.</p></div>
+          <div><span class="label">Built with</span><ul class="tags"><li>Firebase Analytics</li><li>Crashlytics</li><li>Google UMP</li><li>LevelPlay</li><li>Google Play Billing</li></ul></div>
+          <div class="proof"><span class="label">See it in</span><ul><li><a href="/exitwise/">Exitwise</a></li></ul></div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="proof" aria-labelledby="proof-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="proof-title">See it working</h2>
+        <p class="lede">Not mockups: these are live parts of our own products, and you can open every one of them.</p>
+      </div>
+      <div class="grid">
+        <a class="b x-board s5" href="/exitwise/ranking/">
+          <span class="kicker">Live from Exitwise's database</span>
+          <h3>Global ranking</h3>
+          <p>The game's four global boards, read live by this website without signing in.</p>
+          <div class="podium" id="podium" aria-hidden="true">
+            <div class="place p2"><span class="who"></span><span class="step">2</span></div>
+            <div class="place p1"><span class="who"></span><span class="step">1</span></div>
+            <div class="place p3"><span class="who"></span><span class="step">3</span></div>
+          </div>
+          <span class="sr-only" id="podium-text"></span>
+          <span class="go">Open the ranking</span>
+        </a>
+        <a class="b x-dark x-rooms s7" href="/multiplayer/#rooms">
+          <div class="copy">
+            <span class="kicker">Real-time rooms</span>
+            <h3>Race friends by code</h3>
+            <p>One invite link opens the app on Android and the browser game everywhere else. This is the picture a friend gets.</p>
+          </div>
+          <img src="/exitwise/img/room-invite-1200x630.jpg" alt="An Exitwise room invite: race me in a room! Same board, who clears it first?" width="1200" height="630" loading="lazy">
+        </a>
+        <a class="b x-play s4" href="/exitwise/play/">
+          <span class="big" aria-hidden="true"><svg viewBox="0 0 16 16"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg></span>
+          <div><h3>Exitwise in your browser</h3><p>The full Unity game as a WebGL build, with your Google account's progress.</p></div>
+        </a>
+        <a class="b x-maps s4" href="/exitwise/map-rules.html">
+          <h3>Custom maps</h3>
+          <p>Players publish their own levels, under rules they accept first.</p>
+          <img src="/exitwise/wiki/img/shapes.webp" alt="" width="1200" height="1014" loading="lazy">
+        </a>
+        <div class="b x-surface x-wikis s4">
+          <h3>Two wikis</h3>
+          <p>Every obstacle, powerup, gauge and setting explained, in pages that load instantly.</p>
+          <div class="pill-row"><a class="pill" href="/exitwise/wiki/">Exitwise wiki</a><a class="pill" href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></div>
+        </div>
+        <a class="b x-speedo s6" href="/apps/" style="min-height:0">
+          <span class="kicker">Kotlin on Android</span>
+          <h3>Speedometer Live Wallpaper</h3>
+          <p>Live gauges drawn on the home screen, a Quick Settings tile, and a one-time purchase.</p>
+        </a>
+        <a class="b x-violet x-tour s6" href="/multiplayer/">
+          <span class="kicker">The full tour</span>
+          <h3>Multiplayer &amp; community</h3>
+          <span class="go">How rooms, boards and moderation work</span>
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="how" aria-labelledby="how-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="how-title">How we work</h2>
+      </div>
+      <ol class="steps">
+        <li><b>Tell us what you need</b><span>A few lines are enough: what it should do, who it's for, which platforms, and when you need it.</span></li>
+        <li><b>Get a plan</b><span>We reply with questions, then a plan for a first version you can put in people's hands.</span></li>
+        <li><b>Try it as it grows</b><span>You get test builds on your phone or in your browser as the work goes, not only at the end.</span></li>
+        <li><b>Launch and look after it</b><span>We prepare the store listing and the privacy answers, release it, and keep an eye on crashes.</span></li>
+      </ol>
+      <ul class="counts">
+        <li><b>You talk to the person who builds it</b><span>VGraphics is one engineer, so nothing gets lost between sales, design and code.</span></li>
+        <li><b>Privacy and store rules from day one</b><span>Consent forms where the law asks for them, privacy policies in plain words, and data-safety answers that match the code.</span></li>
+        <li><b>Tests where they count</b><span>Every one of Exitwise's 600 levels is proven solvable by tests, and its security rules are tested before they go live.</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" id="start" aria-labelledby="start-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="start">
+        <div>
+          <h2 id="start-title">Tell us about your project</h2>
+          <p>Write a few lines about what you'd like to build. We reply in English or Greek.</p>
+        </div>
+        <a class="btn" href="mailto:gvergidis90@gmail.com?subject=A%20project%20for%20VGraphics">Email gvergidis90@gmail.com</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/exitwise/ranking/boards.js"></script>
+<script src="/assets/podium.js"></script>
+</body>
+</html>

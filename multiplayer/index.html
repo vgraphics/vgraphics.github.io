@@ -1,0 +1,503 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Multiplayer &amp; community · VGraphics</title>
+  <meta name="description" content="How playing together works in VGraphics games: rooms to race friends by code, live leaderboards, profiles, moderation and custom maps in Exitwise, with VHub and party games for the TV next.">
+  <link rel="canonical" href="https://vgraphics.gr/multiplayer/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Multiplayer &amp; community · VGraphics">
+  <meta property="og:description" content="Rooms to race friends on the same board, live leaderboards, profiles and moderation, all running in Exitwise today.">
+  <meta property="og:url" content="https://vgraphics.gr/multiplayer/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <style>
+    .pg-multi { --accent: var(--coral); }
+
+    /* Hero: dark, with the real link preview a friend gets when you share a room */
+    .mp-hero { padding-block: var(--s6) var(--s7); }
+    .mp-hero::before { background-image: radial-gradient(rgba(244, 241, 250, 0.13) 1.4px, transparent 1.6px); }
+    .mp-hero .kicker { color: var(--night-text); }
+    .mp-hero .sub { color: var(--night-strong); }
+    .mp-hero .btn-ghost { border-color: var(--night-strong); color: var(--night-strong); }
+    .mp-hero .btn-ghost:hover { background: #fff; color: #16151B; }
+    .mp-hero .btn-accent:hover { background: #fff; color: #16151B; }
+    .invite { margin: 0; display: grid; gap: 14px; justify-items: end; animation: rise 700ms 120ms var(--ease) both; }
+    .bubble { width: min(100%, 470px); padding: 8px; border-radius: 24px 24px 6px 24px; background: #2C2938; box-shadow: 0 34px 60px -30px rgba(0, 0, 0, 0.95); rotate: -1.5deg; transition: rotate 300ms var(--ease); }
+    .invite:hover .bubble { rotate: 0deg; }
+    .bubble img { border-radius: 17px 17px 8px 8px; }
+    .bubble .meta { display: grid; gap: 4px; padding: 12px 10px 6px; }
+    .bubble b { color: #fff; }
+    .bubble span { color: rgba(244, 241, 250, 0.78); font-size: 0.93rem; line-height: 1.45; }
+    .bubble small { color: #A5B8FF; font-size: 0.84rem; }
+    .invite figcaption { color: var(--night-text); font-size: 0.92rem; }
+
+    /* Rooms: four steps beside the real level map */
+    .rooms { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 0.75fr); gap: var(--s5); align-items: center; }
+    .flow { margin: 0; padding: 0; list-style: none; counter-reset: step; }
+    .flow li { counter-increment: step; display: grid; grid-template-columns: 44px 1fr; gap: 4px 18px; padding: 20px 0; border-top: 1px solid var(--line); }
+    .flow li::before { content: counter(step); grid-row: span 2; width: 44px; height: 44px; border-radius: 14px; display: grid; place-items: center; background: var(--c); color: var(--on-c, #16151B); font: 800 1.25rem/1 var(--display); }
+    .flow li:nth-child(1) { --c: var(--sun); } .flow li:nth-child(2) { --c: var(--coral); } .flow li:nth-child(3) { --c: var(--sky); } .flow li:nth-child(4) { --c: var(--violet); --on-c: #fff; }
+    .flow b { font: 700 1.2rem/1.25 var(--display); }
+    .flow span { color: var(--ink-2); }
+    .shot { margin: 0; justify-self: center; display: grid; gap: 12px; width: min(100%, 330px); }
+    .shot img { border-radius: 24px; box-shadow: 0 30px 50px -28px rgba(22, 21, 27, 0.6); rotate: 2deg; }
+    .shot figcaption { color: var(--ink-2); font-size: 0.9rem; text-align: center; }
+    .hood { margin-top: var(--s5); padding: clamp(24px, 4vw, 40px); border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+    .hood h3 { margin-bottom: var(--s3); }
+    .notes { margin: 0 0 var(--s2); display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s3) var(--s4); }
+    .notes dt { font: 700 1.06rem/1.3 var(--display); margin-bottom: 6px; }
+    .notes dd { margin: 0; color: var(--ink-2); font-size: 0.97rem; }
+
+    /* Leaderboards: the live widget */
+    .lb-wrap { display: grid; grid-template-columns: minmax(0, 0.85fr) minmax(0, 1.15fr); gap: var(--s5); align-items: center; }
+    .lb-copy { display: grid; gap: var(--s2); justify-items: start; }
+    .lb { display: grid; gap: 14px; padding: clamp(16px, 2.6vw, 24px); border-radius: var(--r-lg); background: var(--night-2); border: 1px solid var(--night-line); }
+    .lb-head { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px; }
+    .live { display: inline-flex; align-items: center; gap: 9px; font-weight: 700; font-size: 0.92rem; }
+    .live i { width: 9px; height: 9px; border-radius: 50%; background: #4BD66B; animation: pulse 2s ease-out infinite; }
+    @keyframes pulse { from { box-shadow: 0 0 0 0 rgba(75, 214, 107, 0.6); } to { box-shadow: 0 0 0 9px rgba(75, 214, 107, 0); } }
+    .tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
+    .tabs button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--night-text); font: 700 0.9rem/1 var(--body); cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
+    .tabs button:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
+    .tabs button[aria-selected="true"] { background: var(--sun); color: #16151B; }
+    .lb-caption { color: var(--night-text); font-size: 0.95rem; }
+    .lb-list { margin: 0; padding: 0; list-style: none; display: grid; gap: 6px; min-height: 304px; align-content: start; }
+    .lb-list li { display: grid; grid-template-columns: 2em 40px minmax(0, 1fr) auto; align-items: center; gap: 12px; min-height: 56px; padding: 8px 14px 8px 10px; border-radius: 14px; background: rgba(255, 255, 255, 0.045); animation: rise 420ms var(--ease) both; }
+    .lb-list li:nth-child(2) { animation-delay: 40ms; } .lb-list li:nth-child(3) { animation-delay: 80ms; } .lb-list li:nth-child(4) { animation-delay: 120ms; } .lb-list li:nth-child(5) { animation-delay: 160ms; }
+    .lb-list li:first-child:not(.ghost):not(.note) { background: rgba(244, 196, 48, 0.16); }
+    .lb-list .rk { font: 800 1.1rem/1 var(--display); text-align: center; }
+    .lb-list .av { width: 40px; height: 40px; border-radius: 50%; overflow: hidden; background: #fff; }
+    .lb-list .av img, .lb-list .av svg { display: block; width: 100%; height: 100%; object-fit: cover; }
+    .lb-list .nm { font-weight: 700; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    .lb-list .val { font: 800 1.05rem/1 var(--display); font-variant-numeric: tabular-nums; }
+    .lb-list .ghost { display: block; background: linear-gradient(90deg, rgba(255, 255, 255, 0.04), rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.04)) 0 0 / 200% 100%; animation: shimmer 1.4s linear infinite; }
+    @keyframes shimmer { to { background-position: -200% 0; } }
+    .lb-list .note { display: block; padding: 18px; color: var(--night-text); }
+    .lb-list .note a { color: #A5B8FF; }
+    .lb-foot { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 6px 16px; font-size: 0.88rem; color: rgba(244, 241, 250, 0.6); }
+    .lb-foot a { color: var(--night-strong); font-weight: 700; }
+
+    /* Profiles: the game's 12 avatars */
+    .profiles { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 0.9fr); gap: var(--s5); align-items: center; }
+    .plist { margin: var(--s3) 0 0; padding: 0; list-style: none; }
+    .plist li { display: grid; gap: 4px; padding: 16px 0; border-top: 1px solid var(--line); }
+    .plist b { font: 700 1.12rem/1.3 var(--display); }
+    .plist span { color: var(--ink-2); }
+    .faces12 { display: grid; grid-template-columns: repeat(4, 1fr); gap: clamp(10px, 2vw, 18px); padding: clamp(22px, 4vw, 40px); border-radius: var(--r-lg); background: var(--violet); }
+    .faces12 svg { width: 100%; height: auto; transition: transform 260ms var(--ease); }
+    .faces12:hover svg:nth-child(odd) { transform: translateY(-4px) rotate(-6deg); }
+    .faces12:hover svg:nth-child(even) { transform: translateY(3px) rotate(5deg); }
+
+    /* Moderation: the rules, short and public */
+    .mod { padding: clamp(24px, 4.4vw, 52px); border-radius: var(--r-lg); background: var(--sky); color: #16151B; }
+    .mod .section-head { margin-bottom: var(--s4); }
+    .mod .lede { color: rgba(22, 21, 27, 0.82); }
+    .rules { margin: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 0 var(--s4); }
+    .rules div { padding: 18px 0 20px; border-top: 1.5px solid rgba(22, 21, 27, 0.22); }
+    .rules dt { font: 700 1.12rem/1.3 var(--display); margin-bottom: 6px; }
+    .rules dd { margin: 0; color: rgba(22, 21, 27, 0.84); }
+    .mod .links { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: var(--s2); }
+    .mod .more { color: #16151B; --c: #16151B; }
+
+    /* Custom maps */
+    .maps { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: var(--s5); align-items: center; padding: clamp(24px, 4.4vw, 52px); border-radius: var(--r-lg); background: #232840; color: #EEF0F8; }
+    .maps .copy { display: grid; gap: var(--s2); justify-items: start; }
+    .maps p { color: rgba(238, 240, 248, 0.82); max-width: 34em; }
+    .maps img { border-radius: 16px; }
+    .maps .more { color: #fff; }
+    .maps :focus-visible { outline-color: #A5B8FF; }
+
+    /* What's next */
+    .next-hub { grid-template-columns: minmax(0, 1fr) minmax(0, 0.85fr); align-items: center; column-gap: 20px; }
+    .next-hub .copy, .next-party .copy { display: grid; gap: 12px; justify-items: start; }
+    .next-hub img { filter: drop-shadow(0 24px 30px rgba(0, 0, 0, 0.35)); transition: transform 300ms var(--ease); }
+    a.next-hub:hover img { transform: rotate(-2deg) translateY(-4px); }
+    .next-party { background: #24205A; color: #fff; grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr); align-items: center; column-gap: 20px; }
+    .next-party img { transition: transform 300ms var(--ease); }
+    a.next-party:hover img { transform: translateY(-4px); }
+
+    .ask { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s3) var(--s5); align-items: center; padding: clamp(26px, 4.6vw, 48px); border-radius: var(--r-lg); background: var(--coral); color: #16151B; }
+    .ask p { margin-top: 10px; max-width: 40em; }
+    .ask .btn-primary { background: #16151B; color: #fff; }
+    .ask .btn-primary:hover { background: var(--violet); }
+    .ask .btn-ghost { border-color: #16151B; color: #16151B; }
+    .ask .btn-ghost:hover { background: #16151B; color: #fff; }
+
+    @media (max-width: 960px) {
+      .rooms, .lb-wrap, .profiles, .maps { grid-template-columns: 1fr; }
+      .notes { grid-template-columns: 1fr 1fr; }
+      .rules { grid-template-columns: 1fr 1fr; }
+      .ask { grid-template-columns: 1fr; }
+      .invite { justify-items: start; }
+    }
+    @media (max-width: 720px) {
+      .next-hub, .next-party { grid-template-columns: 1fr; }
+      .next-hub img, .next-party img { width: min(100%, 380px); margin-inline: auto; }
+    }
+    @media (max-width: 560px) {
+      .notes, .rules { grid-template-columns: 1fr; }
+      .lb-list li { grid-template-columns: 1.6em 36px minmax(0, 1fr) auto; gap: 10px; padding-inline: 8px 12px; }
+      .lb-list .av { width: 36px; height: 36px; }
+      .tabs { width: 100%; justify-content: space-between; }
+      .tabs button { padding: 0 10px; flex: 1; }
+    }
+  </style>
+</head>
+<body class="pg-multi">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero band mp-hero" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="copy">
+        <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Multiplayer &amp; community</span>
+        <h1 id="page-title">Play <span class="marker">together</span></h1>
+        <p class="sub">Rooms where friends race on the same board, live leaderboards, profiles, and the rules that keep it all friendly. It all runs in Exitwise today.</p>
+        <div class="actions">
+          <a class="btn btn-accent" href="#leaderboards">See the live boards</a>
+          <a class="btn btn-ghost" href="/exitwise/play/">Play Exitwise in your browser</a>
+        </div>
+      </div>
+      <figure class="invite">
+        <div class="bubble">
+          <img src="/exitwise/img/room-invite-1200x630.jpg" alt="Exitwise: race me in a room! Same board, who clears it first? Beside it, a level 33 board in the forest world." width="1200" height="630">
+          <div class="meta"><b>Join my Exitwise room</b><span>Race me on the same board: who clears it first? Opens in the app on Android, or right in your browser.</span><small>vgraphics.gr</small></div>
+        </div>
+        <figcaption>What a friend sees in their chat when you share a room</figcaption>
+      </figure>
+    </div>
+  </section>
+
+  <section class="section" id="rooms" aria-labelledby="rooms-title">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="rooms-title"><span class="dot c-coral" aria-hidden="true"></span>Rooms</h2>
+        <p class="lede">Race 2 to 8 friends on the same boards, each on their own phone or computer, at the same time.</p>
+      </div>
+      <div class="rooms">
+        <ol class="flow">
+          <li><b>Create a room</b><span>The host gets a 6-character code and picks the difficulty, the world, the lives and how many games to play, up to 20.</span></li>
+          <li><b>Invite friends</b><span>Share the code, the QR code or the invite link. On Android the link opens the app; on a computer or an iPhone it opens the browser game, already in the room.</span></li>
+          <li><b>Race</b><span>After a 3-2-1 everyone gets the same board. Finishing first scores the most, and the hearts you keep and your time count too.</span></li>
+          <li><b>Podium</b><span>After the last game a podium shows the winners. Play again keeps everyone together, and the match goes into each player's history.</span></li>
+        </ol>
+        <figure class="shot">
+          <img src="/exitwise/img/2-map.webp" alt="Exitwise's level map in the Candy land world, with the Daily, Leaderboards, Play with friends and Custom maps buttons" width="720" height="1280" loading="lazy">
+          <figcaption>Play with friends, Leaderboards and Custom maps sit right on the level map.</figcaption>
+        </figure>
+      </div>
+      <div class="hood">
+        <h3>Under the hood</h3>
+        <dl class="notes">
+          <div><dt>Fair on a slow connection</dt><dd>Each board is built from the room code, so nothing on it has to travel over the network, and every player's own clock times their run.</dd></div>
+          <div><dt>One link, every device</dt><dd>Android App Links open the game straight from the invite; everyone else lands in the browser game, in the room.</dd></div>
+          <div><dt>The room carries on</dt><dd>If the host leaves or goes quiet, the player who joined first takes over.</dd></div>
+          <div><dt>Made to share</dt><dd>Every match is kept in your history, with a results picture sized to show whole on Instagram, WhatsApp and Viber.</dd></div>
+        </dl>
+        <a class="more c-coral" href="/exitwise/wiki/rooms/">Rooms in the Exitwise wiki</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="band" id="leaderboards" aria-labelledby="lb-title">
+    <div class="wrap lb-wrap">
+      <div class="lb-copy">
+        <h2 id="lb-title"><span class="dot c-sun" aria-hidden="true"></span>Leaderboards</h2>
+        <p class="lede">Every level has its own board, ranked by the fewest hearts lost and then the fastest time. Only clean runs count: no continues and no powerups.</p>
+        <p class="lede">Four global boards rank everyone in the game. This page reads them live from the game's database, with no sign-in.</p>
+        <a class="more c-sun" href="/exitwise/ranking/">The top 100 on every board</a>
+      </div>
+      <div class="lb" id="lb">
+        <div class="lb-head">
+          <span class="live"><i aria-hidden="true"></i>Live from Exitwise</span>
+          <div class="tabs" role="tablist" aria-label="Global boards">
+            <button type="button" role="tab" id="t-score" aria-controls="lb-panel" aria-selected="true" data-board="score">Score</button>
+            <button type="button" role="tab" id="t-perfect" aria-controls="lb-panel" aria-selected="false" tabindex="-1" data-board="perfect">Perfect</button>
+            <button type="button" role="tab" id="t-maps" aria-controls="lb-panel" aria-selected="false" tabindex="-1" data-board="maps">Maps</button>
+            <button type="button" role="tab" id="t-creators" aria-controls="lb-panel" aria-selected="false" tabindex="-1" data-board="creators">Creators</button>
+          </div>
+        </div>
+        <div id="lb-panel" role="tabpanel" aria-labelledby="t-score" aria-live="polite">
+          <p class="lb-caption">Points for every level won: fewer hearts lost and faster wins earn more.</p>
+          <ol class="lb-list"></ol>
+          <noscript><p class="lb-caption">The live boards need JavaScript.</p></noscript>
+        </div>
+        <div class="lb-foot"><span class="lb-time"></span><a href="/exitwise/ranking/">Full ranking</a></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="profiles" aria-labelledby="profiles-title">
+    <div class="wrap profiles">
+      <div>
+        <h2 id="profiles-title"><span class="dot c-violet" aria-hidden="true"></span>Profiles</h2>
+        <p class="lede" style="margin-top:var(--s2)">Pick a name and one of 12 avatars the first time you open a leaderboard. Tap anyone's row to see their stats and the maps they've published.</p>
+        <ul class="plist">
+          <li><b>Names that stay put</b><span>3 to 16 letters, digits or _, unique, and yours for good once saved.</span></li>
+          <li><b>Your own picture</b><span>On Android, players signed in with Play Games can use a photo. Each one is re-encoded and checked by Google Cloud Vision before anyone sees it.</span></li>
+          <li><b>Your data, your call</b><span>"Delete my leaderboard data" removes your name, picture, results and stats.</span></li>
+        </ul>
+      </div>
+      <div class="faces12" role="img" aria-label="Exitwise's 12 preset avatars: coloured discs with an arrow, a star, a heart, a bolt, a crown, a moon, a diamond, a smile, a bulb, a flame, a leaf and a note">
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#EE4D5C"/><g fill="#fff"><path d="M30 74V46h26" fill="none" stroke="#fff" stroke-width="10" stroke-linecap="round" stroke-linejoin="round"/><polygon points="76,46 54,30 54,62"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1E88DA"/><g fill="#fff"><polygon points="50.00,26.00 57.05,43.29 75.68,44.66 61.41,56.71 65.87,74.84 50.00,65.00 34.13,74.84 38.59,56.71 24.32,44.66 42.95,43.29"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1F9F52"/><g fill="#fff"><path d="M50 74C33 62 22 50 24 39C26 27 43 24 50 36C57 24 74 27 76 39C78 50 67 62 50 74Z"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#8C5CF0"/><g fill="#fff"><polygon points="56,20 32,54 48,54 42,80 68,44 52,44"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#D9580E"/><g fill="#fff"><polygon points="26,68 24,36 38,50 50,30 62,50 76,36 74,68"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#BE8508"/><g fill="#fff"><circle cx="50" cy="50" r="25"/><circle cx="60" cy="42" r="21" fill="#BE8508"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#E0457B"/><g fill="#fff"><polygon points="50,22 76,50 50,78 24,50"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#0E9AA7"/><g fill="#fff"><circle cx="38" cy="40" r="5.5"/><circle cx="62" cy="40" r="5.5"/><path d="M68.79 56.84A20 20 0 0 1 31.21 56.84" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#5B6CF0"/><g fill="#fff"><circle cx="50" cy="43" r="18"/><polygon points="41,56 59,56 57,68 43,68"/><path d="M45 76h10" stroke="#fff" stroke-width="8" stroke-linecap="round"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#C2410C"/><g fill="#fff"><path d="M50 20C62 36 74 48 72 60C70 74 60 80 50 80C40 80 30 74 28 60C27 50 36 42 42 34C44 44 48 50 52 52C54 42 54 30 50 20Z"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#4D7C0F"/><g fill="#fff"><path d="M28 72C24 40 48 24 76 26C78 56 58 76 28 72Z"/><path d="M30 70L62 40" stroke="#4D7C0F" stroke-width="5" stroke-linecap="round"/></g></svg>
+        <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#3B3355"/><g fill="#fff"><circle cx="40" cy="68" r="10"/><path d="M48 68V26l22 8" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round" stroke-linejoin="round"/></g></svg>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="moderation" aria-labelledby="mod-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="mod">
+        <div class="section-head">
+          <h2 id="mod-title">Moderation</h2>
+          <p class="lede">Anything players make, from names and pictures to whole levels, can be reported. The rules are short, and they're public.</p>
+        </div>
+        <dl class="rules">
+          <div><dt>Names</dt><dd>A filter refuses rude words and reserved names, even when they're spelled with digits or underscores.</dd></div>
+          <div><dt>Pictures</dt><dd>Checked before anyone sees them, and players whose pictures keep being taken down can't upload any more.</dd></div>
+          <div><dt>Reports</dt><dd>Report a name, a picture or a map. Reporting a player also blocks them on your device at once.</dd></div>
+          <div><dt>Three reports</dt><dd>A picture comes down, a name is removed and its owner picks a new one, and a map is hidden until we've looked at it.</dd></div>
+          <div><dt>Custom maps</dt><dd>Creators accept the map rules first, the game checks every map can be cleared, and the creator clears it before it goes public.</dd></div>
+          <div><dt>Just for you</dt><dd>Block a player or hide a creator's maps. Nobody else is told.</dd></div>
+        </dl>
+        <div class="links">
+          <a class="more" href="/exitwise/map-rules.html">Read the map rules</a>
+          <a class="more" href="/exitwise/privacy.html">Exitwise privacy policy</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="maps" aria-labelledby="maps-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="maps">
+        <div class="copy">
+          <h2 id="maps-title"><span class="dot c-sun" aria-hidden="true"></span>Custom maps</h2>
+          <p>Players build levels in the game's own editor: 5 to 40 cells each way, any of the 49 board shapes and 17 world looks, and every block the levels use. A check bar spots stuck arrows at once and rates the map from Easy to Expert.</p>
+          <p>Published maps get a share code, a rating, a clear rate and a leaderboard of their own, and the Creators board ranks whose maps are played the most.</p>
+          <a class="more c-sun" href="/exitwise/wiki/custom-maps/">Custom maps in the wiki</a>
+        </div>
+        <img src="/exitwise/wiki/img/shapes.webp" alt="The 49 board shapes in the editor, from rounded squares, hearts and stars to rockets, anchors and castles, each as a small grid and a big picture" width="1200" height="1014" loading="lazy">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="next" aria-labelledby="next-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="section-head">
+        <h2 id="next-title">Coming next</h2>
+        <p class="lede">The same rooms and profiles, shared by every VGraphics game, and games built around the TV.</p>
+      </div>
+      <div class="grid">
+        <a class="b x-violet next-hub s6" href="/hub/">
+          <div class="copy">
+            <span class="soon">Coming soon</span>
+            <h3>VHub</h3>
+            <p>One account for every VGraphics game and app: one name and picture, a level and XP earned in every game, achievements, friends, and invites to rooms.</p>
+          </div>
+          <img src="/assets/img/vhub.svg" alt="" width="520" height="460" loading="lazy">
+        </a>
+        <a class="b next-party s6" href="/games/#party">
+          <div class="copy">
+            <span class="soon">In design</span>
+            <h3>Party games for the TV</h3>
+            <p><span lang="el">Παλέρμο Νουάρ</span> (Palermo Noir) and Quizfall. Phones are the controllers and the TV is the main screen, and the game runs the show, so the host gets to play too.</p>
+          </div>
+          <img src="/assets/img/palermo.svg" alt="" width="640" height="420" loading="lazy">
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="ask-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="ask">
+        <div>
+          <h2 id="ask-title">Want this in your game or app?</h2>
+          <p>We build rooms, leaderboards, profiles and moderation for clients, on Firebase, for Android, iOS and the web.</p>
+        </div>
+        <div class="actions">
+          <a class="btn btn-primary" href="/services/">See our services</a>
+          <a class="btn btn-ghost" href="#contact">Get in touch</a>
+        </div>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/exitwise/ranking/boards.js"></script>
+<script>
+  // The live boards: the top 5 of Exitwise's four global boards, read from the game's Firestore without signing in
+  // (boards.js, shared with the ranking page). Each board loads the first time its tab opens.
+  (() => {
+    const root = document.getElementById("lb");
+    if (!root || !window.ExitwiseBoards) return;
+    const { BOARDS, loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
+    const TOP = 5;
+    const tabs = [...root.querySelectorAll('[role="tab"]')];
+    const panel = document.getElementById("lb-panel");
+    const list = panel.querySelector(".lb-list");
+    const caption = panel.querySelector(".lb-caption");
+    const stamp = root.querySelector(".lb-time");
+    const cache = {};
+    let current = null;
+
+    const item = (className, text) => {
+      const li = document.createElement("li");
+      li.className = className;
+      if (text) li.textContent = text;
+      return li;
+    };
+
+    function render(id, { players, time }) {
+      const board = BOARDS[id];
+      if (!players.length) {
+        list.replaceChildren(item("note", board.empty));
+        return;
+      }
+      list.replaceChildren(...players.slice(0, TOP).map(p => {
+        const li = document.createElement("li");
+        const rank = document.createElement("span");
+        rank.className = "rk";
+        rank.textContent = p.rank;
+        const av = document.createElement("span");
+        av.className = "av";
+        if (p.picture) {
+          const img = document.createElement("img");
+          img.alt = "";
+          img.src = "data:image/jpeg;base64," + p.picture;
+          av.append(img);
+        } else {
+          av.innerHTML = avatarSvg(p.avatar);
+        }
+        const name = document.createElement("span");
+        name.className = "nm";
+        name.textContent = p.name || anonymous(p.uid);
+        const value = document.createElement("span");
+        value.className = "val";
+        value.textContent = p.stats[board.field].toLocaleString("en-US");
+        const unit = document.createElement("span");
+        unit.className = "sr-only";
+        unit.textContent = " " + board.column.toLowerCase();
+        value.append(unit);
+        li.append(rank, av, name, value);
+        return li;
+      }));
+      stamp.textContent = "Read live at " + time.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" });
+    }
+
+    async function show(id) {
+      current = id;
+      for (const tab of tabs) {
+        const on = tab.dataset.board === id;
+        tab.setAttribute("aria-selected", String(on));
+        tab.tabIndex = on ? 0 : -1;
+      }
+      panel.setAttribute("aria-labelledby", "t-" + id);
+      caption.textContent = BOARDS[id].caption + ".";
+      if (!cache[id]) {
+        list.replaceChildren(...Array.from({ length: TOP }, () => item("ghost")));
+        cache[id] = loadBoard(id, TOP).then(async data => {
+          await loadPhotos(data.players).catch(() => false);
+          return data;
+        });
+      }
+      panel.setAttribute("aria-busy", "true");
+      try {
+        const data = await cache[id];
+        if (current === id) render(id, data);
+      } catch (e) {
+        delete cache[id];
+        if (current === id) {
+          const li = item("note", "The live boards didn't load just now. ");
+          const link = document.createElement("a");
+          link.href = "/exitwise/ranking/";
+          link.textContent = "Try the ranking page";
+          li.append(link, ".");
+          list.replaceChildren(li);
+        }
+      } finally {
+        if (current === id) panel.setAttribute("aria-busy", "false");
+      }
+    }
+
+    tabs.forEach((tab, i) => {
+      tab.addEventListener("click", () => show(tab.dataset.board));
+      tab.addEventListener("keydown", e => {
+        const step = { ArrowRight: 1, ArrowLeft: -1 }[e.key];
+        if (!step) return;
+        e.preventDefault();
+        const next = tabs[(i + step + tabs.length) % tabs.length];
+        next.focus();
+        show(next.dataset.board);
+      });
+    });
+    show("score");
+  })();
+</script>
+</body>
+</html>

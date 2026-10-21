@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Apps · VGraphics</title>
+  <meta name="description" content="Apps by VGraphics: Speedometer Live Wallpaper turns your Android home screen into a car dashboard, with live gauges for power, CPU clock, GPS speed, battery, RAM, signal and Wi-Fi.">
+  <link rel="canonical" href="https://vgraphics.gr/apps/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Apps · VGraphics">
+  <meta property="og:description" content="Speedometer Live Wallpaper: your Android home screen as a car dashboard. On Google Play.">
+  <meta property="og:url" content="https://vgraphics.gr/apps/">
+  <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card.jpg">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <style>
+    /* Hero: the dashboard on the Apps colour, the dial turning slowly over the phone */
+    .stage { position: relative; height: 470px; border-radius: var(--r-lg); background: var(--coral); overflow: hidden; animation: rise 700ms 120ms var(--ease) both; }
+    .stage .phone { --tilt: -5deg; top: 48px; left: 38%; width: 46%; }
+    .stage .dial { position: absolute; right: -6%; bottom: -10%; width: 58%; filter: drop-shadow(0 26px 30px rgba(0, 0, 0, 0.45)); animation: idle 7s ease-in-out infinite alternate; }
+    .stage:hover .phone { transform: translateY(-8px) rotate(-3deg); }
+
+    /* Speedometer, in its own look */
+    .speedo { display: grid; grid-template-columns: minmax(0, 1.05fr) minmax(0, 0.95fr); gap: var(--s5); align-items: center; min-height: 0; padding: clamp(26px, 4.6vw, 56px); }
+    .speedo::before { background: linear-gradient(90deg, rgba(8, 8, 9, 0.9) 40%, rgba(8, 8, 9, 0.45)); }
+    .speedo .copy { max-width: none; justify-items: start; gap: 14px; }
+    .speedo h2 { font-size: clamp(1.9rem, 4vw, 2.8rem); color: #ECECEE; }
+    .speedo .kicker { color: #A9A9B1; }
+    .speedo p { color: #D7D7DC; }
+    .speedo .row { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; }
+    .speedo .row .gp { margin-block: -11px; }
+    .screens { display: grid; grid-template-columns: repeat(3, 1fr); gap: 12px; align-items: start; }
+    .screens img { border-radius: 16px; border: 4px solid #1F1F22; box-shadow: 0 26px 40px -22px rgba(0, 0, 0, 0.9); transition: transform 300ms var(--ease); }
+    .screens img:nth-child(2) { margin-top: 30px; }
+    .speedo:hover .screens img:nth-child(1) { transform: translateY(-6px) rotate(-1.5deg); }
+    .speedo:hover .screens img:nth-child(3) { transform: translateY(-6px) rotate(1.5deg); }
+
+    /* What it does, in five lines: a ledger rather than a grid of cards */
+    .points { margin: var(--s4) 0 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 0 var(--s5); }
+    .points li { display: grid; grid-template-columns: 40px 1fr; gap: 4px 14px; padding: 20px 0; border-top: 1px solid var(--line); }
+    .points .ic { grid-row: span 2; width: 40px; height: 40px; border-radius: 12px; display: grid; place-items: center; background: #16151B; color: #F04A2C; border: 1px solid var(--line); }
+    .points .ic svg { width: 22px; height: 22px; }
+    .points b { font: 700 1.12rem/1.3 var(--display); }
+    .points span { color: var(--ink-2); }
+    .points li:last-child { grid-column: 1 / -1; }
+
+    .hire { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: var(--s3) var(--s5); align-items: center; padding: clamp(26px, 4.6vw, 48px); border-radius: var(--r-lg); background: var(--sky); color: #16151B; }
+    .hire p { margin-top: 10px; max-width: 40em; }
+    .hire .btn { background: #16151B; color: #fff; }
+    .hire .btn:hover { background: var(--violet); }
+
+    @media (max-width: 960px) {
+      .speedo { grid-template-columns: 1fr; }
+      .points { grid-template-columns: 1fr; }
+      .hire { grid-template-columns: 1fr; }
+    }
+    @media (max-width: 560px) {
+      .stage { height: 360px; border-radius: 24px; }
+      .stage .phone { left: 36%; width: 48%; border-width: 5px; border-radius: 20px; }
+      .screens img { border-width: 3px; border-radius: 12px; }
+    }
+  </style>
+</head>
+<body class="pg-apps">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" aria-current="page" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main">
+  <section class="page-hero" aria-labelledby="page-title">
+    <div class="wrap">
+      <div class="copy">
+        <span class="kicker"><span class="dot" aria-hidden="true"></span> VGraphics apps</span>
+        <h1 id="page-title"><span class="marker">Apps</span></h1>
+        <p class="sub">Your Android home screen as a car dashboard, with real readings from your phone.</p>
+        <div class="actions">
+          <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Get it on Google Play</a>
+          <a class="btn btn-ghost" href="/speedometer-wallpaper/#tour">Tour the dashboard</a>
+        </div>
+      </div>
+      <div class="stage" aria-hidden="true">
+        <span class="phone"><img src="/speedometer-wallpaper/img/shot-power.webp" alt="" width="540" height="1200"></span>
+        <img class="dial" src="/speedometer-wallpaper/img/dial-power.webp" alt="" width="480" height="480">
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="speedometer" aria-labelledby="speedo-title" style="padding-top:0">
+    <div class="wrap">
+      <article class="b x-speedo speedo">
+        <div class="copy">
+          <span class="kicker">Live wallpaper · Android</span>
+          <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
+          <h2 id="speedo-title">Speedometer Live Wallpaper</h2>
+          <p>The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock. Pick the free Classic dashboard, or the chrome Future cluster with the song that's playing.</p>
+          <div class="row">
+            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get Speedometer Live Wallpaper on Google Play" width="646" height="250" loading="lazy"></a>
+            <a class="pill" href="/speedometer-wallpaper/">Visit Speedometer</a>
+            <a class="pill alt" href="/speedometer-wallpaper/wiki/">Wiki</a>
+          </div>
+        </div>
+        <div class="screens" aria-hidden="true">
+          <img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/future-kmh.webp" alt="" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/designs.webp" alt="" width="540" height="1200" loading="lazy">
+        </div>
+      </article>
+
+      <ul class="points">
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/></svg></span><b>One dial, three jobs</b><span>Power in watts, CPU clock or GPS speed. Tap the gauge or use the Quick Settings tile to switch.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 12h16M12 4v16"/></svg></span><b>Classic is free, Future is €0.99</b><span>Future is a one-time purchase that comes back by itself on a new phone with the same Google account.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2"/><path d="M7 10v4"/></svg></span><b>Easy on the battery</b><span>Nothing redraws unless something changed, and everything stops while the wallpaper is hidden.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg></span><b>No ads on your wallpaper</b><span>A small banner shows inside the app only, never on your home screen.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Your readings stay on your phone</b><span>Nothing the gauges read is sent anywhere. Location is used only for the speed, and only while the wallpaper is on screen. <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a></span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="section" aria-labelledby="hire-title" style="padding-top:0">
+    <div class="wrap">
+      <div class="hire">
+        <div>
+          <h2 id="hire-title">Need an app built?</h2>
+          <p>We build Android apps in Kotlin, and Android and iOS apps from one codebase with Kotlin Multiplatform, from the first screen to the store listing.</p>
+        </div>
+        <a class="btn" href="/services/">See our services</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kafkasou 10, 551 33 Kalamaria, Greece · <a href="/company/">Company information</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+</body>
+</html>
