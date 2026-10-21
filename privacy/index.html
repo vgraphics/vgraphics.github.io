@@ -1,0 +1,265 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy policy · VGraphics</title>
+  <meta name="description" content="How vgraphics.gr, the ads and statistics of its web games, and the Google sign-in of VGraphics Deployer, our internal tool, handle personal data.">
+  <link rel="canonical" href="https://vgraphics.gr/privacy/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <style>
+    /* The site's privacy policy: a summary in the logo's four colours, then the policy, with its contents beside it on
+       wide screens and above it on phones. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+    .basis { font-size: 0.95rem; color: var(--ink-2); }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · VGraphics Deployer</span>
+    <h1>Privacy policy</h1>
+    <p class="lede">What happens to your data when you visit vgraphics.gr, when a web game here shows ads or counts statistics, and when VGraphics Deployer, our internal tool, signs in with Google. In plain words.</p>
+    <p class="chip">Last updated <time datetime="2026-10-21">21 October 2026</time></p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">In short</h2>
+    <ul class="short">
+      <li><b>Most pages collect nothing</b><span>No cookies, statistics or ads, and nothing from other sites except the live Exitwise ranking.</span></li>
+      <li><b>Ads and statistics only in the web games</b><span>Statistics only if you allow them. In Europe, personalised ads only with your consent.</span></li>
+      <li><b>Hosted on GitHub Pages</b><span>GitHub logs visitors' IP addresses for security. We get no logs.</span></li>
+      <li><b>The Deployer only reads ad reports</b><span>Read-only access to VGraphics' own AdMob and AdSense reports, kept on our own computer.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ol>
+        <li><a href="#who">Who is responsible</a></li>
+        <li><a href="#website">This website</a></li>
+        <li><a href="#ads">Ads in the web games</a></li>
+        <li><a href="#statistics">Statistics in the web games</a></li>
+        <li><a href="#games">Inside the games and apps</a></li>
+        <li><a href="#vhub">VHub</a></li>
+        <li><a href="#deployer">VGraphics Deployer</a></li>
+        <li><a href="#rights">Your rights</a></li>
+        <li><a href="#changes">Changes</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="who" aria-labelledby="who-title">
+        <h2 id="who-title"><span class="dot c-sun" aria-hidden="true"></span>Who is responsible</h2>
+        <p>VGraphics publishes this website and makes VGraphics Deployer, and is responsible for the personal data this policy describes (its "controller", in the words of the EU's General Data Protection Regulation, the GDPR):</p>
+        <address class="box">
+          VGRAPHICS SINGLE MEMBER P.C. (<span lang="el">VGRAPHICS ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.</span>)<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          ΓΕΜΗ 181823306000 · ΑΦΜ 802736373<br>
+          Email: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+        </address>
+        <p>Write to us about anything in this policy, or to use your rights. The <a href="/company/">company information</a> page has our registration details.</p>
+      </section>
+
+      <section id="website" aria-labelledby="website-title">
+        <h2 id="website-title"><span class="dot c-coral" aria-hidden="true"></span>This website</h2>
+        <h3>Hosting</h3>
+        <p>vgraphics.gr is hosted on GitHub Pages, a service of GitHub, Inc. Your browser's request for each page reaches GitHub with your IP address, the page's address and your browser's name and version. GitHub logs and stores visitors' IP addresses for security purposes, whether or not they have a GitHub account (<a href="https://docs.github.com/en/pages/getting-started-with-github-pages/what-is-github-pages#data-collection">GitHub Pages: data collection</a>). We don't get these logs. See the <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub General Privacy Statement</a>.</p>
+        <h3>No accounts, cookies or trackers</h3>
+        <p>The website has no accounts and no sign-in of its own. Apart from the play pages of the web games (see <a href="#ads">ads</a> and <a href="#statistics">statistics</a>), no page here sets cookies, counts statistics or shows ads, and none loads scripts or fonts from another site: the fonts and pictures come from vgraphics.gr itself.</p>
+        <h3>The live Exitwise ranking</h3>
+        <p>The home, services and multiplayer pages and the <a href="/exitwise/ranking/">Exitwise ranking</a> show Exitwise's live leaderboards. Your browser reads them straight from the game's public ranking in Google Cloud Firestore, part of Google's Firebase (firestore.googleapis.com), so Google receives your IP address and browser details for those requests. No cookie is set, no sign-in is needed, and nothing else about you is sent. See <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.</p>
+        <h3>Email</h3>
+        <p>When you email us, we get your address and what you write, and we use them only to answer you. Our email runs on Gmail, so Google stores the messages for us. We keep them as long as we need them for what you asked.</p>
+        <p class="basis">Legal basis: our legitimate interest in a secure website that works, shows the live ranking and answers your messages (GDPR Article 6(1)(f)).</p>
+      </section>
+
+      <section id="ads" aria-labelledby="ads-title">
+        <h2 id="ads-title"><span class="dot c-sky" aria-hidden="true"></span>Ads in the web games</h2>
+        <p>The web games on vgraphics.gr can show ads from Google AdSense on their play pages, and nowhere else: today that is <a href="/exitwise/play/">Exitwise in your browser</a>, and future web games will work the same way. No other page shows ads.</p>
+        <h3>When ads load</h3>
+        <ul>
+          <li>A play page first reads the site's ad switch, <a href="/assets/web-ads.js"><code>/assets/web-ads.js</code></a>, from vgraphics.gr itself. Only when it turns ads on for that game does the page load Google's ad code. While it is off, nothing loads from Google for ads, and there are no ads and no ad cookies. The one exception is the page's ad test mode, which we open by adding <code>?adtest=on</code> to its address: it loads Google's ad code to show test ads.</li>
+          <li>With ads on, a game shows a banner under the game from the first level. Once Google allows them for the site, it also shows occasional full-screen ads between levels, and reward videos that you choose to watch, for example to continue a level.</li>
+          <li>If an ad blocker stops Google's ad code, the game carries on without ads.</li>
+        </ul>
+        <h3>Cookies</h3>
+        <p>Google, and other ad companies whose ads Google shows through AdSense, use cookies and similar technologies to show ads, measure them, limit how often you see the same ad and prevent fraud.</p>
+        <ul>
+          <li>Third-party vendors, including Google, use cookies to serve ads based on your earlier visits to this website or other websites.</li>
+          <li>Google's use of advertising cookies lets it and its partners serve ads to you based on your visits to this website and/or other sites on the internet.</li>
+          <li>You can opt out of personalised advertising in Google's <a href="https://adssettings.google.com/">Ad Settings</a>. You can also opt out of many other ad companies' use of cookies for personalised ads at <a href="https://optout.aboutads.info/">aboutads.info</a> or <a href="https://www.youronlinechoices.eu/">youronlinechoices.eu</a>.</li>
+        </ul>
+        <p>Google explains its part in <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps that use our services</a> and in the <a href="https://policies.google.com/privacy">Google Privacy Policy</a>.</p>
+        <h3>Your choices</h3>
+        <ul>
+          <li><strong>European Economic Area, UK and Switzerland:</strong> the first time you open a play page with ads on, Google's consent message asks whether Google and the ad companies it lists may use cookies and your data for ads. Ads are only personalised if you agree. If you don't, you may still see ads, but they are chosen from the page and your general location instead. Change your choice at any time with <strong>Ad choices</strong> under the game.</li>
+          <li><strong>US states with a privacy law:</strong> Google's message shows a "Do Not Sell or Share My Personal Information" link on the page, where you can opt out of the sale or sharing of your data for ads.</li>
+        </ul>
+        <p class="basis">Legal basis: where the law requires consent, as in the EEA, the UK and Switzerland, ad cookies and personalised ads rely on your consent (GDPR Article 6(1)(a)), which you can withdraw at any time.</p>
+      </section>
+
+      <section id="statistics" aria-labelledby="statistics-title">
+        <h2 id="statistics-title"><span class="dot c-violet" aria-hidden="true"></span>Statistics in the web games</h2>
+        <p>The play pages can count game statistics with Google Analytics: for example the levels players finish, where they get stuck, and error reports when something goes wrong in the game. We use them only to improve the games.</p>
+        <ul>
+          <li><strong>Only if you allow it.</strong> The first time a game opens, it asks, for example "Help improve Exitwise?", with <strong>Allow</strong> and <strong>No thanks</strong>. If Google's consent message (above) has already asked you about analytics, the game uses that answer instead of asking again.</li>
+          <li>Nothing is loaded from Google Analytics or sent to it before you allow it, and the game works the same either way.</li>
+          <li>If you allow it, Google Analytics keeps an identifier in a cookie in your browser. It doesn't get your name, email address or Google account.</li>
+          <li>Your browser remembers your answer (in its local storage), so the game doesn't ask again. Change it at any time with <strong>Statistics</strong> under the game. If you withdraw it, the page reloads without Google Analytics.</li>
+        </ul>
+        <p>No other page on vgraphics.gr counts statistics. What each game counts is in its own policy: <a href="/exitwise/privacy.html#analytics">Exitwise: analytics and crash reports</a>.</p>
+        <p class="basis">Legal basis: your consent (GDPR Article 6(1)(a)).</p>
+      </section>
+
+      <section id="games" aria-labelledby="games-title">
+        <h2 id="games-title"><span class="dot c-sun" aria-hidden="true"></span>Inside the games and apps</h2>
+        <p>Each game and app has its own privacy policy for what happens inside it: game accounts and Google sign-in, cloud saves, leaderboards, profiles and pictures, rooms, custom maps, ads, analytics and purchases. When you play a web game here, the game connects to its own services (for Exitwise, Google Firebase), as its policy explains.</p>
+        <ul>
+          <li><a href="/exitwise/privacy.html">Exitwise privacy policy</a>, also for Exitwise in your browser and its room links</li>
+          <li><a href="/speedometer-wallpaper/privacy.html">Speedometer Live Wallpaper privacy policy</a></li>
+        </ul>
+      </section>
+
+      <section id="vhub" aria-labelledby="vhub-title">
+        <h2 id="vhub-title"><span class="dot c-coral" aria-hidden="true"></span>VHub</h2>
+        <p><a href="/hub/">VHub</a>, our coming player network, is only a "coming soon" page for now: it has no sign-in and collects nothing. VHub accounts will get their own privacy policy when VHub opens, and we'll link it here.</p>
+      </section>
+
+      <section id="deployer" aria-labelledby="deployer-title">
+        <h2 id="deployer-title"><span class="dot c-sky" aria-hidden="true"></span>VGraphics Deployer</h2>
+        <p>VGraphics Deployer is the internal tool we use to release our games and apps and to follow their statistics. It isn't a public app: it runs on VGraphics' own computer.</p>
+        <h3>Who signs in</h3>
+        <p>Only VGraphics' own staff sign in to it with Google, and only with VGraphics' own Google account. It never asks players, visitors or anyone else to sign in.</p>
+        <h3>What it may read</h3>
+        <p>When we sign in, Google asks us to allow read-only access to two things, and the Deployer asks for nothing else:</p>
+        <ul>
+          <li><strong>AdMob reports:</strong> <code>https://www.googleapis.com/auth/admob.readonly</code></li>
+          <li><strong>AdSense reports:</strong> <code>https://www.googleapis.com/auth/adsense.readonly</code></li>
+        </ul>
+        <p>With them it reads the estimated earnings and ad impressions of VGraphics' own apps and website, per day, ad format and ad unit, and the review status of our sites in AdSense. These are totals: they say nothing about the people who saw the ads. The Deployer can't change anything in AdMob or AdSense, and it doesn't ask for the account's name, email address or any other Google data.</p>
+        <h3>Where it stays</h3>
+        <ul>
+          <li>The sign-in that Google gives the Deployer, and the reports it reads, are kept on VGraphics' own computer. Each report is kept only until a newer copy replaces it.</li>
+          <li>They are not shared with anyone, not sold, and not used for advertising.</li>
+        </ul>
+        <h3>Removing its access</h3>
+        <p>The Deployer's access can be removed at any time from the Google Account that signed in: open <strong>Security</strong> → <strong>Your connections to third-party apps &amp; services</strong> (<a href="https://myaccount.google.com/connections">myaccount.google.com/connections</a>), choose <strong>VGraphics Deployer</strong> and delete the connection. From then on its saved sign-in no longer works, and it can't read any more reports.</p>
+        <p class="box statement">VGraphics Deployer's use and transfer to any other app of information received from Google APIs will adhere to the <a href="https://developers.google.com/terms/api-services-user-data-policy">Google API Services User Data Policy</a>, including the <a href="https://developers.google.com/terms/api-services-user-data-policy#limited-use">Limited Use requirements</a>.</p>
+      </section>
+
+      <section id="rights" aria-labelledby="rights-title">
+        <h2 id="rights-title"><span class="dot c-violet" aria-hidden="true"></span>Your rights</h2>
+        <p>Under the GDPR you can ask us to:</p>
+        <ul>
+          <li>tell you what personal data we hold about you, and give you a copy;</li>
+          <li>correct it, or delete it;</li>
+          <li>limit how we use it, or stop using it where we rely on our legitimate interest;</li>
+          <li>give it to you, or to someone else, in a common machine-readable format.</li>
+        </ul>
+        <p>You can also withdraw your consent at any time, without affecting what happened before: <strong>Statistics</strong> and <strong>Ad choices</strong> under each web game do that. Email <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a> to use any of these rights, and we'll answer within a month. Most of the data in this policy is held by GitHub and Google rather than by us, so where that's quicker we'll point you to them.</p>
+        <p>If you think we handle your data unlawfully, you can complain to the Hellenic Data Protection Authority (<span lang="el">Αρχή Προστασίας Δεδομένων Προσωπικού Χαρακτήρα</span>) at <a href="https://www.dpa.gr/en">dpa.gr</a>, or to the data protection authority where you live or work.</p>
+        <h3>Data outside the EU</h3>
+        <p>GitHub and Google may handle the data described here in the United States. Both are certified under the EU-U.S. Data Privacy Framework, which the European Commission recognises as protecting personal data adequately.</p>
+      </section>
+
+      <section id="changes" aria-labelledby="changes-title">
+        <h2 id="changes-title"><span class="dot c-sun" aria-hidden="true"></span>Changes</h2>
+        <p>When the website, its games or the Deployer start handling data differently, we update this page and its date at the top. If the Deployer ever needs more access from Google, this page will say so before it asks.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+</body>
+</html>
