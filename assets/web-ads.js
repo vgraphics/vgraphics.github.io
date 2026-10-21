@@ -2,6 +2,7 @@
 // Quizfall later. Each game's play page loads this file before it decides about ads, so turning ads on or off is a change
 // here and a push: no game build, no release. A missing file, a value that isn't well formed, or a game without an entry
 // means no ads in that game. README.md ("Ads on the web games") says how to switch; tools/check-site.mjs checks the file.
+// Keep it plain (quoted strings, true/false, null, { }): the Deployer reads this file without running it.
 window.VGRAPHICS_WEB_ADS = {
   // The Google AdSense publisher id ("ca-pub-" and 16 digits). Public anyway: ads.txt lists it, and every page with ads
   // shows it.

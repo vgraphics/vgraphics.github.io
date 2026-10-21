@@ -72,6 +72,9 @@ Today both switches are off, because Google is still reviewing vgraphics.gr. To 
 
 To switch ads off, set the switch back to `false` and push. Players get the change within about 10 minutes.
 
+Keep the file plain, as it is: quoted strings, `true`/`false`, `null` and `{ }`. The Deployer reads its text without
+running it and refuses anything else (an expression, a function call, a second statement).
+
 **A new web game** gets one entry under `games`, with its own display unit's slot or `null`. Its play page loads the
 switch the same way Exitwise's does (the games repo's `docs/web-ads-adsense.md`, "A new web game").
 

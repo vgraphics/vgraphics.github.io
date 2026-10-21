@@ -150,14 +150,17 @@ if (!existsSync(join(root, WEB_ADS))) report(WEB_ADS, 'web-ads', 'missing')
 else {
   const page = {}
   page.window = page
+  let ran = true
   try {
     runInNewContext(readFileSync(join(root, WEB_ADS), 'utf8'), page, { timeout: 1000 })
   } catch (e) {
+    ran = false
     report(WEB_ADS, 'web-ads', `doesn't run: ${e.message}`)
   }
   const ads = page.VGRAPHICS_WEB_ADS
-  if (!isObject(ads)) report(WEB_ADS, 'web-ads', 'defines no window.VGRAPHICS_WEB_ADS object')
-  else {
+  // A file that doesn't run is reported once, above.
+  if (ran && !isObject(ads)) report(WEB_ADS, 'web-ads', 'defines no window.VGRAPHICS_WEB_ADS object')
+  else if (ran) {
     for (const k of Object.keys(ads)) {
       if (!['client', 'banners', 'gameAds', 'games'].includes(k)) report(WEB_ADS, 'web-ads', `unknown setting "${k}" (the settings are client, banners, gameAds and games)`)
     }
@@ -182,6 +185,7 @@ else {
       }
     }
     for (const dir of readdirSync(root)) {
+      if (SKIP.includes(dir)) continue
       if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
     }
   }
