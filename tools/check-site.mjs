@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
-import { products } from './lib/product.mjs'
+import { products, subpages } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -129,11 +129,19 @@ for (const file of pages) {
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
 // graphic"): each is exactly what tools/build-pages.mjs writes from its page.json and theme pack, and every product (a
-// folder with its own privacy policy) has one.
+// folder with its own privacy policy) has one. So are a product's other pages with a page.json (exitwise/storybook).
 for (const slug of products()) {
   const { html, css, problems: pack } = render(slug)
   for (const m of pack) report(join(slug, 'theme', 'theme.json'), 'template', m)
-  for (const [file, want] of [[join(slug, 'index.html'), html], [join(slug, 'theme', 'theme.css'), css]]) {
+  const made = [[join(slug, 'index.html'), html], [join(slug, 'theme', 'theme.css'), css]]
+  for (const sub of subpages(slug)) {
+    try {
+      made.push([join(slug, sub, 'index.html'), render(slug, sub).html])
+    } catch (e) {
+      report(join(slug, sub, 'page.json'), 'template', e.message)
+    }
+  }
+  for (const [file, want] of made) {
     const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
     if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
   }

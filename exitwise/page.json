@@ -62,10 +62,12 @@
       { "label": "Overview", "href": "/exitwise/" },
       { "label": "Wiki", "href": "/exitwise/wiki/" },
       { "label": "Ranking", "href": "/exitwise/ranking/" },
+      { "label": "Storybook", "href": "/exitwise/storybook/", "wide": true },
       { "label": "Privacy", "href": "/exitwise/privacy.html", "wide": true },
       { "label": "Map rules", "href": "/exitwise/map-rules.html", "wide": true }
     ],
     "footer": [
+      { "label": "Storybook", "href": "/exitwise/storybook/" },
       { "label": "Global ranking", "href": "/exitwise/ranking/" },
       { "label": "Privacy policy", "href": "/exitwise/privacy.html" },
       { "label": "Map rules", "href": "/exitwise/map-rules.html" }

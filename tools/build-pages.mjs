@@ -1,8 +1,13 @@
 // Builds each product's landing page from <product>/page.json and its theme pack <product>/theme/theme.json, into
-// <product>/index.html and <product>/theme/theme.css. One layout for every VGraphics game and app (George, 22 Oct
+// <product>/index.html and <product>/theme/theme.css, and the product's other pages from <product>/<page>/page.json into
+// <product>/<page>/index.html (exitwise/storybook). One layout for every VGraphics game and app (George, 22 Oct
 // 2026: "the same layouts with different content and graphic"): the structure is here and in assets/product.css, each
 // product's look in its pack. Never edit a generated page; check-site.mjs fails when one differs from what this writes.
-// Usage: node tools/build-pages.mjs [product ...]   (default: every product with a page.json)
+// Usage: node tools/build-pages.mjs [product ...]   (default: every product with a page.json, and its pages)
+//
+// A product's other page holds the same fields as its landing page, except site, stores and footerArt (the product's),
+// and with intro and cta optional; its hero shows the product's key art unless it gives its own art, and hero.title is
+// its heading (the landing page's is the product's name).
 //
 // page.json holds the page's words, links and pictures (trusted HTML from this repo):
 //   title, description           the search result's title and snippet
@@ -16,14 +21,15 @@
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files
 //   intro                        { lede, actions?, demo? }: demo/<demo>.html goes in the page, .css and .js beside it
 //   sections                     [{ id, eyebrow?, title, intro?, blocks, more? }] or [{ id, band }]
-//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack
+//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack,
+//                                storybook
 //   cta                          { title, text, badges }: the last call to action
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { esc, footer, header, ornament } from './lib/partials.mjs'
-import { loadProduct, products, root } from './lib/product.mjs'
+import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
 import { renderGallery } from './gallery.mjs'
@@ -81,7 +87,7 @@ function hero(p, picture) {
       </picture>
       <div class="hero-foot">
         <div class="wrap">
-          <h1 id="title" class="sr-only">${esc(p.site.name)}</h1>
+          <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
           ${actions(p, h.badges)}
         </div>
@@ -151,6 +157,29 @@ const BLOCKS = {
               <div class="body" id="${t.id}">${t.body}${t.more ? `<a class="more" href="${esc(t.more)}">More in the wiki →</a>` : ''}</div></li>`).join('\n            ')}
           </ol>
         </div>`,
+
+  // The game's own storybook (b.book: the folder of its storybook.json and HTML reader, the web game's
+  // StreamingAssets/Storybook), read where it stands: the page holds the first chapter's lines and the chapter list as
+  // text, for search engines and readers without JavaScript, and assets/storybook.js swaps in the reader, opened with
+  // the visitor's progress from the web game on this site (localStorage b.progressKey). b.play is where a locked
+  // chapter's "Play to unlock" goes; b.audio, the folder of the music cues.
+  storybook: (b) => {
+    const file = join(root, b.book.replace(/^\//, ''), 'storybook.json')
+    if (!existsSync(file)) throw new Error(`${b.book}/storybook.json is missing: release the web game, which carries the book, before building this page`)
+    const book = JSON.parse(readFileSync(file, 'utf8'))
+    const [first, ...rest] = book.chapters
+    const lines = first.pages.flatMap((page) => page.panels).map((panel) => `<p>${esc(panel.line)}</p>`)
+    return `<div class="storybook" data-book="${esc(b.book)}" data-progress="${esc(b.progressKey)}" data-play="${esc(b.play)}"${b.audio ? ` data-audio="${esc(b.audio)}"` : ''}>
+          <div class="storybook-text">
+            <h3>${esc(first.title)}</h3>
+            ${lines.join('\n            ')}
+            <ol class="storybook-chapters">
+              ${rest.map((c) => `<li><b>${esc(c.label)}</b> ${esc(c.title)}</li>`).join('\n              ')}
+            </ol>
+            <a class="btn" href="${esc(b.play)}">Play to unlock the chapters</a>
+          </div>
+        </div>`
+  },
 }
 
 // Every section heading carries a link to itself (George, 22 Oct 2026: "All sections ... must have anchors and copy on
@@ -214,11 +243,14 @@ function decorate(theme, parts) {
   return out
 }
 
-export function render(slug) {
-  const product = loadProduct(slug)
+// A product's landing page, or with sub its page <slug>/<sub>/.
+export function render(slug, sub) {
+  const product = sub ? loadSubpage(slug, sub) : loadProduct(slug)
   const { page: p, theme: t } = product
-  const demoFile = (ext) => p.intro.demo && join(root, slug, `${p.intro.demo}.${ext}`)
-  const demo = p.intro.demo ? readFileSync(demoFile('html'), 'utf8') : ''
+  const dir = sub ? join(slug, sub) : slug
+  const path = sub ? `${slug}/${sub}/` : `${slug}/`
+  const demoFile = (ext) => p.intro?.demo && join(root, dir, `${p.intro.demo}.${ext}`)
+  const demo = p.intro?.demo ? readFileSync(demoFile('html'), 'utf8') : ''
   const demoCss = demoFile('css') && existsSync(demoFile('css'))
   const demoJs = demoFile('js') && existsSync(demoFile('js'))
   const art = keyArt(p.hero.art)
@@ -226,8 +258,9 @@ export function render(slug) {
   const tour = p.sections.some((s) => s.blocks?.some((b) => b.type === 'tour'))
   const ost = p.sections.some((s) => s.blocks?.some((b) => b.type === 'soundtrack'))
   const gallery = p.sections.some((s) => s.blocks?.some((b) => b.type === 'gallery' && b.layout))
-  const body = decorate(t, [intro(p, demo), ...p.sections.map((s) => section(product, s)), cta(p)])
-  const url = `https://vgraphics.gr/${slug}/`
+  const book = p.sections.flatMap((s) => s.blocks ?? []).find((b) => b.type === 'storybook')
+  const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), ...(p.cta ? [cta(p)] : [])])
+  const url = `https://vgraphics.gr/${path}`
   const html = `<!doctype html>
 <html lang="en">
 <head>
@@ -260,11 +293,13 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/assets/product.css">${gallery ? `
   <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${demoCss ? `
-  <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}
+  <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${book ? `
+  <link rel="stylesheet" href="/assets/storybook.css">
+  <link rel="stylesheet" href="${esc(book.book)}/reader/storybook.css">` : ''}
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  ${header(product, { current: `/${slug}/` })}
+  ${header(product, { current: `/${path}` })}
 
   <main id="main">
     ${hero(p, art.picture)}
@@ -277,7 +312,9 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   <script src="/assets/product.js" defer></script>` : ''}${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
-  <script src="/assets/soundtrack.js" defer></script>` : ''}
+  <script src="/assets/soundtrack.js" defer></script>` : ''}${book ? `
+  <script src="${esc(book.book)}/reader/storybook.js" defer></script>
+  <script src="/assets/storybook.js" defer></script>` : ''}
 </body>
 </html>
 `
@@ -296,5 +333,9 @@ if (import.meta.url === pathToFileURL(process.argv[1]).href) {
     writeFileSync(join(root, slug, 'index.html'), html)
     writeFileSync(join(root, slug, 'theme', 'theme.css'), css)
     console.log(`${slug}: index.html + theme/theme.css`)
+    for (const sub of subpages(slug)) {
+      writeFileSync(join(root, slug, sub, 'index.html'), render(slug, sub).html)
+      console.log(`${slug}/${sub}: index.html`)
+    }
   }
 }

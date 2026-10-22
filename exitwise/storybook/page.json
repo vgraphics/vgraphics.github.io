@@ -1,0 +1,73 @@
+{
+  "title": "The Exitwise Storybook: The Tangled Tower, an Arrow Puzzle Fairy Tale",
+  "description": "Read the Exitwise storybook: Prince Arlo climbs the Tower of Worlds to break the Duskweaver's curse, one arrow at a time. Chapters unlock as you free each world in the arrow puzzle game.",
+  "social": {
+    "title": "The Tangled Tower: the Exitwise storybook",
+    "description": "A painted fairy tale in 17 worlds. Free each world in the arrow puzzle game to unlock its chapter.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Book",
+        "@id": "https://vgraphics.gr/exitwise/storybook/#book",
+        "name": "The Tangled Tower",
+        "alternateName": "The Exitwise storybook",
+        "url": "https://vgraphics.gr/exitwise/storybook/",
+        "description": "Prince Arlo, a knight archer, climbs the Tower of Worlds to open the Dawn Door and break the Duskweaver's curse, freeing a guardian in every world. The storybook of Exitwise, the arrow escape puzzle game.",
+        "genre": "Fairy tale",
+        "inLanguage": "en",
+        "bookFormat": "https://schema.org/EBook",
+        "isAccessibleForFree": true,
+        "image": "https://vgraphics.gr/exitwise/img/card-1200x630.jpg",
+        "isPartOf": { "@id": "https://vgraphics.gr/exitwise/#game" },
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "VideoGame", "@id": "https://vgraphics.gr/exitwise/#game", "name": "Exitwise: Arrow Escape Puzzle", "url": "https://vgraphics.gr/exitwise/" },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+          { "@type": "ListItem", "position": 4, "name": "Storybook", "item": "https://vgraphics.gr/exitwise/storybook/" }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "The Exitwise storybook: The Tangled Tower",
+    "lead": "The Tangled Tower",
+    "align": "center",
+    "badges": [
+      { "href": "#book", "label": "Read the story", "icon": "down", "button": true },
+      { "href": "/exitwise/play/", "label": "Play to unlock chapters", "note": "Free in your browser" }
+    ]
+  },
+  "sections": [
+    {
+      "id": "book",
+      "eyebrow": "The storybook",
+      "title": "A fairy tale in 17 worlds",
+      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Read how Prince Arlo and Pip the owl climb the tower. The prologue is open to everyone; each world's chapter unlocks as you free it in the arrow puzzle game, in your browser or on Android.",
+      "blocks": [
+        {
+          "type": "storybook",
+          "book": "/exitwise/play/StreamingAssets/Storybook",
+          "progressKey": "exitwise.storybook",
+          "play": "/exitwise/play/",
+          "audio": "/exitwise/play/StreamingAssets/Music/Story"
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Free the next world",
+    "text": "Every arrow puzzle you clear brings Prince Arlo closer to the Dawn Door. Free on Android and in your browser.",
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+  }
+}
