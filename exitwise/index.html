@@ -72,7 +72,8 @@
   </script>
   <link rel="preload" href="fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" imagesizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" imagesizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 11/5)" imagesrcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" imagesizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 11/5)" imagesrcset="img/key-art-ultra-1920.avif 1920w, img/key-art-ultra-2560.avif 2560w, img/key-art-ultra-3200.avif 3200w" imagesizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" fetchpriority="high">
   <style>
     /* Self-hosted (OFL, see fonts/): no requests to Google Fonts. */
     @font-face {
@@ -160,9 +161,10 @@
     .hero-copy > :nth-child(4) { animation-delay: 240ms; }
     @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 
-    /* Key art: the welcome splash's tower of worlds, a poster lying on the table. Wide screens see all of it at once
-       (it shrinks to fit the window's height); phones and portrait tablets get the tall cut, its top always in view.
-       Its painted title stands in for the h1, which stays for screen readers and search. */
+    /* Key art: the welcome splash's tower of worlds, a poster lying on the table. Every screen sees all of it at once
+       (it shrinks to fit the window's height): the 16:9 picture on most, its outpainted wide version on ultra-wide
+       screens, its tall version on phones and portrait tablets. Its painted title stands in for the h1, which stays
+       for screen readers and search. */
     .key-art {
       --w: min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px);
       display: block;
@@ -181,6 +183,9 @@
     @media (max-aspect-ratio: 4/5) {
       .key-art { --w: min(100vw - 32px, (100vh - 140px) * 2 / 3); }
       .key-art img { border-radius: 26px; }
+    }
+    @media (min-aspect-ratio: 11/5) {
+      .key-art { --w: min(100vw - 32px, (100vh - 150px) * 2.415, 3000px); }
     }
     h1 {
       position: absolute;
@@ -431,6 +436,8 @@
       <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
       <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="img/key-art-tall-480.webp 480w, img/key-art-tall-720.webp 720w, img/key-art-tall-1080.webp 1080w, img/key-art-tall-1440.webp 1440w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
       <source media="(max-aspect-ratio: 4/5)" srcset="img/key-art-tall-1080.jpg 1080w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
+      <source media="(min-aspect-ratio: 11/5)" type="image/avif" srcset="img/key-art-ultra-1920.avif 1920w, img/key-art-ultra-2560.avif 2560w, img/key-art-ultra-3200.avif 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" width="4096" height="1696">
+      <source media="(min-aspect-ratio: 11/5)" type="image/webp" srcset="img/key-art-ultra-1920.webp 1920w, img/key-art-ultra-2560.webp 2560w, img/key-art-ultra-3200.webp 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" width="4096" height="1696">
       <source type="image/avif" srcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)">
       <source type="image/webp" srcset="img/key-art-960.webp 960w, img/key-art-1440.webp 1440w, img/key-art-1920.webp 1920w, img/key-art-2560.webp 2560w, img/key-art-3200.webp 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)">
       <img src="img/key-art-1920.jpg" srcset="img/key-art-960.jpg 960w, img/key-art-1920.jpg 1920w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)" width="1920" height="1080" fetchpriority="high" alt="Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, ice and a volcano to purple crystals, with a glowing door at the top">
