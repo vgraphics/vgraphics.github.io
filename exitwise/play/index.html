@@ -8,6 +8,14 @@
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
     <link rel="icon" href="/exitwise/img/icon-512.png">
     <link rel="apple-touch-icon" href="/exitwise/img/icon-512.png">
+    <!-- Exitwise's welcome art (#loader-art), asked for first so it is ready when the VGraphics intro ends: one file. -->
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-aspect-ratio: 6/5)"
+          imagesrcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" imagesizes="100vw">
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-aspect-ratio: 2/1)"
+          imagesrcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" imagesizes="241.5vh">
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high"
+          media="(min-aspect-ratio: 1201/1000) and (max-aspect-ratio: 1999/1000)"
+          imagesrcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w" imagesizes="177.78vh">
     <!-- The preview chat apps and social sites show for a link. -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="VGraphics">
@@ -22,6 +30,8 @@
          docs/web-ads-adsense.md): a banner in #ad-banner, under the game, and H5 Games Ads' interstitials and rewarded
          videos over the page. -->
     <style>
+      /* The game's font for the loading screen, from the site's Exitwise pages (a local build shows a stand-in). */
+      @font-face { font-family: "Lilita One"; font-display: block; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); }
       :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
               --ad: 0px; }
       html.with-banner { --ad: 58px; }
@@ -43,9 +53,87 @@
         html.with-banner { --ad: 98px; }
         .exitwise_banner { width: 728px; height: 90px; }
       }
-      #loading { position: fixed; left: 50%; top: 50%; width: 220px; height: 14px; margin: -7px 0 0 -110px;
-                 border-radius: 7px; background: #E9E1D3; overflow: hidden; }
-      #loading-fill { width: 0; height: 100%; border-radius: 7px; background: var(--green); transition: width 0.2s; }
+      /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's icon,
+         its arrows nudging the way they point, the title and the download. The dots are the board's. Sized by the
+         window's height. */
+      #loader { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); display: flex; flex-direction: column;
+                align-items: center; justify-content: center;
+                background: var(--paper) radial-gradient(circle, #DCD2C2 2.5px, transparent 3px) 0 0 / 30px 30px;
+                font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; color: var(--ink);
+                transition: opacity 0.3s; }
+      #loader.done { opacity: 0; pointer-events: none; }
+      /* The logo's place, above the bar: the icon and the title (a splash could take their place). */
+      #loader-logo { display: flex; flex-direction: column; align-items: center; }
+      #loader-logo svg { width: min(30vh, 170px); height: min(30vh, 170px); overflow: visible; }
+      .arrow path { fill: none; stroke: currentColor; stroke-width: 58; stroke-linecap: round; stroke-linejoin: round; }
+      .arrow .head { fill: currentColor; stroke-width: 16; }
+      .arrow { animation: 1.8s ease-in-out infinite; }
+      .red { color: #FF6B6B; animation-name: nudge-up; }
+      .green { color: #3BB273; animation-name: nudge-up; animation-delay: 0.3s; }
+      .blue { color: #1C9FD8; animation-name: nudge-right; animation-delay: 0.6s; }
+      @keyframes nudge-up { 0%, 45%, 100% { transform: translateY(0); } 20% { transform: translateY(-26px); } }
+      @keyframes nudge-right { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(26px); } }
+      #loader-title { margin: min(2.5vh, 16px) 0 min(4vh, 28px); font-size: min(9vh, 64px); line-height: 1; letter-spacing: 0.01em; }
+      /* The bar, chubby like the game's buttons: a white pill on a darker lip with a groove in it, and in the groove a fat
+         green arrow, .bar-fill its body and .bar-head its head, that grows to the right. --t is the arrow's thickness and
+         --lead its length at 0%, a round tail and the head; the script slides both parts along the rest of the groove. */
+      #loader-bar { --h: clamp(26px, 6vh, 40px); --lip: calc(var(--h) * 0.1); --pad: calc(var(--h) * 0.17);
+                    --t: calc(var(--h) - var(--lip) - 2 * var(--pad)); --hl: calc(var(--t) * 1.1); --lead: calc(var(--hl) + var(--t) / 2);
+                    position: relative; width: min(70vw, 400px, 62vh); height: var(--h); }
+      .bar-shadow { position: absolute; left: 5%; right: 5%; bottom: calc(var(--h) * -0.3); height: calc(var(--h) * 0.6); border-radius: 50%;
+                    background: radial-gradient(closest-side, rgba(59, 51, 85, 0.2), rgba(59, 51, 85, 0)); }
+      .bar-hop, .bar-jelly, .bar-track { position: absolute; inset: 0; }
+      .bar-hop { transform-origin: 50% 100%; }
+      .bar-jelly { transform-origin: 0 50%; }
+      .bar-track { border-radius: 999px; background: #FFFDF8; box-shadow: inset 0 calc(var(--lip) * -1) 0 #DED4C4; }
+      .bar-groove, .bar-head { position: absolute; left: var(--pad); right: var(--pad); top: var(--pad); height: var(--t); }
+      .bar-groove { overflow: hidden; border-radius: 999px; background: #ECE4D6;
+                    box-shadow: inset 0 calc(var(--t) * 0.12) calc(var(--t) * 0.14) rgba(59, 51, 85, 0.16); }
+      .bar-fill { position: absolute; top: 0; bottom: 0; left: calc(var(--t) / 2 - var(--hl)); width: 100%; border-radius: 999px;
+                  background: #3BB273; box-shadow: inset 0 calc(var(--t) * -0.16) 0 #2A8A57; }
+      .bar-fill::after { content: ""; position: absolute; left: 0; right: calc(var(--t) / 2); top: 16%; height: 28%; border-radius: 999px 0 0 999px;
+                         background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3)); }
+      /* Body and head move together, by transform only, which the compositor keeps smooth while the page is busy
+         starting the game. The arrowhead squashes and stretches about its back (the script's keyframes). */
+      .bar-fill, .bar-head { transform: translateX(calc(var(--lead) - 100%)); transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1); }
+      .bar-tip { position: absolute; right: 0; top: 50%; width: var(--hl); height: calc(var(--t) * 1.5); margin-top: calc(var(--t) * -0.75);
+                 transform-origin: 0 50%; }
+      .bar-tip svg { display: block; width: 100%; height: 100%; }
+      /* Full, while the game starts: the arrow nudges to get out and a sheen runs along it. */
+      .bar-groove::after { content: ""; position: absolute; inset: 0; opacity: 0; transform: translateX(-100%);
+                           background: linear-gradient(100deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 70%); }
+      #loader.starting .bar-groove::after { opacity: 1; animation: sheen 1.8s cubic-bezier(0.77, 0, 0.175, 1) infinite; }
+      #loader.starting .bar-tip { animation: tip-nudge 1.8s ease-in-out infinite; }
+      @keyframes sheen { from { transform: translateX(-100%); } 70%, to { transform: translateX(100%); } }
+      @keyframes tip-nudge { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(16%); } }
+      #loader-status { position: relative; margin-top: min(3.4vh, 22px); font-size: min(4.2vh, 24px); color: #8A80A3; }
+      /* Exitwise's welcome art (docs/brand/exitwise-key-art), after the VGraphics intro (brand-intro/brand-intro.js) and
+         while the game loads. It carries the title, so once it can be drawn it takes the place of the icon and the title,
+         and the bar and status move down onto its meadow over a soft shade. Until then, or without it, the paper stays. */
+      #loader-art { position: absolute; inset: 0; overflow: hidden; background: #0A090D; opacity: 0; transition: opacity 0.3s; }
+      #loader-art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
+      #loader-art::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 36%;
+                           background: linear-gradient(rgba(10, 9, 13, 0), rgba(10, 9, 13, 0.5)); }
+      #loader.with-art { justify-content: flex-end; padding-bottom: max(10vh, 48px); }
+      #loader.with-art #loader-art { opacity: 1; }
+      #loader.with-art #loader-logo { display: none; }
+      #loader.with-art #loader-status { color: #FFFDF8; text-shadow: 0 1px 2px rgba(10, 9, 13, 0.7), 0 0 12px rgba(10, 9, 13, 0.45); }
+      /* As it comes into view, it settles from a touch larger. */
+      #loader-art.settle img { animation: art-settle 1.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
+      @keyframes art-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
+      /* Windows wider than even the wide picture (past 12:5, such as 32:9) see all of it, its own colours blurred beside it. */
+      #loader-art .ambient { display: none; position: absolute; inset: -40px; background: center / cover no-repeat;
+                             filter: blur(28px) brightness(0.75); }
+      @media (min-aspect-ratio: 12/5) {
+        #loader-art img { object-fit: contain; }
+        #loader-art .ambient { display: block; }
+      }
+      /* While the statistics question's card would cover them, the bar and its status wait above it (--lift). */
+      #loader-bar, #loader-status { translate: 0 calc(var(--lift, 0px) * -1); transition: translate 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
+      @media (prefers-reduced-motion: reduce) {
+        .arrow, #loader.starting .bar-tip, #loader.starting .bar-groove::after, #loader-art.settle img { animation: none; }
+        .bar-fill, .bar-head { transition-duration: 0.2s; }
+      }
       footer { position: fixed; left: 0; right: 0; bottom: 0; height: var(--bar); box-sizing: border-box; padding: 0 16px;
                display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); background: var(--card);
                font-size: 13px; white-space: nowrap; overflow: hidden; }
@@ -66,6 +154,8 @@
       #consent button { font: inherit; font-weight: 700; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: pointer;
                         border: 2px solid var(--line); background: var(--card); color: var(--ink); }
       #consent button.allow { background: var(--green); border-color: var(--green); color: #fff; }
+      /* Wide windows: the card waits in the bottom right corner, beside the loading bar rather than over it. */
+      @media (min-width: 900px) { #consent { justify-content: flex-end; } }
     </style>
     <!-- The ad switch of every VGraphics web game: the site's /assets/web-ads.js (window.VGRAPHICS_WEB_ADS), read before
          the page decides about ads. A local build has no such file, so it shows no ads, as before. -->
@@ -206,14 +296,47 @@
   </head>
   <body>
     <canvas id="unity-canvas" tabindex="-1"></canvas>
-    <div id="loading"><div id="loading-fill"></div></div>
+    <div id="loader">
+      <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's picture: its tall version
+           on phones and narrow windows, its wide version from 2:1, the picture itself in between. -->
+      <div id="loader-art"><div class="ambient"></div><picture>
+        <source media="(max-aspect-ratio: 6/5)" type="image/webp" srcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" sizes="100vw">
+        <source media="(min-aspect-ratio: 2/1)" type="image/webp" srcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" sizes="241.5vh">
+        <img src="art/key-art-1920.webp" srcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w"
+             sizes="177.78vh" alt="" fetchpriority="high" decoding="async">
+      </picture></div>
+      <div id="loader-logo">
+        <svg viewBox="0 0 512 512" aria-hidden="true">
+          <g class="arrow red"><path d="M97 418V140" /><path class="head" d="M44 142L97 84L150 142Z" /></g>
+          <g class="arrow green"><path d="M238 136V272H380V140" /><path class="head" d="M327 142L380 84L433 142Z" /></g>
+          <g class="arrow blue"><path d="M238 415H384" /><path class="head" d="M382 362L440 415L382 468Z" /></g>
+        </svg>
+        <div id="loader-title">Exitwise</div>
+      </div>
+      <div id="loader-bar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
+        <div class="bar-shadow"></div>
+        <div class="bar-hop"><div class="bar-jelly">
+          <div class="bar-track"><div class="bar-groove"><div class="bar-fill"></div></div></div>
+          <!-- The arrowhead: its lip, its face, and the gloss that carries on from the body's. -->
+          <div class="bar-head"><div class="bar-tip"><svg viewBox="0 0 110 150" aria-hidden="true">
+            <defs><linearGradient id="bar-gloss" x2="0" y2="1"><stop offset="0" stop-color="#fff" stop-opacity="0.6" /><stop offset="1" stop-color="#fff" stop-opacity="0.3" /></linearGradient></defs>
+            <polygon points="18,34 92,83 18,132" fill="#2A8A57" stroke="#2A8A57" stroke-width="36" stroke-linejoin="round" />
+            <polygon points="18,18 92,67 18,116" fill="#3BB273" stroke="#3BB273" stroke-width="36" stroke-linejoin="round" />
+            <path d="M0 41H56A14 14 0 0 1 56 69H0Z" fill="url(#bar-gloss)" />
+          </svg></div></div>
+        </div></div>
+      </div>
+      <div id="loader-status">Loading</div>
+    </div>
+    <!-- The VGraphics intro over the loader, which keeps counting underneath (docs/brand/splash/INTEGRATION.md). -->
+    <script src="brand-intro/brand-intro.js"></script>
     <div id="ad-banner" aria-label="Advertisement"></div>
     <footer>
       <a href="/exitwise/">&larr; Exitwise</a>
       <a href="/exitwise/privacy.html">Privacy</a>
       <button type="button" id="statistics">Statistics</button>
       <button type="button" id="ad-choices" hidden>Ad choices</button>
-      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373</span> · <a href="/company/">Company</a></span>
+      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · G.E.MI. no. 181823306000 · VAT no. EL802736373</span> · <a href="/company/">Company</a></span>
     </footer>
     <div id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title">
       <div class="card">
@@ -260,8 +383,158 @@
     </script>
     <script src="Build/WebGLPortfolio.loader.js"></script>
     <script>
+      // The loading bar, the same in WebGLTemplates/Responsive: Unity's download in steps that ease in and never go back.
+      // Each step stretches the arrowhead as it shoots ahead, squashes it as it stops and wobbles the bar; full, the bar
+      // hops. Only transforms move, which the compositor runs while the page's own thread is busy starting the game.
+      // show(0 to 1) moves it, whenSettled(then) waits for the hop to end, stop() halts it.
+      function loadingBar(root, onStep, onFull) {
+        var part = function (name) { return root.querySelector(".bar-" + name); };
+        var fill = part("fill"), head = part("head"), tip = part("tip"), jelly = part("jelly"), hop = part("hop"), shadow = part("shadow");
+        // Reduced motion keeps the steps and leaves out the squash, the wobble and the hop (the CSS drops the nudge).
+        var lively = typeof tip.animate === "function" &&
+          !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
+        var target = 0, shown = 0, last = -1e4, timer = 0, settled = 0, stopped = false;
+        var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
+        var UP = "cubic-bezier(0.61, 1, 0.88, 1)", DOWN = "cubic-bezier(0.12, 0, 0.39, 0)"; // sine out, sine in
+        // A damped wobble as 600 ms of keyframes: out to amount, back past still, smaller each time, then still.
+        var wobble = function (amount, frame) {
+          var frames = [];
+          for (var i = 0; i <= 24; i++) {
+            var t = i * 25;
+            frames.push({ transform: frame(i < 24 ? amount * Math.exp(-t / 150) * Math.sin(t / 44.6) / 0.66 : 0) });
+          }
+          return frames;
+        };
+        // The bigger the step, the bigger the squish. The bar follows the arrowhead a beat later.
+        var squish = function (jump, wholeBar) {
+          var amount = Math.min(0.3, 0.08 + jump * 0.6);
+          tip.animate(wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), 600);
+          if (wholeBar) {
+            jelly.animate(wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }),
+              { duration: 600, delay: 40 });
+          }
+        };
+        // Full: the bar crouches, hops and lands with a squash, its shadow shrinking under it while it is up.
+        var bounce = function () {
+          hop.animate([
+            { offset: 0, transform: "translateY(0) scale(1, 1)", easing: UP },
+            { offset: 0.16, transform: "translateY(0) scale(1.04, 0.84)", easing: UP },
+            { offset: 0.44, transform: "translateY(-40%) scale(0.97, 1.08)", easing: DOWN },
+            { offset: 0.64, transform: "translateY(0) scale(1.05, 0.86)", easing: UP },
+            { offset: 0.8, transform: "translateY(-10%) scale(0.99, 1.03)", easing: DOWN },
+            { offset: 0.92, transform: "translateY(0) scale(1.01, 0.98)" },
+            { offset: 1, transform: "translateY(0) scale(1, 1)" }
+          ], 620);
+          shadow.animate([
+            { offset: 0, transform: "scale(1, 1)", opacity: 1, easing: UP },
+            { offset: 0.16, transform: "scale(1.05, 1)", opacity: 1, easing: UP },
+            { offset: 0.44, transform: "scale(0.8, 0.8)", opacity: 0.5, easing: DOWN },
+            { offset: 0.64, transform: "scale(1.06, 1)", opacity: 1, easing: UP },
+            { offset: 0.8, transform: "scale(0.95, 0.95)", opacity: 0.85, easing: DOWN },
+            { offset: 1, transform: "scale(1, 1)", opacity: 1 }
+          ], 620);
+        };
+        var step = function () {
+          clearTimeout(timer);
+          if (stopped || target <= shown) return;
+          // One gulp at a time: a big one after half a second, a small one after a longer beat, the last one at once.
+          var wait = (target < 1 ? (target - shown >= 0.04 ? 500 : 900) : 0) - (now() - last);
+          if (wait > 0) {
+            timer = setTimeout(step, wait);
+            return;
+          }
+          var jump = target - shown;
+          shown = target;
+          last = now();
+          var at = "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))";
+          fill.style.transform = at;
+          head.style.transform = at;
+          root.setAttribute("aria-valuenow", String(Math.floor(shown * 100)));
+          onStep(shown);
+          if (lively) squish(jump, shown < 1);
+          if (shown < 1) return;
+          if (lively) setTimeout(bounce, 150);
+          settled = last + (lively ? 770 : 0);
+          setTimeout(function () { if (!stopped) onFull(); }, settled - last);
+        };
+        var show = function (value) {
+          if (value <= target) return;
+          target = Math.min(1, value);
+          step();
+        };
+        return {
+          show: show,
+          whenSettled: function (then) {
+            show(1);
+            setTimeout(then, Math.max(0, settled - now()));
+          },
+          stop: function () {
+            stopped = true;
+            clearTimeout(timer);
+          }
+        };
+      }
+
       var canvas = document.querySelector("#unity-canvas");
-      var fill = document.querySelector("#loading-fill");
+      var loader = document.querySelector("#loader");
+      var statusLine = document.querySelector("#loader-status");
+      var bar = loadingBar(document.querySelector("#loader-bar"), function (shown) {
+        statusLine.textContent = shown < 1 ? "Loading " + Math.floor(shown * 100) + "%" : "Starting";
+      }, function () {
+        loader.classList.add("starting");
+      });
+      // Exitwise's welcome art, on vgraphics.gr only (CrazyGames' page has none: INTEGRATION.md): once its picture can be
+      // drawn it takes over the loading screen (with-art), and it settles into place as soon as the VGraphics intro over
+      // it gives way. A late picture fades in; a missing one leaves the paper look. The ambient copy shows only on
+      // windows wider than the art.
+      (function () {
+        var art = document.querySelector("#loader-art");
+        var img = art && art.querySelector("img");
+        if (!img) return;
+        var settle = function () { art.classList.add("settle"); };
+        var show = function () {
+          if (!loader.isConnected) return;
+          art.querySelector(".ambient").style.backgroundImage = "url(\"" + img.currentSrc + "\")";
+          loader.classList.add("with-art");
+          var intro = document.querySelector("#brand-intro");
+          if (!intro || intro.classList.contains("gone")) return settle();
+          new MutationObserver(function (changes, watch) {
+            if (!intro.classList.contains("gone")) return;
+            watch.disconnect();
+            settle();
+          }).observe(intro, { attributes: true, attributeFilter: ["class"] });
+        };
+        var ready = function () {
+          if (img.decode) img.decode().then(show, function () {});
+          else show();
+        };
+        if (img.complete && img.naturalWidth) ready();
+        else img.addEventListener("load", ready);
+      })();
+      // The statistics question must never hide the download: where its card can't sit beside the bar (narrow windows,
+      // or the corner too close), the bar and its status wait above the card until it is answered. Measured from the
+      // layout (offsetTop), which the lift itself doesn't move.
+      (function () {
+        var consent = document.querySelector("#consent");
+        var card = consent.querySelector(".card");
+        var barBox = document.querySelector("#loader-bar");
+        var lift = function () {
+          var amount = 0;
+          if (consent.classList.contains("open") && loader.isConnected) {
+            var box = loader.getBoundingClientRect();
+            var c = card.getBoundingClientRect();
+            var left = box.left + barBox.offsetLeft, right = left + barBox.offsetWidth;
+            var bottom = box.top + statusLine.offsetTop + statusLine.offsetHeight;
+            if (c.left < right && c.right > left) amount = Math.max(0, bottom + 12 - c.top);
+          }
+          loader.style.setProperty("--lift", amount + "px");
+        };
+        var watch = new MutationObserver(lift);
+        watch.observe(consent, { attributes: true, attributeFilter: ["class"] });
+        watch.observe(loader, { attributes: true, attributeFilter: ["class"] });
+        window.addEventListener("resize", lift);
+        lift();
+      })();
       createUnityInstance(canvas, {
         arguments: [],
         dataUrl: "Build/WebGLPortfolio.data.unityweb",
@@ -270,13 +543,27 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.c12c7b2c",
+        productVersion: "1.0.6a32905f",
       }, function (progress) {
-        fill.style.width = (progress * 100) + "%";
+        // Unity reports the download up to 0.9; the rest is the game starting.
+        bar.show(Math.min(1, progress / 0.9));
       }).then(function () {
-        document.querySelector("#loading").remove();
+        var reveal = function () {
+          // The bar's hop ends first, if it is still going.
+          bar.whenSettled(function () {
+            loader.classList.add("done");
+            setTimeout(function () { loader.remove(); }, 400);
+          });
+        };
+        // The VGraphics intro gives way first, if it is still on, and the welcome art gets its moment
+        // (brand-intro/brand-intro.js).
+        if (window.VGIntro) VGIntro.gameReady(reveal);
+        else reveal();
         canvas.focus();
       }).catch(function (message) {
+        bar.stop();
+        loader.classList.remove("starting");
+        statusLine.textContent = "The game couldn't start. Please reload the page.";
         alert(message);
       });
     </script>
