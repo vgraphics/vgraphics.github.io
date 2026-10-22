@@ -16,7 +16,7 @@
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files
 //   intro                        { lede, actions?, demo? }: demo/<demo>.html goes in the page, .css and .js beside it
 //   sections                     [{ id, eyebrow?, title, intro?, blocks, more? }] or [{ id, band }]
-//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour
+//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack
 //   cta                          { title, text, badges }: the last call to action
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
@@ -25,6 +25,7 @@ import { pathToFileURL } from 'node:url'
 import { esc, footer, header, ornament } from './lib/partials.mjs'
 import { loadProduct, products, root } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
+import { soundtrack } from './lib/soundtrack.mjs'
 import { renderGallery } from './gallery.mjs'
 
 const TALL = '(max-aspect-ratio: 4/5)'
@@ -103,6 +104,9 @@ function intro(p, demo) {
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
 const BLOCKS = {
+  // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
+  soundtrack,
+
   // A gallery with a layout is the shared screenshot gallery (tools/gallery.mjs, assets/gallery/); without one, a row.
   gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title` }) : `<div class="shots">
           ${b.items.map((i) => `<figure>${image(i)}${i.caption ? `<figcaption>${i.caption}</figcaption>` : ''}</figure>`).join('\n          ')}
@@ -220,6 +224,7 @@ export function render(slug) {
   const art = keyArt(p.hero.art)
   const fonts = t.fonts.filter((f) => f.preload).map((f) => `<link rel="preload" href="${f.src}" as="font" type="font/${f.src.split('.').pop()}" crossorigin>`)
   const tour = p.sections.some((s) => s.blocks?.some((b) => b.type === 'tour'))
+  const ost = p.sections.some((s) => s.blocks?.some((b) => b.type === 'soundtrack'))
   const gallery = p.sections.some((s) => s.blocks?.some((b) => b.type === 'gallery' && b.layout))
   const body = decorate(t, [intro(p, demo), ...p.sections.map((s) => section(product, s)), cta(p)])
   const url = `https://vgraphics.gr/${slug}/`
@@ -253,7 +258,8 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   ${[...fonts, ...art.preloads].join('\n  ')}
   <link rel="stylesheet" href="/${slug}/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">${gallery ? `
-  <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${demoCss ? `
+  <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
+  <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}
 </head>
 <body>
@@ -267,10 +273,11 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   </main>
 
   ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
-  <script src="/assets/anchors.js" defer></script>` : ''}${tour ? `
+  <script src="/assets/anchors.js" defer></script>` : ''}${tour || p.footerArt ? `
   <script src="/assets/product.js" defer></script>` : ''}${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
-  <script src="${p.intro.demo}.js" defer></script>` : ''}
+  <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
+  <script src="/assets/soundtrack.js" defer></script>` : ''}
 </body>
 </html>
 `
