@@ -1,4 +1,4 @@
-// The ad switch of every VGraphics web game on vgraphics.gr: Exitwise at /exitwise/play/ today, Παλέρμο Νουάρ and
+// The ad switch of every VGraphics web game on vgraphics.gr: Exitwise at /exitwise/play/ today, Palermo Noir and
 // Quizfall later. Each game's play page loads this file before it decides about ads, so turning ads on or off is a change
 // here and a push: no game build, no release. A missing file, a value that isn't well formed, or a game without an entry
 // means no ads in that game. README.md ("Ads on the web games") says how to switch; tools/check-site.mjs checks the file.
@@ -17,7 +17,7 @@ window.VGRAPHICS_WEB_ADS = {
   // display unit (digits, in quotes), or null for no banner in that game.
   games: {
     exitwise: { bannerSlot: "6387474555" }, // "Exitwise play banner"
-    palermo: { bannerSlot: null }, // Παλέρμο Νουάρ
+    palermo: { bannerSlot: null }, // Palermo Noir
     quizfall: { bannerSlot: null } // Quizfall
   }
 };

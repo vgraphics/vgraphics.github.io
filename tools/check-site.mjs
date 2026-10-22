@@ -4,6 +4,7 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
+import { sitemap } from './build-sitemap.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -11,11 +12,15 @@ const SKIP = ['.git', '.claude', 'tools', '_mockups', join('exitwise', 'play')]
 const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 
 const COMPANY = [
-  'VGRAPHICS ΜΟΝΟΠΡΟΣΩΠΗ Ι.Κ.Ε.', 'VGRAPHICS SINGLE MEMBER P.C.', 'Ιδιωτική Κεφαλαιουχική Εταιρεία', 'private company',
-  '181823306000', 'ELGEMI.181823306000', '802736373', 'Καλαμαριά', 'Θεσσαλονίκη',
+  'VGRAPHICS SINGLE MEMBER P.C.', 'private company', 'G.E.MI.', '181823306000', 'ELGEMI.181823306000', 'EL802736373',
   'Kalamaria', 'Thessaloniki', '22/01/2025', 'https://publicity.businessportal.gr/company/181823306000',
-  'gvergidis90@gmail.com', 'lang="el"',
+  'gvergidis90@gmail.com',
 ]
+// The site is in English (George, 22 Oct 2026): no Greek letters on a page in English, nor in the SVG pictures the pages
+// show. The Greek names belong in the Greek store listings. GREEK_OK lists, by page path, any text that must legally stay
+// in Greek; none so far.
+const GREEK = /\p{Script=Greek}/u
+const GREEK_OK = {}
 const ADMOB = 'google.com, pub-7821189101210154, DIRECT, f08c47fec0942fa0'
 
 const problems = []
@@ -40,12 +45,13 @@ for (const file of files.filter((f) => TEXT.test(f))) {
   if (/\.(html|txt|xml)$/.test(file) && text.includes('vgraphics.github.io')) report(file, 'old-domain', 'mentions vgraphics.github.io')
   if (/6955395543|695 539 5543/.test(text)) report(file, 'no-phone', 'contains the phone number')
   if (/kafkasou|καυκ[άα]σου/i.test(text)) report(file, 'no-street', 'contains the street address')
+  if (file.endsWith('.svg') && GREEK.test(text)) report(file, 'english', 'Greek letters in a picture the English pages show')
 }
 
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
 
-  for (const s of ['VGRAPHICS SINGLE MEMBER P.C.', '181823306000', '802736373']) {
+  for (const s of ['VGRAPHICS SINGLE MEMBER P.C.', 'G.E.MI. no. 181823306000', 'VAT no. EL802736373']) {
     if (!html.includes(s)) report(file, 'legal-footer', `missing "${s}"`)
   }
   if (!/href="\/company\/"/.test(html)) report(file, 'legal-footer', 'no link to /company/')
@@ -59,6 +65,20 @@ for (const file of pages) {
     const want = `https://vgraphics.gr${urlPath(file)}`
     const got = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
     if (got !== want) report(file, 'head', `canonical is ${got ?? 'missing'}, want ${want}`)
+  }
+  // Structured data for search results (JSON-LD): a block that isn't valid JSON is silently ignored by search engines.
+  for (const [, json] of html.matchAll(/<script type="application\/ld\+json">([\s\S]*?)<\/script>/g)) {
+    try {
+      JSON.parse(json)
+    } catch (e) {
+      report(file, 'json-ld', `structured data isn't valid JSON: ${e.message}`)
+    }
+  }
+
+  if (/<html[^>]*\slang="en"/.test(html)) {
+    const text = (GREEK_OK[urlPath(file)] ?? []).reduce((t, s) => t.replaceAll(s, ''), html)
+    const at = text.search(GREEK)
+    if (at >= 0) report(file, 'english', `Greek letters on an English page: "${text.slice(Math.max(0, at - 30), at + 30).replace(/\s+/g, ' ').trim()}"`)
   }
 
   if (/<script[^>]+src="https?:/i.test(html)) report(file, 'no-trackers', 'loads a third-party script')
@@ -84,7 +104,10 @@ const chrome = (html) => ({
   foot: html.match(/<footer class="site-foot">[\s\S]*?<\/footer>/)?.[0],
 })
 const plain = (s) => s?.replace(/ aria-current="page"/g, '').replace(/\s+/g, ' ')
-const home = chrome(readFileSync(join(root, 'index.html'), 'utf8'))
+const homeHtml = readFileSync(join(root, 'index.html'), 'utf8')
+// Google Search Console's proof of ownership (README, "Search engines"): without it the site loses its verification.
+if (!/<meta name="google-site-verification" content="[^"]+">/.test(homeHtml)) report('index.html', 'search-console', 'no google-site-verification meta tag')
+const home = chrome(homeHtml)
 for (const menu of ['/games/', '/apps/', '/services/', '/hub/']) {
   if (!home.head?.includes(`href="${menu}"`)) report('index.html', 'menu', `the header has no link to ${menu}`)
 }
@@ -118,6 +141,27 @@ if (!existsSync(company)) report('company/index.html', 'company', 'missing')
 else {
   const html = readFileSync(company, 'utf8')
   for (const s of COMPANY) if (!html.includes(s)) report('company/index.html', 'company', `missing "${s}"`)
+}
+
+// sitemap.xml lists every page search engines may index, at its canonical address, exactly as tools/build-sitemap.mjs
+// writes it; robots.txt points to it and blocks nothing.
+const sitemapFile = join(root, 'sitemap.xml')
+if (!existsSync(sitemapFile)) report('sitemap.xml', 'sitemap', 'missing: run node tools/build-sitemap.mjs')
+else {
+  const want = sitemap()
+  const have = readFileSync(sitemapFile, 'utf8').replace(/\r\n/g, '\n')
+  const locs = (text) => new Set([...text.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]))
+  const [w, h] = [locs(want), locs(have)]
+  for (const u of w) if (!h.has(u)) report('sitemap.xml', 'sitemap', `doesn't list ${u}: run node tools/build-sitemap.mjs`)
+  for (const u of h) if (!w.has(u)) report('sitemap.xml', 'sitemap', `lists ${u}, which isn't a page to index: run node tools/build-sitemap.mjs`)
+  if (have !== want && [...w].every((u) => h.has(u)) && w.size === h.size) report('sitemap.xml', 'sitemap', 'not as tools/build-sitemap.mjs writes it: run it')
+}
+const robots = join(root, 'robots.txt')
+if (!existsSync(robots)) report('robots.txt', 'robots', 'missing')
+else {
+  const text = readFileSync(robots, 'utf8')
+  if (!/^Sitemap: https:\/\/vgraphics\.gr\/sitemap\.xml\s*$/m.test(text)) report('robots.txt', 'robots', 'no "Sitemap: https://vgraphics.gr/sitemap.xml" line')
+  if (/^Disallow:\s*\/\s*$/m.test(text)) report('robots.txt', 'robots', 'blocks the whole site')
 }
 
 const cname = join(root, 'CNAME')

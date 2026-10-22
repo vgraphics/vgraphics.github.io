@@ -10,7 +10,7 @@ const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
 
-const LEGAL = `<p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · ΓΕΜΗ 181823306000 · ΑΦΜ 802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>`
+const LEGAL = `<p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>`
 
 function picture(e, cls) {
   if (e.icon) return `<span class="${cls} pic-svg" aria-hidden="true">${e.icon}</span>`
@@ -18,7 +18,37 @@ function picture(e, cls) {
   return `<span class="${cls}"><img src="${esc(e.image)}" alt=""${lazy}></span>`
 }
 
-function shell(w, { title, description, path, body }) {
+// The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
+// the product › Wiki, then the entry. "<" is escaped so no text can close the script.
+function breadcrumbs(w, entry) {
+  const p = w.product
+  const trail = [['VGraphics', '/'], [p.parent.name, p.parent.href], [p.name, p.home], ['Wiki', `/${p.slug}/wiki/`]]
+  if (entry) trail.push([entry.name, `/${p.slug}/wiki/${entry.slug}/`])
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'BreadcrumbList',
+    itemListElement: trail.map(([name, href], i) => ({ '@type': 'ListItem', position: i + 1, name, item: `https://vgraphics.gr${href}` })),
+  }
+  return JSON.stringify(ld).replace(/</g, '\\u003c')
+}
+
+// An entry's search description: its summary, then the sentences of "What it does" while they fit in 160 characters.
+// The first one that doesn't fit is cut at a word, so the description always says more than the summary.
+function describe(e) {
+  let d = strip(e.summary).trim()
+  if (!/[.!?]$/.test(d)) d += '.'
+  for (const s of (e.what || []).flatMap((x) => strip(x).trim().split(/(?<=[.!?])\s+/))) {
+    if (d.length + 1 + s.length <= 160) {
+      d += ' ' + s
+      continue
+    }
+    if (160 - d.length > 40) d += ' ' + s.slice(0, 158 - d.length).replace(/\s+\S*$/, '').replace(/[\s,:;(–-]+$/, '') + '…'
+    break
+  }
+  return d
+}
+
+function shell(w, { title, description, path, body, entry }) {
   const p = w.product
   return `<!doctype html>
 <html lang="en">
@@ -36,6 +66,7 @@ function shell(w, { title, description, path, body }) {
   <meta property="og:site_name" content="VGraphics">${p.image ? `
   <meta property="og:image" content="https://vgraphics.gr${esc(p.image)}">
   <meta name="twitter:card" content="summary_large_image">` : ''}
+  <script type="application/ld+json">${breadcrumbs(w, entry)}</script>
   <link rel="stylesheet" href="/${p.slug}/wiki/wiki.css">
 </head>
 <body>
@@ -51,6 +82,8 @@ ${body}
 <footer class="foot">
   <a href="/">More from VGraphics</a>
   <a href="${esc(p.home)}">${esc(p.name)}</a>
+  <a href="${esc(p.parent.href)}">More ${esc(p.parent.name.toLowerCase())}</a>
+  <a href="/services/">Work with us</a>
   <a href="/${p.slug}/privacy.html">Privacy policy</a>
   <a href="mailto:gvergidis90@gmail.com">Contact</a>
   ${LEGAL}
@@ -99,7 +132,7 @@ ${sections}
       });
     })();
   </script>`
-  return shell(w, { title: `${w.title} · ${w.product.name}`, description: strip(w.intro), path: `/${w.product.slug}/wiki/`, body })
+  return shell(w, { title: w.metaTitle ?? `${w.title} · ${w.product.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${w.product.slug}/wiki/`, body })
 }
 
 function entryPage(w, e, i) {
@@ -133,7 +166,7 @@ function entryPage(w, e, i) {
     ${prev ? `<a class="prev" href="/${w.product.slug}/wiki/${prev.slug}/"><span>Previous</span>${esc(prev.name)}</a>` : '<span></span>'}
     ${next ? `<a class="next" href="/${w.product.slug}/wiki/${next.slug}/"><span>Next</span>${esc(next.name)}</a>` : '<span></span>'}
   </nav>`
-  return shell(w, { title: `${e.name} · ${w.title}`, description: strip(e.summary), path: `/${w.product.slug}/wiki/${e.slug}/`, body })
+  return shell(w, { title: `${e.name} · ${w.product.name} wiki`, description: describe(e), path: `/${w.product.slug}/wiki/${e.slug}/`, body, entry: e })
 }
 
 const products = process.argv.slice(2).length

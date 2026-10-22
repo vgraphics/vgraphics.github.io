@@ -12,7 +12,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub and the TV party games next |
 | `hub/index.html` | VHub "coming soon". The VHub web app replaces it at the same address. |
-| `company/index.html` | Company information / Στοιχεία εταιρείας: the legal details from ΓΕΜΗ, in English and Greek |
+| `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
@@ -27,12 +27,16 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `ads.txt` | The sellers of the ads on vgraphics.gr itself (Google AdSense, for the web games). Apps read `app-ads.txt` instead. It must stay at the root. |
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
 | `CNAME` | The custom domain, `vgraphics.gr` |
-| `tools/check-site.mjs` | The site's content rules (legal footer, links, no trackers, company details, app-ads.txt, ads.txt, the ad switch, one header and footer) |
+| `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer) |
+| `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
-Rules for every page: the legal footer line (company name, ΓΕΜΗ, ΑΦΜ, links to `/company/` and `/privacy/`), a
-canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts and fonts on the static pages,
-and no phone number or street address. **Run `node tools/check-site.mjs` before every push.**
+Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
+`/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
+and fonts on the static pages, and no phone number or street address. The site is in English: no Greek letters on its
+pages or in the SVGs they show (the Greek product names belong in the Greek store listings). **Run
+`node tools/check-site.mjs` before every push.**
 
 The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
@@ -44,9 +48,28 @@ Each policy's source lives in the product's own repo: Exitwise `docs/store/priva
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
 check that the live page has updated.
 
+## Search engines
+
+- **Titles and descriptions:** each page has its own `<title>` of about 60 characters and a meta description of about
+  155, with the words people search for: "arrow puzzle game", "logic puzzle", "free puzzle game" for Exitwise,
+  "speedometer live wallpaper", "GPS speedometer", "car dashboard" for Speedometer, and "app development Greece",
+  "game development", "Kotlin", "Unity" for the services.
+- **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: legal name,
+  logo, G.E.MI. and VAT numbers, Kalamaria, the Google Play developer page and GitHub) and the WebSite. Exitwise's page
+  has a VideoGame, Speedometer's a MobileApplication, the services page a Service for each thing we build, and every
+  other page a BreadcrumbList. The wikis get theirs from `tools/build-wiki.mjs`, with each wiki's `metaTitle`,
+  `metaDescription` and `product.parent` from its `wiki.json`. check-site fails on a block that isn't valid JSON. Try a
+  page in Google's Rich Results Test after changing its structured data.
+- **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
+  canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
+  date. `robots.txt` points to it.
+- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on gvergidis90@gmail.com, verified by the
+  `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
+  its verification. The sitemap is submitted there under Sitemaps.
+
 ## Ads on the web games: one switch
 
-Every web game here takes its ads from **`assets/web-ads.js`**: Exitwise at `/exitwise/play/` today, Παλέρμο Νουάρ and
+Every web game here takes its ads from **`assets/web-ads.js`**: Exitwise at `/exitwise/play/` today, Palermo Noir and
 Quizfall later. Each game's play page loads the file before it decides about ads, so turning ads on or off is a change
 to this file and a push. No game is rebuilt or released for it. A missing file, a value that isn't well formed, or a
 game without an entry means no ads in that game.

@@ -1,7 +1,9 @@
 {
-  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card.jpg" },
+  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card.jpg", "parent": { "name": "Apps", "href": "/apps/" } },
   "title": "Speedometer wiki",
   "intro": "Every gauge, light, design and setting on your dashboard: what it shows, and how to set it up.",
+  "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and setting",
+  "metaDescription": "Every gauge, warning light, design and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
   "source": "Written from the app's Info, Settings and Designs screens and docs/speedometer-wallpaper.md (Games main 39aa208, 2026-10-17: version 2.0.0 with the Future design). Later generated from the app's own strings.",
   "nav": [
     { "label": "Overview", "href": "/speedometer-wallpaper/" },
