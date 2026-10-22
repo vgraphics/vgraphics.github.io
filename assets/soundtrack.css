@@ -198,7 +198,7 @@
   font: var(--label-weight) 0.85rem/1 var(--label-font);
   font-variant-numeric: tabular-nums;
 }
-.ost-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
+.ost-controls { container: ost-controls / inline-size; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
 .ost-transport { grid-column: 2; display: flex; align-items: center; gap: 18px; }
 .ost-btn {
   display: grid;
@@ -250,6 +250,30 @@
   font: 800 10px/15px var(--label-font);
 }
 .ost-loop[data-loop="one"] .ost-one { display: block; }
+/* Volume, across from the loop: the speaker mutes and unmutes (one wave when low, two when high, a cross when muted),
+   and beside it, where the row has room, a slider drawn like the waveform, its bars rising with the level and played
+   up to it. Phones get the speaker alone (the row is too narrow, and phones have their own volume keys), and so does
+   iOS, which ignores a page's volume (soundtrack.js sets data-volume="fixed"). */
+.ost-volume { grid-column: 1; justify-self: start; display: flex; align-items: center; gap: 4px; }
+.ost-mute { width: 44px; height: 44px; background: none; box-shadow: none; color: var(--soft); }
+.ost-mute[aria-pressed="true"] { background: color-mix(in srgb, var(--on-art) 18%, transparent); color: var(--on-art); }
+.ost-mute .v-low, .ost-mute .v-high, .ost-mute .v-off { display: none; }
+.ost-mute[data-level="low"] .v-low, .ost-mute[data-level="high"] :is(.v-low, .v-high), .ost-mute[data-level="off"] .v-off { display: inline; }
+.ost-vol { --wave-h: 44px; position: relative; display: none; width: clamp(56px, (100cqi - 216px) / 2 - 48px, 96px); }
+.ost-vol path { vector-effect: non-scaling-stroke; }
+@container ost-controls (min-width: 430px) {
+  .ost-vol { display: block; }
+}
+/* A row too narrow for the speaker, the transport and the loop side by side (small phones, and the wide player at its
+   narrowest): the transport's buttons close up, and narrower still it keeps the row to itself, with the speaker and the
+   loop under it. */
+@container ost-controls (max-width: 303px) {
+  .ost-transport { gap: 8px; }
+}
+@container ost-controls (max-width: 283px) {
+  .ost-transport { grid-column: 1 / -1; justify-self: center; }
+  .ost-volume, .ost-loop { grid-row: 2; }
+}
 
 /* The track list: the current track lit up, its coloured number turned into dancing bars while it plays */
 .ost-tracks { display: grid; gap: 6px; width: 100%; }
@@ -344,8 +368,8 @@
   left: 50%;
   bottom: var(--ost-mini-gap);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto auto;
-  grid-template-areas: "show play next close" "seek seek seek seek";
+  grid-template-columns: minmax(0, 1fr) auto auto auto auto;
+  grid-template-areas: "show play next vol close" "seek seek seek seek seek";
   align-items: center;
   gap: 2px 4px;
   width: min(1040px, 100% - 24px);
@@ -387,6 +411,9 @@
 .ost-mini .ost-play svg { width: 24px; height: 24px; }
 .ost-mini .ost-next { grid-area: next; }
 .ost-mini .ost-close { grid-area: close; }
+/* Its volume: the speaker, and from 760px a short slider beside it */
+.ost-mini .ost-volume { grid-area: vol; gap: 0; }
+.ost-mini .ost-mute { color: inherit; }
 /* Its waveform, between the time played and the track's length */
 .ost-mini .ost-seek {
   --wave-h: 40px;
@@ -404,14 +431,16 @@
 .ost-scrub { position: relative; }
 @media (min-width: 760px) {
   .ost-mini {
-    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto;
-    grid-template-areas: "show seek play next close";
+    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto auto;
+    grid-template-areas: "show seek play next vol close";
     gap: 4px 12px;
     width: min(1040px, 100% - 32px);
     padding: 8px 10px 8px 8px;
   }
   .ost-mini .ost-seek { padding: 0; }
+  .ost-mini .ost-vol { display: block; width: 72px; }
 }
+.ost[data-volume="fixed"] .ost-vol, .ost-mini[data-volume="fixed"] .ost-vol { display: none; }
 /* The footer keeps the bar's room under its legal line whether the bar is up or not, so the bar only ever covers the
    footer's empty foot: the page never grows, shrinks or shifts for it, and the footer's picture and its fade run to
    the bottom of the page under it (George, 22 and 23 Oct: "Player still adds a space below footer"). */
