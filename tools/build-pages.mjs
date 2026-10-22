@@ -147,6 +147,10 @@ const BLOCKS = {
         </div>`,
 }
 
+// Every section heading carries a link to itself (George, 22 Oct 2026: "All sections ... must have anchors and copy on
+// click"); assets/anchors.js copies it, and without JavaScript it is a plain link.
+const anchor = (s, title) => `<a class="anchor" href="#${s.id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
+
 function section(product, s) {
   if (s.band) {
     const b = s.band
@@ -154,7 +158,7 @@ function section(product, s) {
       <div class="wrap">
         <div class="band">
           ${b.art ?? ''}
-          <div><h2 id="${s.id}-title">${b.title}</h2><p>${b.text}</p></div>
+          <div><h2 id="${s.id}-title">${b.title}${anchor(s, b.title)}</h2><p>${b.text}</p></div>
           ${b.link ? `<a class="link" href="${esc(b.link.href)}">${b.link.label}</a>` : ''}
         </div>
       </div>
@@ -162,7 +166,7 @@ function section(product, s) {
   }
   const head = [
     s.eyebrow && `<span class="eyebrow">${s.eyebrow}</span>`,
-    `<h2 id="${s.id}-title">${s.title}</h2>`,
+    `<h2 id="${s.id}-title">${s.title}${anchor(s, s.title)}</h2>`,
     s.intro && `<p class="sec-intro">${s.intro}</p>`,
   ].filter(Boolean).join('\n          ')
   return `<section class="sec" id="${s.id}" aria-labelledby="${s.id}-title">
@@ -258,13 +262,15 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
     ${body.join('\n\n    ')}
   </main>
 
-  ${footer(product)}${tour ? `
+  ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
+  <script src="/assets/anchors.js" defer></script>` : ''}${tour ? `
   <script src="/assets/product.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}
 </body>
 </html>
 `
-  return { html, css: themeCss(slug, t), problems: checkTheme(t) }
+  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF.
+  return { html: html.replace(/\r\n/g, '\n'), css: themeCss(slug, t), problems: checkTheme(t) }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
