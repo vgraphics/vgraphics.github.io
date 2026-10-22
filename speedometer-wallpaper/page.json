@@ -76,9 +76,18 @@
     }
   },
   "intro": {
+    "id": "live",
+    "eyebrow": "Live wallpaper",
+    "title": "A speedometer that really moves",
     "lede": "A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.",
     "actions": [{ "href": "#tour", "label": "Tour the dashboard", "icon": "down", "button": true }],
-    "demo": "demo/gauge"
+    "demo": "demo/gauge",
+    "caption": "The needle follows the digits, as it does on your home screen.",
+    "stage": {
+      "tall": { "src": "img/demo/stage-tall", "widths": [640, 960, 1280], "width": 1280, "height": 2240 },
+      "wide": { "src": "img/demo/stage-wide", "widths": [960, 1600, 2400], "width": 2400, "height": 1372 },
+      "position": "50% 50%"
+    }
   },
   "sections": [
     {

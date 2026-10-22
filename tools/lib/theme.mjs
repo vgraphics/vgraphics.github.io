@@ -20,8 +20,8 @@ export const TOKENS = [
   // Type: the display face (headings, lead, logo) and the label face (menu, eyebrows, tags, buttons)
   'font-display', 'font-body', 'display-weight', 'display-case', 'display-tracking', 'display-leading',
   'label-font', 'label-weight', 'label-case', 'label-tracking', 'body-size', 'body-weight', 'h2-size',
-  // Pieces: section spacing, the intro's backdrop, screenshot frames, step numbers, tags, the menu's current page,
-  // and the footer's rule
+  // Pieces: section spacing, the demo stage's colour under its picture, screenshot frames, step numbers, tags, the
+  // menu's current page, and the footer's rule
   'section-pad', 'intro-bg', 'shot-frame', 'step-font', 'step-ink', 'tag-bg', 'tag-ink',
   'nav-current-bg', 'nav-current-ink', 'nav-current-line', 'foot-rule',
 ]

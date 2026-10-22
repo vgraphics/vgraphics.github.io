@@ -48,7 +48,7 @@
   --body-weight: 400;
   --h2-size: clamp(2.2rem, 5vw, 3.6rem);
   --section-pad: 84px;
-  --intro-bg: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(240, 74, 44, 0.16), transparent 70%), linear-gradient(180deg, #0B0B0C, rgba(11, 11, 12, 0.2) 140px, #0B0B0C 96%), url("/speedometer-wallpaper/img/asphalt.webp") center / cover;
+  --intro-bg: linear-gradient(#10243A, #0B0B0C 78%);
   --shot-frame: 6px solid #1A1A1D;
   --step-font: "DSEG7", ui-monospace, monospace;
   --step-ink: #F04A2C;

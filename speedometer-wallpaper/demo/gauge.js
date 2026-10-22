@@ -1,11 +1,15 @@
-// Speedometer's floating gauge beside the intro (demo/gauge.html): ticks 0-240 km/h over a 270-degree sweep, and a
-// needle that follows the LCD.
+// Speedometer's live demo on the intro's stage (demo/gauge.html): one speed drives both dials, the phone's big dial
+// (the app's Classic design: 0-240 km/h from -95 to 117 degrees off 12 o'clock, its digits right-aligned on a
+// three-digit LCD) and the floating gauge beside it (ticks 0-240 km/h over a 270-degree sweep).
 (() => {
   const ticks = document.getElementById("ticks");
   const needle = document.getElementById("needle");
   const readout = document.getElementById("readout");
+  const dialNeedle = document.getElementById("dial-needle");
+  const dialRead = document.getElementById("dial-read");
   const NS = "http://www.w3.org/2000/svg";
   const angle = (v) => -135 + (v / 240) * 270;
+  const dialAngle = (v) => -95 + (v / 240) * 212;
   const at = (a, r) => [100 + r * Math.sin(a * Math.PI / 180), 100 - r * Math.cos(a * Math.PI / 180)];
   for (let v = 0; v <= 240; v += 10) {
     const major = v % 20 === 0;
@@ -24,7 +28,13 @@
     }
   }
   let v = 87, target = 87;
-  const show = () => { needle.style.transform = `rotate(${angle(v)}deg)`; readout.textContent = String(v).padStart(3, "0"); };
+  const show = () => {
+    needle.style.transform = `rotate(${angle(v)}deg)`;
+    readout.textContent = String(v).padStart(3, "0");
+    // DSEG7's "!" is an unlit digit's width: the app's digits sit right-aligned over the unlit "888".
+    dialNeedle.style.transform = `rotate(${dialAngle(v)}deg)`;
+    dialRead.textContent = String(v).padStart(3, "!");
+  };
   show();
   if (!matchMedia("(prefers-reduced-motion: reduce)").matches) {
     setInterval(() => {
