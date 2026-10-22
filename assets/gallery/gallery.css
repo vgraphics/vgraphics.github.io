@@ -363,22 +363,29 @@
 .gallery[data-gallery="stage"] .g-fig:has(.g-ped)::after { display: none; }
 .gallery[data-gallery="stage"] .g-slide .g-cap { display: none; }
 
-/* The caption of the phone in front, under the stage. Its height is kept, so changing phones never moves the
-   buttons under it. */
+/* The caption of the phone in front, under the stage. Every caption sits in the same grid cell and only the
+   current one shows, so the box is always as tall as the longest at this width: the buttons under it never move
+   and never cover it (George, 22 Oct). */
 .g-now {
   display: grid;
-  align-content: start;
-  justify-items: center;
-  gap: 8px;
-  height: 11.6em;
-  margin-top: 4px;
+  margin: 4px 0 20px;
   padding-inline: 20px;
   text-align: center;
   font-size: 1rem;
 }
-.g-now > * { animation: g-rise 420ms var(--g-ease) both; }
-.g-now > :nth-child(2) { animation-delay: 50ms; }
-.g-now > :nth-child(3) { animation-delay: 100ms; }
+.g-now-item {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  min-width: 0;
+  visibility: hidden;
+}
+.g-now-item.is-on { visibility: visible; }
+.g-now-item.is-on > * { animation: g-rise 420ms var(--g-ease) both; }
+.g-now-item.is-on > :nth-child(2) { animation-delay: 50ms; }
+.g-now-item.is-on > :nth-child(3) { animation-delay: 100ms; }
 @keyframes g-rise { from { opacity: 0; transform: translateY(10px); } }
 .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
 .gallery[data-gallery="stage"] .g-now .g-text { color: var(--g-on-sky-muted); font-weight: 600; text-shadow: 0 1px 8px rgb(10 6 30 / 0.6); }
@@ -411,7 +418,8 @@
       linear-gradient(90deg, color-mix(in srgb, var(--g-veil) 62%, transparent), color-mix(in srgb, var(--g-veil) 25%, transparent) 38%, transparent 52%),
       linear-gradient(transparent 60%, color-mix(in srgb, var(--g-veil) 45%, transparent));
   }
-  .g-now { grid-area: now; justify-items: start; text-align: left; padding: 0; margin-top: 28px; height: 12.5em; font-size: 1.05rem; }
+  .g-now { grid-area: now; text-align: left; padding: 0; margin: 28px 0 24px; font-size: 1.05rem; }
+  .g-now-item { justify-items: start; }
   .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.9rem, 2.6vw, 2.5rem); }
   .g-controls { grid-area: ctrl; justify-content: flex-start; padding: 0; }
 }
@@ -421,7 +429,6 @@
   .g-dots { gap: 5px; }
   .g-dot { width: 24px; height: 24px; font-size: 0.75rem; }
   .g-btn { width: 44px; height: 44px; border-radius: 14px; }
-  .g-now { min-height: 10.5em; }
 }
 
 /* ============================================================ */
