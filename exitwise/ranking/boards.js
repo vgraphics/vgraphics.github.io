@@ -1,34 +1,41 @@
-// Exitwise's global boards, shared by the ranking page and the home page's podium.
-// The game's global boards (ArrowPuzzle Core StatsBoards, Game LeaderboardUi), read from Firestore without signing
-// in: the rules let anyone run a stats query of at most 100 and read single profiles and pictures, nothing else
-// (docs/firebase/exitwise-firestore.rules in the game's repo). The API key is the web game's public key.
+// Exitwise's global boards, shared by the ranking page, the home and services pages' podium and the multiplayer page.
+// VHub keeps them (VHub repo catalog/exitwise.json; the hub shows the same boards at /hub/boards/), read from VHub's
+// Firestore without signing in: its rules let anyone list at most 100 entries of a board. Each entry carries the
+// player's card (name, avatar, picture version), so one query draws a board, and approved pictures are public in VHub's
+// Storage. Ordered, ranked and drawn as the hub does (VHub sdk/ts/src/socialApis.ts, pictures.ts). The API key is VHub's
+// public web key.
 window.ExitwiseBoards = (() => {
-  const PROJECT = "exitwise-b8e6f";
-  const KEY = "AIzaSyCr9DTTkc9Us5D5D1yR9wvRJ5L-cQs_4jQ";
+  const KEY = "AIzaSyATJwSy3S0iXt8DHegIhLEBKrtPtJX5gG8";
   const TOP = 100;
   let base = "https://firestore.googleapis.com/v1/";
-  let project = PROJECT;
-  // Local testing only: ?emulator=127.0.0.1:PORT reads a Firestore emulator (project demo-exitwise) instead.
+  let storage = "https://firebasestorage.googleapis.com";
+  let project = "vgraphics-vhub";
+  let bucket = "vgraphics-vhub.firebasestorage.app";
+  // Local testing only: ?emulator=127.0.0.1 reads VHub's emulators (project demo-vhub, Firestore on 8085, Storage on
+  // 9199, as VHub's backend/firebase.json), and ?emulator=127.0.0.1:PORT a Firestore emulator on another port.
   const emulator = new URLSearchParams(location.search).get("emulator");
-  if (emulator && /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && /^(localhost|127\.0\.0\.1):\d{2,5}$/.test(emulator)) {
-    base = `http://${emulator}/v1/`;
-    project = "demo-exitwise";
+  if (emulator && /^(localhost|127\.0\.0\.1)$/.test(location.hostname) && /^(localhost|127\.0\.0\.1)(:\d{2,5})?$/.test(emulator)) {
+    const host = emulator.split(":")[0];
+    base = `http://${emulator.includes(":") ? emulator : host + ":8085"}/v1/`;
+    storage = `http://${host}:9199`;
+    project = "demo-vhub";
+    bucket = "demo-vhub.appspot.com";
   }
   const ROOT = `projects/${project}/databases/(default)/documents`;
 
+  // The page's ids, VHub's boards and the counters behind them, with the catalog's captions.
   const BOARDS = {
-    score: { title: "Score", caption: "Points for every level won: fewer hearts lost and faster wins earn more", column: "Score", order: ["score", "highestLevel"], field: "score",
+    score: { board: "exitwise.score", title: "Score", caption: "Points for every level won: fewer hearts lost and faster wins earn more", column: "Score", field: "score", tiebreak: "highestLevel",
       empty: "Nobody has a score yet. Win level 1 to get one." },
-    perfect: { title: "Perfect", caption: "Levels won without losing a heart", column: "Perfect clears", order: ["perfectClears"], field: "perfectClears",
+    perfect: { board: "exitwise.perfect", title: "Perfect", caption: "Levels won without losing a heart", column: "Perfect clears", field: "perfectClears",
       empty: "Win a level without losing a heart to get on this board." },
-    maps: { title: "Maps", caption: "Other players' maps cleared", column: "Maps cleared", order: ["customCleared"], field: "customCleared",
+    maps: { board: "exitwise.maps", title: "Maps", caption: "Other players' maps cleared", column: "Maps cleared", field: "customCleared",
       empty: "Clear another player's custom map to get on this board." },
-    creators: { title: "Creators", caption: "Plays of their maps by other players", column: "Plays", order: ["creatorPlays"], field: "creatorPlays",
+    creators: { board: "exitwise.creators", title: "Creators", caption: "Plays of their maps by other players", column: "Plays", field: "creatorPlays",
       empty: "Publish a custom map. Its plays put you on this board." },
   };
-  const STAT_FIELDS = ["score", "highestLevel", "perfectClears", "customCleared", "creatorPlays"];
 
-  // The game's 12 preset avatars (Game AvatarElement): a coloured disc with a white symbol, on a 100 × 100 grid.
+  // VHub's 12 preset avatars (Exitwise's AvatarElement): a coloured disc with a white symbol, on a 100 × 100 grid.
   const DISCS = ["#EE4D5C", "#1E88DA", "#1F9F52", "#8C5CF0", "#D9580E", "#BE8508", "#E0457B", "#0E9AA7", "#5B6CF0", "#C2410C", "#4D7C0F", "#3B3355"];
   const star = () => {
     const p = [];
@@ -56,14 +63,27 @@ window.ExitwiseBoards = (() => {
     const i = ((n % 12) + 12) % 12, c = DISCS[i];
     return `<svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="50" r="50" fill="${c}"/><g fill="#fff">${SYMBOLS[i](c)}</g></svg>`;
   };
-  // The avatar of a player without a profile: FNV-1a over the id's UTF-16 units, as AvatarElement.ForPlayer.
+  // The avatar of a player without one: FNV-1a over the id's UTF-16 units, as VHub's avatarFor.
   const avatarFor = uid => {
     let h = 2166136261;
     for (let i = 0; i < uid.length; i++) h = Math.imul(h ^ uid.charCodeAt(i), 16777619) >>> 0;
     return h % 12;
   };
-  // Username.Anonymous: "Player" and the start of the id.
+  // A player without a name, as the hub shows one: "Player" and the start of the id.
   const anonymous = uid => "Player " + uid.slice(0, 4).toUpperCase();
+
+  // Fills `el` with the player's approved photo (96 or 256 px), or their preset when there's none or it won't load.
+  function drawAvatar(el, p, size = 96) {
+    const preset = () => { el.innerHTML = avatarSvg(p.avatar); };
+    if (!p.photo) return preset();
+    const img = document.createElement("img");
+    img.alt = "";
+    img.loading = "lazy";
+    img.decoding = "async";
+    img.onerror = preset;
+    img.src = `${storage}/v0/b/${bucket}/o/${encodeURIComponent(`photos/${p.uid}/${p.photo}/${size}.jpg`)}?alt=media`;
+    el.replaceChildren(img);
+  }
 
   async function call(path, body) {
     const controller = new AbortController();
@@ -81,60 +101,39 @@ window.ExitwiseBoards = (() => {
   const idOf = name => name.slice(name.lastIndexOf("/") + 1);
   const int = (fields, key) => Number(fields?.[key]?.integerValue ?? 0) || 0;
 
-  // Single documents, at most 100 a call, in any order: id → fields.
-  async function getAll(collection, ids, fieldPaths) {
-    const found = new Map();
-    for (let i = 0; i < ids.length; i += 100) {
-      const answer = await call(":batchGet", { documents: ids.slice(i, i + 100).map(id => `${ROOT}/${collection}/${id}`), mask: { fieldPaths } });
-      for (const x of answer) if (x.found) found.set(idOf(x.found.name), x.found.fields || {});
-    }
-    return found;
-  }
-
-  // A board's rows as the game builds them (StatsBoardTable): players with 0 left out, equal players share a rank.
-  // `top` reads only the first rows (the home page's podium); the rules allow at most 100.
+  // A board's rows as the hub builds them: by value, then tie-break, highest first; rows equal on both share a rank.
+  // `stats` holds the board's counter and its tie-break counter (the Score board's is the highest level). `top` reads
+  // only the first rows (the podium); the rules allow at most 100.
   async function loadBoard(id, top = TOP) {
     const b = BOARDS[id];
-    const answer = await call(":runQuery", { structuredQuery: {
-      from: [{ collectionId: "stats" }],
-      select: { fields: STAT_FIELDS.map(fieldPath => ({ fieldPath })) },
-      orderBy: b.order.map(fieldPath => ({ field: { fieldPath }, direction: "DESCENDING" })),
+    const answer = await call(`/leaderboards/${b.board}:runQuery`, { structuredQuery: {
+      from: [{ collectionId: "entries" }],
+      select: { fields: ["name", "avatar", "photo", "value", "tiebreak"].map(fieldPath => ({ fieldPath })) },
+      orderBy: ["value", "tiebreak"].map(fieldPath => ({ field: { fieldPath }, direction: "DESCENDING" })),
       limit: top,
     } });
     const readTime = answer.find(x => x.readTime)?.readTime;
     const players = answer.filter(x => x.document).map(x => {
       const f = x.document.fields || {};
-      const stats = {};
-      for (const key of STAT_FIELDS) stats[key] = int(f, key);
-      return { uid: idOf(x.document.name), stats };
-    }).filter(p => /^[A-Za-z0-9_-]{1,128}$/.test(p.uid) && p.stats[b.field] > 0);
-    const compare = (x, y) => (y.stats[b.field] - x.stats[b.field]) || (id === "score" ? y.stats.highestLevel - x.stats.highestLevel : 0);
-    players.sort(compare);
-    players.forEach((p, i) => { p.rank = i > 0 && compare(players[i - 1], p) === 0 ? players[i - 1].rank : i + 1; });
-
-    const profiles = players.length ? await getAll("profiles", players.map(p => p.uid), ["name", "avatar", "photo"]) : new Map();
-    for (const p of players) {
-      const f = profiles.get(p.uid);
-      const name = f?.name?.stringValue;
-      p.name = name || null;
-      p.avatar = f && f.avatar ? int(f, "avatar") : avatarFor(p.uid);
-      p.photo = f ? int(f, "photo") : 0;
-    }
+      const uid = idOf(x.document.name);
+      const value = int(f, "value"), tiebreak = int(f, "tiebreak");
+      const stats = { [b.field]: value };
+      if (b.tiebreak) stats[b.tiebreak] = tiebreak;
+      const photo = f.photo?.integerValue;
+      return {
+        uid, value, tiebreak, stats,
+        name: f.name?.stringValue || null,
+        avatar: f.avatar?.integerValue !== undefined ? int(f, "avatar") : avatarFor(uid),
+        // The approved picture's version; 0 or none draws the preset.
+        photo: /^[1-9]\d{0,17}$/.test(photo ?? "") ? photo : null,
+      };
+    });
+    players.forEach((p, i) => {
+      const q = players[i - 1];
+      p.rank = q && q.value === p.value && q.tiebreak === p.tiebreak ? q.rank : i + 1;
+    });
     return { players, time: readTime ? new Date(readTime) : new Date() };
   }
 
-  // Pictures that passed the check, for the profiles that have one; a removed or replaced one keeps the preset.
-  async function loadPhotos(players) {
-    const wanted = players.filter(p => p.photo > 0 && p.picture === undefined);
-    if (!wanted.length) return false;
-    const photos = await getAll("photos", wanted.map(p => p.uid), ["image", "version"]);
-    for (const p of wanted) {
-      const f = photos.get(p.uid);
-      const bytes = f?.image?.bytesValue;
-      p.picture = f && int(f, "version") === p.photo && typeof bytes === "string" && /^[A-Za-z0-9+/]+={0,2}$/.test(bytes) ? bytes : null;
-    }
-    return true;
-  }
-
-  return { TOP, BOARDS, avatarSvg, anonymous, loadBoard, loadPhotos };
+  return { TOP, BOARDS, anonymous, drawAvatar, loadBoard };
 })();

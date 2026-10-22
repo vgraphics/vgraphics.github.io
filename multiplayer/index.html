@@ -401,12 +401,12 @@
 </footer>
 <script src="/exitwise/ranking/boards.js"></script>
 <script>
-  // The live boards: the top 5 of Exitwise's four global boards, read from the game's Firestore without signing in
-  // (boards.js, shared with the ranking page). Each board loads the first time its tab opens.
+  // The live boards: the top 5 of Exitwise's four global boards, read from VHub without signing in (boards.js, shared
+  // with the ranking page). Each board loads the first time its tab opens.
   (() => {
     const root = document.getElementById("lb");
     if (!root || !window.ExitwiseBoards) return;
-    const { BOARDS, loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
+    const { BOARDS, loadBoard, drawAvatar, anonymous } = window.ExitwiseBoards;
     const TOP = 5;
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panel = document.getElementById("lb-panel");
@@ -436,14 +436,7 @@
         rank.textContent = p.rank;
         const av = document.createElement("span");
         av.className = "av";
-        if (p.picture) {
-          const img = document.createElement("img");
-          img.alt = "";
-          img.src = "data:image/jpeg;base64," + p.picture;
-          av.append(img);
-        } else {
-          av.innerHTML = avatarSvg(p.avatar);
-        }
+        drawAvatar(av, p);
         const name = document.createElement("span");
         name.className = "nm";
         name.textContent = p.name || anonymous(p.uid);
@@ -471,10 +464,7 @@
       caption.textContent = BOARDS[id].caption + ".";
       if (!cache[id]) {
         list.replaceChildren(...Array.from({ length: TOP }, () => item("ghost")));
-        cache[id] = loadBoard(id, TOP).then(async data => {
-          await loadPhotos(data.players).catch(() => false);
-          return data;
-        });
+        cache[id] = loadBoard(id, TOP);
       }
       panel.setAttribute("aria-busy", "true");
       try {
