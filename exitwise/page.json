@@ -94,17 +94,26 @@
       "id": "peek",
       "title": "A peek inside",
       "blocks": [
-        {
-          "type": "gallery",
+        { "type": "gallery", "layout": "stage", "img": "img/gallery/", "widths": [360,540,720,1080],
+          "stage": {"wide":"stage-wide","tall":"stage-tall","widths":[960,1600,2400],"tallWidths":[640,960,1280]},
+          "pedestals": {"jungle":41.2,"candyland":38,"volcano":43.4,"lagoon":41.5,"crystalcaves":34,"clockworktown":34.5,"autumnwoods":27.5},
+          "pickups": [
+            {"src":"pickup-coin","x":8,"y":12,"wide":[44,13],"size":70,"depth":0.9,"turn":-10},
+            {"src":"pickup-heart","x":92,"y":11,"wide":[95,14],"size":62,"depth":0.6,"turn":12},
+            {"src":"pickup-star","x":6,"y":50,"wide":[30,80],"size":54,"depth":0.4,"turn":8},
+            {"src":"pickup-bomb","x":94,"y":47,"wide":[94,72],"size":74,"depth":1,"turn":-6},
+            {"src":"pickup-key","x":90,"y":88,"wide":[44,88],"size":58,"depth":0.5,"turn":24},
+            {"src":"pickup-gem","x":10,"y":88,"wide":[7,88],"size":48,"depth":0.3,"turn":-14}
+          ],
           "items": [
-            { "src": "img/1-board.webp", "alt": "Tap an arrow to set it free: level 33, a zigzag Jungle board packed with bendy arrows", "width": 720, "height": 1280 },
-            { "src": "img/2-map.webp", "alt": "Explore 17 colorful worlds: the level map in Candy land", "width": 720, "height": 1280 },
-            { "src": "img/3-mirrors.webp", "alt": "Mirrors bend an arrow’s path: three glass mirrors on a Volcano level", "width": 720, "height": 1280 },
-            { "src": "img/4-portals.webp", "alt": "Portals carry arrows across: a pair of green portals among mirrors, rocks and bomb arrows on Lagoon level 108", "width": 720, "height": 1280 },
-            { "src": "img/5-shutters.webp", "alt": "Shutters open as you clear arrows: a steel shutter on a diamond-shaped board in the Crystal caves", "width": 720, "height": 1280 },
-            { "src": "img/6-chain.webp", "alt": "Chain bombs blast whole walls: a wall of five rocks and its chain bomb among the rooftops of Clockwork town", "width": 720, "height": 1280 },
-            { "src": "img/7-paint.webp", "alt": "Paint tiles recolor arrows: paint tiles on a ring-shaped board in the Autumn woods", "width": 720, "height": 1280 },
-            { "src": "img/8-switches.webp", "alt": "Switches open color gates: a yellow key and the locked door it opens on a heart-shaped board in Clockwork town", "width": 720, "height": 1280 }
+            {"name":"1-board","w":1080,"h":2088,"world":"jungle","accent":"#3BB273","tag":"Level 33","place":"Jungle","caption":"Tap an arrow to set it free","text":"An arrow slides off the board when nothing is in its way. Clear every arrow to win, and mind your hearts: a blocked tap costs one.","alt":"Level 33 in the Jungle: a zigzag board packed with bendy arrows, with a tap marker on the arrow that leaves first"},
+            {"name":"2-map","w":1080,"h":2088,"world":"candyland","accent":"#FF5A8C","tag":"Level 385","place":"Candy land","caption":"Explore 17 colorful worlds","text":"One level map runs from the Meadow to Starlight, through jungle, lava, ice, candy and more. Daily puzzles, rankings and friends wait at the top.","alt":"The level map in Candy land at level 385, with the Daily, Ranking, Friends and Maps buttons","link":{"href":"/exitwise/wiki/worlds/","label":"The 17 worlds"}},
+            {"name":"3-mirrors","w":1080,"h":2088,"world":"volcano","accent":"#FF922B","tag":"Level 61","place":"Volcano","caption":"Mirrors bend an arrow's path","text":"An arrow that meets a mirror turns by 90 degrees and keeps going. Plan the bounce before you tap.","alt":"Level 61 in the Volcano: glass mirrors among the arrows on a dark lava board","link":{"href":"/exitwise/wiki/mirror/","label":"Mirrors in the wiki"}},
+            {"name":"4-portals","w":1080,"h":2088,"world":"lagoon","accent":"#1C9FD8","tag":"Level 108","place":"Lagoon","caption":"Portals carry arrows across","text":"In one portal, out of its pair, anywhere on the board. This giant board mixes them with mirrors, rocks and bomb arrows.","alt":"Level 108 in the Lagoon: a pair of portals among mirrors, rocks and bomb arrows on a giant board","link":{"href":"/exitwise/wiki/portal/","label":"Portals in the wiki"}},
+            {"name":"5-shutters","w":1080,"h":2088,"world":"crystalcaves","accent":"#8C5CF0","tag":"Level 221","place":"Crystal caves","caption":"Shutters open as you clear arrows","text":"A steel roller door hides the arrows under it, even from powerups. Clear enough arrows and it rolls up.","alt":"Level 221 in the Crystal caves: a steel shutter on a diamond-shaped board","link":{"href":"/exitwise/wiki/shutter/","label":"Shutters in the wiki"}},
+            {"name":"6-chain","w":1080,"h":2088,"world":"clockworktown","accent":"#C9822B","tag":"Level 281","place":"Clockwork town","caption":"Chain bombs blast whole walls","text":"Rocks side by side make a wall, and one chain bomb clears all of it. Free the bomb's path first.","alt":"Level 281 in Clockwork town: a wall of five rocks and its chain bomb","link":{"href":"/exitwise/wiki/chain-bomb/","label":"Chain bombs in the wiki"}},
+            {"name":"7-paint","w":1080,"h":2088,"world":"autumnwoods","accent":"#E8590C","tag":"Level 191","place":"Autumn woods","caption":"Paint tiles recolor arrows","text":"An arrow that flies over a paint tile takes its color, ready for the color gate further along.","alt":"Level 191 in the Autumn woods: paint tiles on a ring-shaped board","link":{"href":"/exitwise/wiki/paint-tile/","label":"Paint tiles in the wiki"}},
+            {"name":"8-switches","w":1080,"h":2088,"world":"clockworktown","accent":"#F2B705","tag":"Level 311","place":"Clockwork town","caption":"Keys open color doors","text":"The first arrow that flies over a key turns it, and every door of its color swings open at once.","alt":"Level 311 in Clockwork town: a yellow key and the locked door it opens on a heart-shaped board","link":{"href":"/exitwise/wiki/colour-switch/","label":"Keys and doors in the wiki"}}
           ]
         }
       ]
