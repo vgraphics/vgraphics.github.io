@@ -71,9 +71,8 @@
   }
   </script>
   <link rel="preload" href="fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" imagesizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 11/5)" imagesrcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" imagesizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 11/5)" imagesrcset="img/key-art-ultra-1920.avif 1920w, img/key-art-ultra-2560.avif 2560w, img/key-art-ultra-3200.avif 3200w" imagesizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 1/1)" imagesrcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 1/1)" imagesrcset="img/key-art-wide-960.avif 960w, img/key-art-wide-1440.avif 1440w, img/key-art-wide-1920.avif 1920w, img/key-art-wide-2560.avif 2560w, img/key-art-wide-3200.avif 3200w" imagesizes="max(100vw, min(136vw, 242vh))" fetchpriority="high">
   <style>
     /* Self-hosted (OFL, see fonts/): no requests to Google Fonts. */
     @font-face {
@@ -135,14 +134,17 @@
     }
     .top a { color: var(--ink); text-decoration: none; }
     .top a:hover { color: var(--blue); }
-    .top .brand { display: inline-flex; }
     .subnav { display: flex; gap: 6px; }
     .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; }
     .subnav a:hover { background: var(--board); color: var(--ink); }
     .subnav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
-    .top .brand img { height: 36px; width: auto; }
-    .top .product { display: inline-flex; align-items: center; gap: 10px; margin: 0 auto 0 16px; font: 400 1.35rem/1 var(--display); }
+    .top .product { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; font: 400 1.35rem/1 var(--display); }
     .top .product img { width: 36px; height: 36px; border-radius: 10px; }
+    /* Here the header lies over the key art's sky, in white. */
+    .top.on-art { position: absolute; z-index: 2; inset: 0 0 auto; max-width: none; padding: 18px clamp(20px, 3vw, 40px); }
+    .top.on-art a { color: #fff; text-shadow: 0 1px 8px rgba(20, 12, 40, 0.6); }
+    .top.on-art .subnav a:hover { background: rgba(255, 255, 255, 0.18); color: #fff; }
+    .top.on-art .subnav a[aria-current="page"] { background: #fff; color: var(--ink); text-shadow: none; }
 
     main { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
 
@@ -156,36 +158,53 @@
       padding: 28px 0 64px;
     }
     .hero-copy > * { animation: rise 700ms cubic-bezier(.2, .8, .2, 1) both; }
-    .hero-copy > :nth-child(2) { animation-delay: 80ms; }
-    .hero-copy > :nth-child(3) { animation-delay: 160ms; }
-    .hero-copy > :nth-child(4) { animation-delay: 240ms; }
     @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 
-    /* Key art: the welcome splash's tower of worlds, a poster lying on the table. Every screen sees all of it at once
-       (it shrinks to fit the window's height): the 16:9 picture on most, its outpainted wide version on ultra-wide
-       screens, its tall version on phones and portrait tablets. Its painted title stands in for the h1, which stays
-       for screen readers and search. */
+    /* Key art: the welcome splash's tower of worlds, edge to edge from the very top, under the header. Landscape
+       screens get the outpainted wide picture, portrait ones the tall one, each cropped to fill. Its foot fades into
+       the paper, and the lead line and the store badges stand there. The painted title stands in for the h1, which
+       stays for screen readers and search. */
     .key-art {
-      --w: min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px);
-      display: block;
-      width: var(--w);
-      margin: 4px 0 20px calc((100% - var(--w)) / 2);
-      animation: rise 800ms cubic-bezier(.2, .8, .2, 1) both;
+      position: relative;
+      margin: 0 calc(50% - 50vw);
+      height: min(56.25vw, 100vh);
+      height: min(56.25vw, 100svh);
     }
-    .key-art img {
-      display: block;
-      width: 100%;
-      height: auto;
-      border-radius: 32px;
+    .key-art picture, .key-art picture img { display: block; width: 100%; height: 100%; }
+    .key-art picture img {
+      object-fit: cover;
+      object-position: 50% 0;
       background: linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E);
-      box-shadow: 0 34px 70px -34px rgba(59, 51, 85, 0.55);
+      -webkit-mask-image: linear-gradient(#000 76%, transparent);
+      mask-image: linear-gradient(#000 76%, transparent);
     }
-    @media (max-aspect-ratio: 4/5) {
-      .key-art { --w: min(100vw - 32px, (100vh - 140px) * 2 / 3); }
-      .key-art img { border-radius: 26px; }
+    /* A soft shade under the header, so its white words read on any sky. */
+    .key-art::before {
+      content: "";
+      position: absolute;
+      inset: 0 0 auto;
+      height: 150px;
+      background: linear-gradient(rgba(26, 18, 48, 0.45), transparent);
+      z-index: 1;
+      pointer-events: none;
     }
-    @media (min-aspect-ratio: 11/5) {
-      .key-art { --w: min(100vw - 32px, (100vh - 150px) * 2.415, 3000px); }
+    .hero-foot {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: 1;
+      padding: 0 20px clamp(16px, 3vh, 34px);
+      text-align: center;
+    }
+    .hero-foot > * { animation: rise 700ms 150ms cubic-bezier(.2, .8, .2, 1) both; }
+    .hero-foot > .stores { animation-delay: 260ms; justify-content: center; align-items: center; }
+    .hero-foot .gp { margin: -15px -3px; }
+    @media (max-aspect-ratio: 1/1) {
+      .key-art { height: min(177.78vw, 100vh); height: min(177.78vw, 100svh); }
+      .key-art picture img {
+        object-position: 50% 30%;
+        -webkit-mask-image: linear-gradient(#000 62%, transparent);
+        mask-image: linear-gradient(#000 62%, transparent);
+      }
     }
     h1 {
       position: absolute;
@@ -197,9 +216,10 @@
     }
     .kicker {
       font-family: var(--display);
-      font-size: clamp(2rem, 4.4vw, 2.8rem);
+      font-size: clamp(1.9rem, 5vw, 2.8rem);
       line-height: 1.05;
-      margin: 0 0 16px;
+      margin: 0 0 14px;
+      text-shadow: 0 0 18px var(--paper), 0 0 5px var(--paper);
     }
     .lede { font-size: 1.2rem; max-width: 30em; margin: 0 0 28px; }
     .stores { display: flex; flex-wrap: wrap; gap: 12px; }
@@ -404,12 +424,13 @@
     }
     @media (max-width: 560px) {
       body { font-size: 17px; }
-      .top .brand { flex: none; }
       .subnav .wide-only:not([aria-current]) { display: none; }
       .subnav a { padding: 0 14px; }
       .top .product span { display: none; }
       .steps, .features { grid-template-columns: 1fr; }
       .store { min-width: 0; flex: 1 1 140px; }
+      .hero-foot .gp { margin: -12px -2px; }
+      .hero-foot .gp img { height: 72px; }
       .board-card { padding: 14px 12px 6px; border-radius: 26px; }
       .overlay { border-radius: 26px; }
     }
@@ -419,8 +440,7 @@
   </style>
 </head>
 <body>
-  <header class="top">
-    <a class="brand" href="/"><img src="/img/vgraphics-logo.png" alt="VGraphics" width="555" height="473"></a>
+  <header class="top on-art">
     <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
     <nav class="subnav" aria-label="Exitwise">
       <a href="/exitwise/" aria-current="page">Overview</a>
@@ -432,27 +452,28 @@
   </header>
 
   <main>
-    <picture class="key-art">
-      <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
-      <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="img/key-art-tall-480.webp 480w, img/key-art-tall-720.webp 720w, img/key-art-tall-1080.webp 1080w, img/key-art-tall-1440.webp 1440w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
-      <source media="(max-aspect-ratio: 4/5)" srcset="img/key-art-tall-1080.jpg 1080w" sizes="min(100vw - 32px, (100vh - 140px) * 2 / 3)" width="1440" height="2160">
-      <source media="(min-aspect-ratio: 11/5)" type="image/avif" srcset="img/key-art-ultra-1920.avif 1920w, img/key-art-ultra-2560.avif 2560w, img/key-art-ultra-3200.avif 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" width="4096" height="1696">
-      <source media="(min-aspect-ratio: 11/5)" type="image/webp" srcset="img/key-art-ultra-1920.webp 1920w, img/key-art-ultra-2560.webp 2560w, img/key-art-ultra-3200.webp 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 2.415, 3000px)" width="4096" height="1696">
-      <source type="image/avif" srcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)">
-      <source type="image/webp" srcset="img/key-art-960.webp 960w, img/key-art-1440.webp 1440w, img/key-art-1920.webp 1920w, img/key-art-2560.webp 2560w, img/key-art-3200.webp 3200w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)">
-      <img src="img/key-art-1920.jpg" srcset="img/key-art-960.jpg 960w, img/key-art-1920.jpg 1920w" sizes="min(100vw - 32px, (100vh - 150px) * 16 / 9, 2200px)" width="1920" height="1080" fetchpriority="high" alt="Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, ice and a volcano to purple crystals, with a glowing door at the top">
-    </picture>
+    <section class="key-art">
+      <picture>
+        <source media="(max-aspect-ratio: 1/1)" type="image/avif" srcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 1/1)" type="image/webp" srcset="img/key-art-tall-480.webp 480w, img/key-art-tall-720.webp 720w, img/key-art-tall-1080.webp 1080w, img/key-art-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 1/1)" srcset="img/key-art-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
+        <source type="image/avif" srcset="img/key-art-wide-960.avif 960w, img/key-art-wide-1440.avif 1440w, img/key-art-wide-1920.avif 1920w, img/key-art-wide-2560.avif 2560w, img/key-art-wide-3200.avif 3200w" sizes="max(100vw, min(136vw, 242vh))">
+        <source type="image/webp" srcset="img/key-art-wide-960.webp 960w, img/key-art-wide-1440.webp 1440w, img/key-art-wide-1920.webp 1920w, img/key-art-wide-2560.webp 2560w, img/key-art-wide-3200.webp 3200w" sizes="max(100vw, min(136vw, 242vh))">
+        <img src="img/key-art-wide-1920.jpg" srcset="img/key-art-wide-960.jpg 960w, img/key-art-wide-1920.jpg 1920w" sizes="max(100vw, min(136vw, 242vh))" width="4096" height="1696" fetchpriority="high" alt="Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, ice and a volcano to purple crystals, with a glowing door at the top">
+      </picture>
+      <div class="hero-foot">
+        <h1>Exitwise</h1>
+        <p class="kicker">Arrow Escape Puzzle</p>
+        <div class="stores" aria-label="Where to play">
+          <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+          <a class="store" href="play/"><b>Play in your browser</b><small>Play now, free</small></a>
+        </div>
+      </div>
+    </section>
 
     <section class="hero">
       <div class="hero-copy">
-        <h1>Exitwise</h1>
-        <p class="kicker">Arrow Escape Puzzle</p>
         <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.</p>
-        <div class="stores" aria-label="Where to play">
-          <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
-          <span class="store"><b>App Store</b><small>Coming soon</small></span>
-          <a class="store" href="play/"><b>Play in your browser</b><small>Play now, free</small></a>
-        </div>
       </div>
 
       <div class="play">

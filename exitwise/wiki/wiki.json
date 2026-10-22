@@ -1,5 +1,5 @@
 {
-  "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png", "image": "/exitwise/img/feature-1024x500.png", "parent": { "name": "Games", "href": "/games/" } },
+  "product": { "name": "Exitwise", "slug": "exitwise", "home": "/exitwise/", "icon": "/exitwise/img/icon-512.png", "studioMark": false, "image": "/exitwise/img/feature-1024x500.png", "parent": { "name": "Games", "href": "/games/" } },
   "title": "Exitwise wiki",
   "intro": "Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
   "metaTitle": "Exitwise wiki: every obstacle and powerup in the arrow puzzle",
