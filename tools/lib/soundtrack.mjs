@@ -1,6 +1,6 @@
 // The soundtrack block of a product page (George, 22 Oct 2026: "a playlist and a small player where players can listen
 // to the app or game OSTs"): the album cover with a record that turns while the music plays, a small player with a
-// waveform to seek on, the track list, and the album's links on YouTube and Spotify. tools/build-pages.mjs writes it for
+// waveform to seek on, the track list, and its links to YouTube and SoundCloud. tools/build-pages.mjs writes it for
 // a { "type": "soundtrack" } block in page.json; assets/soundtrack.js plays it and assets/soundtrack.css draws it in
 // the product's theme. The durations come from page.json and the waveforms from <product>/audio/peaks.json
 // (tools/make-soundtrack.py), so the block is complete before anything loads, and nothing loads until the visitor
@@ -10,7 +10,9 @@
 //               src-<width>.avif and .webp
 //   background  { wide, tall } or null: the player's backdrop, each { src, widths } like the cover; without it the
 //               player lies over its own cover, blurred
-//   youtube, spotify   the album on each, or null (no icon)
+//   youtube, soundcloud   the product's collection on each (its YouTube playlist, its SoundCloud album), or null (no
+//               button). George, 22 Oct 2026: "Add social icon button to project landing page." No Spotify (23 Oct:
+//               "Skip spotify. I dont pay for that.").
 //   tracks      [{ title, src, duration: "m:ss" }], src an .m4a in <product>/audio/
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -26,7 +28,7 @@ const ICONS = {
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>',
   // Simple Icons (CC0), one colour as each brand's guidelines allow
   youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>',
-  spotify: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 0C5.4 0 0 5.4 0 12s5.4 12 12 12 12-5.4 12-12S18.66 0 12 0zm5.52 17.34c-.24.36-.66.48-1.02.24-2.82-1.74-6.36-2.1-10.56-1.14-.42.12-.78-.18-.9-.54-.12-.42.18-.78.54-.9 4.56-1.02 8.52-.6 11.64 1.32.42.18.48.66.3 1.02zm1.44-3.3c-.3.42-.84.6-1.26.3-3.24-1.98-8.16-2.58-11.94-1.38-.48.12-1.02-.12-1.14-.6-.12-.48.12-1.02.6-1.14C9.6 9.9 15 10.56 18.72 12.84c.36.18.54.78.24 1.2zm.12-3.36C15.24 8.4 8.82 8.16 5.16 9.3c-.6.18-1.2-.18-1.38-.72-.18-.6.18-1.2.72-1.38 4.26-1.26 11.28-1.02 15.72 1.62.54.3.72 1.02.42 1.56-.3.42-1.02.6-1.56.3z"/></svg>',
+  soundcloud: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg>',
 }
 
 const seconds = (d) => d.split(':').reduce((t, n) => t * 60 + Number(n), 0)
@@ -55,8 +57,8 @@ export function soundtrack(b, { slug, theme }) {
     const wave = peaks[t.src.split('/').pop()]
     return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t">${esc(t.title)}</span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
   })
-  const links = [['youtube', 'YouTube'], ['spotify', 'Spotify']].filter(([k]) => b[k])
-    .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}" title="${name}">${ICONS[k]}</a>`)
+  const links = [['youtube', 'YouTube'], ['soundcloud', 'SoundCloud']].filter(([k]) => b[k])
+    .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}">${ICONS[k]}<span>${name}</span></a>`)
   return `<div class="ost" data-album="${esc(b.album)}" data-artwork="${esc(largest(c, 'webp'))}">
           <div class="ost-player">
             ${backdrop(b.background, c)}
@@ -86,7 +88,7 @@ export function soundtrack(b, { slug, theme }) {
               <ol class="ost-list" aria-label="Tracks">
                 ${rows.join('\n                ')}
               </ol>${links.length ? `
-              <p class="ost-links"><span>Also on</span>${links.join('')}</p>` : ''}
+              <p class="ost-links"><span>Listen on</span>${links.join('')}</p>` : ''}
             </div>
           </div>
           <audio preload="none"></audio>
