@@ -71,7 +71,8 @@
       this.slides.forEach((s, k) => s.classList.toggle('is-current', k === i))
       this.root.style.setProperty('--accent', this.shots[i].accent)
       this.onShow?.(i)
-      if (!quiet) this.live.textContent = `Screenshot ${i + 1} of ${this.n}: ${this.shots[i].line}`
+      // The story's captions are read in place as the page scrolls, so only the other layouts announce the change.
+      if (!quiet && this.layout !== 'story') this.live.textContent = `Screenshot ${i + 1} of ${this.n}: ${this.shots[i].line}`
     }
 
     // The previous, the numbered bubbles and the next, for the stage.
@@ -371,8 +372,12 @@
         else return
         e.preventDefault()
       })
-      // A click on the dark space beside the picture closes it.
-      dlg.addEventListener('click', (e) => { if (e.target === dlg) dlg.close() })
+      // A tap on the dark space beside the picture closes it (not the end of a drag that started on the picture).
+      let downOnSpace = false
+      dlg.addEventListener('pointerdown', (e) => (downOnSpace = e.target === dlg || e.target === this.stage))
+      dlg.addEventListener('click', (e) => {
+        if (downOnSpace && (e.target === dlg || e.target === this.stage)) dlg.close()
+      })
       this.gestures()
     },
 

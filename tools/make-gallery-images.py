@@ -1,6 +1,7 @@
 """Pictures for a product page's screenshot gallery (tools/gallery.mjs), written to <product>/img/gallery/.
 
     python tools/make-gallery-images.py exitwise --ref feature/exitwise-hero-bleed --recraft <folder>
+    python tools/make-gallery-images.py speedometer-wallpaper
 
 Exitwise's game frames are cut from the App Store-size store screenshots in the Games repo (read straight from git,
 no checkout needed): the card make_screenshots.py lays the frame on is the whole game screen, 1080x2088. The world
@@ -10,6 +11,7 @@ Needs Pillow with AVIF (12 or later).
 """
 import argparse
 import io
+import json
 import os
 import subprocess
 import sys
@@ -73,6 +75,19 @@ def trimmed(img, pad=4):
     return img.crop((max(0, l - pad), max(0, t - pad), min(img.width, r + pad), min(img.height, b + pad)))
 
 
+def rim(island):
+    """Where a phone stands on an island pedestal: the island's widest row (the middle of its flat top, seen from
+    a little above), as a percentage of its height, for gallery.json's "pedestals"."""
+    alpha = island.getchannel("A")
+    widths = []
+    for y in range(island.height):
+        row = alpha.crop((0, y, island.width, y + 1)).point(lambda a: 255 if a > 128 else 0).getbbox()
+        widths.append(row[2] - row[0] if row else 0)
+    top = max(widths)
+    rows = [y for y, w in enumerate(widths) if w >= top * 0.985]
+    return round(100 * rows[len(rows) // 2] / island.height, 1)
+
+
 def exitwise(ref, recraft, out):
     x, y, w, h = EXITWISE["card"]
     for name in EXITWISE["shots"]:
@@ -97,12 +112,17 @@ def exitwise(ref, recraft, out):
         if os.path.exists(path):
             save(scaled(trimmed(Image.open(path)), 160), out, f"pickup-{pickup}", avif=False, webp_quality=88)
             print("pickup", pickup)
+    sinks = {}
     for entry in EXITWISE["islands"]:
         file, _, world = entry.partition(":")
         path = os.path.join(recraft, f"island-{file}.png")
         if os.path.exists(path):
-            save(scaled(trimmed(Image.open(path)), 640), out, f"island-{world or file}", avif=False, webp_quality=84)
-            print("island", world or file)
+            art = trimmed(Image.open(path))
+            save(scaled(art, 640), out, f"island-{world or file}", avif=False, webp_quality=84)
+            sinks[world or file] = rim(art)
+            print("island", world or file, sinks[world or file])
+    if sinks:
+        print('"pedestals":', json.dumps(sinks))
     for name, widths in (("stage-wide", STAGE_WIDE), ("stage-tall", STAGE_TALL)):
         for candidate in (f"{name}-up.png", f"{name}.png"):
             path = os.path.join(recraft, candidate)
@@ -114,9 +134,37 @@ def exitwise(ref, recraft, out):
                 break
 
 
+SPEEDOMETER = {
+    "shots": ["shot-kmh", "shot-power", "shot-cpu", "shot-wifi", "shot-home"],
+    "worlds": ["carbon", "cockpit", "glass", "rally"],
+    "dials": ["dial-speed", "dial-power", "dial-cpu"],
+}
+
+
+def speedometer(ref, out):
+    """The app's own frames are the site's 540x1200 pictures (no larger ones exist yet); its Recraft backgrounds
+    stand behind them, and the big dial's three faces float around."""
+    img = os.path.join(SITE, "speedometer-wallpaper", "img")
+    for name in SPEEDOMETER["shots"]:
+        frame = Image.open(os.path.join(img, f"{name}.webp")).convert("RGB")
+        for width in (360, 540):
+            save(scaled(frame, width), out, f"{name}-{width}")
+        print("shot", name)
+    for world in SPEEDOMETER["worlds"]:
+        art = Image.open(io.BytesIO(blob(ref, f"SpeedometerWallpaper/docs/designs/recraft/backgrounds/{world}.png")))
+        art = art.convert("RGB")
+        for width in WORLD_WIDTHS:
+            save(scaled(art, min(width, art.width)), out, f"world-{world}-{width}", avif=False, webp_quality=76)
+        print("world", world)
+    for dial in SPEEDOMETER["dials"]:
+        save(scaled(trimmed(Image.open(os.path.join(img, f"{dial}.webp"))), 240), out, f"pickup-{dial}", avif=False,
+             webp_quality=86)
+        print("pickup", dial)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
-    parser.add_argument("product", choices=["exitwise"])
+    parser.add_argument("product", choices=["exitwise", "speedometer-wallpaper"])
     parser.add_argument("--ref", default="main", help="Games repo branch or commit to read from")
     parser.add_argument("--recraft", help="folder with the Recraft art made for the gallery")
     parser.add_argument("--games", help="the Games repo (found beside the site by default)")
@@ -125,7 +173,10 @@ def main():
     GAMES = args.games or find_games()
     out = os.path.join(SITE, args.product, "img", "gallery")
     os.makedirs(out, exist_ok=True)
-    exitwise(args.ref, args.recraft, out)
+    if args.product == "exitwise":
+        exitwise(args.ref, args.recraft, out)
+    else:
+        speedometer(args.ref, out)
 
 
 if __name__ == "__main__":

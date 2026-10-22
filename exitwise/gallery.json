@@ -2,7 +2,7 @@
   "heading": "A peek inside",
   "img": "img/gallery/",
   "widths": [360, 540, 720, 1080],
-  "device": "toy",
+  "hand": "pickup-hand",
   "stage": { "wide": "stage-wide", "tall": "stage-tall", "widths": [960, 1600, 2400], "tallWidths": [640, 960, 1280] },
   "pickups": [
     { "src": "pickup-coin", "x": 8, "y": 12, "wide": [44, 13], "size": 70, "depth": 0.9, "turn": -10 },

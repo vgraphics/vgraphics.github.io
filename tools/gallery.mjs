@@ -40,8 +40,9 @@ function slide(data, shot, i, layout) {
   const phone = `<button class="g-phone" type="button" aria-label="${esc(`Enlarge screenshot ${i + 1} of ${n}: ${shot.caption}`)}">` +
     `<span class="g-screen">${shotPicture(data, shot, SIZES[layout])}</span></button>`
   let art = phone
-  if (layout === 'stage' && data.pedestals) {
-    art += `<img class="g-ped" src="${data.img}island-${shot.world}.webp" alt="" loading="lazy" decoding="async">`
+  // A pedestal under the phone, its foot on the pedestal's rim (data.pedestals: world -> rim height in %).
+  if (layout === 'stage' && data.pedestals?.[shot.world] != null) {
+    art += `<img class="g-ped" src="${data.img}island-${shot.world}.webp" style="--sink: ${data.pedestals[shot.world]}%" alt="" loading="lazy" decoding="async">`
   }
   if (layout === 'path') art = `<div class="g-scene">${world(data, shot)}${phone}</div>`
   if (layout === 'story') art = world(data, shot) + phone
@@ -72,7 +73,7 @@ export function renderGallery(data, { layout = data.layout ?? 'stage', id = 'gal
   const ratio = +(data.shots[0].w / data.shots[0].h).toFixed(4)
   const backdrop = layout === 'stage' ? `<div class="g-backdrop" aria-hidden="true">${sky(data)}${pickups(data)}</div>` :
     layout === 'story' ? `<div class="g-backdrop" aria-hidden="true" hidden>${pickups(data)}</div>` : ''
-  const hand = layout === 'path' ? ` data-hand="${data.img}pickup-hand.webp"` : ''
+  const hand = layout === 'path' && data.hand ? ` data-hand="${data.img}${data.hand}.webp"` : ''
   return `<section class="gallery" id="${id}" data-gallery="${layout}"${hand} style="--ratio: ${ratio}" aria-labelledby="${id}-title">
   <div class="g-panel">
     ${backdrop}
