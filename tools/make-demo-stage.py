@@ -10,6 +10,20 @@ world whose colours the demo board wears: the tall one is the backdrop itself, a
 --wide gives another) keeps the backdrop's two edges with their trees and fills the middle with its own open grass,
 without the river and the pond, at 3:2 so a stage of about that shape keeps the trees whole. Speedometer's are cut
 from its key art's Recraft night drive. Needs Pillow with AVIF (12 or later) and numpy.
+
+The pictures in use (Recraft Pro on gvergidis90@gmail.com, so VGraphics owns them; project "VGraphics site demo stages",
+https://www.recraft.ai/project/448793a3-8896-4eda-9a7e-43018ae0189e, 22 Oct 2026; Recraft V4.1, then Crisp upscale):
+- Exitwise wide, style "Exitwise Map", 3:2: "Top-down view, seen from directly above, of a sunny green meadow for a casual
+  puzzle game backdrop. Round leafy trees, a few pine trees, pink and yellow flower bushes, red spotted mushrooms and
+  small grey rocks run along the left and right edges. A winding sandy path in the lower left corner and a small lily
+  pond in the lower right corner. The whole middle is wide open plain grass with soft lighter and darker patches,
+  nothing on it. No sky, no horizon, no people, no text."
+- Speedometer wide 16:9 and tall 9:16, style from a reference (the key art's night drive scene): "Cinematic photo from
+  the driver's seat of a car at night. The dark black leather dashboard with fine orange stitching runs across the lower
+  third, completely empty and clear, with a thin warm amber ambient light strip along its far edge. Above it the
+  windscreen is covered in rain droplets, and through it a blurred city at night: round bokeh street lights, glowing
+  tower windows and long red tail-light streaks on the road. Deep blue night tones, shallow depth of field, moody and
+  premium. Nothing on the dashboard: no phone, no mount, no gadgets, no people, no text, no logos."
 """
 import argparse
 import io
