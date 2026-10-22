@@ -31,7 +31,6 @@
     let loop = "off";
 
     // Last in the page: fixed to the screen whatever its ancestors do, and last in the tab order.
-    if (root.dataset.skin) mini.dataset.skin = root.dataset.skin;
     document.body.append(mini);
 
     const track = () => rows[at];
