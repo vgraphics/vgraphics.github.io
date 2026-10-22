@@ -438,9 +438,13 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   .cards.media .card > img { width: 60%; }
   .band { grid-template-columns: 1fr; }
 }
+/* Below 1300px the menu keeps only its main links (the rest are in the footer), so it stays clear of a title painted
+   across the top of the key art. */
+@media (max-width: 1300px) {
+  .subnav .wide-only:not([aria-current]) { display: none; }
+}
 @media (max-width: 560px) {
   body { font-size: calc(var(--body-size) - 1px); }
-  .subnav .wide-only:not([aria-current]) { display: none; }
   .subnav a { padding: 0 12px; }
   .product-name span { display: none; }
   .gp img { height: 70px; }
