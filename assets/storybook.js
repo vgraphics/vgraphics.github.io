@@ -9,10 +9,13 @@
   const reader = window.ExitwiseStorybook;
   if (!mount || !reader) return;
   const base = mount.dataset.book;
-  let progress = { levelsWon: 0, read: [] };
+  let progress = { levelsWon: 0, read: [], medals: [] };
   try {
     const saved = JSON.parse(localStorage.getItem(mount.dataset.progress) || "null");
-    if (saved && typeof saved.levelsWon === "number") progress = { levelsWon: saved.levelsWon, read: Array.isArray(saved.read) ? saved.read : [] };
+    if (saved && typeof saved.levelsWon === "number") {
+      const list = (value) => (Array.isArray(value) ? value : []);
+      progress = { levelsWon: saved.levelsWon, read: list(saved.read), medals: list(saved.medals) };
+    }
   } catch (e) {
     // Private browsing may refuse storage: the visitor reads as a new player.
   }
