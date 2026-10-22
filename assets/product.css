@@ -383,8 +383,11 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .band p { margin: 0; color: var(--muted); }
 .band .link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
 
-/* The last call to action, just above the horizon and the footer. */
+/* The last call to action, just above the horizon and the footer. Where the footer has a picture, the card stands half
+   in it (George, 22 Oct 2026: "Move half of this inside the foot"): the footer rises by half the card's height,
+   --cta-half, which assets/product.js measures (an estimate without JavaScript). */
 .cta-band { padding-block: var(--section-pad); }
+body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bottom: 0; }
 .panel {
   display: grid;
   justify-items: center;
@@ -397,35 +400,41 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .panel h2 { font-size: var(--h2-size); }
 .panel p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; }
 
-/* Footer, styled like the hero (George, 22 Oct 2026): a picture generated from the key art fades in from the page,
-   and the links and legal line stand on a frosted panel over its foot (--foot-panel, optional, is the panel's colour).
-   Without a picture, the links sit under the pack's rule. */
-.foot .wrap { display: flex; flex-wrap: wrap; gap: 4px 24px; padding-block: 24px 48px; border-top: var(--foot-rule); color: var(--muted); font-weight: 700; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); }
+/* Footer: the links in a row, the studio's channels, then the legal line. Styled like the hero (George, 22 Oct 2026):
+   a picture generated from the key art fills the footer, fading in from the page, and the links stand straight on it
+   in the pack's footer colours (--foot-ink and --foot-muted, optional), over a soft fade of --foot-veil (optional)
+   that keeps them readable without a box. Without a picture, the links sit under the pack's rule. */
+.foot .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; padding-block: 24px 48px; border-top: var(--foot-rule); color: var(--foot-muted, var(--muted)); font-weight: 700; }
+.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--foot-ink, var(--ink)); }
 .foot .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: 0.9rem; }
-.foot .legal a { display: inline; min-height: 0; color: var(--muted); }
-.foot.has-art { position: relative; margin-top: 16px; }
-.foot-art { height: clamp(320px, 42vw, 760px); } /* tools/lib/partials.mjs sizes the picture for this */
+.foot .legal a { display: inline; min-height: 0; color: inherit; }
+.social { display: inline-flex; gap: 4px; margin-left: auto; }
+.social a { justify-content: center; width: 44px; border-radius: 50%; transition: transform 150ms ease-out; }
+.social a:hover { transform: translateY(-2px); }
+.social svg { width: 24px; height: 24px; }
+.foot.has-art {
+  position: relative;
+  isolation: isolate;
+  overflow-x: clip;
+  margin-top: calc(-1 * var(--cta-half, 150px));
+  padding-top: calc(var(--cta-half, 150px) + clamp(240px, 30vw, 600px)); /* tools/lib/partials.mjs sizes the picture for this */
+}
+.foot-art { position: absolute; inset: 0; z-index: -1; }
 .foot-art picture, .foot-art img { display: block; width: 100%; height: 100%; }
 .foot-art img {
   object-fit: cover;
   object-position: var(--foot-at, 50% 50%);
-  -webkit-mask-image: linear-gradient(transparent, #000 34%);
-  mask-image: linear-gradient(transparent, #000 34%);
+  -webkit-mask-image: linear-gradient(transparent calc(var(--cta-half, 150px) * 0.4), #000 calc(var(--cta-half, 150px) + 120px));
+  mask-image: linear-gradient(transparent calc(var(--cta-half, 150px) * 0.4), #000 calc(var(--cta-half, 150px) + 120px));
 }
-.foot.has-art .wrap {
+.foot.has-art .wrap { position: relative; border-top: 0; padding-top: 28px; }
+.foot.has-art .wrap::before {
+  content: "";
   position: absolute;
-  inset: auto 0 clamp(16px, 2.5vw, 36px);
-  padding: 14px 24px 18px;
-  border-top: 0;
-  border-radius: var(--radius);
-  background: var(--foot-panel, color-mix(in srgb, var(--surface) 88%, transparent)); /* optional */
-  -webkit-backdrop-filter: blur(8px);
-  backdrop-filter: blur(8px);
-  box-shadow: var(--card-shadow);
-}
-@media (max-width: 700px) {
-  .foot.has-art .wrap { position: relative; inset: auto; margin-top: -64px; margin-bottom: 20px; }
+  inset: -64px calc(50% - 50vw) 0;
+  z-index: -1;
+  background: linear-gradient(transparent, var(--foot-veil, color-mix(in srgb, var(--page) 80%, transparent)) 64px);
+  pointer-events: none;
 }
 
 @media (max-width: 900px) {

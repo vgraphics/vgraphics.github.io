@@ -18,4 +18,9 @@
     spots.forEach((s) => s.addEventListener("click", () => open(s.getAttribute("aria-controls"), true)));
     open(tour.dataset.open, false);
   }
+
+  // The last card stands half in the footer's picture: the footer rises by half the card's height (assets/product.css).
+  const card = document.querySelector(".cta-band .panel");
+  const foot = document.querySelector(".foot.has-art");
+  if (card && foot) new ResizeObserver(() => foot.style.setProperty("--cta-half", card.offsetHeight / 2 + "px")).observe(card);
 })();
