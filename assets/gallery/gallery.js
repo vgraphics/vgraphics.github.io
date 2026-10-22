@@ -1,7 +1,6 @@
 // Makes every screenshot gallery on the page interactive ([data-gallery] sections from tools/gallery.mjs).
-// Stage: drag, swipe or use the buttons; the phone in front opens the lightbox. Path: one shot at a time, picked
-// on the level trail, moving on by itself until someone touches it. Story: the phone follows the captions as the
-// page scrolls. The lightbox zooms (tap, pinch, wheel) and pages (swipe, arrow keys). No dependencies.
+// The stage: drag, swipe or use the buttons; the phone in front opens the lightbox, which zooms (tap, pinch, wheel)
+// and pages (swipe, arrow keys). No dependencies.
 (() => {
   'use strict'
   const motion = matchMedia('(prefers-reduced-motion: reduce)')
@@ -21,8 +20,6 @@
     prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M19 12H8" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M4 12l6.2-5.6v11.2z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
     next: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h11" fill="none" stroke="currentColor" stroke-width="3.4" stroke-linecap="round"/><path d="M20 12l-6.2-5.6v11.2z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
     close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round"/></svg>',
-    pause: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="6" y="5" width="4" height="14" rx="1.5" fill="currentColor"/><rect x="14" y="5" width="4" height="14" rx="1.5" fill="currentColor"/></svg>',
-    play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5.5v13l10-6.5z" fill="currentColor" stroke="currentColor" stroke-width="2" stroke-linejoin="round"/></svg>',
   }
   const button = (cls, icon, label) => h('button', { class: cls, type: 'button', 'aria-label': label, html: ICON[icon] })
 
@@ -45,7 +42,7 @@
       this.slides.forEach((s, i) => s.querySelector('.g-phone')?.addEventListener('click', () => this.tap(i)))
       root.classList.add('is-ready')
       LAYOUTS[this.layout]?.(this)
-      if (this.layout !== 'story') {
+      {
         root.addEventListener('keydown', (e) => {
           if (e.altKey || e.ctrlKey || e.metaKey || e.target.closest('input, textarea')) return
           if (e.key === 'ArrowLeft' || e.key === 'ArrowRight') {
@@ -59,7 +56,7 @@
 
     tap(i) {
       if (this.suppress) return
-      if (i !== this.i && this.layout === 'stage') return this.show(i)
+      if (i !== this.i) return this.show(i)
       Box.open(this, i, document.activeElement)
     }
 
@@ -71,8 +68,7 @@
       this.slides.forEach((s, k) => s.classList.toggle('is-current', k === i))
       this.root.style.setProperty('--accent', this.shots[i].accent)
       this.onShow?.(i)
-      // The story's captions are read in place as the page scrolls, so only the other layouts announce the change.
-      if (!quiet && this.layout !== 'story') this.live.textContent = `Screenshot ${i + 1} of ${this.n}: ${this.shots[i].line}`
+      if (!quiet) this.live.textContent = `Screenshot ${i + 1} of ${this.n}: ${this.shots[i].line}`
     }
 
     // The previous, the numbered bubbles and the next, for the stage.
@@ -194,152 +190,6 @@
         panel.style.setProperty('--mx', (((e.clientX - r.left) / r.width) * 2 - 1).toFixed(3))
         panel.style.setProperty('--my', (((e.clientY - r.top) / r.height) * 2 - 1).toFixed(3))
       })
-    },
-
-    path(g) {
-      const { root, slides, n, shots } = g
-      const track = root.querySelector('.g-track')
-      const DWELL = 6000
-      const trail = h('div', { class: 'g-trail' })
-      const svg = document.createElementNS('http://www.w3.org/2000/svg', 'svg')
-      svg.setAttribute('aria-hidden', 'true')
-      const road = document.createElementNS(svg.namespaceURI, 'path')
-      const steps = document.createElementNS(svg.namespaceURI, 'path')
-      road.setAttribute('class', 'g-road')
-      steps.setAttribute('class', 'g-steps')
-      svg.append(road, steps)
-      trail.append(svg)
-      // The trail winds left to right, like the levels on the game's map.
-      const spots = shots.map((_, k) => [6 + (k * 88) / (n - 1), 50 + Math.sin(k * 1.15 + 0.5) * 26])
-      const nodes = shots.map((s, k) => {
-        const level = s.tag.replace(/\D+/g, '') || String(k + 1)
-        const node = h('button', {
-          class: 'g-node', type: 'button', style: `--accent: ${s.accent}; --nx: ${spots[k][0]}; --ny: ${spots[k][1]}`,
-          'aria-label': `${s.tag}: ${s.line}`,
-          html: `<svg class="g-ring" viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="18" pathLength="100"/></svg>`,
-        })
-        node.append(level)
-        node.addEventListener('click', () => { g.show(k); stopFor('chose') })
-        return node
-      })
-      trail.append(...nodes)
-      if (root.dataset.hand) trail.append(h('span', { class: 'g-hand', 'aria-hidden': 'true' }, h('img', { src: root.dataset.hand, alt: '' })))
-      const hand = trail.querySelector('.g-hand')
-      const draw = () => {
-        const w = trail.clientWidth, ht = trail.clientHeight
-        const p = spots.map(([x, y]) => [(x / 100) * w, (y / 100) * ht])
-        let d = `M${p[0][0]} ${p[0][1]}`
-        for (let k = 1; k < p.length; k++) {
-          const [x0, y0] = p[k - 1], [x1, y1] = p[k], mx = (x0 + x1) / 2
-          d += ` C${mx} ${y0} ${mx} ${y1} ${x1} ${y1}`
-        }
-        road.setAttribute('d', d)
-        steps.setAttribute('d', d)
-      }
-      new ResizeObserver(draw).observe(trail)
-      const count = h('span', { class: 'g-count' })
-      const prev = button('g-btn', 'prev', 'Previous screenshot')
-      const next = button('g-btn', 'next', 'Next screenshot')
-      const toggle = button('g-btn', 'pause', 'Pause the slideshow')
-      prev.addEventListener('click', () => { g.step(-1); stopFor('chose') })
-      next.addEventListener('click', () => { g.step(1); stopFor('chose') })
-      toggle.addEventListener('click', () => {
-        wanted = !wanted
-        sync()
-      })
-      track.after(trail, h('div', { class: 'g-trail-bar' }, [count, h('div', { class: 'g-pair' }, [prev, toggle, next])]))
-
-      // It moves on by itself every few seconds while the reader wants it to (not when they asked for less motion,
-      // paused it or picked a shot themselves), and holds while they point at the big shot, move through it with the
-      // keyboard, or look elsewhere.
-      let wanted = !motion.matches
-      const holds = new Set(['away'])
-      let timer
-      const sync = () => {
-        clearTimeout(timer)
-        const running = wanted && holds.size === 0
-        root.classList.toggle('is-playing', running)
-        toggle.innerHTML = wanted ? ICON.pause : ICON.play
-        toggle.setAttribute('aria-label', wanted ? 'Pause the slideshow' : 'Play the slideshow')
-        if (running) timer = setTimeout(() => g.step(1), DWELL)
-      }
-      const stopFor = (why) => {
-        if (why === 'chose') wanted = false
-        else holds.add(why)
-        sync()
-      }
-      const goFor = (why) => { holds.delete(why); sync() }
-      root.style.setProperty('--g-dwell', `${DWELL}ms`)
-      track.addEventListener('pointerenter', (e) => e.pointerType === 'mouse' && stopFor('hover'))
-      track.addEventListener('pointerleave', () => goFor('hover'))
-      root.addEventListener('focusin', (e) => e.target.matches(':focus-visible') && stopFor('focus'))
-      root.addEventListener('focusout', (e) => !root.contains(e.relatedTarget) && goFor('focus'))
-      document.addEventListener('visibilitychange', () => (document.hidden ? stopFor('hidden') : goFor('hidden')))
-      new IntersectionObserver(([e]) => (e.isIntersecting ? goFor('away') : stopFor('away')), { threshold: 0.35 }).observe(root)
-      g.swipe(track, null, (dx) => {
-        if (Math.abs(dx) > 50) g.step(dx < 0 ? 1 : -1)
-        stopFor('chose')
-      })
-      g.onShow = (i) => {
-        slides.forEach((s, k) => (s.inert = k !== i))
-        nodes.forEach((nd, k) => nd.setAttribute('aria-current', String(k === i)))
-        if (hand) {
-          hand.style.setProperty('--nx', spots[i][0])
-          hand.style.setProperty('--ny', spots[i][1])
-        }
-        count.textContent = `${i + 1} of ${n}`
-        sync()
-      }
-    },
-
-    story(g) {
-      const { root, slides, n } = g
-      const panel = root.querySelector('.g-panel')
-      const track = root.querySelector('.g-track')
-      const box = h('div', { class: 'g-stagebox' })
-      const screen = h('span', { class: 'g-screen' })
-      const phone = h('button', { class: 'g-phone', type: 'button' }, screen)
-      const worlds = slides.map((s) => s.querySelector('.g-world'))
-      worlds.forEach((w) => w && box.append(w))
-      g.pics.forEach((p) => screen.append(p))
-      slides.forEach((s) => s.querySelector('.g-fig > .g-phone')?.remove())
-      phone.addEventListener('click', () => Box.open(g, g.i, phone))
-      box.append(phone)
-      const picks = root.querySelector('.g-backdrop .g-pickups')
-      if (picks) box.append(picks)
-      box.append(h('span', { class: 'g-meter', 'aria-hidden': 'true' }, h('span')))
-      const rail = h('div', { class: 'g-rail', 'aria-hidden': 'true' }, [h('span', { class: 'g-rail-track' }), h('span', { class: 'g-rail-body' })])
-      panel.insertBefore(box, track)
-      panel.insertBefore(rail, track)
-
-      // The chapter in the reading band is the current one: the middle of the screen beside the phone, or the
-      // space under the phone on narrow screens.
-      const narrow = matchMedia('(max-width: 899px)')
-      let io
-      const watch = () => {
-        io?.disconnect()
-        io = new IntersectionObserver((entries) => {
-          for (const e of entries) if (e.isIntersecting) g.show(slides.indexOf(e.target))
-        }, { rootMargin: narrow.matches ? '-66% 0px -22% 0px' : '-46% 0px -46% 0px' })
-        slides.forEach((s) => io.observe(s))
-      }
-      watch()
-      narrow.addEventListener('change', watch)
-      let ticking = false
-      const progress = () => {
-        ticking = false
-        const r = track.getBoundingClientRect()
-        const mid = innerHeight * (narrow.matches ? 0.7 : 0.5)
-        panel.style.setProperty('--p', clamp((mid - r.top) / r.height, 0, 1).toFixed(4))
-      }
-      addEventListener('scroll', () => { if (!ticking) { ticking = true; requestAnimationFrame(progress) } }, { passive: true })
-      addEventListener('resize', progress)
-      progress()
-      g.onShow = (i) => {
-        worlds.forEach((w, k) => w?.classList.toggle('is-on', k === i))
-        g.pics.forEach((p, k) => p.classList.toggle('is-on', k === i))
-        phone.setAttribute('aria-label', `Enlarge screenshot ${i + 1} of ${n}: ${g.shots[i].line}`)
-      }
     },
   }
 

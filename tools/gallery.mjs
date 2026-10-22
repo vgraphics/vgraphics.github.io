@@ -1,53 +1,46 @@
-// The screenshot gallery's markup, for every product page: renderGallery(data, options) returns the <section>.
-// data is the product's gallery.json; its pictures live in data.img, relative to the page, as written by
-// tools/make-gallery-images.py. The section needs /assets/gallery/gallery.css and gallery.js on the page.
+// The screenshot gallery's markup, for every product page: renderGallery(block, options) returns the stage, the
+// layout George picked on 22 Oct. block is the gallery block of the product's page.json; its pictures live in
+// block.img, relative to the page, as written by tools/make-gallery-images.py. tools/build-pages.mjs links
+// /assets/gallery/gallery.css and gallery.js on every page that has one.
+//
+// page.json: { "type": "gallery", "layout": "stage", "img", "widths": [picture widths],
+//   "stage"?: { wide, tall, widths, tallWidths } (art behind the phones), "pedestals"?: { world: rim height in % },
+//   "pickups"?: [{ src, x, y, wide?: [x, y], size, depth, turn }] (things from the game floating around),
+//   "items": [{ name, w, h, world, accent, tag, place, caption, text, alt, link?: { href, label } }] }
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
-// How wide a phone's screen is drawn in each layout, for the browser to pick a picture size.
-const SIZES = {
-  stage: '(max-width: 600px) 55vw, 280px',
-  path: '(max-width: 760px) 50vw, 300px',
-  story: '(max-width: 899px) 46vw, 360px',
-}
+// How wide a phone's screen is drawn, for the browser to pick a picture size.
+const SIZES = '(max-width: 600px) 55vw, 280px'
 
 function srcset(data, name, ext) {
   return data.widths.map((w) => `${data.img}${name}-${w}.${ext} ${w}w`).join(', ')
 }
 
-function shotPicture(data, shot, sizes) {
+function shotPicture(data, shot) {
   const mid = data.widths.find((w) => w >= 540) ?? data.widths.at(-1)
-  return `<picture><source type="image/avif" srcset="${srcset(data, shot.name, 'avif')}" sizes="${sizes}">` +
-    `<img src="${data.img}${shot.name}-${mid}.webp" srcset="${srcset(data, shot.name, 'webp')}" sizes="${sizes}" ` +
+  return `<picture><source type="image/avif" srcset="${srcset(data, shot.name, 'avif')}" sizes="${SIZES}">` +
+    `<img src="${data.img}${shot.name}-${mid}.webp" srcset="${srcset(data, shot.name, 'webp')}" sizes="${SIZES}" ` +
     `width="${shot.w}" height="${shot.h}" alt="${esc(shot.alt)}" loading="lazy" decoding="async"></picture>`
 }
 
-function world(data, shot) {
-  return `<img class="g-world" src="${data.img}world-${shot.world}-640.webp" srcset="${data.img}world-${shot.world}-640.webp 640w, ` +
-    `${data.img}world-${shot.world}-1024.webp 1024w" sizes="(max-width: 760px) 100vw, 560px" alt="" loading="lazy" decoding="async">`
-}
-
-function caption(shot, i, n, layout) {
-  const num = layout === 'story' ? `<span class="g-num">${i + 1} / ${n}</span>` : ''
+function caption(shot) {
   const more = shot.link ? `<a class="g-more" href="${esc(shot.link.href)}">${esc(shot.link.label)}</a>` : ''
-  return `<figcaption class="g-cap">${num}<span class="g-tag"><b>${esc(shot.tag)}</b>${esc(shot.place)}</span>` +
+  return `<figcaption class="g-cap"><span class="g-tag"><b>${esc(shot.tag)}</b>${esc(shot.place)}</span>` +
     `<strong class="g-line" data-text="${esc(shot.caption)}">${esc(shot.caption)}</strong>` +
     `<span class="g-text">${esc(shot.text)}</span>${more}</figcaption>`
 }
 
-function slide(data, shot, i, layout) {
-  const n = data.shots.length
-  const phone = `<button class="g-phone" type="button" aria-label="${esc(`Enlarge screenshot ${i + 1} of ${n}: ${shot.caption}`)}">` +
-    `<span class="g-screen">${shotPicture(data, shot, SIZES[layout])}</span></button>`
-  let art = phone
-  // A pedestal under the phone, its foot on the pedestal's rim (data.pedestals: world -> rim height in %).
-  if (layout === 'stage' && data.pedestals?.[shot.world] != null) {
+function slide(data, shot, i) {
+  const n = data.items.length
+  let art = `<button class="g-phone" type="button" aria-label="${esc(`Enlarge screenshot ${i + 1} of ${n}: ${shot.caption}`)}">` +
+    `<span class="g-screen">${shotPicture(data, shot)}</span></button>`
+  // A pedestal under the phone, its foot on the pedestal's rim.
+  if (data.pedestals?.[shot.world] != null) {
     art += `<img class="g-ped" src="${data.img}island-${shot.world}.webp" style="--sink: ${data.pedestals[shot.world]}%" alt="" loading="lazy" decoding="async">`
   }
-  if (layout === 'path') art = `<div class="g-scene">${world(data, shot)}${phone}</div>`
-  if (layout === 'story') art = world(data, shot) + phone
   return `<li class="g-slide" data-world="${esc(shot.world)}" style="--accent: ${esc(shot.accent)}">` +
-    `<figure class="g-fig">${art}${caption(shot, i, n, layout)}</figure></li>`
+    `<figure class="g-fig">${art}${caption(shot)}</figure></li>`
 }
 
 function pickups(data) {
@@ -68,32 +61,16 @@ function sky(data) {
     `<img src="${data.img}${s.wide}-${s.widths[1]}.webp" srcset="${set(s.wide, s.widths, 'webp')}" sizes="min(100vw, 1720px)" alt="" loading="lazy" decoding="async"></picture>`
 }
 
-// data: a product page's gallery block (page.json: { type: "gallery", layout, img, widths, items, stage?, pickups?,
-// pedestals?, hand? }). With a heading it is a section of its own; without one (the product-page template, whose
-// section already has its h2) it is the gallery alone, labelled by that section.
-export function renderGallery(data, { layout = data.layout ?? 'stage', id = 'gallery', label } = {}) {
-  data = { ...data, shots: data.items ?? data.shots }
-  const shots = data.shots.map((shot, i) => slide(data, shot, i, layout)).join('\n      ')
-  const ratio = +(data.shots[0].w / data.shots[0].h).toFixed(4)
-  const backdrop = layout === 'stage' ? `<div class="g-backdrop" aria-hidden="true">${sky(data)}${pickups(data)}</div>` :
-    layout === 'story' ? `<div class="g-backdrop" aria-hidden="true" hidden>${pickups(data)}</div>` : ''
-  const hand = layout === 'path' && data.hand ? ` data-hand="${data.img}${data.hand}.webp"` : ''
-  const track = `<ol class="g-track" aria-label="Screenshots">
-      ${shots}
-    </ol>`
-  if (!data.heading) {
-    return `<div class="gallery" data-gallery="${layout}"${hand} style="--ratio: ${ratio}"${label ? ` aria-labelledby="${label}"` : ''}>
+// label: the id of the section heading that names the gallery.
+export function renderGallery(data, { label } = {}) {
+  data = { ...data, items: data.items ?? data.shots }
+  const ratio = +(data.items[0].w / data.items[0].h).toFixed(4)
+  return `<div class="gallery" data-gallery="stage" style="--ratio: ${ratio}"${label ? ` aria-labelledby="${label}"` : ''}>
   <div class="g-panel">
-    ${backdrop}
-    ${track}
+    <div class="g-backdrop" aria-hidden="true">${sky(data)}${pickups(data)}</div>
+    <ol class="g-track" aria-label="Screenshots">
+      ${data.items.map((shot, i) => slide(data, shot, i)).join('\n      ')}
+    </ol>
   </div>
 </div>`
-  }
-  return `<section class="gallery" id="${id}" data-gallery="${layout}"${hand} style="--ratio: ${ratio}" aria-labelledby="${id}-title">
-  <div class="g-panel">
-    ${backdrop}
-    <div class="g-head"><h2 class="g-title${layout === 'stage' ? ' g-lettered' : ''}" id="${id}-title" data-text="${esc(data.heading)}">${esc(data.heading)}</h2></div>
-    ${track}
-  </div>
-</section>`
 }

@@ -97,7 +97,6 @@
         { "type": "gallery", "layout": "stage", "img": "img/gallery/", "widths": [360,540,720,1080],
           "stage": {"wide":"stage-wide","tall":"stage-tall","widths":[960,1600,2400],"tallWidths":[640,960,1280]},
           "pedestals": {"jungle":41.2,"candyland":38,"volcano":43.4,"lagoon":41.5,"crystalcaves":34,"clockworktown":34.5,"autumnwoods":27.5},
-          "hand": "pickup-hand",
           "pickups": [
             {"src":"pickup-coin","x":8,"y":12,"wide":[44,13],"size":70,"depth":0.9,"turn":-10},
             {"src":"pickup-heart","x":92,"y":11,"wide":[95,14],"size":62,"depth":0.6,"turn":12},

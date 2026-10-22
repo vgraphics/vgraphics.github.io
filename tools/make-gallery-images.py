@@ -4,8 +4,8 @@
     python tools/make-gallery-images.py speedometer-wallpaper
 
 Exitwise's game frames are cut from the App Store-size store screenshots in the Games repo (read straight from git,
-no checkout needed): the card make_screenshots.py lays the frame on is the whole game screen, 1080x2088. The world
-backdrops and the coin, bomb and hand are the game's Recraft art from the same repo. The stage art, the island
+no checkout needed): the card make_screenshots.py lays the frame on is the whole game screen, 1080x2088. The coin
+and bomb are the game's Recraft icons from the same repo. The stage art, the island
 pedestals and the other pickups were made in Recraft for the gallery; --recraft is the folder they were saved to.
 Needs Pillow with AVIF (12 or later).
 """
@@ -33,7 +33,6 @@ def find_games():
 
 GAMES = None
 SHOT_WIDTHS = (360, 540, 720, 1080)
-WORLD_WIDTHS = (640, 1024)
 STAGE_WIDE = (960, 1600, 2400)
 STAGE_TALL = (640, 960, 1280)
 
@@ -41,9 +40,8 @@ EXITWISE = {
     # make_screenshots.STORES["app-store-6.7"]["card"] on the 1290x2796 store screenshot.
     "card": (105, 600, 1080, 2088),
     "shots": ["1-board", "2-map", "3-mirrors", "4-portals", "5-shutters", "6-chain", "7-paint", "8-switches"],
-    "worlds": ["jungle", "candyland", "volcano", "lagoon", "crystalcaves", "clockworktown", "autumnwoods"],
     # Game icons reused as pickups: (file in docs/store/recraft/icons, name on the site, width written).
-    "icons": [("coin", "pickup-coin", 160), ("bomb", "pickup-bomb", 168), ("hand", "pickup-hand", 140)],
+    "icons": [("coin", "pickup-coin", 160), ("bomb", "pickup-bomb", 168)],
     "recraft_pickups": ["heart", "key", "gem", "star"],
     "islands": ["jungle", "candy:candyland", "volcano", "lagoon", "crystal:crystalcaves", "clockwork:clockworktown",
                 "autumn:autumnwoods"],
@@ -102,11 +100,6 @@ def exitwise(ref, recraft, out):
         for width in SHOT_WIDTHS:
             save(scaled(frame, width), out, f"{name}-{width}")
         print("shot", name)
-    for world in EXITWISE["worlds"]:
-        art = Image.open(io.BytesIO(blob(ref, f"docs/store/recraft/worlds/{world}-backdrop.png"))).convert("RGB")
-        for width in WORLD_WIDTHS:
-            save(scaled(art, width), out, f"world-{world}-{width}", avif=False, webp_quality=76)
-        print("world", world)
     for icon, name, width in EXITWISE["icons"]:
         art = trimmed(Image.open(io.BytesIO(blob(ref, f"docs/store/recraft/icons/{icon}.png"))))
         save(scaled(art, width), out, name, avif=False, webp_quality=88)
@@ -142,26 +135,19 @@ def exitwise(ref, recraft, out):
 
 SPEEDOMETER = {
     "shots": ["shot-kmh", "shot-power", "shot-cpu", "shot-wifi", "shot-home"],
-    "worlds": ["carbon", "cockpit", "glass", "rally"],
     "dials": ["dial-speed", "dial-power", "dial-cpu"],
 }
 
 
 def speedometer(ref, out):
-    """The app's own frames are the site's 540x1200 pictures (no larger ones exist yet); its Recraft backgrounds
-    stand behind them, and the big dial's three faces float around."""
+    """The app's own frames are the site's 540x1200 pictures (no larger ones exist yet), and the big
+    dial's three faces float around them."""
     img = os.path.join(SITE, "speedometer-wallpaper", "img")
     for name in SPEEDOMETER["shots"]:
         frame = Image.open(os.path.join(img, f"{name}.webp")).convert("RGB")
         for width in (360, 540):
             save(scaled(frame, width), out, f"{name}-{width}")
         print("shot", name)
-    for world in SPEEDOMETER["worlds"]:
-        art = Image.open(io.BytesIO(blob(ref, f"SpeedometerWallpaper/docs/designs/recraft/backgrounds/{world}.png")))
-        art = art.convert("RGB")
-        for width in WORLD_WIDTHS:
-            save(scaled(art, min(width, art.width)), out, f"world-{world}-{width}", avif=False, webp_quality=76)
-        print("world", world)
     for dial in SPEEDOMETER["dials"]:
         save(scaled(trimmed(Image.open(os.path.join(img, f"{dial}.webp"))), 240), out, f"pickup-{dial}", avif=False,
              webp_quality=86)
