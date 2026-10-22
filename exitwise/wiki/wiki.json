@@ -207,7 +207,7 @@
       "summary": "Earned every level; spent on hints, continues and powerups.",
       "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30."],
       "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.", "Coin packs are also for sale in the app's shop."],
-      "figure": { "src": "/exitwise/img/7-win.webp", "alt": "The Level complete card: time 00:10, 2 hearts lost, 843 points and +10 coins", "width": 720, "height": 1280, "caption": "Every win pays coins." },
+      "figure": { "src": "/exitwise/img/7-win.webp", "alt": "The Level complete card: time 00:08, 2 hearts lost, 859 points and +10 coins", "width": 720, "height": 1280, "caption": "Every win pays coins." },
       "related": ["hints", "hearts", "hard-levels", "daily-challenge"]
     },
     {
