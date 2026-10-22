@@ -10,7 +10,8 @@
 //               src-<width>.avif and .webp
 //   background  { wide, tall } or null: the player's backdrop, each { src, widths } like the cover; without it the
 //               player lies over its own cover, blurred
-//   youtube, spotify   the album on each, or null (no icon)
+//   youtube, spotify   the product's collection on each (its YouTube playlist, its Spotify playlist), or null (no
+//               button). George, 22 Oct 2026: "Add social icon button to project landing page."
 //   tracks      [{ title, src, duration: "m:ss" }], src an .m4a in <product>/audio/
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
@@ -56,7 +57,7 @@ export function soundtrack(b, { slug, theme }) {
     return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t">${esc(t.title)}</span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
   })
   const links = [['youtube', 'YouTube'], ['spotify', 'Spotify']].filter(([k]) => b[k])
-    .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}" title="${name}">${ICONS[k]}</a>`)
+    .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}">${ICONS[k]}<span>${name}</span></a>`)
   return `<div class="ost" data-album="${esc(b.album)}" data-artwork="${esc(largest(c, 'webp'))}">
           <div class="ost-player">
             ${backdrop(b.background, c)}
@@ -86,7 +87,7 @@ export function soundtrack(b, { slug, theme }) {
               <ol class="ost-list" aria-label="Tracks">
                 ${rows.join('\n                ')}
               </ol>${links.length ? `
-              <p class="ost-links"><span>Also on</span>${links.join('')}</p>` : ''}
+              <p class="ost-links"><span>Listen on</span>${links.join('')}</p>` : ''}
             </div>
           </div>
           <audio preload="none"></audio>
