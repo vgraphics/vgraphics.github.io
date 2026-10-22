@@ -331,7 +331,8 @@
 }
 
 /* The mini-bar: fixed to the bottom of the screen while the player is out of view (soundtrack.js moves it to the end
-   of the page and turns .on on and off). It slides in from below; the page gets room for it at its foot. */
+   of the page and turns .on on and off). It slides in from below and lies over the footer's picture; the page never
+   grows for it (George, 22 Oct: "Player creates an empty space below footer"). */
 .ost-mini {
   position: fixed;
   z-index: 50;
@@ -389,10 +390,13 @@
   scale: var(--p, 0) 1;
   transition: scale 250ms linear;
 }
-html.ost-room body { padding-bottom: 96px; }
+/* While the bar is up, the footer's words move up by its height (--ost-room, from soundtrack.js) inside the footer's
+   picture, so the bar never covers the last line. */
+.foot .wrap { transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
+html.ost-room .foot .wrap { translate: 0 calc(-1 * var(--ost-room, 0px)); }
 
 @media (prefers-reduced-motion: reduce) {
   .ost-disc, .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: none; }
-  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .ost-mini-p { transition: none; }
+  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .ost-mini-p, .foot .wrap { transition: none; }
   [data-state="loading"] .ost-play::after { animation-duration: 2.4s; }
 }
