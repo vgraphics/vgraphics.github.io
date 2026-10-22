@@ -18,4 +18,12 @@
     spots.forEach((s) => s.addEventListener("click", () => open(s.getAttribute("aria-controls"), true)));
     open(tour.dataset.open, false);
   }
+
+  // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled).
+  const top = document.querySelector(".top");
+  if (top) {
+    const update = () => top.classList.toggle("scrolled", scrollY > 8);
+    addEventListener("scroll", update, { passive: true });
+    update();
+  }
 })();
