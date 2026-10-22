@@ -110,6 +110,27 @@
       ]
     },
     {
+      "id": "soundtrack",
+      "title": "Listen to the soundtrack",
+      "intro": "The music from the game: flute, clarinet, harp and pizzicato strings for the worlds, and a tenser theme for the hard levels. Press play and keep reading; a small player stays with you down the page.",
+      "blocks": [
+        {
+          "type": "soundtrack",
+          "skin": "stage",
+          "album": "Exitwise — Original Soundtrack",
+          "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Exitwise soundtrack cover: the tower of worlds under a starry sky, with the glowing door at its top" },
+          "background": null,
+          "youtube": "https://www.youtube.com/playlist?list=PLBZDGjNepH9I",
+          "spotify": null,
+          "tracks": [
+            { "title": "Stepping Stones", "src": "audio/01-stepping-stones.m4a", "duration": "1:48" },
+            { "title": "Meadow Morning", "src": "audio/02-meadow-morning.m4a", "duration": "1:49" },
+            { "title": "No Easy Exit", "src": "audio/03-no-easy-exit.m4a", "duration": "1:57" }
+          ]
+        }
+      ]
+    },
+    {
       "id": "how",
       "title": "How to play",
       "blocks": [
