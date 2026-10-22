@@ -15,49 +15,63 @@
   <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card.jpg">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"VGraphics","item":"https://vgraphics.gr/"},{"@type":"ListItem","position":2,"name":"Apps","item":"https://vgraphics.gr/apps/"},{"@type":"ListItem","position":3,"name":"Speedometer Live Wallpaper","item":"https://vgraphics.gr/speedometer-wallpaper/"},{"@type":"ListItem","position":4,"name":"Wiki","item":"https://vgraphics.gr/speedometer-wallpaper/wiki/"},{"@type":"ListItem","position":5,"name":"LOW light","item":"https://vgraphics.gr/speedometer-wallpaper/wiki/low-light/"}]}</script>
-  <link rel="stylesheet" href="/speedometer-wallpaper/wiki/wiki.css">
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/speedometer-wallpaper/wiki/img/art/low-light-tall-540.avif 540w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/speedometer-wallpaper/wiki/img/art/low-light-640.avif 640w, /speedometer-wallpaper/wiki/img/art/low-light-960.avif 960w, /speedometer-wallpaper/wiki/img/art/low-light-1344.avif 1344w" imagesizes="100vw" fetchpriority="high">
+  <link rel="stylesheet" href="/speedometer-wallpaper/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/assets/wiki.css">
 </head>
-<body>
+<body class="wiki">
 <a class="skip" href="#main">Skip to content</a>
-<header class="bar">
-  <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"></a>
-  <a class="product" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
-  <nav class="subnav" aria-label="Speedometer Live Wallpaper"><a href="/speedometer-wallpaper/">Overview</a><a href="/speedometer-wallpaper/wiki/" aria-current="page">Wiki</a><a href="/speedometer-wallpaper/privacy.html">Privacy</a></nav>
-</header>
+<header class="top">
+    <a class="product-name" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
+    <nav class="subnav" aria-label="Speedometer Live Wallpaper">
+      <a href="/speedometer-wallpaper/">Overview</a>
+      <a href="/speedometer-wallpaper/wiki/" aria-current="page">Wiki</a>
+      <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
+    </nav>
+  </header>
 <main id="main">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/speedometer-wallpaper/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/speedometer-wallpaper/wiki/#lights">Warning lights</a></nav>
-  <article class="entry">
-    <header class="entry-head">
-      <span class="entry-pic"><img src="/speedometer-wallpaper/wiki/img/battery3.webp" alt=""></span>
-      <div>
-        <p class="kicker">Warning lights</p>
-        <h1>LOW light</h1>
-        <p class="lede">On the battery gauge: the battery is low.</p>
-        
+  <section class="w-hero">
+    <picture class="w-hero-art"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/low-light-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/low-light-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/low-light-640.avif 640w, /speedometer-wallpaper/wiki/img/art/low-light-960.avif 960w, /speedometer-wallpaper/wiki/img/art/low-light-1344.avif 1344w" sizes="100vw"><source type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/low-light-640.webp 640w, /speedometer-wallpaper/wiki/img/art/low-light-960.webp 960w, /speedometer-wallpaper/wiki/img/art/low-light-1344.webp 1344w" sizes="100vw"><img src="/speedometer-wallpaper/wiki/img/art/low-light-640.webp" width="1344" height="768" alt="" fetchpriority="high"></picture>
+    <div class="w-hero-foot wrap">
+      <nav class="w-crumbs" aria-label="Breadcrumb"><a href="/speedometer-wallpaper/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/speedometer-wallpaper/wiki/#lights">Warning lights</a></nav>
+      <h1>LOW light</h1>
+      <p class="w-arrive"><span>Warning light</span></p>
+    </div>
+  </section>
+  <article class="w-body wrap">
+    <p class="w-lede">On the battery gauge: the battery is low.</p>
+    
+    <section class="w-block" aria-labelledby="h-what"><h2 class="w-orn" id="h-what">What it shows</h2>
+      <div class="w-what">
+        <div class="w-what-lead"><span class="w-medal"><img src="/speedometer-wallpaper/wiki/img/battery3.webp" alt="" loading="lazy"></span><p>The LOW light on the battery gauge comes on at the low battery level.</p></div>
       </div>
-    </header>
-    <section class="block"><h2>What it does</h2><p>The LOW light on the battery gauge comes on at the low battery level.</p></section>
-    <section class="block"><h2>Works with</h2><div class="cards small"><a class="card" href="/speedometer-wallpaper/wiki/low-battery-light/" data-text="low battery light on the big gauge: the battery is at or below your low level.">
-      <span class="card-pic"><img src="/speedometer-wallpaper/wiki/img/led1.webp" alt="" loading="lazy"></span>
-      <span class="card-body"><b>Low battery light</b><span>On the big gauge: the battery is at or below your low level.</span></span>
-    </a><a class="card" href="/speedometer-wallpaper/wiki/battery/" data-text="battery bottom right: how full your battery is.">
-      <span class="card-pic"><img src="/speedometer-wallpaper/wiki/img/batteryss.webp" alt="" loading="lazy"></span>
-      <span class="card-body"><b>Battery</b><span>Bottom right: how full your battery is.</span></span>
-    </a></div></section>
+    </section>
+    
+    
+    
+    
+    <section class="w-block" aria-labelledby="h-rel"><h2 class="w-orn" id="h-rel">Works with</h2><div class="w-grid three"><a class="w-card" href="/speedometer-wallpaper/wiki/low-battery-light/" data-sec="lights" data-text="low battery light on the big gauge: the battery is at or below your low level.">
+        <span class="w-card-art"><picture class="w-card-pic"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/low-battery-light-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/low-battery-light-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/low-battery-light-640.avif 640w, /speedometer-wallpaper/wiki/img/art/low-battery-light-960.avif 960w, /speedometer-wallpaper/wiki/img/art/low-battery-light-1344.avif 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><source type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/low-battery-light-640.webp 640w, /speedometer-wallpaper/wiki/img/art/low-battery-light-960.webp 960w, /speedometer-wallpaper/wiki/img/art/low-battery-light-1344.webp 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><img src="/speedometer-wallpaper/wiki/img/art/low-battery-light-640.webp" width="1344" height="768" alt="" loading="lazy"></picture></span>
+        <span class="w-card-body"><b>Low battery light</b><span>On the big gauge: the battery is at or below your low level.</span></span>
+      </a><a class="w-card" href="/speedometer-wallpaper/wiki/battery/" data-sec="gauges" data-text="battery bottom right: how full your battery is.">
+        <span class="w-card-art"><picture class="w-card-pic"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/battery-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/battery-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/speedometer-wallpaper/wiki/img/art/battery-640.avif 640w, /speedometer-wallpaper/wiki/img/art/battery-960.avif 960w, /speedometer-wallpaper/wiki/img/art/battery-1344.avif 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><source type="image/webp" srcset="/speedometer-wallpaper/wiki/img/art/battery-640.webp 640w, /speedometer-wallpaper/wiki/img/art/battery-960.webp 960w, /speedometer-wallpaper/wiki/img/art/battery-1344.webp 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><img src="/speedometer-wallpaper/wiki/img/art/battery-640.webp" width="1344" height="768" alt="" loading="lazy"></picture></span>
+        <span class="w-card-body"><b>Battery</b><span>Bottom right: how full your battery is.</span></span>
+      </a></div></section>
+    <nav class="w-pager" aria-label="More entries"><a class="w-btn ghost" href="/speedometer-wallpaper/wiki/charging-light/" rel="prev"><span aria-hidden="true">◀</span> Charging bolt</a><a class="w-btn" href="/speedometer-wallpaper/wiki/wifi-on-light/" rel="next">Wi-Fi ON light <span aria-hidden="true">▶</span></a></nav>
   </article>
-  <nav class="pager" aria-label="More entries">
-    <a class="prev" href="/speedometer-wallpaper/wiki/charging-light/"><span>Previous</span>Charging bolt</a>
-    <a class="next" href="/speedometer-wallpaper/wiki/wifi-on-light/"><span>Next</span>Wi-Fi ON light</a>
-  </nav>
 </main>
 <footer class="foot">
-  <a href="/">More from VGraphics</a>
-  <a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a>
-  <a href="/apps/">More apps</a>
-  <a href="/services/">Work with us</a>
-  <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a>
-  <a href="mailto:gvergidis90@gmail.com">Contact</a>
-  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
-</footer>
+    <div class="wrap">
+      <a href="/">More from VGraphics</a>
+      <a href="/apps/">More apps</a>
+      <a href="/services/">Work with us</a>
+      <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a>
+      <a href="mailto:gvergidis90@gmail.com">Contact</a>
+      <span class="social"><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a></span>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </div>
+  </footer>
 </body>
 </html>
