@@ -419,18 +419,57 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 .panel h2 { font-size: var(--h2-size); }
 .panel p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; }
 
-/* Footer: the links in a row, the studio's channels, then the legal line. Styled like the hero (George, 22 Oct 2026):
-   a picture generated from the key art fills the footer, fading in from the page, and the links stand straight on it
-   in the pack's footer colours (--foot-ink and --foot-muted, optional), over a soft fade of --foot-veil (optional)
-   that keeps them readable without a box. Without a picture, the links sit under the pack's rule. */
-.foot .wrap { display: flex; flex-wrap: wrap; align-items: center; gap: 4px 24px; padding-block: 24px 48px; border-top: var(--foot-rule); color: var(--foot-muted, var(--muted)); font-weight: 700; }
-.foot a { display: inline-flex; align-items: center; min-height: 44px; color: var(--foot-ink, var(--ink)); }
-.foot .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: 0.9rem; }
-.foot .legal a { display: inline; min-height: 0; color: inherit; }
-.social { display: inline-flex; gap: 4px; margin-left: auto; }
-.social a { justify-content: center; width: 44px; border-radius: 50%; transition: transform 150ms ease-out; }
-.social a:hover { transform: translateY(-2px); }
-.social svg { width: 24px; height: 24px; }
+/* Footer, centred and compact (George picked layout B, 22 Oct 2026): the product's logo, one row of links with quiet
+   dots between them, round buttons for its stores and the studio's channels, then the legal line. Styled like the
+   hero: a picture generated from the key art fills the footer, fading in from the page, and the words stand straight
+   on it in the pack's footer colours (--foot-ink and --foot-muted, optional) over a soft fade of --foot-veil
+   (optional). Without a picture, the footer sits under the pack's rule. */
+.foot .wrap {
+  display: grid;
+  justify-items: center;
+  gap: 16px;
+  padding-block: 30px 40px;
+  border-top: var(--foot-rule);
+  color: var(--foot-muted, var(--muted));
+  text-align: center;
+}
+.foot a { color: var(--foot-ink, var(--ink)); text-decoration: none; }
+.foot-brand { display: inline-flex; align-items: center; gap: 12px; font: var(--display-weight) 1.7rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.foot-brand img { width: 48px; height: 48px; border-radius: 13px; box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.5); }
+.foot-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
+.foot-links a {
+  display: inline-flex;
+  align-items: center;
+  min-height: 44px;
+  padding: 0 12px;
+  font: var(--label-weight) 1rem/1.2 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: var(--label-tracking);
+  text-underline-offset: 5px;
+}
+.foot-links a + a::before { content: "·"; margin: 0 12px 0 -12px; color: color-mix(in srgb, var(--foot-ink, var(--ink)) 35%, transparent); text-decoration: none; display: inline-block; }
+.foot-links a:hover { text-decoration: underline; }
+/* On phones the row wraps, and a dot would start the next line: spacing alone separates the links there. */
+@media (max-width: 560px) {
+  .foot-links { gap: 0 20px; }
+  .foot-links a { padding: 0; }
+  .foot-links a + a::before { content: none; }
+  .foot-brand { flex-direction: column; gap: 10px; text-align: center; }
+}
+.foot-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
+.foot-icons a {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px solid color-mix(in srgb, var(--foot-ink, var(--ink)) 25%, transparent);
+  transition: transform 150ms ease-out, background-color 150ms ease-out;
+}
+.foot-icons a:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--foot-ink, var(--ink)) 10%, transparent); }
+.foot-icons svg { width: 22px; height: 22px; }
+.foot .legal { max-width: 60em; margin: 4px 0 0; font: 500 0.85rem/1.55 var(--font-body); }
+.foot .legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .foot.has-art {
   position: relative;
   isolation: isolate;
@@ -446,13 +485,13 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   -webkit-mask-image: linear-gradient(transparent calc(var(--cta-half, 150px) * 0.4), #000 calc(var(--cta-half, 150px) + 120px));
   mask-image: linear-gradient(transparent calc(var(--cta-half, 150px) * 0.4), #000 calc(var(--cta-half, 150px) + 120px));
 }
-.foot.has-art .wrap { position: relative; border-top: 0; padding-top: 28px; }
+.foot.has-art .wrap { position: relative; border-top: 0; }
 .foot.has-art .wrap::before {
   content: "";
   position: absolute;
-  inset: -64px calc(50% - 50vw) 0;
+  inset: -110px calc(50% - 50vw) 0;
   z-index: -1;
-  background: linear-gradient(transparent, var(--foot-veil, color-mix(in srgb, var(--page) 80%, transparent)) 64px);
+  background: linear-gradient(transparent, var(--foot-veil, color-mix(in srgb, var(--page) 80%, transparent)) 110px);
   pointer-events: none;
 }
 

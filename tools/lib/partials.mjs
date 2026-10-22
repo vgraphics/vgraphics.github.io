@@ -21,12 +21,15 @@ export function header({ page }, { current } = {}) {
 }
 
 // The footer is styled like the hero (George, 22 Oct 2026): a picture generated from the key art (page.json footerArt:
-// { src, widths, width, height, position }, with src-<width>.avif and .webp files) fades in from the page, and the
-// links and legal line lie over its foot.
+// { src, widths, width, height, position }, with src-<width>.avif and .webp files) fades in from the page. Over its foot,
+// centred (George picked layout B): the product's logo, one row of links, round buttons for its stores and the
+// studio's channels, then the legal line.
 export function footer({ page }) {
   const s = page.site
-  const links = [['/', 'More from VGraphics'], [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'],
-    ...s.footer.map((l) => [l.href, l.label]), ['mailto:gvergidis90@gmail.com', 'Contact']]
+  // The product's own pages (its menu, without Overview, under the footer's names for them), then the studio's.
+  const own = new Map(s.nav.slice(1).map((n) => [n.href, n.label]))
+  for (const l of s.footer) own.set(l.href, l.label)
+  const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:gvergidis90@gmail.com', 'Contact']]
   const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
   const a = page.footerArt
   // The picture fills the footer, about clamp(240px, 30vw, 600px) of art above the links plus the links themselves
@@ -37,10 +40,28 @@ export function footer({ page }) {
     ${ornament(a, 'foot-art', sizes, `--foot-at: ${a.position}`)}` : ''
   return `<footer class="foot${a ? ' has-art' : ''}">${art}
     <div class="wrap">
-      ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('\n      ')}${social(page)}
+      <a class="foot-brand" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="48" height="48"><span>${esc(s.name)}</span></a>
+      <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
+        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('\n        ')}
+      </nav>${buttons(page)}
       <p class="legal">${LEGAL}${play}</p>
     </div>
   </footer>`
+}
+
+// The product's stores, as round icon buttons beside the channels: a store appears once page.json's stores names it
+// (googlePlay now, appStore once there is an Apple developer account).
+const STORES = {
+  googlePlay: ['on Google Play', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg>'],
+  appStore: ['on the App Store', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg>'],
+}
+
+function buttons(page) {
+  const stores = Object.entries(STORES).filter(([key]) => page.stores?.[key])
+    .map(([key, [where, icon]]) => `<a href="${esc(page.stores[key])}" aria-label="${esc(page.site.name)} ${where}" title="${esc(page.site.name)} ${where}">${icon}</a>`)
+  const all = [...stores, ...social(page)]
+  return all.length ? `
+      <div class="foot-icons">${all.join('')}</div>` : ''
 }
 
 // The studio's channels, as mono icons in the footer: the site-wide ones in tools/lib/site.json, which a product's
@@ -55,11 +76,9 @@ const LINK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none"
 
 function social(page) {
   const own = page.site.social ?? {}
-  const channels = Object.keys({ ...SITE.social, ...own }).map((network) => ({ network, ...SITE.social[network], ...own[network] }))
+  return Object.keys({ ...SITE.social, ...own }).map((network) => ({ network, ...SITE.social[network], ...own[network] }))
     .filter((c) => c.href)
-  if (!channels.length) return ''
-  return `
-      <span class="social">${channels.map((c) => `<a href="${esc(c.href)}" aria-label="${esc(c.label ?? c.network)}" title="${esc(c.label ?? c.network)}">${SOCIAL_ICONS[c.network] ?? LINK_ICON}</a>`).join('')}</span>`
+    .map((c) => `<a href="${esc(c.href)}" aria-label="${esc(c.label ?? c.network)}" title="${esc(c.label ?? c.network)}">${SOCIAL_ICONS[c.network] ?? LINK_ICON}</a>`)
 }
 
 // A decorative piece of the theme's art: { src (path without the size and extension), width, height, widths? }.
