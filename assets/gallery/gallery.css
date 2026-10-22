@@ -232,14 +232,8 @@
 /* Stage: phones standing on the product's world, the middle one in front                               */
 /* ============================================================ */
 
-/* The stage runs edge to edge out of the page's column (up to 1720 px wide). */
-.gallery[data-gallery="stage"] {
-  margin-inline: calc(50% - 50vw);
-  padding-inline: max(10px, env(safe-area-inset-left, 0px)) max(10px, env(safe-area-inset-right, 0px));
-}
+/* The stage keeps to the page's content column, like the other sections (George, 22 Oct). */
 .gallery[data-gallery="stage"] .g-panel {
-  max-width: 1700px;
-  margin-inline: auto;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -314,6 +308,7 @@
   list-style: none;
   perspective: 1500px;
   touch-action: pan-y;
+  isolation: isolate;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -368,7 +363,7 @@
    and never cover it (George, 22 Oct). */
 .g-now {
   display: grid;
-  margin: 4px 0 20px;
+  margin: 4px 0 36px;
   padding-inline: 20px;
   text-align: center;
   font-size: 1rem;
@@ -396,18 +391,18 @@
 @media (min-width: 1180px) {
   .gallery[data-gallery="stage"] .g-panel {
     display: grid;
-    grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.5fr);
+    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
     grid-template-rows: auto auto 1fr;
     grid-template-areas: "head track" "now track" "ctrl track";
     column-gap: 24px;
     align-items: start;
-    padding: clamp(36px, 4vw, 56px) 0 clamp(36px, 4vw, 56px) clamp(40px, 5vw, 88px);
+    padding: clamp(36px, 4vw, 56px) 0 clamp(36px, 4vw, 56px) clamp(32px, 3.5vw, 48px);
   }
   .gallery[data-gallery="stage"] .g-pickup { left: calc(var(--wx, var(--x)) * 1%); top: calc(var(--wy, var(--y)) * 1%); }
   .gallery[data-gallery="stage"] .g-head { grid-area: head; text-align: left; padding: 0; }
   .gallery[data-gallery="stage"] .g-track {
     grid-area: track;
-    --pw: clamp(220px, (100svh - 190px) / 2.18, 300px);
+    --pw: clamp(210px, (100svh - 190px) / 2.18, 250px);
     --reach: 2;
     align-self: center;
     margin: 0;
@@ -418,10 +413,13 @@
       linear-gradient(90deg, color-mix(in srgb, var(--g-veil) 62%, transparent), color-mix(in srgb, var(--g-veil) 25%, transparent) 38%, transparent 52%),
       linear-gradient(transparent 60%, color-mix(in srgb, var(--g-veil) 45%, transparent));
   }
-  .g-now { grid-area: now; text-align: left; padding: 0; margin: 28px 0 24px; font-size: 1.05rem; }
+  .g-now { grid-area: now; text-align: left; padding: 0; margin: 28px 0 40px; font-size: 1.05rem; }
   .g-now-item { justify-items: start; }
   .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.9rem, 2.6vw, 2.5rem); }
-  .g-controls { grid-area: ctrl; justify-content: flex-start; padding: 0; }
+  /* The buttons fit the words' column and stay above the phones beside it. */
+  .g-controls { grid-area: ctrl; justify-content: flex-start; gap: 10px; padding: 0; position: relative; z-index: 200; }
+  .g-dots { gap: 5px; }
+  .g-dot { width: 26px; height: 26px; font-size: 0.8rem; }
 }
 
 @media (max-width: 560px) {
