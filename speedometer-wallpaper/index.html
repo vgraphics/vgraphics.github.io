@@ -15,12 +15,8 @@
   <meta property="og:title" content="Speedometer Live Wallpaper">
   <meta property="og:description" content="Your phone as a car dashboard: live gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.">
   <meta property="og:url" content="https://vgraphics.gr/speedometer-wallpaper/">
-  <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen">
+  <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card.jpg">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -31,7 +27,7 @@
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
         "description": "A live wallpaper that turns your Android home screen into a car dashboard: a big dial for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. The Classic design is free; the chrome Future design is a one-time purchase of €0.99.",
-        "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
+        "image": "https://vgraphics.gr/speedometer-wallpaper/img/card.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
           "https://vgraphics.gr/speedometer-wallpaper/img/future-kmh.webp",
@@ -64,8 +60,6 @@
   }
   </script>
   <link rel="preload" href="fonts/saira-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" imagesizes="100vw" fetchpriority="high">
   <style>
     /* Self-hosted, all OFL: Saira Condensed and DSEG7 here (see fonts/), Commissioner shared with the VGraphics pages. */
     @font-face { font-family: "Saira Condensed"; src: url("fonts/saira-condensed-600.woff2") format("woff2"); font-weight: 600; font-display: swap; }
@@ -109,10 +103,11 @@
     .eyebrow { font: 600 0.95rem/1 var(--display); letter-spacing: 0.22em; text-transform: uppercase; color: var(--red); }
     .lede { color: var(--muted); font-size: clamp(1.05rem, 1.5vw, 1.2rem); max-width: 34em; }
 
-    /* Bar: the product's own logo and navigation, lying over the key art's sky */
-    .bar { position: absolute; inset: 0 0 auto; z-index: 40; }
-    .bar a { text-shadow: 0 1px 8px rgba(0, 0, 0, 0.7); }
+    /* Bar: back to VGraphics, and the product's own navigation */
+    .bar { position: sticky; top: 0; z-index: 40; background: rgba(11, 11, 12, 0.82); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); border-bottom: 1px solid rgba(255, 255, 255, 0.06); }
     .bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 64px; }
+    .back { display: inline-flex; align-items: center; gap: 10px; min-height: 44px; text-decoration: none; font: 800 1rem/1 var(--display); letter-spacing: 0.14em; }
+    .back img { height: 30px; width: auto; }
     .product { display: inline-flex; align-items: center; gap: 10px; color: var(--chrome); text-decoration: none; font: 800 1.2rem/1 var(--display); text-transform: uppercase; letter-spacing: .06em; margin-right: auto; }
     .product img { width: 34px; height: 34px; border-radius: 9px; }
     .subnav { display: flex; gap: 4px; }
@@ -123,34 +118,12 @@
     /* Hero */
     .hero { position: relative; isolation: isolate; overflow: hidden; }
     .hero::before { content: ""; position: absolute; inset: 0; z-index: -2; background: url("img/asphalt.webp") center / cover; opacity: 0.9; }
-    /* It starts in the page's colour, where the key art's foot fades out, so there's no seam between them. */
-    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(240, 74, 44, 0.16), transparent 70%), linear-gradient(180deg, var(--asphalt), rgba(11, 11, 12, 0.2) 140px, var(--asphalt) 96%); }
+    .hero::after { content: ""; position: absolute; inset: 0; z-index: -1; background: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(240, 74, 44, 0.16), transparent 70%), linear-gradient(180deg, rgba(11, 11, 12, 0.2), var(--asphalt) 96%); }
     .hero .wrap { display: grid; grid-template-columns: 1.1fr 0.9fr; gap: 40px; align-items: center; padding-block: 40px 90px; }
-    /* Key art: the night drive, the app's welcome picture, edge to edge from the very top, under the bar. Landscape
-       screens get the wide picture, portrait ones the tall one, each cropped to fill. Its foot fades into the page,
-       where the lead line and the store badge stand. Its painted logo stands in for the page's logo, and the h1 stays
-       for screen readers and search. */
-    .key-art { position: relative; padding-block: 0; height: min(56.25vw, 100vh); height: min(56.25vw, 100svh); }
-    .key-art picture, .key-art picture img { display: block; width: 100%; height: 100%; }
-    .key-art picture img { object-fit: cover; object-position: 50% 22%; background: linear-gradient(160deg, #1B3550, #0D1622 55%, var(--asphalt)); -webkit-mask-image: linear-gradient(#000 78%, transparent); mask-image: linear-gradient(#000 78%, transparent); }
-    /* A soft shade under the bar, so it reads over the rain. */
-    .key-art::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 1; height: 140px; background: linear-gradient(rgba(11, 11, 12, 0.7), transparent); pointer-events: none; }
-    .hero-foot { position: absolute; inset: auto 0 0; z-index: 1; padding-bottom: clamp(16px, 4vh, 44px); }
-    .hero-foot .wrap > * { animation: rise 700ms 150ms var(--ease) both; }
-    .hero-foot .tagline { max-width: 11em; margin: 0 0 12px; font-size: clamp(1.9rem, 3.6vw, 3.4rem); text-shadow: 0 2px 18px rgba(0, 0, 0, 0.85); }
-    .hero-foot .badges { margin-top: 0; }
-    .hero-foot .gp img { height: 64px; }
-    .key-art + .hero { padding-top: 0; }
-    @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
-    /* Uncropped, so the band never meets the phone: on portrait tablets the band waits just below the fold. */
-    @media (max-aspect-ratio: 4/5) {
-      .key-art { height: 177.78vw; }
-      .key-art picture img { -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
-      .hero-foot .wrap { text-align: center; }
-      .hero-foot .tagline { margin-inline: auto; font-size: clamp(1.5rem, 6.4vw, 2.6rem); }
-      .hero-foot .badges { justify-content: center; }
-    }
-    .tagline { font: italic 800 clamp(2.4rem, 5.4vw, 4.4rem)/0.92 var(--display); text-transform: uppercase; margin: 0 0 18px; }
+    .brand { position: relative; }
+    .brand .smoke { position: absolute; left: -20%; top: 46%; width: 150%; max-width: none; transform: translateY(-50%); opacity: 0.9; pointer-events: none; }
+    .brand .logo { position: relative; width: min(600px, 100%); }
+    .tagline { font: italic 800 clamp(2.4rem, 5.4vw, 4.4rem)/0.92 var(--display); text-transform: uppercase; margin: 26px 0 18px; }
     .tagline em { color: var(--red); font-style: inherit; }
     .badges { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 28px; align-items: center; }
     /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
@@ -284,6 +257,7 @@
 
   <header class="bar">
     <div class="wrap">
+      <a class="back" href="/" aria-label="VGraphics home"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473"></a>
       <a class="product" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
       <nav class="subnav" aria-label="Speedometer Live Wallpaper">
         <a href="/speedometer-wallpaper/" aria-current="page">Overview</a>
@@ -294,33 +268,20 @@
   </header>
 
   <main id="main">
-    <section class="key-art" aria-labelledby="title">
-      <picture>
-        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="img/key-art-tall-480.avif 480w, img/key-art-tall-720.avif 720w, img/key-art-tall-1080.avif 1080w, img/key-art-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
-        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="img/key-art-tall-480.webp 480w, img/key-art-tall-720.webp 720w, img/key-art-tall-1080.webp 1080w, img/key-art-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
-        <source media="(max-aspect-ratio: 4/5)" srcset="img/key-art-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
-        <source type="image/avif" srcset="img/key-art-960.avif 960w, img/key-art-1440.avif 1440w, img/key-art-1920.avif 1920w, img/key-art-2560.avif 2560w, img/key-art-3200.avif 3200w" sizes="100vw">
-        <source type="image/webp" srcset="img/key-art-960.webp 960w, img/key-art-1440.webp 1440w, img/key-art-1920.webp 1920w, img/key-art-2560.webp 2560w, img/key-art-3200.webp 3200w" sizes="100vw">
-        <img src="img/key-art-1920.jpg" srcset="img/key-art-960.jpg 960w, img/key-art-1920.jpg 1920w" sizes="100vw" width="1920" height="1080" fetchpriority="high" alt="Speedometer Live Wallpaper on a phone in a car's dashboard mount at night: the Amber Night gauges at 87 km/h, with rain on the windscreen, city lights and tail-light trails behind">
-      </picture>
-      <div class="hero-foot">
-        <div class="wrap">
-          <h1 id="title" class="sr-only">Speedometer Live Wallpaper</h1>
-          <p class="tagline">Your phone, as a <em>car dashboard.</em></p>
-          <div class="badges">
-            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <section class="hero">
+    <section class="hero" aria-labelledby="title">
       <div class="wrap">
         <div>
+          <div class="brand">
+            <img class="smoke" src="img/smoke.webp" alt="" width="1600" height="271">
+            <img class="logo" src="img/logo.webp" alt="" width="820" height="219">
+            <h1 id="title" class="sr-only">Speedometer Live Wallpaper</h1>
+          </div>
+          <p class="tagline">Your phone, as a <em>car dashboard.</em></p>
           <p class="lede">A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.</p>
           <div class="badges">
             <a class="btn" href="#tour">Tour the dashboard
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a>
+            <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
           </div>
         </div>
 
