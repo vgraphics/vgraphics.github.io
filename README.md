@@ -11,7 +11,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `apps/index.html` | Apps: Speedometer Live Wallpaper |
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub and the TV party games next |
-| `hub/index.html` | VHub "coming soon". The VHub web app replaces it at the same address. |
+| `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
 | `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
 | `404.html` | Not-found page |
@@ -38,15 +38,24 @@ and fonts on the static pages, and no phone number or street address. The site i
 pages or in the SVGs they show (the Greek product names belong in the Greek store listings). **Run
 `node tools/check-site.mjs` before every push.**
 
+The app pages are the exceptions to "no third-party scripts":
+
+- `exitwise/play/`, the game. `check-site.mjs` skips it.
+- `hub/`, VHub. Its markup loads nothing from another site. Its scripts add Google's sign-in script only after the
+  player clicks to sign in with Google, and they read and write the player's account in VHub's Firebase project.
+  `check-site.mjs` checks the hub's pages like every other page.
+
 The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
 sky, VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it
 into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
-item may differ).
+item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
+Change it there too and release `vhub-hub`: until then the check reports every hub page.
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
-check that the live page has updated.
+check that the live page has updated. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
+exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
 
 ## Search engines
 
