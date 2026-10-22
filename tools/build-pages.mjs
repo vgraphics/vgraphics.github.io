@@ -269,7 +269,8 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
 </body>
 </html>
 `
-  return { html, css: themeCss(slug, t), problems: checkTheme(t) }
+  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF.
+  return { html: html.replace(/\r\n/g, '\n'), css: themeCss(slug, t), problems: checkTheme(t) }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {
