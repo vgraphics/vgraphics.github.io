@@ -1,26 +1,18 @@
 // The Global ranking card's podium (#podium, on the home and services pages): the live top 3 of Exitwise's Score
-// board, as on /exitwise/ranking/. Needs /exitwise/ranking/boards.js first. Anything that fails leaves the plain
-// 2-1-3 steps.
+// board on VHub, as on /exitwise/ranking/. Needs /exitwise/ranking/boards.js first. Anything that fails leaves the
+// plain 2-1-3 steps.
 (async () => {
   const podium = document.getElementById("podium");
   if (!podium || !window.ExitwiseBoards) return;
-  const { loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
+  const { loadBoard, drawAvatar, anonymous } = window.ExitwiseBoards;
   try {
     const top = (await loadBoard("score", 3)).players.slice(0, 3);
     if (!top.length) return;
-    await loadPhotos(top).catch(() => false);
     top.forEach((p, i) => {
       const place = podium.querySelector(".p" + (i + 1));
       const av = document.createElement("span");
       av.className = "av";
-      if (p.picture) {
-        const img = document.createElement("img");
-        img.alt = "";
-        img.src = "data:image/jpeg;base64," + p.picture;
-        av.appendChild(img);
-      } else {
-        av.innerHTML = avatarSvg(p.avatar);
-      }
+      drawAvatar(av, p, 256);
       const name = document.createElement("span");
       name.className = "name";
       name.textContent = p.name || anonymous(p.uid);
