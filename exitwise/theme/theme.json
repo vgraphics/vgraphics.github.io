@@ -2,7 +2,7 @@
   "scheme": "light",
   "fonts": [
     { "family": "Lilita One", "src": "/exitwise/fonts/lilita-one-latin.woff2", "weight": "400", "preload": true },
-    { "family": "Nunito", "src": "/exitwise/fonts/nunito-latin.woff2", "weight": "500 800" }
+    { "family": "Comic Neue", "src": "/exitwise/fonts/comic-neue-700-latin.woff2", "weight": "700" }
   ],
   "tokens": {
     "page": "#F4EFE6",
@@ -36,17 +36,17 @@
     "card-lift": "inset 0 -5px 0 rgba(59, 51, 85, 0.05), 0 20px 34px -16px rgba(59, 51, 85, 0.5)",
     "card-stripe": "0px",
     "font-display": "\"Lilita One\", \"Arial Rounded MT Bold\", system-ui, sans-serif",
-    "font-body": "\"Nunito\", system-ui, sans-serif",
+    "font-body": "\"Comic Neue\", \"Comic Sans MS\", system-ui, sans-serif",
     "display-weight": "400",
     "display-case": "none",
     "display-tracking": "normal",
     "display-leading": "1.1",
-    "label-font": "\"Nunito\", system-ui, sans-serif",
-    "label-weight": "800",
+    "label-font": "\"Comic Neue\", \"Comic Sans MS\", system-ui, sans-serif",
+    "label-weight": "700",
     "label-case": "none",
     "label-tracking": "normal",
     "body-size": "18px",
-    "body-weight": "500",
+    "body-weight": "700",
     "h2-size": "clamp(2rem, 5vw, 2.8rem)",
     "section-pad": "56px",
     "intro-bg": "none",
