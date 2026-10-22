@@ -14,7 +14,10 @@
 //   hero                         { lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files
-//   intro                        { lede, actions?, demo? }: demo/<demo>.html goes in the page, .css and .js beside it
+//   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
+//                                holds demo/<demo>.html (its .css and .js beside it), the caption under it; stage is
+//                                { tall, wide, position? }, each picture { src, widths, width, height }, as
+//                                src-<width>.avif and .webp
 //   sections                     [{ id, eyebrow?, title, intro?, blocks, more? }] or [{ id, band }]
 //                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack
 //   cta                          { title, text, badges }: the last call to action
@@ -89,15 +92,36 @@ function hero(p, picture) {
     </section>`
 }
 
+// The intro is a section like the others (its heading, the lede, the main action), with the product's live demo on a
+// stage of its own, as the gallery and the soundtrack have theirs: a picture from the key art's world behind it, the
+// tall one on narrow screens; lazy, so it waits for the scroll.
+function stage(st) {
+  if (!st) return ''
+  const sources = (img, media, sizes) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${set(img, ext, img.widths)}" sizes="${sizes}">`).join('')
+  return `<picture class="demo-backdrop" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', '100vw')}${sources(st.wide, '', '(max-width: 1160px) 100vw, 1120px')}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
+}
+
 function intro(p, demo) {
   const i = p.intro
-  return `<section class="intro">
+  const head = [
+    i.eyebrow && `<span class="eyebrow">${i.eyebrow}</span>`,
+    `<h2 id="${i.id}-title">${i.title}${anchor(i, i.title)}</h2>`,
+    `<p class="sec-intro">${i.lede}</p>`,
+    i.actions && actions(p, i.actions),
+  ].filter(Boolean).join('\n          ')
+  const at = i.stage?.position ? ` style="${esc(`--stage-at: ${i.stage.position}`)}"` : ''
+  return `<section class="sec intro" id="${i.id}" aria-labelledby="${i.id}-title">
       <div class="wrap">
-        <div class="intro-copy">
-          <p class="lede">${i.lede}</p>
-          ${i.actions ? actions(p, i.actions) : ''}
-        </div>
-        ${demo ? `<div class="demo">\n${demo.trimEnd()}\n        </div>` : ''}
+        <div class="sec-head">
+          ${head}
+        </div>${demo ? `
+        <div class="demo-stage"${at}>
+          ${stage(i.stage)}
+          <div class="demo">
+${demo.trimEnd()}
+          </div>
+          ${i.caption ? `<p class="demo-cap">${i.caption}</p>` : ''}
+        </div>` : ''}
       </div>
     </section>`
 }

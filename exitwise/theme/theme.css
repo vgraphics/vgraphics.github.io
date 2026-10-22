@@ -46,7 +46,8 @@
   --body-weight: 500;
   --h2-size: clamp(2rem, 5vw, 2.8rem);
   --section-pad: 56px;
-  --intro-bg: none;
+  --intro-bg: linear-gradient(#9FCF66, #83BD57);
+  --stage-shade: linear-gradient(rgba(26, 18, 48, 0.28), transparent 20%, transparent 80%, rgba(26, 18, 48, 0.2));
   --shot-frame: 0 solid transparent;
   --step-font: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
   --step-ink: #FFFFFF;

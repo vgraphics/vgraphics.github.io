@@ -1,17 +1,23 @@
-/* Speedometer's live demo beside the intro (demo/gauge.html, run by gauge.js): the wallpaper on a phone, with a real
-   gauge floating beside it, and the LCD digits the page's privacy band uses too. */
-.demo .stage { position: relative; justify-self: center; width: min(330px, 80vw); margin-inline: auto; isolation: isolate; }
-.demo .phone { box-shadow: 0 50px 90px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px #000, 0 0 80px -10px rgba(240, 74, 44, 0.3); }
-.gauge { position: absolute; z-index: -1; left: -38%; bottom: 16%; width: 56%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #2a2a2e, #0d0d0f 70%); box-shadow: 0 0 0 6px #1a1a1d, 0 0 0 8px #3c3c42, 0 30px 50px -18px #000; }
+/* Speedometer's live demo on the intro's stage (demo/gauge.html, run by gauge.js): the wallpaper on a phone standing
+   on the night drive's dashboard, with a real gauge floating beside it (in front of the phone on small screens, so
+   the live needle always shows), and the LCD digits the page's privacy band uses too. */
+.demo .stage { position: relative; justify-self: center; width: min(280px, 62vw); margin-inline: auto; isolation: isolate; }
+.demo .phone { box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px #000, 0 0 80px -10px rgba(240, 74, 44, 0.3); }
+/* Its shadow on the dashboard */
+.demo .stage::after { content: ""; position: absolute; z-index: -2; left: 4%; right: 4%; bottom: -16px; height: 32px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.8), transparent); }
+.gauge { position: absolute; z-index: -1; left: -42%; bottom: 14%; width: 58%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #2a2a2e, #0d0d0f 70%); box-shadow: 0 0 0 6px #1a1a1d, 0 0 0 8px #3c3c42, 0 30px 50px -18px #000; }
 .gauge svg { display: block; width: 100%; height: 100%; }
 .gauge .tick { stroke: #E8E8EA; stroke-linecap: round; }
 .gauge .tick.red { stroke: var(--accent); }
 .gauge .num { fill: #E8E8EA; font: 700 13px var(--font-display); text-anchor: middle; dominant-baseline: middle; }
 .gauge .needle { transform-origin: 100px 100px; transition: transform 140ms linear; }
-.gauge .read { position: absolute; left: 50%; top: 66%; transform: translateX(-50%); font-size: clamp(0.9rem, 2.2vw, 1.25rem); }
+.gauge .read { position: absolute; left: 50%; top: 66%; transform: translateX(-50%); font-size: clamp(0.85rem, 2.2vw, 1.25rem); }
 .gauge .unit { position: absolute; left: 50%; top: 80%; transform: translateX(-50%); color: var(--muted); font: 600 0.8rem/1 var(--font-display); letter-spacing: 0.12em; }
 .lcd { position: relative; display: inline-block; padding: 0.3em 0.45em; border-radius: 0.25em; background: #060607; color: var(--lcd); font: 400 1em/1 "DSEG7", ui-monospace, monospace; white-space: nowrap; box-shadow: inset 0 0 0 1px #2a2a2e, inset 0 2px 10px rgba(0, 0, 0, 0.8); text-shadow: 0 0 8px rgba(234, 241, 243, 0.35); }
 .lcd::before { content: attr(data-ghost); position: absolute; inset: 0.3em 0.45em; color: rgba(234, 241, 243, 0.08); text-shadow: none; }
 .band .lcd { font-size: 1.8rem; }
-@media (max-width: 900px) { .gauge { left: -36%; bottom: 10%; width: 58%; } }
-@media (max-width: 520px) { .gauge { display: none; } }
+@media (max-width: 560px) {
+  .gauge { z-index: 1; left: -18%; bottom: 5%; width: 50%; box-shadow: 0 0 0 4px #1a1a1d, 0 0 0 6px #3c3c42, 0 24px 40px -14px #000; }
+  .gauge .read { top: 58%; }
+  .gauge .unit { top: 84%; font-size: 0.65rem; }
+}

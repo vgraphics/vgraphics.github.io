@@ -131,13 +131,17 @@
       </div>
     </section>
 
-    <section class="intro">
+    <section class="sec intro" id="live" aria-labelledby="live-title">
       <div class="wrap">
-        <div class="intro-copy">
-          <p class="lede">A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.</p>
+        <div class="sec-head">
+          <span class="eyebrow">Live wallpaper</span>
+          <h2 id="live-title">A speedometer that really moves<a class="anchor" href="#live" aria-label="Copy the link to A speedometer that really moves"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+          <p class="sec-intro">A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.</p>
           <div class="badges"><a class="btn" href="#tour">Tour the dashboard<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a></div>
         </div>
-        <div class="demo">
+        <div class="demo-stage" style="--stage-at: 50% 50%">
+          <picture class="demo-backdrop" aria-hidden="true"><source media="(max-width: 899px)" type="image/avif" srcset="img/demo/stage-tall-640.avif 640w, img/demo/stage-tall-960.avif 960w, img/demo/stage-tall-1280.avif 1280w" sizes="100vw"><source media="(max-width: 899px)" type="image/webp" srcset="img/demo/stage-tall-640.webp 640w, img/demo/stage-tall-960.webp 960w, img/demo/stage-tall-1280.webp 1280w" sizes="100vw"><source type="image/avif" srcset="img/demo/stage-wide-960.avif 960w, img/demo/stage-wide-1600.avif 1600w, img/demo/stage-wide-2400.avif 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><source type="image/webp" srcset="img/demo/stage-wide-960.webp 960w, img/demo/stage-wide-1600.webp 1600w, img/demo/stage-wide-2400.webp 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><img src="img/demo/stage-wide-2400.webp" alt="" width="2400" height="1372" loading="lazy" decoding="async"></picture>
+          <div class="demo">
           <div class="stage">
             <div class="phone"><img src="img/shot-kmh.webp" alt="The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges" width="540" height="1200"></div>
             <div class="gauge" aria-hidden="true">
@@ -146,6 +150,8 @@
               <span class="unit">km/h</span>
             </div>
           </div>
+          </div>
+          <p class="demo-cap">The needle follows the digits, as it does on your home screen.</p>
         </div>
       </div>
     </section>

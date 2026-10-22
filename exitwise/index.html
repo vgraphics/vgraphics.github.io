@@ -154,31 +154,34 @@
       </div>
     </section>
 
-    <section class="intro">
+    <section class="sec intro" id="try" aria-labelledby="try-title">
       <div class="wrap">
-        <div class="intro-copy">
-          <p class="lede">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.</p>
-          
+        <div class="sec-head">
+          <h2 id="try-title">Try the arrow puzzle right here<a class="anchor" href="#try" aria-label="Copy the link to Try the arrow puzzle right here"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+          <p class="sec-intro">Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.</p>
         </div>
-        <div class="demo">
-          <div class="play">
-            <div class="board-card">
+        <div class="demo-stage" style="--stage-at: 50% 50%">
+          <picture class="demo-backdrop" aria-hidden="true"><source media="(max-width: 899px)" type="image/avif" srcset="img/demo/stage-tall-640.avif 640w, img/demo/stage-tall-1024.avif 1024w" sizes="100vw"><source media="(max-width: 899px)" type="image/webp" srcset="img/demo/stage-tall-640.webp 640w, img/demo/stage-tall-1024.webp 1024w" sizes="100vw"><source type="image/avif" srcset="img/demo/stage-wide-960.avif 960w, img/demo/stage-wide-1600.avif 1600w, img/demo/stage-wide-2400.avif 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><source type="image/webp" srcset="img/demo/stage-wide-960.webp 960w, img/demo/stage-wide-1600.webp 1600w, img/demo/stage-wide-2400.webp 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><img src="img/demo/stage-wide-2400.webp" alt="" width="2400" height="1560" loading="lazy" decoding="async"></picture>
+          <div class="demo">
+            <div class="play">
               <div class="hud">
-                <div class="hearts" aria-label="Hearts left"><span class="heart">&#9829;</span><span class="heart">&#9829;</span><span class="heart">&#9829;</span></div>
-                <span class="left" aria-live="polite"></span>
-                <button class="reset" type="button">Restart</button>
+                <button class="reset" type="button" aria-label="Restart"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4.5 12a7.5 7.5 0 1 0 2.4-5.5"/><path d="M4.5 3.5v4h4"/></svg></button>
+                <p class="left" aria-live="polite"></p>
+                <div class="hearts" role="img" aria-label="3 hearts left"><svg class="heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5.5 16.6 1.5 12.8 1.5 7.9 1.5 4.3 4.2 1.5 7.4 1.5c2 0 3.6 1 4.6 2.6 1-1.6 2.6-2.6 4.6-2.6 3.2 0 5.9 2.8 5.9 6.4 0 4.9-4 8.7-10.5 13.1z"/></svg><svg class="heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5.5 16.6 1.5 12.8 1.5 7.9 1.5 4.3 4.2 1.5 7.4 1.5c2 0 3.6 1 4.6 2.6 1-1.6 2.6-2.6 4.6-2.6 3.2 0 5.9 2.8 5.9 6.4 0 4.9-4 8.7-10.5 13.1z"/></svg><svg class="heart" viewBox="0 0 24 22" aria-hidden="true"><path d="M12 21C5.5 16.6 1.5 12.8 1.5 7.9 1.5 4.3 4.2 1.5 7.4 1.5c2 0 3.6 1 4.6 2.6 1-1.6 2.6-2.6 4.6-2.6 3.2 0 5.9 2.8 5.9 6.4 0 4.9-4 8.7-10.5 13.1z"/></svg></div>
               </div>
-              <svg id="board" viewBox="0 0 420 480" role="group" aria-label="Playable Exitwise board"></svg>
-              <div class="overlay" role="dialog" aria-live="polite">
-                <div>
-                  <h3></h3>
-                  <p></p>
-                  <button class="btn" type="button">Play again</button>
+              <div class="board-card">
+                <svg id="board" viewBox="0 0 432 492" role="group" aria-label="Playable Exitwise board"></svg>
+                <div class="overlay" role="dialog" aria-live="polite">
+                  <div>
+                    <h3></h3>
+                    <p></p>
+                    <button class="btn" type="button">Play again</button>
+                  </div>
                 </div>
               </div>
             </div>
-            <p class="try">Try it: tap an arrow whose path to the edge is clear.</p>
           </div>
+          <p class="demo-cap">Tap an arrow whose path to the edge is clear.</p>
         </div>
       </div>
     </section>
