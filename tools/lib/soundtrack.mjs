@@ -66,7 +66,7 @@ export function soundtrack(b, { slug, theme }) {
               </div>`
   const rows = b.tracks.map((t, i) => {
     const wave = peaks[t.src.split('/').pop()]
-    return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t">${esc(t.title)}</span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
+    return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t"><span>${esc(t.title)}</span></span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
   })
   const links = [['youtube', 'YouTube'], ['spotify', 'Spotify']].filter(([k]) => b[k])
     .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}" title="${name}">${ICONS[k]}</a>`)

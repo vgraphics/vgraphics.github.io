@@ -279,6 +279,24 @@
     // Redraw the waveforms when a bar changes width (the mini-bar's first showing included).
     const resized = new ResizeObserver(draw);
     bars.forEach(({ box }) => resized.observe(box));
+    // A track's title too long for its row scrolls to its end and back (soundtrack.css): this far, a quarter of the time
+    // each way and a quarter resting at each end, slowly enough to read. With less motion asked for, it keeps its "...".
+    // Measured again when a row changes width, the fonts arrive or the motion setting changes.
+    const titles = rows.map((row) => row.querySelector(".ost-t"));
+    const fit = () => {
+      for (const t of titles) {
+        const s = getComputedStyle(t);
+        const room = t.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight);
+        const shift = Math.ceil(t.firstElementChild.getBoundingClientRect().width - room);
+        t.classList.toggle("long", shift > 0 && !reduce.matches);
+        t.style.setProperty("--shift", shift + "px");
+        t.style.setProperty("--dur", 4 * Math.max(1.2, shift / 40) + "s");
+      }
+    };
+    const refit = new ResizeObserver(fit);
+    titles.forEach((t) => refit.observe(t));
+    if (document.fonts) document.fonts.ready.then(fit);
+    reduce.addEventListener("change", fit);
     mini.querySelector('[data-ost="close"]').addEventListener("click", () => {
       stop();
       main("play").focus({ preventScroll: true });

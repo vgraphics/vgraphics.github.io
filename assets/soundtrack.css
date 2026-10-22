@@ -329,6 +329,24 @@
 .ost[data-state] [aria-current="true"] .ost-eq { display: flex; }
 .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: ost-eq 0.9s ease-in-out infinite alternate; }
 @keyframes ost-eq { from { scale: 1 0.25; } to { scale: 1 1; } }
+/* A title stays on one line (George, 23 Oct: "Single line and if it does not fit, use ... at end"). One that doesn't
+   fit scrolls slowly to its end and back, resting at each end (soundtrack.js adds .long, unless the visitor asks for
+   less motion, and sets how far, --shift, and for how long, --dur). While it moves, its ends fade out over 8px of
+   padding, outside the words at rest. */
+.ost-t { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ost-t.long {
+  margin-inline: -8px;
+  padding-inline: 8px;
+  text-overflow: clip;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+}
+.ost-t.long > span { display: inline-block; animation: ost-marquee var(--dur, 8s) ease-in-out infinite; }
+@keyframes ost-marquee {
+  0%, 20% { translate: 0; }
+  45%, 70% { translate: calc(-1 * var(--shift, 0px)); }
+  95%, 100% { translate: 0; }
+}
 .ost-d { color: var(--soft); font-variant-numeric: tabular-nums; }
 .ost-track[aria-current="true"] .ost-d { color: color-mix(in srgb, var(--dark) 72%, transparent); }
 
