@@ -5,7 +5,7 @@
     "title": "Exitwise: Arrow Escape Puzzle",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
     "image": "/exitwise/img/card-1200x630.jpg",
-    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, ice and a volcano to purple crystals and a glowing door"
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
   },
   "structuredData": {
     "@context": "https://schema.org",
@@ -77,9 +77,9 @@
     "align": "center",
     "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
     "art": {
-      "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, ice and a volcano to purple crystals, with a glowing door at the top",
+      "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, a volcano and ice to purple crystals, with a glowing door at the top under the title, balloons in a starry sky and a river winding past forests",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
-      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 4096, "height": 1696, "sizes": "max(100vw, min(151vw, 242vh))" },
+      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 4096, "height": 1764, "sizes": "max(100vw, min(146vw, 233vh))" },
       "position": "50% 0",
       "fade": { "wide": "76%", "tall": "62%" },
       "placeholder": "linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E)"
