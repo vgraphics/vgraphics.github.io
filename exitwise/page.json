@@ -1,0 +1,184 @@
+{
+  "title": "Exitwise: Arrow Escape Puzzle Game, Free on Android and Web",
+  "description": "Tap an arrow and it slides off the board, if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds. Play on Android or online.",
+  "social": {
+    "title": "Exitwise: Arrow Escape Puzzle",
+    "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, ice and a volcano to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "VideoGame",
+        "@id": "https://vgraphics.gr/exitwise/#game",
+        "name": "Exitwise: Arrow Escape Puzzle",
+        "alternateName": "Exitwise",
+        "url": "https://vgraphics.gr/exitwise/",
+        "description": "Tap an arrow and it slides off the board, but only if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds, with bombs, mirrors, portals and more.",
+        "image": "https://vgraphics.gr/exitwise/img/card-1200x630.jpg",
+        "screenshot": [
+          "https://vgraphics.gr/exitwise/img/1-board.webp",
+          "https://vgraphics.gr/exitwise/img/2-map.webp",
+          "https://vgraphics.gr/exitwise/img/3-mirrors.webp",
+          "https://vgraphics.gr/exitwise/img/4-portals.webp"
+        ],
+        "genre": ["Puzzle", "Logic puzzle"],
+        "gamePlatform": ["Android", "Web browser"],
+        "operatingSystem": "Android, Web browser",
+        "applicationCategory": "GameApplication",
+        "playMode": ["SinglePlayer", "MultiPlayer"],
+        "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 8 },
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"
+        },
+        "installUrl": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise",
+        "sameAs": ["https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"],
+        "potentialAction": { "@type": "PlayAction", "target": "https://vgraphics.gr/exitwise/play/" },
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" }
+        ]
+      }
+    ]
+  },
+  "site": {
+    "name": "Exitwise",
+    "icon": "/exitwise/img/icon-512.png",
+    "parent": { "name": "Games", "href": "/games/" },
+    "nav": [
+      { "label": "Overview", "href": "/exitwise/" },
+      { "label": "Wiki", "href": "/exitwise/wiki/" },
+      { "label": "Ranking", "href": "/exitwise/ranking/" },
+      { "label": "Privacy", "href": "/exitwise/privacy.html", "wide": true },
+      { "label": "Map rules", "href": "/exitwise/map-rules.html", "wide": true }
+    ],
+    "footer": [
+      { "label": "Global ranking", "href": "/exitwise/ranking/" },
+      { "label": "Privacy policy", "href": "/exitwise/privacy.html" },
+      { "label": "Map rules", "href": "/exitwise/map-rules.html" }
+    ]
+  },
+  "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
+  "hero": {
+    "lead": "Arrow Escape Puzzle",
+    "align": "center",
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
+    "art": {
+      "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, ice and a volcano to purple crystals, with a glowing door at the top",
+      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
+      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 4096, "height": 1696, "sizes": "max(100vw, min(151vw, 242vh))" },
+      "position": "50% 0",
+      "fade": { "wide": "76%", "tall": "62%" },
+      "placeholder": "linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E)"
+    }
+  },
+  "intro": {
+    "lede": "Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.",
+    "demo": "demo/board"
+  },
+  "sections": [
+    {
+      "id": "peek",
+      "title": "A peek inside",
+      "blocks": [
+        {
+          "type": "gallery",
+          "items": [
+            { "src": "img/1-board.webp", "alt": "Tap an arrow to set it free: level 33, a zigzag Jungle board packed with bendy arrows", "width": 720, "height": 1280 },
+            { "src": "img/2-map.webp", "alt": "Explore 17 colorful worlds: the level map in Candy land", "width": 720, "height": 1280 },
+            { "src": "img/3-mirrors.webp", "alt": "Mirrors bend an arrow’s path: three glass mirrors on a Volcano level", "width": 720, "height": 1280 },
+            { "src": "img/4-portals.webp", "alt": "Portals carry arrows across: a pair of green portals among mirrors, rocks and bomb arrows on Lagoon level 108", "width": 720, "height": 1280 },
+            { "src": "img/5-shutters.webp", "alt": "Shutters open as you clear arrows: a steel shutter on a diamond-shaped board in the Crystal caves", "width": 720, "height": 1280 },
+            { "src": "img/6-chain.webp", "alt": "Chain bombs blast whole walls: a wall of five rocks and its chain bomb among the rooftops of Clockwork town", "width": 720, "height": 1280 },
+            { "src": "img/7-paint.webp", "alt": "Paint tiles recolor arrows: paint tiles on a ring-shaped board in the Autumn woods", "width": 720, "height": 1280 },
+            { "src": "img/8-switches.webp", "alt": "Switches open color gates: a yellow key and the locked door it opens on a heart-shaped board in Clockwork town", "width": 720, "height": 1280 }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how",
+      "title": "How to play",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Find an arrow whose path to the edge is clear.",
+            "Tap it, and it snakes off the board.",
+            "Every arrow you clear can free others. Keep going until the board is empty.",
+            "Mind your hearts: tapping a blocked arrow costs one of three."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "twists",
+      "title": "A new twist every few worlds",
+      "intro": "From level 21 a new obstacle arrives every 20 to 30 levels and then stays, mixed in with the ones before it. Each one starts on an easy level built to teach it, with a hand that shows you the move.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "icon",
+          "ordered": true,
+          "items": [
+            { "href": "/exitwise/wiki/bomb-arrow/", "icon": "img/twists/bomb-arrow.svg", "tag": "Level 21", "title": "Rocks &amp; bombs", "text": "Clear the arrow guarding a bomb's path, then blast its rock." },
+            { "href": "/exitwise/wiki/colour-gate/", "icon": "img/twists/colour-gate.svg", "tag": "Level 41", "title": "Colour gates", "text": "Only their own colour gets through, then they open." },
+            { "href": "/exitwise/wiki/mirror/", "icon": "img/twists/mirror.svg", "tag": "Level 61", "title": "Mirrors", "text": "Turn an arrow's path by 90 degrees." },
+            { "href": "/exitwise/wiki/level-2-rock/", "icon": "img/twists/level-2-rock.svg", "tag": "Level 81", "title": "Level-2 rocks", "text": "Two bombs, usually from two sides." },
+            { "href": "/exitwise/wiki/portal/", "icon": "img/twists/portal.svg", "tag": "Level 101", "title": "Portals", "text": "In one, out of its pair, across the board." },
+            { "href": "/exitwise/wiki/ice/", "icon": "img/twists/ice.svg", "tag": "Level 131", "title": "Ice", "text": "Melts as arrows leave. Its number is just enough." },
+            { "href": "/exitwise/wiki/level-3-rock/", "icon": "img/twists/level-3-rock.svg", "tag": "Level 161", "title": "Level-3 rocks", "text": "The toughest stone: three bomb hits." },
+            { "href": "/exitwise/wiki/paint-tile/", "icon": "img/twists/paint-tile.svg", "tag": "Level 191", "title": "Paint tiles", "text": "Fly over one and take its colour." },
+            { "href": "/exitwise/wiki/shutter/", "icon": "img/twists/shutter.svg", "tag": "Level 221", "title": "Shutters", "text": "Hide the arrows under them, even from powerups, until they roll up." },
+            { "href": "/exitwise/wiki/two-colour-gate/", "icon": "img/twists/two-colour-gate.svg", "tag": "Level 251", "title": "Two-colour gates", "text": "Two colours, and the big symbol goes first." },
+            { "href": "/exitwise/wiki/chain-bomb/", "icon": "img/twists/chain-bomb.svg", "tag": "Level 281", "title": "Chain bombs &amp; rock walls", "text": "One blast runs along a whole wall." },
+            { "href": "/exitwise/wiki/colour-switch/", "icon": "img/twists/colour-switch.svg", "tag": "Level 311", "title": "Colour switches", "text": "Press one to open every gate of its colour, except two-colour gates." }
+          ]
+        }
+      ],
+      "more": { "href": "/exitwise/wiki/", "label": "Every obstacle and powerup in the wiki →" }
+    },
+    {
+      "id": "love",
+      "title": "Why you'll love it",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "Easy to learn", "text": "One tap, one rule." },
+            { "title": "600 levels", "text": "Harder all the way, with a hard level every 10th, from small warm-ups to giant 100&times;100 brain-teasers." },
+            { "title": "Always solvable", "text": "No luck, just logic. Every player gets the same levels." },
+            { "title": "Play at your own pace", "text": "Think first, then tap." },
+            { "title": "Hints when you're stuck", "text": "Light up an arrow that's free to go." },
+            { "title": "Plays offline", "text": "On the commute, on a break, anywhere." },
+            { "title": "17 worlds, 49 shapes", "text": "From Meadow to Starlight on one level map, on boards shaped like hexagons, spirals, rockets and castles." },
+            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards." },
+            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code." },
+            { "title": "Custom maps", "text": "Build your own levels, share them, and play everyone else's." },
+            { "title": "Leaderboards", "text": "A board for every level, plus global ranks for score, perfect clears and maps. <a href=\"/exitwise/ranking/\">See the global ranking</a>" },
+            { "title": "Powerups", "text": "Auto-play, grid lines, remove arrow and the magic wand, for the toughest boards." }
+          ]
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Your first board is waiting",
+    "text": "Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.",
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+  },
+  "footerArt": { "src": "/exitwise/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1311, "position": "50% 50%" }
+}

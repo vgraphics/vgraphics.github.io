@@ -36,7 +36,9 @@ function walk(dir) {
 }
 
 const files = walk(root)
-const pages = files.filter((f) => f.endsWith('.html'))
+// A product's demo (<product>/demo/*.html) is a piece tools/build-pages.mjs sets into its landing page, not a page.
+const PARTIAL = /^[^\\/]+[\\/]demo[\\/][^\\/]+\.html$/
+const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
 let links = 0
 

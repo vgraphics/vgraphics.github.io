@@ -2,6 +2,7 @@
 //   <product>/wiki/index.html and <product>/wiki/<slug>/index.html
 // Usage: node tools/build-wiki.mjs [product ...]   (default: every product with a wiki/wiki.json)
 // The JSON is the single source; never edit the generated pages by hand. Its text is trusted HTML from this repo.
+// A product with "studioMark": false shows only its own logo in the header, without the VGraphics one.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -72,8 +73,8 @@ function shell(w, { title, description, path, body, entry }) {
 <body>
 <a class="skip" href="#main">Skip to content</a>
 <header class="bar">
-  <a class="back" href="/" aria-label="VGraphics home"><img src="${esc(p.logo || '/img/vgraphics-logo.png')}" alt="" width="555" height="473"></a>
-  <a class="product" href="${esc(p.home)}"><img src="${esc(p.icon)}" alt="" width="36" height="36"><span>${esc(p.name)}</span></a>
+${p.studioMark === false ? '' : `  <a class="back" href="/" aria-label="VGraphics home"><img src="${esc(p.logo || '/img/vgraphics-logo.png')}" alt="" width="555" height="473"></a>
+`}  <a class="product" href="${esc(p.home)}"><img src="${esc(p.icon)}" alt="" width="36" height="36"><span>${esc(p.name)}</span></a>
   <nav class="subnav" aria-label="${esc(p.name)}">${w.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`).join('')}</nav>
 </header>
 <main id="main">
