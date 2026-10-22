@@ -5,13 +5,11 @@
 // the product's theme. The durations come from page.json and the waveforms from <product>/audio/peaks.json
 // (tools/make-soundtrack.py), so the block is complete before anything loads, and nothing loads until the visitor
 // presses play.
-//   skin        "stage" for the dark look; without it, the light card (George picks one of the two on 22 Oct; the
-//               other then goes)
 //   album       the album's name, shown in the mini-bar and on a phone's lock screen
 //   cover       { src, widths, width, height, alt }: a square cut of the key art (tools/make-soundtrack.py), as
 //               src-<width>.avif and .webp
-//   background  { wide, tall } or null: the stage's backdrop, each { src, widths } like the cover; without it the
-//               stage lies over its own cover, blurred
+//   background  { wide, tall } or null: the player's backdrop, each { src, widths } like the cover; without it the
+//               player lies over its own cover, blurred
 //   youtube, spotify   the album on each, or null (no icon)
 //   tracks      [{ title, src, duration: "m:ss" }], src an .m4a in <product>/audio/
 import { existsSync, readFileSync } from 'node:fs'
@@ -35,7 +33,7 @@ const seconds = (d) => d.split(':').reduce((t, n) => t * 60 + Number(n), 0)
 const set = (img, ext) => img.widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const largest = (img, ext) => `${img.src}-${img.widths.at(-1)}.${ext}`
 
-// The stage's backdrop: the tall picture on narrow screens, the wide one elsewhere; lazy, so it waits for the scroll.
+// The player's backdrop: the tall picture on narrow screens, the wide one elsewhere; lazy, so it waits for the scroll.
 function backdrop(bg, cover) {
   if (!bg) return `<span class="ost-backdrop blur" aria-hidden="true"><img src="${esc(`${cover.src}-${cover.widths[0]}.webp`)}" alt="" loading="lazy" decoding="async"></span>`
   const sources = (img, media) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${esc(set(img, ext))}" sizes="(max-width: 619px) 100vw, 1120px">`).join('')
@@ -56,7 +54,7 @@ export function soundtrack(b, { slug, theme }) {
   })
   const links = [['youtube', 'YouTube'], ['spotify', 'Spotify']].filter(([k]) => b[k])
     .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}" title="${name}">${ICONS[k]}</a>`)
-  return `<div class="ost"${b.skin ? ` data-skin="${esc(b.skin)}"` : ''} data-album="${esc(b.album)}" data-artwork="${esc(largest(c, 'webp'))}">
+  return `<div class="ost" data-album="${esc(b.album)}" data-artwork="${esc(largest(c, 'webp'))}">
           <div class="ost-player">
             ${backdrop(b.background, c)}
             <div class="ost-art">
