@@ -21,7 +21,6 @@ img { max-width: 100%; display: block; }
 [id] { scroll-margin-top: 20px; }
 
 .bar { max-width: 1120px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-.back img { height: 34px; width: auto; }
 .product { display: inline-flex; align-items: center; gap: 10px; font: 400 1.35rem/1 var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
 .product img { width: 36px; height: 36px; border-radius: 10px; }
 .subnav { display: flex; gap: 6px; }

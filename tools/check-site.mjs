@@ -4,7 +4,9 @@ import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
+import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
+import { products } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -36,7 +38,9 @@ function walk(dir) {
 }
 
 const files = walk(root)
-const pages = files.filter((f) => f.endsWith('.html'))
+// A product's demo (<product>/demo/*.html) is a piece tools/build-pages.mjs sets into its landing page, not a page.
+const PARTIAL = /^[^\\/]+[\\/]demo[\\/][^\\/]+\.html$/
+const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
 let links = 0
 
@@ -121,6 +125,22 @@ for (const file of pages) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
     if (href !== urlPath(file)) report(file, 'menu', `marks ${href} as the current page`)
   }
+}
+
+// Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
+// graphic"): each is exactly what tools/build-pages.mjs writes from its page.json and theme pack, and every product (a
+// folder with its own privacy policy) has one.
+for (const slug of products()) {
+  const { html, css, problems: pack } = render(slug)
+  for (const m of pack) report(join(slug, 'theme', 'theme.json'), 'template', m)
+  for (const [file, want] of [[join(slug, 'index.html'), html], [join(slug, 'theme', 'theme.css'), css]]) {
+    const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
+    if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
+  }
+}
+for (const dir of readdirSync(root)) {
+  if (SKIP.includes(dir) || !existsSync(join(root, dir, 'privacy.html'))) continue
+  if (!existsSync(join(root, dir, 'page.json'))) report(join(dir, 'index.html'), 'template', 'made by hand: every product page comes from tools/build-pages.mjs (give it a page.json and a theme pack)')
 }
 
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.

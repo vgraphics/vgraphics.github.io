@@ -1,0 +1,501 @@
+/* The screenshot gallery every product page shares (markup: tools/gallery.mjs, behaviour: gallery.js).
+   It reads the product's theme pack (tools/lib/theme.mjs TOKENS) and, where a pack wants its own look here, the
+   optional --gallery-* tokens it adds (title edge, sky, phone and so on); each --g-* below falls back to a default.
+   The layout is the stage (George's pick of 22 Oct, over a level-map trail and a scroll story): phones standing on
+   the product's world, the middle one in front, its caption beside or under it. Without JavaScript it falls back to
+   a row of phones you can scroll sideways. */
+
+.gallery {
+  --g-ink: var(--ink, #23202b);
+  --g-muted: var(--muted, #63606e);
+  --g-paper: var(--page, #f6f4f0);
+  --g-card: var(--surface, #fff);
+  --g-line: var(--line, #ddd8d0);
+  --g-display: var(--font-display, system-ui, sans-serif);
+  --g-body: var(--font-body, system-ui, sans-serif);
+  --g-display-weight: var(--gallery-display-weight, var(--display-weight, 400));
+  --g-case: var(--display-case, none);
+  /* Lettering on the stage, like the product's own title: fill, its lower half, edge and drop. */
+  --g-title: var(--gallery-title, #fff);
+  --g-title-low: var(--gallery-title-low, #e6e1f0);
+  --g-title-edge: var(--gallery-title-edge, #2a1830);
+  /* The stage: its sky behind the art, the text on it, and the shade that keeps the text readable. */
+  --g-sky: var(--gallery-sky, linear-gradient(#15183a, #2c2459 48%, #5b3d70 76%, #b88a97));
+  --g-on-sky: #fff;
+  --g-on-sky-muted: var(--gallery-on-sky-muted, rgb(255 255 255 / 0.82));
+  --g-veil: var(--gallery-veil, #0c0920);
+  --g-ped-glow: var(--gallery-ped-glow, rgb(0 0 0 / 0.45));
+  --g-btn: var(--gallery-btn, #fff);
+  --g-btn-ink: var(--gallery-btn-ink, var(--g-ink));
+  --g-tag: var(--gallery-tag, rgb(255 255 255 / 0.9));
+  --g-tag-ink: var(--gallery-tag-ink, #23202b);
+  --g-link-shade: var(--gallery-link-shade, 0.82);
+  /* The phone: its face, the light catching its edge, and how deep the phone's foot sinks into its pedestal. */
+  --g-device: var(--gallery-device, #2e1834);
+  --g-device-hi: var(--gallery-device-hi, #6a4675);
+  --g-ped-sink: 24%;
+  --g-radius: var(--radius, 32px);
+  --g-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
+  --g-pop: cubic-bezier(0.34, 1.4, 0.5, 1);
+  --accent: var(--g-ink);
+  position: relative;
+  color: var(--g-ink);
+  font-family: var(--g-body);
+}
+.gallery *,
+.gallery *::before,
+.gallery *::after { box-sizing: border-box; }
+.g-sr {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+}
+
+/* ---------- The phone ---------- */
+
+.g-phone {
+  position: relative;
+  display: block;
+  width: 100%;
+  margin: 0;
+  padding: 4.6%;
+  border: 0;
+  background: none;
+  color: inherit;
+  font: inherit;
+  cursor: zoom-in;
+  container-type: inline-size;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+.g-phone::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 13cqw;
+  background: linear-gradient(152deg, var(--g-device-hi), var(--g-device) 30%, var(--g-device) 74%, var(--g-device-hi));
+  box-shadow:
+    inset 0 0 0 0.7cqw rgb(255 255 255 / 0.1),
+    inset 0 1.2cqw 0.8cqw -0.6cqw rgb(255 255 255 / 0.22),
+    0 7cqw 12cqw -6cqw rgb(16 8 24 / 0.6);
+}
+/* The speaker slit in the top bezel. */
+.g-phone::after {
+  content: "";
+  position: absolute;
+  top: 1.7cqw;
+  left: 50%;
+  width: 17cqw;
+  height: 1.1cqw;
+  border-radius: 1cqw;
+  translate: -50% 0;
+  background: rgb(255 255 255 / 0.16);
+}
+.g-screen {
+  position: relative;
+  display: block;
+  aspect-ratio: var(--ratio);
+  overflow: hidden;
+  border-radius: 9cqw;
+  background: #000;
+}
+.g-screen picture { display: block; width: 100%; height: 100%; }
+.g-screen img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+.g-phone:focus-visible { outline: none; }
+.g-phone:focus-visible::before { box-shadow: 0 0 0 4px var(--g-paper), 0 0 0 7px var(--accent); }
+
+/* ---------- Shared bits ---------- */
+
+.g-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 3px 12px 3px 4px;
+  border-radius: 999px;
+  background: var(--g-tag, rgb(255 255 255 / 0.9));
+  color: var(--g-tag-ink, #23202b);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+.g-tag b {
+  padding: 2px 10px;
+  border-radius: 999px;
+  background: var(--accent);
+  color: #fff;
+  font-weight: 800;
+}
+.g-line {
+  display: block;
+  font: var(--g-display-weight, 400) clamp(1.7rem, 3.4vw, 2.5rem) / 1.08 var(--g-display);
+  text-transform: var(--g-case, none);
+  text-wrap: balance;
+}
+.g-title { text-transform: var(--g-case, none); }
+.g-text { display: block; max-width: 34em; }
+.g-more {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  min-height: 44px;
+  font-weight: 800;
+  color: inherit;
+}
+.g-more::after { content: "\2192"; transition: translate 160ms var(--g-ease); }
+.g-more:hover::after { translate: 3px 0; }
+
+/* Round game buttons (previous, next, pause): white, with a ledge under them like the game's own. */
+.g-btn {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 48px;
+  height: 48px;
+  padding: 0;
+  border: 0;
+  border-radius: 16px;
+  background: var(--g-btn, #fff);
+  color: var(--g-btn-ink, var(--g-ink));
+  box-shadow: 0 4px 0 rgb(0 0 0 / 0.16), 0 10px 18px -10px rgb(0 0 0 / 0.5);
+  cursor: pointer;
+  transition: translate 120ms var(--g-ease), box-shadow 120ms var(--g-ease);
+}
+.g-btn:hover { translate: 0 -1px; }
+.g-btn:active { translate: 0 3px; box-shadow: 0 1px 0 rgb(0 0 0 / 0.16); }
+.g-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.g-btn svg { width: 24px; height: 24px; }
+
+/* Level bubbles: the numbered dots, drawn like the levels on the game's map. */
+.g-dots { display: flex; align-items: center; gap: 8px; padding: 0; margin: 0; list-style: none; }
+.g-dot {
+  display: grid;
+  place-items: center;
+  width: 30px;
+  height: 30px;
+  padding: 0;
+  border: 2px solid rgb(255 255 255 / 0.85);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 55%, transparent);
+  color: #fff;
+  font: var(--g-display-weight, 400) 0.9rem/1 var(--g-display);
+  cursor: pointer;
+  transition: transform 220ms var(--g-pop), background-color 200ms;
+}
+.g-dot[aria-current="true"] {
+  transform: scale(1.3);
+  background: var(--accent);
+  box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 35%, transparent), 0 6px 12px -4px rgb(0 0 0 / 0.5);
+}
+.g-dot:focus-visible { outline: 3px solid #fff; outline-offset: 3px; }
+
+/* Things from the game floating around the stage. */
+.g-pickups { position: absolute; inset: 0; pointer-events: none; }
+.g-pickup {
+  position: absolute;
+  left: calc(var(--x) * 1%);
+  top: calc(var(--y) * 1%);
+  width: calc(var(--s) * 1px);
+  translate: calc(-50% + var(--mx, 0) * var(--d) * 26px) calc(-50% + var(--my, 0) * var(--d) * 18px);
+  rotate: calc(var(--t) * 1deg);
+  transition: translate 600ms var(--g-ease);
+  filter: drop-shadow(0 10px 10px rgb(0 0 0 / 0.28));
+}
+.g-pickup img { display: block; width: 100%; height: auto; animation: g-float calc(5s + var(--d) * 3s) ease-in-out infinite alternate; }
+@keyframes g-float { to { transform: translateY(-12px) rotate(6deg); } }
+@media (max-width: 600px) { .g-pickup { width: calc(var(--s) * 0.6px); } }
+
+/* ---------- Without JavaScript: a row of phones ---------- */
+
+.gallery:not(.is-ready) .g-track {
+  display: flex;
+  gap: 24px;
+  overflow-x: auto;
+  scroll-snap-type: x mandatory;
+  padding: 8px 4px 20px;
+  list-style: none;
+}
+.gallery:not(.is-ready) .g-slide { flex: none; width: 240px; scroll-snap-align: start; }
+.gallery:not(.is-ready) .g-cap { margin-top: 12px; }
+
+/* ============================================================ */
+/* Stage: phones standing on the product's world, the middle one in front                               */
+/* ============================================================ */
+
+/* The stage runs edge to edge out of the page's column (up to 1720 px wide). */
+.gallery[data-gallery="stage"] {
+  margin-inline: calc(50% - 50vw);
+  padding-inline: max(10px, env(safe-area-inset-left, 0px)) max(10px, env(safe-area-inset-right, 0px));
+}
+.gallery[data-gallery="stage"] .g-panel {
+  max-width: 1700px;
+  margin-inline: auto;
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  border-radius: clamp(24px, 3vw, 44px);
+  background: var(--g-sky);
+  color: var(--g-on-sky);
+  padding-block: clamp(26px, 4vw, 52px) clamp(22px, 3vw, 36px);
+}
+.gallery[data-gallery="stage"] .g-backdrop { position: absolute; inset: 0; z-index: -1; }
+.g-sky-art,
+.g-sky-art img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  object-position: 50% 100%;
+}
+.gallery[data-gallery="stage"] .g-backdrop::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse 46% 48% at 50% 54%, rgb(255 236 210 / 0.22), transparent 70%),
+    linear-gradient(color-mix(in srgb, var(--g-veil) 28%, transparent), transparent 24%, transparent 46%,
+      color-mix(in srgb, var(--g-veil) 74%, transparent) 68%, color-mix(in srgb, var(--g-veil) 84%, transparent));
+}
+.g-head { text-align: center; padding-inline: 20px; }
+/* Lettering: white letters, a lavender lower half laid over them, and a thick edge with its drop painted behind,
+   all three from the same text (data-text). */
+.g-lettered {
+  position: relative;
+  z-index: 0;
+  color: var(--g-title);
+}
+.g-lettered::before,
+.g-lettered::after {
+  content: attr(data-text);
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+}
+.g-lettered::before {
+  z-index: -1;
+  color: var(--g-title-edge);
+  -webkit-text-stroke: 0.2em var(--g-title-edge);
+  text-shadow: 0 0.09em 0 var(--g-title-edge), 0 0.09em 0.02em var(--g-title-edge);
+}
+.g-lettered::after {
+  z-index: 1;
+  background: linear-gradient(transparent 55%, var(--g-title-low) 63%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+.gallery[data-gallery="stage"] .g-title {
+  display: inline-block;
+  margin: 0;
+  font: var(--g-display-weight, 400) clamp(2.3rem, 5.4vw, 3.8rem) / 1.05 var(--g-display);
+  letter-spacing: 0.01em;
+}
+
+.gallery[data-gallery="stage"] .g-track {
+  /* The middle phone's width: as wide as the screen's height allows, 300 px at most. --reach: how many phones
+     each side of it show (gallery.js fades out the ones further away). */
+  --pw: clamp(172px, min(58vw, (100svh - 450px) / 2.15), 300px);
+  --reach: 3;
+  position: relative;
+  height: calc(var(--pw) * (0.908 / var(--ratio) + 0.092) + var(--pw) * var(--room, 0.3));
+  margin: clamp(12px, 2vw, 22px) 0 0;
+  padding: 0;
+  list-style: none;
+  perspective: 1500px;
+  touch-action: pan-y;
+  user-select: none;
+  -webkit-user-select: none;
+}
+.gallery[data-gallery="stage"] .g-slide {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: var(--pw);
+  margin-left: calc(var(--pw) / -2);
+  transform-origin: 50% 85%;
+  transform: translateX(calc(var(--k, 0) * var(--pw))) rotateY(var(--ry, 0deg)) scale(var(--sc, 1));
+  opacity: var(--op, 1);
+  z-index: var(--z, 1);
+  transition: transform 520ms var(--g-ease), opacity 400ms var(--g-ease), filter 400ms var(--g-ease);
+  filter: brightness(var(--br, 1)) saturate(var(--sa, 1));
+  will-change: transform;
+}
+.gallery[data-gallery="stage"].is-dragging .g-slide { transition: none; }
+/* Room under the phones for their pedestals' roots. */
+.gallery[data-gallery="stage"]:has(.g-ped) .g-track { --room: 0.64; }
+.gallery[data-gallery="stage"] .g-fig { position: relative; margin: 0; }
+.gallery[data-gallery="stage"] .g-slide:not(.is-current) .g-phone { cursor: pointer; }
+/* The pedestal: the product's art if it has one, otherwise a soft glow on the ground. */
+.gallery[data-gallery="stage"] .g-fig::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 118%;
+  height: 16%;
+  translate: -50% -55%;
+  z-index: -2;
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--g-ped-glow, rgb(0 0 0 / 0.45)), transparent);
+}
+.g-ped {
+  position: absolute;
+  left: 50%;
+  top: 100%;
+  width: 138%;
+  max-width: none;
+  height: auto;
+  translate: -50% calc(var(--sink, var(--g-ped-sink)) * -1);
+  z-index: -1;
+  pointer-events: none;
+}
+.gallery[data-gallery="stage"] .g-fig:has(.g-ped)::after { display: none; }
+.gallery[data-gallery="stage"] .g-slide .g-cap { display: none; }
+
+/* The caption of the phone in front, under the stage. Its height is kept, so changing phones never moves the
+   buttons under it. */
+.g-now {
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  height: 11.6em;
+  margin-top: 4px;
+  padding-inline: 20px;
+  text-align: center;
+  font-size: 1rem;
+}
+.g-now > * { animation: g-rise 420ms var(--g-ease) both; }
+.g-now > :nth-child(2) { animation-delay: 50ms; }
+.g-now > :nth-child(3) { animation-delay: 100ms; }
+@keyframes g-rise { from { opacity: 0; transform: translateY(10px); } }
+.gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
+.gallery[data-gallery="stage"] .g-now .g-text { color: var(--g-on-sky-muted); font-weight: 600; text-shadow: 0 1px 8px rgb(10 6 30 / 0.6); }
+.gallery[data-gallery="stage"] .g-now .g-more { min-height: 32px; color: var(--g-on-sky); }
+.g-controls { display: flex; justify-content: center; align-items: center; gap: 16px; padding-inline: 16px; }
+
+/* Wide screens: the words on the left, the phones on the right, taller, with one each side of the middle one. */
+@media (min-width: 1180px) {
+  .gallery[data-gallery="stage"] .g-panel {
+    display: grid;
+    grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.5fr);
+    grid-template-rows: auto auto 1fr;
+    grid-template-areas: "head track" "now track" "ctrl track";
+    column-gap: 24px;
+    align-items: start;
+    padding: clamp(36px, 4vw, 56px) 0 clamp(36px, 4vw, 56px) clamp(40px, 5vw, 88px);
+  }
+  .gallery[data-gallery="stage"] .g-pickup { left: calc(var(--wx, var(--x)) * 1%); top: calc(var(--wy, var(--y)) * 1%); }
+  .gallery[data-gallery="stage"] .g-head { grid-area: head; text-align: left; padding: 0; }
+  .gallery[data-gallery="stage"] .g-track {
+    grid-area: track;
+    --pw: clamp(220px, (100svh - 190px) / 2.18, 300px);
+    --reach: 2;
+    align-self: center;
+    margin: 0;
+  }
+  .gallery[data-gallery="stage"] .g-backdrop::after {
+    background:
+      radial-gradient(ellipse 34% 52% at 66% 52%, rgb(255 236 210 / 0.2), transparent 70%),
+      linear-gradient(90deg, color-mix(in srgb, var(--g-veil) 62%, transparent), color-mix(in srgb, var(--g-veil) 25%, transparent) 38%, transparent 52%),
+      linear-gradient(transparent 60%, color-mix(in srgb, var(--g-veil) 45%, transparent));
+  }
+  .g-now { grid-area: now; justify-items: start; text-align: left; padding: 0; margin-top: 28px; height: 12.5em; font-size: 1.05rem; }
+  .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.9rem, 2.6vw, 2.5rem); }
+  .g-controls { grid-area: ctrl; justify-content: flex-start; padding: 0; }
+}
+
+@media (max-width: 560px) {
+  .g-controls { gap: 10px; }
+  .g-dots { gap: 5px; }
+  .g-dot { width: 24px; height: 24px; font-size: 0.75rem; }
+  .g-btn { width: 44px; height: 44px; border-radius: 14px; }
+  .g-now { min-height: 10.5em; }
+}
+
+/* ============================================================ */
+/* Lightbox                                                                                              */
+/* ============================================================ */
+
+.g-box {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: #fff;
+  font-family: var(--g-body);
+  overflow: hidden;
+}
+.g-box::backdrop { background: rgb(18 12 26 / 0.9); backdrop-filter: blur(8px); }
+.g-box[open] { display: grid; grid-template-rows: minmax(0, 1fr) auto; }
+.g-box-stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  touch-action: none;
+  padding: max(56px, env(safe-area-inset-top, 0px)) 16px 8px;
+}
+.g-box-img {
+  display: block;
+  max-width: 100%;
+  max-height: 100%;
+  width: auto;
+  height: auto;
+  border-radius: 18px;
+  box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.7);
+  transform-origin: 0 0;
+  user-select: none;
+  -webkit-user-drag: none;
+  cursor: zoom-in;
+}
+.g-box.is-zoomed .g-box-img { cursor: grab; border-radius: 0; }
+.g-box-img.is-swap { animation: g-swap 300ms var(--g-ease); }
+@keyframes g-swap { from { opacity: 0; translate: calc(var(--dir, 1) * 40px) 0; } }
+.g-box-bar {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 16px;
+  max-width: 720px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 12px 16px max(18px, env(safe-area-inset-bottom, 0px));
+}
+.g-box-cap { margin: 0; text-align: center; min-width: 0; }
+.g-box-cap b { display: block; font: var(--g-display-weight, 400) 1.35rem/1.15 var(--g-display); }
+.g-box-cap span { display: block; color: rgb(255 255 255 / 0.72); font-size: 0.95rem; }
+.g-box-close { position: absolute; top: max(12px, env(safe-area-inset-top, 0px)); right: max(12px, env(safe-area-inset-right, 0px)); z-index: 2; }
+.g-box .g-btn { background: rgb(255 255 255 / 0.12); color: #fff; box-shadow: none; border: 1px solid rgb(255 255 255 / 0.2); }
+.g-box .g-btn:hover { background: rgb(255 255 255 / 0.22); }
+.g-box-hint { position: absolute; left: 50%; top: max(20px, env(safe-area-inset-top, 0px)); translate: -50% 0; margin: 0; font-size: 0.85rem; color: rgb(255 255 255 / 0.6); white-space: nowrap; }
+html.g-lock { overflow: hidden; }
+
+/* Without JavaScript (or before it runs): every layout is a row of phones with their captions, scrolled sideways. */
+.gallery:not(.is-ready) .g-track { height: auto; perspective: none; }
+.gallery:not(.is-ready) .g-slide { position: static; margin: 0; transform: none; opacity: 1; filter: none; visibility: visible; }
+.gallery:not(.is-ready) .g-ped { display: none; }
+.gallery:not(.is-ready) .g-slide .g-cap { display: grid; gap: 6px; opacity: 1; transform: none; }
+.gallery:not(.is-ready) .g-line { font-size: 1.3rem; }
+.gallery:not(.is-ready) .g-text { font-size: 0.95rem; }
+@media (prefers-reduced-motion: reduce) {
+  .gallery *,
+  .gallery *::before,
+  .gallery *::after,
+  .g-box * { animation: none !important; transition-duration: 1ms !important; }
+}
