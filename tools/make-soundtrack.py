@@ -3,8 +3,9 @@
     python tools/make-soundtrack.py exitwise [--top 0.04] [--src exitwise/img/key-art-tall-1440.webp]
 
 1. The album cover: a square cut of the tall key art, as <product>/img/cover-320 and cover-640 (.avif and .webp).
-   It is the cover beside the player, the label on its record and the picture on a phone's lock screen. --top is
-   where the square starts, as a share of the picture's height (0.04: just above Exitwise's glowing door).
+   It is the cover beside the player, the label on its record and the picture on a phone's lock screen. From a wide
+   picture (--src, e.g. the 16:9 key-art master) it takes the square in the middle; from a tall one, the square
+   starting at --top, a share of the picture's height.
 2. The waveforms: <product>/audio/peaks.json, the loudness of each .m4a in <product>/audio/ in 160 steps (0-100),
    drawn as the player's seek bar.
 
@@ -29,10 +30,13 @@ RANGE_DB = 12  # a step this far under the loudest is drawn at the least height;
 def cover(product, top, src):
     art = Image.open(os.path.join(ROOT, src)).convert("RGB")
     w, h = art.size
-    y = round(top * h)
-    if y + w > h:
-        raise SystemExit(f"{src}: a square from {top} of the height runs past the bottom")
-    square = art.crop((0, y, w, y + w))
+    if w > h:  # a wide picture: the square in its middle, its whole height
+        square = art.crop(((w - h) // 2, 0, (w + h) // 2, h))
+    else:
+        y = round(top * h)
+        if y + w > h:
+            raise SystemExit(f"{src}: a square from {top} of the height runs past the bottom")
+        square = art.crop((0, y, w, y + w))
     for size in COVER_SIZES:
         out = os.path.join(ROOT, product, "img", f"cover-{size}")
         im = square.resize((size, size), Image.LANCZOS)
