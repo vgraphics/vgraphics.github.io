@@ -3,6 +3,13 @@
    the live needle always shows), and the LCD digits the page's privacy band uses too. */
 .demo .stage { position: relative; justify-self: center; width: min(280px, 62vw); margin-inline: auto; isolation: isolate; }
 .demo .phone { box-shadow: 0 40px 70px -30px rgba(0, 0, 0, 0.95), 0 0 0 1px #000, 0 0 80px -10px rgba(240, 74, 44, 0.3); }
+/* The big dial's live needle, cap and digits over the render, in the render's own pixels (viewBox 540 x 1200). The
+   needle turns about the cap's middle; gauge.js sets its angle and the digits. */
+.demo .dial { position: absolute; inset: 10px; width: calc(100% - 20px); height: calc(100% - 20px); pointer-events: none; }
+.dial-needle { transform-box: view-box; transform-origin: 269.2px 484.6px; transform: rotate(-18.15deg); transition: transform 140ms linear; }
+.dial-ghost, .dial-read { font: 400 37px "DSEG7", ui-monospace, monospace; }
+.dial-ghost { fill: #232326; }
+.dial-read { fill: #ACACB0; }
 /* Its shadow on the dashboard */
 .demo .stage::after { content: ""; position: absolute; z-index: -2; left: 4%; right: 4%; bottom: -16px; height: 32px; border-radius: 50%; background: radial-gradient(closest-side, rgba(0, 0, 0, 0.8), transparent); }
 .gauge { position: absolute; z-index: -1; left: -42%; bottom: 14%; width: 58%; aspect-ratio: 1; border-radius: 50%; background: radial-gradient(circle at 50% 38%, #2a2a2e, #0d0d0f 70%); box-shadow: 0 0 0 6px #1a1a1d, 0 0 0 8px #3c3c42, 0 30px 50px -18px #000; }

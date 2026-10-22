@@ -143,7 +143,20 @@
           <picture class="demo-backdrop" aria-hidden="true"><source media="(max-width: 899px)" type="image/avif" srcset="img/demo/stage-tall-640.avif 640w, img/demo/stage-tall-960.avif 960w, img/demo/stage-tall-1280.avif 1280w" sizes="100vw"><source media="(max-width: 899px)" type="image/webp" srcset="img/demo/stage-tall-640.webp 640w, img/demo/stage-tall-960.webp 960w, img/demo/stage-tall-1280.webp 1280w" sizes="100vw"><source type="image/avif" srcset="img/demo/stage-wide-960.avif 960w, img/demo/stage-wide-1600.avif 1600w, img/demo/stage-wide-2400.avif 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><source type="image/webp" srcset="img/demo/stage-wide-960.webp 960w, img/demo/stage-wide-1600.webp 1600w, img/demo/stage-wide-2400.webp 2400w" sizes="(max-width: 1160px) 100vw, 1120px"><img src="img/demo/stage-wide-2400.webp" alt="" width="2400" height="1372" loading="lazy" decoding="async"></picture>
           <div class="demo">
           <div class="stage">
-            <div class="phone"><img src="img/shot-kmh.webp" alt="The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges" width="540" height="1200"></div>
+            <div class="phone">
+              <img src="img/dial-still.webp" alt="The wallpaper on a phone: the big speed dial in km/h with battery, RAM, Wi-Fi and signal gauges" width="540" height="1200">
+              <!-- The big dial's needle, cap and digits, live over the app's render (tools/make-speedometer-dial.py) -->
+              <svg class="dial" viewBox="0 0 540 1200" aria-hidden="true">
+                <defs>
+                  <filter id="dial-shadow" x="-1" y="-0.2" width="3" height="1.4"><feDropShadow dx="1.8" dy="3.7" stdDeviation="1.4" flood-color="#000" flood-opacity="0.45"/></filter>
+                  <filter id="dial-glow" x="-0.2" y="-0.4" width="1.4" height="1.8"><feGaussianBlur stdDeviation="1.6" result="b"/><feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge></filter>
+                </defs>
+                <text class="dial-ghost" x="225" y="435.5">888</text>
+                <text class="dial-read" id="dial-read" x="225" y="435.5" filter="url(#dial-glow)">!87</text>
+                <g filter="url(#dial-shadow)"><image class="dial-needle" id="dial-needle" href="img/dial-needle.webp" x="264.3" y="323.6" width="9.84" height="142.6"/></g>
+                <image href="img/dial-cap.webp" x="244.6" y="460" width="49.2" height="49.2"/>
+              </svg>
+            </div>
             <div class="gauge" aria-hidden="true">
               <svg viewBox="0 0 200 200"><g id="ticks"></g><g class="needle" id="needle"><path d="M98.5 104 L100 30 L101.5 104 Z" fill="#F04A2C"/><circle cx="100" cy="100" r="11" fill="#2b2b2f" stroke="#9a9aa2" stroke-width="3"/></g></svg>
               <span class="lcd read" data-ghost="888" id="readout">087</span>
