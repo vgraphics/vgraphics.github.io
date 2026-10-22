@@ -1,5 +1,5 @@
 {
-  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card.jpg", "parent": { "name": "Apps", "href": "/apps/" } },
+  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card-1200x630.jpg", "parent": { "name": "Apps", "href": "/apps/" } },
   "title": "Speedometer wiki",
   "intro": "Every gauge, light, design and setting on your dashboard: what it shows, and how to set it up.",
   "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and setting",
