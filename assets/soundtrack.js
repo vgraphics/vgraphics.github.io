@@ -1,7 +1,7 @@
 // The soundtrack player of the product pages (markup: tools/lib/soundtrack.mjs; look: soundtrack.css): play, pause,
 // previous and next, loop (off, all the tracks, this one), a waveform to seek on and the track list. Once the music has
-// started, a mini-bar at the bottom of the screen keeps the controls in reach while the player is out of view, until
-// the visitor closes it, which stops the music. Nothing loads before the first press of play: the <audio> has
+// started, a mini-bar at the bottom of the screen keeps the controls and a waveform of its own in reach while the player
+// is out of view, until the visitor closes it, which stops the music. Nothing loads before the first press of play: the <audio> has
 // preload="none" and no source until then. Media keys and a phone's lock screen work through the Media Session API,
 // where the browser has it.
 (() => {
@@ -16,9 +16,8 @@
   function player(root) {
     const audio = root.querySelector("audio");
     const deck = root.querySelector(".ost-deck");
-    const seekBox = root.querySelector(".ost-seek");
-    const wave = root.querySelector(".ost-wave");
-    const range = root.querySelector(".ost-range");
+    // The two seek bars, the player's and the mini-bar's: each a waveform under a range input, kept in step.
+    const bars = [...root.querySelectorAll(".ost-seek")].map((box) => ({ box, wave: box.querySelector(".ost-wave"), range: box.querySelector(".ost-range") }));
     const rows = [...root.querySelectorAll(".ost-track")];
     const live = root.querySelector('[data-ost="live"]');
     const mini = root.querySelector(".ost-mini");
@@ -27,7 +26,7 @@
     let at = 0; // the current track
     let started = false; // play was pressed, and the mini-bar wasn't closed since
     let inView = true;
-    let dragging = false;
+    let dragging = null; // the bar being dragged
     let loop = "off";
 
     // Last in the page: fixed to the screen whatever its ancestors do, and last in the tab order.
@@ -48,32 +47,35 @@
     function show(t) {
       const len = length();
       const p = len ? Math.min(1, t / len) : 0;
-      range.value = t;
-      seekBox.style.setProperty("--p", p * 100 + "%");
-      mini.style.setProperty("--p", p);
-      main("cur").textContent = clock(t);
-      if (document.activeElement !== range) range.setAttribute("aria-valuetext", clock(t) + " of " + clock(len));
+      for (const { box, range } of bars) {
+        range.value = t;
+        box.style.setProperty("--p", p * 100 + "%");
+        if (document.activeElement !== range) range.setAttribute("aria-valuetext", clock(t) + " of " + clock(len));
+      }
+      both("cur").forEach((el) => (el.textContent = clock(t)));
     }
 
-    // The current track's waveform, a bar every 4 pixels, averaged down from its peaks (0-100).
+    // The current track's waveform on each bar, a bar every 4 pixels, averaged down from its peaks (0-100).
     function draw() {
       const peaks = (track().dataset.peaks || "").split(",").filter(Boolean).map(Number);
-      seekBox.classList.toggle("waved", peaks.length > 1);
-      const w = wave.clientWidth;
-      const h = wave.clientHeight;
-      if (peaks.length < 2 || !w) return;
-      const n = Math.max(24, Math.min(peaks.length, Math.floor(w / 4)));
-      let d = "";
-      for (let i = 0; i < n; i++) {
-        const from = Math.floor((i * peaks.length) / n);
-        const to = Math.max(from + 1, Math.floor(((i + 1) * peaks.length) / n));
-        let sum = 0;
-        for (let j = from; j < to; j++) sum += peaks[j];
-        const bar = Math.max(3, ((sum / (to - from)) / 100) * (h - 4));
-        d += "M" + (((i + 0.5) * w) / n).toFixed(1) + " " + ((h - bar) / 2).toFixed(1) + "v" + bar.toFixed(1);
+      for (const { box, wave } of bars) {
+        box.classList.toggle("waved", peaks.length > 1);
+        const w = wave.clientWidth;
+        const h = wave.clientHeight;
+        if (peaks.length < 2 || !w) continue;
+        const n = Math.max(24, Math.min(peaks.length, Math.floor(w / 4)));
+        let d = "";
+        for (let i = 0; i < n; i++) {
+          const from = Math.floor((i * peaks.length) / n);
+          const to = Math.max(from + 1, Math.floor(((i + 1) * peaks.length) / n));
+          let sum = 0;
+          for (let j = from; j < to; j++) sum += peaks[j];
+          const bar = Math.max(3, ((sum / (to - from)) / 100) * (h - 4));
+          d += "M" + (((i + 0.5) * w) / n).toFixed(1) + " " + ((h - bar) / 2).toFixed(1) + "v" + bar.toFixed(1);
+        }
+        wave.querySelectorAll("svg").forEach((svg) => svg.setAttribute("viewBox", "0 0 " + w + " " + h));
+        wave.querySelectorAll("path").forEach((path) => path.setAttribute("d", d));
       }
-      wave.querySelectorAll("svg").forEach((svg) => svg.setAttribute("viewBox", "0 0 " + w + " " + h));
-      wave.querySelectorAll("path").forEach((path) => path.setAttribute("d", d));
     }
 
     function describe() {
@@ -98,8 +100,8 @@
       rows.forEach((r, n) => (n === at ? r.setAttribute("aria-current", "true") : r.removeAttribute("aria-current")));
       both("title").forEach((el) => (el.textContent = title()));
       main("label").textContent = "Track " + (at + 1) + " of " + rows.length;
-      main("dur").textContent = clock(track().dataset.duration);
-      range.max = track().dataset.duration;
+      both("dur").forEach((el) => (el.textContent = clock(track().dataset.duration)));
+      bars.forEach(({ range }) => (range.max = track().dataset.duration));
       draw();
       show(0);
       if (started) describe();
@@ -107,7 +109,7 @@
 
     function start() {
       if (!loaded() || audio.error) {
-        const from = Number(range.value); // a place picked on the waveform before the track loaded
+        const from = Number(bars[0].range.value); // a place picked on the waveform before the track loaded
         audio.src = track().dataset.src;
         if (from) audio.currentTime = from;
         live.textContent = "Now playing: " + title();
@@ -154,6 +156,9 @@
       b.title = LOOP[loop];
     }
 
+    // The footer's words make room for the bar: its height, its gap to the screen's edge and a little air.
+    const room = () => document.documentElement.style.setProperty("--ost-room", mini.offsetHeight + parseFloat(getComputedStyle(mini).bottom) + 8 + "px");
+
     // The mini-bar is on while the music has started and the player's controls are off the screen.
     function place() {
       const on = started && !inView;
@@ -162,6 +167,7 @@
         mini.hidden = false;
         mini.getBoundingClientRect(); // laid out below the screen first, so it slides in
       }
+      if (on) room();
       mini.classList.toggle("on", on);
       document.documentElement.classList.toggle("ost-room", on);
     }
@@ -171,8 +177,8 @@
     audio.addEventListener("pause", () => state("paused"));
     audio.addEventListener("timeupdate", () => dragging || show(audio.currentTime));
     audio.addEventListener("loadedmetadata", () => {
-      range.max = audio.duration;
-      main("dur").textContent = clock(audio.duration);
+      bars.forEach(({ range }) => (range.max = audio.duration));
+      both("dur").forEach((el) => (el.textContent = clock(audio.duration)));
       position();
     });
     audio.addEventListener("seeked", position);
@@ -203,36 +209,46 @@
     });
     rows.forEach((row, i) => row.addEventListener("click", () => (i === at ? toggle() : (select(i), start()))));
 
-    range.addEventListener("input", () => {
-      dragging = true;
-      show(Number(range.value));
-    });
-    range.addEventListener("change", () => {
-      dragging = false;
-      seek(Number(range.value));
-    });
-    ["pointerup", "blur"].forEach((e) => range.addEventListener(e, () => (dragging = false)));
-    // Arrows move 5 seconds and Page Up/Down 15, as the seek bars of YouTube and most players do.
-    range.addEventListener("keydown", (e) => {
-      const by = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, PageDown: -15, PageUp: 15 }[e.key];
-      const t = e.key === "Home" ? 0 : e.key === "End" ? length() - 1 : by ? Number(range.value) + by : null;
-      if (t === null) return;
-      e.preventDefault();
-      seek(t);
-      range.setAttribute("aria-valuetext", clock(range.value) + " of " + clock(length()));
-    });
-    // The stretch of the waveform up to the pointer, in the half-way colour
-    range.addEventListener("pointermove", (e) => {
-      const r = range.getBoundingClientRect();
-      seekBox.style.setProperty("--h", Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)) + "%");
-    });
-    range.addEventListener("pointerleave", () => seekBox.style.setProperty("--h", "0%"));
+    for (const bar of bars) {
+      const { box, range } = bar;
+      range.addEventListener("input", () => {
+        dragging = bar;
+        show(Number(range.value));
+      });
+      range.addEventListener("change", () => {
+        dragging = null;
+        seek(Number(range.value));
+      });
+      ["pointerup", "blur"].forEach((e) => range.addEventListener(e, () => (dragging = null)));
+      // Arrows move 5 seconds and Page Up/Down 15, as the seek bars of YouTube and most players do.
+      range.addEventListener("keydown", (e) => {
+        const by = { ArrowLeft: -5, ArrowDown: -5, ArrowRight: 5, ArrowUp: 5, PageDown: -15, PageUp: 15 }[e.key];
+        const t = e.key === "Home" ? 0 : e.key === "End" ? length() - 1 : by ? Number(range.value) + by : null;
+        if (t === null) return;
+        e.preventDefault();
+        seek(t);
+        range.setAttribute("aria-valuetext", clock(range.value) + " of " + clock(length()));
+      });
+      // The stretch of the waveform up to the pointer, in the half-way colour
+      range.addEventListener("pointermove", (e) => {
+        const r = range.getBoundingClientRect();
+        box.style.setProperty("--h", Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)) + "%");
+      });
+      range.addEventListener("pointerleave", () => box.style.setProperty("--h", "0%"));
+    }
 
     new IntersectionObserver(([e]) => {
       inView = e.isIntersecting;
       place();
     }).observe(deck);
-    new ResizeObserver(draw).observe(wave.parentElement);
+    // Redraw the waveforms when a bar changes width (the mini-bar's first showing included), and keep the footer's
+    // room right if the mini-bar's height changes while it is up.
+    const resized = new ResizeObserver(() => {
+      draw();
+      if (mini.classList.contains("on")) room();
+    });
+    bars.forEach(({ box }) => resized.observe(box));
+    resized.observe(mini);
     mini.querySelector('[data-ost="close"]').addEventListener("click", () => {
       stop();
       main("play").focus({ preventScroll: true });

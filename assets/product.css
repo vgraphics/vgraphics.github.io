@@ -21,7 +21,7 @@ img { max-width: 100%; }
 a { color: var(--link, var(--accent)); text-underline-offset: 3px; } /* --link: optional */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
-[id] { scroll-margin-top: 24px; }
+[id] { scroll-margin-top: 92px; } /* clear of the sticky header */
 .skip { position: absolute; left: 16px; top: -60px; z-index: 10; padding: 10px 16px; border-radius: var(--radius-sm); background: var(--surface); color: var(--ink); font-weight: 700; text-decoration: none; }
 .skip:focus { top: 12px; }
 .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
@@ -35,19 +35,33 @@ h1, h2, h3 {
 }
 @keyframes rise { from { opacity: 0; transform: translateY(18px); } }
 
-/* Header: only the product's own logo top left, its menu top right, lying over the key art's sky. */
+/* Header: only the product's own logo top left, its menu top right. It stays at the top of the screen (George, 22 Oct
+   2026: "Make toolbar sticky and blurry when scrolling"): clear over the key art's sky at the very top, then, once the
+   page scrolls (assets/product.js sets .scrolled), a frosted bar in the page's colour with a hairline at its foot, its
+   words in the page's ink. Where backdrop-filter is missing, the bar is nearly opaque instead. */
 .top {
-  position: absolute;
+  position: fixed;
   inset: 0 0 auto;
-  z-index: 3;
+  z-index: 30;
   display: flex;
   flex-wrap: wrap;
   row-gap: 8px;
   justify-content: space-between;
   align-items: center;
-  padding: 14px clamp(16px, 3vw, 40px);
+  padding: calc(10px + env(safe-area-inset-top, 0px)) clamp(16px, 3vw, 40px) 10px;
+  transition: background-color 200ms ease-out, box-shadow 200ms ease-out, -webkit-backdrop-filter 200ms ease-out, backdrop-filter 200ms ease-out;
 }
-.top a { color: var(--on-art); text-decoration: none; text-shadow: var(--on-art-shadow); }
+.top a { color: var(--on-art); text-decoration: none; text-shadow: var(--on-art-shadow); transition: color 200ms ease-out, text-shadow 200ms ease-out; }
+.top.scrolled {
+  background-color: color-mix(in srgb, var(--page) 72%, transparent);
+  -webkit-backdrop-filter: blur(14px) saturate(1.4);
+  backdrop-filter: blur(14px) saturate(1.4);
+  box-shadow: 0 1px 0 color-mix(in srgb, var(--ink) 12%, transparent), 0 10px 26px -18px rgb(0 0 0 / 0.45);
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .top.scrolled { background-color: color-mix(in srgb, var(--page) 96%, transparent); }
+}
+.top.scrolled a { color: var(--ink); text-shadow: none; }
 .product-name {
   display: inline-flex;
   align-items: center;
@@ -77,6 +91,11 @@ h1, h2, h3 {
   box-shadow: var(--nav-current-line);
   border-radius: var(--nav-current-radius, 999px); /* optional */
   text-shadow: none;
+}
+.top.scrolled .subnav a:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.top.scrolled .subnav a[aria-current="page"] {
+  background: var(--nav-current-bg-scrolled, var(--nav-current-bg)); /* optional */
+  color: var(--nav-current-ink-scrolled, var(--nav-current-ink)); /* optional */
 }
 
 /* Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get

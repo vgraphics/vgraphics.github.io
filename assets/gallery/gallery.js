@@ -126,7 +126,13 @@
       const { root, slides, n } = g
       const panel = root.querySelector('.g-panel')
       const track = root.querySelector('.g-track')
-      const now = h('div', { class: 'g-now' })
+      // Every caption, stacked in one cell (see .g-now): the box keeps the longest one's height.
+      const items = slides.map((s) => {
+        const item = h('div', { class: 'g-now-item' }, [...s.querySelector('.g-cap').children].map((c) => c.cloneNode(true)))
+        item.querySelector('.g-line')?.classList.add('g-lettered')
+        return item
+      })
+      const now = h('div', { class: 'g-now' }, items)
       track.after(now, g.controls())
       let pos = 0
       // Where each phone stands for a (possibly fractional) position: in front, beside it, behind, or gone. The
@@ -153,9 +159,10 @@
       g.onShow = (i) => {
         pos = i
         place()
-        const cap = slides[i].querySelector('.g-cap')
-        now.replaceChildren(...[...cap.children].map((c) => c.cloneNode(true)))
-        now.querySelector('.g-line')?.classList.add('g-lettered')
+        items.forEach((item, k) => {
+          item.classList.toggle('is-on', k === i)
+          item.inert = k !== i
+        })
         slides.forEach((s, k) => {
           const phone = s.querySelector('.g-phone')
           if (k === i) phone.removeAttribute('tabindex')

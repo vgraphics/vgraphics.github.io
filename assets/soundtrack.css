@@ -137,8 +137,8 @@
    .waved): played in the fill colour, the stretch under the pointer half-way, the rest in the track colour. The range
    input lies on top of it, see-through, for the mouse, the finger, the keyboard and screen readers. Without a waveform
    it is a plain bar of the same height. */
-.ost-seek { position: relative; display: grid; }
-.ost-wave { position: relative; display: none; height: 48px; }
+.ost-seek { --wave-h: 48px; position: relative; display: grid; }
+.ost-wave { position: relative; display: none; height: var(--wave-h); }
 .ost-wave svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .ost-wave path { fill: none; stroke: var(--track); stroke-width: var(--bar, 2.4px); stroke-linecap: round; }
 .ost-wave-hover path { stroke: var(--hover); }
@@ -147,7 +147,7 @@
 .ost-wave-played { clip-path: inset(0 calc(100% - var(--p, 0%)) 0 0); }
 .ost-range {
   width: 100%;
-  height: 48px;
+  height: var(--wave-h);
   margin: 0;
   background: none;
   cursor: pointer;
@@ -186,10 +186,10 @@
 .ost-range:focus-visible { outline-offset: 2px; border-radius: 8px; }
 .waved .ost-wave { display: block; }
 .waved .ost-range { position: absolute; inset: 0 0 auto; }
-.waved .ost-range::-webkit-slider-runnable-track { height: 48px; background: none; }
-.waved .ost-range::-moz-range-track { height: 48px; background: none; }
-.waved .ost-range::-webkit-slider-thumb { width: 4px; height: 48px; margin-top: 0; border: 0; background: none; box-shadow: none; }
-.waved .ost-range::-moz-range-thumb { width: 4px; height: 48px; border: 0; background: none; box-shadow: none; }
+.waved .ost-range::-webkit-slider-runnable-track { height: var(--wave-h); background: none; }
+.waved .ost-range::-moz-range-track { height: var(--wave-h); background: none; }
+.waved .ost-range::-webkit-slider-thumb { width: 4px; height: var(--wave-h); margin-top: 0; border: 0; background: none; box-shadow: none; }
+.waved .ost-range::-moz-range-thumb { width: 4px; height: var(--wave-h); border: 0; background: none; box-shadow: none; }
 .ost-times {
   display: flex;
   justify-content: space-between;
@@ -331,7 +331,10 @@
 }
 
 /* The mini-bar: fixed to the bottom of the screen while the player is out of view (soundtrack.js moves it to the end
-   of the page and turns .on on and off). It slides in from below; the page gets room for it at its foot. */
+   of the page and turns .on on and off). It slides in from below and lies over the footer's picture; the page never
+   grows for it (George, 22 Oct: "Player creates an empty space below footer"). It has its own waveform to seek on
+   (George: "Make that player wider and show the [SoundCloud] style progress so I can seek too"): on a phone on a row of
+   its own under the track and the buttons, on wider screens between them. */
 .ost-mini {
   position: fixed;
   z-index: 50;
@@ -339,10 +342,11 @@
   bottom: max(12px, env(safe-area-inset-bottom));
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto auto;
+  grid-template-areas: "show play next close" "seek seek seek seek";
   align-items: center;
-  gap: 4px;
-  width: min(560px, 100% - 24px);
-  padding: 8px;
+  gap: 2px 4px;
+  width: min(1040px, 100% - 24px);
+  padding: 8px 8px 4px;
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--dark) 88%, transparent);
   color: var(--on-art);
@@ -355,6 +359,7 @@
 }
 .ost-mini.on { translate: -50% 0; visibility: visible; transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
 .ost-mini-show {
+  grid-area: show;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -375,24 +380,42 @@
 .ost-mini-show b { font: var(--display-weight) 1.05rem/1.25 var(--font-display); text-transform: var(--display-case); }
 .ost-mini-show small { color: color-mix(in srgb, var(--on-art) 72%, transparent); font: var(--label-weight) 0.8rem/1.3 var(--label-font); }
 .ost-mini .ost-btn { width: 44px; height: 44px; background: none; box-shadow: none; }
-.ost-mini .ost-play { width: 48px; height: 48px; background: var(--on-art); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); }
+.ost-mini .ost-play { grid-area: play; width: 48px; height: 48px; background: var(--on-art); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); }
 .ost-mini .ost-play svg { width: 24px; height: 24px; }
-.ost-mini-p {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: -3px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--on-art);
-  transform-origin: left;
-  scale: var(--p, 0) 1;
-  transition: scale 250ms linear;
+.ost-mini .ost-next { grid-area: next; }
+.ost-mini .ost-close { grid-area: close; }
+/* Its waveform, between the time played and the track's length */
+.ost-mini .ost-seek {
+  --wave-h: 40px;
+  grid-area: seek;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+  color: var(--soft);
+  font: var(--label-weight) 0.8rem/1 var(--label-font);
+  font-variant-numeric: tabular-nums;
 }
-html.ost-room body { padding-bottom: 96px; }
+.ost-mini .ost-seek > span { min-width: 2.6em; }
+.ost-mini .ost-seek > span:last-child { text-align: right; }
+.ost-scrub { position: relative; }
+@media (min-width: 760px) {
+  .ost-mini {
+    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto;
+    grid-template-areas: "show seek play next close";
+    gap: 4px 12px;
+    width: min(1040px, 100% - 32px);
+    padding: 8px 10px 8px 8px;
+  }
+  .ost-mini .ost-seek { padding: 0; }
+}
+/* While the bar is up, the footer's words move up by its height (--ost-room, from soundtrack.js) inside the footer's
+   picture, so the bar never covers the last line. */
+.foot .wrap { transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
+html.ost-room .foot .wrap { translate: 0 calc(-1 * var(--ost-room, 0px)); }
 
 @media (prefers-reduced-motion: reduce) {
   .ost-disc, .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: none; }
-  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .ost-mini-p { transition: none; }
+  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .foot .wrap { transition: none; }
   [data-state="loading"] .ost-play::after { animation-duration: 2.4s; }
 }

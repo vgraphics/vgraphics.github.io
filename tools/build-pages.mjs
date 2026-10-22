@@ -223,7 +223,6 @@ export function render(slug) {
   const demoJs = demoFile('js') && existsSync(demoFile('js'))
   const art = keyArt(p.hero.art)
   const fonts = t.fonts.filter((f) => f.preload).map((f) => `<link rel="preload" href="${f.src}" as="font" type="font/${f.src.split('.').pop()}" crossorigin>`)
-  const tour = p.sections.some((s) => s.blocks?.some((b) => b.type === 'tour'))
   const ost = p.sections.some((s) => s.blocks?.some((b) => b.type === 'soundtrack'))
   const gallery = p.sections.some((s) => s.blocks?.some((b) => b.type === 'gallery' && b.layout))
   const body = decorate(t, [intro(p, demo), ...p.sections.map((s) => section(product, s)), cta(p)])
@@ -273,8 +272,8 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   </main>
 
   ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
-  <script src="/assets/anchors.js" defer></script>` : ''}${tour || p.footerArt ? `
-  <script src="/assets/product.js" defer></script>` : ''}${gallery ? `
+  <script src="/assets/anchors.js" defer></script>` : ''}
+  <script src="/assets/product.js" defer></script>${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}

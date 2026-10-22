@@ -226,7 +226,7 @@
             <div class="ost-deck">
               <p class="ost-now"><span class="ost-label" data-ost="label">Track 1 of 3</span><span class="ost-title" data-ost="title">Stepping Stones</span></p>
               <div class="ost-seek">
-                <div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
+                <div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-hover"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
                 <input class="ost-range" type="range" min="0" max="108" step="any" value="0" aria-label="Seek" aria-valuetext="0:00 of 1:48">
                 <span class="ost-times"><span data-ost="cur">0:00</span><span data-ost="dur">1:48</span></span>
               </div>
@@ -251,8 +251,15 @@
           <audio preload="none"></audio>
           <p class="sr-only" aria-live="polite" data-ost="live"></p>
           <div class="ost-mini" role="region" aria-label="Soundtrack player" hidden>
-            <span class="ost-mini-p" aria-hidden="true"></span>
             <button class="ost-mini-show" type="button" data-ost="show"><img src="img/cover-320.webp" alt="" width="48" height="48"><span><span class="sr-only">Back to the player: </span><b data-ost="title">Stepping Stones</b><small>Exitwise — Original Soundtrack</small></span></button>
+            <div class="ost-seek">
+              <span data-ost="cur">0:00</span>
+              <div class="ost-scrub">
+                <div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-hover"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
+                <input class="ost-range" type="range" min="0" max="108" step="any" value="0" aria-label="Seek" aria-valuetext="0:00 of 1:48">
+              </div>
+              <span data-ost="dur">1:48</span>
+            </div>
             <button class="ost-btn ost-play" type="button" data-ost="play" aria-label="Play"><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg></button>
             <button class="ost-btn ost-next" type="button" data-ost="next" aria-label="Next track"><svg viewBox="0 0 24 24" aria-hidden="true"><rect x="16.4" y="5.2" width="3.2" height="13.6" rx="1.6"/><path d="M4.4 6.4v11.2a1.2 1.2 0 0 0 1.86 1L14.4 13a1.2 1.2 0 0 0 0-2L6.26 5.4a1.2 1.2 0 0 0-1.86 1z"/></svg></button>
             <button class="ost-btn ost-close" type="button" data-ost="close" aria-label="Stop and close the player"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg></button>

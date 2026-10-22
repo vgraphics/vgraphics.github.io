@@ -56,6 +56,8 @@
   --nav-current-bg: #FFFFFF;
   --nav-current-ink: #3B3355;
   --nav-current-line: none;
+  --nav-current-bg-scrolled: #3B3355;
+  --nav-current-ink-scrolled: #FFFDF8;
   --foot-rule: 2px dashed #DED4C4;
   --band-bg: linear-gradient(180deg, #FFFDF8, #F7F0E4);
   --dot: #D2C6B2;

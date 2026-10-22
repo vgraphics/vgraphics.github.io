@@ -48,6 +48,9 @@ export function soundtrack(b, { slug, theme }) {
   const sizes = '(max-width: 619px) 56vw, 260px'
   const button = (name, label, icon) => `<button class="ost-btn ost-${name}" type="button" data-ost="${name}" aria-label="${label}">${icon}</button>`
   const play = button('play', 'Play', ICONS.play + ICONS.pause)
+  // The waveform (all of it, the stretch up to the pointer, the played part) under a see-through range input
+  const scrub = `<div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-hover"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
+                <input class="ost-range" type="range" min="0" max="${seconds(first.duration)}" step="any" value="0" aria-label="Seek" aria-valuetext="0:00 of ${esc(first.duration)}">`
   const rows = b.tracks.map((t, i) => {
     const wave = peaks[t.src.split('/').pop()]
     return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t">${esc(t.title)}</span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
@@ -67,8 +70,7 @@ export function soundtrack(b, { slug, theme }) {
             <div class="ost-deck">
               <p class="ost-now"><span class="ost-label" data-ost="label">Track 1 of ${b.tracks.length}</span><span class="ost-title" data-ost="title">${esc(first.title)}</span></p>
               <div class="ost-seek">
-                <div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
-                <input class="ost-range" type="range" min="0" max="${seconds(first.duration)}" step="any" value="0" aria-label="Seek" aria-valuetext="0:00 of ${esc(first.duration)}">
+                ${scrub}
                 <span class="ost-times"><span data-ost="cur">0:00</span><span data-ost="dur">${esc(first.duration)}</span></span>
               </div>
               <div class="ost-controls">
@@ -90,8 +92,14 @@ export function soundtrack(b, { slug, theme }) {
           <audio preload="none"></audio>
           <p class="sr-only" aria-live="polite" data-ost="live"></p>
           <div class="ost-mini" role="region" aria-label="Soundtrack player" hidden>
-            <span class="ost-mini-p" aria-hidden="true"></span>
             <button class="ost-mini-show" type="button" data-ost="show"><img src="${esc(`${c.src}-${c.widths[0]}.webp`)}" alt="" width="48" height="48"><span><span class="sr-only">Back to the player: </span><b data-ost="title">${esc(first.title)}</b><small>${esc(b.album)}</small></span></button>
+            <div class="ost-seek">
+              <span data-ost="cur">0:00</span>
+              <div class="ost-scrub">
+                ${scrub}
+              </div>
+              <span data-ost="dur">${esc(first.duration)}</span>
+            </div>
             ${play}
             ${button('next', 'Next track', ICONS.next)}
             ${button('close', 'Stop and close the player', ICONS.close)}
