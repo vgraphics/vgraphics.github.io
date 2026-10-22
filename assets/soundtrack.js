@@ -162,6 +162,8 @@
         mini.hidden = false;
         mini.getBoundingClientRect(); // laid out below the screen first, so it slides in
       }
+      // The footer's words make room for the bar: its height, its gap to the screen's edge and a little air.
+      if (on) document.documentElement.style.setProperty("--ost-room", mini.offsetHeight + parseFloat(getComputedStyle(mini).bottom) + 8 + "px");
       mini.classList.toggle("on", on);
       document.documentElement.classList.toggle("ost-room", on);
     }
