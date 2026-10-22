@@ -78,11 +78,17 @@ def trimmed(img, pad=4):
 def rim(island):
     """Where a phone stands on an island pedestal: the island's widest row (the middle of its flat top, seen from
     a little above), as a percentage of its height, for gallery.json's "pedestals"."""
-    alpha = island.getchannel("A")
+    # The longest unbroken run of each row, so floating pebbles beside the island don't count.
+    alpha = island.getchannel("A").point(lambda a: 1 if a > 128 else 0)
+    width = island.width
+    data = list(alpha.getdata())
     widths = []
     for y in range(island.height):
-        row = alpha.crop((0, y, island.width, y + 1)).point(lambda a: 255 if a > 128 else 0).getbbox()
-        widths.append(row[2] - row[0] if row else 0)
+        best = run = 0
+        for v in data[y * width:(y + 1) * width]:
+            run = run + 1 if v else 0
+            best = max(best, run)
+        widths.append(best)
     top = max(widths)
     rows = [y for y, w in enumerate(widths) if w >= top * 0.985]
     return round(100 * rows[len(rows) // 2] / island.height, 1)

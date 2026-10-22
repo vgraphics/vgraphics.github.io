@@ -68,19 +68,32 @@ function sky(data) {
     `<img src="${data.img}${s.wide}-${s.widths[1]}.webp" srcset="${set(s.wide, s.widths, 'webp')}" sizes="min(100vw, 1720px)" alt="" loading="lazy" decoding="async"></picture>`
 }
 
-export function renderGallery(data, { layout = data.layout ?? 'stage', id = 'gallery' } = {}) {
+// data: a product page's gallery block (page.json: { type: "gallery", layout, img, widths, items, stage?, pickups?,
+// pedestals?, hand? }). With a heading it is a section of its own; without one (the product-page template, whose
+// section already has its h2) it is the gallery alone, labelled by that section.
+export function renderGallery(data, { layout = data.layout ?? 'stage', id = 'gallery', label } = {}) {
+  data = { ...data, shots: data.items ?? data.shots }
   const shots = data.shots.map((shot, i) => slide(data, shot, i, layout)).join('\n      ')
   const ratio = +(data.shots[0].w / data.shots[0].h).toFixed(4)
   const backdrop = layout === 'stage' ? `<div class="g-backdrop" aria-hidden="true">${sky(data)}${pickups(data)}</div>` :
     layout === 'story' ? `<div class="g-backdrop" aria-hidden="true" hidden>${pickups(data)}</div>` : ''
   const hand = layout === 'path' && data.hand ? ` data-hand="${data.img}${data.hand}.webp"` : ''
+  const track = `<ol class="g-track" aria-label="Screenshots">
+      ${shots}
+    </ol>`
+  if (!data.heading) {
+    return `<div class="gallery" data-gallery="${layout}"${hand} style="--ratio: ${ratio}"${label ? ` aria-labelledby="${label}"` : ''}>
+  <div class="g-panel">
+    ${backdrop}
+    ${track}
+  </div>
+</div>`
+  }
   return `<section class="gallery" id="${id}" data-gallery="${layout}"${hand} style="--ratio: ${ratio}" aria-labelledby="${id}-title">
   <div class="g-panel">
     ${backdrop}
     <div class="g-head"><h2 class="g-title${layout === 'stage' ? ' g-lettered' : ''}" id="${id}-title" data-text="${esc(data.heading)}">${esc(data.heading)}</h2></div>
-    <ol class="g-track">
-      ${shots}
-    </ol>
+    ${track}
   </div>
 </section>`
 }

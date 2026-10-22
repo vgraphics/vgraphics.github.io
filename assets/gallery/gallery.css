@@ -1,5 +1,6 @@
 /* The screenshot gallery every product page shares (markup: tools/gallery.mjs, behaviour: gallery.js).
-   A product themes it through the --g-* tokens below; each defaults to the page's own token where there is one.
+   It reads the product's theme pack (tools/lib/theme.mjs TOKENS) and, where a pack wants its own look here, the
+   optional --gallery-* tokens it adds (title edge, sky, phone and so on); each --g-* below falls back to a default.
    Three layouts, chosen by data-gallery on the section: "stage" (phones on a stage, the middle one in front),
    "path" (one big shot with a level-map trail of the others) and "story" (a phone that stays while the captions
    scroll past). Without JavaScript every layout falls back to a row of phones you can scroll sideways. */
@@ -7,25 +8,33 @@
 .gallery {
   --g-ink: var(--ink, #23202b);
   --g-muted: var(--muted, #63606e);
-  --g-paper: var(--paper, #f6f4f0);
-  --g-card: var(--card, #fff);
+  --g-paper: var(--page, #f6f4f0);
+  --g-card: var(--surface, #fff);
   --g-line: var(--line, #ddd8d0);
-  --g-display: var(--display, system-ui, sans-serif);
-  --g-body: var(--body, system-ui, sans-serif);
-  /* The section title on the stage, lettered like the product's own title: fill, its lower half, edge and drop. */
-  --g-title: #fff;
-  --g-title-low: #e6e1f0;
-  --g-title-edge: #2a1830;
-  /* The stage: its sky behind the art, the text on it, and the bubble colours. */
-  --g-sky: linear-gradient(#15183a, #2c2459 48%, #5b3d70 76%, #b88a97);
+  --g-display: var(--font-display, system-ui, sans-serif);
+  --g-body: var(--font-body, system-ui, sans-serif);
+  --g-display-weight: var(--gallery-display-weight, var(--display-weight, 400));
+  --g-case: var(--display-case, none);
+  /* Lettering on the stage, like the product's own title: fill, its lower half, edge and drop. */
+  --g-title: var(--gallery-title, #fff);
+  --g-title-low: var(--gallery-title-low, #e6e1f0);
+  --g-title-edge: var(--gallery-title-edge, #2a1830);
+  /* The stage: its sky behind the art, the text on it, and the shade that keeps the text readable. */
+  --g-sky: var(--gallery-sky, linear-gradient(#15183a, #2c2459 48%, #5b3d70 76%, #b88a97));
   --g-on-sky: #fff;
-  --g-on-sky-muted: rgb(255 255 255 / 0.78);
-  --g-veil: #0c0920;
+  --g-on-sky-muted: var(--gallery-on-sky-muted, rgb(255 255 255 / 0.82));
+  --g-veil: var(--gallery-veil, #0c0920);
+  --g-ped-glow: var(--gallery-ped-glow, rgb(0 0 0 / 0.45));
+  --g-btn: var(--gallery-btn, #fff);
+  --g-btn-ink: var(--gallery-btn-ink, var(--g-ink));
+  --g-tag: var(--gallery-tag, rgb(255 255 255 / 0.9));
+  --g-tag-ink: var(--gallery-tag-ink, #23202b);
+  --g-link-shade: var(--gallery-link-shade, 0.82);
   /* The phone: its face, the light catching its edge, and how deep the phone's foot sinks into its pedestal. */
-  --g-device: #2e1834;
-  --g-device-hi: #6a4675;
+  --g-device: var(--gallery-device, #2e1834);
+  --g-device-hi: var(--gallery-device-hi, #6a4675);
   --g-ped-sink: 24%;
-  --g-radius: 32px;
+  --g-radius: var(--radius, 32px);
   --g-ease: cubic-bezier(0.2, 0.8, 0.2, 1);
   --g-pop: cubic-bezier(0.34, 1.4, 0.5, 1);
   --accent: var(--g-ink);
@@ -223,12 +232,14 @@
 /* Stage: phones standing on the product's world, the middle one in front                               */
 /* ============================================================ */
 
+/* The stage runs edge to edge out of the page's column (up to 1720 px wide). */
 .gallery[data-gallery="stage"] {
-  max-width: 1720px;
-  margin: 0 auto;
+  margin-inline: calc(50% - 50vw);
   padding-inline: max(10px, env(safe-area-inset-left, 0px)) max(10px, env(safe-area-inset-right, 0px));
 }
 .gallery[data-gallery="stage"] .g-panel {
+  max-width: 1700px;
+  margin-inline: auto;
   position: relative;
   overflow: hidden;
   isolation: isolate;
