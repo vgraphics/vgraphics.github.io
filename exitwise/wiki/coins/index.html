@@ -15,56 +15,73 @@
   <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
   <meta name="twitter:card" content="summary_large_image">
   <script type="application/ld+json">{"@context":"https://schema.org","@type":"BreadcrumbList","itemListElement":[{"@type":"ListItem","position":1,"name":"VGraphics","item":"https://vgraphics.gr/"},{"@type":"ListItem","position":2,"name":"Games","item":"https://vgraphics.gr/games/"},{"@type":"ListItem","position":3,"name":"Exitwise","item":"https://vgraphics.gr/exitwise/"},{"@type":"ListItem","position":4,"name":"Wiki","item":"https://vgraphics.gr/exitwise/wiki/"},{"@type":"ListItem","position":5,"name":"Coins","item":"https://vgraphics.gr/exitwise/wiki/coins/"}]}</script>
-  <link rel="stylesheet" href="/exitwise/wiki/wiki.css">
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/coins-tall-540.avif 540w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/coins-640.avif 640w, /exitwise/wiki/img/art/coins-960.avif 960w, /exitwise/wiki/img/art/coins-1344.avif 1344w" imagesizes="100vw" fetchpriority="high">
+  <link rel="stylesheet" href="/exitwise/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/assets/wiki.css">
 </head>
-<body>
+<body class="wiki">
 <a class="skip" href="#main">Skip to content</a>
-<header class="bar">
-  <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
-  <nav class="subnav" aria-label="Exitwise"><a href="/exitwise/">Overview</a><a href="/exitwise/wiki/" aria-current="page">Wiki</a><a href="/exitwise/ranking/">Ranking</a><a class="wide-only" href="/exitwise/privacy.html">Privacy</a><a class="wide-only" href="/exitwise/map-rules.html">Map rules</a></nav>
-</header>
+<header class="top">
+    <a class="product-name" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
+    <nav class="subnav" aria-label="Exitwise">
+      <a href="/exitwise/">Overview</a>
+      <a href="/exitwise/wiki/" aria-current="page">Wiki</a>
+      <a href="/exitwise/ranking/">Ranking</a>
+      <a class="wide-only" href="/exitwise/privacy.html">Privacy</a>
+      <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
+    </nav>
+  </header>
 <main id="main">
-  <nav class="crumbs" aria-label="Breadcrumb"><a href="/exitwise/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/exitwise/wiki/#basics">Basics</a></nav>
-  <article class="entry">
-    <header class="entry-head">
-      <span class="entry-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='17' fill='#F2B705'/><circle cx='24' cy='24' r='12' fill='none' stroke='#fff' stroke-width='3'/><path d='M24 17v14' stroke='#fff' stroke-width='3' stroke-linecap='round'/></svg></span>
-      <div>
-        <p class="kicker">Basics</p>
-        <h1>Coins</h1>
-        <p class="lede">Earned every level; spent on hints, continues and powerups.</p>
-        <p class="chips"><span class="chip">First appears on level 1</span></p>
+  <section class="w-hero">
+    <picture class="w-hero-art"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/coins-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/coins-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/exitwise/wiki/img/art/coins-640.avif 640w, /exitwise/wiki/img/art/coins-960.avif 960w, /exitwise/wiki/img/art/coins-1344.avif 1344w" sizes="100vw"><source type="image/webp" srcset="/exitwise/wiki/img/art/coins-640.webp 640w, /exitwise/wiki/img/art/coins-960.webp 960w, /exitwise/wiki/img/art/coins-1344.webp 1344w" sizes="100vw"><img src="/exitwise/wiki/img/art/coins-640.webp" width="1344" height="768" alt="" fetchpriority="high"></picture>
+    <div class="w-hero-foot wrap">
+      <nav class="w-crumbs" aria-label="Breadcrumb"><a href="/exitwise/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/exitwise/wiki/#basics">Basics</a></nav>
+      <h1>Coins</h1>
+      <p class="w-arrive"><span>From the first level</span></p>
+    </div>
+  </section>
+  <article class="w-body wrap">
+    <p class="w-lede">Earned every level; spent on hints, continues and powerups.</p>
+    <section class="w-block" aria-labelledby="h-how"><h2 class="w-orn" id="h-how">How it works</h2><ol class="w-steps"><li data-step="0"><span class="w-step-n">1</span><p>Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.</p></li><li data-step="1"><span class="w-step-n">2</span><p>Coin packs are also for sale in the app's shop.</p></li></ol></section>
+    <section class="w-block" aria-labelledby="h-what"><h2 class="w-orn" id="h-what">What it does</h2>
+      <div class="w-what">
+        <div class="w-what-lead"><span class="w-medal" aria-hidden="true"><svg viewBox='0 0 48 48'><circle cx='24' cy='24' r='17' fill='#F2B705'/><circle cx='24' cy='24' r='12' fill='none' stroke='#fff' stroke-width='3'/><path d='M24 17v14' stroke='#fff' stroke-width='3' stroke-linecap='round'/></svg></span><p>You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30.</p></div>
       </div>
-    </header>
-    <section class="block"><h2>What it does</h2><p>You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30.</p></section>
-    <section class="block"><h2>How it works for you</h2><ul><li>Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.</li><li>Coin packs are also for sale in the app's shop.</li></ul></section>
-    <section class="block"><h2>In the game</h2><figure class="shot"><img src="/exitwise/img/7-win.webp" alt="The Level complete card: time 00:08, 2 hearts lost, 859 points and +10 coins" width="720" height="1280" loading="lazy"><figcaption>Every win pays coins.</figcaption></figure></section>
-    <section class="block"><h2>Works with</h2><div class="cards small"><a class="card" href="/exitwise/wiki/hints/" data-text="hints lights up an arrow that can leave right now.">
-      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M24 6a12 12 0 0 0-7 21.7V32h14v-4.3A12 12 0 0 0 24 6z' fill='#F2B705'/><rect x='18' y='35' width='12' height='4' rx='2' fill='#B5890A'/></svg></span>
-      <span class="card-body"><b>Hints</b><span>Lights up an arrow that can leave right now.</span><span class="chip">Level 1+</span></span>
-    </a><a class="card" href="/exitwise/wiki/hearts/" data-text="hearts you have 3. tapping a blocked arrow costs one.">
-      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z' fill='#FF5A6E'/></svg></span>
-      <span class="card-body"><b>Hearts</b><span>You have 3. Tapping a blocked arrow costs one.</span><span class="chip">Level 1+</span></span>
-    </a><a class="card" href="/exitwise/wiki/hard-levels/" data-text="hard levels every 10th level: bigger, deeper, at night, for 30 coins.">
-      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><path d='M4 40l13-22 7 11 6-8 14 19z' fill='#3B3355'/><path d='M17 18l4 7-4-2-4 3z' fill='#fff'/></svg></span>
-      <span class="card-body"><b>Hard levels</b><span>Every 10th level: bigger, deeper, at night, for 30 coins.</span><span class="chip">Level 10+</span></span>
-    </a><a class="card" href="/exitwise/wiki/daily-challenge/" data-text="daily challenge one board a day, the same for everyone, with monthly rewards.">
-      <span class="card-pic pic-svg" aria-hidden="true"><svg viewBox='0 0 48 48'><rect x='7' y='10' width='34' height='30' rx='6' fill='#FF922B'/><rect x='7' y='10' width='34' height='9' rx='4' fill='#E0761A'/><path d='M16 6v8M32 6v8' stroke='#3B3355' stroke-width='3' stroke-linecap='round'/><path d='M17 29l5 5 9-10' stroke='#fff' stroke-width='3.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/></svg></span>
-      <span class="card-body"><b>Daily challenge</b><span>One board a day, the same for everyone, with monthly rewards.</span></span>
-    </a></div></section>
+    </section>
+    
+    
+    
+    <section class="w-block" aria-labelledby="h-game"><h2 class="w-orn" id="h-game">In the game</h2>
+      <figure class="w-player"><div class="w-player-screen" style="--band: url(/exitwise/wiki/img/bands/meadow.webp)"><img src="/exitwise/img/7-win.webp" alt="The Level complete card: time 00:08, 2 hearts lost, 859 points and +10 coins" width="720" height="1280" loading="lazy"></div><figcaption><span>Every win pays coins.</span><a class="w-btn" href="/exitwise/play/">Play in your browser</a></figcaption></figure>
+    </section>
+    <section class="w-block" aria-labelledby="h-rel"><h2 class="w-orn" id="h-rel">Works with</h2><div class="w-grid three"><a class="w-card" href="/exitwise/wiki/hints/" data-sec="basics" data-text="hints lights up an arrow that can leave right now.">
+        <span class="w-card-art"><picture class="w-card-pic"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/hints-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/hints-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/exitwise/wiki/img/art/hints-640.avif 640w, /exitwise/wiki/img/art/hints-960.avif 960w, /exitwise/wiki/img/art/hints-1344.avif 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><source type="image/webp" srcset="/exitwise/wiki/img/art/hints-640.webp 640w, /exitwise/wiki/img/art/hints-960.webp 960w, /exitwise/wiki/img/art/hints-1344.webp 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><img src="/exitwise/wiki/img/art/hints-640.webp" width="1344" height="768" alt="" loading="lazy"></picture></span>
+        <span class="w-card-body"><b>Hints</b><span>Lights up an arrow that can leave right now.</span></span>
+      </a><a class="w-card" href="/exitwise/wiki/hearts/" data-sec="basics" data-text="hearts you have 3. tapping a blocked arrow costs one.">
+        <span class="w-card-art"><picture class="w-card-pic"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/hearts-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/hearts-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/exitwise/wiki/img/art/hearts-640.avif 640w, /exitwise/wiki/img/art/hearts-960.avif 960w, /exitwise/wiki/img/art/hearts-1344.avif 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><source type="image/webp" srcset="/exitwise/wiki/img/art/hearts-640.webp 640w, /exitwise/wiki/img/art/hearts-960.webp 960w, /exitwise/wiki/img/art/hearts-1344.webp 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><img src="/exitwise/wiki/img/art/hearts-640.webp" width="1344" height="768" alt="" loading="lazy"></picture></span>
+        <span class="w-card-body"><b>Hearts</b><span>You have 3. Tapping a blocked arrow costs one.</span></span>
+      </a><a class="w-card" href="/exitwise/wiki/hard-levels/" data-sec="basics" data-text="hard levels every 10th level: bigger, deeper, at night, for 30 coins.">
+        <span class="w-card-art"><picture class="w-card-pic"><source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/hard-levels-tall-540.avif 540w" sizes="100vw"><source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/hard-levels-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/exitwise/wiki/img/art/hard-levels-640.avif 640w, /exitwise/wiki/img/art/hard-levels-960.avif 960w, /exitwise/wiki/img/art/hard-levels-1344.avif 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><source type="image/webp" srcset="/exitwise/wiki/img/art/hard-levels-640.webp 640w, /exitwise/wiki/img/art/hard-levels-960.webp 960w, /exitwise/wiki/img/art/hard-levels-1344.webp 1344w" sizes="(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw"><img src="/exitwise/wiki/img/art/hard-levels-640.webp" width="1344" height="768" alt="" loading="lazy"></picture><span class="w-card-badges"><span class="w-lv sm" aria-label="Level 10">10</span><span class="w-world" style="--w: #5E9E2F">Meadow</span></span></span>
+        <span class="w-card-body"><b>Hard levels</b><span>Every 10th level: bigger, deeper, at night, for 30 coins.</span></span>
+      </a></div></section>
+    <nav class="w-pager" aria-label="More entries"><a class="w-btn ghost" href="/exitwise/wiki/hearts/" rel="prev"><span aria-hidden="true">◀</span> Hearts</a><a class="w-btn" href="/exitwise/wiki/hints/" rel="next">Hints <span aria-hidden="true">▶</span></a></nav>
   </article>
-  <nav class="pager" aria-label="More entries">
-    <a class="prev" href="/exitwise/wiki/hearts/"><span>Previous</span>Hearts</a>
-    <a class="next" href="/exitwise/wiki/hints/"><span>Next</span>Hints</a>
-  </nav>
 </main>
-<footer class="foot">
-  <a href="/">More from VGraphics</a>
-  <a href="/exitwise/">Exitwise</a>
-  <a href="/games/">More games</a>
-  <a href="/services/">Work with us</a>
-  <a href="/exitwise/privacy.html">Privacy policy</a>
-  <a href="mailto:gvergidis90@gmail.com">Contact</a>
-  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
-</footer>
+<footer class="foot has-art">
+    <div class="foot-art" style="--foot-at: 50% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/exitwise/img/footer-960.avif 960w, /exitwise/img/footer-1440.avif 1440w, /exitwise/img/footer-1920.avif 1920w, /exitwise/img/footer-2560.avif 2560w, /exitwise/img/footer-3200.avif 3200w, /exitwise/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * 3.12))"><img src="/exitwise/img/footer-4096.webp" srcset="/exitwise/img/footer-960.webp 960w, /exitwise/img/footer-1440.webp 1440w, /exitwise/img/footer-1920.webp 1920w, /exitwise/img/footer-2560.webp 2560w, /exitwise/img/footer-3200.webp 3200w, /exitwise/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * 3.12))" alt="" width="4096" height="1311" loading="lazy" decoding="async"></picture></div>
+    <div class="wrap">
+      <a href="/">More from VGraphics</a>
+      <a href="/games/">More games</a>
+      <a href="/services/">Work with us</a>
+      <a href="/exitwise/ranking/">Global ranking</a>
+      <a href="/exitwise/privacy.html">Privacy policy</a>
+      <a href="/exitwise/map-rules.html">Map rules</a>
+      <a href="mailto:gvergidis90@gmail.com">Contact</a>
+      <span class="social"><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a></span>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </div>
+  </footer>
 </body>
 </html>

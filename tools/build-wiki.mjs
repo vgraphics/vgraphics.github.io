@@ -2,22 +2,23 @@
 //   <product>/wiki/index.html and <product>/wiki/<slug>/index.html
 // Usage: node tools/build-wiki.mjs [product ...]   (default: every product with a wiki/wiki.json)
 // The JSON is the single source; never edit the generated pages by hand. Its text is trusted HTML from this repo.
-// A product with "studioMark": false shows only its own logo in the header, without the VGraphics one.
+//
+// One layout for every product's wiki (George, 22 Oct 2026, direction "A+B"): each entry opens on its own Recraft
+// painting, then a calm reading column with the game's or app's own pieces in it: level bubbles and world chips, a
+// board that plays the rule and can be played, the tip card, a world map, a live gauge. The look comes from the
+// product's theme pack (<product>/theme/theme.css) and the shared assets/wiki.css; the header and footer are the
+// product pages' own (tools/lib/partials.mjs), so a wiki page looks and links like its landing page.
+//
+// Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp (wide) and
+// <slug>-tall-<width>.avif/.webp (phones) with art.json, the sizes this script reads.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
-import { dirname, join } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { join } from 'node:path'
+import { loadProduct, root } from './lib/product.mjs'
+import { header, footer } from './lib/partials.mjs'
 
-const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
-
-const LEGAL = `<p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>`
-
-function picture(e, cls) {
-  if (e.icon) return `<span class="${cls} pic-svg" aria-hidden="true">${e.icon}</span>`
-  const lazy = cls === 'entry-pic' ? '' : ' loading="lazy"'
-  return `<span class="${cls}"><img src="${esc(e.image)}" alt=""${lazy}></span>`
-}
+const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Design' }
 
 // The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
 // the product › Wiki, then the entry. "<" is escaped so no text can close the script.
@@ -49,7 +50,57 @@ function describe(e) {
   return d
 }
 
-function shell(w, { title, description, path, body, entry }) {
+// ---------- Pictures ----------
+const srcset = (base, widths, ext) => widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ')
+// An entry's painting: the tall cut on portrait screens, the wide one elsewhere; AVIF, then WebP.
+function artPicture(w, slug, { cls, alt = '', eager, sizes = '100vw' }) {
+  const a = w.art[slug]
+  if (!a) return ''
+  const base = `/${w.product.slug}/wiki/img/art/${slug}`
+  const tall = a.tall ? ['avif', 'webp'].map((x) => `<source media="(max-aspect-ratio: 4/5)" type="image/${x}" srcset="${srcset(base + '-tall', a.tall.widths, x)}" sizes="100vw">`).join('') : ''
+  const wide = ['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(base, a.widths, x)}" sizes="${sizes}">`).join('')
+  return `<picture class="${cls}">${tall}${wide}<img src="${base}-${a.widths[0]}.webp" width="${a.width}" height="${a.height}" alt="${esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></picture>`
+}
+function artPreload(w, slug) {
+  const a = w.art[slug]
+  if (!a) return ''
+  const base = `/${w.product.slug}/wiki/img/art/${slug}`
+  return [a.tall && `<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="${srcset(base + '-tall', a.tall.widths, 'avif')}" imagesizes="100vw" fetchpriority="high">`,
+    `<link rel="preload" as="image" type="image/avif" media="${a.tall ? 'not all and (max-aspect-ratio: 4/5)' : 'all'}" imagesrcset="${srcset(base, a.widths, 'avif')}" imagesizes="100vw" fetchpriority="high">`].filter(Boolean).join('\n  ')
+}
+// The index hero is the landing page's own key art (page.json hero.art).
+function keyArt(product) {
+  const a = product.page.hero.art, at = (img) => `/${product.slug}/${img.src}`
+  const src = (img, x, media, sizes) => `<source${media ? ` media="${media}"` : ''} type="image/${x}" srcset="${srcset(at(img), img.widths, x)}" sizes="${sizes}">`
+  const sizes = a.wide.sizes || '100vw'
+  return `<picture class="w-hero-art">${['avif', 'webp'].map((x) => src(a.tall, x, '(max-aspect-ratio: 4/5)', '100vw')).join('')}${a.ultra ? ['avif', 'webp'].map((x) => src(a.ultra, x, '(min-aspect-ratio: 2/1)', a.ultra.sizes || '100vw')).join('') : ''}${['avif', 'webp'].map((x) => src(a.wide, x, '', sizes)).join('')}<img src="${at(a.wide)}-${a.wide.jpeg.at(-1)}.jpg" width="${a.wide.width}" height="${a.wide.height}" alt="${esc(a.alt)}" fetchpriority="high" style="object-position: ${a.position}"></picture>`
+}
+
+// ---------- Small shared pieces ----------
+const worldOf = (w, lv) => (lv && w.worlds ? w.worlds.find((x) => lv >= x.from && lv <= x.to) : null)
+const lvBadge = (lv, cls = '') => (lv ? `<span class="w-lv${cls ? ' ' + cls : ''}" aria-label="Level ${lv}">${lv}</span>` : '')
+const worldChip = (wd) => (wd ? `<span class="w-world" style="--w: ${wd.colour}">${esc(wd.name)}</span>` : '')
+const arrival = (w, e) => {
+  const wd = worldOf(w, e.firstLevel)
+  return e.firstLevel > 1 ? `Arrives on level ${e.firstLevel}${wd ? ` · ${wd.name}` : ''}` : e.firstLevel === 1 ? 'From the first level' : ''
+}
+function piece(w, e, cls) {
+  if (e.icon) return `<span class="${cls}" aria-hidden="true">${e.icon}</span>`
+  return `<span class="${cls}"><img src="${esc(e.piece || e.image)}" alt="" loading="lazy"></span>`
+}
+const inGameTip = (e) => (e.notes || []).find((x) => x.startsWith('In-game tip:'))?.replace(/^In-game tip:\s*/, '').replace(/^"|"$/g, '')
+const notesOf = (e) => (e.notes || []).filter((x) => !x.startsWith('In-game tip:'))
+const card = (w, e) => {
+  const wd = worldOf(w, e.firstLevel)
+  const badges = e.firstLevel > 1 ? `<span class="w-card-badges">${lvBadge(e.firstLevel, 'sm')}${worldChip(wd)}</span>` : ''
+  return `<a class="w-card" href="/${w.product.slug}/wiki/${e.slug}/" data-sec="${e.section}" data-text="${esc((e.name + ' ' + strip(e.summary)).toLowerCase())}">
+        <span class="w-card-art">${artPicture(w, e.slug, { cls: 'w-card-pic', sizes: '(min-width: 900px) 360px, (min-width: 560px) 50vw, 100vw' })}${badges}</span>
+        <span class="w-card-body"><b>${esc(e.name)}</b><span>${e.summary}</span></span>
+      </a>`
+}
+
+// ---------- The page shell ----------
+function shell(w, product, { title, description, path, body, entry, preload = '', script }) {
   const p = w.product
   return `<!doctype html>
 <html lang="en">
@@ -59,7 +110,7 @@ function shell(w, { title, description, path, body, entry }) {
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="https://vgraphics.gr${path}">
-  <link rel="icon" href="${esc(p.icon)}">
+  <link rel="icon" href="${esc(product.page.site.icon)}">
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">
@@ -67,128 +118,199 @@ function shell(w, { title, description, path, body, entry }) {
   <meta property="og:site_name" content="VGraphics">${p.image ? `
   <meta property="og:image" content="https://vgraphics.gr${esc(p.image)}">
   <meta name="twitter:card" content="summary_large_image">` : ''}
-  <script type="application/ld+json">${breadcrumbs(w, entry)}</script>
-  <link rel="stylesheet" href="/${p.slug}/wiki/wiki.css">
+  <script type="application/ld+json">${breadcrumbs(w, entry)}</script>${preload ? `
+  ${preload}` : ''}
+  <link rel="stylesheet" href="/${p.slug}/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/assets/wiki.css">${script ? `
+  <script src="/assets/wiki.js" defer></script>` : ''}
 </head>
-<body>
+<body class="wiki">
 <a class="skip" href="#main">Skip to content</a>
-<header class="bar">
-${p.studioMark === false ? '' : `  <a class="back" href="/" aria-label="VGraphics home"><img src="${esc(p.logo || '/img/vgraphics-logo.png')}" alt="" width="555" height="473"></a>
-`}  <a class="product" href="${esc(p.home)}"><img src="${esc(p.icon)}" alt="" width="36" height="36"><span>${esc(p.name)}</span></a>
-  <nav class="subnav" aria-label="${esc(p.name)}">${w.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`).join('')}</nav>
-</header>
+${header(product, { current: `/${p.slug}/wiki/` })}
 <main id="main">
 ${body}
 </main>
-<footer class="foot">
-  <a href="/">More from VGraphics</a>
-  <a href="${esc(p.home)}">${esc(p.name)}</a>
-  <a href="${esc(p.parent.href)}">More ${esc(p.parent.name.toLowerCase())}</a>
-  <a href="/services/">Work with us</a>
-  <a href="/${p.slug}/privacy.html">Privacy policy</a>
-  <a href="mailto:gvergidis90@gmail.com">Contact</a>
-  ${LEGAL}
-</footer>
+${footer(product)}
 </body>
 </html>
 `
 }
 
-function card(e, w) {
-  const level = e.firstLevel ? `<span class="chip">Level ${e.firstLevel}+</span>` : ''
-  return `<a class="card" href="/${w.product.slug}/wiki/${e.slug}/" data-text="${esc((e.name + ' ' + strip(e.summary)).toLowerCase())}">
-      ${picture(e, 'card-pic')}
-      <span class="card-body"><b>${esc(e.name)}</b><span>${e.summary}</span>${level}</span>
-    </a>`
-}
-
-function indexPage(w) {
-  const sections = w.sections.map((s) => {
-    const entries = w.entries.filter((e) => e.section === s.id)
-    return `  <section class="sec" id="${s.id}" aria-labelledby="h-${s.id}">
-    <div class="sec-head"><h2 id="h-${s.id}">${esc(s.title)}</h2><p>${s.intro}</p></div>
-    <div class="cards">
-    ${entries.map((e) => card(e, w)).join('\n    ')}
-    </div>
+// ---------- Index ----------
+function indexPage(w, product) {
+  const p = w.product
+  const journey = w.worlds ? (() => {
+    const stops = w.worlds.map((wd) => [wd, w.entries.filter((e) => e.firstLevel > 1 && worldOf(w, e.firstLevel) === wd).sort((a, b) => a.firstLevel - b.firstLevel)]).filter(([, list]) => list.length)
+    return `  <section class="w-journey wrap" aria-labelledby="h-journey">
+    <div class="w-head"><h2 id="h-journey">Unlocks as you play</h2><p>Each world brings something new. Pick one to read how it works.</p></div>
+    <ol class="w-map">
+${stops.map(([wd, list]) => `      <li class="w-map-world" style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)">
+        <p class="w-map-head"><b>${esc(wd.name)}</b><span>Levels ${wd.from}–${wd.to}</span></p>
+        <ul>${list.map((e) => `<li><a href="/${p.slug}/wiki/${e.slug}/">${lvBadge(e.firstLevel, 'sm')}${piece(w, e, 'w-map-piece')}<span>${esc(e.name)}</span></a></li>`).join('')}</ul>
+      </li>`).join('\n')}
+    </ol>
   </section>`
-  }).join('\n')
-  const body = `  <section class="hero">
-    <p class="kicker">${esc(w.product.name)} · Wiki</p>
-    <h1>${esc(w.title)}</h1>
-    <p class="lede">${w.intro}</p>
-    <label class="search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search ${w.entries.length} entries…" autocomplete="off"></label>
-    <nav class="jump" aria-label="Sections">${w.sections.map((s) => `<a href="#${s.id}">${esc(s.title)}</a>`).join('')}</nav>
+  })() : ''
+  const sections = w.sections.map((s) => `  <section class="w-sec wrap" id="${s.id}" data-sec="${s.id}" aria-labelledby="h-${s.id}">
+    <div class="w-head"><h2 id="h-${s.id}">${esc(s.title)}</h2><p>${s.intro}</p></div>
+    <div class="w-grid">
+      ${w.entries.filter((e) => e.section === s.id).map((e) => card(w, e)).join('\n      ')}
+    </div>
+  </section>`).join('\n')
+  const body = `  <section class="w-hero is-index">
+    ${keyArt(product)}
+    <div class="w-hero-foot wrap">
+      <p class="w-kicker">${esc(p.name)} wiki</p>
+      <h1>${esc(w.heading || w.title)}</h1>
+      <p class="w-lede">${w.intro}</p>
+      <label class="w-search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search ${w.entries.length} entries…" autocomplete="off"></label>
+    </div>
   </section>
+${journey}
+  <div class="w-chips wrap" role="group" aria-label="Show"><button type="button" class="w-chip on" data-filter="all">All <b>${w.entries.length}</b></button>${w.sections.map((s) => `<button type="button" class="w-chip" data-filter="${s.id}">${esc(s.title)}</button>`).join('')}</div>
 ${sections}
-  <p class="empty" id="empty" hidden>Nothing matches that. Try another word.</p>
-  <script>
-    // Filter the cards as you type. Without JavaScript every entry stays visible.
-    (() => {
-      const q = document.getElementById("q"), cards = [...document.querySelectorAll(".card")], secs = [...document.querySelectorAll(".sec")];
-      q.addEventListener("input", () => {
-        const t = q.value.trim().toLowerCase(); let any = false;
-        cards.forEach((c) => { const on = !t || c.dataset.text.includes(t); c.hidden = !on; any = any || on; });
-        secs.forEach((s) => { s.hidden = ![...s.querySelectorAll(".card")].some((c) => !c.hidden); });
-        document.getElementById("empty").hidden = any;
-      });
-    })();
-  </script>`
-  return shell(w, { title: w.metaTitle ?? `${w.title} · ${w.product.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${w.product.slug}/wiki/`, body })
+  <p class="w-empty wrap" id="empty" hidden>Nothing matches that. Try another word.</p>`
+  return shell(w, product, { title: w.metaTitle ?? `${w.title} · ${p.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${p.slug}/wiki/`, body, script: true })
 }
 
-function entryPage(w, e, i) {
+// ---------- Entry ----------
+function stepsBlock(w, e) {
+  const steps = e.steps || (e.how || []).map((text) => ({ text }))
+  if (!steps.length) return ''
+  const list = `<ol class="w-steps">${steps.map((s, i) => `<li data-step="${i}"><span class="w-step-n">${i + 1}</span><p>${s.text}</p></li>`).join('')}</ol>`
+  if (e.board) {
+    return `<section class="w-panel w-how" aria-labelledby="h-how">
+      <h2 class="w-orn" id="h-how">How it works</h2>
+      <div class="w-how-grid">
+        <div class="w-play" data-board="${esc(JSON.stringify(e.board))}">
+          <div class="w-play-hud"><span class="w-hearts" aria-label="Hearts">${'<svg class="w-heart" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z"/></svg>'.repeat(3)}</span><span class="w-play-say" aria-live="polite">Tap an arrow with a clear path.</span></div>
+          <svg class="w-board" role="group" aria-label="A small ${esc(e.name.toLowerCase())} board you can play"></svg>
+          <div class="w-play-acts"><button type="button" class="w-btn" data-act="show">Show me</button><button type="button" class="w-btn ghost" data-act="reset">Reset</button></div>
+        </div>
+        ${list}
+      </div>
+    </section>`
+  }
+  if (e.gauge) {
+    return `<section class="w-panel" aria-labelledby="h-how"><h2 class="w-orn" id="h-how">Try it</h2>
+      <div class="w-gauge-try" data-gauge="${esc(JSON.stringify(e.gauge))}"><svg class="w-gauge" viewBox="0 0 240 240" role="img" aria-label="${esc(e.gauge.label)}"></svg><div><button type="button" class="w-btn" data-act="plug" aria-pressed="false">${esc(e.gauge.off)}</button><p class="w-gauge-say" aria-live="polite">${esc(e.gauge.offText)}</p></div></div>
+    </section>
+    <section class="w-block" aria-labelledby="h-steps"><h2 class="w-orn" id="h-steps">How it works</h2>${list}</section>`
+  }
+  return `<section class="w-block" aria-labelledby="h-how"><h2 class="w-orn" id="h-how">${e.section === 'traps' ? 'How to beat it' : e.section === 'powerups' ? 'How to use it' : 'How it works'}</h2>${list}</section>`
+}
+// "What it does": the first paragraph as the lead beside the piece, then each further paragraph as a card whose first
+// sentence is its heading.
+function whatBlock(w, e) {
+  const [lead, ...rest] = e.what || []
+  if (!lead) return ''
+  const split = (p) => { const m = p.match(/^(.+?[.!?])\s+([\s\S]*)$/); return m ? [m[1], m[2]] : [p, ''] }
+  return `<section class="w-block" aria-labelledby="h-what"><h2 class="w-orn" id="h-what">${w.product.slug === 'exitwise' ? 'What it does' : 'What it shows'}</h2>
+      <div class="w-what">
+        <div class="w-what-lead">${piece(w, e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
+        <div class="w-what-cards">${rest.map((p, i) => { const [h, t] = split(p); return `<div class="w-what-card" style="--k: var(--swatch-${(i % 6) + 1})"><b>${h}</b>${t ? `<p>${t}</p>` : ''}</div>` }).join('')}</div>` : ''}
+      </div>
+    </section>`
+}
+function tipBlock(w, e) {
+  const t = e.tip || (inGameTip(e) && { title: inGameTip(e), label: 'In-game tip' })
+  if (!t) return ''
+  const hand = w.hand ? `<img class="w-hand" src="${esc(w.hand)}" alt="" width="80" height="80" loading="lazy">` : ''
+  return `<div class="w-tip">${hand}<aside class="w-tipcard" aria-label="${esc(t.label)}"><p class="w-tip-label">${esc(t.label)}</p><p class="w-tip-title">${esc(t.title)}</p>${t.text ? `<p>${esc(t.text)}</p>` : ''}${w.hand ? '<span class="w-gotit" aria-hidden="true">Got it</span>' : ''}</aside></div>`
+}
+function worldMap(w) {
+  const p = w.product
+  const detail = (wd, i) => {
+    const list = w.entries.filter((e) => e.firstLevel > 1 && worldOf(w, e.firstLevel) === wd).sort((a, b) => a.firstLevel - b.firstLevel)
+    return `<div class="w-wcard${wd.id === w.worldsOpen ? '' : ' is-off'}" id="world-${wd.id}" data-world-card="${wd.id}">
+          <div class="w-wcard-art" style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)"><span class="w-wt-n big">${i + 1}</span></div>
+          <div class="w-wcard-body"><p class="w-kicker">World ${i + 1} of ${w.worlds.length}</p><h3>${esc(wd.name)}</h3><p class="w-wcard-lv">Levels ${wd.from}–${wd.to} · hard levels at night</p>${list.length
+            ? `<p class="w-kicker">New here</p><ul class="w-new">${list.map((e) => `<li><a href="/${p.slug}/wiki/${e.slug}/">${lvBadge(e.firstLevel, 'sm')}${piece(w, e, 'w-map-piece')}<span>${esc(e.name)}</span></a></li>`).join('')}</ul>`
+            : '<p class="w-muted">Nothing new here: the obstacles you know, mixed together on bigger boards.</p>'}</div>
+        </div>`
+  }
+  return `<section class="w-panel" aria-labelledby="h-map"><h2 class="w-orn" id="h-map">World map</h2><p class="w-muted">The worlds in the order you play them. Pick one to see what it brings.</p>
+      <div class="w-wm" data-worlds>
+        <ol class="w-wm-tiles">${w.worlds.map((wd, i) => `<li><a class="w-wt${wd.id === w.worldsOpen ? ' on' : ''}" href="#world-${wd.id}" data-world="${wd.id}"${wd.id === w.worldsOpen ? ' aria-current="true"' : ''} style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)"><span class="w-wt-n">${i + 1}</span><span class="w-wt-name">${esc(wd.name)}</span><span class="w-wt-lv">${wd.from}–${wd.to}</span></a></li>`).join('')}</ol>
+        <div class="w-wd">
+        ${w.worlds.map(detail).join('\n        ')}
+        </div>
+      </div>
+    </section>`
+}
+// "In the game": a phone on small screens; on wide ones the browser game's wide player, the world's level-map art
+// edge to edge with the game in the middle. A wide figure (wider than tall) is shown as it is.
+function inTheGame(w, e) {
+  const f = e.figure
+  if (!f) return ''
+  const wide = f.width > f.height
+  const wd = worldOf(w, e.firstLevel) || w.worlds?.[0]
+  const band = !wide && w.bands && wd && w.bands.includes(wd.id) ? wd.id : null
+  const play = w.playHref ? `<a class="w-btn" href="${esc(w.playHref)}">Play in your browser</a>` : ''
+  return `<section class="w-block" aria-labelledby="h-game"><h2 class="w-orn" id="h-game">${esc(w.figureTitle || 'In the game')}</h2>
+      <figure class="w-player${wide ? ' is-wide' : ''}"><div class="w-player-screen"${band ? ` style="--band: url(/${w.product.slug}/wiki/img/bands/${band}.webp)"` : ''}><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.width}" height="${f.height}" loading="lazy"></div><figcaption><span>${f.caption || ''}</span>${play}</figcaption></figure>
+    </section>`
+}
+function entryPage(w, product, e, i) {
+  const p = w.product
   const s = w.sections.find((x) => x.id === e.section)
   const bySlug = Object.fromEntries(w.entries.map((x) => [x.slug, x]))
   const prev = w.entries[i - 1], next = w.entries[i + 1]
-  const list = (items) => `<ul>${items.map((x) => `<li>${x}</li>`).join('')}</ul>`
-  const blocks = [
-    e.what && `<section class="block"><h2>What it does</h2>${e.what.map((x) => `<p>${x}</p>`).join('')}</section>`,
-    e.how && `<section class="block"><h2>${s.id === 'powerups' ? 'How to use it' : s.id === 'traps' ? 'How to beat it' : 'How it works for you'}</h2>${list(e.how)}</section>`,
-    e.notes && `<section class="block note"><h2>Good to know</h2>${list(e.notes)}</section>`,
-    // An optional real screenshot: { src, alt, width, height, caption? }. Wider than tall spans the entry.
-    e.figure && `<section class="block"><h2>${esc(w.figureTitle || 'See it')}</h2><figure class="shot${e.figure.width > e.figure.height ? ' wide' : ''}"><img src="${esc(e.figure.src)}" alt="${esc(e.figure.alt)}" width="${e.figure.width}" height="${e.figure.height}" loading="lazy">${e.figure.caption ? `<figcaption>${e.figure.caption}</figcaption>` : ''}</figure></section>`,
-  ].filter(Boolean).join('\n    ')
-  const related = (e.related || []).filter((r) => bySlug[r])
-  const body = `  <nav class="crumbs" aria-label="Breadcrumb"><a href="/${w.product.slug}/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/${w.product.slug}/wiki/#${s.id}">${esc(s.title)}</a></nav>
-  <article class="entry">
-    <header class="entry-head">
-      ${picture(e, 'entry-pic')}
-      <div>
-        <p class="kicker">${esc(s.title)}</p>
-        <h1>${esc(e.name)}</h1>
-        <p class="lede">${e.summary}</p>
-        ${e.firstLevel ? `<p class="chips"><span class="chip">First appears on level ${e.firstLevel}</span></p>` : ''}
-      </div>
-    </header>
-    ${blocks}
-    ${related.length ? `<section class="block"><h2>Works with</h2><div class="cards small">${related.map((r) => card(bySlug[r], w)).join('')}</div></section>` : ''}
-  </article>
-  <nav class="pager" aria-label="More entries">
-    ${prev ? `<a class="prev" href="/${w.product.slug}/wiki/${prev.slug}/"><span>Previous</span>${esc(prev.name)}</a>` : '<span></span>'}
-    ${next ? `<a class="next" href="/${w.product.slug}/wiki/${next.slug}/"><span>Next</span>${esc(next.name)}</a>` : '<span></span>'}
-  </nav>`
-  return shell(w, { title: `${e.name} · ${w.product.name} wiki`, description: describe(e), path: `/${w.product.slug}/wiki/${e.slug}/`, body, entry: e })
+  const wd = worldOf(w, e.firstLevel)
+  const facts = [...(e.firstLevel > 1 ? [['Arrives', `Level ${e.firstLevel}${wd ? ' · ' + wd.name : ''}`]] : []), ...(e.facts || [])]
+  const related = (e.related || []).filter((r) => bySlug[r]).slice(0, 3)
+  const body = `  <section class="w-hero">
+    ${artPicture(w, e.slug, { cls: 'w-hero-art', eager: true, alt: e.artAlt || '' })}
+    <div class="w-hero-foot wrap">
+      <nav class="w-crumbs" aria-label="Breadcrumb"><a href="/${p.slug}/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/${p.slug}/wiki/#${s.id}">${esc(s.title)}</a></nav>
+      <h1>${esc(e.name)}</h1>
+      <p class="w-arrive">${lvBadge(e.firstLevel > 1 ? e.firstLevel : null)}${worldChip(e.firstLevel > 1 ? wd : null)}<span>${esc(arrival(w, e) || SECTION_LABEL[e.section] || s.title)}</span></p>
+    </div>
+  </section>
+  <article class="w-body wrap">
+    <p class="w-lede">${e.summary}</p>${facts.length ? `
+    <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
+    ${stepsBlock(w, e)}
+    ${whatBlock(w, e)}
+    ${tipBlock(w, e)}
+    ${notesOf(e).length ? `<section class="w-block" aria-labelledby="h-notes"><h2 class="w-orn" id="h-notes">Good to know</h2><ul class="w-ticks">${notesOf(e).map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
+    ${e.worldMap && w.worlds ? worldMap(w) : ''}
+    ${inTheGame(w, e)}
+    ${related.length ? `<section class="w-block" aria-labelledby="h-rel"><h2 class="w-orn" id="h-rel">${esc(w.relatedTitle || 'Works with')}</h2><div class="w-grid three">${related.map((r) => card(w, bySlug[r])).join('')}</div></section>` : ''}
+    <nav class="w-pager" aria-label="More entries">${prev ? `<a class="w-btn ghost" href="/${p.slug}/wiki/${prev.slug}/" rel="prev"><span aria-hidden="true">◀</span> ${esc(prev.name)}</a>` : '<span></span>'}${next ? `<a class="w-btn" href="/${p.slug}/wiki/${next.slug}/" rel="next">${esc(next.name)} <span aria-hidden="true">▶</span></a>` : '<span></span>'}</nav>
+  </article>`
+  return shell(w, product, {
+    title: `${e.name} · ${p.name} wiki`, description: describe(e), path: `/${p.slug}/wiki/${e.slug}/`, body, entry: e,
+    preload: artPreload(w, e.slug), script: !!(e.board || e.gauge || e.worldMap),
+  })
 }
 
 const products = process.argv.slice(2).length
   ? process.argv.slice(2)
   : readdirSync(root).filter((d) => existsSync(join(root, d, 'wiki', 'wiki.json')))
 
-for (const product of products) {
-  const dir = join(root, product, 'wiki')
+for (const slug of products) {
+  const dir = join(root, slug, 'wiki')
   const w = JSON.parse(readFileSync(join(dir, 'wiki.json'), 'utf8'))
-  // Every entry belongs to a known section; order entries by section so prev/next follows the index.
+  const product = loadProduct(slug)
+  const artFile = join(dir, 'img', 'art', 'art.json')
+  w.art = existsSync(artFile) ? JSON.parse(readFileSync(artFile, 'utf8')) : {}
+  // Every entry belongs to a known section and has its painting; order entries by section so prev/next follows the index.
   const order = w.sections.map((s) => s.id)
-  for (const e of w.entries) if (!order.includes(e.section)) throw new Error(`${product}: ${e.slug} has unknown section ${e.section}`)
+  for (const e of w.entries) {
+    if (!order.includes(e.section)) throw new Error(`${slug}: ${e.slug} has unknown section ${e.section}`)
+    if (!w.art[e.slug]) throw new Error(`${slug}: ${e.slug} has no painting in wiki/img/art (run tools/make-wiki-art.py)`)
+  }
   w.entries.sort((a, b) => order.indexOf(a.section) - order.indexOf(b.section))
   // Remove pages of entries that no longer exist, then write fresh ones.
   for (const d of readdirSync(dir, { withFileTypes: true })) {
     if (d.isDirectory() && d.name !== 'img' && existsSync(join(dir, d.name, 'index.html'))) rmSync(join(dir, d.name), { recursive: true })
   }
-  writeFileSync(join(dir, 'index.html'), indexPage(w))
+  writeFileSync(join(dir, 'index.html'), indexPage(w, product))
   w.entries.forEach((e, i) => {
     mkdirSync(join(dir, e.slug), { recursive: true })
-    writeFileSync(join(dir, e.slug, 'index.html'), entryPage(w, e, i))
+    writeFileSync(join(dir, e.slug, 'index.html'), entryPage(w, product, e, i))
   })
-  console.log(`${product}: wiki index + ${w.entries.length} entries`)
+  console.log(`${slug}: wiki index + ${w.entries.length} entries`)
 }

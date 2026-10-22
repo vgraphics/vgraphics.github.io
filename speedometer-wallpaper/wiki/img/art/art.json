@@ -1,0 +1,405 @@
+{
+ "battery": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "battery-temperature": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "big-gauge": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "big-gauge-tile": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "bluetooth-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "charging-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "classic-design": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "cpu-clock": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "date-and-time": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "designs-screen": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "future-design": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "gps-speed": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "high-temperature-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "low-battery-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "low-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "low-temperature-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "music-calls-messages": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "power": {
+  "widths": [
+   640,
+   960,
+   1600,
+   2400
+  ],
+  "width": 2400,
+  "height": 1371,
+  "tall": {
+   "widths": [
+    540,
+    810,
+    1152
+   ],
+   "width": 1152,
+   "height": 1536
+  }
+ },
+ "ram": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "restoring-future": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "set-as-wallpaper": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "settings": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "signal": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "wifi": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "wifi-on-light": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ }
+}

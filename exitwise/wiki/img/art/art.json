@@ -1,0 +1,458 @@
+{
+ "auto-play": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "board-shapes": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "bomb-arrow": {
+  "widths": [
+   640,
+   960,
+   1600,
+   2400
+  ],
+  "width": 2400,
+  "height": 1371,
+  "tall": {
+   "widths": [
+    540,
+    810,
+    1152
+   ],
+   "width": 1152,
+   "height": 1536
+  }
+ },
+ "chain-bomb": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "coins": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "colour-gate": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "colour-switch": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "custom-maps": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "daily-challenge": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "grid-lines": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "hard-levels": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "hearts": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "hints": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "how-to-play": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "ice": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "leaderboards": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "level-2-rock": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "level-3-rock": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "magic-wand": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "mirror": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "paint-tile": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "portal": {
+  "widths": [
+   640,
+   960,
+   1600,
+   2400
+  ],
+  "width": 2400,
+  "height": 1371,
+  "tall": {
+   "widths": [
+    540,
+    810,
+    1152
+   ],
+   "width": 1152,
+   "height": 1536
+  }
+ },
+ "remove-arrow": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "rock": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "rooms": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "shutter": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "two-colour-gate": {
+  "widths": [
+   640,
+   960,
+   1344
+  ],
+  "width": 1344,
+  "height": 768,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "width": 540,
+   "height": 720
+  }
+ },
+ "worlds": {
+  "widths": [
+   640,
+   960,
+   1600,
+   2400
+  ],
+  "width": 2400,
+  "height": 1350,
+  "tall": {
+   "widths": [
+    540,
+    768
+   ],
+   "width": 768,
+   "height": 1536
+  }
+ }
+}
