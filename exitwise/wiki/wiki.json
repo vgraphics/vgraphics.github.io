@@ -24,7 +24,7 @@
       "what": ["A rock is 1 to 4 connected cells that hold no arrow and stop every arrow that runs into it. It looks the same in every world: a warm stone with a dark outline. It stays until the bomb arrows aimed at it have hit it.", "Arrows may point straight at a rock: they're blocked until it's gone."],
       "how": ["Find the bomb whose path leads to the rock.", "Clear the arrows in the bomb's way first, then tap the bomb.", "Until then, plan around the rock: any arrow pointing at it bumps and costs a heart."],
       "notes": ["Rocks first appear on level 21, where a short tutorial walks you through clearing a bomb's path and firing it.", "Tougher rocks come later: level-2 rocks from level 81, level-3 rocks from 161, and whole rock walls from 281."],
-      "figure": { "src": "/exitwise/wiki/img/v12-rocks-bombs.webp", "alt": "Level 25 in the Jungle: two stone rocks with dark outlines, and bomb arrows with round heads and fuses", "width": 564, "height": 900, "caption": "Rocks and bomb arrows on level 25, in the Jungle." },
+      "figure": { "src": "/exitwise/wiki/img/v12-rocks-bombs.webp", "alt": "Level 25 in the Jungle: two stone rocks with dark outlines, and bomb arrows with round heads and fuses", "width": 564, "height": 820, "caption": "Rocks and bomb arrows on level 25, in the Jungle." },
       "related": ["bomb-arrow", "level-2-rock", "chain-bomb", "hearts"]
     },
     {
@@ -34,7 +34,7 @@
       "what": ["A bomb arrow looks like a bomb: a round charcoal head with a pointed nose that shows the way it flies, on a fuse with a flickering orange spark at the end. It looks the same on every board. Tap it and it flies along its path to the first rock and blows it up with a flash.", "No bomb starts free: every bomb has a guard, an arrow standing on its path between the bomb and its rock. Clear the guard first, and whatever holds the guard up.", "Bombs have no colour, so closed colour gates stop them, and so do arrows, ice and shutters. A blocked bomb bumps like any arrow and costs a heart."],
       "how": ["Trace the bomb's path to its rock and find the arrow in the way.", "Free that arrow, then tap the bomb.", "Each bomb hits once: a level-2 or level-3 rock needs that many bombs, usually from different sides."],
       "notes": ["The level-21 tutorial points out a rock (\"New: rocks and bombs\"), then the arrow in a bomb's way, then the bomb."],
-      "figure": { "src": "/exitwise/wiki/img/v12-rocks-bombs.webp", "alt": "Level 25 in the Jungle: bomb arrows with round charcoal heads pointing the way they fly, fuses with orange sparks, and the rocks they're aimed at", "width": 564, "height": 900, "caption": "Bomb arrows and their rocks on level 25." },
+      "figure": { "src": "/exitwise/wiki/img/v12-rocks-bombs.webp", "alt": "Level 25 in the Jungle: bomb arrows with round charcoal heads pointing the way they fly, fuses with orange sparks, and the rocks they're aimed at", "width": 564, "height": 820, "caption": "Bomb arrows and their rocks on level 25." },
       "related": ["rock", "chain-bomb", "colour-gate", "colour-switch"]
     },
     {
@@ -63,7 +63,7 @@
       "what": ["A level-2 rock is darker stone with two white dots, one for each hit it still needs. Each bomb that hits it cracks it and takes a dot away; the second hit breaks it.", "Its two bombs come from different arrows and, where the board allows, from different sides."],
       "how": ["Count the dots: that's how many bombs you still have to free.", "Look for the second bomb on another side of the rock before you plan the arrows behind it."],
       "notes": ["Level 81 introduces them with two level-2 rocks and nothing else. After that about 15% of rocks are level 2, rising to 30% by level 160, and twice that share on hard levels."],
-      "figure": { "src": "/exitwise/wiki/img/v12-lagoon-level-2-rock.webp", "alt": "Level 105 in the Lagoon: a T-shaped level-2 rock with two white dots among rocks, bomb arrows, a portal and a mirror", "width": 564, "height": 900, "caption": "A level-2 rock (two dots) on level 105, with rocks, bombs and a portal." },
+      "figure": { "src": "/exitwise/wiki/img/v12-lagoon-level-2-rock.webp", "alt": "Level 105 in the Lagoon: a T-shaped level-2 rock with two white dots among rocks, bomb arrows, a portal and mirrors", "width": 564, "height": 820, "caption": "A level-2 rock (two dots) on level 105, with rocks, bombs and a portal." },
       "related": ["rock", "level-3-rock", "bomb-arrow"]
     },
     {
@@ -73,7 +73,7 @@
       "what": ["Portals come in pairs: a rim in the pair's colour round a dark, slowly turning swirl, with the pair's number as white dice dots (1 to 6). An arrow whose path reaches one portal sinks in, shoots out of its twin going the same way, and carries on.", "Nothing rests on a portal and nothing is stopped by one. A pair's two cells are never in the same row or column."],
       "how": ["When a path reaches a portal, jump to its twin (same colour, same dots) and keep following the path from there.", "On a zoomed-in board the camera follows an escaping arrow through the portal, so you see where it comes out."],
       "notes": ["Level 101 introduces portals with a single pair. Later levels have up to 6 pairs, each in its own colour.", "In-game tip: \"Portals send arrows out of their pair.\""],
-      "figure": { "src": "/exitwise/wiki/img/v12-portals.webp", "alt": "Level 101: the portals introduction, two green portals with dark swirls on a small board", "width": 564, "height": 840, "caption": "Level 101 introduces portals: an arrow comes out of the twin with the same colour and dots." },
+      "figure": { "src": "/exitwise/wiki/img/v12-portals.webp", "alt": "Level 101, the portals introduction: the card \"New: portals\" above a small board with its two green portals", "width": 564, "height": 820, "caption": "Level 101 introduces portals: an arrow comes out of the twin with the same colour and dots." },
       "related": ["mirror", "grid-lines", "colour-gate"]
     },
     {
@@ -83,7 +83,7 @@
       "what": ["Ice is one cell showing a number. It holds no arrow and stops every arrow, bombs too, and a bomb can't break it.", "Each time any arrow leaves the board, by a tap or a powerup, the number drops by one. At 0 the ice melts and the way is open."],
       "how": ["Arrows pointing at the ice have to wait: clear the other arrows first.", "The number is just big enough: the ice melts right as you run out of other arrows to clear, so spend your moves on the arrows that don't wait on it."],
       "notes": ["Level 131 introduces ice with one block counting from 5, and a tutorial that shows an arrow waiting on it.", "In-game tip: \"Ice melts as arrows leave.\""],
-      "figure": { "src": "/exitwise/wiki/img/ice.webp", "alt": "Level 131 in the Lagoon world: an ice cell showing 4 at the edge of the board", "width": 720, "height": 1280, "caption": "Level 131 introduces ice." },
+      "figure": { "src": "/exitwise/wiki/img/ice.webp", "alt": "Level 131 in the Lagoon world: an ice cell showing 5 on a pyramid-shaped board", "width": 720, "height": 1280, "caption": "Level 131 introduces ice." },
       "related": ["shutter", "magic-wand", "hearts"]
     },
     {
@@ -132,7 +132,7 @@
       "what": ["A chain bomb is a bomb with a spark on every cell of its fuse. Its blast runs through every rock touching the one it hits, and on through the rocks touching those: each takes one hit.", "Rock walls are lines of 3 to 8 one-cell rocks, sometimes with one bend. One chain bomb opens the whole wall. A level-2 or level-3 rock in a wall takes one hit from the blast and needs bombs of its own for the rest."],
       "how": ["Find the chain bomb aimed at the wall and clear its path, like any bomb.", "Check the wall for dotted rocks: they need their own bombs as well."],
       "notes": ["Level 281 introduces walls with one wall of 4 or 5 rocks and its chain bomb. From level 282 every level has at least one wall, and hard levels one more."],
-      "figure": { "src": "/exitwise/wiki/img/v12-chain-bomb.webp", "alt": "The How to play lesson Chain bombs: a wall of three stone rocks and a chain bomb aimed at it", "width": 564, "height": 845, "caption": "A rock wall and its chain bomb, in How to play." },
+      "figure": { "src": "/exitwise/wiki/img/v12-chain-bomb.webp", "alt": "The How to play lesson Chain bombs: a wall of three stone rocks and a chain bomb aimed at it", "width": 564, "height": 820, "caption": "A rock wall and its chain bomb, in How to play." },
       "related": ["rock", "bomb-arrow", "level-3-rock"]
     },
     {
@@ -142,7 +142,7 @@
       "what": ["A key lies on the board in its colour, with that colour's symbol in its bow. On a board with a key, the gates of its colour are locked doors: a double door in the colour with a padlock showing the same symbol. The key never blocks.", "The first arrow, or bomb on its way to its rock, that flies over the key turns it: a spark runs to every door of its colour, wherever it is, the padlocks drop and the doors swing open for good. Two-colour gates don't react to keys."],
       "how": ["A locked door far away with no arrow of its colour in sight? Look for the key of its colour on a free arrow's path.", "A key earlier on an arrow's own path unlocks a door further along that same path before the arrow gets there."],
       "notes": ["Level 311 introduces keys and doors with one key and its doors.", "In-game tip: \"A key opens every door of its colour.\""],
-      "figure": { "src": "/exitwise/wiki/img/v12-keys-doors.webp", "alt": "The How to play lesson Keys and doors: a blue key on a grey plate and a blue locked door with a padlock", "width": 564, "height": 845, "caption": "Keys and doors in How to play: the key unlocks every door of its colour." },
+      "figure": { "src": "/exitwise/wiki/img/v12-keys-doors.webp", "alt": "The How to play lesson Keys and doors: a blue key on a grey plate and a blue locked door with a padlock", "width": 564, "height": 820, "caption": "Keys and doors in How to play: the key unlocks every door of its colour." },
       "related": ["colour-gate", "two-colour-gate", "paint-tile"]
     },
     {
@@ -205,7 +205,7 @@
       "summary": "Earned every level; spent on hints, continues and powerups.",
       "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30."],
       "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.", "Coin packs are also for sale in the app's shop."],
-      "figure": { "src": "/exitwise/img/7-win.webp", "alt": "The Level complete card: time 00:08, 2 hearts lost and +10 coins", "width": 720, "height": 1280, "caption": "Every win pays coins." },
+      "figure": { "src": "/exitwise/img/7-win.webp", "alt": "The Level complete card: time 00:10, 2 hearts lost, 843 points and +10 coins", "width": 720, "height": 1280, "caption": "Every win pays coins." },
       "related": ["hints", "hearts", "hard-levels", "daily-challenge"]
     },
     {
