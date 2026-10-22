@@ -1,0 +1,218 @@
+{
+  "title": "Speedometer Live Wallpaper for Android: GPS Speed Dashboard",
+  "description": "Turn your Android home screen into a car dashboard: a free live wallpaper with a GPS speedometer, power, CPU clock, battery, RAM, signal and Wi-Fi gauges.",
+  "social": {
+    "title": "Speedometer Live Wallpaper",
+    "description": "Your phone as a car dashboard: live gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "MobileApplication",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
+        "name": "Speedometer Live Wallpaper",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard: a big dial for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. The Classic design is free; the chrome Future design is a one-time purchase of €0.99.",
+        "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
+        "screenshot": [
+          "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
+          "https://vgraphics.gr/speedometer-wallpaper/img/future-kmh.webp",
+          "https://vgraphics.gr/speedometer-wallpaper/img/designs.webp"
+        ],
+        "operatingSystem": "Android",
+        "applicationCategory": "DesktopEnhancementApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "EUR",
+          "availability": "https://schema.org/InStock",
+          "url": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
+        },
+        "installUrl": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
+        "sameAs": ["https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"],
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://vgraphics.gr/apps/" },
+          { "@type": "ListItem", "position": 3, "name": "Speedometer Live Wallpaper", "item": "https://vgraphics.gr/speedometer-wallpaper/" }
+        ]
+      }
+    ]
+  },
+  "site": {
+    "name": "Speedometer Live Wallpaper",
+    "icon": "/speedometer-wallpaper/img/icon.png",
+    "parent": { "name": "Apps", "href": "/apps/" },
+    "nav": [
+      { "label": "Overview", "href": "/speedometer-wallpaper/" },
+      { "label": "Wiki", "href": "/speedometer-wallpaper/wiki/" },
+      { "label": "Privacy", "href": "/speedometer-wallpaper/privacy.html" }
+    ],
+    "footer": [
+      { "label": "Privacy policy", "href": "/speedometer-wallpaper/privacy.html" }
+    ]
+  },
+  "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" },
+  "hero": {
+    "lead": "Your phone, as a <em>car dashboard.</em>",
+    "align": "left",
+    "badges": ["google-play"],
+    "art": {
+      "alt": "Speedometer Live Wallpaper on a phone in a car's dashboard mount at night: the Amber Night gauges at 87 km/h, with rain on the windscreen, city lights and tail-light trails behind",
+      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
+      "ultra": { "src": "img/key-art-ultra", "widths": [1920, 2560, 3200], "width": 3200, "height": 1325, "sizes": "max(100vw, 242vh)" },
+      "wide": { "src": "img/key-art", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 1920, "height": 1080, "sizes": "max(100vw, min(111vw, 178vh))" },
+      "position": "50% 22%",
+      "fade": { "wide": "78%", "tall": "76%" },
+      "placeholder": "linear-gradient(160deg, #1B3550, #0D1622 55%, #0B0B0C)"
+    }
+  },
+  "intro": {
+    "lede": "A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.",
+    "actions": [{ "href": "#tour", "label": "Tour the dashboard", "icon": "down", "button": true }],
+    "demo": "demo/gauge"
+  },
+  "sections": [
+    {
+      "id": "shots",
+      "eyebrow": "On your home screen",
+      "title": "Rendered by the app itself",
+      "intro": "These are real renders. The dashboard fits phones and tablets of any shape.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "items": [
+            { "src": "img/shot-kmh.webp", "alt": "GPS speed mode", "width": 540, "height": 1200, "caption": "GPS speed" },
+            { "src": "img/shot-power.webp", "alt": "Power mode in watts", "width": 540, "height": 1200, "caption": "Power" },
+            { "src": "img/shot-cpu.webp", "alt": "CPU clock mode", "width": 540, "height": 1200, "caption": "CPU clock" },
+            { "src": "img/shot-wifi.webp", "alt": "A fast Wi-Fi link on the Wi-Fi gauge", "width": 540, "height": 1200, "caption": "Wi-Fi" },
+            { "src": "img/future-power.webp", "alt": "The Future design in power mode, at 18.5 watts", "width": 540, "height": 1200, "caption": "Future" },
+            { "src": "img/designs.webp", "alt": "The Designs screen, with Future and its Buy for €0.99 button", "width": 540, "height": 1200, "caption": "Designs" },
+            { "src": "img/shot-home.webp", "alt": "The app's home screen: Set wallpaper, Designs, Settings and Info", "width": 540, "height": 1200, "caption": "The app" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how",
+      "eyebrow": "Start your engine",
+      "title": "Three steps to your dashboard",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Install <b>Speedometer Live Wallpaper</b> from Google Play.",
+            "Open it and tap <b>Set wallpaper</b>, then confirm on your home screen.",
+            "In <b>Settings</b>, choose what the big gauge shows, your units, and which lights and clock to show. In <b>Designs</b>, pick Classic or Future."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "modes",
+      "eyebrow": "The big gauge",
+      "title": "One dial, three jobs",
+      "intro": "Pick the mode in Settings, tap the gauge on your home screen, or use the <b>Big gauge</b> tile in Quick Settings, which switches it on every phone, Samsung's included. The digits above the needle show the same value.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "items": [
+            { "image": { "src": "img/dial-power.webp", "alt": "The big dial in power mode, at 18.5 watts", "width": 480, "height": 480 }, "tag": "Mode 1", "title": "Power", "text": "Watts going into the battery (to the right) or out of it (to the left, with a minus)." },
+            { "image": { "src": "img/dial-cpu.webp", "alt": "The big dial in CPU clock mode", "width": 480, "height": 480 }, "tag": "Mode 2", "title": "CPU clock", "text": "How fast the processor runs, as a share of its top speed. On phones that allow reading it." },
+            { "image": { "src": "img/dial-speed.webp", "alt": "The big dial in GPS speed mode, at 87 km/h", "width": 480, "height": 480 }, "tag": "Mode 3", "title": "GPS speed", "text": "Your speed in km/h or mph. A red mark shows the top speed of the current drive." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "designs",
+      "eyebrow": "Designs",
+      "title": "Classic, or Future",
+      "intro": "Open Designs in the app and swipe through them. Each preview is drawn by the wallpaper itself, at your phone's shape.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "side",
+          "items": [
+            { "image": { "src": "img/shot-kmh.webp", "alt": "The Classic design: the big speed dial with signal, RAM, Wi-Fi and battery gauges around it", "width": 540, "height": 1200 }, "tag": "Free", "title": "Classic", "text": "The 2016 dashboard: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and an LCD clock." },
+            {
+              "image": { "src": "img/future-kmh.webp", "alt": "The Future design: a chrome dial at 72 km/h, the song that's playing, and 3 missed calls and 2 messages", "width": 540, "height": 1200 },
+              "tag": "€0.99, one time",
+              "tagTone": "alt",
+              "title": "Future",
+              "text": "The 2016 chrome cluster, rebuilt: one big dial with the same three modes, battery and RAM arcs, the clock and date, and the Bluetooth and Wi-Fi status.",
+              "list": [
+                "<b>Your music on the dashboard.</b> The song that's playing, its cover and the media volume, plus how many calls you missed and messages you haven't read. Turn on notification access for it in Android's settings; nothing it reads leaves your phone.",
+                "<b>Buy once, keep it.</b> On a new phone with the same Google account, Future comes back by itself when you open the app."
+              ]
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            { "title": "Big gauge tile", "text": "Add the Big gauge tile to Quick Settings to switch the dial's mode from anywhere. Its subtitle shows the mode it's in." },
+            { "title": "Easy on the battery", "text": "Nothing redraws unless something changed, and everything stops while the wallpaper is hidden." },
+            { "title": "No ads on your wallpaper", "text": "A small banner shows inside the app only, never on your home screen." },
+            { "title": "Android only", "text": "Live wallpapers are an Android feature, so there's no iPhone version." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "tour",
+      "eyebrow": "Tour the dashboard",
+      "title": "What every gauge shows",
+      "intro": "Tap a red dot on the dashboard, or open a part below.",
+      "blocks": [
+        {
+          "type": "tour",
+          "image": { "src": "img/shot-kmh.webp", "alt": "The full dashboard, with numbered parts", "width": 540, "height": 1200 },
+          "open": "p3",
+          "spots": [
+            { "part": "p1", "n": 1, "label": "Signal", "x": 19.5, "y": 24 },
+            { "part": "p2", "n": 2, "label": "RAM", "x": 80, "y": 24 },
+            { "part": "p3", "n": 3, "label": "The big gauge", "x": 53, "y": 31 },
+            { "part": "p4", "n": 4, "label": "Warning lights", "x": 35, "y": 40.5 },
+            { "part": "p4", "n": 4, "label": "Warning lights", "x": 65, "y": 40.5 },
+            { "part": "p5", "n": 5, "label": "Date and time", "x": 50, "y": 50 },
+            { "part": "p6", "n": 6, "label": "Wi-Fi", "x": 24, "y": 66 },
+            { "part": "p7", "n": 7, "label": "Battery", "x": 75, "y": 66 }
+          ],
+          "parts": [
+            { "id": "p1", "n": 1, "title": "Signal", "body": "<p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p>", "more": "/speedometer-wallpaper/wiki/signal/" },
+            { "id": "p2", "n": 2, "title": "RAM", "body": "<p>The small gauge at the top right shows how much of the phone's memory is in use.</p>", "more": "/speedometer-wallpaper/wiki/ram/" },
+            { "id": "p3", "n": 3, "title": "The big gauge", "body": "<p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen, or use the Big gauge tile in Quick Settings, to switch. The digits above the needle show the same value.</p>", "more": "/speedometer-wallpaper/wiki/big-gauge/" },
+            { "id": "p4", "n": 4, "title": "Warning lights", "body": "<p>Four lights on the big gauge. Each one can be switched off in Settings.</p><ul><li><b>Low battery:</b> at or below the low battery level, 15 % unless you change it.</li><li><b>Bluetooth:</b> while Bluetooth is on.</li><li><b>High temperature:</b> when the battery is hotter than 45 °C, unless you change it.</li><li><b>Low temperature:</b> when the battery is colder than 0 °C, unless you change it.</li></ul>", "more": "/speedometer-wallpaper/wiki/#lights" },
+            { "id": "p5", "n": 5, "title": "Date and time", "body": "<p>The LCD under the big gauge. The time format, date order, separators and seconds are all in Settings.</p>", "more": "/speedometer-wallpaper/wiki/date-and-time/" },
+            { "id": "p6", "n": 6, "title": "Wi-Fi", "body": "<p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p>", "more": "/speedometer-wallpaper/wiki/wifi/" },
+            { "id": "p7", "n": 7, "title": "Battery", "body": "<p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p>", "more": "/speedometer-wallpaper/wiki/battery/" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "band": {
+        "art": "<span class=\"lcd\" data-ghost=\"88\">00</span>",
+        "title": "Your readings stay on your phone",
+        "text": "Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen. Future's music, calls and messages are read on the phone and stay there.",
+        "link": { "href": "/speedometer-wallpaper/privacy.html", "label": "Privacy policy →" }
+      }
+    }
+  ],
+  "cta": {
+    "title": "Put the dashboard on your phone",
+    "text": "Free on Google Play, for Android phones and tablets.",
+    "badges": ["google-play"]
+  }
+}
