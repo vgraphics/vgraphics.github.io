@@ -308,7 +308,7 @@
 .ost-d { color: var(--soft); font-variant-numeric: tabular-nums; }
 .ost-track[aria-current="true"] .ost-d { color: color-mix(in srgb, var(--dark) 72%, transparent); }
 
-/* The product's collection on YouTube and Spotify: a round-ended button for each, its one-colour icon and the
+/* The product's collection on YouTube and SoundCloud: a round-ended button for each, its one-colour icon and the
    network's name (George, 22 Oct 2026: "Add social icon button to project landing page") */
 .ost-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 0; color: var(--soft); font: var(--label-weight) 0.85rem/1 var(--label-font); }
 .ost-links > span { margin-right: 2px; }
