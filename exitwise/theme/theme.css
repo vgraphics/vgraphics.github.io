@@ -1,6 +1,6 @@
 /* exitwise's theme pack, written by tools/build-pages.mjs from theme.json: edit that, not this. */
 @font-face { font-family: "Lilita One"; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-@font-face { font-family: "Nunito"; src: url("/exitwise/fonts/nunito-latin.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
+@font-face { font-family: "Comic Neue"; src: url("/exitwise/fonts/comic-neue-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; }
 :root {
   --page: #F4EFE6;
   --page-pattern: radial-gradient(#D2C6B2 1.6px, transparent 1.9px);
@@ -33,17 +33,17 @@
   --card-lift: inset 0 -5px 0 rgba(59, 51, 85, 0.05), 0 20px 34px -16px rgba(59, 51, 85, 0.5);
   --card-stripe: 0px;
   --font-display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
-  --font-body: "Nunito", system-ui, sans-serif;
+  --font-body: "Comic Neue", "Comic Sans MS", system-ui, sans-serif;
   --display-weight: 400;
   --display-case: none;
   --display-tracking: normal;
   --display-leading: 1.1;
-  --label-font: "Nunito", system-ui, sans-serif;
-  --label-weight: 800;
+  --label-font: "Comic Neue", "Comic Sans MS", system-ui, sans-serif;
+  --label-weight: 700;
   --label-case: none;
   --label-tracking: normal;
   --body-size: 18px;
-  --body-weight: 500;
+  --body-weight: 700;
   --h2-size: clamp(2rem, 5vw, 2.8rem);
   --section-pad: 56px;
   --intro-bg: linear-gradient(#9FCF66, #83BD57);
@@ -57,6 +57,8 @@
   --nav-current-bg: #FFFFFF;
   --nav-current-ink: #3B3355;
   --nav-current-line: none;
+  --nav-current-bg-scrolled: #3B3355;
+  --nav-current-ink-scrolled: #FFFDF8;
   --foot-rule: 2px dashed #DED4C4;
   --band-bg: linear-gradient(180deg, #FFFDF8, #F7F0E4);
   --dot: #D2C6B2;
