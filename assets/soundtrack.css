@@ -331,15 +331,18 @@
 }
 
 /* The mini-bar: fixed to the bottom of the screen while the player is out of view (soundtrack.js moves it to the end
-   of the page and turns .on on and off). It slides in from below and lies over the footer's picture; the page never
-   grows for it (George, 22 Oct: "Player creates an empty space below footer"). It has its own waveform to seek on
-   (George: "Make that player wider and show the [SoundCloud] style progress so I can seek too"): on a phone on a row of
-   its own under the track and the buttons, on wider screens between them. */
+   of the page and turns .on on and off). It slides in from below and, at the end of the page, lies in the footer's
+   foot, which keeps room for it (below). It has its own waveform to seek on (George: "Make that player wider and show
+   the [SoundCloud] style progress so I can seek too"): on a phone on a row of its own under the track and the buttons,
+   on wider screens between them. --ost-mini-h is its height: the 48px row, the 40px waveform row under it on phones,
+   and its padding. */
+:root { --ost-mini-h: 102px; --ost-mini-gap: max(12px, env(safe-area-inset-bottom)); }
+@media (min-width: 760px) { :root { --ost-mini-h: 64px; } }
 .ost-mini {
   position: fixed;
   z-index: 50;
   left: 50%;
-  bottom: max(12px, env(safe-area-inset-bottom));
+  bottom: var(--ost-mini-gap);
   display: grid;
   grid-template-columns: minmax(0, 1fr) auto auto auto;
   grid-template-areas: "show play next close" "seek seek seek seek";
@@ -409,13 +412,13 @@
   }
   .ost-mini .ost-seek { padding: 0; }
 }
-/* While the bar is up, the footer's words move up by its height (--ost-room, from soundtrack.js) inside the footer's
-   picture, so the bar never covers the last line. */
-.foot .wrap { transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
-html.ost-room .foot .wrap { translate: 0 calc(-1 * var(--ost-room, 0px)); }
+/* The footer keeps the bar's room under its legal line whether the bar is up or not, so the bar only ever covers the
+   footer's empty foot: the page never grows, shrinks or shifts for it, and the footer's picture and its fade run to
+   the bottom of the page under it (George, 22 and 23 Oct: "Player still adds a space below footer"). */
+.foot .wrap { padding-bottom: calc(var(--ost-mini-h) + var(--ost-mini-gap) + 16px); }
 
 @media (prefers-reduced-motion: reduce) {
   .ost-disc, .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: none; }
-  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .foot .wrap { transition: none; }
+  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on { transition: none; }
   [data-state="loading"] .ost-play::after { animation-duration: 2.4s; }
 }

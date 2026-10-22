@@ -156,10 +156,8 @@
       b.title = LOOP[loop];
     }
 
-    // The footer's words make room for the bar: its height, its gap to the screen's edge and a little air.
-    const room = () => document.documentElement.style.setProperty("--ost-room", mini.offsetHeight + parseFloat(getComputedStyle(mini).bottom) + 8 + "px");
-
-    // The mini-bar is on while the music has started and the player's controls are off the screen.
+    // The mini-bar is on while the music has started and the player's controls are off the screen. The footer always
+    // keeps room for it (soundtrack.css), so the page never moves when it comes or goes.
     function place() {
       const on = started && !inView;
       if (on === mini.classList.contains("on")) return;
@@ -167,9 +165,7 @@
         mini.hidden = false;
         mini.getBoundingClientRect(); // laid out below the screen first, so it slides in
       }
-      if (on) room();
       mini.classList.toggle("on", on);
-      document.documentElement.classList.toggle("ost-room", on);
     }
 
     audio.addEventListener("playing", () => state("playing"));
@@ -241,14 +237,9 @@
       inView = e.isIntersecting;
       place();
     }).observe(deck);
-    // Redraw the waveforms when a bar changes width (the mini-bar's first showing included), and keep the footer's
-    // room right if the mini-bar's height changes while it is up.
-    const resized = new ResizeObserver(() => {
-      draw();
-      if (mini.classList.contains("on")) room();
-    });
+    // Redraw the waveforms when a bar changes width (the mini-bar's first showing included).
+    const resized = new ResizeObserver(draw);
     bars.forEach(({ box }) => resized.observe(box));
-    resized.observe(mini);
     mini.querySelector('[data-ost="close"]').addEventListener("click", () => {
       stop();
       main("play").focus({ preventScroll: true });
