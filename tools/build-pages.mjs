@@ -10,8 +10,8 @@
 // A product's other page holds the same fields as its landing page, except site, stores and footerArt (the product's),
 // with intro and cta optional (its closing card is the product's unless it gives its own), and path (its address, when
 // it isn't /<product>/<page>/) and robots ("noindex") as extras; its hero shows the product's key art unless it gives
-// its own art, hero.title is its heading (the landing page's is the product's name), and hero.size "short" makes the
-// hero a band for pages that get to the point (ranking, policies).
+// its own art, and hero.title is its heading (the landing page's is the product's name). Every page's hero is the
+// landing page's height (George, 23 Oct 2026), the one box in tools/lib/hero.mjs.
 //
 // page.json holds the page's words, links and pictures (trusted HTML from this repo):
 //   title, description           the search result's title and snippet
@@ -20,9 +20,11 @@
 //   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...] },
 //                                shared with the product's other pages
 //   stores                       { googlePlay }: the store links the "google-play" badge points at
-//   hero                         { title?, lead, align: center | left, size?, badges, art }: the key art and its foot
+//   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
-//                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files
+//                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
+//                                or, on another page, { wiki: "<slug>", alt, position?, fade?, placeholder? }: that
+//                                wiki entry's painting
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
 //   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
@@ -39,66 +41,35 @@ import { pathToFileURL } from 'node:url'
 import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
+import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { renderGallery } from './gallery.mjs'
 
-const TALL = '(max-aspect-ratio: 4/5)'
-const ULTRA = '(min-aspect-ratio: 2/1)'
-
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
 const image = (i, lazy = true) => `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
 
-// The key art as one <picture>: the tall cut on portrait screens up to 4:5, the ultra-wide one past 2:1 if there is
-// one, else the wide one; AVIF, then WebP, then JPEG. The same choices as preloads, so the browser fetches it first.
-function keyArt(a) {
-  const sources = (img, media, sizes) => [
-    `<source${media ? ` media="${media}"` : ''} type="image/avif" srcset="${set(img, 'avif', img.widths)}" sizes="${sizes}"${dims(img)}>`,
-    `<source${media ? ` media="${media}"` : ''} type="image/webp" srcset="${set(img, 'webp', img.widths)}" sizes="${sizes}"${dims(img)}>`,
-    ...(media && img.jpeg ? [`<source media="${media}" srcset="${set(img, 'jpg', img.jpeg)}" sizes="${sizes}"${dims(img)}>`] : []),
-  ]
-  const wideSizes = a.wide.sizes || '100vw'
-  const fallback = a.wide.jpeg ? `${a.wide.src}-${a.wide.jpeg.at(-1)}.jpg" srcset="${set(a.wide, 'jpg', a.wide.jpeg)}` : `${a.wide.src}-${a.wide.widths.at(-1)}.webp`
-  const picture = [
-    ...sources(a.tall, TALL, '100vw'),
-    ...(a.ultra ? sources(a.ultra, ULTRA, '100vw') : []),
-    ...sources(a.wide, '', wideSizes),
-    `<img src="${fallback}" sizes="${wideSizes}"${dims(a.wide)} fetchpriority="high" alt="${esc(a.alt)}">`,
-  ]
-  const preload = (img, media, sizes) => `<link rel="preload" as="image" type="image/avif" media="${media}" imagesrcset="${set(img, 'avif', img.widths)}" imagesizes="${sizes}" fetchpriority="high">`
-  const preloads = [
-    preload(a.tall, TALL, '100vw'),
-    preload(a.wide, a.ultra ? '(min-aspect-ratio: 4/5) and (max-aspect-ratio: 2/1)' : `not all and ${TALL}`, wideSizes),
-    ...(a.ultra ? [preload(a.ultra, ULTRA, '100vw')] : []),
-  ]
-  return { picture, preloads }
-}
-
-function hero(p, picture) {
+// The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
+// and the badges in its foot. The painted title stands in for the h1, which stays for screen readers and search.
+function hero(p) {
   const h = p.hero
-  const a = h.art
-  const style = `--art-at: ${a.position}; --art-fade: ${a.fade.wide}; --art-fade-tall: ${a.fade.tall}; --art-placeholder: ${a.placeholder}`
-  const cls = ['key-art', h.align === 'left' && 'foot-left', h.size === 'short' && 'short'].filter(Boolean).join(' ')
-  return `<section class="${cls}" style="${esc(style)}" aria-labelledby="title">
-      <picture>
-        ${picture.join('\n        ')}
-      </picture>
-      <div class="hero-foot">
+  return heroSection(h.art, { cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
           ${h.badges?.length ? actions(p, h.badges) : ''}
         </div>
-      </div>
-    </section>`
+      </div>` })
 }
 
 // A stage: a picture from the key art's world behind a section's content, as the intro's demo, the gallery and the
-// soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll.
-function stageArt(st) {
+// soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll. { "wiki": "<slug>" } stands
+// on that wiki entry's painting, in the sizes it has.
+function stageArt(st, slug) {
   if (!st) return ''
+  if (st.wiki) st = wikiArt(slug, st.wiki, st)
   const sources = (img, media, sizes) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${set(img, ext, img.widths)}" sizes="${sizes}">`).join('')
   return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', '100vw')}${sources(st.wide, '', '(max-width: 1160px) 100vw, 1120px')}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
 }
@@ -240,7 +211,7 @@ function section(product, s) {
           ${head}
         </div>` : ''}
         ${s.stage ? `<div class="scene"${stageAt(s.stage)}>
-          ${stageArt(s.stage)}
+          ${stageArt(s.stage, product.slug)}
           ${blocks}
         </div>` : blocks}
         ${s.more ? `<a class="more" href="${esc(s.more.href)}">${s.more.label}</a>` : ''}
@@ -273,7 +244,7 @@ export function render(slug, sub) {
   const demo = p.intro?.demo ? readFileSync(demoFile('html'), 'utf8') : ''
   const demoCss = demoFile('css') && existsSync(demoFile('css'))
   const demoJs = demoFile('js') && existsSync(demoFile('js'))
-  const art = keyArt(p.hero.art)
+  const art = heroPicture(p.hero.art)
   const fonts = t.fonts.filter((f) => f.preload).map((f) => `<link rel="preload" href="${f.src}" as="font" type="font/${f.src.split('.').pop()}" crossorigin>`)
   const blocks = p.sections.flatMap((s) => s.blocks ?? [])
   const ost = blocks.some((b) => b.type === 'soundtrack')
@@ -322,14 +293,15 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   ${header(product, { current: path })}
 
   <main id="main">
-    ${hero(p, art.picture)}
+    ${hero(p)}
 
     ${body.join('\n\n    ')}
   </main>
 
   ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
-  <script src="/assets/product.js" defer></script>${gallery ? `
+  <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${beside('js').map((e) => `

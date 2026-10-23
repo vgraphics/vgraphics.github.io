@@ -1,0 +1,208 @@
+{
+ "about": "The masters of the wiki's paintings (WebP, quality 90) and where each came from. tools/make-wiki-art.py makes the served sizes from them. Licence: every image was made on VGraphics' Recraft Pro plan (a paid plan, so the images are ours to use commercially); the Worlds outpaint used Nano Banana 2.1 through the same Recraft Pro plan.",
+ "entries": {
+  "rock": {
+   "master": "rock.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a jungle clearing, a  …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "bomb-arrow": {
+   "master": "bomb-arrow.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a jungle clearing, a  …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "colour-gate": {
+   "master": "colour-gate.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a volcano world, a gl …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "mirror": {
+   "master": "mirror.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a volcano world, a sq …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "level-2-rock": {
+   "master": "level-2-rock.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a sunny desert, a dar …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "portal": {
+   "master": "portal.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene on a tropical lagoon isl …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "ice": {
+   "master": "ice.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene on a tropical lagoon isl …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "level-3-rock": {
+   "master": "level-3-rock.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in autumn woods, a very  …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "paint-tile": {
+   "master": "paint-tile.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in autumn woods, a round …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "shutter": {
+   "master": "shutter.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene inside a glowing crystal …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "two-colour-gate": {
+   "master": "two-colour-gate.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene inside a glowing crystal …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "chain-bomb": {
+   "master": "chain-bomb.webp",
+   "focus": 0.48,
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a clockwork town, a l …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "colour-switch": {
+   "master": "colour-switch.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a clockwork town, a p …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "auto-play": {
+   "master": "auto-play.webp",
+   "focus": 0.53,
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a green meadow, a rou …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "grid-lines": {
+   "master": "grid-lines.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a jungle, glowing str …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "remove-arrow": {
+   "master": "remove-arrow.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a volcano world, a ca …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "magic-wand": {
+   "master": "magic-wand.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a volcano world, a pu …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "how-to-play": {
+   "master": "how-to-play.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene in a green meadow, a whi …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "hearts": {
+   "master": "hearts.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, three big glossy red ca …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "coins": {
+   "master": "coins.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, a burst of shiny golden …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "hints": {
+   "master": "hints.webp",
+   "focus": 0.55,
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, a glowing golden light  …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "hard-levels": {
+   "master": "hard-levels.webp",
+   "focus": 0.38,
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene at night, a huge dark pu …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "board-shapes": {
+   "master": "board-shapes.webp",
+   "focus": 0.46,
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, several floating puzzle …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "daily-challenge": {
+   "master": "daily-challenge.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, a big friendly wall cal …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "leaderboards": {
+   "master": "leaderboards.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, a golden winners podium …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "rooms": {
+   "master": "rooms.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, four cute animal friend …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "custom-maps": {
+   "master": "custom-maps.webp",
+   "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
+   "promptStart": "fantasy puzzle game scene, a craftsman s workbench …",
+   "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+  },
+  "worlds": {
+   "master": "worlds.webp",
+   "tall": "worlds-island.webp",
+   "made": "George's bird's-eye island (Recraft, 1:2, 768x1536), outpainted to 16:9 with Nano Banana 2.1 in Recraft (prompt below, variant A of 2), 23 Oct 2026",
+   "outpaintPrompt": "The same calm turquoise ocean seen straight from above, continuing to the left and right edges: open water with soft wave lines and sparkles, a few small rocky islets with green trees and sandy rims, coral and reef patches, tiny white sailboats, sea turtles, and fluffy white clouds along the bottom edge. Same bright flat storybook illustration style, colours and lighting as the middle. One continuous seamless scene, no new big land, no text, no borders or frames.",
+   "recraftProject": "https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "upscale": "Recraft Crisp upscale of the outpaint (1355x768 to 4096x2322) and of the island (to 1161x2322 at the same height), 23 Oct 2026",
+   "compose": "tools/make-wiki-worlds.py: worlds.webp from worlds-outpaint.webp and worlds-island.webp (the island put back crisp in the middle, the new sea shaded to meet it); worlds-island.webp is also the tall picture for phones"
+  }
+ }
+}

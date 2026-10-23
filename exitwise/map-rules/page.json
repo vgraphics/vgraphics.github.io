@@ -22,13 +22,10 @@
     "title": "Exitwise map rules",
     "lead": "Map rules",
     "align": "center",
-    "size": "short",
     "art": {
       "alt": "A player building an arrow puzzle board of their own on a hilltop",
-      "tall": { "src": "/exitwise/wiki/img/art/custom-maps-tall", "widths": [540], "width": 540, "height": 720 },
-      "wide": { "src": "/exitwise/wiki/img/art/custom-maps", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "wiki": "custom-maps",
       "position": "50% 45%",
-      "fade": { "wide": "70%", "tall": "62%" },
       "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
     }
   },

@@ -10,7 +10,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `games/index.html` | Games: Exitwise, and the two party games in design (no dates) |
 | `apps/index.html` | Apps: Speedometer Live Wallpaper |
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
-| `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub and the TV party games next |
+| `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
 | `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
@@ -33,6 +33,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
+| `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the masters in `<product>/wiki/art-src/`, whose `sources.json` records each one's making, prompt and licence: `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. |
+| `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
+| `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
@@ -56,6 +59,14 @@ sky, VHub violet. The home page's copy is the master: to change the menu or the 
 into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
 item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
 Change it there too and release `vhub-hub`: until then the check reports every hub page.
+
+On phones every header folds its menu into a button at the right that opens it as a panel (George, 23 Oct 2026: "At
+mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
+header below 561px. `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
+header's markup stays the copy above. Every company page loads it in its `<head>` with
+`<script src="/assets/menu.js" defer></script>` (check-site checks it), and the CSS acts only on pages that do. The
+hub's pages, which the VHub repo writes, get the menu once its `hub/index.html` and policy page add the same line;
+until then they keep the row. The product pages' button comes with their header (`tools/lib/partials.mjs`).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and

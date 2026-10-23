@@ -56,7 +56,7 @@
   </script>
   <link rel="preload" href="/exitwise/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/exitwise/img/key-art-tall-480.avif 480w, /exitwise/img/key-art-tall-720.avif 720w, /exitwise/img/key-art-tall-1080.avif 1080w, /exitwise/img/key-art-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" imagesizes="max(100vw, min(146vw, 233vh))" fetchpriority="high">
   <link rel="stylesheet" href="/exitwise/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">
 </head>
@@ -64,7 +64,8 @@
   <a class="skip" href="#main">Skip to content</a>
   <header class="top">
     <a class="product-name" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="150px" alt="Exitwise" width="146" height="36"></a>
-    <nav class="subnav" aria-label="Exitwise">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <nav class="subnav" id="site-menu" aria-label="Exitwise">
       <a href="/exitwise/">Overview</a>
       <a href="/exitwise/wiki/">Wiki</a>
       <a href="/exitwise/ranking/">Ranking</a>
@@ -74,14 +75,14 @@
   </header>
 
   <main id="main">
-    <section class="key-art short" style="--art-at: 50% 72%; --art-fade: 70%; --art-fade-tall: 62%; --art-placeholder: linear-gradient(#8BA06A, #4C805E)" aria-labelledby="title">
+    <section class="key-art" style="--art-at: 50% 0; --art-fade: 76%; --art-fade-tall: 62%; --art-placeholder: linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E)" aria-labelledby="title">
       <picture>
         <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/img/key-art-tall-480.avif 480w, /exitwise/img/key-art-tall-720.avif 720w, /exitwise/img/key-art-tall-1080.avif 1080w, /exitwise/img/key-art-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
         <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/img/key-art-tall-480.webp 480w, /exitwise/img/key-art-tall-720.webp 720w, /exitwise/img/key-art-tall-1080.webp 1080w, /exitwise/img/key-art-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
         <source media="(max-aspect-ratio: 4/5)" srcset="/exitwise/img/key-art-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
-        <source type="image/avif" srcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" sizes="100vw" width="4096" height="1764">
-        <source type="image/webp" srcset="/exitwise/img/key-art-wide-960.webp 960w, /exitwise/img/key-art-wide-1440.webp 1440w, /exitwise/img/key-art-wide-1920.webp 1920w, /exitwise/img/key-art-wide-2560.webp 2560w, /exitwise/img/key-art-wide-3200.webp 3200w" sizes="100vw" width="4096" height="1764">
-        <img src="/exitwise/img/key-art-wide-1920.jpg" srcset="/exitwise/img/key-art-wide-960.jpg 960w, /exitwise/img/key-art-wide-1920.jpg 1920w" sizes="100vw" width="4096" height="1764" fetchpriority="high" alt="The green meadow at the foot of the Exitwise tower, with a river winding past forests">
+        <source type="image/avif" srcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" sizes="max(100vw, min(146vw, 233vh))" width="4096" height="1764">
+        <source type="image/webp" srcset="/exitwise/img/key-art-wide-960.webp 960w, /exitwise/img/key-art-wide-1440.webp 1440w, /exitwise/img/key-art-wide-1920.webp 1920w, /exitwise/img/key-art-wide-2560.webp 2560w, /exitwise/img/key-art-wide-3200.webp 3200w" sizes="max(100vw, min(146vw, 233vh))" width="4096" height="1764">
+        <img src="/exitwise/img/key-art-wide-1920.jpg" srcset="/exitwise/img/key-art-wide-960.jpg 960w, /exitwise/img/key-art-wide-1920.jpg 1920w" sizes="max(100vw, min(146vw, 233vh))" width="4096" height="1764" fetchpriority="high" alt="Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, a volcano and ice to purple crystals, with a glowing door at the top under the title, balloons in a starry sky and a river winding past forests">
       </picture>
       <div class="hero-foot">
         <div class="wrap">
@@ -499,5 +500,6 @@
   </footer>
   <script src="/assets/anchors.js" defer></script>
   <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>
 </body>
 </html>

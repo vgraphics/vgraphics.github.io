@@ -12,13 +12,10 @@
     "title": "Beat a friend's run in Exitwise",
     "lead": "Beat my run",
     "align": "center",
-    "size": "short",
     "art": {
       "alt": "A fox, a panda and an owl on a winners' podium under falling confetti, beside an arrow puzzle board in a flower meadow",
-      "tall": { "src": "/exitwise/wiki/img/art/leaderboards-tall", "widths": [540], "width": 540, "height": 720 },
-      "wide": { "src": "/exitwise/wiki/img/art/leaderboards", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "wiki": "leaderboards",
       "position": "50% 45%",
-      "fade": { "wide": "80%", "tall": "72%" },
       "placeholder": "linear-gradient(#7F86C8, #A7CF7A)"
     }
   },

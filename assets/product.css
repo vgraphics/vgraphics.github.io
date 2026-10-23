@@ -118,7 +118,9 @@ h1, h2, h3 {
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink)); /* optional */
 }
 
-/* Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
+/* The hero of every product page, the landing page's, its other pages' and every wiki page's (George, 23 Oct 2026:
+   "Heroes of all pages must have same height as hero in overview"; tools/lib/hero.mjs builds it for all of them).
+   Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
    the wide picture (or the ultra-wide one past 2:1), cut to fill a 16:10 box no taller than the screen, so it fills
    the whole screen on most of them (George, 22 Oct: "Increase height of hero a bit", from 16:9). Portrait
    screens up to 4:5 get the whole tall 9:16 picture, never cut, so a tablet's lead line stays clear of the art's
@@ -216,14 +218,6 @@ h1, h2, h3 {
 .btn:hover { filter: brightness(1.08); }
 .btn:active { transform: translateY(2px); }
 .btn svg { width: 20px; height: 20px; }
-
-/* A hero that gets to the point (hero.size "short": the ranking, the policies): the same art and fade, as a band about
-   half the screen, so the page's content starts above the fold. */
-.key-art.short { height: clamp(320px, 36vw, 62vh); height: clamp(320px, 36vw, 62svh); }
-@media (max-aspect-ratio: 4/5) {
-  .key-art.short { height: 112vw; }
-  .key-art.short picture img { object-position: var(--art-at, 50% 0); }
-}
 
 /* Scenes: a section's content on a stage of its own, as the gallery and the soundtrack have theirs: a picture from the
    key art's world (page.json stage) over --intro-bg, shaded at its top and foot (--stage-shade, optional) so the words
@@ -728,6 +722,66 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }
 }
+/* The menu on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger
+   menu."): below 561px, where the menu no longer fits beside the logo (Exitwise's needs about 390px for its three main
+   links, 480 on its map rules page, so it broke onto a second row), it folds into a button at the right
+   (tools/lib/partials.mjs) that opens it as a panel under the header (assets/menu.js): every link, the wide-only ones
+   too, in the product's page colour and label face, the current page in the look its bar gives it once scrolled.
+   Without JavaScript the row stays. */
+.menu-toggle { display: none; }
+@media (max-width: 560px) and (scripting: enabled) {
+  .menu-toggle {
+    display: inline-flex; align-items: center; justify-content: center; flex: none;
+    width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; border-radius: 50%;
+    background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: pointer;
+    transition: color 200ms ease-out, background-color 200ms ease-out;
+  }
+  .top.scrolled .menu-toggle, .top.menu-open .menu-toggle { color: var(--ink); filter: none; }
+  .menu-toggle:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+  /* Three bars, which turn into a cross while the panel is open */
+  .menu-toggle .bars { position: relative; }
+  .menu-toggle .bars, .menu-toggle .bars::before, .menu-toggle .bars::after {
+    display: block; width: 20px; height: 2px; border-radius: 2px; background: currentColor;
+    transition: transform 180ms ease-out, background-color 180ms ease-out;
+  }
+  .menu-toggle .bars::before, .menu-toggle .bars::after { content: ""; position: absolute; left: 0; }
+  .menu-toggle .bars::before { top: -6px; }
+  .menu-toggle .bars::after { top: 6px; }
+  .menu-open .menu-toggle .bars { background: transparent; }
+  .menu-open .menu-toggle .bars::before { transform: translateY(6px) rotate(45deg); }
+  .menu-open .menu-toggle .bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+  /* While it is open the header is a solid bar in the page's colour, the panel its continuation */
+  .top.menu-open { background-color: var(--page); }
+  .top.menu-open a { color: var(--ink); text-shadow: none; }
+  .subnav {
+    position: absolute; top: 100%; left: 0; right: 0; z-index: 1;
+    display: grid; gap: 4px; max-height: calc(100dvh - 100%); overflow-y: auto; overscroll-behavior: contain;
+    padding: 8px 16px 20px; background: var(--page); border-bottom: 1px solid var(--line);
+    border-radius: 0 0 var(--radius) var(--radius); box-shadow: 0 18px 36px -24px rgb(0 0 0 / 0.55);
+    visibility: hidden; opacity: 0; transform: translateY(-8px);
+    transition: opacity 140ms ease-in, transform 140ms ease-in, visibility 0s linear 140ms;
+  }
+  .menu-open .subnav {
+    visibility: visible; opacity: 1; transform: none;
+    transition: opacity 200ms ease-out, transform 200ms ease-out;
+  }
+  .top .subnav a { min-height: 52px; padding: 0 16px; font-size: 1.15rem; border-radius: var(--radius-sm); color: var(--ink); text-shadow: none; }
+  .top .subnav a.wide-only { display: inline-flex; }
+  .top .subnav a:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+  .top .subnav a[aria-current="page"] {
+    background: var(--nav-current-bg-scrolled, var(--nav-current-bg));
+    color: var(--nav-current-ink-scrolled, var(--nav-current-ink));
+    border-radius: var(--nav-current-radius, var(--radius-sm)); /* optional */
+  }
+  /* The page under the panel, dimmed; a tap on it closes the panel */
+  .top.menu-open::after {
+    content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 100dvh;
+    background: rgb(8 6 14 / 0.55);
+    animation: menu-dim 200ms ease-out;
+  }
+}
+@keyframes menu-dim { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
