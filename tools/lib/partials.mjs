@@ -1,11 +1,60 @@
 // The pieces every page of a product shares, for tools/build-pages.mjs and the wikis: the header with only the
-// product's own logo top left (George's rule, 22 Oct 2026), the footer with the company's legal line, and the theme's
-// decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for attribute values.
+// product's own logo top left (George's rule, 22 Oct 2026), the closing card and the footer with the company's legal
+// line (the same on every page, George, 23 Oct 2026: "The foother must be same on all pages"), the store badges and
+// buttons, and the theme's decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for
+// attribute values.
 import { readFileSync } from 'node:fs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 export const LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a>'
+
+export const ICONS = {
+  down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
+  chevron: '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+}
+
+// Every section heading carries a link to itself (George, 22 Oct 2026: "All sections ... must have anchors and copy on
+// click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
+export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
+
+// Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+export function actions(page, list, cls = 'badges') {
+  return `<div class="${cls}">${list.map((b) => {
+    if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
+    if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
+    return `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`
+  }).join('')}</div>`
+}
+
+// The last call to action, the card that stands half in the footer's picture: every page of a product ends with it
+// and the footer, so the two read as one footer. cta is { title, text, badges }: the page's own, else the product's.
+export function closing(page, cta = page.cta) {
+  if (!cta) return ''
+  return `<section class="cta-band" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="cta-title">${cta.title}</h2>
+          ${cta.text ? `<p>${cta.text}</p>` : ''}
+          ${actions(page, cta.badges)}
+        </div>
+      </div>
+    </section>`
+}
+
+// The page's favicon and touch icon: page.json site.favicon and touchIcon (the product's <product>/assets/ files,
+// tools/make-brand-assets.py), else its icon.
+export const iconLinks = ({ site: s }) => `<link rel="icon" href="${esc(s.favicon ?? s.icon)}">
+  <link rel="apple-touch-icon" href="${esc(s.touchIcon ?? s.icon)}">`
+
+// The product's own logo (George's rule: only it, top left): page.json site.logo { src, widths, width, height }, the
+// title as the product paints it, which carries the name; without one, its icon beside its typed name. height is the
+// height it is shown at.
+function brand(s, height, sizes) {
+  if (!s.logo) return `<img src="${esc(s.icon)}" alt="" width="${height}" height="${height}"><span>${esc(s.name)}</span>`
+  const l = s.logo
+  return `<img class="logo" src="${esc(l.src)}-${l.widths.at(-1)}.webp" srcset="${l.widths.map((w) => `${esc(l.src)}-${w}.webp ${w}w`).join(', ')}" sizes="${sizes}" alt="${esc(s.name)}" width="${Math.round(height * l.width / l.height)}" height="${height}">`
+}
 
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
 // key art, in the pack's on-art colours.
@@ -13,7 +62,7 @@ export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
   return `<header class="top">
-    <a class="product-name" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="36" height="36"><span>${esc(s.name)}</span></a>
+    <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
     <nav class="subnav" aria-label="${esc(s.name)}">
       ${links.join('\n      ')}
     </nav>
@@ -32,17 +81,17 @@ export function footer({ page }) {
   const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:gvergidis90@gmail.com', 'Contact']]
   const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
   const a = page.footerArt
-  // The picture fills the footer, about clamp(240px, 30vw, 600px) of art above the links plus the links themselves
+  // The picture fills the footer, about clamp(170px, 21vw, 420px) of art above the links plus the links themselves
   // (assets/product.css), so it is shown at the width that covers that box.
   const r = a && a.width / a.height
-  const sizes = a && `max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * ${r.toFixed(2)}))`
+  const sizes = a && `max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * ${r.toFixed(2)}))`
   const art = a ? `
     ${ornament(a, 'foot-art', sizes, `--foot-at: ${a.position}`)}` : ''
   return `<footer class="foot${a ? ' has-art' : ''}">${art}
     <div class="wrap">
-      <a class="foot-brand" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="48" height="48"><span>${esc(s.name)}</span></a>
+      <a class="foot-brand" href="${esc(s.nav[0].href)}">${brand(s, 48, '230px')}</a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
-        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('\n        ')}
+        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${buttons(page)}
       <p class="legal">${LEGAL}${play}</p>
     </div>

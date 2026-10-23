@@ -1,0 +1,38 @@
+{
+  "path": "/exitwise/map-rules.html",
+  "title": "Map rules · Exitwise",
+  "description": "The rules for publishing custom maps in the Exitwise arrow puzzle game, and how reports work.",
+  "social": {
+    "title": "Map rules · Exitwise",
+    "description": "The rules for publishing custom maps in Exitwise, and how reports work.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+      { "@type": "ListItem", "position": 4, "name": "Map rules", "item": "https://vgraphics.gr/exitwise/map-rules.html" }
+    ]
+  },
+  "hero": {
+    "title": "Exitwise map rules",
+    "lead": "Map rules",
+    "align": "center",
+    "size": "short",
+    "art": {
+      "alt": "A player building an arrow puzzle board of their own on a hilltop",
+      "tall": { "src": "/exitwise/wiki/img/art/custom-maps-tall", "widths": [540], "width": 540, "height": 720 },
+      "wide": { "src": "/exitwise/wiki/img/art/custom-maps", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "position": "50% 45%",
+      "fade": { "wide": "70%", "tall": "62%" },
+      "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
+    }
+  },
+  "sections": [
+    { "id": "rules", "blocks": [{ "type": "document", "src": "source.html" }] }
+  ]
+}

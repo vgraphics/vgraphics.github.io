@@ -17,6 +17,21 @@ body {
 }
 /* The ornaments reach past the screen's edges; clip, unlike hidden, makes no scroll box, so sticky pieces still stick. */
 main { overflow-x: clip; }
+
+/* Scrollbars in the product's own colour (George, 23 Oct 2026: "style the scrollbars to match the color of the
+   project"): the thumb in --scrollbar (optional; the accent by default), a little lighter on hover and press, on a
+   track of the page tinted with it. Chromium and Safari draw the ::-webkit-scrollbar parts, which can round and light
+   up; Firefox, which has none, takes scrollbar-color. The page's own scrolling rows (the screenshot row) get the same,
+   thinner. */
+:root { --sb: var(--scrollbar, var(--accent)); --sb-track: color-mix(in srgb, var(--sb) 9%, var(--page)); }
+::-webkit-scrollbar { width: 14px; height: 14px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: var(--sb-track); }
+::-webkit-scrollbar-thumb { min-height: 48px; border: 3px solid var(--sb-track); border-radius: 999px; background: var(--sb); }
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--sb) 80%, #FFFFFF); }
+::-webkit-scrollbar-thumb:active { background: color-mix(in srgb, var(--sb) 64%, #FFFFFF); }
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-color: var(--sb) var(--sb-track); }
+}
 img { max-width: 100%; }
 a { color: var(--link, var(--accent)); text-underline-offset: 3px; } /* --link: optional */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
@@ -73,6 +88,11 @@ h1, h2, h3 {
   letter-spacing: var(--display-tracking);
 }
 .product-name img { width: 36px; height: 36px; border-radius: 10px; }
+/* A product's painted title logo (page.json site.logo) carries its name: shown at its own shape, a soft shadow so it
+   reads on any sky and on the frosted bar. */
+.product-name img.logo, .foot-brand img.logo { width: auto; border-radius: 0; box-shadow: none; filter: drop-shadow(0 2px 6px rgb(20 12 40 / 0.3)); }
+.product-name img.logo { height: 42px; }
+.foot-brand img.logo { height: 64px; }
 .subnav { display: flex; gap: 4px; }
 .subnav a {
   display: inline-flex;
@@ -197,12 +217,20 @@ h1, h2, h3 {
 .btn:active { transform: translateY(2px); }
 .btn svg { width: 20px; height: 20px; }
 
-/* Intro: a section like the others, its heading and lede over the product's live demo (a playable board, a running
-   gauge) on a stage of its own, as the gallery and the soundtrack have theirs: a picture from the key art's world
-   (page.json intro.stage) over --intro-bg, shaded at its top and foot (--stage-shade, optional) so the words on it,
-   in --on-art, read. On phones it runs nearly edge to edge, like the gallery's. */
+/* A hero that gets to the point (hero.size "short": the ranking, the policies): the same art and fade, as a band about
+   half the screen, so the page's content starts above the fold. */
+.key-art.short { height: clamp(320px, 36vw, 62vh); height: clamp(320px, 36vw, 62svh); }
+@media (max-aspect-ratio: 4/5) {
+  .key-art.short { height: 112vw; }
+  .key-art.short picture img { object-position: var(--art-at, 50% 0); }
+}
+
+/* Scenes: a section's content on a stage of its own, as the gallery and the soundtrack have theirs: a picture from the
+   key art's world (page.json stage) over --intro-bg, shaded at its top and foot (--stage-shade, optional) so the words
+   on it, in --on-art, read. On phones it runs nearly edge to edge, like the gallery's. The intro's live demo (a
+   playable board, a running gauge) stands on one. */
 .intro .sec-head .badges { justify-content: flex-start; margin-top: 6px; }
-.demo-stage {
+.scene {
   position: relative;
   isolation: isolate;
   overflow: hidden;
@@ -215,9 +243,9 @@ h1, h2, h3 {
   color: var(--on-art);
   box-shadow: var(--card-shadow);
 }
-.demo-backdrop, .demo-backdrop img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; }
-.demo-backdrop img { object-fit: cover; object-position: var(--stage-at, 50% 50%); }
-.demo-stage::before {
+.scene-art, .scene-art img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; }
+.scene-art img { object-fit: cover; object-position: var(--stage-at, 50% 50%); }
+.scene::before {
   content: "";
   position: absolute;
   inset: 0;
@@ -225,6 +253,7 @@ h1, h2, h3 {
   background: var(--stage-shade, linear-gradient(var(--art-shade), transparent 24%, transparent 72%, var(--art-shade))); /* optional */
   pointer-events: none;
 }
+.scene > :not(.scene-art) { width: 100%; }
 .demo { width: 100%; animation: rise 800ms 200ms cubic-bezier(.2, .8, .2, 1) both; }
 .demo-cap {
   max-width: 30em;
@@ -264,8 +293,12 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   margin-inline: calc(50% - 50vw);
   padding: 6px calc(50vw - 50%) 22px;
   scroll-padding-inline: calc(50vw - 50%);
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+}
+.shots::-webkit-scrollbar { height: 10px; }
+.shots::-webkit-scrollbar-track { background: transparent; }
+.shots::-webkit-scrollbar-thumb { border-color: var(--page); }
+@supports not selector(::-webkit-scrollbar) {
+  .shots { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
 }
 .shots figure { flex: none; margin: 0; scroll-snap-align: start; }
 .shots img {
@@ -312,6 +345,68 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   text-shadow: var(--step-shadow, none); /* optional */
 }
 .steps b { color: var(--ink); }
+
+/* Steps as the game's own cards (steps given as { title, text, board }), on a scene: the card the game shows its tips
+   on, its level bubble standing on its top edge, a small still board drawing the step, then the words. */
+/* The level bubble, as on the game's level map: a white disc with its number, on a lip. */
+.bubble {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: 3px solid var(--surface-2);
+  background: #FFFFFF;
+  color: #2E2840;
+  box-shadow: 0 4px 0 rgb(30 20 50 / 0.28);
+  font: var(--display-weight) 1.15rem/1 var(--font-display);
+  text-shadow: none;
+}
+.bubble.sm { width: 34px; height: 34px; border-width: 2px; font-size: 0.92rem; box-shadow: 0 3px 0 rgb(30 20 50 / 0.25); }
+.steps.cards-game { gap: clamp(14px, 2vw, 22px); padding-top: 14px; }
+.steps.cards-game li {
+  position: relative;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  padding: 34px 18px 22px;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 85%, transparent), 0 8px 0 color-mix(in srgb, var(--ink) 85%, transparent), 0 22px 34px -14px rgb(20 12 40 / 0.6);
+}
+.steps.cards-game li::before { content: none; }
+.steps.cards-game .bubble { position: absolute; top: -20px; left: 50%; translate: -50% 0; background: var(--c); border-color: #FFFFFF; color: var(--step-ink); text-shadow: var(--step-shadow, none); font-size: 1.35rem; }
+.steps.cards-game .miniboard { width: min(100%, 190px); height: auto; margin-bottom: 4px; filter: drop-shadow(0 6px 8px rgb(30 20 50 / 0.25)); }
+.steps.cards-game h3 { font-size: 1.4rem; }
+.steps.cards-game p { margin: 0; color: var(--muted); font-size: 0.98rem; line-height: 1.45; }
+
+/* The journey: the level map's worlds as tiles in play order, each on its own world art with what it brings, linking
+   to the wiki (tools/lib/journey.mjs). With detail, each piece has its line under its name. Tiles share a row and grow
+   to fill it. */
+.journey { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.journey.detail { display: flex; flex-wrap: wrap; gap: 14px; }
+.journey.detail > li { flex: 1 1 320px; }
+.journey-world { position: relative; isolation: isolate; overflow: hidden; padding: 14px; border-radius: var(--radius); background: var(--w) var(--art) center / cover; box-shadow: var(--card-shadow); }
+.journey-world::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 12 40 / 0.5), rgb(20 12 40 / 0.08) 45%, rgb(20 12 40 / 0.25)); }
+.journey-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; color: #FFFFFF; text-shadow: 0 2px 6px rgb(0 0 0 / 0.6); }
+.journey-head b { font: var(--display-weight) 1.3rem/1 var(--font-display); }
+.journey-head span { font-weight: 700; font-size: 0.82rem; }
+.journey-world ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.journey-world a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgb(255 255 255 / 0.96); color: var(--ink); text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgb(0 0 0 / 0.2); transition: transform 150ms ease-out; }
+.journey-world a:hover { transform: translateY(-2px); }
+.journey-piece { display: grid; place-items: center; flex: none; width: 30px; height: 30px; }
+.journey-piece svg, .journey-piece img { width: 100%; height: 100%; }
+.journey.detail .journey-world { padding: 16px; }
+.journey.detail .journey-head b { font-size: 1.5rem; }
+.journey.detail .journey-world a { align-items: flex-start; padding: 10px 12px 10px 8px; }
+.journey.detail .journey-piece { width: 36px; height: 36px; }
+.journey.detail .journey-world a > span:last-child { display: grid; gap: 3px; }
+.journey.detail small { color: var(--muted); font: var(--body-weight) 0.9rem/1.35 var(--font-body); }
 
 /* Card grids: "icon" cards link to a wiki entry, "media" ones show a picture on top, "side" ones beside the words. */
 .cards { list-style: none; padding: 0; margin: 0; display: grid; gap: 16px; }
@@ -440,6 +535,71 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .band p { margin: 0; color: var(--muted); }
 .band .link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
 
+/* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
+   the short version as cards in the pack's swatches, then the contents beside the text on a card. */
+.document .head { display: grid; gap: 10px; justify-items: start; margin-bottom: 26px; }
+.document .updated { display: inline-block; padding: 5px 14px; border-radius: 999px; background: var(--tag-bg); color: var(--tag-ink); font: var(--label-weight) 0.85rem/1.3 var(--label-font); }
+.document .intro { max-width: 46em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+.document .short-title { margin: 0 0 16px; font-size: clamp(1.7rem, 4vw, 2.2rem); }
+.document .short { list-style: none; margin: 0 0 clamp(36px, 5vw, 56px); padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 14px; counter-reset: point; }
+.document .short li {
+  position: relative;
+  counter-increment: point;
+  padding: 18px 18px 18px 64px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  font-size: 0.98rem;
+  line-height: 1.5;
+}
+.document .short li::before {
+  content: counter(point);
+  position: absolute;
+  left: 16px;
+  top: 16px;
+  display: grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 50%;
+  background: var(--swatch-1);
+  color: var(--step-ink);
+  text-shadow: var(--step-shadow, none);
+  font: var(--display-weight) 1rem/1 var(--step-font);
+  box-shadow: 0 3px 0 rgb(30 20 50 / 0.25);
+}
+.document .short li:nth-child(6n+2)::before { background: var(--swatch-2); }
+.document .short li:nth-child(6n+3)::before { background: var(--swatch-3); }
+.document .short li:nth-child(6n+4)::before { background: var(--swatch-4); }
+.document .short li:nth-child(6n+5)::before { background: var(--swatch-5); }
+.document .short li:nth-child(6n)::before { background: var(--swatch-6, var(--swatch-1)); }
+.document .layout { display: grid; grid-template-columns: 260px minmax(0, 1fr); gap: 32px; align-items: start; }
+.document .toc { position: sticky; top: 84px; padding: 18px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); }
+.document .toc p { margin: 0 0 8px; font: var(--label-weight) 0.78rem/1.2 var(--label-font); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.document .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+.document .toc a { display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 0 10px; border-radius: 12px; color: var(--ink); font-size: 0.95rem; text-decoration: none; }
+.document .toc a::before { content: ""; flex: none; width: 9px; height: 9px; border-radius: 50%; background: var(--swatch-1); }
+.document .toc li:nth-child(6n+2) a::before { background: var(--swatch-2); }
+.document .toc li:nth-child(6n+3) a::before { background: var(--swatch-3); }
+.document .toc li:nth-child(6n+4) a::before { background: var(--swatch-4); }
+.document .toc li:nth-child(6n+5) a::before { background: var(--swatch-5); }
+.document .toc li:nth-child(6n) a::before { background: var(--swatch-6, var(--swatch-1)); }
+.document .toc a:hover { background: var(--surface-2); }
+.document .doc { padding: clamp(22px, 4vw, 44px); border: var(--card-border); border-radius: calc(var(--radius) + 6px); background: var(--card-bg); box-shadow: var(--card-shadow); }
+.document .doc section + section { margin-top: 28px; padding-top: 28px; border-top: var(--foot-rule); }
+.document .doc h2 { margin-bottom: 12px; font-size: clamp(1.5rem, 3vw, 1.85rem); }
+.document .doc h3 { margin: 18px 0 8px; font-size: 1.25rem; }
+.document .doc p { max-width: 46em; margin: 0 0 12px; }
+.document .doc ul, .document .doc ol { max-width: 46em; margin: 0 0 12px; padding-left: 1.2em; display: grid; gap: 8px; }
+.document .doc .delete, .document .doc .key { padding: 22px 24px; border-top: 0; border-radius: var(--radius-sm); background: color-mix(in srgb, var(--accent) 10%, var(--surface)); }
+.document .doc .delete + section, .document .doc .key + section { border-top: 0; }
+.document .doc .contact { display: block; padding: 18px 20px; border-radius: var(--radius-sm); background: var(--surface-2); font-style: normal; line-height: 1.6; }
+@media (max-width: 860px) {
+  .document .layout { grid-template-columns: 1fr; }
+  .document .toc { position: static; }
+}
+
 /* The last call to action, just above the horizon and the footer. Where the footer has a picture, the card stands half
    in it (George, 22 Oct 2026: "Move half of this inside the foot"): the footer rises by half the card's height,
    --cta-half, which assets/product.js measures (an estimate without JavaScript). */
@@ -485,13 +645,14 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   letter-spacing: var(--label-tracking);
   text-underline-offset: 5px;
 }
-.foot-links a + a::before { content: "·"; margin: 0 12px 0 -12px; color: color-mix(in srgb, var(--foot-ink, var(--ink)) 35%, transparent); text-decoration: none; display: inline-block; }
+/* The dots sit between the links, not in them, so a link's hover underline stays under its own words. */
+.foot-links .sep { color: color-mix(in srgb, var(--foot-ink, var(--ink)) 35%, transparent); }
 .foot-links a:hover { text-decoration: underline; }
 /* On phones the row wraps, and a dot would start the next line: spacing alone separates the links there. */
 @media (max-width: 560px) {
   .foot-links { gap: 0 20px; }
   .foot-links a { padding: 0; }
-  .foot-links a + a::before { content: none; }
+  .foot-links .sep { display: none; }
   .foot-brand { flex-direction: column; gap: 10px; text-align: center; }
 }
 .foot-icons { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; }
@@ -513,7 +674,9 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   isolation: isolate;
   overflow-x: clip;
   margin-top: calc(-1 * var(--cta-half, 150px));
-  padding-top: calc(var(--cta-half, 150px) + clamp(240px, 30vw, 600px)); /* tools/lib/partials.mjs sizes the picture for this */
+  /* About 15% lower than it was (George, 23 Oct 2026: "Decrease height by 15%"); tools/lib/partials.mjs sizes the
+     picture for this. */
+  padding-top: calc(var(--cta-half, 150px) + clamp(170px, 21vw, 420px));
 }
 .foot-art { position: absolute; inset: 0; z-index: -1; }
 .foot-art picture, .foot-art img { display: block; width: 100%; height: 100%; }
@@ -551,9 +714,16 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   body { font-size: calc(var(--body-size) - 1px); }
   .subnav a { padding: 0 12px; }
   .product-name span { display: none; }
+  .product-name img.logo { height: 32px; }
   .gp img { height: 70px; }
-  .demo-stage { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
+  .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }
+  /* The game's cards go two by two, so the steps stay one screen tall. */
+  .steps.cards-game.n4 { grid-template-columns: 1fr 1fr; gap: 26px 10px; }
+  .steps.cards-game li { padding: 28px 10px 16px; gap: 6px; }
+  .steps.cards-game .bubble { width: 38px; height: 38px; top: -17px; font-size: 1.1rem; }
+  .steps.cards-game h3 { font-size: 1.12rem; }
+  .steps.cards-game p { font-size: 0.86rem; line-height: 1.35; }
   .cards.side .card { grid-template-columns: 1fr; }
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }

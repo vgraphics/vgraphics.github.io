@@ -1,0 +1,68 @@
+{
+  "title": "Exitwise global ranking: the top arrow puzzle players, live",
+  "description": "The best Exitwise players: the game's four global boards, by highest level, perfect clears, custom maps cleared and plays of their own maps. Live from the game.",
+  "social": {
+    "title": "Global ranking · Exitwise",
+    "description": "Who's on top in Exitwise: highest level, perfect clears, maps cleared and the most played creators.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+      { "@type": "ListItem", "position": 4, "name": "Global ranking", "item": "https://vgraphics.gr/exitwise/ranking/" }
+    ]
+  },
+  "hero": {
+    "title": "Exitwise global ranking",
+    "lead": "Global ranking",
+    "align": "center",
+    "size": "short",
+    "art": {
+      "alt": "A fox, a panda and an owl on a winners' podium under falling confetti, beside an arrow puzzle board in a flower meadow",
+      "tall": { "src": "/exitwise/wiki/img/art/leaderboards-tall", "widths": [540], "width": 540, "height": 720 },
+      "wide": { "src": "/exitwise/wiki/img/art/leaderboards", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "position": "50% 45%",
+      "fade": { "wide": "80%", "tall": "72%" },
+      "placeholder": "linear-gradient(#7F86C8, #A7CF7A)"
+    }
+  },
+  "sections": [
+    {
+      "id": "boards",
+      "title": "The best players, live",
+      "intro": "The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.",
+      "stage": {
+        "tall": { "src": "/exitwise/img/key-art-tall", "widths": [480, 720, 1080, 1440], "width": 1440, "height": 2560 },
+        "wide": { "src": "/exitwise/img/key-art-tall", "widths": [1080, 1440], "width": 1440, "height": 2560 },
+        "position": "50% 0%"
+      },
+      "blocks": [{ "type": "embed", "src": "ranking" }]
+    },
+    {
+      "id": "count",
+      "title": "How the boards count",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "Score", "text": "1,000 points for each level won, less for each heart lost and for the time taken." },
+            { "title": "Perfect", "text": "Levels won without losing a heart." },
+            { "title": "Maps", "text": "Other players' custom maps cleared." },
+            { "title": "Creators", "text": "Plays of their own maps by other players." }
+          ]
+        }
+      ],
+      "more": { "href": "/exitwise/wiki/leaderboards/", "label": "How the leaderboards work →" }
+    }
+  ],
+  "cta": {
+    "title": "Climb the ranking",
+    "text": "Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.",
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+  }
+}

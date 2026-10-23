@@ -5,6 +5,7 @@
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { pieces } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed. Unlike check-site, the Deployer's play pages count.
@@ -22,8 +23,10 @@ function walk(dir) {
 
 // sitemap.xml as it should be now. check-site compares the file with it.
 export function sitemap() {
+  // The pieces the template sets into pages (a policy's copy, a page's markup) aren't pages themselves.
+  const skip = new Set(pieces())
   const urls = walk(root)
-    .filter((f) => f.endsWith('.html'))
+    .filter((f) => f.endsWith('.html') && !skip.has(f))
     .map((f) => readFileSync(join(root, f), 'utf8'))
     .filter((html) => !/<meta name="robots" content="[^"]*noindex/i.test(html))
     .map((html) => html.match(/<link rel="canonical" href="([^"]*)"/)?.[1])

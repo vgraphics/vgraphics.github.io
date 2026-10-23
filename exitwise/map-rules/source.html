@@ -1,0 +1,290 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Map rules · Exitwise</title>
+  <meta name="description" content="The rules for publishing custom maps in the Exitwise arrow puzzle game, and how reports work.">
+  <meta name="theme-color" content="#F4EFE6">
+  <meta name="color-scheme" content="light">
+  <link rel="canonical" href="https://vgraphics.gr/exitwise/map-rules.html">
+  <!-- The preview chat apps and social sites show for a link. -->
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Map rules · Exitwise">
+  <meta property="og:description" content="The rules for publishing custom maps in Exitwise, and how reports work.">
+  <meta property="og:url" content="https://vgraphics.gr/exitwise/map-rules.html">
+  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="/exitwise/img/icon-512.png">
+  <style>
+    /* Exitwise's own look; fonts self-hosted (OFL) next to the Exitwise page. */
+    @font-face { font-family: "Lilita One"; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); font-weight: 400; font-display: swap; }
+    @font-face { font-family: "Nunito"; src: url("/exitwise/fonts/nunito-latin.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
+    @font-face { font-family: "Commissioner"; src: url("/assets/fonts/commissioner-greek.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0370-03FF; }
+
+    :root {
+      --paper: #F4EFE6; --card: #FFFDF8; --board: #E9E1D3; --dot: #D2C6B2; --line: #DED4C4;
+      --ink: #3B3355; --muted: #5E5675; --blue: #1C9FD8; --green: #3BB273; --yellow: #F2B705; --orange: #FF922B; --red: #FF6B6B; --purple: #8C5CF0;
+      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+      --body: "Nunito", "Commissioner", system-ui, sans-serif;
+    }
+    * { box-sizing: border-box; }
+    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
+    body { margin: 0; color: var(--ink); font: 500 17px/1.7 var(--body); background: var(--paper) radial-gradient(var(--dot) 1.6px, transparent 1.9px) 15px 15px / 30px 30px; }
+    a { color: var(--blue); text-underline-offset: 3px; }
+    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
+    .skip { position: absolute; left: 16px; top: -60px; padding: 10px 16px; border-radius: 12px; background: var(--ink); color: var(--paper); font-weight: 800; z-index: 10; text-decoration: none; }
+    .skip:focus { top: 12px; }
+    [id] { scroll-margin-top: 20px; }
+
+    .bar { max-width: 1120px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
+    .bar .product { display: inline-flex; align-items: center; gap: 10px; font: 400 1.35rem/1 var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
+    .bar .product img { width: 36px; height: 36px; border-radius: 10px; }
+    .subnav { display: flex; gap: 6px; flex-wrap: wrap; }
+    .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; color: var(--ink); font-weight: 800; text-decoration: none; }
+    .subnav a:hover { background: var(--board); }
+    .subnav a[aria-current] { background: var(--ink); color: var(--paper); }
+
+    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
+    h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.05; margin: 0; }
+    .head { padding: 26px 0 22px; display: grid; gap: 10px; justify-items: start; }
+    .kicker { margin: 0; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; color: var(--muted); }
+    .head h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); }
+    .updated { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 800; font-size: .85rem; }
+    .intro { max-width: 46em; margin: 4px 0 0; color: var(--muted); font-size: 1.1rem; }
+
+    /* The short version: one card per point, each with an arrow colour from the game */
+    .short-title { font-size: 1.8rem; margin: 6px 0 14px; }
+    .short { list-style: none; margin: 0 0 34px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
+    .short li { --c: var(--blue); background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 16px 16px 58px; position: relative; box-shadow: 0 10px 22px -18px rgba(59,51,85,.45); }
+    .short li::before { content: ""; position: absolute; left: 16px; top: 18px; width: 28px; height: 10px; border-radius: 6px; background: var(--c); }
+    .short li::after { content: ""; position: absolute; left: 38px; top: 14px; border: 9px solid transparent; border-left: 11px solid var(--c); }
+    .short li:nth-child(2) { --c: var(--green); } .short li:nth-child(3) { --c: var(--yellow); } .short li:nth-child(4) { --c: var(--orange); }
+    .short li:nth-child(5) { --c: var(--red); } .short li:nth-child(6) { --c: var(--purple); } .short li:nth-child(7) { --c: var(--ink); }
+
+    .layout { display: grid; grid-template-columns: 250px 1fr; gap: 36px; align-items: start; }
+    .toc { position: sticky; top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
+    .toc p { margin: 0 0 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; color: var(--muted); }
+    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 0 10px; border-radius: 12px; color: var(--ink); font-weight: 700; font-size: .95rem; text-decoration: none; }
+    .toc a::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); flex: none; }
+    .toc li:nth-child(6n+2) a::before { background: var(--green); } .toc li:nth-child(6n+3) a::before { background: var(--yellow); }
+    .toc li:nth-child(6n+4) a::before { background: var(--orange); } .toc li:nth-child(6n+5) a::before { background: var(--red); } .toc li:nth-child(6n) a::before { background: var(--purple); }
+    .toc a:hover { background: var(--board); }
+
+    .doc { background: var(--card); border: 1px solid var(--line); border-radius: 30px; padding: clamp(22px, 4vw, 44px); box-shadow: 0 30px 50px -40px rgba(59,51,85,.5); }
+    .doc section + section { border-top: 2px dashed var(--line); margin-top: 26px; padding-top: 26px; }
+    .doc h2 { font-size: 1.75rem; margin-bottom: 10px; }
+    .doc p { margin: 0 0 12px; max-width: 46em; }
+    .doc ul { margin: 0 0 12px; padding-left: 1.2em; display: grid; gap: 8px; max-width: 46em; }
+    .doc .key { background: #EAF6FC; border-radius: 22px; padding: 20px 22px; border-top: 0; }
+    .doc .key + section { border-top: 0; }
+    .doc .contact { font-style: normal; padding: 18px 20px; border-radius: 18px; background: var(--board); line-height: 1.6; }
+
+    footer { max-width: 1120px; margin: 40px auto 0; padding: 28px 20px 48px; border-top: 2px dashed var(--line); display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-weight: 700; }
+    footer a { color: var(--ink); display: inline-flex; min-height: 44px; align-items: center; }
+    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: .9rem; }
+    footer .legal a { color: var(--muted); display: inline; min-height: 0; }
+
+    @media (max-width: 860px) {
+      .layout { grid-template-columns: 1fr; }
+      .toc { position: static; }
+      .bar .product span { display: none; }
+    }
+    @media (max-width: 560px) {
+      .subnav .wide-only:not([aria-current]) { display: none; }
+      .subnav a { padding: 0 14px; }
+    }
+    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<header class="bar">
+  <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
+  <nav class="subnav" aria-label="Exitwise">
+    <a href="/exitwise/">Overview</a>
+    <a href="/exitwise/wiki/">Wiki</a>
+    <a href="/exitwise/ranking/">Ranking</a>
+    <a class="wide-only" href="/exitwise/privacy.html">Privacy</a>
+    <a class="wide-only" href="/exitwise/map-rules.html" aria-current="page">Map rules</a>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+  <div class="head">
+    <p class="kicker">Exitwise</p>
+    <h1>Map rules</h1>
+    <span class="updated">Version 1 · 16 October 2026</span>
+    <p class="intro">
+      Anyone can make a map in <strong>Exitwise</strong> and publish it for every player. These rules keep custom maps
+      fun and fair for everyone. You accept them in the game before your first map goes public.
+    </p>
+  </div>
+
+  <h2 class="short-title" id="short">The rules in short</h2>
+  <ul class="short">
+    <li>No offensive drawings or shapes, whether they are made from arrows, rocks, gates or the shape of the board.</li>
+    <li>No offensive map names, and no personal details in them.</li>
+    <li>No spam, and no copies of other people's maps.</li>
+    <li>Every map must be clearable. The game checks it, and you clear it yourself before it goes public.</li>
+    <li>Anyone can report a map. When three players report the same map, it is hidden until we have looked at it.</li>
+    <li>We can keep, hide or remove any map, and stop a creator from publishing.</li>
+  </ul>
+
+  <div class="layout">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#maps">What custom maps are</a></li>
+        <li><a href="#publish">Before you publish</a></li>
+        <li><a href="#rules">What's not allowed</a></li>
+        <li><a href="#reports">Reporting a map</a></li>
+        <li><a href="#review">What we can do</a></li>
+        <li><a href="#hide">Hiding a creator</a></li>
+        <li><a href="#limits">Limits</a></li>
+        <li><a href="#coins">Coins</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="doc">
+      <section id="maps">
+        <h2>What custom maps are</h2>
+        <p>
+          Custom maps are levels made by players in the game's map editor. A creator gives the map a name, picks its size
+          and shape, places the arrows and obstacles, and chooses the look of one of the game's worlds, such as Volcano or
+          Jungle. Published maps appear in the Custom maps list for everyone to play. Each one has a share code, its own
+          leaderboard and a star rating, and shows the creator's username.
+        </p>
+      </section>
+
+      <section id="publish">
+        <h2>Before you publish</h2>
+        <ul>
+          <li>You need a username (the same one as on the leaderboards).</li>
+          <li>You accept these map rules. The game remembers which version you accepted.</li>
+          <li>The game checks every map, and only a map that can be cleared can be published.</li>
+          <li>You clear the map yourself, in exactly the version you publish. If you change anything, you clear it
+            again. Your clear becomes the first entry on the map's leaderboard, with a MAKER badge.</li>
+          <li>A published map can't be edited, so its leaderboard stays fair. You can unpublish it from the Mine tab
+            and publish a new map instead.</li>
+        </ul>
+      </section>
+
+      <section id="rules" class="key">
+        <h2>What's not allowed</h2>
+        <p>
+          Every part of a map counts: its name, and the picture its arrows, rocks, gates and board shape make. Don't
+          publish:
+        </p>
+        <ul>
+          <li><strong>Offensive drawings or shapes:</strong> hate symbols, sexual content, slurs or rude words, drawn
+            with arrows, rocks, gates or the shape of the board.</li>
+          <li><strong>Offensive or personal names:</strong> rude words, slurs, names that insult someone, or personal
+            details such as a real name, phone number or address. The game also refuses names with rude words.</li>
+          <li><strong>Spam or copies:</strong> the same map published again and again, or a copy of someone else's
+            map.</li>
+          <li><strong>Maps that can't be cleared.</strong> The game won't publish one, and players can report a map as
+            broken if one gets through.</li>
+        </ul>
+      </section>
+
+      <section id="reports">
+        <h2>Reporting a map</h2>
+        <p>
+          Anyone can report a map, from the map's page or with "Report this map" after playing it. You don't have to
+          play it first. Choose a reason:
+        </p>
+        <ul>
+          <li>An offensive drawing or shape</li>
+          <li>An offensive name</li>
+          <li>Broken (it can't be cleared)</li>
+          <li>Spam or a copy</li>
+          <li>Something else</li>
+        </ul>
+        <p>
+          You can add a message of up to 500 characters to tell us more. You can report each map once, and the map
+          disappears for you at once. When three different players have reported the same map, it is hidden from
+          everyone until we have looked at it. Reports go only to VGraphics: the creator and other players never see
+          who reported a map. What a report stores is explained in the
+          <a href="/exitwise/privacy.html">privacy policy</a>.
+        </p>
+      </section>
+
+      <section id="review">
+        <h2>What we can do</h2>
+        <p>We look at reported maps, and we can act on any map, reported or not. We can:</p>
+        <ul>
+          <li><strong>Keep the map.</strong> It comes back for everyone, and it takes three new reports to hide it
+            again.</li>
+          <li><strong>Hide the map</strong> or <strong>remove it</strong>.</li>
+          <li><strong>Stop a creator from publishing.</strong> All of their maps are hidden too.</li>
+        </ul>
+        <p>
+          Your own maps stay in your Mine tab with their status: Live, Hidden after reports, or Removed.
+        </p>
+      </section>
+
+      <section id="hide">
+        <h2>Hiding a creator</h2>
+        <p>
+          Don't want to see someone's maps? On one of their maps, tap "Hide <i>name</i>'s maps". All of their maps leave
+          your lists. This is for you only, and the creator isn't told. To see their maps again, go to Settings → Hidden
+          creators.
+        </p>
+      </section>
+
+      <section id="limits">
+        <h2>Limits</h2>
+        <ul>
+          <li>Up to 5 new maps a day, and up to 50 live maps at a time.</li>
+          <li>Up to 20 drafts.</li>
+          <li>Maps are 5 to 40 cells each way, with at least 3 arrows.</li>
+          <li>Names are 3 to 24 characters: letters, digits, spaces and simple punctuation.</li>
+        </ul>
+      </section>
+
+      <section id="coins">
+        <h2>Coins</h2>
+        <ul>
+          <li>The first time you clear someone else's map, it pays coins, more for harder maps. Each map pays you once,
+            ever, on any device.</li>
+          <li>Your own maps never pay, and replays don't either.</li>
+          <li>At most 10 maps pay coins a day. A map you clear after that can still pay once on a later day.</li>
+        </ul>
+      </section>
+
+      <section id="changes">
+        <h2>Changes to these rules</h2>
+        <p>
+          This is version 1 of the map rules, from 16 October 2026. If we change them, the version number goes up and the
+          game asks you to accept the new rules before you publish again.
+        </p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>Questions about these rules or about a map? Contact:</p>
+        <address class="contact">
+          VGRAPHICS SINGLE MEMBER P.C.<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          G.E.MI. no. 181823306000<br>
+          Email: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+        </address>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer>
+  <a href="/">More from VGraphics</a>
+  <a href="/exitwise/">Exitwise</a>
+  <a href="/exitwise/wiki/">Wiki</a>
+  <a href="/exitwise/privacy.html">Privacy policy</a>
+  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+</footer>
+</body>
+</html>

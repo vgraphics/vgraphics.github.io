@@ -66,6 +66,7 @@
     "band-bg": "linear-gradient(180deg, #FFFDF8, #F7F0E4)",
     "dot": "#D2C6B2",
     "heart": "#FF5A6E",
+    "scrollbar": "#32044F",
     "mistake": "#E03131"
   },
   "swatches": ["#1C9FD8", "#3BB273", "#FF922B", "#FF6B6B", "#F2B705", "#8C5CF0"],

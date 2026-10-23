@@ -1,194 +1,273 @@
 {
-  "product": { "name": "Speedometer Live Wallpaper", "slug": "speedometer-wallpaper", "home": "/speedometer-wallpaper/", "icon": "/speedometer-wallpaper/img/icon.png", "logo": "/img/vgraphics-logo-light.png", "image": "/speedometer-wallpaper/img/card.jpg", "parent": { "name": "Apps", "href": "/apps/" } },
+  "product": {"name":"Speedometer Live Wallpaper","slug":"speedometer-wallpaper","home":"/speedometer-wallpaper/","icon":"/speedometer-wallpaper/img/icon.png","logo":"/img/vgraphics-logo-light.png","image":"/speedometer-wallpaper/img/card.jpg","parent":{"name":"Apps","href":"/apps/"}},
   "title": "Speedometer wiki",
   "intro": "Every gauge, light, design and setting on your dashboard: what it shows, and how to set it up.",
   "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and setting",
   "metaDescription": "Every gauge, warning light, design and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
   "source": "Written from the app's Info, Settings and Designs screens and docs/speedometer-wallpaper.md (Games main 39aa208, 2026-10-17: version 2.0.0 with the Future design). Later generated from the app's own strings.",
   "nav": [
-    { "label": "Overview", "href": "/speedometer-wallpaper/" },
-    { "label": "Wiki", "href": "/speedometer-wallpaper/wiki/", "current": true },
-    { "label": "Privacy", "href": "/speedometer-wallpaper/privacy.html" }
+    {"label":"Overview","href":"/speedometer-wallpaper/"},
+    {"label":"Wiki","href":"/speedometer-wallpaper/wiki/","current":true},
+    {"label":"Privacy","href":"/speedometer-wallpaper/privacy.html"}
   ],
   "sections": [
-    { "id": "big", "title": "The big gauge", "intro": "The dial in the middle. It shows one of three things; pick it in Settings, tap it on your home screen, or use the Big gauge tile." },
-    { "id": "gauges", "title": "Small gauges", "intro": "The four dials around it, and the little temperature dial." },
-    { "id": "lights", "title": "Warning lights", "intro": "Lights on the big gauge and the small gauges. Each warning light can be switched off in Settings." },
-    { "id": "setup", "title": "Clock, settings & help", "intro": "The digital clock, every setting, and answers to common questions." },
-    { "id": "designs", "title": "Designs", "intro": "Classic is free. Future, the 2016 chrome cluster, is a one-time €0.99 purchase. Switch between them on the Designs screen." }
+    {"id":"big","title":"The big gauge","intro":"The dial in the middle. It shows one of three things; pick it in Settings, tap it on your home screen, or use the Big gauge tile."},
+    {"id":"gauges","title":"Small gauges","intro":"The four dials around it, and the little temperature dial."},
+    {"id":"lights","title":"Warning lights","intro":"Lights on the big gauge and the small gauges. Each warning light can be switched off in Settings."},
+    {"id":"setup","title":"Clock, settings & help","intro":"The digital clock, every setting, and answers to common questions."},
+    {"id":"designs","title":"Designs","intro":"Classic is free. Future, the 2016 chrome cluster, is a one-time €0.99 purchase. Switch between them on the Designs screen."}
   ],
   "entries": [
     {
-      "slug": "big-gauge", "section": "big", "name": "The big gauge", "image": "/speedometer-wallpaper/img/dial-speed.webp",
+      "slug": "big-gauge",
+      "section": "big",
+      "name": "The big gauge",
+      "image": "/speedometer-wallpaper/img/dial-speed.webp",
       "summary": "One dial, three jobs: power, CPU clock or GPS speed.",
       "what": ["The big gauge shows one of three things: power, CPU clock or GPS speed. The digits above the needle show the same value as the needle."],
       "how": ["Pick the mode in Settings → Big gauge → Mode, tap the gauge on your home screen, or use the Big gauge tile in Quick Settings to switch."],
-      "related": ["power", "cpu-clock", "gps-speed", "big-gauge-tile"]
+      "related": ["power","cpu-clock","gps-speed","big-gauge-tile"]
     },
     {
-      "slug": "big-gauge-tile", "section": "big", "name": "Big gauge tile", "image": "/speedometer-wallpaper/img/dial-power.webp",
+      "slug": "big-gauge-tile",
+      "section": "big",
+      "name": "Big gauge tile",
+      "image": "/speedometer-wallpaper/img/dial-power.webp",
       "summary": "A Quick Settings tile that switches the big gauge on any phone.",
-      "what": ["Some launchers, Samsung's included, don't pass taps on to the wallpaper, so tapping the big gauge does nothing there. The Big gauge tile in Quick Settings switches the mode on every phone, in the same order: power, CPU clock, GPS speed.", "Its subtitle shows the mode the gauge is in now. It skips modes your phone can't show, like CPU clock on phones that don't allow reading it."],
-      "how": ["On Android 13 and later, Settings offers to add the tile for you.", "Or open the Quick Settings editor and drag Big gauge into your tiles."],
-      "related": ["big-gauge", "settings"]
+      "what": ["Some launchers, Samsung's included, don't pass taps on to the wallpaper, so tapping the big gauge does nothing there. The Big gauge tile in Quick Settings switches the mode on every phone, in the same order: power, CPU clock, GPS speed.","Its subtitle shows the mode the gauge is in now. It skips modes your phone can't show, like CPU clock on phones that don't allow reading it."],
+      "how": ["On Android 13 and later, Settings offers to add the tile for you.","Or open the Quick Settings editor and drag Big gauge into your tiles."],
+      "related": ["big-gauge","settings"]
     },
     {
-      "slug": "power", "section": "big", "name": "Power mode", "image": "/speedometer-wallpaper/img/dial-power.webp",
+      "slug": "power",
+      "section": "big",
+      "name": "Power mode",
+      "image": "/speedometer-wallpaper/img/dial-power.webp",
       "summary": "Watts going into or out of the battery.",
       "what": ["In power mode the needle shows the watts going into the battery (to the right, while charging) or out of it (to the left, with a minus)."],
       "how": ["Plug in your charger and watch the needle swing right: a quick way to see how fast a charger really is."],
-      "related": ["big-gauge", "charging-light", "battery"]
+      "related": ["big-gauge","charging-light","battery"],
+      "facts": [["Needle right","Charging"],["Needle left","On battery, with a minus"],["Switch modes","Tap the gauge or the Big gauge tile"]],
+      "steps": [{"text":"Pick Power in Settings → Big gauge → Mode, tap the gauge on your home screen, or use the Big gauge tile."},{"text":"Plug in your charger and watch the needle swing right: a quick way to see how fast a charger really is."},{"text":"On battery the needle swings left, with a minus."}],
+      "gauge": {"label":"Power gauge","unit":"WATTS","min":-10,"max":40,"offValue":-3.2,"onValue":18.5,"off":"Plug in the charger","on":"Unplug the charger","offText":"On battery: the needle swings left, with a minus.","onText":"Charging: the needle swings right."}
     },
     {
-      "slug": "cpu-clock", "section": "big", "name": "CPU clock mode", "image": "/speedometer-wallpaper/img/dial-cpu.webp",
+      "slug": "cpu-clock",
+      "section": "big",
+      "name": "CPU clock mode",
+      "image": "/speedometer-wallpaper/img/dial-cpu.webp",
       "summary": "How fast the processor runs, as a share of its top speed.",
       "what": ["In CPU clock mode the needle shows how fast the processor runs right now, as a percentage of its top speed."],
       "how": ["Some phones don't allow apps to read the CPU clock. On those, the gauge shows -- instead of a number; use power or GPS speed instead."],
-      "related": ["big-gauge", "ram"]
+      "related": ["big-gauge","ram"]
     },
     {
-      "slug": "gps-speed", "section": "big", "name": "GPS speed mode", "image": "/speedometer-wallpaper/img/dial-speed.webp",
+      "slug": "gps-speed",
+      "section": "big",
+      "name": "GPS speed mode",
+      "image": "/speedometer-wallpaper/img/dial-speed.webp",
       "summary": "Your speed in km/h or mph, with a red mark at your top speed.",
-      "what": ["In GPS speed mode the needle shows your speed. A red mark shows the top speed of the current drive.", "GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone."],
-      "how": ["Choose GPS speed in Settings; the app explains why it needs location, then Android asks. Pick \"Precise\" when it does.", "Switch between km/h and mph in Settings → Speed unit.", "If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
-      "related": ["big-gauge", "settings"]
+      "what": ["In GPS speed mode the needle shows your speed. A red mark shows the top speed of the current drive.","GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone."],
+      "how": ["Choose GPS speed in Settings; the app explains why it needs location, then Android asks. Pick \"Precise\" when it does.","Switch between km/h and mph in Settings → Speed unit.","If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
+      "related": ["big-gauge","settings"]
     },
     {
-      "slug": "signal", "section": "gauges", "name": "Signal", "image": "/speedometer-wallpaper/wiki/img/antenna.webp",
+      "slug": "signal",
+      "section": "gauges",
+      "name": "Signal",
+      "image": "/speedometer-wallpaper/wiki/img/antenna.webp",
       "summary": "Top left: your mobile signal, from 0 to 4 bars.",
       "what": ["The small gauge at the top left shows your mobile signal, from 0 to 4 bars."],
-      "related": ["wifi", "ram"]
+      "related": ["wifi","ram"]
     },
     {
-      "slug": "ram", "section": "gauges", "name": "RAM", "image": "/speedometer-wallpaper/wiki/img/ram.webp",
+      "slug": "ram",
+      "section": "gauges",
+      "name": "RAM",
+      "image": "/speedometer-wallpaper/wiki/img/ram.webp",
       "summary": "Top right: how much of the phone's memory is in use.",
       "what": ["The small gauge at the top right shows how much of the phone's memory is in use."],
-      "related": ["cpu-clock", "signal"]
+      "related": ["cpu-clock","signal"]
     },
     {
-      "slug": "wifi", "section": "gauges", "name": "Wi-Fi", "image": "/speedometer-wallpaper/wiki/img/wifi.webp",
+      "slug": "wifi",
+      "section": "gauges",
+      "name": "Wi-Fi",
+      "image": "/speedometer-wallpaper/wiki/img/wifi.webp",
       "summary": "Bottom left: Wi-Fi strength, status and link speed.",
-      "what": ["The Wi-Fi gauge shows the strength of your Wi-Fi signal.", "Under it, a status line reads CONNECTED, NO NETWORK, MOBILE DATA or DISABLED. When connected, it also shows the link speed in Mbps."],
-      "related": ["wifi-on-light", "signal"]
+      "what": ["The Wi-Fi gauge shows the strength of your Wi-Fi signal.","Under it, a status line reads CONNECTED, NO NETWORK, MOBILE DATA or DISABLED. When connected, it also shows the link speed in Mbps."],
+      "related": ["wifi-on-light","signal"]
     },
     {
-      "slug": "battery", "section": "gauges", "name": "Battery", "image": "/speedometer-wallpaper/wiki/img/batteryss.webp",
+      "slug": "battery",
+      "section": "gauges",
+      "name": "Battery",
+      "image": "/speedometer-wallpaper/wiki/img/batteryss.webp",
       "summary": "Bottom right: how full your battery is.",
       "what": ["The battery gauge shows how full your battery is. Its LOW light comes on at the low battery level, and the green bolt lights while the phone charges."],
-      "related": ["battery-temperature", "low-light", "charging-light", "power"]
+      "related": ["battery-temperature","low-light","charging-light","power"]
     },
     {
-      "slug": "battery-temperature", "section": "gauges", "name": "Battery temperature", "image": "/speedometer-wallpaper/wiki/img/battery1.webp",
+      "slug": "battery-temperature",
+      "section": "gauges",
+      "name": "Battery temperature",
+      "image": "/speedometer-wallpaper/wiki/img/battery1.webp",
       "summary": "The little dial: from cold (C) to hot (H).",
       "what": ["The small dial inside the battery gauge shows the battery's temperature, from the low temperature (C) to the high one (H)."],
       "how": ["Set what counts as low and high in Settings; the warning lights use the same limits."],
-      "related": ["high-temperature-light", "low-temperature-light", "battery"]
+      "related": ["high-temperature-light","low-temperature-light","battery"]
     },
     {
-      "slug": "low-battery-light", "section": "lights", "name": "Low battery light", "image": "/speedometer-wallpaper/wiki/img/led1.webp",
+      "slug": "low-battery-light",
+      "section": "lights",
+      "name": "Low battery light",
+      "image": "/speedometer-wallpaper/wiki/img/led1.webp",
       "summary": "On the big gauge: the battery is at or below your low level.",
       "what": ["Lights when the battery is at or below the low battery level: 15 % unless you change it."],
       "how": ["Settings → Leds → Low battery level changes the limit; Low battery led switches the light off."],
-      "related": ["low-light", "battery"]
+      "related": ["low-light","battery"]
     },
     {
-      "slug": "bluetooth-light", "section": "lights", "name": "Bluetooth light", "image": "/speedometer-wallpaper/wiki/img/led2.webp",
+      "slug": "bluetooth-light",
+      "section": "lights",
+      "name": "Bluetooth light",
+      "image": "/speedometer-wallpaper/wiki/img/led2.webp",
       "summary": "On the big gauge: Bluetooth is on.",
       "what": ["Lights while Bluetooth is on."],
       "how": ["Settings → Leds → Bluetooth led switches it off."],
       "related": ["low-battery-light"]
     },
     {
-      "slug": "high-temperature-light", "section": "lights", "name": "High temperature light", "image": "/speedometer-wallpaper/wiki/img/led3.webp",
+      "slug": "high-temperature-light",
+      "section": "lights",
+      "name": "High temperature light",
+      "image": "/speedometer-wallpaper/wiki/img/led3.webp",
       "summary": "On the big gauge: the battery is hotter than your limit.",
       "what": ["Lights when the battery is hotter than the high temperature: 45 °C unless you change it."],
       "how": ["Settings → Leds → High temperature sets the limit."],
-      "related": ["battery-temperature", "low-temperature-light"]
+      "related": ["battery-temperature","low-temperature-light"]
     },
     {
-      "slug": "low-temperature-light", "section": "lights", "name": "Low temperature light", "image": "/speedometer-wallpaper/wiki/img/led4.webp",
+      "slug": "low-temperature-light",
+      "section": "lights",
+      "name": "Low temperature light",
+      "image": "/speedometer-wallpaper/wiki/img/led4.webp",
       "summary": "On the big gauge: the battery is colder than your limit.",
       "what": ["Lights when the battery is colder than the low temperature: 0 °C unless you change it."],
       "how": ["Settings → Leds → Low temperature sets the limit."],
-      "related": ["battery-temperature", "high-temperature-light"]
+      "related": ["battery-temperature","high-temperature-light"]
     },
     {
-      "slug": "charging-light", "section": "lights", "name": "Charging bolt", "image": "/speedometer-wallpaper/wiki/img/battery2.webp",
+      "slug": "charging-light",
+      "section": "lights",
+      "name": "Charging bolt",
+      "image": "/speedometer-wallpaper/wiki/img/battery2.webp",
       "summary": "On the battery gauge: the phone is charging.",
       "what": ["The green bolt on the battery gauge lights while the phone charges."],
       "how": ["Settings → Leds → Charging led switches it off."],
-      "related": ["battery", "power"]
+      "related": ["battery","power"]
     },
     {
-      "slug": "low-light", "section": "lights", "name": "LOW light", "image": "/speedometer-wallpaper/wiki/img/battery3.webp",
+      "slug": "low-light",
+      "section": "lights",
+      "name": "LOW light",
+      "image": "/speedometer-wallpaper/wiki/img/battery3.webp",
       "summary": "On the battery gauge: the battery is low.",
       "what": ["The LOW light on the battery gauge comes on at the low battery level."],
-      "related": ["low-battery-light", "battery"]
+      "related": ["low-battery-light","battery"]
     },
     {
-      "slug": "wifi-on-light", "section": "lights", "name": "Wi-Fi ON light", "image": "/speedometer-wallpaper/wiki/img/wireless2.webp",
+      "slug": "wifi-on-light",
+      "section": "lights",
+      "name": "Wi-Fi ON light",
+      "image": "/speedometer-wallpaper/wiki/img/wireless2.webp",
       "summary": "On the Wi-Fi gauge: green on Wi-Fi, yellow on mobile data.",
       "what": ["The ON light on the Wi-Fi gauge is green while you're on Wi-Fi and yellow on mobile data."],
       "related": ["wifi"]
     },
     {
-      "slug": "date-and-time", "section": "setup", "name": "Date and time", "image": "/speedometer-wallpaper/wiki/img/cpu2.webp",
+      "slug": "date-and-time",
+      "section": "setup",
+      "name": "Date and time",
+      "image": "/speedometer-wallpaper/wiki/img/cpu2.webp",
       "summary": "The LCD under the big gauge.",
       "what": ["The LCD under the big gauge shows the date and the time."],
       "how": ["In Settings → Date and time you can set the time format (or follow the phone), the time separator, whether seconds show, the date order and the date separator."],
-      "related": ["settings", "big-gauge"]
+      "related": ["settings","big-gauge"]
     },
     {
-      "slug": "settings", "section": "setup", "name": "Settings", "image": "/speedometer-wallpaper/wiki/img/settings.webp",
+      "slug": "settings",
+      "section": "setup",
+      "name": "Settings",
+      "image": "/speedometer-wallpaper/wiki/img/settings.webp",
       "summary": "Everything you can change.",
       "what": ["Open the app and tap Settings. You'll find:"],
-      "how": ["Design: opens the Designs screen, and Music, calls and messages turns on notification access for the Future design.", "Big gauge: the mode (power, CPU clock or GPS speed) and the speed unit (km/h or mph).", "Date and time: time format, time separator, seconds, date order and date separator.", "Leds: switch each warning light on or off, and set the low battery level and the low and high temperatures.", "Privacy: Ad choices (where your region requires it) and the privacy policy."],
-      "related": ["big-gauge", "designs-screen", "date-and-time", "low-battery-light"]
+      "how": ["Design: opens the Designs screen, and Music, calls and messages turns on notification access for the Future design.","Big gauge: the mode (power, CPU clock or GPS speed) and the speed unit (km/h or mph).","Date and time: time format, time separator, seconds, date order and date separator.","Leds: switch each warning light on or off, and set the low battery level and the low and high temperatures.","Privacy: Ad choices (where your region requires it) and the privacy policy."],
+      "related": ["big-gauge","designs-screen","date-and-time","low-battery-light"]
     },
     {
-      "slug": "set-as-wallpaper", "section": "setup", "name": "Setting it as your wallpaper", "image": "/speedometer-wallpaper/img/shot-home.webp",
+      "slug": "set-as-wallpaper",
+      "section": "setup",
+      "name": "Setting it as your wallpaper",
+      "image": "/speedometer-wallpaper/img/shot-home.webp",
       "summary": "Two taps from the app, and how to get it back.",
       "what": ["Open the app and tap Set wallpaper, then confirm on the preview. The dashboard is now your home-screen wallpaper."],
-      "how": ["If you force-stop the app or clear its data, Android puts your old wallpaper back. Open the app and tap Set wallpaper again.", "The wallpaper never shows ads."],
+      "how": ["If you force-stop the app or clear its data, Android puts your old wallpaper back. Open the app and tap Set wallpaper again.","The wallpaper never shows ads."],
       "notes": ["Speedometer Live Wallpaper is for Android phones and tablets only: iPhones don't allow live wallpapers from other apps."],
-      "related": ["settings", "designs-screen"]
+      "related": ["settings","designs-screen"]
     },
     {
-      "slug": "designs-screen", "section": "designs", "name": "The Designs screen", "image": "/speedometer-wallpaper/img/designs.webp",
+      "slug": "designs-screen",
+      "section": "designs",
+      "name": "The Designs screen",
+      "image": "/speedometer-wallpaper/img/designs.webp",
       "summary": "Swipe through the designs, use one, or buy Future.",
       "what": ["Open the app and tap Designs. Each design is shown as a preview drawn by the wallpaper itself at your phone's shape, with its name, a short description and its status: In use, Free, Owned or its price."],
-      "how": ["Tap Use this design to switch: the wallpaper changes at once.", "Tap Buy for €0.99 to buy Future through Google Play."],
+      "how": ["Tap Use this design to switch: the wallpaper changes at once.","Tap Buy for €0.99 to buy Future through Google Play."],
       "notes": ["If a payment is still pending, or Google Play isn't available, the screen tells you."],
-      "related": ["classic-design", "future-design", "restoring-future"]
+      "related": ["classic-design","future-design","restoring-future"]
     },
     {
-      "slug": "classic-design", "section": "designs", "name": "Classic design", "image": "/speedometer-wallpaper/img/shot-kmh.webp",
+      "slug": "classic-design",
+      "section": "designs",
+      "name": "Classic design",
+      "image": "/speedometer-wallpaper/img/shot-kmh.webp",
       "summary": "Free: the 2016 dashboard with five gauges, four lights and an LCD clock.",
-      "what": ["Classic is the original 2016 dashboard on a brushed-metal background: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and the LCD clock.", "It's free and it's the design you start with. It never asks for notification access."],
-      "related": ["big-gauge", "future-design", "designs-screen"]
+      "what": ["Classic is the original 2016 dashboard on a brushed-metal background: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and the LCD clock.","It's free and it's the design you start with. It never asks for notification access."],
+      "related": ["big-gauge","future-design","designs-screen"]
     },
     {
-      "slug": "future-design", "section": "designs", "name": "Future design", "image": "/speedometer-wallpaper/img/future-power.webp",
+      "slug": "future-design",
+      "section": "designs",
+      "name": "Future design",
+      "image": "/speedometer-wallpaper/img/future-power.webp",
       "summary": "The 2016 chrome cluster, rebuilt, for €0.99.",
-      "what": ["Future is one big chrome dial that follows the same three modes as Classic (power, CPU clock or GPS speed), with the value in its blue glass hub and battery and RAM arcs at the bottom.", "Above it, the clock and date. Below it, the music area, the Bluetooth and Wi-Fi status, and how many calls you missed and messages you haven't read.", "In landscape, on tablets and unfolded foldables, it becomes the 2016 two-dial cluster: the big gauge on the left, mobile signal and battery temperature on the right, music in the middle."],
-      "how": ["Buy it once on the Designs screen for €0.99. It's a one-time purchase, not a subscription.", "Tap the dial, or use the Big gauge tile, to switch its mode.", "The music and the call and message counts need notification access."],
-      "related": ["music-calls-messages", "restoring-future", "big-gauge-tile"]
+      "what": ["Future is one big chrome dial that follows the same three modes as Classic (power, CPU clock or GPS speed), with the value in its blue glass hub and battery and RAM arcs at the bottom.","Above it, the clock and date. Below it, the music area, the Bluetooth and Wi-Fi status, and how many calls you missed and messages you haven't read.","In landscape, on tablets and unfolded foldables, it becomes the 2016 two-dial cluster: the big gauge on the left, mobile signal and battery temperature on the right, music in the middle."],
+      "how": ["Buy it once on the Designs screen for €0.99. It's a one-time purchase, not a subscription.","Tap the dial, or use the Big gauge tile, to switch its mode.","The music and the call and message counts need notification access."],
+      "related": ["music-calls-messages","restoring-future","big-gauge-tile"]
     },
     {
-      "slug": "music-calls-messages", "section": "designs", "name": "Music, calls and messages", "image": "/speedometer-wallpaper/img/future-kmh.webp",
+      "slug": "music-calls-messages",
+      "section": "designs",
+      "name": "Music, calls and messages",
+      "image": "/speedometer-wallpaper/img/future-kmh.webp",
       "summary": "On Future: the song that's playing, missed calls and new messages.",
-      "what": ["Future shows the song that's playing, with its cover and the media volume, and how many calls you missed and messages you haven't read.", "For that, Android has to give the app notification access. Android warns that an app with it could read all your notifications: this one only reads the song that's playing and counts missed calls and messages. Nothing leaves your phone."],
-      "how": ["The app asks after you pick or buy Future. You can also go to Settings → Design → Music, calls and messages and tap Open Android settings.", "Without access, the music area reads MUSIC AND CALLS ARE OFF: the volume bar still works and the counts are hidden.", "You can turn the access off any time in Android's settings."],
+      "what": ["Future shows the song that's playing, with its cover and the media volume, and how many calls you missed and messages you haven't read.","For that, Android has to give the app notification access. Android warns that an app with it could read all your notifications: this one only reads the song that's playing and counts missed calls and messages. Nothing leaves your phone."],
+      "how": ["The app asks after you pick or buy Future. You can also go to Settings → Design → Music, calls and messages and tap Open Android settings.","Without access, the music area reads MUSIC AND CALLS ARE OFF: the volume bar still works and the counts are hidden.","You can turn the access off any time in Android's settings."],
       "notes": ["Calls and messages are counted from their notifications, never from your call log or your messages. Classic never asks for notification access."],
-      "related": ["future-design", "settings"]
+      "related": ["future-design","settings"]
     },
     {
-      "slug": "restoring-future", "section": "designs", "name": "Restoring Future on a new phone", "image": "/speedometer-wallpaper/img/designs.webp",
+      "slug": "restoring-future",
+      "section": "designs",
+      "name": "Restoring Future on a new phone",
+      "image": "/speedometer-wallpaper/img/designs.webp",
       "summary": "Bought once, back by itself on any phone with the same Google account.",
       "what": ["Future is a one-time purchase tied to your Google account. The app checks your purchases with Google Play every time you open it, so on a new phone signed in with the same account, Future comes back by itself."],
-      "how": ["Install the app on the new phone, open it once, then pick Future on the Designs screen.", "Your purchase is also remembered on the phone, so the wallpaper never waits for Google Play."],
+      "how": ["Install the app on the new phone, open it once, then pick Future on the Designs screen.","Your purchase is also remembered on the phone, so the wallpaper never waits for Google Play."],
       "notes": ["A refunded purchase is removed the next time the app checks."],
-      "related": ["future-design", "designs-screen"]
+      "related": ["future-design","designs-screen"]
     }
-  ]
+  ],
+  "heading": "Every gauge, light and setting"
 }

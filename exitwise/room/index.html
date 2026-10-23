@@ -3,11 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
   <title>Join a room: Exitwise</title>
   <meta name="description" content="A friend invited you to race them in Exitwise.">
   <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#F4EFE6">
+  <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://vgraphics.gr/exitwise/room/">
-  <!-- The preview chat apps show for an invite link. -->
+  <link rel="icon" href="/exitwise/assets/icon-32.png">
+  <link rel="apple-touch-icon" href="/exitwise/assets/icon-180.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="Join my Exitwise room">
@@ -18,132 +22,95 @@
   <meta property="og:image:height" content="630">
   <meta property="og:image:alt" content="Exitwise: race me in a room! A level 33 board in the forest world.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="theme-color" content="#F4EFE6">
-  <meta name="color-scheme" content="light">
-  <link rel="icon" href="../img/icon-512.png">
-  <link rel="preload" href="../fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <style>
-    /* The page a room invite opens (the game's RoomLink.cs): computers and iPhones go straight to the web game in the
-       room; Android opens the app in the room, or offers the web game and Google Play when it isn't installed. */
-    @font-face {
-      font-family: "Lilita One";
-      src: url("../fonts/lilita-one-latin.woff2") format("woff2");
-      font-weight: 400;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Nunito";
-      src: url("../fonts/nunito-latin.woff2") format("woff2");
-      font-weight: 500 800;
-      font-display: swap;
-    }
-    :root {
-      --paper: #F4EFE6;
-      --card: #FFFDF8;
-      --dot: #D2C6B2;
-      --line: #DED4C4;
-      --ink: #3B3355;
-      --muted: #6B6385;
-      --green: #3BB273;
-      --green-dark: #2A8A57;
-      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
-      --body: "Nunito", system-ui, sans-serif;
-    }
-    * { box-sizing: border-box; }
-    body {
-      margin: 0;
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-      align-items: center;
-      justify-content: center;
-      padding: 24px 16px;
-      color: var(--ink);
-      font: 500 18px/1.5 var(--body);
-      background-color: var(--paper);
-      background-image: radial-gradient(var(--dot) 1.6px, transparent 1.9px);
-      background-size: 28px 28px;
-    }
-    main {
-      width: 100%;
-      max-width: 420px;
-      padding: 32px 24px 28px;
-      border-radius: 32px;
-      background: var(--card);
-      box-shadow: 0 10px 40px rgba(59, 51, 85, 0.12);
-      text-align: center;
-    }
-    .icon { width: 88px; height: 88px; border-radius: 22px; }
-    h1 { margin: 12px 0 4px; font: 400 36px/1.1 var(--display); }
-    .lead { margin: 0 0 20px; color: var(--muted); }
-    .caption { margin: 0; font-size: 15px; color: var(--muted); }
-    .code { margin: 2px 0 22px; font: 400 52px/1.1 var(--display); letter-spacing: 6px; }
-    .button {
-      display: block;
-      margin: 10px 0;
-      padding: 16px 20px;
-      border-radius: 40px;
-      font: 400 24px/1 var(--display);
-      text-decoration: none;
-    }
-    .primary { color: #fff; background: var(--green); border-bottom: 6px solid var(--green-dark); }
-    .secondary { color: var(--ink); background: #fff; border: 2px solid var(--line); border-bottom-width: 6px; }
-    .steps { margin: 18px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 16px; }
-    .steps li { margin: 4px 0; }
-    .hidden { display: none; }
-    .legal { max-width: 420px; margin: 18px 0 0; font-size: 13px; color: var(--muted); text-align: center; }
-    .legal a { color: inherit; }
-  </style>
+  <meta name="twitter:image" content="https://vgraphics.gr/exitwise/img/room-invite-1200x630.jpg">
+  <link rel="preload" href="/exitwise/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/rooms-tall-540.avif 540w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/rooms-640.avif 640w, /exitwise/wiki/img/art/rooms-960.avif 960w, /exitwise/wiki/img/art/rooms-1344.avif 1344w" imagesizes="100vw" fetchpriority="high">
+  <link rel="stylesheet" href="/exitwise/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/exitwise/room/room.css">
 </head>
 <body>
-  <main>
-    <img class="icon" src="../img/icon-512.png" alt="">
-    <h1>Join the race</h1>
-    <p class="lead">A friend invited you to their room in Exitwise.</p>
-    <p class="caption">Room code</p>
-    <p class="code" id="code">······</p>
-    <a class="button primary hidden" id="open" href="../">Open Exitwise</a>
-    <a class="button secondary" id="play" href="../play/">Play in your browser</a>
-    <a class="button secondary" id="get" href="../">Get Exitwise</a>
-    <ol class="steps">
-      <li>In Exitwise, tap <strong>Play with friends</strong>.</li>
-      <li>Type the code and tap <strong>Join</strong>.</li>
-    </ol>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="product-name" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="150px" alt="Exitwise" width="121" height="36"></a>
+    <nav class="subnav" aria-label="Exitwise">
+      <a href="/exitwise/">Overview</a>
+      <a href="/exitwise/wiki/">Wiki</a>
+      <a href="/exitwise/ranking/">Ranking</a>
+      <a class="wide-only" href="/exitwise/privacy.html">Privacy</a>
+      <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
+    </nav>
+  </header>
+
+  <main id="main">
+    <section class="key-art short" style="--art-at: 50% 40%; --art-fade: 70%; --art-fade-tall: 62%; --art-placeholder: linear-gradient(#7FA8D8, #A7CF7A)" aria-labelledby="title">
+      <picture>
+        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/rooms-tall-540.avif 540w" sizes="100vw" width="540" height="720">
+        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/rooms-tall-540.webp 540w" sizes="100vw" width="540" height="720">
+        <source type="image/avif" srcset="/exitwise/wiki/img/art/rooms-640.avif 640w, /exitwise/wiki/img/art/rooms-960.avif 960w, /exitwise/wiki/img/art/rooms-1344.avif 1344w" sizes="100vw" width="1344" height="768">
+        <source type="image/webp" srcset="/exitwise/wiki/img/art/rooms-640.webp 640w, /exitwise/wiki/img/art/rooms-960.webp 960w, /exitwise/wiki/img/art/rooms-1344.webp 1344w" sizes="100vw" width="1344" height="768">
+        <img src="/exitwise/wiki/img/art/rooms-1344.webp" sizes="100vw" width="1344" height="768" fetchpriority="high" alt="Friends racing on arrow puzzle boards in a sunny meadow">
+      </picture>
+      <div class="hero-foot">
+        <div class="wrap">
+          <h1 id="title" class="sr-only">Join a room in Exitwise</h1>
+          <p class="lead">Join the race</p>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="join">
+      <div class="wrap">
+        <div class="embed">
+          <div class="invite">
+            <p class="invite-lead">A friend invited you to their room in Exitwise.</p>
+            <p class="invite-caption">Room code</p>
+            <p class="invite-code" id="code">······</p>
+            <a class="invite-button primary hidden" id="open" href="/exitwise/">Open Exitwise</a>
+            <a class="invite-button" id="play" href="/exitwise/play/">Play in your browser</a>
+            <a class="invite-button" id="get" href="/exitwise/">Get Exitwise</a>
+            <ol class="invite-steps">
+              <li>In Exitwise, tap <strong>Play with friends</strong>.</li>
+              <li>Type the code and tap <strong>Join</strong>.</li>
+            </ol>
+          </div>
+        </div>
+        
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="cta-title">Your first board is waiting</h2>
+          <p>Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.</p>
+          <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="pill" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a></div>
+        </div>
+      </div>
+    </section>
   </main>
-  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
-  <script>
-    (function () {
-      var params = new URLSearchParams(location.search);
-      // Codes have 6 capitals and digits, never I, O, 0 or 1 (RoomCode.cs).
-      var code = (params.get("code") || "").toUpperCase().replace(/[^A-Z0-9]/g, "");
-      if (!/^[A-HJ-NP-Z2-9]{6}$/.test(code)) return;
-      document.getElementById("code").textContent = code;
-      // The browser game joins the room it is opened with (?room=).
-      var game = "../play/?room=" + code;
-      var play = document.getElementById("play");
-      play.href = game;
-      if (!/Android/i.test(navigator.userAgent)) {
-        // No app to open here (computers, iPhones): straight into the room in the browser. replace() keeps this page
-        // out of the history, so Back doesn't come here again.
-        location.replace(game);
-        return;
-      }
-      var get = document.getElementById("get");
-      get.href = "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise";
-      get.textContent = "Get it on Google Play";
-      if (params.get("app") === "none") {
-        // Back from Chrome below: the game isn't installed, so the browser game comes first.
-        play.className = "button primary";
-        return;
-      }
-      // Chrome opens the game in the room, or comes back here with &app=none when it isn't installed.
-      var fallback = encodeURIComponent(location.origin + location.pathname + "?code=" + code + "&app=none");
-      var intent = "intent://room/" + code + "#Intent;scheme=exitwise;package=com.vgraphics.exitwise;S.browser_fallback_url=" + fallback + ";end";
-      var open = document.getElementById("open");
-      open.href = intent;
-      open.classList.remove("hidden");
-      location.href = intent;
-    })();
-  </script>
+
+  <footer class="foot has-art">
+    <div class="foot-art" style="--foot-at: 50% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/exitwise/img/footer-960.avif 960w, /exitwise/img/footer-1440.avif 1440w, /exitwise/img/footer-1920.avif 1920w, /exitwise/img/footer-2560.avif 2560w, /exitwise/img/footer-3200.avif 3200w, /exitwise/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * 3.12))"><img src="/exitwise/img/footer-4096.webp" srcset="/exitwise/img/footer-960.webp 960w, /exitwise/img/footer-1440.webp 1440w, /exitwise/img/footer-1920.webp 1920w, /exitwise/img/footer-2560.webp 2560w, /exitwise/img/footer-3200.webp 3200w, /exitwise/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * 3.12))" alt="" width="4096" height="1311" loading="lazy" decoding="async"></picture></div>
+    <div class="wrap">
+      <a class="foot-brand" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="230px" alt="Exitwise" width="161" height="48"></a>
+      <nav class="foot-links" aria-label="Exitwise and VGraphics">
+        <a href="/exitwise/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/ranking/">Global ranking</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/map-rules.html">Map rules</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/games/">More games</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/services/">Work with us</a><span class="sep" aria-hidden="true">·</span>
+        <a href="mailto:gvergidis90@gmail.com">Contact</a>
+      </nav>
+      <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" aria-label="Exitwise on Google Play" title="Exitwise on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </div>
+  </footer>
+  <script src="/assets/anchors.js" defer></script>
+  <script src="/assets/product.js" defer></script>
+  <script src="/exitwise/room/room.js" defer></script>
 </body>
 </html>
