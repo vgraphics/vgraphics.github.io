@@ -23,13 +23,15 @@
   <link rel="stylesheet" href="/assets/wiki.css">
   <script src="/assets/anchors.js" defer></script>
   <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>
   <script src="/assets/wiki.js" defer></script>
 </head>
 <body class="wiki">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
     <a class="product-name" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="150px" alt="Exitwise" width="146" height="36"></a>
-    <nav class="subnav" aria-label="Exitwise">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <nav class="subnav" id="site-menu" aria-label="Exitwise">
       <a href="/exitwise/">Overview</a>
       <a href="/exitwise/wiki/" aria-current="page">Wiki</a>
       <a href="/exitwise/ranking/">Ranking</a>

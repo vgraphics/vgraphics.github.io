@@ -57,6 +57,14 @@ into the other eight pages. The check fails while any page differs (only `aria-c
 item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
 Change it there too and release `vhub-hub`: until then the check reports every hub page.
 
+On phones every header folds its menu into a button at the right that opens it as a panel (George, 23 Oct 2026: "At
+mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
+header below 561px. `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
+header's markup stays the copy above. Every company page loads it in its `<head>` with
+`<script src="/assets/menu.js" defer></script>` (check-site checks it), and the CSS acts only on pages that do. The
+hub's pages, which the VHub repo writes, get the menu once its `hub/index.html` and policy page add the same line;
+until then they keep the row. The product pages' button comes with their header (`tools/lib/partials.mjs`).
+
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
 check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and

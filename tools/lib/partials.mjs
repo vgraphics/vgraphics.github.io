@@ -57,13 +57,15 @@ function brand(s, height, sizes) {
 }
 
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
-// key art, in the pack's on-art colours.
+// key art, in the pack's on-art colours. On phones the menu folds into the button, which opens it as a panel
+// (assets/menu.js, assets/product.css).
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
   return `<header class="top">
     <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
-    <nav class="subnav" aria-label="${esc(s.name)}">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <nav class="subnav" id="site-menu" aria-label="${esc(s.name)}">
       ${links.join('\n      ')}
     </nav>
   </header>`

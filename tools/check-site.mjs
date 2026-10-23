@@ -122,6 +122,8 @@ for (const file of pages) {
   if (!html.includes('href="/assets/vgraphics.css"')) continue
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
+  // The phone menu (assets/menu.js adds its button). The hub's pages come from the VHub repo, which adds it there.
+  if (!file.startsWith('hub' + sep) && !html.includes('<script src="/assets/menu.js" defer></script>')) report(file, 'menu', 'does not load /assets/menu.js, the phone menu')
   if (plain(foot) !== plain(home.foot)) report(file, 'menu', "footer differs from the home page's")
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
