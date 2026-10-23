@@ -149,42 +149,50 @@
     {
       "id": "how",
       "title": "How to play",
+      "stage": {
+        "tall": { "src": "/exitwise/wiki/img/art/how-to-play-tall", "widths": [540], "width": 540, "height": 720 },
+        "wide": { "src": "/exitwise/wiki/img/art/how-to-play", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+        "position": "50% 60%"
+      },
       "blocks": [
         {
           "type": "steps",
           "items": [
-            "Find an arrow whose path to the edge is clear.",
-            "Tap it, and it snakes off the board.",
-            "Every arrow you clear can free others. Keep going until the board is empty.",
-            "Mind your hearts: tapping a blocked arrow costs one of three."
+            { "title": "Spot a free arrow", "text": "Find an arrow whose path to the edge is clear.", "boardAlt": "A small board: the blue arrow's way to the edge is clear, the others are blocked",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4, "state": "free" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Tap it", "text": "Tap it, and it snakes off the board.", "boardAlt": "The blue arrow, tapped, slides off the board's edge",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4, "state": "leave" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Clear the board", "text": "Every arrow you clear can free others. Keep going until the board is empty.", "boardAlt": "With the blue arrow gone, the red and purple arrows below it are free",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "state": "gone" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0, "state": "free" },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5, "state": "free" },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Mind your hearts", "text": "Tapping a blocked arrow costs one of your three hearts.", "boardAlt": "The green arrow bumps into the purple one and turns red; one of three hearts is lost",
+              "board": { "cols": 4, "rows": 3, "hearts": [2, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4 },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "state": "bad" } ] } }
           ]
         }
-      ]
+      ],
+      "more": { "href": "/exitwise/wiki/how-to-play/", "label": "How to play, step by step, in the wiki →" }
     },
     {
       "id": "twists",
       "title": "A new twist every few worlds",
       "intro": "From level 21 a new obstacle arrives every 20 to 30 levels and then stays, mixed in with the ones before it. Each one starts on an easy level built to teach it, with a hand that shows you the move.",
       "blocks": [
-        {
-          "type": "cards",
-          "layout": "icon",
-          "ordered": true,
-          "items": [
-            { "href": "/exitwise/wiki/bomb-arrow/", "icon": "img/twists/bomb-arrow.svg", "tag": "Level 21", "title": "Rocks &amp; bombs", "text": "Clear the arrow guarding a bomb's path, then blast its rock." },
-            { "href": "/exitwise/wiki/colour-gate/", "icon": "img/twists/colour-gate.svg", "tag": "Level 41", "title": "Colour gates", "text": "Only their own colour gets through, then they open." },
-            { "href": "/exitwise/wiki/mirror/", "icon": "img/twists/mirror.svg", "tag": "Level 61", "title": "Mirrors", "text": "Turn an arrow's path by 90 degrees." },
-            { "href": "/exitwise/wiki/level-2-rock/", "icon": "img/twists/level-2-rock.svg", "tag": "Level 81", "title": "Level-2 rocks", "text": "Two bombs, usually from two sides." },
-            { "href": "/exitwise/wiki/portal/", "icon": "img/twists/portal.svg", "tag": "Level 101", "title": "Portals", "text": "In one, out of its pair, across the board." },
-            { "href": "/exitwise/wiki/ice/", "icon": "img/twists/ice.svg", "tag": "Level 131", "title": "Ice", "text": "Melts as arrows leave. Its number is just enough." },
-            { "href": "/exitwise/wiki/level-3-rock/", "icon": "img/twists/level-3-rock.svg", "tag": "Level 161", "title": "Level-3 rocks", "text": "The toughest stone: three bomb hits." },
-            { "href": "/exitwise/wiki/paint-tile/", "icon": "img/twists/paint-tile.svg", "tag": "Level 191", "title": "Paint tiles", "text": "Fly over one and take its colour." },
-            { "href": "/exitwise/wiki/shutter/", "icon": "img/twists/shutter.svg", "tag": "Level 221", "title": "Shutters", "text": "Hide the arrows under them, even from powerups, until they roll up." },
-            { "href": "/exitwise/wiki/two-colour-gate/", "icon": "img/twists/two-colour-gate.svg", "tag": "Level 251", "title": "Two-colour gates", "text": "Two colours, and the big symbol goes first." },
-            { "href": "/exitwise/wiki/chain-bomb/", "icon": "img/twists/chain-bomb.svg", "tag": "Level 281", "title": "Chain bombs &amp; rock walls", "text": "One blast runs along a whole wall." },
-            { "href": "/exitwise/wiki/colour-switch/", "icon": "img/twists/colour-switch.svg", "tag": "Level 311", "title": "Colour switches", "text": "Press one to open every gate of its colour, except two-colour gates." }
-          ]
-        }
+        { "type": "journey", "sections": ["traps"], "detail": true }
       ],
       "more": { "href": "/exitwise/wiki/", "label": "Every obstacle and powerup in the wiki →" }
     },

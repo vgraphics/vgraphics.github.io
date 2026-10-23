@@ -1,0 +1,38 @@
+{
+  "path": "/exitwise/privacy.html",
+  "title": "Privacy policy · Exitwise",
+  "description": "Privacy policy for the Exitwise arrow puzzle game.",
+  "social": {
+    "title": "Privacy policy · Exitwise",
+    "description": "How the Exitwise arrow puzzle handles your data.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+      { "@type": "ListItem", "position": 4, "name": "Privacy policy", "item": "https://vgraphics.gr/exitwise/privacy.html" }
+    ]
+  },
+  "hero": {
+    "title": "Exitwise privacy policy",
+    "lead": "Privacy policy",
+    "align": "center",
+    "size": "short",
+    "art": {
+      "alt": "The green meadow at the foot of the Exitwise tower, with a river winding past forests",
+      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
+      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 4096, "height": 1764 },
+      "position": "50% 72%",
+      "fade": { "wide": "70%", "tall": "62%" },
+      "placeholder": "linear-gradient(#8BA06A, #4C805E)"
+    }
+  },
+  "sections": [
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
+  ]
+}

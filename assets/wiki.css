@@ -7,18 +7,18 @@
 .w-muted { color: var(--muted); }
 .w-kicker { margin: 0 0 6px; font: var(--label-weight) 0.78rem/1.2 var(--label-font); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 
-/* Hero: the entry's painting edge to edge from the very top, under the header, fading into the page, with the title in
-   its foot (the product pages' hero rules). Landscape screens get the wide picture in a box up to 16:9 and the screen's
-   height; portrait screens the tall cut, whole. */
-.w-hero { position: relative; height: min(56.25vw, 92vh); height: min(56.25vw, 92svh); min-height: 380px; }
-.w-hero.is-index { height: min(62.5vw, 100vh); height: min(62.5vw, 100svh); }
+/* Hero: the entry's painting edge to edge from the very top, under the header, fading into the page only in its last
+   quarter, with the title in its foot: the landing page's hero (George, 23 Oct 2026: "Dont start fading from top of
+   image. Check how hero at overview is."). Landscape screens get the wide picture in a box up to 16:10 and the
+   screen's height; portrait screens the tall cut, whole. */
+.w-hero { position: relative; height: min(62.5vw, 100vh); height: min(62.5vw, 100svh); min-height: 380px; }
 .w-hero-art, .w-hero-art img { display: block; width: 100%; height: 100%; }
 .w-hero-art img {
   object-fit: cover;
   object-position: 50% 35%;
   background: var(--surface-2);
-  -webkit-mask-image: linear-gradient(#000 64%, transparent);
-  mask-image: linear-gradient(#000 64%, transparent);
+  -webkit-mask-image: linear-gradient(#000 76%, transparent);
+  mask-image: linear-gradient(#000 76%, transparent);
 }
 .w-hero::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 1; height: 150px; background: linear-gradient(var(--art-shade), transparent); pointer-events: none; }
 .w-hero-foot { position: absolute; inset: auto 0 0; z-index: 2; padding-bottom: clamp(10px, 3vh, 32px); display: grid; gap: 10px; }
@@ -43,14 +43,12 @@
 .w-search input:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
 @media (max-aspect-ratio: 4/5) {
   .w-hero, .w-hero.is-index { height: auto; min-height: 0; }
-  .w-hero .w-hero-art img { height: auto; aspect-ratio: 3 / 4; -webkit-mask-image: linear-gradient(#000 58%, transparent); mask-image: linear-gradient(#000 58%, transparent); }
+  .w-hero .w-hero-art img { height: auto; aspect-ratio: 3 / 4; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
   .w-hero.is-index .w-hero-art img { aspect-ratio: 9 / 16; object-position: 50% 0; }
   .w-hero.is-index .w-lede { display: none; }
 }
 
-/* Game pieces: the level bubble and the world chip */
-.w-lv { display: inline-grid; place-items: center; flex: none; width: 46px; height: 46px; border-radius: 50%; background: #FFFFFF; color: #3B3355; border: 3px solid var(--surface-2); box-shadow: 0 4px 0 rgba(30, 20, 50, 0.28); font: var(--display-weight) 1.15rem/1 var(--font-display); text-shadow: none; }
-.w-lv.sm { width: 34px; height: 34px; border-width: 2px; font-size: 0.92rem; box-shadow: 0 3px 0 rgba(30, 20, 50, 0.25); }
+/* Game pieces: the world chip (the level bubble, .bubble, is the product pages', in assets/product.css) */
 .w-world { padding: 5px 12px; border-radius: 999px; background: var(--w); color: #FFFFFF; font: var(--label-weight) 0.85rem/1.2 var(--label-font); text-shadow: none; }
 
 /* Buttons: chunky and pressable, in the pack's call-to-action colours */
@@ -63,20 +61,12 @@
 .w-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--cta-edge); }
 .w-btn.ghost { background: var(--surface); color: var(--ink); box-shadow: 0 5px 0 var(--line); }
 
-/* Index: the world journey, the filters, the painted cards */
+/* Index: the world journey (.journey, the product pages'), the filters, the painted cards */
 .w-head { display: grid; gap: 4px; margin: 34px 0 16px; max-width: 46em; }
 .w-head h2 { font-size: var(--h2-size); }
 .w-head p { margin: 0; color: var(--muted); }
-.w-map { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
-.w-map-world { position: relative; isolation: isolate; overflow: hidden; padding: 14px; border-radius: var(--radius); background: var(--w) var(--art) center / cover; box-shadow: var(--card-shadow); }
-.w-map-world::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgba(20, 12, 40, 0.5), rgba(20, 12, 40, 0.08) 45%, rgba(20, 12, 40, 0.25)); }
-.w-map-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; color: #FFFFFF; text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6); }
-.w-map-head b { font: var(--display-weight) 1.3rem/1 var(--font-display); }
-.w-map-head span { font-weight: 700; font-size: 0.82rem; }
-.w-map-world ul, .w-new { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-.w-map-world a, .w-new a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.96); color: #3B3355; text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); }
-.w-map-piece { display: grid; place-items: center; flex: none; width: 30px; height: 30px; }
-.w-map-piece svg, .w-map-piece img { width: 100%; height: 100%; }
+.w-new { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.w-new a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.96); color: #3B3355; text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); }
 .w-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
 .w-chip { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: pointer; background: var(--surface); color: var(--ink); box-shadow: 0 4px 0 var(--line); font: var(--display-weight) 1rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .w-chip b { margin-left: 4px; opacity: 0.7; }
@@ -102,8 +92,8 @@
 .w-glance dd { margin: 4px 0 0; font-weight: 700; line-height: 1.3; }
 .w-block, .w-panel { margin-top: 38px; }
 .w-panel { padding: clamp(18px, 3vw, 28px); border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); }
-.w-orn { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; font-size: clamp(1.6rem, 3.5vw, 2.2rem); }
-.w-orn::before { content: ""; flex: none; width: 46px; height: 6px; border-radius: 3px; background: linear-gradient(90deg, var(--line) 0 30%, transparent 30% 40%, var(--line) 40% 60%, transparent 60% 70%, var(--accent) 70%); }
+/* Section headings as the landing page's: the display face, a link to the section beside them. */
+.w-h2 { margin-bottom: 16px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
 .w-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
 .w-steps li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface-2); transition: background 250ms, box-shadow 250ms; }
 .w-steps li.on { background: color-mix(in srgb, var(--swatch-3) 22%, var(--surface)); box-shadow: inset 0 0 0 3px var(--swatch-3); }

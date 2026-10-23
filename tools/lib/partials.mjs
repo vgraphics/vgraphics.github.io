@@ -1,11 +1,46 @@
 // The pieces every page of a product shares, for tools/build-pages.mjs and the wikis: the header with only the
-// product's own logo top left (George's rule, 22 Oct 2026), the footer with the company's legal line, and the theme's
-// decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for attribute values.
+// product's own logo top left (George's rule, 22 Oct 2026), the closing card and the footer with the company's legal
+// line (the same on every page, George, 23 Oct 2026: "The foother must be same on all pages"), the store badges and
+// buttons, and the theme's decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for
+// attribute values.
 import { readFileSync } from 'node:fs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
 export const LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a>'
+
+export const ICONS = {
+  down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
+  chevron: '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+}
+
+// Every section heading carries a link to itself (George, 22 Oct 2026: "All sections ... must have anchors and copy on
+// click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
+export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
+
+// Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+export function actions(page, list, cls = 'badges') {
+  return `<div class="${cls}">${list.map((b) => {
+    if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
+    if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
+    return `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`
+  }).join('')}</div>`
+}
+
+// The last call to action, the card that stands half in the footer's picture: every page of a product ends with it
+// and the footer, so the two read as one footer. cta is { title, text, badges }: the page's own, else the product's.
+export function closing(page, cta = page.cta) {
+  if (!cta) return ''
+  return `<section class="cta-band" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="cta-title">${cta.title}</h2>
+          ${cta.text ? `<p>${cta.text}</p>` : ''}
+          ${actions(page, cta.badges)}
+        </div>
+      </div>
+    </section>`
+}
 
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
 // key art, in the pack's on-art colours.
@@ -42,7 +77,7 @@ export function footer({ page }) {
     <div class="wrap">
       <a class="foot-brand" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="48" height="48"><span>${esc(s.name)}</span></a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
-        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('\n        ')}
+        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${buttons(page)}
       <p class="legal">${LEGAL}${play}</p>
     </div>

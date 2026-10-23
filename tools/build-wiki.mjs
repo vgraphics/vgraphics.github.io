@@ -14,7 +14,8 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
-import { header, footer } from './lib/partials.mjs'
+import { anchor, closing, header, footer } from './lib/partials.mjs'
+import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -77,16 +78,12 @@ function keyArt(product) {
 }
 
 // ---------- Small shared pieces ----------
-const worldOf = (w, lv) => (lv && w.worlds ? w.worlds.find((x) => lv >= x.from && lv <= x.to) : null)
-const lvBadge = (lv, cls = '') => (lv ? `<span class="w-lv${cls ? ' ' + cls : ''}" aria-label="Level ${lv}">${lv}</span>` : '')
+// A section's heading, as the landing page's: its words and a link to itself.
+const h2 = (id, title) => `<h2 class="w-h2" id="${id}">${title}${anchor(id, title)}</h2>`
 const worldChip = (wd) => (wd ? `<span class="w-world" style="--w: ${wd.colour}">${esc(wd.name)}</span>` : '')
 const arrival = (w, e) => {
   const wd = worldOf(w, e.firstLevel)
   return e.firstLevel > 1 ? `Arrives on level ${e.firstLevel}${wd ? ` · ${wd.name}` : ''}` : e.firstLevel === 1 ? 'From the first level' : ''
-}
-function piece(w, e, cls) {
-  if (e.icon) return `<span class="${cls}" aria-hidden="true">${e.icon}</span>`
-  return `<span class="${cls}"><img src="${esc(e.piece || e.image)}" alt="" loading="lazy"></span>`
 }
 const inGameTip = (e) => (e.notes || []).find((x) => x.startsWith('In-game tip:'))?.replace(/^In-game tip:\s*/, '').replace(/^"|"$/g, '')
 const notesOf = (e) => (e.notes || []).filter((x) => !x.startsWith('In-game tip:'))
@@ -122,7 +119,9 @@ function shell(w, product, { title, description, path, body, entry, preload = ''
   ${preload}` : ''}
   <link rel="stylesheet" href="/${p.slug}/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">
-  <link rel="stylesheet" href="/assets/wiki.css">${script ? `
+  <link rel="stylesheet" href="/assets/wiki.css">
+  <script src="/assets/anchors.js" defer></script>
+  <script src="/assets/product.js" defer></script>${script ? `
   <script src="/assets/wiki.js" defer></script>` : ''}
 </head>
 <body class="wiki">
@@ -130,6 +129,7 @@ function shell(w, product, { title, description, path, body, entry, preload = ''
 ${header(product, { current: `/${p.slug}/wiki/` })}
 <main id="main">
 ${body}
+${closing(product.page)}
 </main>
 ${footer(product)}
 </body>
@@ -140,20 +140,12 @@ ${footer(product)}
 // ---------- Index ----------
 function indexPage(w, product) {
   const p = w.product
-  const journey = w.worlds ? (() => {
-    const stops = w.worlds.map((wd) => [wd, w.entries.filter((e) => e.firstLevel > 1 && worldOf(w, e.firstLevel) === wd).sort((a, b) => a.firstLevel - b.firstLevel)]).filter(([, list]) => list.length)
-    return `  <section class="w-journey wrap" aria-labelledby="h-journey">
-    <div class="w-head"><h2 id="h-journey">Unlocks as you play</h2><p>Each world brings something new. Pick one to read how it works.</p></div>
-    <ol class="w-map">
-${stops.map(([wd, list]) => `      <li class="w-map-world" style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)">
-        <p class="w-map-head"><b>${esc(wd.name)}</b><span>Levels ${wd.from}–${wd.to}</span></p>
-        <ul>${list.map((e) => `<li><a href="/${p.slug}/wiki/${e.slug}/">${lvBadge(e.firstLevel, 'sm')}${piece(w, e, 'w-map-piece')}<span>${esc(e.name)}</span></a></li>`).join('')}</ul>
-      </li>`).join('\n')}
-    </ol>
-  </section>`
-  })() : ''
+  const tiles = w.worlds ? `  <section class="w-journey wrap" aria-labelledby="h-journey">
+    <div class="w-head"><h2 id="h-journey">Unlocks as you play${anchor('h-journey', 'Unlocks as you play')}</h2><p>Each world brings something new. Pick one to read how it works.</p></div>
+    ${journey(w)}
+  </section>` : ''
   const sections = w.sections.map((s) => `  <section class="w-sec wrap" id="${s.id}" data-sec="${s.id}" aria-labelledby="h-${s.id}">
-    <div class="w-head"><h2 id="h-${s.id}">${esc(s.title)}</h2><p>${s.intro}</p></div>
+    <div class="w-head"><h2 id="h-${s.id}">${esc(s.title)}${anchor(`h-${s.id}`, esc(s.title))}</h2><p>${s.intro}</p></div>
     <div class="w-grid">
       ${w.entries.filter((e) => e.section === s.id).map((e) => card(w, e)).join('\n      ')}
     </div>
@@ -167,7 +159,7 @@ ${stops.map(([wd, list]) => `      <li class="w-map-world" style="--w: ${wd.colo
       <label class="w-search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search ${w.entries.length} entries…" autocomplete="off"></label>
     </div>
   </section>
-${journey}
+${tiles}
   <div class="w-chips wrap" role="group" aria-label="Show"><button type="button" class="w-chip on" data-filter="all">All <b>${w.entries.length}</b></button>${w.sections.map((s) => `<button type="button" class="w-chip" data-filter="${s.id}">${esc(s.title)}</button>`).join('')}</div>
 ${sections}
   <p class="w-empty wrap" id="empty" hidden>Nothing matches that. Try another word.</p>`
@@ -181,7 +173,7 @@ function stepsBlock(w, e) {
   const list = `<ol class="w-steps">${steps.map((s, i) => `<li data-step="${i}"><span class="w-step-n">${i + 1}</span><p>${s.text}</p></li>`).join('')}</ol>`
   if (e.board) {
     return `<section class="w-panel w-how" aria-labelledby="h-how">
-      <h2 class="w-orn" id="h-how">How it works</h2>
+      ${h2('h-how', `How it works`)}
       <div class="w-how-grid">
         <div class="w-play" data-board="${esc(JSON.stringify(e.board))}">
           <div class="w-play-hud"><span class="w-hearts" aria-label="Hearts">${'<svg class="w-heart" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z"/></svg>'.repeat(3)}</span><span class="w-play-say" aria-live="polite">Tap an arrow with a clear path.</span></div>
@@ -193,12 +185,12 @@ function stepsBlock(w, e) {
     </section>`
   }
   if (e.gauge) {
-    return `<section class="w-panel" aria-labelledby="h-how"><h2 class="w-orn" id="h-how">Try it</h2>
+    return `<section class="w-panel" aria-labelledby="h-how">${h2('h-how', `Try it`)}
       <div class="w-gauge-try" data-gauge="${esc(JSON.stringify(e.gauge))}"><svg class="w-gauge" viewBox="0 0 240 240" role="img" aria-label="${esc(e.gauge.label)}"></svg><div><button type="button" class="w-btn" data-act="plug" aria-pressed="false">${esc(e.gauge.off)}</button><p class="w-gauge-say" aria-live="polite">${esc(e.gauge.offText)}</p></div></div>
     </section>
-    <section class="w-block" aria-labelledby="h-steps"><h2 class="w-orn" id="h-steps">How it works</h2>${list}</section>`
+    <section class="w-block" aria-labelledby="h-steps">${h2('h-steps', `How it works`)}${list}</section>`
   }
-  return `<section class="w-block" aria-labelledby="h-how"><h2 class="w-orn" id="h-how">${e.section === 'traps' ? 'How to beat it' : e.section === 'powerups' ? 'How to use it' : 'How it works'}</h2>${list}</section>`
+  return `<section class="w-block" aria-labelledby="h-how">${h2('h-how', `${e.section === 'traps' ? 'How to beat it' : e.section === 'powerups' ? 'How to use it' : 'How it works'}`)}${list}</section>`
 }
 // "What it does": the first paragraph as the lead beside the piece, then each further paragraph as a card whose first
 // sentence is its heading.
@@ -206,9 +198,9 @@ function whatBlock(w, e) {
   const [lead, ...rest] = e.what || []
   if (!lead) return ''
   const split = (p) => { const m = p.match(/^(.+?[.!?])\s+([\s\S]*)$/); return m ? [m[1], m[2]] : [p, ''] }
-  return `<section class="w-block" aria-labelledby="h-what"><h2 class="w-orn" id="h-what">${w.product.slug === 'exitwise' ? 'What it does' : 'What it shows'}</h2>
+  return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.product.slug === 'exitwise' ? 'What it does' : 'What it shows'}`)}
       <div class="w-what">
-        <div class="w-what-lead">${piece(w, e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
+        <div class="w-what-lead">${piece(e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
         <div class="w-what-cards">${rest.map((p, i) => { const [h, t] = split(p); return `<div class="w-what-card" style="--k: var(--swatch-${(i % 6) + 1})"><b>${h}</b>${t ? `<p>${t}</p>` : ''}</div>` }).join('')}</div>` : ''}
       </div>
     </section>`
@@ -226,11 +218,11 @@ function worldMap(w) {
     return `<div class="w-wcard${wd.id === w.worldsOpen ? '' : ' is-off'}" id="world-${wd.id}" data-world-card="${wd.id}">
           <div class="w-wcard-art" style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)"><span class="w-wt-n big">${i + 1}</span></div>
           <div class="w-wcard-body"><p class="w-kicker">World ${i + 1} of ${w.worlds.length}</p><h3>${esc(wd.name)}</h3><p class="w-wcard-lv">Levels ${wd.from}–${wd.to} · hard levels at night</p>${list.length
-            ? `<p class="w-kicker">New here</p><ul class="w-new">${list.map((e) => `<li><a href="/${p.slug}/wiki/${e.slug}/">${lvBadge(e.firstLevel, 'sm')}${piece(w, e, 'w-map-piece')}<span>${esc(e.name)}</span></a></li>`).join('')}</ul>`
+            ? `<p class="w-kicker">New here</p><ul class="w-new">${list.map((e) => `<li><a href="/${p.slug}/wiki/${e.slug}/">${lvBadge(e.firstLevel, 'sm')}${piece(e, 'journey-piece')}<span>${esc(e.name)}</span></a></li>`).join('')}</ul>`
             : '<p class="w-muted">Nothing new here: the obstacles you know, mixed together on bigger boards.</p>'}</div>
         </div>`
   }
-  return `<section class="w-panel" aria-labelledby="h-map"><h2 class="w-orn" id="h-map">World map</h2><p class="w-muted">The worlds in the order you play them. Pick one to see what it brings.</p>
+  return `<section class="w-panel" aria-labelledby="h-map">${h2('h-map', `World map`)}<p class="w-muted">The worlds in the order you play them. Pick one to see what it brings.</p>
       <div class="w-wm" data-worlds>
         <ol class="w-wm-tiles">${w.worlds.map((wd, i) => `<li><a class="w-wt${wd.id === w.worldsOpen ? ' on' : ''}" href="#world-${wd.id}" data-world="${wd.id}"${wd.id === w.worldsOpen ? ' aria-current="true"' : ''} style="--w: ${wd.colour}; --art: url(/${p.slug}/wiki/img/worlds/${wd.id}.webp)"><span class="w-wt-n">${i + 1}</span><span class="w-wt-name">${esc(wd.name)}</span><span class="w-wt-lv">${wd.from}–${wd.to}</span></a></li>`).join('')}</ol>
         <div class="w-wd">
@@ -245,10 +237,12 @@ function inTheGame(w, e) {
   const f = e.figure
   if (!f) return ''
   const wide = f.width > f.height
-  const wd = worldOf(w, e.firstLevel) || w.worlds?.[0]
+  // The world the screenshot shows (named in its words), else the one the entry arrives in.
+  const named = w.worlds?.find((x) => new RegExp(`\\b${x.name}\\b`, 'i').test(`${f.alt} ${f.caption || ''}`))
+  const wd = named || worldOf(w, e.firstLevel) || w.worlds?.[0]
   const band = !wide && w.bands && wd && w.bands.includes(wd.id) ? wd.id : null
   const play = w.playHref ? `<a class="w-btn" href="${esc(w.playHref)}">Play in your browser</a>` : ''
-  return `<section class="w-block" aria-labelledby="h-game"><h2 class="w-orn" id="h-game">${esc(w.figureTitle || 'In the game')}</h2>
+  return `<section class="w-block" aria-labelledby="h-game">${h2('h-game', `${esc(w.figureTitle || 'In the game')}`)}
       <figure class="w-player${wide ? ' is-wide' : ''}"><div class="w-player-screen"${band ? ` style="--band: url(/${w.product.slug}/wiki/img/bands/${band}.webp)"` : ''}><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.width}" height="${f.height}" loading="lazy"></div><figcaption><span>${f.caption || ''}</span>${play}</figcaption></figure>
     </section>`
 }
@@ -274,10 +268,10 @@ function entryPage(w, product, e, i) {
     ${stepsBlock(w, e)}
     ${whatBlock(w, e)}
     ${tipBlock(w, e)}
-    ${notesOf(e).length ? `<section class="w-block" aria-labelledby="h-notes"><h2 class="w-orn" id="h-notes">Good to know</h2><ul class="w-ticks">${notesOf(e).map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
+    ${notesOf(e).length ? `<section class="w-block" aria-labelledby="h-notes">${h2('h-notes', `Good to know`)}<ul class="w-ticks">${notesOf(e).map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
     ${e.worldMap && w.worlds ? worldMap(w) : ''}
     ${inTheGame(w, e)}
-    ${related.length ? `<section class="w-block" aria-labelledby="h-rel"><h2 class="w-orn" id="h-rel">${esc(w.relatedTitle || 'Works with')}</h2><div class="w-grid three">${related.map((r) => card(w, bySlug[r])).join('')}</div></section>` : ''}
+    ${related.length ? `<section class="w-block" aria-labelledby="h-rel">${h2('h-rel', `${esc(w.relatedTitle || 'Works with')}`)}<div class="w-grid three">${related.map((r) => card(w, bySlug[r])).join('')}</div></section>` : ''}
     <nav class="w-pager" aria-label="More entries">${prev ? `<a class="w-btn ghost" href="/${p.slug}/wiki/${prev.slug}/" rel="prev"><span aria-hidden="true">◀</span> ${esc(prev.name)}</a>` : '<span></span>'}${next ? `<a class="w-btn" href="/${p.slug}/wiki/${next.slug}/" rel="next">${esc(next.name)} <span aria-hidden="true">▶</span></a>` : '<span></span>'}</nav>
   </article>`
   return shell(w, product, {

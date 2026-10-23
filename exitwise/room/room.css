@@ -1,0 +1,30 @@
+/* The room invite's card (room.html): the code in big letters, then the ways in, as the game's buttons, on the game's
+   card. Colours and type come from the theme pack. */
+.invite {
+  width: min(100%, 440px);
+  margin: 0 auto;
+  padding: 28px 24px 24px;
+  border-radius: var(--radius);
+  background: var(--surface);
+  color: var(--ink);
+  text-align: center;
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 85%, transparent), 0 8px 0 color-mix(in srgb, var(--ink) 85%, transparent), 0 26px 40px -16px rgb(20 12 40 / 0.5);
+}
+.invite-caption { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.invite-code { margin: 2px 0 22px; font: var(--display-weight) 3.2rem/1.1 var(--font-display); letter-spacing: 6px; }
+.invite-button {
+  display: block;
+  margin: 12px 0;
+  padding: 16px 20px;
+  border-radius: 999px;
+  background: #FFFFFF;
+  color: var(--ink);
+  font: var(--display-weight) 1.4rem/1 var(--font-display);
+  text-decoration: none;
+  box-shadow: 0 0 0 2px var(--line), 0 6px 0 var(--line);
+}
+.invite-button.primary { background: var(--accent-2); color: #FFFFFF; box-shadow: 0 6px 0 color-mix(in srgb, var(--accent-2) 70%, #000); }
+.invite-button:active { transform: translateY(3px); }
+.invite .hidden { display: none; }
+.invite-steps { margin: 20px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 0.98rem; }
+.invite-steps li { margin: 4px 0; }

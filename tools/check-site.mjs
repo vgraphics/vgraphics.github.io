@@ -6,7 +6,7 @@ import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
-import { products } from './lib/product.mjs'
+import { pieces, products, subpages } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -38,9 +38,11 @@ function walk(dir) {
 }
 
 const files = walk(root)
-// A product's demo (<product>/demo/*.html) is a piece tools/build-pages.mjs sets into its landing page, not a page.
+// A product's demo (<product>/demo/*.html), and the markup and policy copies its page.json blocks name, are pieces
+// tools/build-pages.mjs sets into its pages, not pages.
 const PARTIAL = /^[^\\/]+[\\/]demo[\\/][^\\/]+\.html$/
-const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f))
+const PIECES = new Set(pieces())
+const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f) && !PIECES.has(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
 let links = 0
 
@@ -129,11 +131,20 @@ for (const file of pages) {
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
 // graphic"): each is exactly what tools/build-pages.mjs writes from its page.json and theme pack, and every product (a
-// folder with its own privacy policy) has one.
+// folder with its own privacy policy) has one. So are a product's other pages with a page.json (exitwise/ranking).
 for (const slug of products()) {
   const { html, css, problems: pack } = render(slug)
   for (const m of pack) report(join(slug, 'theme', 'theme.json'), 'template', m)
-  for (const [file, want] of [[join(slug, 'index.html'), html], [join(slug, 'theme', 'theme.css'), css]]) {
+  const made = [[join(slug, 'index.html'), html], [join(slug, 'theme', 'theme.css'), css]]
+  for (const sub of subpages(slug)) {
+    try {
+      const page = render(slug, sub)
+      made.push([page.file, page.html])
+    } catch (e) {
+      report(join(slug, sub, 'page.json'), 'template', e.message)
+    }
+  }
+  for (const [file, want] of made) {
     const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
     if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
   }

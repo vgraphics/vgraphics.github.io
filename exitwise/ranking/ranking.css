@@ -1,0 +1,119 @@
+/* The ranking page's boards (ranking.html, on the section's scene): the tabs as the game's pill buttons, then the board
+   on the game's card. Colours and type come from the theme pack; the cups keep their gold, silver and bronze. */
+.ranking { width: min(100%, 760px); margin-inline: auto; color: var(--ink); --gold: #F2B705; --silver: #CDD3DC; --bronze: #E9A46B; }
+.ranking button { font: inherit; color: inherit; }
+
+.ranking .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
+.ranking .tab {
+  min-height: 48px;
+  padding: 0 8px;
+  border: 0;
+  border-radius: 999px;
+  background: rgb(255 255 255 / 0.9);
+  box-shadow: 0 4px 0 rgb(0 0 0 / 0.2);
+  font: var(--display-weight) 1.05rem/1 var(--font-display);
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform 120ms ease-out, background-color 150ms ease-out;
+}
+.ranking .tab:hover { transform: translateY(-2px); }
+.ranking .tab[aria-selected="true"] { background: var(--cta); color: var(--cta-ink); box-shadow: 0 4px 0 var(--cta-edge); }
+.ranking .tab:focus-visible { outline-offset: 2px; }
+
+.ranking .board-card {
+  overflow: hidden;
+  border-radius: var(--radius);
+  background: var(--surface);
+  box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 85%, transparent), 0 8px 0 color-mix(in srgb, var(--ink) 85%, transparent), 0 26px 40px -16px rgb(20 12 40 / 0.6);
+}
+.ranking .card-head { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 4px 16px; padding: 18px 20px 12px; }
+.ranking .card-head h3 { font-size: 1.6rem; }
+.ranking .caption { margin: 2px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
+.ranking .updated { display: flex; align-items: center; gap: 2px; margin: 0; color: var(--muted); font-size: 0.85rem; }
+.ranking .refresh { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; margin-right: -12px; border: 0; border-radius: 999px; background: transparent; color: var(--accent); font-size: 0.85rem; cursor: pointer; }
+.ranking .refresh:hover { background: var(--page); }
+.ranking .refresh svg { width: 16px; height: 16px; }
+.ranking .refresh[aria-busy="true"] svg { animation: r-spin 900ms linear infinite; }
+@keyframes r-spin { to { transform: rotate(360deg); } }
+.ranking .refresh[disabled] { cursor: default; opacity: 0.6; }
+
+.ranking .cols, .ranking .row { display: grid; grid-template-columns: 40px 40px minmax(0, 1fr) auto; align-items: center; column-gap: 12px; padding: 0 20px; }
+.ranking .cols { padding-block: 8px; border-block: 1px solid var(--line); background: var(--page); color: var(--muted); font: var(--label-weight) 0.75rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.07em; }
+.ranking .cols span:first-child { text-align: center; }
+.ranking .cols span:nth-child(2) { grid-column: 2 / 4; }
+.ranking .cols span:last-child { text-align: right; }
+.ranking .cols[hidden] { display: none; }
+.ranking .rows { list-style: none; margin: 0; padding: 4px 0 8px; }
+.ranking .row { min-height: 62px; padding-block: 7px; }
+.ranking .row + .row { border-top: 1px dashed var(--line); }
+.ranking .row.enter, .ranking .trophy.enter { animation: r-in 280ms cubic-bezier(.2, .8, .2, 1) both; }
+@keyframes r-in { from { opacity: 0; transform: translateY(6px); } }
+/* The ranks as the game's level bubbles: the first three in gold, silver and bronze. */
+.ranking .rank { justify-self: center; display: grid; place-items: center; min-width: 34px; height: 34px; padding: 0 4px; border-radius: 999px; font: var(--display-weight) 1.05rem/1 var(--font-display); font-variant-numeric: tabular-nums; color: var(--muted); }
+.ranking .rank.r1, .ranking .rank.r2, .ranking .rank.r3 { color: var(--ink); box-shadow: 0 3px 0 rgb(30 20 50 / 0.25); }
+.ranking .rank.r1 { background: var(--gold); }
+.ranking .rank.r2 { background: var(--silver); }
+.ranking .rank.r3 { background: var(--bronze); }
+.ranking .avatar { display: block; width: 40px; height: 40px; overflow: hidden; border-radius: 50%; background: var(--surface-2); }
+.ranking .avatar svg, .ranking .avatar img { display: block; width: 100%; height: 100%; }
+.ranking .avatar img { object-fit: cover; }
+.ranking .name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 1.02rem; }
+.ranking .name.anon { color: var(--muted); }
+.ranking .who { display: grid; min-width: 0; line-height: 1.2; }
+.ranking .who .lv { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.ranking .stat { text-align: right; line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; }
+.ranking .stat .big { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font: var(--display-weight) 1.22rem/1.1 var(--font-display); }
+.ranking .stat .small { display: flex; align-items: center; justify-content: flex-end; gap: 3px; color: var(--muted); font-size: 0.82rem; }
+.ranking .heart { flex: none; width: 15px; height: 15px; }
+.ranking .big .heart { width: 18px; height: 18px; }
+
+.ranking .trophies { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end; column-gap: 8px; padding: 4px 20px 18px; }
+.ranking .trophies[hidden] { display: none; }
+.ranking .trophy { display: grid; justify-items: center; gap: 3px; min-width: 0; text-align: center; line-height: 1.2; }
+.ranking .trophy.t1 { order: 2; }
+.ranking .trophy.t2 { order: 1; }
+.ranking .trophy.t3 { order: 3; }
+.ranking .trophy .cup { width: 76px; height: 76px; }
+.ranking .trophy.t1 .cup { width: 100px; height: 100px; }
+.ranking .trophy .avatar { margin-top: -2px; box-shadow: 0 0 0 3px var(--surface); }
+.ranking .tname { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.98rem; }
+.ranking .tname.anon { color: var(--muted); }
+.ranking .tstat { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+
+.ranking .skeleton .rank, .ranking .skeleton .avatar, .ranking .skeleton .bar {
+  background: linear-gradient(90deg, var(--surface-2) 0%, var(--page) 50%, var(--surface-2) 100%);
+  background-size: 200% 100%;
+  animation: r-shimmer 1.2s ease-in-out infinite;
+}
+.ranking .skeleton .rank { width: 30px; min-width: 0; height: 22px; border-radius: 8px; box-shadow: none; }
+.ranking .skeleton .bar { display: block; height: 14px; border-radius: 7px; }
+.ranking .skeleton .stat .bar { width: 52px; height: 18px; margin-left: auto; }
+@keyframes r-shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
+
+.ranking .state { padding: 34px 24px 36px; text-align: center; }
+.ranking .state[hidden] { display: none; }
+.ranking .state-pic { display: block; width: 76px; height: 76px; margin: 0 auto 10px; }
+.ranking .state h3 { margin: 0 0 6px; font-size: 1.55rem; }
+.ranking .state p { max-width: 26em; margin: 0 auto 18px; color: var(--muted); }
+.ranking .stores { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
+.ranking .stores .gp { margin: -14px -4px; }
+
+.ranking .count { margin: 0; padding: 10px 20px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
+.ranking .count[hidden] { display: none; }
+/* Under the card, on the scene's art. */
+.ranking .fine { margin: 16px 6px 0; color: var(--on-art); font-size: 0.88rem; line-height: 1.5; text-shadow: 0 1px 4px rgb(0 0 0 / 0.55); }
+.ranking .fine a { color: inherit; }
+
+@media (max-width: 560px) {
+  .ranking .tab { font-size: 0.95rem; padding: 0 4px; }
+  .ranking .card-head { padding: 16px 14px 10px; }
+  .ranking .cols, .ranking .row { grid-template-columns: 32px 36px minmax(0, 1fr) auto; column-gap: 10px; padding-inline: 12px 14px; }
+  .ranking .rank { min-width: 30px; height: 30px; font-size: 0.98rem; }
+  .ranking .avatar { width: 36px; height: 36px; }
+  .ranking .row { min-height: 58px; }
+  .ranking .trophies { padding-inline: 12px; }
+  .ranking .trophy .cup { width: 62px; height: 62px; }
+  .ranking .trophy.t1 .cup { width: 84px; height: 84px; }
+  .ranking .count { padding-inline: 14px; }
+  .ranking .state { padding-inline: 16px; }
+}

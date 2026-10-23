@@ -3,6 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
   <title>Exitwise global ranking: the top arrow puzzle players, live</title>
   <meta name="description" content="The best Exitwise players: the game's four global boards, by highest level, perfect clears, custom maps cleared and plays of their own maps. Live from the game.">
   <meta name="theme-color" content="#F4EFE6">
@@ -15,371 +16,55 @@
   <meta property="og:title" content="Global ranking · Exitwise">
   <meta property="og:description" content="Who's on top in Exitwise: highest level, perfect clears, maps cleared and the most played creators.">
   <meta property="og:url" content="https://vgraphics.gr/exitwise/ranking/">
-  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
   <script type="application/ld+json">
-  {
-    "@context": "https://schema.org",
-    "@type": "BreadcrumbList",
-    "itemListElement": [
-      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
-      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
-      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
-      { "@type": "ListItem", "position": 4, "name": "Global ranking", "item": "https://vgraphics.gr/exitwise/ranking/" }
-    ]
-  }
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "VGraphics",
+      "item": "https://vgraphics.gr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Games",
+      "item": "https://vgraphics.gr/games/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Exitwise",
+      "item": "https://vgraphics.gr/exitwise/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Global ranking",
+      "item": "https://vgraphics.gr/exitwise/ranking/"
+    }
+  ]
+}
   </script>
   <link rel="preload" href="/exitwise/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <style>
-    /* Self-hosted (OFL, see /exitwise/fonts/): no requests to Google Fonts. */
-    @font-face {
-      font-family: "Lilita One";
-      src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2");
-      font-weight: 400;
-      font-display: swap;
-    }
-    @font-face {
-      font-family: "Nunito";
-      src: url("/exitwise/fonts/nunito-latin.woff2") format("woff2");
-      font-weight: 500 800;
-      font-display: swap;
-    }
-    /* The landing page's tokens (/exitwise/). */
-    :root {
-      --paper: #F4EFE6;
-      --card: #FFFDF8;
-      --board: #E9E1D3;
-      --dot: #D2C6B2;
-      --line: #DED4C4;
-      --ink: #3B3355;
-      --muted: #6B6385;
-      --heart: #FF5A6E;
-      --red: #FF6B6B;
-      --orange: #FF922B;
-      --yellow: #F2B705;
-      --green: #3BB273;
-      --blue: #1C9FD8;
-      --purple: #8C5CF0;
-      --gold: #F2B705;
-      --silver: #CDD3DC;
-      --bronze: #E9A46B;
-      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
-      --body: "Nunito", system-ui, sans-serif;
-      --gutter: 20px;
-    }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; }
-    body {
-      margin: 0;
-      color: var(--ink);
-      font: 500 18px/1.6 var(--body);
-      background-color: var(--paper);
-      background-image: radial-gradient(var(--dot) 1.6px, transparent 1.9px);
-      background-size: 30px 30px;
-      background-position: 15px 15px;
-      overflow-x: hidden;
-    }
-    a { color: var(--blue); }
-    img { max-width: 100%; }
-    button { font: inherit; color: inherit; }
-    :focus-visible { outline: 3px solid var(--blue); outline-offset: 2px; }
-    .sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
-
-    .top {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 18px var(--gutter);
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 12px;
-      font-weight: 800;
-    }
-    .top a { color: var(--ink); text-decoration: none; }
-    .top a:hover { color: var(--blue); }
-    .top .product { display: inline-flex; align-items: center; gap: 10px; margin-right: auto; font: 400 1.35rem/1 var(--display); }
-    .top .product img { width: 36px; height: 36px; border-radius: 10px; }
-    .subnav { display: flex; gap: 6px; }
-    .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; }
-    .subnav a:hover { background: var(--board); color: var(--ink); }
-    .subnav a[aria-current="page"] { background: var(--ink); color: var(--paper); }
-
-    /* Intro on the left (it stays in view on wide screens), the boards on the right. */
-    main {
-      max-width: 1120px;
-      margin: 0 auto;
-      padding: 8px var(--gutter) 0;
-      display: grid;
-      grid-template-columns: minmax(0, 0.82fr) minmax(0, 1.18fr);
-      gap: 48px;
-      align-items: start;
-    }
-    .intro { position: sticky; top: 24px; padding-top: 18px; animation: rise 600ms cubic-bezier(.2, .8, .2, 1) both; }
-    @keyframes rise { from { opacity: 0; transform: translateY(14px); } }
-    .app-icon { width: 72px; height: 72px; border-radius: 19px; box-shadow: 0 10px 24px rgba(59, 51, 85, 0.18); display: block; }
-    .kicker { font-family: var(--display); font-size: 1.35rem; color: #8A80A3; margin: 18px 0 0; }
-    h1 {
-      font-family: var(--display);
-      font-weight: 400;
-      font-size: clamp(2.8rem, 7vw, 4.4rem);
-      line-height: 0.98;
-      margin: 2px 0 14px;
-      letter-spacing: 0.01em;
-    }
-    .lede { font-size: 1.12rem; margin: 0 0 22px; max-width: 28em; }
-    .stores { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; }
-    .store {
-      display: inline-flex;
-      flex-direction: column;
-      padding: 10px 18px 9px;
-      border-radius: 16px;
-      border: 2px dashed var(--line);
-      background: rgba(255, 253, 248, 0.7);
-      line-height: 1.25;
-    }
-    .store b { font-weight: 800; }
-    .store small { color: var(--muted); font-weight: 700; font-size: 0.8rem; text-transform: uppercase; letter-spacing: 0.06em; }
-    a.store { color: var(--ink); text-decoration: none; border: 2px solid var(--green); background: var(--card); transition: transform 120ms ease, box-shadow 120ms ease; }
-    a.store small { color: #2A8A57; }
-    a.store:hover, a.store:focus-visible { transform: translateY(-2px); box-shadow: 0 6px 16px rgba(59, 51, 85, 0.12); }
-    /* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
-    .gp { display: inline-flex; margin: -15px 0 -15px -15px; border-radius: 18px; transition: transform 120ms ease; }
-    .gp img { display: block; height: 90px; width: auto; }
-    .gp:hover, .gp:focus-visible { transform: translateY(-2px); }
-    .gp:focus-visible { outline: 3px solid var(--blue); outline-offset: -12px; }
-    .icon-link { display: inline-block; border-radius: 19px; }
-    .cta-end { display: none; margin-top: 40px; }
-    .cta-end h2 { font-family: var(--display); font-weight: 400; font-size: 2rem; line-height: 1.1; margin: 0 0 8px; }
-    .cta-end p { margin: 0 0 18px; color: var(--muted); }
-    .how { margin: 26px 0 0; padding: 0; list-style: none; display: grid; gap: 8px; color: var(--muted); font-size: 0.98rem; }
-    .how li { display: flex; gap: 10px; align-items: baseline; }
-    .how li::before { content: ""; flex: none; width: 10px; height: 10px; border-radius: 3px; background: var(--c); transform: translateY(-1px); }
-    .how b { color: var(--ink); font-weight: 800; }
-    .more { display: inline-flex; align-items: center; min-height: 44px; margin-top: 10px; font-weight: 800; }
-
-    /* Boards */
-    .boards { min-width: 0; padding-top: 18px; }
-    .tabs {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      padding: 5px;
-      background: var(--board);
-      border-radius: 999px;
-      margin-bottom: 14px;
-    }
-    .tab {
-      min-height: 44px;
-      padding: 0 8px;
-      border: 0;
-      border-radius: 999px;
-      background: transparent;
-      font-weight: 800;
-      font-size: 0.98rem;
-      cursor: pointer;
-      transition: background-color 180ms ease, color 180ms ease, box-shadow 180ms ease;
-      white-space: nowrap;
-    }
-    .tab:hover { background: rgba(255, 253, 248, 0.6); }
-    .tab[aria-selected="true"] { background: var(--card); box-shadow: 0 2px 8px rgba(59, 51, 85, 0.14); }
-    .tab:focus-visible { outline-offset: -3px; }
-
-    .card {
-      background: var(--card);
-      border: 1px solid var(--line);
-      border-radius: 28px;
-      box-shadow: 0 30px 60px -34px rgba(59, 51, 85, 0.4);
-      overflow: hidden;
-    }
-    .card-head {
-      display: flex;
-      flex-wrap: wrap;
-      justify-content: space-between;
-      align-items: center;
-      gap: 4px 16px;
-      padding: 18px 20px 12px;
-    }
-    .card-head h2 { font-family: var(--display); font-weight: 400; font-size: 1.6rem; line-height: 1.1; margin: 0; }
-    .caption { margin: 2px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
-    .updated { display: flex; align-items: center; gap: 2px; margin: 0; color: var(--muted); font-size: 0.85rem; font-weight: 700; }
-    .refresh {
-      display: inline-flex; align-items: center; gap: 6px;
-      min-height: 44px; padding: 0 12px; margin-right: -12px;
-      border: 0; border-radius: 999px; background: transparent;
-      color: var(--blue); font-weight: 800; font-size: 0.85rem; cursor: pointer;
-    }
-    .refresh:hover { background: var(--paper); }
-    .refresh svg { width: 16px; height: 16px; transition: transform 400ms ease; }
-    .refresh[aria-busy="true"] svg { animation: spin 900ms linear infinite; }
-    @keyframes spin { to { transform: rotate(360deg); } }
-    .refresh[disabled] { cursor: default; opacity: 0.6; }
-
-    .cols, .row {
-      display: grid;
-      grid-template-columns: 40px 40px minmax(0, 1fr) auto;
-      align-items: center;
-      column-gap: 12px;
-      padding: 0 20px;
-    }
-    .cols {
-      padding-top: 8px; padding-bottom: 8px;
-      border-top: 1px solid var(--line);
-      border-bottom: 1px solid var(--line);
-      background: var(--paper);
-      color: var(--muted);
-      font-size: 0.75rem;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.07em;
-    }
-    .cols span:first-child { text-align: center; }
-    .cols span:nth-child(2) { grid-column: 2 / 4; }
-    .cols span:last-child { text-align: right; }
-
-    .rows { list-style: none; margin: 0; padding: 4px 0 8px; }
-    .row { min-height: 62px; padding-top: 7px; padding-bottom: 7px; }
-    .row + .row { border-top: 1px dashed var(--line); }
-    .row.enter { animation: rowin 260ms cubic-bezier(.2, .8, .2, 1) both; }
-    @keyframes rowin { from { opacity: 0; transform: translateY(6px); } }
-    .rank {
-      justify-self: center;
-      display: grid; place-items: center;
-      min-width: 34px; height: 34px; padding: 0 4px;
-      border-radius: 12px;
-      font: 400 1.05rem/1 var(--display);
-      font-variant-numeric: tabular-nums;
-      color: var(--muted);
-    }
-    .rank.r1, .rank.r2, .rank.r3 { color: var(--ink); box-shadow: inset 0 -3px 0 rgba(59, 51, 85, 0.16); }
-    .rank.r1 { background: var(--gold); }
-    .rank.r2 { background: var(--silver); }
-    .rank.r3 { background: var(--bronze); }
-    .avatar { width: 40px; height: 40px; border-radius: 50%; display: block; overflow: hidden; background: var(--board); }
-    .avatar svg, .avatar img { display: block; width: 100%; height: 100%; }
-    .avatar img { object-fit: cover; }
-    .name { font-weight: 800; font-size: 1.02rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .name.anon { color: var(--muted); font-weight: 700; }
-    /* Score rows: the player's level under the name. */
-    .who { display: grid; min-width: 0; line-height: 1.2; }
-    .who .lv { color: var(--muted); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-    .stat { text-align: right; line-height: 1.15; font-variant-numeric: tabular-nums; white-space: nowrap; }
-    .stat .big { display: flex; align-items: center; justify-content: flex-end; gap: 4px; font: 400 1.22rem/1.1 var(--display); }
-    .stat .small { display: flex; align-items: center; justify-content: flex-end; gap: 3px; color: var(--muted); font-size: 0.82rem; font-weight: 700; }
-    .heart { width: 15px; height: 15px; flex: none; }
-    .big .heart { width: 18px; height: 18px; }
-
-    /* A board's top 3 as trophies, in the empty board's style: 2nd, 1st, 3rd. */
-    .trophies {
-      display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); align-items: end;
-      column-gap: 8px; padding: 4px 20px 18px;
-    }
-    .trophies[hidden] { display: none; }
-    .trophy { display: grid; justify-items: center; gap: 3px; min-width: 0; text-align: center; line-height: 1.2; }
-    .trophy.t1 { order: 2; } .trophy.t2 { order: 1; } .trophy.t3 { order: 3; }
-    .trophy.enter { animation: rowin 320ms cubic-bezier(.2, .8, .2, 1) both; }
-    .trophy .cup { width: 76px; height: 76px; }
-    .trophy.t1 .cup { width: 100px; height: 100px; }
-    .trophy .avatar { margin-top: -2px; box-shadow: 0 0 0 3px var(--card, #FFFDF8); }
-    .tname { max-width: 100%; font-weight: 800; font-size: 0.98rem; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-    .tname.anon { color: var(--muted); font-weight: 700; }
-    .tstat { color: var(--muted); font-size: 0.8rem; font-weight: 700; font-variant-numeric: tabular-nums; }
-
-    /* Loading: rows to come */
-    .skeleton .rank, .skeleton .avatar, .skeleton .bar {
-      background: linear-gradient(90deg, var(--board) 0%, #F3EEE5 50%, var(--board) 100%);
-      background-size: 200% 100%;
-      animation: shimmer 1.2s ease-in-out infinite;
-    }
-    .skeleton .rank { width: 30px; min-width: 0; height: 22px; border-radius: 8px; }
-    .skeleton .bar { display: block; height: 14px; border-radius: 7px; }
-    .skeleton .stat .bar { width: 52px; height: 18px; margin-left: auto; }
-    @keyframes shimmer { from { background-position: 100% 0; } to { background-position: -100% 0; } }
-
-    /* Nobody yet, or couldn't load */
-    .state { padding: 34px 24px 36px; text-align: center; }
-    .state[hidden] { display: none; }
-    .state-pic { display: block; width: 76px; height: 76px; margin: 0 auto 10px; }
-    .state h3 { font: 400 1.55rem/1.15 var(--display); margin: 0 0 6px; }
-    .state p { margin: 0 auto 18px; max-width: 26em; color: var(--muted); }
-    .state .stores { justify-content: center; }
-    .state .gp { margin: -15px; }
-    .cols[hidden] { display: none; }
-    .btn {
-      display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-      min-height: 48px; padding: 0 22px;
-      font: 800 1rem var(--body);
-      color: #fff; background: var(--green);
-      border: 0; border-bottom: 4px solid #2A8A57; border-radius: 16px;
-      cursor: pointer; text-decoration: none;
-    }
-    .btn:hover { filter: brightness(1.04); }
-    .btn:active { transform: translateY(2px); border-bottom-width: 2px; }
-
-    .count { margin: 0; padding: 10px 20px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; font-weight: 700; }
-    .count[hidden] { display: none; }
-    .fine { margin: 14px 4px 0; color: var(--muted); font-size: 0.88rem; line-height: 1.5; }
-    .fine a { color: var(--ink); }
-
-    footer {
-      max-width: 1120px;
-      margin: 56px auto 0;
-      padding: 28px var(--gutter) 48px;
-      border-top: 2px dashed var(--line);
-      display: flex;
-      flex-wrap: wrap;
-      gap: 8px 24px;
-      color: var(--muted);
-      font-weight: 700;
-    }
-    footer a { color: var(--ink); }
-    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: 0.9rem; }
-    footer .legal a { color: var(--muted); }
-
-    @media (max-width: 960px) {
-      main { grid-template-columns: 1fr; gap: 0; }
-      .intro { position: static; }
-      .title-row { display: flex; align-items: center; gap: 16px; }
-      .title-row .kicker { margin: 0; }
-      .title-row h1 { margin: 0; }
-      .lede { margin: 12px 0 0; }
-      .intro-stores, .intro .how, .intro .more { display: none; }
-      .cta-end { display: block; }
-    }
-    @media (max-width: 560px) {
-      :root { --gutter: 16px; }
-      body { font-size: 17px; }
-      .subnav .wide-only:not([aria-current]) { display: none; }
-      .subnav a { padding: 0 14px; }
-      .top .product span { display: none; }
-      .intro { padding-top: 4px; }
-      .app-icon { width: 56px; height: 56px; border-radius: 15px; }
-      .icon-link { border-radius: 15px; }
-      .kicker { font-size: 1.1rem; }
-      h1 { font-size: 2.5rem; }
-      .lede { font-size: 1rem; line-height: 1.5; }
-      .store { flex: 1 1 140px; }
-      .tab { font-size: 0.9rem; padding: 0 4px; }
-      .card { border-radius: 22px; }
-      .card-head { padding: 16px 14px 10px; }
-      .cols, .row { grid-template-columns: 32px 36px minmax(0, 1fr) auto; column-gap: 10px; padding-left: 12px; padding-right: 14px; }
-      .rank { min-width: 30px; height: 30px; font-size: 0.98rem; border-radius: 10px; }
-      .avatar { width: 36px; height: 36px; }
-      .row { min-height: 58px; }
-      .trophies { padding-left: 12px; padding-right: 12px; }
-      .trophy .cup { width: 62px; height: 62px; }
-      .trophy.t1 .cup { width: 84px; height: 84px; }
-      .count { padding-left: 14px; padding-right: 14px; }
-      .state { padding-left: 16px; padding-right: 16px; }
-    }
-    @media (prefers-reduced-motion: reduce) {
-      *, *::before, *::after { animation: none !important; transition: none !important; }
-    }
-  </style>
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/exitwise/img/key-art-tall-480.avif 480w, /exitwise/img/key-art-tall-720.avif 720w, /exitwise/img/key-art-tall-1080.avif 1080w, /exitwise/img/key-art-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" imagesizes="100vw" fetchpriority="high">
+  <link rel="stylesheet" href="/exitwise/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/exitwise/ranking/ranking.css">
 </head>
 <body>
+  <a class="skip" href="#main">Skip to content</a>
   <header class="top">
-    <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
+    <a class="product-name" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
     <nav class="subnav" aria-label="Exitwise">
       <a href="/exitwise/">Overview</a>
       <a href="/exitwise/wiki/">Wiki</a>
@@ -389,325 +74,119 @@
     </nav>
   </header>
 
-  <main>
-    <section class="intro" aria-labelledby="title">
-      <div class="title-row">
-        <a class="icon-link" href="/exitwise/"><img class="app-icon" src="/exitwise/img/icon-512.png" alt="Exitwise" width="72" height="72"></a>
-        <div>
-          <p class="kicker">Exitwise</p>
-          <h1 id="title">Global ranking</h1>
+  <main id="main">
+    <section class="key-art short" style="--art-at: 50% 8%; --art-fade: 70%; --art-fade-tall: 62%; --art-placeholder: linear-gradient(#50638A, #8B8DBE)" aria-labelledby="title">
+      <picture>
+        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/img/key-art-tall-480.avif 480w, /exitwise/img/key-art-tall-720.avif 720w, /exitwise/img/key-art-tall-1080.avif 1080w, /exitwise/img/key-art-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/img/key-art-tall-480.webp 480w, /exitwise/img/key-art-tall-720.webp 720w, /exitwise/img/key-art-tall-1080.webp 1080w, /exitwise/img/key-art-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 4/5)" srcset="/exitwise/img/key-art-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
+        <source type="image/avif" srcset="/exitwise/img/key-art-wide-960.avif 960w, /exitwise/img/key-art-wide-1440.avif 1440w, /exitwise/img/key-art-wide-1920.avif 1920w, /exitwise/img/key-art-wide-2560.avif 2560w, /exitwise/img/key-art-wide-3200.avif 3200w" sizes="100vw" width="4096" height="1764">
+        <source type="image/webp" srcset="/exitwise/img/key-art-wide-960.webp 960w, /exitwise/img/key-art-wide-1440.webp 1440w, /exitwise/img/key-art-wide-1920.webp 1920w, /exitwise/img/key-art-wide-2560.webp 2560w, /exitwise/img/key-art-wide-3200.webp 3200w" sizes="100vw" width="4096" height="1764">
+        <img src="/exitwise/img/key-art-wide-1920.jpg" srcset="/exitwise/img/key-art-wide-960.jpg 960w, /exitwise/img/key-art-wide-1920.jpg 1920w" sizes="100vw" width="4096" height="1764" fetchpriority="high" alt="The top of the Exitwise tower: purple crystals and the glowing door under a starry sky">
+      </picture>
+      <div class="hero-foot">
+        <div class="wrap">
+          <h1 id="title" class="sr-only">Exitwise global ranking</h1>
+          <p class="lead">Global ranking</p>
+          
         </div>
       </div>
-      <p class="lede">The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.</p>
-      <div class="stores intro-stores" aria-label="Where to play">
-        <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
-        <a class="store" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a>
-      </div>
-      <ul class="how">
-        <li style="--c: var(--blue)"><span><b>Score:</b> 1,000 points for each level won, less for each heart lost and for the time taken.</span></li>
-        <li style="--c: var(--red)"><span><b>Perfect:</b> levels won without losing a heart.</span></li>
-        <li style="--c: var(--orange)"><span><b>Maps:</b> other players' custom maps cleared.</span></li>
-        <li style="--c: var(--purple)"><span><b>Creators:</b> plays of their own maps by other players.</span></li>
-      </ul>
-      <a class="more" href="/exitwise/wiki/leaderboards/">How the leaderboards work →</a>
     </section>
 
-    <section class="boards" aria-label="Global boards">
-      <div class="tabs" role="tablist" aria-label="Board">
-        <button class="tab" type="button" role="tab" id="tab-score" data-board="score" aria-controls="panel" aria-selected="true">Score</button>
-        <button class="tab" type="button" role="tab" id="tab-perfect" data-board="perfect" aria-controls="panel" aria-selected="false" tabindex="-1">Perfect</button>
-        <button class="tab" type="button" role="tab" id="tab-maps" data-board="maps" aria-controls="panel" aria-selected="false" tabindex="-1">Maps</button>
-        <button class="tab" type="button" role="tab" id="tab-creators" data-board="creators" aria-controls="panel" aria-selected="false" tabindex="-1">Creators</button>
-      </div>
+    <section class="sec" id="boards" aria-labelledby="boards-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="boards-title">The best players, live<a class="anchor" href="#boards" aria-label="Copy the link to The best players, live"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+          <p class="sec-intro">The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.</p>
+        </div>
+        <div class="scene" style="--stage-at: 50% 30%">
+          <picture class="scene-art" aria-hidden="true"><source media="(max-width: 899px)" type="image/avif" srcset="/exitwise/wiki/img/art/leaderboards-tall-540.avif 540w" sizes="100vw"><source media="(max-width: 899px)" type="image/webp" srcset="/exitwise/wiki/img/art/leaderboards-tall-540.webp 540w" sizes="100vw"><source type="image/avif" srcset="/exitwise/wiki/img/art/leaderboards-640.avif 640w, /exitwise/wiki/img/art/leaderboards-960.avif 960w, /exitwise/wiki/img/art/leaderboards-1344.avif 1344w" sizes="(max-width: 1160px) 100vw, 1120px"><source type="image/webp" srcset="/exitwise/wiki/img/art/leaderboards-640.webp 640w, /exitwise/wiki/img/art/leaderboards-960.webp 960w, /exitwise/wiki/img/art/leaderboards-1344.webp 1344w" sizes="(max-width: 1160px) 100vw, 1120px"><img src="/exitwise/wiki/img/art/leaderboards-1344.webp" alt="" width="1344" height="768" loading="lazy" decoding="async"></picture>
+          <div class="embed">
+          <section class="ranking" aria-label="Global boards">
+            <div class="tabs" role="tablist" aria-label="Board">
+              <button class="tab" type="button" role="tab" id="tab-score" data-board="score" aria-controls="panel" aria-selected="true">Score</button>
+              <button class="tab" type="button" role="tab" id="tab-perfect" data-board="perfect" aria-controls="panel" aria-selected="false" tabindex="-1">Perfect</button>
+              <button class="tab" type="button" role="tab" id="tab-maps" data-board="maps" aria-controls="panel" aria-selected="false" tabindex="-1">Maps</button>
+              <button class="tab" type="button" role="tab" id="tab-creators" data-board="creators" aria-controls="panel" aria-selected="false" tabindex="-1">Creators</button>
+            </div>
 
-      <div class="card" id="panel" role="tabpanel" aria-labelledby="tab-score">
-        <div class="card-head">
-          <div>
-            <h2 id="board-title">Score</h2>
-            <p class="caption" id="caption">Points for every level won: fewer hearts lost and faster wins earn more</p>
-          </div>
-          <p class="updated"><span id="updated">Loading…</span>
-            <button class="refresh" type="button" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Refresh</button>
-          </p>
+            <div class="board-card" id="panel" role="tabpanel" aria-labelledby="tab-score">
+              <div class="card-head">
+                <div>
+                  <h3 id="board-title">Score</h3>
+                  <p class="caption" id="caption">Points for every level won: fewer hearts lost and faster wins earn more</p>
+                </div>
+                <p class="updated"><span id="updated">Loading…</span>
+                  <button class="refresh" type="button" id="refresh"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M20 11a8 8 0 1 0-2.3 5.7"/><path d="M20 4v7h-7"/></svg>Refresh</button>
+                </p>
+              </div>
+              <div class="trophies" id="trophies" aria-hidden="true" hidden></div>
+              <div class="cols" id="cols" aria-hidden="true"><span>#</span><span>Player</span><span id="col-stat">Level</span></div>
+              <ol class="rows" id="rows" aria-labelledby="board-title" aria-busy="true"></ol>
+              <div class="state" id="state" hidden>
+                <svg class="state-pic" id="state-pic" viewBox="0 0 48 48" aria-hidden="true"></svg>
+                <h3 id="state-title"></h3>
+                <p id="state-text"></p>
+                <div id="state-actions"></div>
+              </div>
+              <p class="count" id="count" hidden></p>
+              <noscript><div class="state"><h3>The ranking needs JavaScript</h3><p>Turn it on to see the boards, or see them in the game: Home → Leaderboards.</p></div></noscript>
+            </div>
+            <p class="fine">The top 100 on each board, live from the game. Names and pictures are the ones players chose in the game; a name or picture removed after reports isn't shown. Players can delete theirs in Settings → Profile. <a href="/exitwise/privacy.html#leaderboards">Privacy policy</a></p>
+            <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+          </section>
+          <script src="/exitwise/ranking/boards.js" defer></script>
         </div>
-        <div class="trophies" id="trophies" aria-hidden="true" hidden></div>
-        <div class="cols" id="cols" aria-hidden="true"><span>#</span><span>Player</span><span id="col-stat">Level</span></div>
-        <ol class="rows" id="rows" aria-labelledby="board-title" aria-busy="true"></ol>
-        <div class="state" id="state" hidden>
-          <svg class="state-pic" id="state-pic" viewBox="0 0 48 48" aria-hidden="true"></svg>
-          <h3 id="state-title"></h3>
-          <p id="state-text"></p>
-          <div id="state-actions"></div>
         </div>
-        <p class="count" id="count" hidden></p>
-        <noscript><div class="state"><h3>The ranking needs JavaScript</h3><p>Turn it on to see the boards, or see them in the game: Home → Leaderboards.</p></div></noscript>
+        
       </div>
-      <p class="fine">The top 100 on each board, live from the game. Names and pictures are the ones players chose in the game; a name or picture removed after reports isn't shown. Players can delete theirs in Settings → Profile. <a href="/exitwise/privacy.html#leaderboards">Privacy policy</a></p>
-      <p class="sr-only" id="status" role="status" aria-live="polite"></p>
+    </section>
 
-      <!-- Narrow screens: the board comes first, then where to play (wide screens have it in the intro). -->
-      <section class="cta-end" aria-labelledby="cta-title">
-        <h2 id="cta-title">Climb the ranking</h2>
-        <p>Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.</p>
-        <div class="stores" aria-label="Where to play">
-          <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
-          <a class="store" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a>
+    <section class="sec" id="count" aria-labelledby="count-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <h2 id="count-title">How the boards count<a class="anchor" href="#count" aria-label="Copy the link to How the boards count"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         </div>
+        <ul class="features n4">
+          <li style="--c: var(--swatch-1)"><svg class="mark" aria-hidden="true" viewBox="0 0 30 30"><path d="M5 15h14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Score</b>1,000 points for each level won, less for each heart lost and for the time taken.</span></li>
+          <li style="--c: var(--swatch-2)"><svg class="mark" aria-hidden="true" viewBox="0 0 30 30"><path d="M5 15h14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Perfect</b>Levels won without losing a heart.</span></li>
+          <li style="--c: var(--swatch-3)"><svg class="mark" aria-hidden="true" viewBox="0 0 30 30"><path d="M5 15h14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Maps</b>Other players' custom maps cleared.</span></li>
+          <li style="--c: var(--swatch-4)"><svg class="mark" aria-hidden="true" viewBox="0 0 30 30"><path d="M5 15h14" stroke="currentColor" stroke-width="6" stroke-linecap="round"/><path d="M28 15l-10 -8v16z" fill="currentColor" stroke="currentColor" stroke-width="3" stroke-linejoin="round"/></svg><span><b>Creators</b>Plays of their own maps by other players.</span></li>
+        </ul>
         <a class="more" href="/exitwise/wiki/leaderboards/">How the leaderboards work →</a>
-      </section>
+      </div>
+    </section>
+
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="cta-title">Climb the ranking</h2>
+          <p>Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.</p>
+          <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="pill" href="/exitwise/play/"><b>Play in your browser</b><small>Play now, free</small></a></div>
+        </div>
+      </div>
     </section>
   </main>
 
-  <footer>
-    <a href="/">More from VGraphics</a>
-    <a href="/exitwise/">Exitwise</a>
-    <a href="/exitwise/wiki/">Wiki</a>
-    <a href="/exitwise/privacy.html">Privacy policy</a>
-    <a href="mailto:gvergidis90@gmail.com">Contact</a>
-    <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  <footer class="foot has-art">
+    <div class="foot-art" style="--foot-at: 50% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/exitwise/img/footer-960.avif 960w, /exitwise/img/footer-1440.avif 1440w, /exitwise/img/footer-1920.avif 1920w, /exitwise/img/footer-2560.avif 2560w, /exitwise/img/footer-3200.avif 3200w, /exitwise/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * 3.12))"><img src="/exitwise/img/footer-4096.webp" srcset="/exitwise/img/footer-960.webp 960w, /exitwise/img/footer-1440.webp 1440w, /exitwise/img/footer-1920.webp 1920w, /exitwise/img/footer-2560.webp 2560w, /exitwise/img/footer-3200.webp 3200w, /exitwise/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * 3.12))" alt="" width="4096" height="1311" loading="lazy" decoding="async"></picture></div>
+    <div class="wrap">
+      <a class="foot-brand" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="48" height="48"><span>Exitwise</span></a>
+      <nav class="foot-links" aria-label="Exitwise and VGraphics">
+        <a href="/exitwise/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/ranking/">Global ranking</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/map-rules.html">Map rules</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/games/">More games</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/services/">Work with us</a><span class="sep" aria-hidden="true">·</span>
+        <a href="mailto:gvergidis90@gmail.com">Contact</a>
+      </nav>
+      <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" aria-label="Exitwise on Google Play" title="Exitwise on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a></div>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </div>
   </footer>
-
-  <script src="/exitwise/ranking/boards.js"></script>
-  <script>
-  (() => {
-    // The data and the avatars come from boards.js, shared with the home page's podium.
-    const { TOP, BOARDS, avatarSvg, anonymous, loadBoard, loadPhotos } = window.ExitwiseBoards;
-    const HEART = `<svg class="heart" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z" fill="#FF5A6E"/></svg>`;
-    const fmt = n => n.toLocaleString("en-US");
-    const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
-
-    // ---------- Page ----------
-    const $ = id => document.getElementById(id);
-    const tabs = [...document.querySelectorAll(".tab")];
-    const rows = $("rows"), state = $("state"), count = $("count"), refresh = $("refresh"), status = $("status");
-    const cache = {};
-    let board = "score", request = 0;
-    const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;
-
-    function statCell(id, s) {
-      const cell = document.createElement("span");
-      cell.className = "stat";
-      let html, label;
-      if (id === "score") {
-        html = `<span class="big">${fmt(s.score)}</span><span class="small">${s.score === 1 ? "point" : "points"}</span>`;
-        label = `${plural(s.score, "point", "points")}, level ${fmt(s.highestLevel)}`;
-      } else if (id === "perfect") {
-        html = `<span class="big">${HEART}${fmt(s.perfectClears)}</span>`;
-        label = plural(s.perfectClears, "perfect clear", "perfect clears");
-      } else if (id === "maps") {
-        html = `<span class="big">${fmt(s.customCleared)}</span><span class="small">${s.customCleared === 1 ? "map" : "maps"}</span>`;
-        label = plural(s.customCleared, "map cleared", "maps cleared");
-      } else {
-        html = `<span class="big">${fmt(s.creatorPlays)}</span><span class="small">${s.creatorPlays === 1 ? "play" : "plays"}</span>`;
-        label = plural(s.creatorPlays, "play of their maps", "plays of their maps");
-      }
-      cell.innerHTML = `<span aria-hidden="true">${html}</span><span class="sr-only">${label}</span>`;
-      return cell;
-    }
-
-    function avatarCell(p) {
-      const span = document.createElement("span");
-      span.className = "avatar";
-      if (p.picture) {
-        const img = document.createElement("img");
-        img.alt = "";
-        img.width = img.height = 40;
-        img.decoding = "async";
-        img.src = "data:image/jpeg;base64," + p.picture;
-        span.appendChild(img);
-      } else {
-        span.innerHTML = avatarSvg(p.avatar);
-      }
-      return span;
-    }
-
-    function drawRows(id, players, animate) {
-      rows.textContent = "";
-      players.forEach((p, i) => {
-        const li = document.createElement("li");
-        li.className = "row" + (animate && !reduced && i < 14 ? " enter" : "");
-        if (animate && !reduced && i < 14) li.style.animationDelay = i * 28 + "ms";
-        const rank = document.createElement("span");
-        rank.className = "rank" + (p.rank <= 3 ? " r" + p.rank : "");
-        rank.innerHTML = `<span class="sr-only">Rank </span>${p.rank}`;
-        const name = document.createElement("span");
-        name.className = "name" + (p.name ? "" : " anon");
-        name.textContent = p.name || anonymous(p.uid);
-        name.title = name.textContent;
-        let who = name;
-        if (id === "score") {
-          who = document.createElement("span");
-          who.className = "who";
-          const lv = document.createElement("span");
-          lv.className = "lv";
-          lv.setAttribute("aria-hidden", "true");
-          lv.textContent = "Lv " + fmt(p.stats.highestLevel);
-          who.append(name, lv);
-        }
-        li.append(rank, avatarCell(p), who, statCell(id, p.stats));
-        rows.appendChild(li);
-      });
-    }
-
-    function trophyStat(id, s) {
-      if (id === "score") return plural(s.score, "point", "points");
-      if (id === "perfect") return plural(s.perfectClears, "perfect clear", "perfect clears");
-      if (id === "maps") return plural(s.customCleared, "map", "maps");
-      return plural(s.creatorPlays, "play", "plays");
-    }
-
-    // The first three as trophies above the list (the list still has them, for screen readers too).
-    function drawTrophies(id, players, animate) {
-      const trophies = $("trophies");
-      trophies.textContent = "";
-      players.slice(0, 3).forEach((p, i) => {
-        const rank = Math.min(p.rank, 3);
-        const div = document.createElement("div");
-        div.className = "trophy t" + (i + 1) + (animate && !reduced ? " enter" : "");
-        if (animate && !reduced) div.style.animationDelay = [80, 0, 160][i] + "ms";
-        div.innerHTML = `<svg class="cup" viewBox="0 0 48 48">${trophyArt(CUPS[rank - 1], cupMark(rank))}</svg>`;
-        const name = document.createElement("span");
-        name.className = "tname" + (p.name ? "" : " anon");
-        name.textContent = p.name || anonymous(p.uid);
-        name.title = name.textContent;
-        const stat = document.createElement("span");
-        stat.className = "tstat";
-        stat.textContent = trophyStat(id, p.stats);
-        div.append(avatarCell(p), name, stat);
-        trophies.appendChild(div);
-      });
-      trophies.hidden = players.length === 0;
-    }
-
-    function skeleton() {
-      rows.textContent = "";
-      for (let i = 0; i < 8; i++) {
-        const li = document.createElement("li");
-        li.className = "row skeleton";
-        li.setAttribute("aria-hidden", "true");
-        li.innerHTML = `<span class="rank"></span><span class="avatar"></span><span class="bar" style="width:${46 + (i * 37) % 40}%"></span><span class="stat"><span class="bar"></span></span>`;
-        rows.appendChild(li);
-      }
-    }
-
-    const PLAY = `<div class="stores"><a class="btn" href="/exitwise/play/"><svg viewBox="0 0 16 16" width="16" height="16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play in your browser</a><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>`;
-    // The trophy of an empty board, also drawn for each board's top 3: gold, silver and bronze, the rank on the cup.
-    const trophyArt = (cup, mark) => `<rect x="6" y="40" width="36" height="5" rx="2.5" fill="#DED4C4"/><path d="M14 8h20v12a10 10 0 0 1-20 0z" fill="${cup}"/><path d="M14 11H8a6 6 0 0 0 6 9M34 11h6a6 6 0 0 1-6 9" fill="none" stroke="${cup}" stroke-width="3"/><rect x="21" y="29" width="6" height="7" fill="${cup}"/><rect x="15" y="35" width="18" height="5" rx="2" fill="#3B3355"/>${mark}`;
-    const STAR = `<path d="M24 12l1.8 3.7 4 .6-2.9 2.8.7 4L24 21.2 20.4 23l.7-4-2.9-2.8 4-.6z" fill="#FFFDF8"/>`;
-    const TROPHY = trophyArt("#F2B705", STAR);
-    const CUPS = ["#F2B705", "#C3CAD6", "#E39A5E"];
-    const cupMark = rank => rank === 1 ? STAR : `<text x="24" y="22" text-anchor="middle" font-family="Lilita One, Arial Rounded MT Bold, sans-serif" font-size="12" fill="#3B3355">${rank}</text>`;
-    const CLOUD = `<path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 2 8 8 0 0 1-1 16z" fill="#E9E1D3"/><path d="M24 22v8" stroke="#3B3355" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="35" r="2.4" fill="#3B3355"/>`;
-
-    function showState(kind) {
-      const b = BOARDS[board];
-      $("state-pic").innerHTML = kind === "empty" ? TROPHY : CLOUD;
-      $("state-title").textContent = kind === "empty" ? "Be the first on this board" : "Couldn't load the ranking";
-      $("state-text").textContent = kind === "empty" ? b.empty : "Check your connection and try again.";
-      $("state-actions").innerHTML = kind === "empty" ? PLAY : `<button class="btn" type="button" id="retry">Try again</button>`;
-      if (kind === "error") $("retry").addEventListener("click", () => show(board, true));
-      state.hidden = false;
-      $("cols").hidden = true;
-    }
-
-    function setUpdated(time) {
-      const today = new Date().toDateString() === time.toDateString();
-      const clock = time.toLocaleTimeString(undefined, { hour: "2-digit", minute: "2-digit" });
-      $("updated").textContent = today ? `Updated at ${clock}` : `Updated ${time.toLocaleDateString(undefined, { day: "numeric", month: "short" })}, ${clock}`;
-    }
-
-    function render(id, data, animate) {
-      rows.setAttribute("aria-busy", "false");
-      setUpdated(data.time);
-      const n = data.players.length;
-      if (!n) {
-        rows.textContent = "";
-        $("trophies").hidden = true;
-        showState("empty");
-        count.hidden = true;
-        status.textContent = `${BOARDS[id].title}: nobody on this board yet.`;
-        return;
-      }
-      drawTrophies(id, data.players, animate);
-      drawRows(id, data.players, animate);
-      count.textContent = n >= TOP ? `The top ${TOP}` : plural(n, "player", "players") + " on this board";
-      count.hidden = false;
-      status.textContent = `${BOARDS[id].title}: ${plural(n, "player", "players")}.`;
-    }
-
-    async function show(id, reload) {
-      const mine = ++request;
-      const b = BOARDS[id];
-      board = id;
-      $("board-title").textContent = b.title;
-      $("caption").textContent = b.caption;
-      $("col-stat").textContent = b.column;
-      state.hidden = true;
-      $("cols").hidden = false;
-      if (cache[id] && !reload) {
-        render(id, cache[id], false);
-        return;
-      }
-      count.hidden = true;
-      $("trophies").hidden = true;
-      rows.setAttribute("aria-busy", "true");
-      skeleton();
-      $("updated").textContent = "Loading…";
-      refresh.disabled = true;
-      refresh.setAttribute("aria-busy", "true");
-      try {
-        const data = await loadBoard(id);
-        if (mine !== request) return;
-        cache[id] = data;
-        render(id, data, true);
-        if (await loadPhotos(data.players).catch(() => false)) {
-          if (mine === request && cache[id] === data) {
-            drawTrophies(id, data.players, false);
-            drawRows(id, data.players, false);
-          }
-        }
-      } catch (e) {
-        if (mine !== request) return;
-        rows.textContent = "";
-        rows.setAttribute("aria-busy", "false");
-        $("updated").textContent = "Not loaded";
-        showState("error");
-        status.textContent = "Couldn't load the ranking.";
-      } finally {
-        if (mine === request) {
-          refresh.disabled = false;
-          refresh.removeAttribute("aria-busy");
-        }
-      }
-    }
-
-    function select(tab, focus) {
-      tabs.forEach(t => {
-        const on = t === tab;
-        t.setAttribute("aria-selected", String(on));
-        t.tabIndex = on ? 0 : -1;
-      });
-      $("panel").setAttribute("aria-labelledby", tab.id);
-      if (focus) tab.focus();
-      const id = tab.dataset.board;
-      history.replaceState(null, "", id === "score" ? location.pathname + location.search : "#" + id);
-      show(id, false);
-    }
-
-    tabs.forEach((tab, i) => {
-      tab.addEventListener("click", () => { if (tab.getAttribute("aria-selected") !== "true") select(tab, false); });
-      tab.addEventListener("keydown", e => {
-        const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
-        if (to === undefined) return;
-        e.preventDefault();
-        select(tabs[(to + tabs.length) % tabs.length], true);
-      });
-    });
-    refresh.addEventListener("click", () => show(board, true));
-    const fromHash = () => tabs.find(t => "#" + t.dataset.board === location.hash) || tabs[0];
-    addEventListener("hashchange", () => select(fromHash(), false));
-    select(fromHash(), false);
-  })();
-  </script>
+  <script src="/assets/anchors.js" defer></script>
+  <script src="/assets/product.js" defer></script>
+  <script src="/exitwise/ranking/ranking.js" defer></script>
 </body>
 </html>
