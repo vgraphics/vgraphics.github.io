@@ -1,0 +1,31 @@
+{
+  "title": "Beat my run: Exitwise",
+  "description": "A friend challenged you to beat their run in Exitwise.",
+  "robots": "noindex",
+  "social": {
+    "title": "Beat my run in Exitwise",
+    "description": "Same board, same level: lose fewer hearts or clear it faster. Opens in the app on Android, or right in your browser.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "hero": {
+    "title": "Beat a friend's run in Exitwise",
+    "lead": "Beat my run",
+    "align": "center",
+    "size": "short",
+    "art": {
+      "alt": "A fox, a panda and an owl on a winners' podium under falling confetti, beside an arrow puzzle board in a flower meadow",
+      "tall": { "src": "/exitwise/wiki/img/art/leaderboards-tall", "widths": [540], "width": 540, "height": 720 },
+      "wide": { "src": "/exitwise/wiki/img/art/leaderboards", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "position": "50% 45%",
+      "fade": { "wide": "80%", "tall": "72%" },
+      "placeholder": "linear-gradient(#7F86C8, #A7CF7A)"
+    }
+  },
+  "sections": [
+    {
+      "id": "challenge",
+      "blocks": [{ "type": "embed", "src": "challenge" }]
+    }
+  ]
+}
