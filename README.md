@@ -10,7 +10,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `games/index.html` | Games: Exitwise, and the two party games in design (no dates) |
 | `apps/index.html` | Apps: Speedometer Live Wallpaper |
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
-| `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub and the TV party games next |
+| `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
 | `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
