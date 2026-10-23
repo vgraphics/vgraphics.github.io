@@ -4,6 +4,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { wikiArt } from './hero.mjs'
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 
@@ -21,15 +22,17 @@ export const subpages = (slug) => readdirSync(join(root, slug), { withFileTypes:
   .filter((d) => d.isDirectory() && existsSync(join(root, slug, d.name, 'page.json'))).map((d) => d.name).sort()
 
 // A sub-page: its own words and sections, with the product's site block, stores, theme pack, footer art and closing
-// card, and the product's key art in its hero unless it brings its own. The landing page's pictures are named from the
-// product's folder, so they are made absolute here. Its address is /<product>/<page>/ unless page.json gives another
-// ("path": "/exitwise/privacy.html", for an address the stores already link to).
+// card, and the product's key art in its hero unless it brings its own ("art": { "wiki": "<slug>", ... } opens on that
+// wiki painting). The landing page's pictures are named from the product's folder, so they are made absolute here. Its
+// address is /<product>/<page>/ unless page.json gives another ("path": "/exitwise/privacy.html", for an address the
+// stores already link to).
 export function loadSubpage(slug, sub) {
   const product = loadProduct(slug)
   const own = JSON.parse(readFileSync(join(root, slug, sub, 'page.json'), 'utf8'))
   const p = product.page
   const rebase = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${slug}/${img.src}` }
-  const art = own.hero?.art ?? p.hero.art
+  const { wiki, ...given } = own.hero?.art ?? {}
+  const art = wiki ? wikiArt(slug, wiki, given) : own.hero?.art ?? p.hero.art
   const page = {
     ...own,
     site: p.site,

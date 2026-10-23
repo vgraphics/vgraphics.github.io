@@ -44,9 +44,12 @@
   const ctr = ([x, y]) => [PAD + x * CELL + CELL / 2, PAD + y * CELL + CELL / 2]
   const key = (c) => c[0] + ',' + c[1]
   const pts = (list) => list.map((p) => p.join(' ')).join(' L')
-  const ROCK = "<path d='M9 34l5-15 11-7 12 8 3 14-14 5z' fill='#B8A688' stroke='#3E352C' stroke-width='2.5' stroke-linejoin='round'/><path d='M14 19l11-7 12 8-11 4z' fill='#D2C3A6'/><path d='M26 24l11-4 3 14-14 5z' fill='#8F7E64'/><path d='M17 18l5-3' stroke='#F1E8D8' stroke-width='2' stroke-linecap='round'/>"
+  // The rock, bomb and portal are the game's own pictures (tools/make-wiki-pieces.py, the board's data-art folder).
+  const ART = document.querySelector('.w-play[data-art]')?.dataset.art || ''
+  const ROCK = `<image href="${ART}board-rock.webp" width="48" height="48"/>`
   const HEAD = (c) => `<path d="M15 0 L-3 -11 L-3 11 Z" fill="${c}" stroke="${c}" stroke-width="4" stroke-linejoin="round"/>`
-  const BOMB = '<circle r="12.5" fill="#E9E3D8"/><circle r="11" fill="#2F2B38"/><path d="M8 -7.5 L17.5 0 L8 7.5z" fill="#2F2B38"/><circle cx="-3.6" cy="-4.2" r="2.6" fill="#fff" opacity=".8"/>'
+  // As the game draws it: the bomb picture over the charcoal ball and nose, on a pale rim, upright whichever way it flies.
+  const BOMB = (rot) => `<circle r="12.5" fill="#E9E3D8"/><circle r="11" fill="#2F2B38"/><path d="M8 -7.5 L17.5 0 L8 7.5z" fill="#2F2B38"/><image href="${ART}board-bomb.webp" x="-22.7" y="-22.7" width="45.4" height="45.4" transform="rotate(${-rot})"/>`
   const SPARK = '<path d="M0 -6l1.6 4 4.4 2-4.4 2L0 6l-1.6-4-4.4-2 4.4-2z" fill="#FF922B"/><circle r="2" fill="#FFE29A"/>'
   const BURST = '<path d="M0 -19l5 12 13-3-9 10 9 10-13-3-5 12-5-12-13 3 9-10-9-10 13 3z" fill="#FFD27A" stroke="#FF922B" stroke-width="2.5" stroke-linejoin="round"/><circle r="5" fill="#fff"/>'
 
@@ -54,7 +57,7 @@
     const p = a.cells.map(ctr), [hx, hy] = p[p.length - 1], rot = DIRS[a.dir][2]
     if (a.color) return `<path d="M${pts(p)}" fill="none" stroke="${COL[a.color]}" stroke-width="${SW}" stroke-linecap="round" stroke-linejoin="round"/><g transform="translate(${hx} ${hy}) rotate(${rot})">${HEAD(COL[a.color])}</g>`
     const [tx, ty] = p[0]
-    return `<path d="M${pts(p)}" stroke="#E9E3D8" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M${pts(p)}" stroke="#2F2B38" stroke-width="4.5" stroke-linecap="round" fill="none"/><g transform="translate(${tx} ${ty})">${SPARK}</g><g transform="translate(${hx} ${hy}) rotate(${rot})">${BOMB}</g>`
+    return `<path d="M${pts(p)}" stroke="#E9E3D8" stroke-width="8" stroke-linecap="round" fill="none"/><path d="M${pts(p)}" stroke="#2F2B38" stroke-width="4.5" stroke-linecap="round" fill="none"/><g transform="translate(${tx} ${ty})">${SPARK}</g><g transform="translate(${hx} ${hy}) rotate(${rot})">${BOMB(rot)}</g>`
   }
 
   document.querySelectorAll('.w-play[data-board]').forEach((host) => {
@@ -84,7 +87,7 @@
       svg.setAttribute('viewBox', `0 0 ${w} ${h}`)
       let s = `<rect x="3" y="3" width="${w - 6}" height="${h - 6}" rx="18" class="card"/>`
       for (let y = 0; y < b.rows; y++) for (let x = 0; x < b.cols; x++) { const [cx, cy] = ctr([x, y]); s += `<circle cx="${cx}" cy="${cy}" r="2.6" class="dot"/>` }
-      for (const p of b.portals || []) for (const c of p.cells) { const [cx, cy] = ctr(c); s += `<circle cx="${cx}" cy="${cy}" r="15.5" fill="#1E1A26" stroke="${p.color}" stroke-width="5"/><path d="M${cx} ${cy}c4-1.5 7 1 5.5 5M${cx} ${cy}c-1.5-4 1-7 5-5.5M${cx} ${cy}c-4 1.5-7-1-5.5-5M${cx} ${cy}c1.5 4-1 7-5 5.5" stroke="#6E6880" stroke-width="1.6" fill="none" stroke-linecap="round"/>${p.dots === 1 ? `<circle cx="${cx}" cy="${cy}" r="3" fill="#fff"/>` : ''}` }
+      for (const p of b.portals || []) for (const c of p.cells) { const [cx, cy] = ctr(c); s += `<image href="${ART}board-portal.webp" x="${cx - 19}" y="${cy - 19}" width="38" height="38"/>${p.dots === 1 ? `<circle cx="${cx}" cy="${cy}" r="3" fill="#fff"/>` : ''}` }
       svg.innerHTML = s
       rocks = new Map((b.rocks || []).map((r) => { const [cx, cy] = ctr(r); const g = el('g', { transform: `translate(${cx - 19} ${cy - 19}) scale(.79)` }, svg); g.innerHTML = ROCK; return [key(r), g] }))
       pieces = [...(b.arrows || []), ...(b.bombs || [])].map((a) => {
@@ -116,10 +119,10 @@
         const path = el('path', { d, fill: 'none', stroke: col, 'stroke-width': isBomb ? 4.5 : SW, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, p.g)
         return { path, under, len: path.getTotalLength() }
       })
-      const head = el('g', {}, p.g); head.innerHTML = isBomb ? BOMB : HEAD(col)
+      const rot = DIRS[p.dir][2]
+      const head = el('g', {}, p.g); head.innerHTML = isBomb ? BOMB(rot) : HEAD(col)
       const tail = isBomb ? el('g', {}, p.g) : null
       if (tail) tail.innerHTML = SPARK
-      const rot = DIRS[p.dir][2]
       // along: how far the tail has moved. Each segment shows the part of the body that is on it.
       const place = (along) => {
         let c = 0

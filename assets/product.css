@@ -118,7 +118,9 @@ h1, h2, h3 {
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink)); /* optional */
 }
 
-/* Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
+/* The hero of every product page, the landing page's, its other pages' and every wiki page's (George, 23 Oct 2026:
+   "Heroes of all pages must have same height as hero in overview"; tools/lib/hero.mjs builds it for all of them).
+   Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
    the wide picture (or the ultra-wide one past 2:1), cut to fill a 16:10 box no taller than the screen, so it fills
    the whole screen on most of them (George, 22 Oct: "Increase height of hero a bit", from 16:9). Portrait
    screens up to 4:5 get the whole tall 9:16 picture, never cut, so a tablet's lead line stays clear of the art's
@@ -216,14 +218,6 @@ h1, h2, h3 {
 .btn:hover { filter: brightness(1.08); }
 .btn:active { transform: translateY(2px); }
 .btn svg { width: 20px; height: 20px; }
-
-/* A hero that gets to the point (hero.size "short": the ranking, the policies): the same art and fade, as a band about
-   half the screen, so the page's content starts above the fold. */
-.key-art.short { height: clamp(320px, 36vw, 62vh); height: clamp(320px, 36vw, 62svh); }
-@media (max-aspect-ratio: 4/5) {
-  .key-art.short { height: 112vw; }
-  .key-art.short picture img { object-position: var(--art-at, 50% 0); }
-}
 
 /* Scenes: a section's content on a stage of its own, as the gallery and the soundtrack have theirs: a picture from the
    key art's world (page.json stage) over --intro-bg, shaded at its top and foot (--stage-shade, optional) so the words

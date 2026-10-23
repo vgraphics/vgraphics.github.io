@@ -9,13 +9,15 @@
 // product's theme pack (<product>/theme/theme.css) and the shared assets/wiki.css; the header and footer are the
 // product pages' own (tools/lib/partials.mjs), so a wiki page looks and links like its landing page.
 //
-// Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp (wide) and
-// <slug>-tall-<width>.avif/.webp (phones) with art.json, the sizes this script reads.
+// Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp/.jpg (wide) and
+// <slug>-tall-<width>.avif/.webp/.jpg (the 9:16 cut for portrait screens) with art.json, the sizes this script reads.
+// Every page's hero is the landing page's box (tools/lib/hero.mjs), so it is exactly as tall.
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
 import { anchor, closing, header, footer, iconLinks } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
+import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -52,29 +54,17 @@ function describe(e) {
 }
 
 // ---------- Pictures ----------
-const srcset = (base, widths, ext) => widths.map((w) => `${base}-${w}.${ext} ${w}w`).join(', ')
-// An entry's painting: the tall cut on portrait screens, the wide one elsewhere; AVIF, then WebP.
-function artPicture(w, slug, { cls, alt = '', eager, sizes = '100vw' }) {
+// A card's painting: the wide picture, which a card always shows (16:9); AVIF, then WebP, then JPEG; lazy.
+function artPicture(w, slug, { cls, sizes }) {
   const a = w.art[slug]
-  if (!a) return ''
-  const base = `/${w.product.slug}/wiki/img/art/${slug}`
-  const tall = a.tall ? ['avif', 'webp'].map((x) => `<source media="(max-aspect-ratio: 4/5)" type="image/${x}" srcset="${srcset(base + '-tall', a.tall.widths, x)}" sizes="100vw">`).join('') : ''
-  const wide = ['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(base, a.widths, x)}" sizes="${sizes}">`).join('')
-  return `<picture class="${cls}">${tall}${wide}<img src="${base}-${a.widths[0]}.webp" width="${a.width}" height="${a.height}" alt="${esc(alt)}"${eager ? ' fetchpriority="high"' : ' loading="lazy"'}></picture>`
+  const img = { src: `/${w.product.slug}/wiki/img/art/${slug}`, widths: a.widths, jpeg: a.jpeg }
+  const fallback = img.jpeg ? `${img.src}-${img.jpeg[0]}.jpg" srcset="${srcset(img, 'jpg', img.jpeg)}" sizes="${sizes}` : `${img.src}-${img.widths[0]}.webp`
+  return `<picture class="${cls}">${['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(img, x, img.widths)}" sizes="${sizes}">`).join('')}<img src="${fallback}" width="${a.width}" height="${a.height}" alt="" loading="lazy"></picture>`
 }
-function artPreload(w, slug) {
-  const a = w.art[slug]
-  if (!a) return ''
-  const base = `/${w.product.slug}/wiki/img/art/${slug}`
-  return [a.tall && `<link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="${srcset(base + '-tall', a.tall.widths, 'avif')}" imagesizes="100vw" fetchpriority="high">`,
-    `<link rel="preload" as="image" type="image/avif" media="${a.tall ? 'not all and (max-aspect-ratio: 4/5)' : 'all'}" imagesrcset="${srcset(base, a.widths, 'avif')}" imagesizes="100vw" fetchpriority="high">`].filter(Boolean).join('\n  ')
-}
-// The index hero is the landing page's own key art (page.json hero.art).
+// The index hero is the landing page's own key art (page.json hero.art), named from the product's folder.
 function keyArt(product) {
-  const a = product.page.hero.art, at = (img) => `/${product.slug}/${img.src}`
-  const src = (img, x, media, sizes) => `<source${media ? ` media="${media}"` : ''} type="image/${x}" srcset="${srcset(at(img), img.widths, x)}" sizes="${sizes}">`
-  const sizes = a.wide.sizes || '100vw'
-  return `<picture class="w-hero-art">${['avif', 'webp'].map((x) => src(a.tall, x, '(max-aspect-ratio: 4/5)', '100vw')).join('')}${a.ultra ? ['avif', 'webp'].map((x) => src(a.ultra, x, '(min-aspect-ratio: 2/1)', a.ultra.sizes || '100vw')).join('') : ''}${['avif', 'webp'].map((x) => src(a.wide, x, '', sizes)).join('')}<img src="${at(a.wide)}-${a.wide.jpeg.at(-1)}.jpg" width="${a.wide.width}" height="${a.wide.height}" alt="${esc(a.alt)}" fetchpriority="high" style="object-position: ${a.position}"></picture>`
+  const a = product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
+  return { ...a, tall: at(a.tall), wide: at(a.wide), ultra: at(a.ultra) }
 }
 
 // ---------- Small shared pieces ----------
@@ -151,20 +141,18 @@ function indexPage(w, product) {
       ${w.entries.filter((e) => e.section === s.id).map((e) => card(w, e)).join('\n      ')}
     </div>
   </section>`).join('\n')
-  const body = `  <section class="w-hero is-index">
-    ${keyArt(product)}
-    <div class="w-hero-foot wrap">
+  const art = keyArt(product)
+  const body = `  ${heroSection(art, { cls: 'w-hero is-index', foot: `<div class="w-hero-foot wrap">
       <p class="w-kicker">${esc(p.name)} wiki</p>
       <h1>${esc(w.heading || w.title)}</h1>
       <p class="w-lede">${w.intro}</p>
       <label class="w-search"><span class="sr-only">Search the wiki</span><input type="search" id="q" placeholder="Search ${w.entries.length} entries…" autocomplete="off"></label>
-    </div>
-  </section>
+    </div>` })}
 ${tiles}
   <div class="w-chips wrap" role="group" aria-label="Show"><button type="button" class="w-chip on" data-filter="all">All <b>${w.entries.length}</b></button>${w.sections.map((s) => `<button type="button" class="w-chip" data-filter="${s.id}">${esc(s.title)}</button>`).join('')}</div>
 ${sections}
   <p class="w-empty wrap" id="empty" hidden>Nothing matches that. Try another word.</p>`
-  return shell(w, product, { title: w.metaTitle ?? `${w.title} · ${p.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${p.slug}/wiki/`, body, script: true })
+  return shell(w, product, { title: w.metaTitle ?? `${w.title} · ${p.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${p.slug}/wiki/`, body, script: true, preload: heroPicture(art).preloads.join('\n  ') })
 }
 
 // ---------- Entry ----------
@@ -176,7 +164,7 @@ function stepsBlock(w, e) {
     return `<section class="w-panel w-how" aria-labelledby="h-how">
       ${h2('h-how', `How it works`)}
       <div class="w-how-grid">
-        <div class="w-play" data-board="${esc(JSON.stringify(e.board))}">
+        <div class="w-play" data-board="${esc(JSON.stringify(e.board))}" data-art="/${w.product.slug}/wiki/img/pieces/">
           <div class="w-play-hud"><span class="w-hearts" aria-label="Hearts">${'<svg class="w-heart" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z"/></svg>'.repeat(3)}</span><span class="w-play-say" aria-live="polite">Tap an arrow with a clear path.</span></div>
           <svg class="w-board" role="group" aria-label="A small ${esc(e.name.toLowerCase())} board you can play"></svg>
           <div class="w-play-acts"><button type="button" class="w-btn" data-act="show">Show me</button><button type="button" class="w-btn ghost" data-act="reset">Reset</button></div>
@@ -255,14 +243,12 @@ function entryPage(w, product, e, i) {
   const wd = worldOf(w, e.firstLevel)
   const facts = [...(e.firstLevel > 1 ? [['Arrives', `Level ${e.firstLevel}${wd ? ' · ' + wd.name : ''}`]] : []), ...(e.facts || [])]
   const related = (e.related || []).filter((r) => bySlug[r]).slice(0, 3)
-  const body = `  <section class="w-hero">
-    ${artPicture(w, e.slug, { cls: 'w-hero-art', eager: true, alt: e.artAlt || '' })}
-    <div class="w-hero-foot wrap">
+  const art = wikiArt(p.slug, e.slug, { alt: e.artAlt || '' })
+  const body = `  ${heroSection(art, { cls: 'w-hero', foot: `<div class="w-hero-foot wrap">
       <nav class="w-crumbs" aria-label="Breadcrumb"><a href="/${p.slug}/wiki/">Wiki</a> <span aria-hidden="true">›</span> <a href="/${p.slug}/wiki/#${s.id}">${esc(s.title)}</a></nav>
       <h1>${esc(e.name)}</h1>
       <p class="w-arrive">${lvBadge(e.firstLevel > 1 ? e.firstLevel : null)}${worldChip(e.firstLevel > 1 ? wd : null)}<span>${esc(arrival(w, e) || SECTION_LABEL[e.section] || s.title)}</span></p>
-    </div>
-  </section>
+    </div>` })}
   <article class="w-body wrap">
     <p class="w-lede">${e.summary}</p>${facts.length ? `
     <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
@@ -277,7 +263,7 @@ function entryPage(w, product, e, i) {
   </article>`
   return shell(w, product, {
     title: `${e.name} · ${p.name} wiki`, description: describe(e), path: `/${p.slug}/wiki/${e.slug}/`, body, entry: e,
-    preload: artPreload(w, e.slug), script: !!(e.board || e.gauge || e.worldMap),
+    preload: heroPicture(art).preloads.join('\n  '), script: !!(e.board || e.gauge || e.worldMap),
   })
 }
 
