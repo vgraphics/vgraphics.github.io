@@ -6,9 +6,12 @@ import { esc } from './partials.mjs'
 
 export const worldOf = (w, lv) => (lv && w.worlds ? w.worlds.find((x) => lv >= x.from && lv <= x.to) : null)
 export const lvBadge = (lv, cls = '') => (lv ? `<span class="bubble${cls ? ' ' + cls : ''}" aria-label="Level ${lv}">${lv}</span>` : '')
+// An entry's small picture: its piece from the game's art (tools/make-wiki-pieces.py, shown whole), else its icon,
+// else its image (a photo that fills the medal).
 export function piece(e, cls) {
+  if (e.piece) return `<span class="${cls} is-piece"><img src="${esc(e.piece)}" alt="" width="192" height="192" loading="lazy"></span>`
   if (e.icon) return `<span class="${cls}" aria-hidden="true">${e.icon}</span>`
-  return `<span class="${cls}"><img src="${esc(e.piece || e.image)}" alt="" loading="lazy"></span>`
+  return `<span class="${cls}"><img src="${esc(e.image)}" alt="" loading="lazy"></span>`
 }
 
 // sections: only entries of these wiki sections (all by default); detail: each entry's summary under its name.

@@ -12,13 +12,10 @@
     "title": "Join a room in Exitwise",
     "lead": "Join the race",
     "align": "center",
-    "size": "short",
     "art": {
       "alt": "Friends racing on arrow puzzle boards in a sunny meadow",
-      "tall": { "src": "/exitwise/wiki/img/art/rooms-tall", "widths": [540], "width": 540, "height": 720 },
-      "wide": { "src": "/exitwise/wiki/img/art/rooms", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "wiki": "rooms",
       "position": "50% 40%",
-      "fade": { "wide": "70%", "tall": "62%" },
       "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
     }
   },
