@@ -44,9 +44,11 @@ pages or in the SVGs they show (the Greek product names belong in the Greek stor
 The app pages are the exceptions to "no third-party scripts":
 
 - `exitwise/play/`, the game. `check-site.mjs` skips it.
-- `hub/`, VHub. Its markup loads nothing from another site. Its scripts add Google's sign-in script only after the
-  player clicks to sign in with Google, and they read and write the player's account in VHub's Firebase project.
-  `check-site.mjs` checks the hub's pages like every other page.
+- `hub/`, VHub, the web app only the Deployer's `vhub-hub` project writes. Its markup loads nothing from another site.
+  Its scripts add Google's sign-in script only after the player clicks to sign in with Google, and they read and write
+  the player's account in VHub's Firebase project. `check-site.mjs` checks the hub's pages like every other page. It
+  isn't a product landing page, though: its `privacy.html` is VHub's policy, which comes with each release, so it needs
+  no `page.json`. Each release also runs `tools/build-sitemap.mjs`, so `sitemap.xml` lists the hub's pages.
 
 The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services

@@ -150,7 +150,9 @@ for (const slug of products()) {
   }
 }
 for (const dir of readdirSync(root)) {
-  if (SKIP.includes(dir) || !existsSync(join(root, dir, 'privacy.html'))) continue
+  // hub/ is VHub's web app, an app page only the Deployer's vhub-hub writes (README, "The app pages"), not a product
+  // landing page: its privacy.html is VHub's policy, which comes with each release, and it has no page.json.
+  if (SKIP.includes(dir) || dir === 'hub' || !existsSync(join(root, dir, 'privacy.html'))) continue
   if (!existsSync(join(root, dir, 'page.json'))) report(join(dir, 'index.html'), 'template', 'made by hand: every product page comes from tools/build-pages.mjs (give it a page.json and a theme pack)')
 }
 
