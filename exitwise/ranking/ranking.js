@@ -2,8 +2,8 @@
 // top 3 as trophies, the list, and the empty and error states. The data and the avatars come from boards.js, loaded
 // before this.
 (() => {
-  // The data and the avatars come from boards.js, shared with the home page's podium.
-  const { TOP, BOARDS, avatarSvg, anonymous, loadBoard, loadPhotos } = window.ExitwiseBoards;
+  // The data and the avatars come from boards.js (VHub's boards), shared with the home page's podium.
+  const { TOP, BOARDS, anonymous, drawAvatar, loadBoard } = window.ExitwiseBoards;
   const HEART = `<svg class="heart" viewBox="0 0 48 48" aria-hidden="true"><path d="M24 40S7 29 7 17a8.5 8.5 0 0 1 17-3 8.5 8.5 0 0 1 17 3c0 12-17 23-17 23z" fill="#FF5A6E"/></svg>`;
   const fmt = n => n.toLocaleString("en-US");
   const plural = (n, one, many) => `${fmt(n)} ${n === 1 ? one : many}`;
@@ -40,16 +40,7 @@
   function avatarCell(p) {
     const span = document.createElement("span");
     span.className = "avatar";
-    if (p.picture) {
-      const img = document.createElement("img");
-      img.alt = "";
-      img.width = img.height = 40;
-      img.decoding = "async";
-      img.src = "data:image/jpeg;base64," + p.picture;
-      span.appendChild(img);
-    } else {
-      span.innerHTML = avatarSvg(p.avatar);
-    }
+    drawAvatar(span, p);
     return span;
   }
 
@@ -192,12 +183,6 @@
       if (mine !== request) return;
       cache[id] = data;
       render(id, data, true);
-      if (await loadPhotos(data.players).catch(() => false)) {
-        if (mine === request && cache[id] === data) {
-          drawTrophies(id, data.players, false);
-          drawRows(id, data.players, false);
-        }
-      }
     } catch (e) {
       if (mine !== request) return;
       rows.textContent = "";
