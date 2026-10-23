@@ -137,7 +137,7 @@
           "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Exitwise soundtrack cover: the tower of worlds under a starry sky, with the glowing door at its top" },
           "background": null,
           "youtube": "https://www.youtube.com/playlist?list=PLBZDGjNepH9I",
-          "spotify": null,
+          "soundcloud": "https://soundcloud.com/vgraphics/sets/exitwise-original-soundtrack",
           "tracks": [
             { "title": "Stepping Stones", "src": "audio/01-stepping-stones.m4a", "duration": "1:48" },
             { "title": "Meadow Morning", "src": "audio/02-meadow-morning.m4a", "duration": "1:49" },
