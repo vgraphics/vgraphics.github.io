@@ -23,12 +23,12 @@
     "align": "center",
     "size": "short",
     "art": {
-      "alt": "The top of the Exitwise tower: purple crystals and the glowing door under a starry sky",
-      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
-      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 4096, "height": 1764 },
-      "position": "50% 8%",
-      "fade": { "wide": "70%", "tall": "62%" },
-      "placeholder": "linear-gradient(#50638A, #8B8DBE)"
+      "alt": "A fox, a panda and an owl on a winners' podium under falling confetti, beside an arrow puzzle board in a flower meadow",
+      "tall": { "src": "/exitwise/wiki/img/art/leaderboards-tall", "widths": [540], "width": 540, "height": 720 },
+      "wide": { "src": "/exitwise/wiki/img/art/leaderboards", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+      "position": "50% 45%",
+      "fade": { "wide": "80%", "tall": "72%" },
+      "placeholder": "linear-gradient(#7F86C8, #A7CF7A)"
     }
   },
   "sections": [
@@ -37,9 +37,9 @@
       "title": "The best players, live",
       "intro": "The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.",
       "stage": {
-        "tall": { "src": "/exitwise/wiki/img/art/leaderboards-tall", "widths": [540], "width": 540, "height": 720 },
-        "wide": { "src": "/exitwise/wiki/img/art/leaderboards", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
-        "position": "50% 30%"
+        "tall": { "src": "/exitwise/img/key-art-tall", "widths": [480, 720, 1080, 1440], "width": 1440, "height": 2560 },
+        "wide": { "src": "/exitwise/img/key-art-tall", "widths": [1080, 1440], "width": 1440, "height": 2560 },
+        "position": "50% 0%"
       },
       "blocks": [{ "type": "embed", "src": "ranking" }]
     },

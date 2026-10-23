@@ -7,19 +7,22 @@
 .w-muted { color: var(--muted); }
 .w-kicker { margin: 0 0 6px; font: var(--label-weight) 0.78rem/1.2 var(--label-font); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
 
-/* Hero: the entry's painting edge to edge from the very top, under the header, fading into the page only in its last
-   quarter, with the title in its foot: the landing page's hero (George, 23 Oct 2026: "Dont start fading from top of
-   image. Check how hero at overview is."). Landscape screens get the wide picture in a box up to 16:10 and the
-   screen's height; portrait screens the tall cut, whole. */
+/* Hero: the entry's painting edge to edge from the very top, under the header, with the title in its foot, as the
+   landing page's hero (George, 23 Oct 2026: "Dont start fading from top of image. Check how hero at overview is.").
+   The paintings are paler towards their foot than the key art, so they fade later, only in their last seventh, to look
+   as solid as it does ("Hero still has more alpha than overview page"). Landscape screens get the wide picture in a box
+   up to 16:10 and the screen's height; portrait screens the tall cut, whole. */
 .w-hero { position: relative; height: min(62.5vw, 100vh); height: min(62.5vw, 100svh); min-height: 380px; }
 .w-hero-art, .w-hero-art img { display: block; width: 100%; height: 100%; }
 .w-hero-art img {
   object-fit: cover;
   object-position: 50% 35%;
   background: var(--surface-2);
-  -webkit-mask-image: linear-gradient(#000 76%, transparent);
-  mask-image: linear-gradient(#000 76%, transparent);
+  -webkit-mask-image: linear-gradient(#000 86%, transparent);
+  mask-image: linear-gradient(#000 86%, transparent);
 }
+/* The index's hero is the key art itself: it fades where the landing page's does. */
+.w-hero.is-index .w-hero-art img { -webkit-mask-image: linear-gradient(#000 76%, transparent); mask-image: linear-gradient(#000 76%, transparent); }
 .w-hero::before { content: ""; position: absolute; inset: 0 0 auto; z-index: 1; height: 150px; background: linear-gradient(var(--art-shade), transparent); pointer-events: none; }
 .w-hero-foot { position: absolute; inset: auto 0 0; z-index: 2; padding-bottom: clamp(10px, 3vh, 32px); display: grid; gap: 10px; }
 .w-hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); color: var(--lead-ink); text-shadow: var(--lead-shadow); }
@@ -44,7 +47,7 @@
 .w-search input:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
 @media (max-aspect-ratio: 4/5) {
   .w-hero, .w-hero.is-index { height: auto; min-height: 0; }
-  .w-hero .w-hero-art img { height: auto; aspect-ratio: 3 / 4; -webkit-mask-image: linear-gradient(#000 70%, transparent); mask-image: linear-gradient(#000 70%, transparent); }
+  .w-hero .w-hero-art img { height: auto; aspect-ratio: 3 / 4; -webkit-mask-image: linear-gradient(#000 80%, transparent); mask-image: linear-gradient(#000 80%, transparent); }
   .w-hero.is-index .w-hero-art img { aspect-ratio: 9 / 16; object-position: 50% 0; }
   .w-hero.is-index .w-lede { display: none; }
 }

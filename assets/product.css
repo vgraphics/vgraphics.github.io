@@ -650,7 +650,9 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   isolation: isolate;
   overflow-x: clip;
   margin-top: calc(-1 * var(--cta-half, 150px));
-  padding-top: calc(var(--cta-half, 150px) + clamp(240px, 30vw, 600px)); /* tools/lib/partials.mjs sizes the picture for this */
+  /* About 15% lower than it was (George, 23 Oct 2026: "Decrease height by 15%"); tools/lib/partials.mjs sizes the
+     picture for this. */
+  padding-top: calc(var(--cta-half, 150px) + clamp(170px, 21vw, 420px));
 }
 .foot-art { position: absolute; inset: 0; z-index: -1; }
 .foot-art picture, .foot-art img { display: block; width: 100%; height: 100%; }

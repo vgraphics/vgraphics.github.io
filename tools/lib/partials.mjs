@@ -67,10 +67,10 @@ export function footer({ page }) {
   const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:gvergidis90@gmail.com', 'Contact']]
   const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
   const a = page.footerArt
-  // The picture fills the footer, about clamp(240px, 30vw, 600px) of art above the links plus the links themselves
+  // The picture fills the footer, about clamp(170px, 21vw, 420px) of art above the links plus the links themselves
   // (assets/product.css), so it is shown at the width that covers that box.
   const r = a && a.width / a.height
-  const sizes = a && `max(100vw, calc((clamp(240px, 30vw, 600px) + 260px) * ${r.toFixed(2)}))`
+  const sizes = a && `max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * ${r.toFixed(2)}))`
   const art = a ? `
     ${ornament(a, 'foot-art', sizes, `--foot-at: ${a.position}`)}` : ''
   return `<footer class="foot${a ? ' has-art' : ''}">${art}
