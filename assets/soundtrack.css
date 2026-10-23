@@ -198,7 +198,7 @@
   font: var(--label-weight) 0.85rem/1 var(--label-font);
   font-variant-numeric: tabular-nums;
 }
-.ost-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
+.ost-controls { container: ost-controls / inline-size; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
 .ost-transport { grid-column: 2; display: flex; align-items: center; gap: 18px; }
 .ost-btn {
   display: grid;
@@ -250,6 +250,30 @@
   font: 800 10px/15px var(--label-font);
 }
 .ost-loop[data-loop="one"] .ost-one { display: block; }
+/* Volume, across from the loop: the speaker mutes and unmutes (one wave when low, two when high, a cross when muted),
+   and beside it, where the row has room, a slider drawn like the waveform, its bars rising with the level and played
+   up to it. Phones get the speaker alone (the row is too narrow, and phones have their own volume keys), and so does
+   iOS, which ignores a page's volume (soundtrack.js sets data-volume="fixed"). */
+.ost-volume { grid-column: 1; justify-self: start; display: flex; align-items: center; gap: 4px; }
+.ost-mute { width: 44px; height: 44px; background: none; box-shadow: none; color: var(--soft); }
+.ost-mute[aria-pressed="true"] { background: color-mix(in srgb, var(--on-art) 18%, transparent); color: var(--on-art); }
+.ost-mute .v-low, .ost-mute .v-high, .ost-mute .v-off { display: none; }
+.ost-mute[data-level="low"] .v-low, .ost-mute[data-level="high"] :is(.v-low, .v-high), .ost-mute[data-level="off"] .v-off { display: inline; }
+.ost-vol { --wave-h: 44px; position: relative; display: none; width: clamp(56px, (100cqi - 216px) / 2 - 48px, 96px); }
+.ost-vol path { vector-effect: non-scaling-stroke; }
+@container ost-controls (min-width: 430px) {
+  .ost-vol { display: block; }
+}
+/* A row too narrow for the speaker, the transport and the loop side by side (small phones, and the wide player at its
+   narrowest): the transport's buttons close up, and narrower still it keeps the row to itself, with the speaker and the
+   loop under it. */
+@container ost-controls (max-width: 303px) {
+  .ost-transport { gap: 8px; }
+}
+@container ost-controls (max-width: 283px) {
+  .ost-transport { grid-column: 1 / -1; justify-self: center; }
+  .ost-volume, .ost-loop { grid-row: 2; }
+}
 
 /* The track list: the current track lit up, its coloured number turned into dancing bars while it plays */
 .ost-tracks { display: grid; gap: 6px; width: 100%; }
@@ -305,6 +329,24 @@
 .ost[data-state] [aria-current="true"] .ost-eq { display: flex; }
 .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: ost-eq 0.9s ease-in-out infinite alternate; }
 @keyframes ost-eq { from { scale: 1 0.25; } to { scale: 1 1; } }
+/* A title stays on one line (George, 23 Oct: "Single line and if it does not fit, use ... at end"). One that doesn't
+   fit scrolls slowly to its end and back, resting at each end (soundtrack.js adds .long, unless the visitor asks for
+   less motion, and sets how far, --shift, and for how long, --dur). While it moves, its ends fade out over 8px of
+   padding, outside the words at rest. */
+.ost-t { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ost-t.long {
+  margin-inline: -8px;
+  padding-inline: 8px;
+  text-overflow: clip;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+}
+.ost-t.long > span { display: inline-block; animation: ost-marquee var(--dur, 8s) ease-in-out infinite; }
+@keyframes ost-marquee {
+  0%, 20% { translate: 0; }
+  45%, 70% { translate: calc(-1 * var(--shift, 0px)); }
+  95%, 100% { translate: 0; }
+}
 .ost-d { color: var(--soft); font-variant-numeric: tabular-nums; }
 .ost-track[aria-current="true"] .ost-d { color: color-mix(in srgb, var(--dark) 72%, transparent); }
 
@@ -345,18 +387,21 @@
 }
 
 /* The mini-bar: fixed to the bottom of the screen while the player is out of view (soundtrack.js moves it to the end
-   of the page and turns .on on and off). It slides in from below and lies over the footer's picture; the page never
-   grows for it (George, 22 Oct: "Player creates an empty space below footer"). It has its own waveform to seek on
-   (George: "Make that player wider and show the [SoundCloud] style progress so I can seek too"): on a phone on a row of
-   its own under the track and the buttons, on wider screens between them. */
+   of the page and turns .on on and off). It slides in from below and, at the end of the page, lies in the footer's
+   foot, which keeps room for it (below). It has its own waveform to seek on (George: "Make that player wider and show
+   the [SoundCloud] style progress so I can seek too"): on a phone on a row of its own under the track and the buttons,
+   on wider screens between them. --ost-mini-h is its height: the 48px row, the 40px waveform row under it on phones,
+   and its padding. */
+:root { --ost-mini-h: 102px; --ost-mini-gap: max(12px, env(safe-area-inset-bottom)); }
+@media (min-width: 760px) { :root { --ost-mini-h: 64px; } }
 .ost-mini {
   position: fixed;
   z-index: 50;
   left: 50%;
-  bottom: max(12px, env(safe-area-inset-bottom));
+  bottom: var(--ost-mini-gap);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto auto;
-  grid-template-areas: "show play next close" "seek seek seek seek";
+  grid-template-columns: minmax(0, 1fr) auto auto auto auto;
+  grid-template-areas: "show play next vol close" "seek seek seek seek seek";
   align-items: center;
   gap: 2px 4px;
   width: min(1040px, 100% - 24px);
@@ -398,6 +443,9 @@
 .ost-mini .ost-play svg { width: 24px; height: 24px; }
 .ost-mini .ost-next { grid-area: next; }
 .ost-mini .ost-close { grid-area: close; }
+/* Its volume: the speaker, and from 760px a short slider beside it */
+.ost-mini .ost-volume { grid-area: vol; gap: 0; }
+.ost-mini .ost-mute { color: inherit; }
 /* Its waveform, between the time played and the track's length */
 .ost-mini .ost-seek {
   --wave-h: 40px;
@@ -415,21 +463,23 @@
 .ost-scrub { position: relative; }
 @media (min-width: 760px) {
   .ost-mini {
-    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto;
-    grid-template-areas: "show seek play next close";
+    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto auto;
+    grid-template-areas: "show seek play next vol close";
     gap: 4px 12px;
     width: min(1040px, 100% - 32px);
     padding: 8px 10px 8px 8px;
   }
   .ost-mini .ost-seek { padding: 0; }
+  .ost-mini .ost-vol { display: block; width: 72px; }
 }
-/* While the bar is up, the footer's words move up by its height (--ost-room, from soundtrack.js) inside the footer's
-   picture, so the bar never covers the last line. */
-.foot .wrap { transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
-html.ost-room .foot .wrap { translate: 0 calc(-1 * var(--ost-room, 0px)); }
+.ost[data-volume="fixed"] .ost-vol, .ost-mini[data-volume="fixed"] .ost-vol { display: none; }
+/* The footer keeps the bar's room under its legal line whether the bar is up or not, so the bar only ever covers the
+   footer's empty foot: the page never grows, shrinks or shifts for it, and the footer's picture and its fade run to
+   the bottom of the page under it (George, 22 and 23 Oct: "Player still adds a space below footer"). */
+.foot .wrap { padding-bottom: calc(var(--ost-mini-h) + var(--ost-mini-gap) + 16px); }
 
 @media (prefers-reduced-motion: reduce) {
   .ost-disc, .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: none; }
-  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .foot .wrap { transition: none; }
+  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on { transition: none; }
   [data-state="loading"] .ost-play::after { animation-duration: 2.4s; }
 }
