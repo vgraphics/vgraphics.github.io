@@ -153,8 +153,7 @@
       "id": "how",
       "title": "How to play",
       "stage": {
-        "tall": { "src": "/exitwise/wiki/img/art/how-to-play-tall", "widths": [540], "width": 540, "height": 720 },
-        "wide": { "src": "/exitwise/wiki/img/art/how-to-play", "widths": [640, 960, 1344], "width": 1344, "height": 768 },
+        "wiki": "how-to-play",
         "position": "50% 60%"
       },
       "blocks": [

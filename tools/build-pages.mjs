@@ -41,7 +41,7 @@ import { pathToFileURL } from 'node:url'
 import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
-import { heroPicture, heroSection } from './lib/hero.mjs'
+import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
@@ -65,9 +65,11 @@ function hero(p) {
 }
 
 // A stage: a picture from the key art's world behind a section's content, as the intro's demo, the gallery and the
-// soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll.
-function stageArt(st) {
+// soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll. { "wiki": "<slug>" } stands
+// on that wiki entry's painting, in the sizes it has.
+function stageArt(st, slug) {
   if (!st) return ''
+  if (st.wiki) st = wikiArt(slug, st.wiki, st)
   const sources = (img, media, sizes) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${set(img, ext, img.widths)}" sizes="${sizes}">`).join('')
   return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', '100vw')}${sources(st.wide, '', '(max-width: 1160px) 100vw, 1120px')}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
 }
@@ -209,7 +211,7 @@ function section(product, s) {
           ${head}
         </div>` : ''}
         ${s.stage ? `<div class="scene"${stageAt(s.stage)}>
-          ${stageArt(s.stage)}
+          ${stageArt(s.stage, product.slug)}
           ${blocks}
         </div>` : blocks}
         ${s.more ? `<a class="more" href="${esc(s.more.href)}">${s.more.label}</a>` : ''}
