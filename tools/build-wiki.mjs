@@ -14,7 +14,7 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
-import { anchor, closing, header, footer } from './lib/partials.mjs'
+import { anchor, closing, header, footer, iconLinks } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
@@ -107,7 +107,7 @@ function shell(w, product, { title, description, path, body, entry, preload = ''
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="https://vgraphics.gr${path}">
-  <link rel="icon" href="${esc(product.page.site.icon)}">
+  ${iconLinks(product.page)}
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">

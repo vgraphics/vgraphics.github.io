@@ -42,13 +42,27 @@ export function closing(page, cta = page.cta) {
     </section>`
 }
 
+// The page's favicon and touch icon: page.json site.favicon and touchIcon (the product's <product>/assets/ files,
+// tools/make-brand-assets.py), else its icon.
+export const iconLinks = ({ site: s }) => `<link rel="icon" href="${esc(s.favicon ?? s.icon)}">
+  <link rel="apple-touch-icon" href="${esc(s.touchIcon ?? s.icon)}">`
+
+// The product's own logo (George's rule: only it, top left): page.json site.logo { src, widths, width, height }, the
+// title as the product paints it, which carries the name; without one, its icon beside its typed name. height is the
+// height it is shown at.
+function brand(s, height, sizes) {
+  if (!s.logo) return `<img src="${esc(s.icon)}" alt="" width="${height}" height="${height}"><span>${esc(s.name)}</span>`
+  const l = s.logo
+  return `<img class="logo" src="${esc(l.src)}-${l.widths.at(-1)}.webp" srcset="${l.widths.map((w) => `${esc(l.src)}-${w}.webp ${w}w`).join(', ')}" sizes="${sizes}" alt="${esc(s.name)}" width="${Math.round(height * l.width / l.height)}" height="${height}">`
+}
+
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
 // key art, in the pack's on-art colours.
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
   return `<header class="top">
-    <a class="product-name" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="36" height="36"><span>${esc(s.name)}</span></a>
+    <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
     <nav class="subnav" aria-label="${esc(s.name)}">
       ${links.join('\n      ')}
     </nav>
@@ -75,7 +89,7 @@ export function footer({ page }) {
     ${ornament(a, 'foot-art', sizes, `--foot-at: ${a.position}`)}` : ''
   return `<footer class="foot${a ? ' has-art' : ''}">${art}
     <div class="wrap">
-      <a class="foot-brand" href="${esc(s.nav[0].href)}"><img src="${esc(s.icon)}" alt="" width="48" height="48"><span>${esc(s.name)}</span></a>
+      <a class="foot-brand" href="${esc(s.nav[0].href)}">${brand(s, 48, '230px')}</a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
         ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${buttons(page)}

@@ -17,6 +17,21 @@ body {
 }
 /* The ornaments reach past the screen's edges; clip, unlike hidden, makes no scroll box, so sticky pieces still stick. */
 main { overflow-x: clip; }
+
+/* Scrollbars in the product's own colour (George, 23 Oct 2026: "style the scrollbars to match the color of the
+   project"): the thumb in --scrollbar (optional; the accent by default), a little lighter on hover and press, on a
+   track of the page tinted with it. Chromium and Safari draw the ::-webkit-scrollbar parts, which can round and light
+   up; Firefox, which has none, takes scrollbar-color. The page's own scrolling rows (the screenshot row) get the same,
+   thinner. */
+:root { --sb: var(--scrollbar, var(--accent)); --sb-track: color-mix(in srgb, var(--sb) 9%, var(--page)); }
+::-webkit-scrollbar { width: 14px; height: 14px; }
+::-webkit-scrollbar-track, ::-webkit-scrollbar-corner { background: var(--sb-track); }
+::-webkit-scrollbar-thumb { min-height: 48px; border: 3px solid var(--sb-track); border-radius: 999px; background: var(--sb); }
+::-webkit-scrollbar-thumb:hover { background: color-mix(in srgb, var(--sb) 80%, #FFFFFF); }
+::-webkit-scrollbar-thumb:active { background: color-mix(in srgb, var(--sb) 64%, #FFFFFF); }
+@supports not selector(::-webkit-scrollbar) {
+  html { scrollbar-color: var(--sb) var(--sb-track); }
+}
 img { max-width: 100%; }
 a { color: var(--link, var(--accent)); text-underline-offset: 3px; } /* --link: optional */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
@@ -73,6 +88,11 @@ h1, h2, h3 {
   letter-spacing: var(--display-tracking);
 }
 .product-name img { width: 36px; height: 36px; border-radius: 10px; }
+/* A product's painted title logo (page.json site.logo) carries its name: shown at its own shape, a soft shadow so it
+   reads on any sky and on the frosted bar. */
+.product-name img.logo, .foot-brand img.logo { width: auto; border-radius: 0; box-shadow: none; filter: drop-shadow(0 2px 6px rgb(20 12 40 / 0.3)); }
+.product-name img.logo { height: 42px; }
+.foot-brand img.logo { height: 64px; }
 .subnav { display: flex; gap: 4px; }
 .subnav a {
   display: inline-flex;
@@ -273,8 +293,12 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   margin-inline: calc(50% - 50vw);
   padding: 6px calc(50vw - 50%) 22px;
   scroll-padding-inline: calc(50vw - 50%);
-  scrollbar-width: thin;
-  scrollbar-color: var(--line) transparent;
+}
+.shots::-webkit-scrollbar { height: 10px; }
+.shots::-webkit-scrollbar-track { background: transparent; }
+.shots::-webkit-scrollbar-thumb { border-color: var(--page); }
+@supports not selector(::-webkit-scrollbar) {
+  .shots { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
 }
 .shots figure { flex: none; margin: 0; scroll-snap-align: start; }
 .shots img {
@@ -690,6 +714,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   body { font-size: calc(var(--body-size) - 1px); }
   .subnav a { padding: 0 12px; }
   .product-name span { display: none; }
+  .product-name img.logo { height: 32px; }
   .gp img { height: 70px; }
   .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }

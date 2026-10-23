@@ -36,7 +36,7 @@
 import { existsSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { actions, anchor, closing, esc, footer, header, ICONS, ornament } from './lib/partials.mjs'
+import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
@@ -294,8 +294,7 @@ export function render(slug, sub) {
   <meta name="theme-color" content="${t.tokens.page}">
   <meta name="color-scheme" content="${t.scheme}">
   <link rel="canonical" href="${url}">
-  <link rel="icon" href="${esc(p.site.icon)}">
-  <link rel="apple-touch-icon" href="${esc(p.site.icon)}">
+  ${iconLinks(p)}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="${esc(p.social.title)}">

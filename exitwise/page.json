@@ -56,7 +56,10 @@
   },
   "site": {
     "name": "Exitwise",
-    "icon": "/exitwise/img/icon-512.png",
+    "icon": "/exitwise/assets/icon-192.png",
+    "favicon": "/exitwise/assets/icon-32.png",
+    "touchIcon": "/exitwise/assets/icon-180.png",
+    "logo": { "src": "/exitwise/assets/logo", "widths": [300, 600], "width": 1959, "height": 583 },
     "parent": { "name": "Games", "href": "/games/" },
     "nav": [
       { "label": "Overview", "href": "/exitwise/" },
