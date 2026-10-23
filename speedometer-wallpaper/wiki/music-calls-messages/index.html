@@ -23,12 +23,14 @@
   <link rel="stylesheet" href="/assets/wiki.css">
   <script src="/assets/anchors.js" defer></script>
   <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>
 </head>
 <body class="wiki">
 <a class="skip" href="#main">Skip to content</a>
 <header class="top">
     <a class="product-name" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
-    <nav class="subnav" aria-label="Speedometer Live Wallpaper">
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <nav class="subnav" id="site-menu" aria-label="Speedometer Live Wallpaper">
       <a href="/speedometer-wallpaper/">Overview</a>
       <a href="/speedometer-wallpaper/wiki/" aria-current="page">Wiki</a>
       <a href="/speedometer-wallpaper/privacy.html">Privacy</a>

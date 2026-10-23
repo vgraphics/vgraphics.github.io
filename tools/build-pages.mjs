@@ -329,7 +329,8 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
 
   ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
-  <script src="/assets/product.js" defer></script>${gallery ? `
+  <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${beside('js').map((e) => `

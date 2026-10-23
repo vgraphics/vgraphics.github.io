@@ -121,7 +121,8 @@ function shell(w, product, { title, description, path, body, entry, preload = ''
   <link rel="stylesheet" href="/assets/product.css">
   <link rel="stylesheet" href="/assets/wiki.css">
   <script src="/assets/anchors.js" defer></script>
-  <script src="/assets/product.js" defer></script>${script ? `
+  <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>${script ? `
   <script src="/assets/wiki.js" defer></script>` : ''}
 </head>
 <body class="wiki">
