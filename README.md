@@ -18,7 +18,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
-| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html` |
+| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Exitwise's, and its `map-rules.html`, are made by `tools/build-pages.mjs` from the game's copy in `exitwise/privacy/source.html` (and `exitwise/map-rules/source.html`), set into the product pages' template |
+| `<product>/<page>/page.json` | A product's other pages, made from the same template as its landing page by `tools/build-pages.mjs`: Exitwise's ranking, room, privacy policy and map rules. A page's own markup sits beside its page.json (`ranking.html`, `.css`, `.js`) |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
 | `exitwise/ranking/` | Exitwise's global ranking: the game's four global boards (top 100 each), read live from the game's Firestore without signing in. The game repo's `docs/firebase/exitwise-firestore.rules` allows exactly those reads; `?emulator=127.0.0.1:PORT` reads a local emulator, on localhost only. |
 | `exitwise/room/` | The page a room invite's QR code opens: opens the game in the room on Android, otherwise shows the code |
@@ -30,6 +31,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
 | `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
+| `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
+| `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
@@ -54,7 +57,9 @@ Change it there too and release `vhub-hub`: until then the check reports every h
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
-check that the live page has updated. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
+check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
+`exitwise/map-rules/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at the same
+addresses. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
 exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
 
 ## Search engines

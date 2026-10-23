@@ -25,7 +25,6 @@
   "sections": [
     {
       "id": "join",
-      "title": "A friend invited you to their room",
       "blocks": [{ "type": "embed", "src": "room" }]
     }
   ]

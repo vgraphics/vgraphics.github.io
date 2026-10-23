@@ -27,6 +27,7 @@
 .w-lede { margin: 0; max-width: 42em; font-size: 1.12rem; color: var(--muted); }
 .w-hero .w-lede { color: var(--lead-ink); text-shadow: var(--lead-shadow); }
 .w-crumbs { font: var(--label-weight) 0.95rem/1.2 var(--label-font); color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-hero .w-kicker { color: var(--lead-ink); text-shadow: var(--lead-shadow); }
 .w-crumbs a { color: inherit; text-decoration: none; }
 .w-crumbs a:hover { text-decoration: underline; }
 .w-arrive { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; font-weight: 700; color: var(--lead-ink); text-shadow: var(--lead-shadow); }

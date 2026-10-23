@@ -10,6 +10,7 @@
   text-align: center;
   box-shadow: 0 0 0 3px color-mix(in srgb, var(--ink) 85%, transparent), 0 8px 0 color-mix(in srgb, var(--ink) 85%, transparent), 0 26px 40px -16px rgb(20 12 40 / 0.5);
 }
+.invite-lead { margin: 0 0 18px; font: var(--display-weight) 1.35rem/1.2 var(--font-display); }
 .invite-caption { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .invite-code { margin: 2px 0 22px; font: var(--display-weight) 3.2rem/1.1 var(--font-display); letter-spacing: 6px; }
 .invite-button {
