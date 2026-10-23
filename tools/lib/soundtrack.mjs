@@ -1,6 +1,7 @@
 // The soundtrack block of a product page (George, 22 Oct 2026: "a playlist and a small player where players can listen
 // to the app or game OSTs"): the album cover with a record that turns while the music plays, a small player with a
-// waveform to seek on, the track list, and its links to YouTube and SoundCloud. tools/build-pages.mjs writes it for
+// waveform to seek on and a volume control, the track list, and its links to YouTube and SoundCloud.
+// tools/build-pages.mjs writes it for
 // a { "type": "soundtrack" } block in page.json; assets/soundtrack.js plays it and assets/soundtrack.css draws it in
 // the product's theme. The durations come from page.json and the waveforms from <product>/audio/peaks.json
 // (tools/make-soundtrack.py), so the block is complete before anything loads, and nothing loads until the visitor
@@ -25,6 +26,9 @@ const ICONS = {
   prev: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="4.4" y="5.2" width="3.2" height="13.6" rx="1.6"/><path d="M19.6 6.4v11.2a1.2 1.2 0 0 1-1.86 1L9.6 13a1.2 1.2 0 0 1 0-2l8.14-5.6a1.2 1.2 0 0 1 1.86 1z"/></svg>',
   next: '<svg viewBox="0 0 24 24" aria-hidden="true"><rect x="16.4" y="5.2" width="3.2" height="13.6" rx="1.6"/><path d="M4.4 6.4v11.2a1.2 1.2 0 0 0 1.86 1L14.4 13a1.2 1.2 0 0 0 0-2L6.26 5.4a1.2 1.2 0 0 0-1.86 1z"/></svg>',
   loop: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M17 2.5l3 3-3 3M4 11.5v-1a5 5 0 0 1 5-5h11M7 21.5l-3-3 3-3M20 12.5v1a5 5 0 0 1-5 5H4"/></svg><b class="ost-one" aria-hidden="true">1</b>',
+  // The speaker with its sound waves (one when low, two when high) or a cross when muted: soundtrack.css shows the
+  // ones its data-level asks for
+  volume: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3.5 9.6a1 1 0 0 1 1-1h2.9l4.2-3.6a.9.9 0 0 1 1.5.7v12.6a.9.9 0 0 1-1.5.7l-4.2-3.6H4.5a1 1 0 0 1-1-1z"/><g fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round"><path class="v-low" d="M16 9.4a3.7 3.7 0 0 1 0 5.2"/><path class="v-high" d="M18.7 6.7a7.5 7.5 0 0 1 0 10.6"/><path class="v-off" d="M16.5 9.5l5 5m0-5l-5 5"/></g></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" aria-hidden="true"><path d="M7 7l10 10M17 7L7 17"/></svg>',
   // Simple Icons (CC0), one colour as each brand's guidelines allow
   youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81zM9.55 15.57V8.43L15.82 12l-6.27 3.57z"/></svg>',
@@ -53,9 +57,19 @@ export function soundtrack(b, { slug, theme }) {
   // The waveform (all of it, the stretch up to the pointer, the played part) under a see-through range input
   const scrub = `<div class="ost-wave" aria-hidden="true"><svg class="ost-wave-all"><path/></svg><svg class="ost-wave-hover"><path/></svg><svg class="ost-wave-played"><path/></svg></div>
                 <input class="ost-range" type="range" min="0" max="${seconds(first.duration)}" step="any" value="0" aria-label="Seek" aria-valuetext="0:00 of ${esc(first.duration)}">`
+  // The volume, on the player and on the mini-bar: a speaker that mutes and unmutes, and a slider drawn like the
+  // waveform, its twelve bars rising with the level, under a see-through range input
+  const ramp = Array.from({ length: 12 }, (_, i) => {
+    const h = 6 + (18 * i) / 11
+    return `M${(((i + 0.5) * 80) / 12).toFixed(1)} ${(22 - h / 2).toFixed(1)}v${h.toFixed(1)}`
+  }).join('')
+  const volume = `<div class="ost-volume">
+                ${button('mute', 'Mute', ICONS.volume).replace('<button', '<button aria-pressed="false" data-level="high"')}
+                <div class="ost-vol waved"><div class="ost-wave" aria-hidden="true">${['all', 'hover', 'played'].map((k) => `<svg class="ost-wave-${k}" viewBox="0 0 80 44" preserveAspectRatio="none"><path d="${ramp}"/></svg>`).join('')}</div><input class="ost-range" type="range" min="0" max="1" step="0.05" value="1" aria-label="Volume" aria-valuetext="100%" data-ost="volume"></div>
+              </div>`
   const rows = b.tracks.map((t, i) => {
     const wave = peaks[t.src.split('/').pop()]
-    return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t">${esc(t.title)}</span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
+    return `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})"><button class="ost-track" type="button" data-src="${esc(t.src)}" data-duration="${seconds(t.duration)}"${wave ? ` data-peaks="${wave.join(',')}"` : ''}${i ? '' : ' aria-current="true"'}><span class="ost-n" aria-hidden="true"><b>${i + 1}</b><i class="ost-eq"><i></i><i></i><i></i></i></span><span class="ost-t"><span>${esc(t.title)}</span></span><span class="ost-d"><span class="sr-only">, </span>${esc(t.duration)}</span></button></li>`
   })
   const links = [['youtube', 'YouTube'], ['soundcloud', 'SoundCloud']].filter(([k]) => b[k])
     .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}">${ICONS[k]}<span>${name}</span></a>`)
@@ -76,6 +90,7 @@ export function soundtrack(b, { slug, theme }) {
                 <span class="ost-times"><span data-ost="cur">0:00</span><span data-ost="dur">${esc(first.duration)}</span></span>
               </div>
               <div class="ost-controls">
+                ${volume}
                 <div class="ost-transport">
                   ${button('prev', 'Previous track', ICONS.prev)}
                   ${play}
@@ -104,6 +119,7 @@ export function soundtrack(b, { slug, theme }) {
             </div>
             ${play}
             ${button('next', 'Next track', ICONS.next)}
+            ${volume}
             ${button('close', 'Stop and close the player', ICONS.close)}
           </div>
         </div>`

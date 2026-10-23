@@ -1,7 +1,7 @@
 // The soundtrack player of the product pages (markup: tools/lib/soundtrack.mjs; look: soundtrack.css): play, pause,
-// previous and next, loop (off, all the tracks, this one), a waveform to seek on and the track list. Once the music has
-// started, a mini-bar at the bottom of the screen keeps the controls and a waveform of its own in reach while the player
-// is out of view, until the visitor closes it, which stops the music. Nothing loads before the first press of play: the <audio> has
+// previous and next, loop (off, all the tracks, this one), volume and mute, a waveform to seek on and the track list.
+// Once the music has started, a mini-bar at the bottom of the screen keeps the controls and a waveform of its own in
+// reach while the player is out of view, until the visitor closes it, which stops the music. Nothing loads before the first press of play: the <audio> has
 // preload="none" and no source until then. Media keys and a phone's lock screen work through the Media Session API,
 // where the browser has it.
 (() => {
@@ -12,6 +12,18 @@
     const t = Math.max(0, Math.floor(s || 0));
     return Math.floor(t / 60) + ":" + String(t % 60).padStart(2, "0");
   };
+  // The stretch of a waveform up to the pointer, in the half-way colour
+  const hover = (box, range) => {
+    range.addEventListener("pointermove", (e) => {
+      const r = range.getBoundingClientRect();
+      box.style.setProperty("--h", Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)) + "%");
+    });
+    range.addEventListener("pointerleave", () => box.style.setProperty("--h", "0%"));
+  };
+  // iOS keeps the volume at the device's own and ignores a page's: there the player shows only the mute button.
+  const probe = document.createElement("audio");
+  probe.volume = 0.5;
+  const fixedVolume = probe.volume !== 0.5;
 
   function player(root) {
     const audio = root.querySelector("audio");
@@ -28,6 +40,8 @@
     let inView = true;
     let dragging = null; // the bar being dragged
     let loop = "off";
+    let volume = 1; // the level, which a mute keeps for when the sound comes back
+    let muted = false;
 
     // Last in the page: fixed to the screen whatever its ancestors do, and last in the tab order.
     document.body.append(mini);
@@ -156,10 +170,32 @@
       b.title = LOOP[loop];
     }
 
-    // The footer's words make room for the bar: its height, its gap to the screen's edge and a little air.
-    const room = () => document.documentElement.style.setProperty("--ost-room", mini.offsetHeight + parseFloat(getComputedStyle(mini).bottom) + 8 + "px");
+    // Volume: the slider sets the level (all the way down mutes) and the speaker mutes and unmutes. The player and the
+    // mini-bar always show the same, and the visitor's choice is remembered.
+    function setVolume(v, mute, save) {
+      if (v > 0) volume = Math.min(1, v);
+      muted = mute || v <= 0;
+      audio.volume = volume;
+      audio.muted = muted;
+      const level = muted ? 0 : volume;
+      both("mute").forEach((b) => {
+        b.setAttribute("aria-pressed", muted);
+        b.dataset.level = muted ? "off" : volume < 0.5 ? "low" : "high";
+      });
+      both("volume").forEach((r) => {
+        r.value = level;
+        r.setAttribute("aria-valuetext", muted ? "Muted" : Math.round(volume * 100) + "%");
+        r.parentElement.style.setProperty("--p", level * 100 + "%");
+      });
+      if (!save) return;
+      try {
+        localStorage.setItem("ost-volume", volume);
+        localStorage.setItem("ost-muted", muted ? "1" : "0");
+      } catch (e) {}
+    }
 
-    // The mini-bar is on while the music has started and the player's controls are off the screen.
+    // The mini-bar is on while the music has started and the player's controls are off the screen. The footer always
+    // keeps room for it (soundtrack.css), so the page never moves when it comes or goes.
     function place() {
       const on = started && !inView;
       if (on === mini.classList.contains("on")) return;
@@ -167,9 +203,7 @@
         mini.hidden = false;
         mini.getBoundingClientRect(); // laid out below the screen first, so it slides in
       }
-      if (on) room();
       mini.classList.toggle("on", on);
-      document.documentElement.classList.toggle("ost-room", on);
     }
 
     audio.addEventListener("playing", () => state("playing"));
@@ -229,26 +263,40 @@
         seek(t);
         range.setAttribute("aria-valuetext", clock(range.value) + " of " + clock(length()));
       });
-      // The stretch of the waveform up to the pointer, in the half-way colour
-      range.addEventListener("pointermove", (e) => {
-        const r = range.getBoundingClientRect();
-        box.style.setProperty("--h", Math.min(100, Math.max(0, ((e.clientX - r.left) / r.width) * 100)) + "%");
-      });
-      range.addEventListener("pointerleave", () => box.style.setProperty("--h", "0%"));
+      hover(box, range);
     }
+    // Unmuting after the slider went all the way down brings the sound back at half, not at the last step above nothing.
+    both("mute").forEach((b) => b.addEventListener("click", () => setVolume(muted && volume < 0.1 ? 0.5 : volume, !muted, true)));
+    both("volume").forEach((range) => {
+      range.addEventListener("input", () => setVolume(Number(range.value), false, true));
+      hover(range.parentElement, range);
+    });
 
     new IntersectionObserver(([e]) => {
       inView = e.isIntersecting;
       place();
     }).observe(deck);
-    // Redraw the waveforms when a bar changes width (the mini-bar's first showing included), and keep the footer's
-    // room right if the mini-bar's height changes while it is up.
-    const resized = new ResizeObserver(() => {
-      draw();
-      if (mini.classList.contains("on")) room();
-    });
+    // Redraw the waveforms when a bar changes width (the mini-bar's first showing included).
+    const resized = new ResizeObserver(draw);
     bars.forEach(({ box }) => resized.observe(box));
-    resized.observe(mini);
+    // A track's title too long for its row scrolls to its end and back (soundtrack.css): this far, a quarter of the time
+    // each way and a quarter resting at each end, slowly enough to read. With less motion asked for, it keeps its "...".
+    // Measured again when a row changes width, the fonts arrive or the motion setting changes.
+    const titles = rows.map((row) => row.querySelector(".ost-t"));
+    const fit = () => {
+      for (const t of titles) {
+        const s = getComputedStyle(t);
+        const room = t.clientWidth - parseFloat(s.paddingLeft) - parseFloat(s.paddingRight);
+        const shift = Math.ceil(t.firstElementChild.getBoundingClientRect().width - room);
+        t.classList.toggle("long", shift > 0 && !reduce.matches);
+        t.style.setProperty("--shift", shift + "px");
+        t.style.setProperty("--dur", 4 * Math.max(1.2, shift / 40) + "s");
+      }
+    };
+    const refit = new ResizeObserver(fit);
+    titles.forEach((t) => refit.observe(t));
+    if (document.fonts) document.fonts.ready.then(fit);
+    reduce.addEventListener("change", fit);
     mini.querySelector('[data-ost="close"]').addEventListener("click", () => {
       stop();
       main("play").focus({ preventScroll: true });
@@ -276,6 +324,12 @@
       setLoop(localStorage.getItem("ost-loop"));
     } catch (e) {
       setLoop("off");
+    }
+    if (fixedVolume) root.dataset.volume = mini.dataset.volume = "fixed";
+    try {
+      setVolume(Number(localStorage.getItem("ost-volume")) || 1, localStorage.getItem("ost-muted") === "1");
+    } catch (e) {
+      setVolume(1, false);
     }
     draw();
   }
