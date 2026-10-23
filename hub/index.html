@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VHub: one account for every VGraphics game · Coming soon</title>
-  <meta name="description" content="VHub is VGraphics' coming player network: one account for every VGraphics game and app, with a level and XP, achievements, friends and invites to rooms.">
+  <title>VHub: one player account for every VGraphics game and app</title>
+  <meta name="description" content="VHub is the one player account for every VGraphics game and app: your name and picture, a level and XP, achievements, friends and invites to rooms.">
   <link rel="canonical" href="https://vgraphics.gr/hub/">
-  <link rel="icon" href="/img/vgraphics-logo.png">
+  <link rel="icon" href="/img/vgraphics-logo.png" >
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
-  <meta property="og:title" content="VHub · Coming soon">
+  <meta property="og:title" content="VHub: one player account for every VGraphics game and app">
   <meta property="og:description" content="One account for every VGraphics game and app, with a level, achievements and friends.">
   <meta property="og:url" content="https://vgraphics.gr/hub/">
   <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
@@ -20,6 +20,7 @@
   <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <!-- scripts/route-pages.mjs adds each route page's own place to this breadcrumb. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,30 +31,10 @@
     ]
   }
   </script>
-  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/vgraphics.css">
-  <style>
-    /* A short "coming soon" page; the VHub web app replaces it at this address. */
-    .card-art { display: grid; place-items: center; padding: clamp(26px, 5vw, 52px); border-radius: var(--r-lg); background: var(--violet); animation: rise 700ms 120ms var(--ease) both; }
-    .card-art img { width: min(100%, 420px); rotate: -3deg; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35)); transition: rotate 320ms var(--ease); }
-    .card-art:hover img { rotate: 0deg; }
-    .page-hero .lede { max-width: 32em; }
-
-    .hub-points { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s4); }
-    .hub-points li { display: grid; gap: 8px; align-content: start; padding-top: 18px; border-top: 3px solid var(--c); }
-    .hub-points b { font: 700 1.2rem/1.25 var(--display); }
-    .hub-points span { color: var(--ink-2); }
-    .today { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2) var(--s4); margin-top: var(--s5); padding: 22px 26px; border-radius: var(--r-md); background: var(--surface-2); }
-    .today p { color: var(--ink-2); max-width: 46em; }
-    .today .links { display: flex; flex-wrap: wrap; gap: 4px 22px; }
-
-    @media (max-width: 960px) {
-      .hub-points { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px) {
-      .hub-points { grid-template-columns: 1fr; gap: var(--s3); }
-    }
-  </style>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin >
+  <link rel="stylesheet" href="/assets/vgraphics.css" >
+  <script type="module" crossorigin src="/hub/assets/index-CKAc9qvE.js"></script>
+  <link rel="stylesheet" crossorigin href="/hub/assets/index-Dm5Vbicx.css">
 </head>
 <body class="pg-hub">
 <a class="skip" href="#main">Skip to content</a>
@@ -78,40 +59,19 @@
 </header>
 
 <main id="main">
-  <section class="page-hero" aria-labelledby="page-title">
-    <div class="wrap">
-      <div class="copy">
-        <span class="kicker"><span class="dot" aria-hidden="true"></span> Coming soon</span>
-        <h1 id="page-title"><span class="marker">VHub</span></h1>
-        <p class="sub">One player account for every VGraphics game and app.</p>
-        <p class="lede">Sign in once and bring your name, your picture and your friends to every game. Earn XP and level up wherever you play, collect achievements, and invite friends straight into a room.</p>
-        <div class="actions">
-          <a class="btn btn-accent" href="/multiplayer/">See what's live today</a>
-          <a class="btn btn-ghost" href="/exitwise/ranking/">Exitwise global ranking</a>
-        </div>
+  <div id="app">
+    <!-- fallback -->
+    <noscript>
+      <div class="wrap hub-static">
+        <p class="kicker"><span class="dot" aria-hidden="true"></span> VHub</p>
+        <h1>VHub</h1>
+        <p class="lede">One player account for every VGraphics game and app: your name and picture, a level and XP, achievements, and friends you can invite into a room.</p>
+        <p>These pages need JavaScript. Turn it on in your browser to sign in and see your profile, friends and achievements.</p>
+        <p class="hub-static-links"><a class="more" href="/hub/delete/">Delete your VHub account</a> <a class="more" href="/hub/privacy.html">VHub privacy policy</a></p>
       </div>
-      <div class="card-art" aria-hidden="true"><img src="/assets/img/vhub.svg" alt="" width="520" height="460"></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="what-title" style="padding-top:0">
-    <div class="wrap">
-      <h2 id="what-title" class="sr-only">What VHub brings</h2>
-      <ul class="hub-points">
-        <li class="c-sun"><b>One account</b><span>One sign-in, one name and one picture, in every VGraphics game and app.</span></li>
-        <li class="c-coral"><b>A level and XP</b><span>Every game you play adds to the same level.</span></li>
-        <li class="c-sky"><b>Achievements</b><span>Goals in every game, collected on one profile.</span></li>
-        <li class="c-violet"><b>Friends and invites</b><span>Add friends, and invite them into a room in any game.</span></li>
-      </ul>
-      <div class="today">
-        <p>VHub is still in development, and there's no date yet. Until it opens, Exitwise has its own profiles, leaderboards and rooms.</p>
-        <div class="links">
-          <a class="more" href="/multiplayer/">Multiplayer &amp; community</a>
-          <a class="more" href="/games/#party">The party games built on it</a>
-        </div>
-      </div>
-    </div>
-  </section>
+    </noscript>
+    <!-- /fallback -->
+  </div>
 </main>
 
 <footer class="site-foot">
@@ -136,6 +96,6 @@
     <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
-</footer>
+</footer>
 </body>
 </html>
