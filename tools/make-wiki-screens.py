@@ -22,6 +22,11 @@
 #                                                                           the screens, from the app's renders
 #   python tools/make-wiki-screens.py <product> --check <folder> [slug ...] also writes before/after crops of the
 #                                                                           phones to <folder>, for a review
+#   python tools/make-wiki-screens.py <product> --blank <folder> [slug ...] the same pictures with every screen
+#                                                                           switched off (black glass), into <folder>:
+#                                                                           dial-free sources to outpaint from
+# An entry need not be a wiki entry: painted/<name>.webp plus screens.json entries.<name> gives art-src/<name>.webp
+# (a tall version, an index or privacy hero), and sources.json's "tall" can then name it.
 # Then: python tools/make-wiki-art.py <product>, node tools/build-wiki.mjs <product>.
 # Needs Pillow with WebP, numpy and opencv-python-headless.
 import json
@@ -315,19 +320,24 @@ def main(argv):
         make_screens(product, games, frames)
         return
     folder = rest[rest.index('--check') + 1] if '--check' in rest else None
-    only = [a for a in rest if not a.startswith('--') and a != folder]
+    blank = rest[rest.index('--blank') + 1] if '--blank' in rest else None
+    only = [a for a in rest if not a.startswith('--') and a not in (folder, blank)]
     src = os.path.join(ROOT, product, 'wiki', 'art-src')
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in spec['screens']}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')
                 for name in ('status-bar', 'home')}
+    if blank:
+        # The paintings with the same new front but the screen switched off: dial-free sources for outpainting.
+        screens = {name: Image.new('RGB', im.size) for name, im in screens.items()}
+        os.makedirs(blank, exist_ok=True)
     for slug, entry in spec['entries'].items():
         if only and slug not in only:
             continue
         for phone in entry['phones']:
-            phone.setdefault('overlays', spec['screens'][phone['screen']].get('overlays', []))
+            phone.setdefault('overlays', [] if blank else spec['screens'][phone['screen']].get('overlays', []))
         out = compose(product, slug, entry, screens, overlays)
-        out.save(os.path.join(src, slug + '.webp'), 'WEBP', quality=90, method=6)
+        out.save(os.path.join(blank or src, slug + '.webp'), 'WEBP', quality=90, method=6)
         if folder:
             check(product, slug, entry, out, folder)
         print(product, slug, 'phones', len(entry['phones']))
