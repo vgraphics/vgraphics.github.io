@@ -33,7 +33,8 @@
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones, framed like playing cards; deck: true
-//                                for one row that scrolls sideways between two arrows), features, facts, actions, quote, chips, song, tour, soundtrack,
+//                                for one row that scrolls sideways between two arrows), features (an item's value and label: its key
+//                                figure over its title), facts, actions, quote, chips, song, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -122,13 +123,17 @@ const BLOCKS = {
           ${b.items.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('\n          ')}
         </ul>`,
 
-  // A line said in the product, set large across the content's width, with a button to hear it when the page has the
-  // recording (assets/product.js plays it): { type: "quote", text, by?, audio?, listen? }
-  quote: (b) => `<figure class="sec-quote">
-          <blockquote><p>${b.text}</p></blockquote>${b.by ? `
-          <figcaption>${b.by}</figcaption>` : ''}${b.audio ? `
-          <button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false">${PLAY_PAUSE}<span>${b.listen ?? 'Listen'}</span></button>` : ''}
-        </figure>`,
+  // A line said in the product, set large across the content's width, with a small play button after its last word
+  // when the page has the recording (assets/product.js plays it; listen is the button's name for screen readers):
+  // { type: "quote", text, by?, audio?, listen? }. George, 24 Oct 2026: "a small play/pause next to quotes".
+  quote: (b) => {
+    const cut = b.text.lastIndexOf(' ') + 1
+    const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
+    return `<figure class="sec-quote">
+          <blockquote><p>${text}</p></blockquote>${b.by ? `
+          <figcaption>${b.by}</figcaption>` : ''}
+        </figure>`
+  },
 
   // Small cards in a row under their label, each linking to its page (Palermo Noir's roles who act in a chapter):
   // { type: "chips", label, items: [{ title, image: { src, width, height }, href }] }
@@ -190,7 +195,7 @@ const BLOCKS = {
   features: (b, { theme }) => {
     const mark = theme.mark ? theme.mark.replace('<svg', '<svg class="mark" aria-hidden="true"') : ''
     return `<ul class="features${b.items.length === 4 ? ' n4' : ''}">
-          ${b.items.map((f, i) => `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
+          ${b.items.map((f, i) => `<li${f.value ? ' class="has-fact"' : ''} style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${f.value ? `<span class="feat-fact"><strong>${f.value}</strong><small>${f.label}</small></span>` : ''}${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
         </ul>`
   },
 

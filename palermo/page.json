@@ -148,14 +148,13 @@
       "figure": { "src": "img/cast/madman", "widths": [260, 418], "width": 418, "height": 1046, "side": "right" },
       "blocks": [
         { "type": "quote", "text": "Talk. The killer is among you… and listening.", "by": "The narrator", "audio": "audio/narrator-day.m4a", "listen": "Hear the narrator" },
-        { "type": "facts", "items": [{ "value": "3 min", "label": "talk by default" }, { "value": "45 s", "label": "to vote by default" }, { "value": "Open", "label": "or secret votes" }, { "value": "×2", "label": "a revealed Mayor's vote" }] },
         {
           "type": "features",
           "items": [
-            { "title": "The accusation board", "text": "Point at a suspect from your phone; the arrows and counts show live on the TV." },
-            { "title": "Open or secret votes", "text": "Watch every vote arrive as an arrow, or keep the ballots secret until the end." },
-            { "title": "Ties and last words", "text": "Tied players defend themselves and the town votes again. Whoever goes out may say a few last words." },
-            { "title": "The night announcer", "text": "The first player out sees every role from then on and tells the dawns, as Greek groups always did." }
+            { "value": "3 min", "label": "talk by default", "title": "The accusation board", "text": "Point at a suspect from your phone; the arrows and counts show live on the TV." },
+            { "value": "45 s", "label": "to vote by default", "title": "Open or secret votes", "text": "Watch every vote arrive as an arrow, or keep the ballots secret until the end." },
+            { "value": "20 s", "label": "to defend a tie", "title": "Ties and last words", "text": "Tied players defend themselves and the town votes again. Whoever goes out may say a few last words." },
+            { "value": "1st out", "label": "sees every role", "title": "The night announcer", "text": "From then on they tell the dawns, as Greek groups always did." }
           ]
         },
         { "type": "chips", "label": "Who acts by day", "items": [{ "title": "Citizen", "image": { "src": "img/roles/thumb/baker-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/citizen/" }, { "title": "Mayor", "image": { "src": "img/roles/thumb/mayor-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/mayor/" }, { "title": "Kamikaze", "image": { "src": "img/roles/thumb/kamikaze-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/kamikaze/" }, { "title": "Lawyer", "image": { "src": "img/roles/thumb/lawyer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/lawyer/" }] },
@@ -172,14 +171,13 @@
       "figure": { "src": "img/cast/mayor", "widths": [260, 441], "width": 441, "height": 1000 },
       "blocks": [
         { "type": "quote", "text": "The last killer has fallen. Palermo can finally sleep in peace. The town wins!", "by": "The narrator", "audio": "audio/narrator-verdict.m4a", "listen": "Hear the narrator" },
-        { "type": "facts", "items": [{ "value": "4", "label": "ways to win" }, { "value": "Every card", "label": "turned over" }, { "value": "Every night", "label": "told again" }, { "value": "XP", "label": "on your VHub profile" }] },
         {
           "type": "features",
           "items": [
-            { "title": "Every card turned", "text": "One by one, killers last, then the winners' banner." },
-            { "title": "The story of every night", "text": "Who the killers chose, who the Doctor saved, and who voted whom, secret votes included." },
-            { "title": "Awards", "text": "The sharpest eye, the best liar, the lifesaver and the survivor." },
-            { "title": "XP and achievements", "text": "Every game counts on your VHub profile, in every VGraphics game." }
+            { "value": "1 by 1", "label": "killers last", "title": "Every card turned", "text": "Every role is shown, then the winners' banner goes up." },
+            { "value": "Every vote", "label": "secret ones too", "title": "The story of every night", "text": "Who the killers chose, who the Doctor saved, and who voted whom." },
+            { "value": "4", "label": "awards", "title": "Awards", "text": "The sharpest eye, the best liar, the lifesaver and the survivor." },
+            { "value": "XP", "label": "for every game", "title": "XP and achievements", "text": "Every game counts on your VHub profile, in every VGraphics game." }
           ]
         },
         { "type": "chips", "label": "Who can change the ending", "items": [{ "title": "Madman", "image": { "src": "img/roles/thumb/madman-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/madman/" }, { "title": "Hunter", "image": { "src": "img/roles/thumb/hunter-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/hunter/" }, { "title": "Henchman", "image": { "src": "img/roles/thumb/henchman-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/henchman/" }] },
