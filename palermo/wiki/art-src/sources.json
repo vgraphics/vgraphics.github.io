@@ -1,0 +1,251 @@
+{
+ "about": "The masters of Palermo Noir's wiki pictures (WebP, quality 90), composed in code by tools/make-wiki-composites.py from compose.json; tools/make-wiki-art.py makes the served sizes from them.",
+ "entries": {
+  "known-killer": {
+   "master": "known-killer.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-known-killer-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "hidden-killer": {
+   "master": "hidden-killer.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-hidden-killer-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "police-officer": {
+   "master": "police-officer.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-officer-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "doctor": {
+   "master": "doctor.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-doctor-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "citizen": {
+   "master": "citizen.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-baker-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "detective": {
+   "master": "detective.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-inspector-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "seer": {
+   "master": "seer.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-seer-1.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "bulletproof": {
+   "master": "bulletproof.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-bulletproof-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "henchman": {
+   "master": "henchman.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene as a backdrop with cast-henchman-1.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "mayor": {
+   "master": "mayor.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-mayor-1.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "hunter": {
+   "master": "hunter.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-hunter-1.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "lawyer": {
+   "master": "lawyer.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-lawyer-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "kamikaze": {
+   "master": "kamikaze.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-kamikaze-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "madman": {
+   "master": "madman.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-madman-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "lovers": {
+   "master": "lovers.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene as a backdrop with cast-seamstress-1.png, cast-kiosk-2.png cut out in front",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "objection": {
+   "master": "objection.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-1-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "client": {
+   "master": "client.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-2-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "appeal": {
+   "master": "appeal.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-3-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "retrial": {
+   "master": "retrial.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-4-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "hung-jury": {
+   "master": "hung-jury.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-5-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "alibi": {
+   "master": "alibi.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-6-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "cross-examination": {
+   "master": "cross-examination.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-7-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "case-file": {
+   "master": "case-file.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-8-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "plea-bargain": {
+   "master": "plea-bargain.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-9-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "last-will": {
+   "master": "last-will.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-10-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "gag-order": {
+   "master": "gag-order.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-11-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "safe-house": {
+   "master": "safe-house.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-12-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "bail": {
+   "master": "bail.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-13-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "change-of-venue": {
+   "master": "change-of-venue.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-14-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "injunction": {
+   "master": "injunction.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-15-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "power-of-attorney": {
+   "master": "power-of-attorney.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-16-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "sealed-evidence": {
+   "master": "sealed-evidence.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-17-2.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "the-contract": {
+   "master": "the-contract.webp",
+   "focus": 0.64,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene as a backdrop with the power card picture power-18-1.png",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "a-round": {
+   "master": "a-round.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the deal scene (keyart-r1-C-2-fixed.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "the-night": {
+   "master": "the-night.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene (keyart-r1-B-2-moonleft.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "the-day": {
+   "master": "the-day.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene (keyart-r1-A-1.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "winning": {
+   "master": "winning.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the verdict scene (keyart-r1-D-1.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "ties": {
+   "master": "ties.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the day scene (keyart-r1-A-1.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "night-announcer": {
+   "master": "night-announcer.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the night scene (keyart-r1-B-2-moonleft.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "host-rules": {
+   "master": "host-rules.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the deal scene (keyart-r1-C-2-fixed.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  },
+  "phones-and-tv": {
+   "master": "phones-and-tv.webp",
+   "focus": 0.5,
+   "made": "Composed by tools/make-wiki-composites.py from the deal scene (keyart-r1-C-2-fixed.png) scaled to 1920x1080",
+   "licence": "VGraphics' Recraft Pro plan (a paid plan), so the art is VGraphics' to use commercially: the scenes from Palermo Noir's key-art rounds (24 Oct 2026, Nano Banana 2.1 in Recraft; records in the Palermo repo, docs/brand/key-art/README.md), the cast and the power cards from the party-kit design pass (23-24 Oct 2026, Nano Banana 2.1 in Recraft; records in VHub, docs/party/design-pass/art/README.md)."
+  }
+ }
+}

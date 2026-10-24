@@ -1,0 +1,945 @@
+{
+ "a-round": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "alibi": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "appeal": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "bail": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "bulletproof": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "case-file": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "change-of-venue": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "citizen": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "client": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "cross-examination": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "detective": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "doctor": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "gag-order": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "henchman": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "hidden-killer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "host-rules": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "hung-jury": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "hunter": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "injunction": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "kamikaze": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "known-killer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "last-will": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "lawyer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "lovers": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "madman": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "mayor": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "night-announcer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "objection": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "phones-and-tv": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "plea-bargain": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "police-officer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "power-of-attorney": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "retrial": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "safe-house": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "sealed-evidence": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "seer": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "the-contract": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "the-day": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "the-night": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "ties": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ },
+ "winning": {
+  "widths": [
+   640,
+   1280,
+   1920
+  ],
+  "jpeg": [
+   1280,
+   1920
+  ],
+  "width": 1920,
+  "height": 1080,
+  "tall": {
+   "widths": [
+    540
+   ],
+   "jpeg": [
+    540
+   ],
+   "width": 540,
+   "height": 959
+  }
+ }
+}

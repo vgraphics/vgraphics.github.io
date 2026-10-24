@@ -187,7 +187,7 @@ function whatBlock(w, e) {
   const [lead, ...rest] = e.what || []
   if (!lead) return ''
   const split = (p) => { const m = p.match(/^(.+?[.!?])\s+([\s\S]*)$/); return m ? [m[1], m[2]] : [p, ''] }
-  return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.product.slug === 'exitwise' ? 'What it does' : 'What it shows'}`)}
+  return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.whatTitle || (w.product.slug === 'exitwise' ? 'What it does' : 'What it shows')}`)}
       <div class="w-what">
         <div class="w-what-lead">${piece(e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
         <div class="w-what-cards">${rest.map((p, i) => { const [h, t] = split(p); return `<div class="w-what-card" style="--k: var(--swatch-${(i % 6) + 1})"><b>${h}</b>${t ? `<p>${t}</p>` : ''}</div>` }).join('')}</div>` : ''}
