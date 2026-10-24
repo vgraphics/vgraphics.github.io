@@ -24,6 +24,23 @@
   const foot = document.querySelector(".foot.has-art");
   if (card && foot) new ResizeObserver(() => foot.style.setProperty("--cta-half", card.offsetHeight / 2 + "px")).observe(card);
 
+  // A deck of cards (tools/build-pages.mjs, cards "deck": true): its arrows move it a card at a time, and each arrow
+  // hides at its end. Without JavaScript the deck still scrolls by hand and the arrows stay hidden.
+  for (const wrap of document.querySelectorAll(".deck-wrap")) {
+    const deck = wrap.querySelector(".deck");
+    const [prev, next] = wrap.querySelectorAll(".deck-btn");
+    const step = () => (deck.querySelector("li")?.offsetWidth ?? 280) + parseFloat(getComputedStyle(deck).columnGap || 0);
+    const update = () => {
+      prev.hidden = deck.scrollLeft < 4;
+      next.hidden = deck.scrollLeft > deck.scrollWidth - deck.clientWidth - 4;
+    };
+    prev.addEventListener("click", () => deck.scrollBy({ left: -step(), behavior: "smooth" }));
+    next.addEventListener("click", () => deck.scrollBy({ left: step(), behavior: "smooth" }));
+    deck.addEventListener("scroll", update, { passive: true });
+    new ResizeObserver(update).observe(deck);
+    update();
+  }
+
   // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled).
   const top = document.querySelector(".top");
   if (top) {

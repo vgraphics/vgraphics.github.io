@@ -150,9 +150,15 @@ const BLOCKS = {
       media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
     }[b.layout]
-    return `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}${b.deck ? ' deck fade-edges' : ''}">
+    const cards = `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}${b.deck ? ' deck fade-edges' : ''}">
           ${b.items.map(card).join('\n          ')}
         </${b.ordered ? 'ol' : 'ul'}>`
+    if (!b.deck) return cards
+    // A deck: one row that scrolls sideways, with an arrow on each side (assets/product.js moves it a card at a time)
+    const arrow = (dir, label) => `<button class="deck-btn ${dir}" type="button" aria-label="${label}" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${dir === 'prev' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}"/></svg></button>`
+    return `<div class="deck-wrap">${arrow('prev', 'Previous cards')}
+        ${cards}
+        ${arrow('next', 'Next cards')}</div>`
   },
 
   features: (b, { theme }) => {
