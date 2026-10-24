@@ -33,7 +33,7 @@
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones, framed like playing cards; deck: true
-//                                for one row that scrolls sideways with soft edges), features, facts, actions, tour, soundtrack,
+//                                for one row that scrolls sideways between two arrows), features, facts, actions, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -150,7 +150,7 @@ const BLOCKS = {
       media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
     }[b.layout]
-    const cards = `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}${b.deck ? ' deck fade-edges' : ''}">
+    const cards = `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}${b.deck ? ' deck' : ''}">
           ${b.items.map(card).join('\n          ')}
         </${b.ordered ? 'ol' : 'ul'}>`
     if (!b.deck) return cards

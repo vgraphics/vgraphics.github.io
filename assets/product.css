@@ -452,23 +452,22 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .cards.media.dense .card > img { width: 92%; margin: 0 auto 4px; border-radius: 3px; }
 .cards.media.dense .tag { justify-self: center; }
 .cards.media.dense h3 { width: 100%; padding: 7px 0 5px; border-block: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); font-size: 1.2rem; letter-spacing: 0.03em; }
-/* One deck (cards "deck": true): the cards in a single row inside the content's width, scrolled sideways by its
-   arrows (or a swipe), its sides fading while more lies beyond (assets/fade-edges.js); no scrollbar of its own. */
-.deck-wrap { position: relative; }
-.cards.deck { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; --fade-size: 56px; padding: 6px 2px 10px; scrollbar-width: none; }
+/* One deck (cards "deck": true): the cards in a single row at the content's width, with hard edges, scrolled sideways
+   by an arrow before and after it (or a swipe); the arrows stand outside the content where the screen has room. */
+.deck-wrap { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 20px; align-items: center; }
+@media (min-width: 1300px) { .deck-wrap { margin-inline: -72px; } }
+.cards.deck { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 0 10px; scrollbar-width: none; }
 .cards.deck::-webkit-scrollbar { display: none; }
 .cards.deck > li { flex: 0 0 min(280px, 76vw); scroll-snap-align: start; }
 .deck-btn {
-  position: absolute; top: 50%; z-index: 2; display: grid; place-items: center; width: 52px; height: 52px; margin-top: -26px;
+  display: grid; place-items: center; width: 52px; height: 52px; padding: 0;
   border: 1px solid var(--accent); border-radius: 50%; background: color-mix(in srgb, var(--page) 88%, transparent); color: var(--accent);
   box-shadow: 0 10px 24px -10px #000; cursor: pointer; transition: transform 150ms ease-out, background 150ms ease-out;
 }
-.deck-btn[hidden] { display: none; }
+.deck-btn[hidden] { display: grid; visibility: hidden; } /* keeps its place, so the deck never shifts */
 .deck-btn svg { width: 24px; height: 24px; }
 .deck-btn:hover { background: var(--surface-2); transform: scale(1.06); }
-.deck-btn.prev { left: -26px; }
-.deck-btn.next { right: -26px; }
-@media (max-width: 1200px) { .deck-btn.prev { left: 4px; } .deck-btn.next { right: 4px; } }
+@media (max-width: 560px) { .deck-wrap { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 8px; } .deck-btn { width: 40px; height: 40px; } }
 .cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
 @media (max-width: 560px) {
   .cards.media.dense { grid-template-columns: 1fr 1fr; gap: 10px; }
