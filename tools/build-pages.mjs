@@ -33,7 +33,7 @@
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones, framed like playing cards; deck: true
-//                                for one row that scrolls sideways between two arrows), features, facts, actions, tour, soundtrack,
+//                                for one row that scrolls sideways between two arrows), features, facts, actions, quote, chips, song, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -109,6 +109,10 @@ const wikis = {}
 const wikiOf = (slug) => (wikis[slug] ??= JSON.parse(readFileSync(join(root, slug, 'wiki', 'wiki.json'), 'utf8')))
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
+// The quote's play button (a pause while it speaks) and the song button's note
+const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+const NOTE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.2l10-2.2v11.3h-2V7.1L11 8.4v9.1H9z"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.3" r="2.5"/></svg>'
+
 const BLOCKS = {
   // A row of buttons and pills, the same kinds as the hero's badges: { type: "actions", items: [...] }
   actions: (b, product) => actions(product.page, b.items, 'badges sec-actions'),
@@ -117,6 +121,25 @@ const BLOCKS = {
   facts: (b) => `<ul class="facts-row">
           ${b.items.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('\n          ')}
         </ul>`,
+
+  // A line said in the product, set large across the content's width, with a button to hear it when the page has the
+  // recording (assets/product.js plays it): { type: "quote", text, by?, audio?, listen? }
+  quote: (b) => `<figure class="sec-quote">
+          <blockquote><p>${b.text}</p></blockquote>${b.by ? `
+          <figcaption>${b.by}</figcaption>` : ''}${b.audio ? `
+          <button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false">${PLAY_PAUSE}<span>${b.listen ?? 'Listen'}</span></button>` : ''}
+        </figure>`,
+
+  // Small cards in a row under their label, each linking to its page (Palermo Noir's roles who act in a chapter):
+  // { type: "chips", label, items: [{ title, image: { src, width, height }, href }] }
+  chips: (b) => `<div class="sec-chips">
+          <span class="chips-label">${b.label}</span>
+          <ul>${b.items.map((c) => `<li><a href="${esc(c.href)}"><img src="${esc(c.image.src)}" alt="" width="${c.image.width}" height="${c.image.height}" loading="lazy" decoding="async"><span>${c.title}</span></a></li>`).join('')}</ul>
+        </div>`,
+
+  // A button that plays one of the page's soundtrack tracks in its player, and pauses it again (assets/soundtrack.js):
+  // { type: "song", track: its number in the list, label, note? }
+  song: (b) => `<div class="badges sec-actions song-row"><button class="pill song-play" type="button" data-ost-song="${b.track - 1}" aria-pressed="false"><b>${NOTE}${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</button></div>`,
 
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,

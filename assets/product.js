@@ -111,6 +111,33 @@
     });
   }
 
+  // A quote's recording (build-pages.mjs, quote "audio"): its button plays it and stops it again. It stops the
+  // soundtrack while it speaks, and the soundtrack stops it; nothing loads until a button is pressed.
+  const voices = [...document.querySelectorAll(".quote-play")];
+  if (voices.length) {
+    const voice = new Audio();
+    let on = null;
+    const stop = () => {
+      voice.pause();
+      on?.setAttribute("aria-pressed", "false");
+      on = null;
+    };
+    voice.addEventListener("ended", stop);
+    voice.addEventListener("error", stop);
+    for (const b of voices) {
+      b.addEventListener("click", () => {
+        if (on === b) return stop();
+        stop();
+        document.querySelectorAll(".ost audio").forEach((a) => a.pause());
+        voice.src = b.dataset.voice;
+        voice.play().catch(stop);
+        on = b;
+        b.setAttribute("aria-pressed", "true");
+      });
+    }
+    document.addEventListener("play", (e) => e.target !== voice && stop(), true);
+  }
+
   // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled).
   const top = document.querySelector(".top");
   if (top) {
