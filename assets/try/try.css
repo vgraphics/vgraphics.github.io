@@ -1,0 +1,261 @@
+/* A product's web version on its page (the template's "try" block, tools/lib/try.mjs, run by assets/try/try.js): the
+   phone with the live screen and its tools, beside a panel of the product's styles and settings. In the product's own
+   colours (its theme pack's tokens), so every product's try page looks like the rest of its pages. On wide screens the
+   phone stays in view while the panel scrolls with the page; on phones the screen takes the window's height and the
+   panel follows under it. Nothing scrolls inside a box: the page scrolls. */
+.try {
+  --device-h: clamp(520px, 80vh, 820px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 48px;
+  align-items: start;
+}
+.try-stage { position: sticky; top: 84px; display: grid; justify-items: center; gap: 14px; }
+
+/* The phone: a dark bezel round the screen, the shape of the S25+'s 1080 x 2340 screen. */
+.try-device {
+  position: relative;
+  height: var(--device-h);
+  aspect-ratio: 1080 / 2340;
+  padding: 11px;
+  border-radius: 50px;
+  background: linear-gradient(160deg, #2A2A2E, #050506 30%, #050506 70%, #222226);
+  box-shadow: 0 0 0 1px var(--line), var(--card-shadow), 0 40px 80px -40px #000;
+}
+.try-device[data-orientation="landscape"] { height: auto; width: min(100%, 940px); aspect-ratio: 2340 / 1080; }
+.try:has(.try-device[data-orientation="landscape"]) { grid-template-columns: minmax(0, 1fr); }
+.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; }
+.try-screen {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  border-radius: 40px;
+  background: #0A090D;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+}
+.try-device:fullscreen { width: 100%; height: 100%; padding: 0; border-radius: 0; aspect-ratio: auto; background: #000; }
+.try-device:fullscreen .try-screen { border-radius: 0; }
+
+/* Home screen icons over the wallpaper (the "Home screen icons" switch): plain glassy shapes, never in the way of a tap. */
+.try-icons {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 3.5%;
+  padding: 0 8% 5%;
+  pointer-events: none;
+}
+.try-icons[hidden] { display: none; }
+.try-icons-row, .try-icons-dock { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10%; }
+.try-icons i {
+  display: block;
+  aspect-ratio: 1;
+  border-radius: 30%;
+  background: rgba(255, 255, 255, 0.2);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.16), 0 4px 12px rgba(0, 0, 0, 0.3);
+  backdrop-filter: blur(8px);
+}
+.try-icons-search { aspect-ratio: 7.5 / 1; border-radius: 999px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); }
+.try-device[data-orientation="landscape"] .try-icons { padding-inline: 28%; }
+
+/* A style's art on its way (a premium style's first look): a quiet spinner over the screen. */
+.try-busy { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; background: rgba(10, 9, 13, 0.35); pointer-events: none; }
+.try-busy[hidden] { display: none; }
+.try-busy span { width: 44px; height: 44px; border-radius: 50%; border: 4px solid rgba(255, 255, 255, 0.25); border-top-color: var(--accent); animation: try-spin 0.9s linear infinite; }
+@keyframes try-spin { to { transform: rotate(1turn); } }
+
+.try-tools { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; }
+.try-tool {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: var(--label-weight) 0.95rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: 0.06em;
+  cursor: pointer;
+  transition: border-color 160ms ease-out, background 160ms ease-out;
+}
+.try-tool svg { width: 18px; height: 18px; flex: none; }
+.try-tool:hover { border-color: var(--accent); }
+.try-tool[aria-pressed="true"] { background: color-mix(in srgb, var(--accent) 22%, var(--surface)); border-color: var(--accent); }
+.try-tool[hidden] { display: none; }
+
+/* The panel: the style shown with its arrows, the quick switches, then the styles, the settings and the store call. */
+.try-panel { display: grid; gap: 18px; min-width: 0; }
+.try-now { display: flex; align-items: center; gap: 10px; }
+.try-now-name { flex: 1; display: grid; gap: 2px; min-width: 0; }
+.try-style-name { font: var(--display-weight) clamp(1.6rem, 3vw, 2.2rem)/1 var(--font-display); text-transform: var(--display-case); overflow-wrap: anywhere; }
+.try-style-price { color: var(--muted); font: var(--label-weight) 0.9rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.08em; }
+.try-style-price b { color: var(--accent-2, var(--accent)); font-weight: inherit; }
+.try-step {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 48px;
+  height: 48px;
+  border: var(--card-border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: pointer;
+}
+.try-step svg { width: 22px; height: 22px; }
+.try-step:hover { border-color: var(--accent); }
+.try-hint { margin: 0; color: var(--muted); }
+.try-quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
+.try-gps[aria-pressed="true"] { filter: saturate(0.6) brightness(0.9); }
+.try-note { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.try-note[hidden] { display: none; }
+
+.try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
+.try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group h4 { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+
+.try-styles { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
+.try-styles button {
+  display: grid;
+  gap: 6px;
+  width: 100%;
+  padding: 6px 6px 8px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  text-align: left;
+  cursor: pointer;
+  transition: border-color 160ms ease-out, transform 160ms ease-out;
+}
+.try-styles button:hover { transform: translateY(-2px); border-color: color-mix(in srgb, var(--accent) 60%, var(--line)); }
+.try-styles button[aria-current="true"] { border-color: var(--accent); box-shadow: 0 0 0 2px var(--accent); }
+.try-styles img { display: block; width: 100%; height: auto; aspect-ratio: 240 / 520; border-radius: calc(var(--radius-sm) - 5px); background: #0A090D; object-fit: cover; }
+.try-styles b { font-size: 0.95rem; line-height: 1.2; }
+.try-styles small { display: flex; align-items: center; gap: 4px; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.06em; }
+.try-styles small svg { width: 12px; height: 12px; }
+.try-styles .free { color: var(--accent-3, var(--accent)); }
+.try-layouts[hidden] { display: none; }
+.try-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.try-chip {
+  min-height: 40px;
+  padding: 0 14px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.95rem;
+  cursor: pointer;
+}
+.try-chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+.try-unlock { margin: 0; color: var(--muted); }
+
+/* Settings, in the app's sections and with the app's words (the engine's catalog). */
+.try-settings { display: grid; gap: 6px; }
+.try-section { margin: 12px 0 2px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--accent); }
+.try-section:first-child { margin-top: 0; }
+.try-setting { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; min-height: 48px; padding: 4px 0; }
+.try-setting > span:first-child { flex: 1 1 10em; }
+.try-segments { display: flex; flex-wrap: wrap; gap: 6px; }
+.try-segments button {
+  min-height: 40px;
+  padding: 0 12px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  font-size: 0.92rem;
+  cursor: pointer;
+}
+.try-segments button[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.try-setting select {
+  min-height: 42px;
+  max-width: 100%;
+  padding: 0 12px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.try-swatches { display: flex; flex-wrap: wrap; gap: 8px; }
+.try-swatches button { width: 34px; height: 34px; padding: 0; border: 2px solid var(--line); border-radius: 50%; cursor: pointer; }
+.try-swatches button[aria-pressed="true"] { border-color: var(--ink); box-shadow: 0 0 0 2px var(--accent); }
+.try-switch { position: relative; width: 52px; height: 30px; flex: none; appearance: none; margin: 0; border-radius: 999px; background: var(--line); cursor: pointer; transition: background 160ms ease-out; }
+.try-switch::after { content: ""; position: absolute; top: 3px; left: 3px; width: 24px; height: 24px; border-radius: 50%; background: var(--ink); transition: transform 160ms ease-out; }
+.try-switch:checked { background: var(--accent); }
+.try-switch:checked::after { transform: translateX(22px); }
+.try-level { display: flex; align-items: center; gap: 10px; }
+.try-level input { width: min(200px, 50vw); accent-color: var(--accent); }
+.try-level output { min-width: 4.5em; color: var(--muted); font-variant-numeric: tabular-nums; }
+
+.try-get p { margin: 0; color: var(--muted); }
+.try-get-row { display: flex; flex-wrap: wrap; align-items: center; gap: 20px 28px; }
+.try-qr { display: grid; justify-items: center; gap: 6px; margin: 0; }
+.try-qr img { display: block; width: 132px; height: 132px; padding: 8px; border-radius: 12px; background: #fff; }
+.try-qr figcaption { color: var(--muted); font-size: 0.85rem; }
+.try-link { justify-self: start; padding: 4px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.9rem; text-decoration: underline; cursor: pointer; }
+
+/* Until the engine runs, the panel's controls wait; if it can't run (an old browser, or the engine not there), the
+   phone keeps the welcome art with the reason, and only the store call stays in the panel. */
+.try:not([data-state="running"]) .try-now .try-step, .try:not([data-state="running"]) .try-quick { visibility: hidden; }
+.try[data-state="failed"] .try-tools, .try[data-state="failed"] .try-panel > :not(.try-get):not(.try-now) { display: none; }
+.try[data-state="failed"] .try-style-price { display: none; }
+.try-fallback { grid-column: 1 / -1; display: grid; justify-items: center; gap: 16px; padding: 24px; text-align: center; border: var(--card-border); border-radius: var(--radius); background: var(--surface); }
+.try-fallback[hidden] { display: none; }
+.try-fallback p { margin: 0; max-width: 34em; }
+.try-noscript { grid-column: 1 / -1; margin: 0; color: var(--muted); }
+
+/* The statistics question, in a corner, never over the phone's screen on wide windows. */
+.try-consent {
+  position: fixed;
+  right: 16px;
+  bottom: 16px;
+  z-index: 50;
+  width: min(400px, calc(100% - 32px));
+  padding: 18px 18px 14px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface-2, var(--surface));
+  box-shadow: var(--card-lift);
+}
+.try-consent[hidden] { display: none; }
+.try-consent h3 { margin: 0 0 6px; font: var(--label-weight) 1.1rem/1.1 var(--label-font); text-transform: var(--label-case); }
+.try-consent p { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
+.try-consent-buttons { display: flex; justify-content: flex-end; gap: 10px; }
+.try-consent button { min-height: 44px; padding: 0 18px; border: var(--card-border); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; cursor: pointer; }
+.try-consent button.allow { background: var(--cta); border-color: var(--cta-edge, var(--cta)); color: var(--cta-ink); }
+
+/* The style shown and its arrows stay with the phone on narrow windows: under the screen. */
+@media (max-width: 900px) {
+  .try { grid-template-columns: minmax(0, 1fr); gap: 20px; }
+  .try-stage { position: static; }
+  .try-device { --device-h: min(calc(100svh - 150px), 820px); justify-self: center; }
+}
+/* Phones: the wallpaper fills the screen as the real one does, without the bezel; the panel follows under it. */
+@media (max-width: 560px) {
+  .try-device { width: 100%; height: calc(100svh - 160px); min-height: 440px; aspect-ratio: auto; padding: 0; border-radius: 24px; background: none; }
+  .try-device[data-orientation="landscape"] { width: 100%; height: auto; aspect-ratio: 2340 / 1080; }
+  .try-screen { border-radius: 24px; }
+  .try-tool span { display: none; }
+  .try-tool { width: 48px; justify-content: center; padding: 0; }
+  .try-quick .try-tool { width: auto; padding: 0 14px; }
+  .try-quick .try-tool span { display: inline; }
+  .try-qr { display: none; }
+  .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .try-busy span { animation-duration: 3s; }
+  .try-styles button, .try-styles button:hover { transform: none; }
+}

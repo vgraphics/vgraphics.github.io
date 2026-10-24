@@ -29,7 +29,7 @@
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
 //   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
 //                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack,
-//                                journey, embed, document
+//                                journey, embed, document, try (the product's web version, tools/lib/try.mjs)
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
 //                                src-<width>.avif and .webp, the tall one on narrow screens
@@ -45,6 +45,7 @@ import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
+import { tryBlock } from './lib/try.mjs'
 import { renderGallery } from './gallery.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
@@ -171,6 +172,10 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
         </div>`
   },
 
+  // The product's web version, live in a phone, with its styles and settings (tools/lib/try.mjs, assets/try/, and the
+  // start-up in assets/startup/).
+  try: (b, product) => tryBlock(b, product.page),
+
   // Numbered spots on a phone screen, each opening its part of the list (assets/product.js; without JavaScript every
   // part stays open).
   tour: (b) => `<div class="tour" data-open="${b.open}">
@@ -251,6 +256,7 @@ export function render(slug, sub) {
   const blocks = p.sections.flatMap((s) => s.blocks ?? [])
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
+  const trial = blocks.some((b) => b.type === 'try')
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
   const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
@@ -286,7 +292,9 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/${slug}/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">${gallery ? `
   <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
-  <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${demoCss ? `
+  <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${trial ? `
+  <link rel="stylesheet" href="/assets/startup/startup.css">
+  <link rel="stylesheet" href="/assets/try/try.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
@@ -306,7 +314,9 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   <script src="/assets/menu.js" defer></script>${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
-  <script src="/assets/soundtrack.js" defer></script>` : ''}${beside('js').map((e) => `
+  <script src="/assets/soundtrack.js" defer></script>` : ''}${trial ? `
+  <script src="/assets/startup/startup.js" defer></script>
+  <script src="/assets/try/try.js" defer></script>` : ''}${beside('js').map((e) => `
   <script src="${e}.js" defer></script>`).join('')}
 </body>
 </html>
