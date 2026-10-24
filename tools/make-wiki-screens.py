@@ -272,31 +272,42 @@ def keep_mask(shape, phone, painting):
     return m[..., None]
 
 
-def clean(img, polys):
-    """Painted marks outside the screen (made-up status-bar text on a phone's rim) filled in from around them: the
-    pixels clearly brighter than their surroundings inside each polygon are inpainted."""
-    for poly in polys:
-        m = np.zeros(img.shape[:2], np.uint8)
-        cv2.fillPoly(m, [np.int32(np.round(poly))], 1)
-        lum = img.astype(np.float32).mean(2)
-        local = cv2.medianBlur(np.uint8(lum), 31).astype(np.float32)
-        marks = ((lum - local > 18) & (m > 0)).astype(np.uint8)
-        marks = cv2.dilate(marks, np.ones((5, 5), np.uint8))
-        img = cv2.inpaint(img, marks, 6, cv2.INPAINT_TELEA)
+def clean(img, areas):
+    """Made-up glyphs the painting left outside the screens (status-bar text on a phone's rim, button labels on the
+    dashboard, marks on a mount) filled in from around them. An area is a polygon, whose pixels clearly brighter than
+    their surroundings are inpainted, or {"poly": [...], "all": true}, inpainted whole (a label on a plain face)."""
+    for area in areas:
+        poly = np.int32(np.round(area['poly'] if isinstance(area, dict) else area))
+        x0, y0 = np.maximum(poly.min(0) - 40, 0)
+        x1, y1 = np.minimum(poly.max(0) + 41, (img.shape[1], img.shape[0]))
+        crop = np.ascontiguousarray(img[y0:y1, x0:x1])
+        m = np.zeros(crop.shape[:2], np.uint8)
+        cv2.fillPoly(m, [poly - (x0, y0)], 1)
+        if not (isinstance(area, dict) and area.get('all')):
+            lum = crop.astype(np.float32).mean(2)
+            local = cv2.medianBlur(np.uint8(lum), 31).astype(np.float32)
+            m = ((lum - local > 18) & (m > 0)).astype(np.uint8)
+            m = cv2.dilate(m, np.ones((5, 5), np.uint8))
+        img[y0:y1, x0:x1] = cv2.inpaint(crop, m, 6, cv2.INPAINT_TELEA)
     return img
 
 
 def compose(product, slug, entry, screens, overlays):
     src = os.path.join(ROOT, product, 'wiki', 'art-src')
     painting = np.asarray(Image.open(os.path.join(src, 'painted', slug + '.webp')).convert('RGB'))
-    img = clean(painting.copy(), entry.get('clean', []))
+    base = clean(painting.copy(), entry.get('clean', []))
+    img = base.copy()
     for phone in entry['phones']:
         lay_phone(img, painting, phone, screens, overlays)
     for phone in entry['phones']:
         k = keep_mask(img.shape, phone, painting)
         if k.any():
-            img = np.uint8(img * (1 - k) + painting * k + 0.5)
-    return Image.fromarray(img)
+            img = np.uint8(img * (1 - k) + base * k + 0.5)
+    out = Image.fromarray(img)
+    if entry.get('crop'):
+        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size.
+        out = out.crop(tuple(entry['crop'])).resize(out.size, Image.LANCZOS)
+    return out
 
 
 def check(product, slug, entry, out, folder):
