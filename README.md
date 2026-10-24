@@ -69,16 +69,15 @@ On phones every header folds its menu into a button at the right that opens it a
 mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
 header below 561px. `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
 header's markup stays the copy above. Every company page loads it in its `<head>` with
-`<script src="/assets/menu.js" defer></script>`, and the CSS acts only on pages that do. The hub's pages, which the
-VHub repo writes, get the menu once its `hub/index.html` and policy page add the same line; until then they keep the
-row. The product pages' button comes with their header (`tools/lib/partials.mjs`).
+`<script src="/assets/menu.js" defer></script>`, and the CSS acts only on pages that do. The hub's pages carry the
+same line from the VHub repo's `hub/index.html` and policy page (since VHub 880438d). The product pages' button comes
+with their header (`tools/lib/partials.mjs`).
 
 check-site holds every HTML file the site serves to this, whoever writes it (George, 24 Oct 2026: "Find all
 instances."): the company and product headers must come with their phone menu, any other header with a menu in it
 fails (one made by hand: make the page with the template), and so does a `<nav>` outside `<main>`, the footer and
-those headers. A header without a menu (a logo and a language button, as on the party games' doors) passes. Pages
-another repo writes that don't have the menu yet are listed in `BURGER_PENDING` in `tools/check-site.mjs` and printed
-on every run as pending instead of failing; check-site says when an entry can go.
+those headers. A header without a menu (a logo and a language button, as on the party games' doors) passes. Nothing
+is exempt: a page another repo writes (the hub, a play page, a policy's source) fails like any other.
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and

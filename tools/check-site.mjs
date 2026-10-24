@@ -143,23 +143,13 @@ for (const file of pages) {
 // - A document's source (a page.json "document" block: a policy another repo owns, which the template sets into its
 //   page) is the text alone: one <main>, no header, menu or footer of its own, kept out of search (noindex) and pointing
 //   to its page (canonical).
-// BURGER_PENDING: folders another repo writes, whose pages may lack the phone menu until that repo's release brings it.
-// Their problems are printed as pending instead of failing; once none is left, check-site says to remove the entry.
-const BURGER_PENDING = {
-  // VHub's pages, which the Deployer's vhub-hub writes: VHub a5083a3 (on VHub main since 880438d) loads menu.js in
-  // hub/index.html and docs/privacy/vhub-privacy.html. Remove this entry once vhub-hub has shipped it (due 24 Oct 2026).
-  'hub/': 'until vhub-hub ships VHub 880438d',
-}
+// Nothing is exempt: a page another repo writes (VHub's hub/, since vhub-hub shipped VHub 880438d on 24 Oct 2026) fails
+// like any other until that repo brings the menu.
 const MENU_JS = '<script src="/assets/menu.js" defer></script>'
 const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)))
 const sources = new Map(documents().map((d) => [d.file.split(sep).join('/'), d.url]))
-const pending = Object.fromEntries(Object.keys(BURGER_PENDING).map((dir) => [dir, []]))
-const burger = (file, message) => {
-  const dir = Object.keys(BURGER_PENDING).find((d) => file.startsWith(d))
-  if (dir) pending[dir].push(`${file} ${message}`)
-  else report(file, 'burger', message)
-}
+const burger = (file, message) => report(file, 'burger', message)
 for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')
   if (sources.has(file)) {
@@ -332,12 +322,6 @@ else {
       if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
     }
   }
-}
-
-// Pending pages are printed every time, so they stay in sight (never in the "path: [rule] message" form of a problem).
-for (const [dir, list] of Object.entries(pending)) {
-  if (list.length) console.log(`Pending, not failed (BURGER_PENDING ${dir}, ${BURGER_PENDING[dir]}), ${list.length} without the phone menu:\n  ${list.join('\n  ')}`)
-  else console.log(`BURGER_PENDING ${dir}: every page there has the phone menu now, so remove its entry from tools/check-site.mjs`)
 }
 
 if (problems.length) {
