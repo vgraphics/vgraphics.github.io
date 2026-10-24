@@ -28,7 +28,7 @@
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
 //   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
-//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack,
+//                                blocks: gallery, steps, cards (layout icon | media | side | tile), features, tour, soundtrack,
 //                                journey, embed, document, try (the product's web version, tools/lib/try.mjs)
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -137,6 +137,11 @@ const BLOCKS = {
       icon: (c) => `<li class="card"><a href="${esc(c.href)}"><span class="pic">${readFileSync(join(root, slug, c.icon), 'utf8').trim().replace('<svg', '<svg aria-hidden="true"')}</span><span>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p></span></a></li>`,
       media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
+      // A small picture card in a dense grid (a product's styles): the whole card links, when it has an href.
+      tile: (c) => {
+        const body = `${image(c.image)}<span class="tile-head"><h3>${c.title}</h3>${tag(c)}</span>${c.text ? `<p>${c.text}</p>` : ''}`
+        return `<li class="card">${c.href ? `<a href="${esc(c.href)}">${body}</a>` : body}</li>`
+      },
     }[b.layout]
     return `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}">
           ${b.items.map(card).join('\n          ')}
