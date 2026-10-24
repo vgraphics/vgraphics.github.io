@@ -132,7 +132,7 @@
     {
       "id": "soundtrack",
       "title": "Listen to the soundtrack",
-      "intro": "The music from the game: flute, clarinet, harp and pizzicato strings for the worlds, and a tenser theme for the hard levels. Press play and keep reading; a small player stays with you down the page.",
+      "intro": "The music from the game: flute, clarinet, harp and pizzicato strings for the worlds, a tenser theme for the hard levels, and the storybook's songs, from the prologue's music box to the guardians' march and the Dawn Door. Press play and keep reading; a small player stays with you down the page.",
       "blocks": [
         {
           "type": "soundtrack",
@@ -144,7 +144,14 @@
           "tracks": [
             { "title": "Stepping Stones", "src": "audio/01-stepping-stones.m4a", "duration": "1:48" },
             { "title": "Meadow Morning", "src": "audio/02-meadow-morning.m4a", "duration": "1:49" },
-            { "title": "No Easy Exit", "src": "audio/03-no-easy-exit.m4a", "duration": "1:57" }
+            { "title": "No Easy Exit", "src": "audio/03-no-easy-exit.m4a", "duration": "1:57" },
+            { "title": "Once Upon a Tower", "src": "audio/04-once-upon-a-tower.m4a", "duration": "2:28" },
+            { "title": "A New World Opens", "src": "audio/05-a-new-world-opens.m4a", "duration": "1:17" },
+            { "title": "The Guardian's March", "src": "audio/06-the-guardians-march.m4a", "duration": "1:47" },
+            { "title": "The Guardian's Last Stand", "src": "audio/07-the-guardians-last-stand.m4a", "duration": "1:46" },
+            { "title": "The Guardian Falls", "src": "audio/08-the-guardian-falls.m4a", "duration": "0:36" },
+            { "title": "Colour Returns", "src": "audio/09-colour-returns.m4a", "duration": "1:48" },
+            { "title": "The Dawn Door", "src": "audio/10-the-dawn-door.m4a", "duration": "2:57" }
           ]
         }
       ]
