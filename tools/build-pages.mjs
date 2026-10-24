@@ -32,7 +32,7 @@
 //                                its heading starting in the picture's faded foot; figure: { src, widths, width, height,
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
-//                                many small media cards, two to a row on phones), features, tour, soundtrack,
+//                                many small media cards, two to a row on phones), features, facts, actions, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -109,6 +109,14 @@ const wikiOf = (slug) => (wikis[slug] ??= JSON.parse(readFileSync(join(root, slu
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
 const BLOCKS = {
+  // A row of buttons and pills, the same kinds as the hero's badges: { type: "actions", items: [...] }
+  actions: (b, product) => actions(product.page, b.items, 'badges sec-actions'),
+
+  // Key figures in a row, each a big value over its label: { type: "facts", items: [{ value, label }] }
+  facts: (b) => `<ul class="facts-row">
+          ${b.items.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('\n          ')}
+        </ul>`,
+
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,
 

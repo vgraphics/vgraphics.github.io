@@ -77,7 +77,26 @@
       "title": "Everybody plays, even the narrator",
       "intro": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek.",
       "figure": { "src": "img/cast/doctor", "widths": [260, 403], "width": 403, "height": 1067 },
-      "blocks": []
+      "blocks": [
+        { "type": "facts", "items": [
+          { "value": "6–14", "label": "players" },
+          { "value": "14", "label": "roles" },
+          { "value": "1 TV", "label": "and your phones" },
+          { "value": "EN · EL", "label": "English or Greek" },
+          { "value": "Free", "label": "every role" }
+        ] },
+        { "type": "actions", "items": [
+          { "href": "#deal", "label": "1 · The deal", "note": "How to play" },
+          { "href": "#night", "label": "2 · The night", "note": "The night roles" },
+          { "href": "#day", "label": "3 · The day", "note": "Accuse and vote" },
+          { "href": "#verdict", "label": "4 · The verdict", "note": "The truth" }
+        ] },
+        { "type": "actions", "items": [
+          { "href": "#soundtrack", "label": "Listen to the soundtrack", "note": "Nine songs" },
+          { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" },
+          { "href": "/palermo/privacy.html", "label": "Privacy policy", "note": "For ages 13 and up" }
+        ] }
+      ]
     },
     {
       "id": "deal",
