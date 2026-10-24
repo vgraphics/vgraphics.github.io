@@ -1,12 +1,13 @@
 // Checks the site's content rules before a push: node tools/check-site.mjs
 // Prints one "path: [rule] message" line per problem and exits 1, or prints "OK: …" and exits 0.
+import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
-import { pieces, products, subpages } from './lib/product.mjs'
+import { documents, pieces, products, subpages } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -122,13 +123,71 @@ for (const file of pages) {
   if (!html.includes('href="/assets/vgraphics.css"')) continue
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
-  // The phone menu (assets/menu.js adds its button). The hub's pages come from the VHub repo, which adds it there.
-  if (!file.startsWith('hub' + sep) && !html.includes('<script src="/assets/menu.js" defer></script>')) report(file, 'menu', 'does not load /assets/menu.js, the phone menu')
   if (plain(foot) !== plain(home.foot)) report(file, 'menu', "footer differs from the home page's")
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
     if (href !== urlPath(file)) report(file, 'menu', `marks ${href} as the current page`)
   }
+}
+
+// The phone menu on every header (George, 24 Oct 2026: "at hub vgraphics page, the toolbar menu is not burger as other
+// pages. Find all instances."). This looks at every HTML file GitHub Pages serves, whoever writes it (this repo, the
+// template, the Deployer's hub/ and play pages): the files git tracks or would add, so only what git ignores
+// (_mockups/, .claude/worktrees/) is left out.
+// - A <header> is the company header (class "site-head" with its nav.site-nav, whose button /assets/menu.js adds) or a
+//   product's (class "top", from tools/lib/partials.mjs, with the menu-toggle button and the nav it opens), on a page
+//   that loads /assets/menu.js and the header's stylesheet. Any other header (one made by hand) fails.
+// - A menu (nav.site-nav, nav.subnav) sits in one of those headers.
+// - Every page has one of those headers, except a web game's play page (<game>/play/, the game on the whole screen).
+// - A document's source (a page.json "document" block: a policy another repo owns, which the template sets into its
+//   page) is the text alone: one <main>, no header, menu or footer of its own, kept out of search (noindex) and pointing
+//   to its page (canonical).
+// BURGER_PENDING: folders another repo writes, whose pages may lack the phone menu until that repo's release brings it.
+// Their problems are printed as pending instead of failing; once none is left, check-site says to remove the entry.
+const BURGER_PENDING = {
+  // VHub's pages, which the Deployer's vhub-hub writes: VHub feature/vhub-first-use-fixes (a5083a3) loads menu.js in
+  // hub/index.html and docs/privacy/vhub-privacy.html. Remove this entry once vhub-hub has shipped it (due 24 Oct 2026).
+  'hub/': 'until vhub-hub ships VHub a5083a3',
+}
+const MENU_JS = '<script src="/assets/menu.js" defer></script>'
+const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)))
+const sources = new Map(documents().map((d) => [d.file.split(sep).join('/'), d.url]))
+const pending = Object.fromEntries(Object.keys(BURGER_PENDING).map((dir) => [dir, []]))
+const burger = (file, message) => {
+  const dir = Object.keys(BURGER_PENDING).find((d) => file.startsWith(d))
+  if (dir) pending[dir].push(`${file} ${message}`)
+  else report(file, 'burger', message)
+}
+const menus = (html) => html.match(/<nav\b[^>]*class="[^"]*\b(site-nav|subnav)\b/g)?.length ?? 0
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (sources.has(file)) {
+    const want = sources.get(file)
+    const got = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
+    if (html.match(/<main\b/g)?.length !== 1) report(file, 'source', 'needs exactly one <main> (the template sets in everything from the first to the last), not even in a comment')
+    if (/<(header|nav|footer)\b/.test(html.replace(/<main\b[^>]*>[\s\S]*<\/main>/, ''))) report(file, 'source', "has a header, menu or footer of its own: keep only the text, in <main> (the site's template adds the rest)")
+    if (!html.includes('<meta name="robots" content="noindex">')) report(file, 'source', 'not kept out of search: add <meta name="robots" content="noindex">')
+    if (got !== want) report(file, 'source', `canonical is ${got ?? 'missing'}, want ${want}, the page it is set into`)
+    continue
+  }
+  const heads = [...html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)]
+  for (const [, attrs, inner] of heads) {
+    const cls = attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []
+    if (cls.includes('site-head')) {
+      if (!/<nav\b[^>]*class="site-nav"/.test(inner)) burger(file, 'has a company header without the nav.site-nav that /assets/menu.js folds')
+      if (!html.includes('href="/assets/vgraphics.css"')) burger(file, 'has the company header without /assets/vgraphics.css, which draws its phone menu')
+    } else if (cls.includes('top')) {
+      const id = inner.match(/<button class="menu-toggle"[^>]*aria-controls="([^"]+)"/)?.[1]
+      if (!id || !inner.includes(`id="${id}"`)) burger(file, 'has a product header without the menu-toggle button for its nav (tools/lib/partials.mjs writes both)')
+      if (!html.includes('href="/assets/product.css"')) burger(file, 'has a product header without /assets/product.css, which draws its phone menu')
+    } else {
+      burger(file, `has <header${attrs}>, neither the company header nor a product's, so no phone menu: make the page with the template (tools/build-pages.mjs) or give it the company header`)
+    }
+  }
+  if (heads.length && !html.includes(MENU_JS)) burger(file, `does not load /assets/menu.js, the phone menu (${MENU_JS})`)
+  if (menus(html) > heads.reduce((n, [, , inner]) => n + menus(inner), 0)) burger(file, 'has a menu (nav.site-nav or nav.subnav) outside the company or product header, with no phone menu')
+  if (!heads.length && /<html\b/i.test(html) && !/^[^/]+\/play\//.test(file)) burger(file, "has no company or product header, so no phone menu: every page has one, except a web game's play page")
 }
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
@@ -271,6 +330,12 @@ else {
       if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
     }
   }
+}
+
+// Pending pages are printed every time, so they stay in sight (never in the "path: [rule] message" form of a problem).
+for (const [dir, list] of Object.entries(pending)) {
+  if (list.length) console.log(`Pending, not failed (BURGER_PENDING ${dir}, ${BURGER_PENDING[dir]}), ${list.length} without the phone menu:\n  ${list.join('\n  ')}`)
+  else console.log(`BURGER_PENDING ${dir}: every page there has the phone menu now, so remove its entry from tools/check-site.mjs`)
 }
 
 if (problems.length) {
