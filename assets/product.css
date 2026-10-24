@@ -440,9 +440,26 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 /* A deck of many pictures (page.json "dense": a game's role cards): smaller cards, as many to a row as fit, and two
    to a row on phones rather than one long column. */
 .cards.media.dense { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 18px; }
-.cards.media.dense .card { gap: 8px; padding: 16px; }
-.cards.media.dense .card > img { width: 100%; margin: 0 auto 4px; }
-.cards.media.dense h3 { font-size: 1.2rem; }
+.cards.media.dense .card {
+  position: relative; gap: 8px; padding: 20px 18px 22px; text-align: center; justify-items: center;
+  /* framed like a playing card: a fine edge in the accent, a second ring inside it, a corner mark at two corners */
+  background: linear-gradient(var(--surface-2), var(--surface)); border: 1px solid var(--accent); border-radius: 10px;
+  box-shadow: inset 0 0 0 6px var(--surface), inset 0 0 0 7px color-mix(in srgb, var(--accent) 55%, transparent), 0 20px 34px -20px #000;
+}
+.cards.media.dense .card::before, .cards.media.dense .card::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--accent); }
+.cards.media.dense .card::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.cards.media.dense .card::after { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+.cards.media.dense .card > img { width: 92%; margin: 0 auto 4px; border-radius: 3px; }
+.cards.media.dense .tag { justify-self: center; }
+.cards.media.dense h3 { width: 100%; padding: 7px 0 5px; border-block: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); font-size: 1.2rem; letter-spacing: 0.03em; }
+/* One deck (cards "deck": true): the cards in a single row from screen edge to screen edge, scrolled sideways, its
+   sides fading while more lies beyond (assets/fade-edges.js) */
+.cards.deck {
+  display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; --fade-size: 64px;
+  margin-inline: calc(50% - 50vw); padding: 6px max(20px, calc(50vw - 560px)) 18px; scroll-padding-inline: max(20px, calc(50vw - 560px));
+  scrollbar-width: thin; scrollbar-color: var(--scrollbar, var(--accent)) transparent;
+}
+.cards.deck > li { flex: 0 0 min(280px, 76vw); scroll-snap-align: start; }
 .cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
 @media (max-width: 560px) {
   .cards.media.dense { grid-template-columns: 1fr 1fr; gap: 10px; }

@@ -69,9 +69,9 @@
   --foot-rule: 1px solid #2B3D55;
   --foot-panel: rgba(11, 22, 35, 0.8);
   --band-bg: radial-gradient(ellipse 70% 120% at 50% 120%, rgba(201, 164, 110, 0.2), transparent 70%), linear-gradient(180deg, #13253B, #0F1D2E);
-  --feature-bg: #112033;
-  --feature-pad: 20px;
-  --feature-stripe: 2px;
+  --feature-bg: none;
+  --feature-pad: 0;
+  --feature-stripe: 0px;
   --feature-text: #B9AB94;
   --feature-title-font: "Noto Serif Display", Georgia, "Times New Roman", serif;
   --feature-title-weight: 700;
