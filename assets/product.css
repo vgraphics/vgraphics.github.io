@@ -583,10 +583,10 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 }
 /* The thread (optional tokens --thread and --thread-show: block): a fine line in the theme's colour that runs down into
    each section that opens with art and ends in a small diamond, so the chapters read as one story. */
-.sec.has-art { position: relative; }
+.sec.has-art { position: relative; margin-top: var(--thread-space, 0px); } /* --thread-space: optional, room above a chapter for the thread */
 .sec.has-art::before, .sec.has-art::after { display: var(--thread-show, none); position: absolute; left: 50%; z-index: 1; pointer-events: none; }
-.sec.has-art::before { content: ""; top: calc(var(--section-pad) * -1); width: 1px; height: calc(var(--section-pad) + var(--sec-art-h) * 0.34); margin-left: -0.5px; background: linear-gradient(transparent, var(--thread) 35%, var(--thread)); }
-.sec.has-art::after { content: ""; top: calc(var(--sec-art-h) * 0.34 - 5px); width: 9px; height: 9px; margin-left: -5px; border: 1px solid var(--thread); background: var(--page); transform: rotate(45deg); box-shadow: 0 0 12px color-mix(in srgb, var(--thread) 60%, transparent); }
+.sec.has-art::before { content: ""; top: calc((var(--section-pad) + var(--thread-space, 0px)) * -1); width: 1px; height: calc(var(--section-pad) + var(--sec-art-h) * 0.34); margin-left: -0.5px; background: linear-gradient(transparent, var(--thread) 35%, var(--thread)); }
+.sec.has-art::after { content: ""; top: calc(var(--sec-art-h) * 0.34 - var(--thread-space, 0px) - 5px); width: 9px; height: 9px; margin-left: -5px; border: 1px solid var(--thread); background: var(--page); transform: rotate(45deg); box-shadow: 0 0 12px color-mix(in srgb, var(--thread) 60%, transparent); }
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */

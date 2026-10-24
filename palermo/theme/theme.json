@@ -57,6 +57,7 @@
     "ost-n-ink": "#0B1623",
     "thread": "#C9A46E",
     "thread-show": "block",
+    "thread-space": "120px",
     "step-size": "2.4rem",
     "step-text": "#B9AB94",
     "step-stripe": "2px",
