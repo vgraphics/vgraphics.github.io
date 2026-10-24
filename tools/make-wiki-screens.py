@@ -22,6 +22,11 @@
 #                                                                           the screens, from the app's renders
 #   python tools/make-wiki-screens.py <product> --check <folder> [slug ...] also writes before/after crops of the
 #                                                                           phones to <folder>, for a review
+#   python tools/make-wiki-screens.py <product> --blank <folder> [slug ...] the same pictures with every screen
+#                                                                           switched off (black glass), into <folder>:
+#                                                                           dial-free sources to outpaint from
+# An entry need not be a wiki entry: painted/<name>.webp plus screens.json entries.<name> gives art-src/<name>.webp
+# (a tall version, an index or privacy hero), and sources.json's "tall" can then name it.
 # Then: python tools/make-wiki-art.py <product>, node tools/build-wiki.mjs <product>.
 # Needs Pillow with WebP, numpy and opencv-python-headless.
 import json
@@ -267,31 +272,42 @@ def keep_mask(shape, phone, painting):
     return m[..., None]
 
 
-def clean(img, polys):
-    """Painted marks outside the screen (made-up status-bar text on a phone's rim) filled in from around them: the
-    pixels clearly brighter than their surroundings inside each polygon are inpainted."""
-    for poly in polys:
-        m = np.zeros(img.shape[:2], np.uint8)
-        cv2.fillPoly(m, [np.int32(np.round(poly))], 1)
-        lum = img.astype(np.float32).mean(2)
-        local = cv2.medianBlur(np.uint8(lum), 31).astype(np.float32)
-        marks = ((lum - local > 18) & (m > 0)).astype(np.uint8)
-        marks = cv2.dilate(marks, np.ones((5, 5), np.uint8))
-        img = cv2.inpaint(img, marks, 6, cv2.INPAINT_TELEA)
+def clean(img, areas):
+    """Made-up glyphs the painting left outside the screens (status-bar text on a phone's rim, button labels on the
+    dashboard, marks on a mount) filled in from around them. An area is a polygon, whose pixels clearly brighter than
+    their surroundings are inpainted, or {"poly": [...], "all": true}, inpainted whole (a label on a plain face)."""
+    for area in areas:
+        poly = np.int32(np.round(area['poly'] if isinstance(area, dict) else area))
+        x0, y0 = np.maximum(poly.min(0) - 40, 0)
+        x1, y1 = np.minimum(poly.max(0) + 41, (img.shape[1], img.shape[0]))
+        crop = np.ascontiguousarray(img[y0:y1, x0:x1])
+        m = np.zeros(crop.shape[:2], np.uint8)
+        cv2.fillPoly(m, [poly - (x0, y0)], 1)
+        if not (isinstance(area, dict) and area.get('all')):
+            lum = crop.astype(np.float32).mean(2)
+            local = cv2.medianBlur(np.uint8(lum), 31).astype(np.float32)
+            m = ((lum - local > 18) & (m > 0)).astype(np.uint8)
+            m = cv2.dilate(m, np.ones((5, 5), np.uint8))
+        img[y0:y1, x0:x1] = cv2.inpaint(crop, m, 6, cv2.INPAINT_TELEA)
     return img
 
 
 def compose(product, slug, entry, screens, overlays):
     src = os.path.join(ROOT, product, 'wiki', 'art-src')
     painting = np.asarray(Image.open(os.path.join(src, 'painted', slug + '.webp')).convert('RGB'))
-    img = clean(painting.copy(), entry.get('clean', []))
+    base = clean(painting.copy(), entry.get('clean', []))
+    img = base.copy()
     for phone in entry['phones']:
         lay_phone(img, painting, phone, screens, overlays)
     for phone in entry['phones']:
         k = keep_mask(img.shape, phone, painting)
         if k.any():
-            img = np.uint8(img * (1 - k) + painting * k + 0.5)
-    return Image.fromarray(img)
+            img = np.uint8(img * (1 - k) + base * k + 0.5)
+    out = Image.fromarray(img)
+    if entry.get('crop'):
+        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size.
+        out = out.crop(tuple(entry['crop'])).resize(out.size, Image.LANCZOS)
+    return out
 
 
 def check(product, slug, entry, out, folder):
@@ -315,19 +331,24 @@ def main(argv):
         make_screens(product, games, frames)
         return
     folder = rest[rest.index('--check') + 1] if '--check' in rest else None
-    only = [a for a in rest if not a.startswith('--') and a != folder]
+    blank = rest[rest.index('--blank') + 1] if '--blank' in rest else None
+    only = [a for a in rest if not a.startswith('--') and a not in (folder, blank)]
     src = os.path.join(ROOT, product, 'wiki', 'art-src')
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in spec['screens']}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')
                 for name in ('status-bar', 'home')}
+    if blank:
+        # The paintings with the same new front but the screen switched off: dial-free sources for outpainting.
+        screens = {name: Image.new('RGB', im.size) for name, im in screens.items()}
+        os.makedirs(blank, exist_ok=True)
     for slug, entry in spec['entries'].items():
         if only and slug not in only:
             continue
         for phone in entry['phones']:
-            phone.setdefault('overlays', spec['screens'][phone['screen']].get('overlays', []))
+            phone.setdefault('overlays', [] if blank else spec['screens'][phone['screen']].get('overlays', []))
         out = compose(product, slug, entry, screens, overlays)
-        out.save(os.path.join(src, slug + '.webp'), 'WEBP', quality=90, method=6)
+        out.save(os.path.join(blank or src, slug + '.webp'), 'WEBP', quality=90, method=6)
         if folder:
             check(product, slug, entry, out, folder)
         print(product, slug, 'phones', len(entry['phones']))
