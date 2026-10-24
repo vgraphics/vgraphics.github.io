@@ -107,6 +107,16 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
   points that match the pictures. The hub's copy lives in the VHub repo (`hub/index.html`, its policy page and
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
+Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
+Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
+check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
+`exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
+`speedometer-wallpaper/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
+the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
+adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
+too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
+exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
+
 ## Chapter stepper
 
 Every page with chapters shows a stepper at the screen's right edge, just left of the scrollbar and centred on its
@@ -127,16 +137,6 @@ focusing a bullet shows the chapter's name.
   so it never takes a tap meant for the page (touch screens 1320px wide or more get 44px bullets that take taps).
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
-
-Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
-Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
-check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
-`exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
-`speedometer-wallpaper/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
-the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
-adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
-too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
-exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
 
 ## Search engines
 
