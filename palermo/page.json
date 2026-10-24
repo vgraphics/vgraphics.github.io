@@ -209,7 +209,7 @@
           "type": "soundtrack",
           "album": "Palermo Noir (Original Soundtrack)",
           "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Palermo Noir soundtrack cover: a shaft of light on an empty chair with a black rose, in a Palermo piazza at night before the cathedral, in gold engraved lines on navy" },
-          "background": null,
+          "background": { "wide": { "src": "img/scene-night", "widths": [960, 1376] }, "tall": { "src": "img/scene-night", "widths": [960] } },
           "youtube": null,
           "soundcloud": null,
           "tracks": [
