@@ -17,6 +17,14 @@
     }
   }
 
+  function drop(e) {
+    var pic = e.currentTarget
+    var a = pic.parentNode
+    if (!a) return
+    a.removeChild(pic)
+    a.classList.remove('has-me')
+  }
+
   function show() {
     var me = read()
     var links = document.querySelectorAll('.site-nav a.n-hub')
@@ -36,6 +44,8 @@
         pic.width = 22
         pic.height = 22
         pic.decoding = 'async'
+        // A picture the browser can't draw (an old marker, a bad file) leaves the link as it was, never a broken icon.
+        pic.addEventListener('error', drop)
         a.insertBefore(pic, a.firstChild)
       }
       if (pic.getAttribute('src') !== me.pic) pic.setAttribute('src', me.pic)
