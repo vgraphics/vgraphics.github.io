@@ -15,7 +15,7 @@
   background: var(--surface);
   color: var(--ink);
   box-shadow: inset 0 -4px 0 var(--line), 0 8px 16px -8px rgba(26, 18, 48, 0.55);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 120ms ease-out, box-shadow 120ms ease-out;
 }
 .reset svg { width: 24px; height: 24px; }
@@ -43,7 +43,7 @@
   border-radius: 8.1% / 7.1%;
   box-shadow: 0 22px 34px -16px rgba(26, 18, 48, 0.6), 0 4px 10px -4px rgba(26, 18, 48, 0.3);
 }
-.arrow { cursor: pointer; outline: none; }
+.arrow { cursor: var(--cursor-link, pointer); outline: none; }
 .arrow .halo { stroke: transparent; transition: stroke 150ms; }
 .arrow:focus-visible .halo { stroke: color-mix(in srgb, var(--ink) 16%, transparent); }
 .arrow .lo { stroke: var(--o); }

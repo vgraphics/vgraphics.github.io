@@ -93,6 +93,17 @@
    the page's own colour, deepened a little to show on the light page. On the body, where the page's class sets
    --accent. */
 body { --scrollbar: color-mix(in srgb, var(--accent) 75%, var(--ink)); }
+/* VGraphics' own cursors on the company pages and the hub (George's picks, 24 Oct 2026; tools/make-cursors.mjs): the
+   ink pointer, the ink glove with the sky-blue cuff, the ink "i" with its sky-blue dot, edged in white for the dark
+   theme. assets/cursors.css puts them to use; mice and trackpads only. Each number pair is the file's data-hotspot
+   (tools/check-site.mjs checks). */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/assets/img/cursor.svg") 3 2, auto;
+    --cursor-link: url("/assets/img/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/assets/img/cursor-text.svg") 16 18, text;
+  }
+}
 
 /* Moving between the company pages: the header stays, the page crossfades (browsers that support it). */
 @media (prefers-reduced-motion: no-preference) {
@@ -187,7 +198,7 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   min-height: 52px; padding: 0 24px; border-radius: 999px;
-  font: 700 1rem/1 var(--body); text-decoration: none; cursor: pointer; border: 2px solid transparent;
+  font: 700 1rem/1 var(--body); text-decoration: none; cursor: var(--cursor-link, pointer); border: 2px solid transparent;
   transition: transform var(--fast) var(--ease), background-color var(--fast) var(--ease), color var(--fast) var(--ease);
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
@@ -440,7 +451,7 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
     & .menu-toggle {
       display: inline-flex; align-items: center; justify-content: center; flex: none;
       width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; border-radius: 50%;
-      background: transparent; color: var(--ink); cursor: pointer;
+      background: transparent; color: var(--ink); cursor: var(--cursor-link, pointer);
       transition: background-color var(--fast) var(--ease);
     }
     & .menu-toggle:hover { background: var(--surface-2); }

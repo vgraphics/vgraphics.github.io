@@ -284,7 +284,8 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   </script>` : ''}
   ${[...fonts, ...art.preloads].join('\n  ')}
   <link rel="stylesheet" href="/${slug}/theme/theme.css">
-  <link rel="stylesheet" href="/assets/product.css">${gallery ? `
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/assets/cursors.css">${gallery ? `
   <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
@@ -313,7 +314,7 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
 `
   // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF.
   const file = path.endsWith('/') ? join(path.slice(1), 'index.html') : path.slice(1)
-  return { html: html.replace(/\r\n/g, '\n'), file, css: themeCss(slug, t), problems: checkTheme(t) }
+  return { html: html.replace(/\r\n/g, '\n'), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

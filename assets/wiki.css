@@ -44,7 +44,7 @@
 /* Buttons: chunky and pressable, in the pack's call-to-action colours */
 .w-btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 8px;
-  min-height: 46px; padding: 0 22px; border: 0; border-radius: 999px; cursor: pointer;
+  min-height: 46px; padding: 0 22px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer);
   background: var(--cta); color: var(--cta-ink); box-shadow: 0 5px 0 var(--cta-edge);
   font: var(--display-weight) 1.08rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); text-decoration: none;
 }
@@ -58,7 +58,7 @@
 .w-new { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
 .w-new a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.96); color: #3B3355; text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); }
 .w-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
-.w-chip { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: pointer; background: var(--surface); color: var(--ink); box-shadow: 0 4px 0 var(--line); font: var(--display-weight) 1rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.w-chip { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer); background: var(--surface); color: var(--ink); box-shadow: 0 4px 0 var(--line); font: var(--display-weight) 1rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .w-chip b { margin-left: 4px; opacity: 0.7; }
 .w-chip.on { background: var(--cta); color: var(--cta-ink); box-shadow: 0 4px 0 var(--cta-edge); }
 .w-sec { padding-bottom: 6px; }
@@ -102,7 +102,7 @@
 .w-board { display: block; width: 100%; max-width: 340px; height: auto; overflow: visible; touch-action: manipulation; }
 .w-board .card { fill: #FFFDF8; stroke: #E4DACA; stroke-width: 2; }
 .w-board .dot { fill: #C0AF95; }
-.w-board .piece { cursor: pointer; outline: none; }
+.w-board .piece { cursor: var(--cursor-link, pointer); outline: none; }
 .w-board .piece:focus-visible { filter: drop-shadow(0 0 5px var(--accent)); }
 .w-board .pulse { animation: w-pulse 0.7s ease-in-out 2; }
 @keyframes w-pulse { 50% { opacity: 0.35; } }

@@ -4,6 +4,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { readCursors } from './cursors.mjs'
 import { wikiArt } from './hero.mjs'
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
@@ -11,9 +12,10 @@ export const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 // Every product with a landing page made from the template, in folder order.
 export const products = () => readdirSync(root).filter((d) => existsSync(join(root, d, 'page.json'))).sort()
 
+// cursors: its theme pack's cursor pictures as theme.css tokens, and what's wrong with them (tools/lib/cursors.mjs)
 export function loadProduct(slug) {
   const read = (...p) => JSON.parse(readFileSync(join(root, slug, ...p), 'utf8'))
-  return { slug, page: read('page.json'), theme: read('theme', 'theme.json') }
+  return { slug, page: read('page.json'), theme: read('theme', 'theme.json'), cursors: readCursors(join(root, slug, 'theme'), `/${slug}/theme`) }
 }
 
 // A product's other pages made from the same template: <product>/<page>/page.json (exitwise/ranking, exitwise/room,
