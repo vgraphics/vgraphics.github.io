@@ -475,6 +475,7 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   box-shadow: inset var(--feature-stripe, 0px) 0 0 var(--accent); /* optional */
   color: var(--feature-text, var(--ink)); /* optional */
 }
+.features + .cards { margin-top: 28px; } /* a section's features followed by its cards (Palermo's day chapter) */
 .features .mark { flex: none; width: 30px; height: 30px; margin-top: 3px; color: var(--c); }
 .features b {
   display: block;
