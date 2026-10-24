@@ -69,9 +69,10 @@ VHub repo writes, get the menu once its `hub/index.html` and policy page add the
 row. The product pages' button comes with their header (`tools/lib/partials.mjs`).
 
 check-site holds every HTML file the site serves to this, whoever writes it (George, 24 Oct 2026: "Find all
-instances."): each header must be the company header or a product's, with its phone menu, every page must have one
-(a web game's play page excepted), and a menu may not sit outside them. A page made by hand with a header of its own
-fails: make it with the template. Pages another repo writes that don't have the menu yet are listed in
+instances."): the company and product headers must come with their phone menu, any other header with a menu in it
+fails (one made by hand: make the page with the template), and so does a `<nav>` outside `<main>`, the footer and
+those headers. A header without a menu (a logo and a language button, as on the party games' doors) passes. Pages
+another repo writes that don't have the menu yet are listed in
 `BURGER_PENDING` in `tools/check-site.mjs` and printed on every run as pending instead of failing; check-site says when
 an entry can go.
 

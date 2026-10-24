@@ -134,20 +134,21 @@ for (const file of pages) {
 // pages. Find all instances."). This looks at every HTML file GitHub Pages serves, whoever writes it (this repo, the
 // template, the Deployer's hub/ and play pages): the files git tracks or would add, so only what git ignores
 // (_mockups/, .claude/worktrees/) is left out.
-// - A <header> is the company header (class "site-head" with its nav.site-nav, whose button /assets/menu.js adds) or a
-//   product's (class "top", from tools/lib/partials.mjs, with the menu-toggle button and the nav it opens), on a page
-//   that loads /assets/menu.js and the header's stylesheet. Any other header (one made by hand) fails.
-// - A menu (nav.site-nav, nav.subnav) sits in one of those headers.
-// - Every page has one of those headers, except a web game's play page (<game>/play/, the game on the whole screen).
+// - The company header (class "site-head", with the nav.site-nav whose button /assets/menu.js adds) and a product's
+//   (class "top", from tools/lib/partials.mjs, with the menu-toggle button and the nav it opens) come on a page that
+//   loads /assets/menu.js and the header's stylesheet.
+// - Any other <header> holding a menu (a <nav>, or two links or more) fails: it is one made by hand, without the phone
+//   menu. A header with no menu (a logo and a language button, as the party games' doors have) has nothing to fold.
+// - A <nav> outside <main>, the footers and the headers is a menu of its own, without the phone menu, and fails.
 // - A document's source (a page.json "document" block: a policy another repo owns, which the template sets into its
 //   page) is the text alone: one <main>, no header, menu or footer of its own, kept out of search (noindex) and pointing
 //   to its page (canonical).
 // BURGER_PENDING: folders another repo writes, whose pages may lack the phone menu until that repo's release brings it.
 // Their problems are printed as pending instead of failing; once none is left, check-site says to remove the entry.
 const BURGER_PENDING = {
-  // VHub's pages, which the Deployer's vhub-hub writes: VHub feature/vhub-first-use-fixes (a5083a3) loads menu.js in
+  // VHub's pages, which the Deployer's vhub-hub writes: VHub a5083a3 (on VHub main since 880438d) loads menu.js in
   // hub/index.html and docs/privacy/vhub-privacy.html. Remove this entry once vhub-hub has shipped it (due 24 Oct 2026).
-  'hub/': 'until vhub-hub ships VHub a5083a3',
+  'hub/': 'until vhub-hub ships VHub 880438d',
 }
 const MENU_JS = '<script src="/assets/menu.js" defer></script>'
 const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
@@ -159,7 +160,6 @@ const burger = (file, message) => {
   if (dir) pending[dir].push(`${file} ${message}`)
   else report(file, 'burger', message)
 }
-const menus = (html) => html.match(/<nav\b[^>]*class="[^"]*\b(site-nav|subnav)\b/g)?.length ?? 0
 for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')
   if (sources.has(file)) {
@@ -171,23 +171,25 @@ for (const file of served) {
     if (got !== want) report(file, 'source', `canonical is ${got ?? 'missing'}, want ${want}, the page it is set into`)
     continue
   }
-  const heads = [...html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)]
-  for (const [, attrs, inner] of heads) {
+  let ours = 0
+  for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
     const cls = attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []
     if (cls.includes('site-head')) {
+      ours++
       if (!/<nav\b[^>]*class="site-nav"/.test(inner)) burger(file, 'has a company header without the nav.site-nav that /assets/menu.js folds')
       if (!html.includes('href="/assets/vgraphics.css"')) burger(file, 'has the company header without /assets/vgraphics.css, which draws its phone menu')
     } else if (cls.includes('top')) {
+      ours++
       const id = inner.match(/<button class="menu-toggle"[^>]*aria-controls="([^"]+)"/)?.[1]
       if (!id || !inner.includes(`id="${id}"`)) burger(file, 'has a product header without the menu-toggle button for its nav (tools/lib/partials.mjs writes both)')
       if (!html.includes('href="/assets/product.css"')) burger(file, 'has a product header without /assets/product.css, which draws its phone menu')
-    } else {
-      burger(file, `has <header${attrs}>, neither the company header nor a product's, so no phone menu: make the page with the template (tools/build-pages.mjs) or give it the company header`)
+    } else if (/<nav\b/.test(inner) || (inner.match(/<a\b[^>]*\shref=/g)?.length ?? 0) >= 2) {
+      burger(file, `has <header${attrs}> with a menu, neither the company header nor a product's, so no phone menu: make the page with the template (tools/build-pages.mjs) or give it the company header`)
     }
   }
-  if (heads.length && !html.includes(MENU_JS)) burger(file, `does not load /assets/menu.js, the phone menu (${MENU_JS})`)
-  if (menus(html) > heads.reduce((n, [, , inner]) => n + menus(inner), 0)) burger(file, 'has a menu (nav.site-nav or nav.subnav) outside the company or product header, with no phone menu')
-  if (!heads.length && /<html\b/i.test(html) && !/^[^/]+\/play\//.test(file)) burger(file, "has no company or product header, so no phone menu: every page has one, except a web game's play page")
+  if (ours && !html.includes(MENU_JS)) burger(file, `does not load /assets/menu.js, the phone menu (${MENU_JS})`)
+  const rest = html.replace(/<(main|footer|header)\b[^>]*>[\s\S]*?<\/\1>/g, '')
+  if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
