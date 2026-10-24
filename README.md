@@ -29,7 +29,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu on every served page, the policies' sources) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
