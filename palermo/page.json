@@ -70,13 +70,15 @@
       "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
     }
   },
-  "intro": {
-    "id": "game",
-    "eyebrow": "A party game for phones and a TV",
-    "title": "Everybody plays, even the narrator",
-    "lede": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek."
-  },
   "sections": [
+    {
+      "id": "game",
+      "eyebrow": "A party game for phones and a TV",
+      "title": "Everybody plays, even the narrator",
+      "intro": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek.",
+      "figure": { "src": "img/cast/doctor", "widths": [260, 403], "width": 403, "height": 1067 },
+      "blocks": []
+    },
     {
       "id": "deal",
       "eyebrow": "Chapter 1 · The deal",
