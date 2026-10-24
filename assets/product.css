@@ -278,8 +278,10 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 @media (hover: none) { .anchor { opacity: 0.7; } }
 .more { display: inline-flex; align-items: center; min-height: 44px; margin-top: 18px; font-weight: 800; }
 
-/* Gallery: the screenshots in a row that scrolls sideways, from the content's edge to the screen's. */
+/* Gallery: the screenshots in a row that scrolls sideways, from the content's edge to the screen's. Its sides fade
+   at the screen's edges while more lies that way (fade-edges.js, through its class fade-edges). */
 .shots {
+  --fade-size: 48px;
   display: flex;
   gap: 20px;
   overflow-x: auto;
@@ -775,6 +777,19 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .menu-open .subnav {
     visibility: visible; opacity: 1; transform: none;
     transition: opacity 200ms ease-out, transform 200ms ease-out;
+  }
+  /* Taller than a short screen, the panel scrolls (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"):
+     its bottom edge fades into the panel while more lies below. fade-edges.js keeps --fade-end current; the fade is
+     drawn here in the panel's colour (--fade-mode: overlay), since a mask would fade the panel's own background too.
+     It sticks to the visible bottom, over the padding, and takes no room (its row's gap aside). */
+  .subnav { --fade-mode: overlay; }
+  .subnav::after {
+    content: ""; position: sticky; bottom: 0; z-index: 1; pointer-events: none;
+    height: var(--fade-end, 0px); margin-top: calc(-4px - var(--fade-end, 0px));
+    background: linear-gradient(transparent, var(--page));
+  }
+  @supports not selector(::-webkit-scrollbar) {
+    .subnav { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
   }
   .top .subnav a { min-height: 52px; padding: 0 16px; font-size: 1.15rem; border-radius: var(--radius-sm); color: var(--ink); text-shadow: none; }
   .top .subnav a.wide-only { display: inline-flex; }

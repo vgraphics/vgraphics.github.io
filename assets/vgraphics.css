@@ -89,6 +89,10 @@
 .pg-apps { --accent: var(--coral); }
 .pg-services { --accent: var(--sky); }
 .pg-hub { --accent: var(--violet); --on-accent: var(--on-violet); }
+/* Scrollbars of boxes that scroll on their own (the phone menu; the hub's tabs and tables, in its own hub.css) in
+   the page's own colour, deepened a little to show on the light page. On the body, where the page's class sets
+   --accent. */
+body { --scrollbar: color-mix(in srgb, var(--accent) 75%, var(--ink)); }
 
 /* Moving between the company pages: the header stays, the page crossfades (browsers that support it). */
 @media (prefers-reduced-motion: no-preference) {
@@ -465,6 +469,16 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
     & .menu-open .site-nav {
       visibility: visible; opacity: 1; transform: none;
       transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+    }
+    /* Taller than a short screen, the panel scrolls (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own
+       box"): a thin scrollbar in the company's colour, and its bottom edge fades into the panel while more lies below.
+       fade-edges.js keeps --fade-end current; the fade is drawn here in the panel's colour (--fade-mode: overlay),
+       since a mask would fade the panel's own background too. It sticks to the visible bottom, over the padding. */
+    & .site-nav { --fade-mode: overlay; scrollbar-width: thin; scrollbar-color: var(--scrollbar) transparent; }
+    & .site-nav::after {
+      content: ""; position: sticky; bottom: 0; z-index: 1; pointer-events: none;
+      height: var(--fade-end, 0px); margin-top: calc(-4px - var(--fade-end, 0px));
+      background: linear-gradient(transparent, var(--bg));
     }
     & .site-nav a { min-height: 52px; padding: 0 16px; gap: 12px; border-radius: var(--r-sm); font: 700 1.2rem/1 var(--display); letter-spacing: -0.01em; }
     & .site-nav a::before { display: block; width: 10px; height: 10px; }
