@@ -439,9 +439,9 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .cards.side .card > div { display: grid; align-content: start; gap: 12px; }
 /* A deck of many pictures (page.json "dense": a game's role cards): smaller cards, as many to a row as fit, and two
    to a row on phones rather than one long column. */
-.cards.media.dense { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.cards.media.dense { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 18px; }
 .cards.media.dense .card { gap: 8px; padding: 16px; }
-.cards.media.dense .card > img { width: 86%; margin: 0 auto 4px; }
+.cards.media.dense .card > img { width: 100%; margin: 0 auto 4px; }
 .cards.media.dense h3 { font-size: 1.2rem; }
 .cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
 @media (max-width: 560px) {
