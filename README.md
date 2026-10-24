@@ -33,7 +33,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu and the cursors on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
@@ -106,6 +106,27 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
 - check-site holds every served page to this: the link, no bare `cursor: pointer`, `text` or `default`, and click
   points that match the pictures. The hub's copy lives in the VHub repo (`hub/index.html`, its policy page and
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
+
+## Chapter stepper
+
+Every page with chapters shows a stepper at the screen's right edge, just left of the scrollbar and centred on its
+height (George, 24 Oct 2026: "a stepper that updated during scroll. I can click any bullet. Hovering shows what chapter
+it is. One chapter per anchor. This is a generic rule for all games and projects so implement for all."). One bullet
+per chapter: the chapter being read fills as the page scrolls, a click scrolls to any chapter, and hovering or
+focusing a bullet shows the chapter's name.
+
+- A chapter is what a link in the page's `<main>` points at: a heading's link to itself (`a.anchor`, which the template
+  gives every section heading) or a link in a `<nav>` of the page's own ("On this page" in the policies). A page with
+  fewer than two shows no stepper. To give a page chapters, give its headings their links, never a stepper by hand.
+- `assets/stepper.js` builds it and links `assets/stepper.css`, in the page's own colour (the scrollbar's: `--scrollbar`,
+  else the accent). `assets/menu.js` loads it on every page with a header, so the template's pages, the hand-made ones
+  and the hub's get it with no line of their own.
+- It fades out while the closing card, the footer or a fixed panel (the try page's statistics question, the
+  soundtrack's mini-bar) reaches it, and hides on a screen too short for it. Mice and trackpads get the whole stepper;
+  touch screens get a slim rail of small dots that only shows where the reader is, with no names and no taps of its own,
+  so it never takes a tap meant for the page (touch screens 1320px wide or more get 44px bullets that take taps).
+- check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
+  chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and

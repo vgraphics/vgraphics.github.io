@@ -1,0 +1,137 @@
+/* The chapter stepper (George, 24 Oct 2026: "On the right of the page, very right left of scrollbar, in mid vertical, a
+   stepper that updated during scroll."): assets/stepper.js builds it from the page's chapters and links this file on a
+   page with two or more. One piece for every page: it reads the page's own tokens, so it wears each product's colour,
+   the scrollbar's (--sb from assets/product.css; --scrollbar on the company pages and the hub), on a frosted pill of the
+   page's colour, so it reads over the key art, a stage or the page alike. It sits 2px from the scrollbar, in the 20px
+   the pages keep between their content and the screen's edge.
+   Mice and trackpads get the whole stepper: bullets to click, each chapter's name beside its bullet on hover or focus.
+   Touch screens get a slim rail of small dots that only shows where the reader is (below). */
+.vg-stepper {
+  --st-c: var(--sb, var(--scrollbar, var(--accent, currentColor)));
+  --st-page: var(--page, var(--bg, Canvas));
+  --st-ink: var(--ink, CanvasText);
+  --st-w: 20px;
+  --st-dot: 10px;
+  /* The bullets share the screen's height less the header's and the mini-bar's room: 24px each at least (with the
+     24px apart a click needs, WCAG 2.5.8), 30px at most. On a shorter screen stepper.js hides it (.cramped). */
+  --st-step: clamp(24px, calc((100vh - 192px) / var(--n, 6)), 30px);
+  position: fixed;
+  top: 50%;
+  right: 2px;
+  z-index: 20; /* under the header (30) and its phone menu, the mini-bar and the try page's question (50) */
+  padding: 4px 0;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--st-page) 72%, transparent);
+  -webkit-backdrop-filter: blur(10px) saturate(1.3);
+  backdrop-filter: blur(10px) saturate(1.3);
+  box-shadow: 0 0 0 1px color-mix(in srgb, var(--st-c) 22%, transparent), 0 10px 24px -14px rgb(0 0 0 / 0.5);
+  translate: 0 -50%;
+  transition: opacity 200ms ease-out;
+}
+@supports (height: 100svh) {
+  .vg-stepper { --st-step: clamp(24px, calc((100svh - 192px) / var(--n, 6)), 30px); }
+}
+@supports not ((-webkit-backdrop-filter: blur(1px)) or (backdrop-filter: blur(1px))) {
+  .vg-stepper { background: color-mix(in srgb, var(--st-page) 94%, transparent); }
+}
+.vg-stepper[hidden], .vg-stepper li[hidden] { display: none; }
+.vg-stepper ol { position: relative; margin: 0; padding: 0; list-style: none; }
+/* The rail from the first bullet to the last, and over it, in the colour, how far the reader has come (--progress,
+   0 to 1, which stepper.js sets) */
+.vg-stepper ol::before, .vg-stepper ol::after {
+  content: "";
+  position: absolute;
+  z-index: 0;
+  top: calc(var(--st-step) / 2);
+  bottom: calc(var(--st-step) / 2);
+  left: 50%;
+  width: 2px;
+  margin-left: -1px;
+  border-radius: 2px;
+  background: color-mix(in srgb, var(--st-c) 28%, transparent);
+}
+.vg-stepper ol::after {
+  background: var(--st-c);
+  transform-origin: top;
+  transform: scaleY(var(--progress, 0));
+  transition: transform 320ms cubic-bezier(.2, .8, .2, 1);
+}
+.vg-stepper a {
+  position: relative;
+  z-index: 1;
+  display: grid;
+  place-items: center;
+  width: var(--st-w);
+  height: var(--st-step);
+  border-radius: 999px;
+  color: var(--st-c);
+  text-decoration: none;
+  cursor: var(--cursor-link, pointer);
+}
+/* A bullet: hollow ahead, filled behind, and the chapter being read larger, with a halo. Its face is the page's colour,
+   so the rail doesn't show through it. */
+.vg-stepper-dot {
+  width: var(--st-dot);
+  height: var(--st-dot);
+  border: 2px solid currentColor;
+  border-radius: 50%;
+  background: var(--st-page);
+  scale: 0.8;
+  transition: scale 200ms ease-out, background-color 200ms ease-out, box-shadow 200ms ease-out;
+}
+.vg-stepper .done .vg-stepper-dot { background: currentColor; scale: 0.7; }
+.vg-stepper [aria-current] .vg-stepper-dot { background: currentColor; scale: 1.2; box-shadow: 0 0 0 4px color-mix(in srgb, currentColor 24%, transparent); }
+.vg-stepper a:hover .vg-stepper-dot { scale: 1.2; }
+/* The chapter's name, left of its bullet, in the page's ink and label face (as the heading links' "Link copied") */
+.vg-stepper-label {
+  position: absolute;
+  top: 50%;
+  right: calc(100% + 10px);
+  max-width: min(20rem, 100vw - 72px);
+  overflow: hidden;
+  padding: 7px 12px;
+  border-radius: var(--radius-sm, var(--r-sm, 10px));
+  background: var(--st-ink);
+  color: var(--st-page);
+  box-shadow: 0 10px 24px -12px rgb(0 0 0 / 0.55);
+  font: var(--label-weight, 700) 0.85rem/1.2 var(--label-font, var(--body, sans-serif));
+  text-transform: var(--label-case, none);
+  letter-spacing: var(--label-tracking, normal);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  opacity: 0;
+  translate: 6px -50%;
+  pointer-events: none;
+  transition: opacity 150ms ease-out, translate 150ms ease-out;
+}
+.vg-stepper a:hover .vg-stepper-label, .vg-stepper a:focus-visible .vg-stepper-label { opacity: 1; translate: 0 -50%; }
+/* Clear of the page's foot and the fixed panels: stepper.js sets .away while one reaches it. It comes back while it
+   holds the keyboard's focus. */
+.vg-stepper.away:not(:focus-within) { opacity: 0; pointer-events: none; }
+.vg-stepper.cramped { visibility: hidden; }
+
+/* Touch screens (phones, tablets): a slim rail of small dots at the very edge, over the page's margin, that only
+   shows where the reader is: no names, and no taps of its own (a tap goes to the page under it), so it never takes a
+   tap meant for the page and needs no 44px target. Its links stay for screen readers and keyboards. */
+@media not all and (hover: hover) and (pointer: fine) {
+  .vg-stepper { --st-w: 12px; --st-dot: 7px; --st-step: 14px; padding: 3px 0; pointer-events: none; }
+  .vg-stepper ol::before, .vg-stepper ol::after { width: 1.5px; margin-left: -0.75px; }
+  .vg-stepper-dot { border-width: 1.5px; }
+  .vg-stepper [aria-current] .vg-stepper-dot { box-shadow: 0 0 0 3px color-mix(in srgb, currentColor 24%, transparent); }
+}
+/* Touch screens wide enough for a 44px bullet beside the content (a big tablet held sideways, a touch monitor): the
+   stepper takes taps, on 44px bullets. Names show on keyboard focus, as touch has no hover. */
+@media (pointer: coarse) and (min-width: 1320px) {
+  .vg-stepper { --st-w: 44px; --st-dot: 12px; --st-step: 44px; right: 6px; padding: 0; pointer-events: auto; }
+  .vg-stepper-dot { border-width: 2px; }
+}
+@media (forced-colors: active) {
+  .vg-stepper-dot { forced-color-adjust: none; border-color: LinkText; background: Canvas; }
+  .vg-stepper .done .vg-stepper-dot, .vg-stepper [aria-current] .vg-stepper-dot { background: LinkText; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .vg-stepper, .vg-stepper *, .vg-stepper ol::after { transition: none; }
+}
+@media print {
+  .vg-stepper { display: none; }
+}
