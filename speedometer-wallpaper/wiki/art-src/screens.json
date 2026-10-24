@@ -1,5 +1,5 @@
 {
- "about": "Which of the app's screens goes into which phone of the wiki's paintings (tools/make-wiki-screens.py). screens: where each comes from: a render-test golden in the Games repo (SpeedometerWallpaper/<module>/src/test/screenshots/<file>, module logic_render unless named; crop = the part shown, in px), or a frame of the demo drive that DemoDriveFramesTest renders with the wallpaper's own renderer (<style>/<frame>.jpg, 1080x2400); overlays = Android's status bar and the key art's home screen, laid on after the screen is fitted. entries: each painting's phones: glass = the painted glass's corners (top left, top right, bottom right, bottom left, in the painting's px), the screen, and how it sits: bezel and corner as shares of the glass's short side; stretch = how much the screen may be stretched to the painted display's shape (1.12 = 12 %, more for a phone seen at an angle), past which it is padded with its own edge pixels (fill edge, the default), mirrored (mirror) or a colour; light, camera, blur, spill; keep = where the painting stays on top (a hand, a clamp, the dashboard), with feather in px and test skin for a hand; clean = places on a phone's rim where made-up text is filled in.",
+ "about": "Which of the app's screens goes into which phone of the wiki's paintings (tools/make-wiki-screens.py). screens: where each comes from: a render-test golden in the Games repo (SpeedometerWallpaper/<module>/src/test/screenshots/<file>, module logic_render unless named; crop = the part shown, in px), or a frame of the demo drive that DemoDriveFramesTest renders with the wallpaper's own renderer (<style>/<frame>.jpg, 1080x2400); overlays = Android's status bar and the key art's home screen, laid on after the screen is fitted. entries: each painting's phones: glass = the painted glass's corners (top left, top right, bottom right, bottom left, in the painting's px), the screen, and how it sits: bezel and corner as shares of the glass's short side; stretch = how much the screen may be stretched to the painted display's shape (1.12 = 12 %, more for a phone seen at an angle), past which it is padded with its own edge pixels (fill edge, the default), mirrored (mirror) or a colour; light, camera, blur, spill; keep = where the painting stays on top (a hand, a clamp, the dashboard), with feather in px and test skin for a hand; clean = made-up glyphs outside the screens filled in (a polygon: its bright marks; {poly, all: true}: the whole area, for a label on a plain face); crop = a box the finished picture is cut to and scaled back from (a flat band the painting came with).",
  "screens": {
   "amber-night-drive-101": {
    "from": "frame",
@@ -310,6 +310,113 @@
      ],
      "screen": "amber-night-drive-101"
     }
+   ],
+   "clean": [
+    {
+     "poly": [
+      [
+       1550,
+       2015
+      ],
+      [
+       1615,
+       2015
+      ],
+      [
+       1615,
+       2064
+      ],
+      [
+       1550,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       1696,
+       2015
+      ],
+      [
+       1782,
+       2015
+      ],
+      [
+       1782,
+       2064
+      ],
+      [
+       1696,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2408,
+       2015
+      ],
+      [
+       2490,
+       2015
+      ],
+      [
+       2490,
+       2064
+      ],
+      [
+       2408,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2568,
+       2015
+      ],
+      [
+       2664,
+       2015
+      ],
+      [
+       2664,
+       2064
+      ],
+      [
+       2568,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2748,
+       2015
+      ],
+      [
+       2824,
+       2015
+      ],
+      [
+       2824,
+       2064
+      ],
+      [
+       2748,
+       2064
+      ]
+     ],
+     "all": true
+    }
    ]
   },
   "big-gauge-tile": {
@@ -460,6 +567,50 @@
       ]
      ],
      "screen": "amber-night-power"
+    }
+   ],
+   "clean": [
+    {
+     "poly": [
+      [
+       3166,
+       1550
+      ],
+      [
+       3212,
+       1550
+      ],
+      [
+       3212,
+       1592
+      ],
+      [
+       3166,
+       1592
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       3162,
+       1602
+      ],
+      [
+       3198,
+       1602
+      ],
+      [
+       3198,
+       1648
+      ],
+      [
+       3162,
+       1648
+      ]
+     ],
+     "all": true
     }
    ]
   },
@@ -743,6 +894,26 @@
       }
      ]
     }
+   ],
+   "clean": [
+    [
+     [
+      1700,
+      1895
+     ],
+     [
+      2420,
+      1935
+     ],
+     [
+      2420,
+      1990
+     ],
+     [
+      1700,
+      1950
+     ]
+    ]
    ]
   },
   "music-calls-messages": {
@@ -768,6 +939,12 @@
      ],
      "screen": "future-glass-amber"
     }
+   ],
+   "crop": [
+    288,
+    0,
+    3808,
+    2012
    ]
   },
   "power": {

@@ -100,7 +100,7 @@ export function soundtrack(b, { slug, theme }) {
               </div>
             </div>
             <div class="ost-tracks">
-              <ol class="ost-list" aria-label="Tracks">
+              <ol class="ost-list fade-edges" aria-label="Tracks">
                 ${rows.join('\n                ')}
               </ol>${links.length ? `
               <p class="ost-links"><span>Listen on</span>${links.join('')}</p>` : ''}
