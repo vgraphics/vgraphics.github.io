@@ -1,6 +1,7 @@
 // A product's web version on its page (the template's "try" block, tools/lib/try.mjs): the real app's engine
 // (vgtry.js and its files in the block's engine folder, which only the Deployer writes) live in the phone, with the
-// product's start-up (assets/startup/) in its screen. The panel is built from the engine's own catalog: its styles with
+// product's start-up (assets/startup/) in its screen. The engine loads when the page is quiet, behind the start-up's
+// dark launch; the start-up plays when the phone comes into view, so a visitor waits for it alone. The panel is built from the engine's own catalog: its styles with
 // their pictures, Free or the price, their layouts, and the app's settings in the app's words. The look shown is kept
 // in this browser and can be shared as a link (#style=…). The store links carry the style shown, for the app to open
 // on it after the install.
@@ -8,7 +9,8 @@
 // Statistics (Google Analytics 4, the product's web stream) only with a measurement id, and only after the visitor says
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
-// share, fps_low, and exception for the page's and the engine's errors (20 at most).
+// share, fps_low, web_first_frame (ms from the phone coming into view to the wallpaper showing), and exception for the
+// page's and the engine's errors (20 at most).
 (function () {
   'use strict';
 
@@ -447,17 +449,35 @@
     return /(^|&)style=/.test(hash) ? hash : '';
   };
 
-  var started = false;
-  function begin() {
-    if (started) return;
-    started = true;
+  // The page's timeline, for measuring how long a visitor waits: performance marks (try:load, try:view, try:ready, and
+  // the start-up's vg-startup:play, :art, :done), printed as a table with ?timing in the address.
+  var mark = function (name) {
+    try { performance.mark('try:' + name); } catch (e) { /* no User Timing: nothing to mark */ }
+  };
+  var timeline = function () {
+    if (!/[?&]timing/.test(location.search) || !window.performance || !performance.getEntriesByType) return;
+    var marks = performance.getEntriesByType('mark').filter(function (m) { return /^(try|vg-startup):/.test(m.name); });
+    var view = marks.filter(function (m) { return m.name === 'try:view'; })[0];
+    console.table(marks.map(function (m) {
+      return { step: m.name, ms: Math.round(m.startTime), 'after view': view ? Math.round(m.startTime - view.startTime) : '' };
+    }));
+  };
+
+  // The engine loads as soon as the page is quiet, behind the dark launch, so the visitor who scrolls to the phone waits
+  // only for the start-up; the start-up plays when the phone comes into view. Save-Data visitors load it on view.
+  var startup = null;
+  var prepared = false;
+  function prepare() {
+    if (prepared) return;
+    prepared = true;
+    mark('load');
     setState('starting');
-    if (analytics.on && !stored(CONSENT_KEY)) askConsent();
-    var startup = window.VGStartup ? window.VGStartup.mount(screen, {
+    startup = window.VGStartup ? window.VGStartup.mount(screen, {
       art: config.startup.art,
       minMs: config.startup.minMs,
       base: config.startup.base,
-      label: 'Loading ' + config.name
+      label: 'Loading ' + config.name,
+      wait: true
     }) : null;
     // The engine's script and Skia's wasm report nothing as they arrive: the bar creeps meanwhile, then follows the
     // engine's own files (fonts, words, the style's art), and fills when the engine is ready.
@@ -478,6 +498,7 @@
       });
     }).then(function (engineApp) {
       clearInterval(creeping);
+      mark('ready');
       app = engineApp;
       readyAt = now();
       wire();
@@ -486,6 +507,9 @@
       return startup ? startup.ready() : { shownMs: 0 };
     }).then(function (shown) {
       analytics.event('splash_shown', { ms: shown.shownMs });
+      var marks = window.performance && performance.getEntriesByName ? performance.getEntriesByName('try:view') : [];
+      if (marks.length) analytics.event('web_first_frame', { ms: Math.round(now() - marks[0].startTime) });
+      timeline();
     }).catch(function (failure) {
       clearInterval(creeping);
       var reason = failure && failure.reason ? failure.reason : 'failed';
@@ -497,10 +521,31 @@
         $('.try-fallback-text').textContent = MESSAGES[reason];
         $('.try-fallback').hidden = false;
       }
+      timeline();
     });
   }
 
-  // It starts when the phone comes into view (4.5 MB: not for visitors who never scroll to it), at once for a share link.
+  var started = false;
+  function begin() {
+    if (started) return;
+    started = true;
+    mark('view');
+    prepare();
+    if (startup) startup.play();
+    if (analytics.on && !stored(CONSENT_KEY)) askConsent();
+  }
+
+  var saveData = navigator.connection && navigator.connection.saveData;
+  if (!saveData) {
+    var quiet = function () {
+      if (window.requestIdleCallback) window.requestIdleCallback(prepare, { timeout: 2000 });
+      else setTimeout(prepare, 200);
+    };
+    if (document.readyState === 'complete') quiet();
+    else window.addEventListener('load', quiet);
+  }
+
+  // The start-up plays when the phone comes into view, at once for a share link.
   if (sharedLook()) {
     window.scrollTo({ top: window.scrollY + device.getBoundingClientRect().top - SCROLL_OFFSET });
     begin();

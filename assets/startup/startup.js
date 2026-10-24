@@ -5,15 +5,21 @@
 // ArrowPuzzle/Assets/WebGLTemplates/Portfolio/brand-intro/), the bar Exitwise's web loader's (exitwise/play/), in the
 // product's colours (assets/startup/startup.css).
 //
-//   var startup = VGStartup.mount(host, { art: { tall, wide }, alt, minMs, base })
+//   var startup = VGStartup.mount(host, { art: { tall, wide }, alt, minMs, base, wait })
 //     host    the element it fills (a try page's phone screen); it must be positioned
 //     art     the welcome art: { tall: { src, widths }, wide: { src, widths } }, as src-<width>.webp files; the tall
 //             one when the host is taller than it is wide
 //     minMs   how long the welcome art stays at least (2000: George, 22 Oct 2026)
 //     base    where the intro films are (/assets/startup/)
+//     wait    true: only the dark launch until play(), so the product can load first (a try page loads its engine
+//             before the visitor scrolls to it, and plays the start-up when its phone comes into view)
+//   startup.play()             starts the intro, when mounted with wait
 //   startup.progress(0 to 1)   moves the bar; it never goes back
 //   startup.ready()            the product is ready: resolves { shownMs } once the art has had its time and the bar
-//                              its hop, as the start-up fades away (shownMs: how long the welcome art was on screen)
+//                              its hop, as the start-up fades away (shownMs: how long the welcome art was on screen).
+//                              Ready during the intro, the intro gives way at once (INTEGRATION.md, "Never delay");
+//                              ready before it started, it plays whole, as an app's does.
+// Each step leaves a performance mark (vg-startup:play, :art, :done) for timing a page.
 //   startup.fail(message)      the product can't start: the bar gives way to the message
 (function () {
   'use strict';
@@ -24,8 +30,12 @@
   var STILL_MS = 1000; // reduced motion: the film's last frame, held
   var FADE_MS = 400;
   var ART_WAIT_MS = 4000;
+  var DECODE_WAIT_MS = 300;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
   var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
+  var mark = function (name) {
+    try { performance.mark('vg-startup:' + name); } catch (e) { /* no User Timing: nothing to mark */ }
+  };
 
   var BAR = '<div class="bar-shadow"></div>' +
     '<div class="bar-hop"><div class="bar-jelly">' +
@@ -196,17 +206,25 @@
     var shown = function () {
       if (!artReady || !introOver || shownAt) return;
       shownAt = now();
+      mark('art');
       layer.classList.add('settle');
       onArt.splice(0).forEach(function (then) { then(); });
     };
     var drawn = function () {
+      if (artReady) return;
       layer.classList.add('with-art');
       artReady = true;
       shown();
     };
+    // Decoded before it fades in, so it never shows half drawn; but a decode a busy or unpainted page holds back must not
+    // hold the start-up: the art fades in over 0.3 s anyway.
     var decode = function () {
-      if (img.decode) img.decode().then(drawn, drawn);
-      else drawn();
+      if (img.decode) {
+        img.decode().then(drawn, drawn);
+        setTimeout(drawn, DECODE_WAIT_MS);
+      } else {
+        drawn();
+      }
     };
     // Without its art the start-up still runs, on the launch colour.
     var noArt = function () {
@@ -235,49 +253,69 @@
       }, quick ? 300 : 500);
     };
     var skip = function () { finishIntro(false); };
-    if (reduce) {
-      video.addEventListener('loadedmetadata', function () { video.currentTime = Math.max(0, video.duration - 0.05); });
-      setTimeout(skip, STILL_MS);
-    } else {
-      video.addEventListener('playing', function () { playing = true; });
-      video.addEventListener('ended', skip);
-      var started = video.play();
-      if (started && started.catch) started.catch(skip);
-      setTimeout(function () { if (!playing) skip(); }, NO_FRAME_MS);
-      setTimeout(skip, CAP_MS);
-    }
-    video.addEventListener('error', skip);
-    video.lastChild.addEventListener('error', skip);
-    intro.addEventListener('pointerdown', function (event) {
-      event.stopPropagation();
-      skip();
-    });
-    document.addEventListener('keydown', skip);
+    var played = false;
+    var readyEarly = false;
+    var onPlay = [];
+    var play = function () {
+      if (played) return;
+      played = true;
+      mark('play');
+      if (reduce) {
+        video.addEventListener('loadedmetadata', function () { video.currentTime = Math.max(0, video.duration - 0.05); });
+        setTimeout(skip, STILL_MS);
+      } else {
+        video.addEventListener('playing', function () { playing = true; });
+        video.addEventListener('ended', skip);
+        var started = video.play();
+        if (started && started.catch) started.catch(skip);
+        setTimeout(function () { if (!playing) skip(); }, NO_FRAME_MS);
+        setTimeout(skip, CAP_MS);
+      }
+      video.addEventListener('error', skip);
+      video.lastChild.addEventListener('error', skip);
+      intro.addEventListener('pointerdown', function (event) {
+        event.stopPropagation();
+        skip();
+      });
+      document.addEventListener('keydown', skip);
+      onPlay.splice(0).forEach(function (then) { then(); });
+    };
+    if (!options.wait) play();
 
     return {
+      play: play,
       progress: function (fraction) {
         bar.show(Math.max(0, Math.min(1, fraction)));
       },
       ready: function () {
         return new Promise(function (resolve) {
-          // A product ready while the intro still plays cuts it short; the art then gets its full time.
-          finishIntro(true);
           var leave = function () {
             var wait = Math.max(0, shownAt + minMs - now());
             setTimeout(function () {
               bar.whenSettled(function () {
                 var shownMs = Math.round(now() - shownAt);
+                mark('done');
                 layer.classList.add('done');
                 setTimeout(function () { layer.remove(); }, FADE_MS);
                 resolve({ shownMs: shownMs });
               });
             }, wait);
           };
-          if (shownAt) leave();
+          var go = function () {
+            // Ready while the intro plays: it gives way at once and the art gets its full time. Ready before it began
+            // (the product loaded while out of view): the intro plays whole.
+            if (!readyEarly) finishIntro(true);
+            if (shownAt) leave();
+            else {
+              onArt.push(leave);
+              // Art still on its way this long after the product is ready: the product doesn't wait for it.
+              setTimeout(noArt, ART_WAIT_MS);
+            }
+          };
+          if (played) go();
           else {
-            onArt.push(leave);
-            // Art still on its way this long after the product is ready: the product doesn't wait for it.
-            setTimeout(noArt, ART_WAIT_MS);
+            readyEarly = true;
+            onPlay.push(go);
           }
         });
       },
