@@ -1,0 +1,104 @@
+{
+  "title": "Try Speedometer Live Wallpaper online: car dashboard demo",
+  "description": "Try the Speedometer live wallpaper in your browser: every car dashboard style live, with your real GPS speed, battery and clock. Then get it on Google Play.",
+  "social": {
+    "title": "Try Speedometer Live Wallpaper online",
+    "description": "The real live wallpaper, running in your browser: every car dashboard style, with your real speed, battery and clock.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/play/#app",
+        "name": "Speedometer Live Wallpaper, online demo",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/play/",
+        "description": "The Speedometer live wallpaper running in the browser: every car dashboard style, its layouts and settings, with the browser's real clock, battery and GPS speed where it has them, and a demo drive for the rest.",
+        "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
+        "applicationCategory": "DesktopEnhancementApplication",
+        "operatingSystem": "Any, in a browser with WebAssembly",
+        "browserRequirements": "Requires WebAssembly with garbage collection: Chrome or Edge 119, Firefox 120, Safari 18.2 or later",
+        "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
+        "about": { "@id": "https://vgraphics.gr/speedometer-wallpaper/#app" },
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "MobileApplication", "@id": "https://vgraphics.gr/speedometer-wallpaper/#app", "name": "Speedometer Live Wallpaper", "url": "https://vgraphics.gr/speedometer-wallpaper/" },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://vgraphics.gr/apps/" },
+          { "@type": "ListItem", "position": 3, "name": "Speedometer Live Wallpaper", "item": "https://vgraphics.gr/speedometer-wallpaper/" },
+          { "@type": "ListItem", "position": 4, "name": "Try it online", "item": "https://vgraphics.gr/speedometer-wallpaper/play/" }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "Try Speedometer Live Wallpaper online",
+    "lead": "Your phone's dashboard, <em>live in your browser.</em>",
+    "align": "left",
+    "badges": [{ "href": "#try", "label": "Start the live demo", "icon": "down", "button": true }, "google-play"]
+  },
+  "sections": [
+    {
+      "id": "try",
+      "eyebrow": "Live demo",
+      "title": "Try the car dashboard wallpaper",
+      "intro": "This is the real live wallpaper: the code that draws it on your phone draws it here. Pick a style, try its layouts and colours, change the settings and tap the big gauge. The premium styles are fully live too.",
+      "blocks": [
+        {
+          "type": "try",
+          "product": "speedometer",
+          "engine": "/speedometer-wallpaper/play/app/",
+          "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
+          "referrer": "utm_source=vgraphics.gr&utm_medium=try_online",
+          "measurementId": null,
+          "prices": { "premium": "€0.99", "all": "€4.99" },
+          "qr": { "src": "/speedometer-wallpaper/play/img/play-qr.svg", "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play" },
+          "startup": {
+            "art": {
+              "tall": { "src": "/speedometer-wallpaper/img/key-art-tall", "widths": [480, 720, 1080, 1440] },
+              "wide": { "src": "/speedometer-wallpaper/img/key-art", "widths": [960, 1440, 1920, 2560, 3200] }
+            },
+            "minMs": 2000
+          },
+          "labels": {
+            "screen": "Speedometer Live Wallpaper, live: tap the big gauge to switch it",
+            "gauge": "Tap the big gauge to switch between power, CPU clock and speed, as on your phone.",
+            "gps": "Use my real speed",
+            "get": "Set it as your wallpaper",
+            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one.",
+            "unlock": "Each premium style is €0.99, once, or unlock them all for €4.99."
+          }
+        }
+      ]
+    },
+    {
+      "id": "real",
+      "eyebrow": "Real or demo",
+      "title": "Real readings, where your browser has them",
+      "intro": "The demo feeds the wallpaper the same readings your phone would, through the app's own code, so units, clocks and warning lights behave as they do in the app.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "The clock", "text": "Your browser's own time, in your time zone, with your 12 or 24-hour clock." },
+            { "title": "Your battery", "text": "Its level and charging, in Chrome, Edge and Samsung Internet. Safari and Firefox show the demo's." },
+            { "title": "Your real speed", "text": "Tap Use my real speed and allow your location. It stays in your browser. Watch it only as a passenger." },
+            { "title": "A demo drive for the rest", "text": "Power, CPU clock, RAM, signal, Bluetooth and the music come from a 26-second drive, as in the app's previews." }
+          ]
+        }
+      ]
+    }
+  ],
+  "cta": {
+    "title": "Put the dashboard on your phone",
+    "text": "Free on Google Play, for Android phones and tablets, with every style you tried here.",
+    "badges": ["google-play"]
+  }
+}

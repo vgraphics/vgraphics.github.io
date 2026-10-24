@@ -1,0 +1,700 @@
+cluster__badge_cpu	CPU
+cluster__badge_power	POWER
+cluster__badge_speed	SPEED
+cluster__format_battery	BATT %1$d%%
+cluster__format_percent	%1$d%%
+cluster__format_signal	SIG %1$d%%
+cluster__format_temperature	TEMP %1$d%%
+cluster__format_wifi	WIFI %1$d%%
+cluster__fuel_empty	E
+cluster__fuel_empty_digit	0
+cluster__fuel_full	F
+cluster__fuel_full_digit	1
+cluster__label_date	DATE
+cluster__label_mbps	MBPS
+cluster__label_ram_percent	RAM %
+cluster__label_ram_tens	RAM × 10%
+cluster__label_signal	SIGNAL
+cluster__label_time	TIME
+cluster__label_wifi	WI-FI
+cluster__mode_cpu	CPU
+cluster__mode_power	PWR
+cluster__mode_speed	SPD
+cluster__temperature_cold	C
+cluster__temperature_hot	H
+component__update_bar__button_restart__label	Restart
+component__update_bar__message	An update is ready to install.
+design__amber_night__name	Amber Night
+design__aura__name	Aura
+design__carbon__name	Carbon
+design__circuit__name	Circuit
+design__classic__name	Classic
+design__cockpit__name	Cockpit
+design__future__name	Future
+design__glass__name	Glass
+design__graphite__name	Graphite
+design__harbour__name	Harbour
+design__horizon__name	Horizon
+design__prism__name	Prism
+design__pulse__name	Pulse
+design__rally__name	Rally
+design__steel__name	Steel
+design__torque__name	Torque
+design__track_night__name	Track Night
+design__vector__name	Vector
+design__vintage__name	Vintage
+design_look__choice_accent__label	Accent
+design_look__choice_amber__label	Amber
+design_look__choice_black__label	Black
+design_look__choice_black_chrome__label	Black chrome
+design_look__choice_black_facets__label	Black facets
+design_look__choice_blue__label	Blue
+design_look__choice_champagne__label	Champagne
+design_look__choice_chrome__label	Chrome
+design_look__choice_clear__label	Clear
+design_look__choice_crimson__label	Crimson
+design_look__choice_cyan__label	Cyan
+design_look__choice_deep__label	Deep
+design_look__choice_design__label	Design
+design_look__choice_dimmed__label	Dimmed
+design_look__choice_ember__label	Ember
+design_look__choice_emerald__label	Emerald
+design_look__choice_gold__label	Gold
+design_look__choice_graphite_facets__label	Graphite facets
+design_look__choice_graphite_leather__label	Graphite leather
+design_look__choice_green__label	Green
+design_look__choice_gunmetal__label	Gunmetal
+design_look__choice_high__label	High
+design_look__choice_ice_blue__label	Ice blue
+design_look__choice_ice_white__label	Ice white
+design_look__choice_ivory__label	Ivory
+design_look__choice_light_edge__label	Light edge
+design_look__choice_lime__label	Lime
+design_look__choice_low__label	Low
+design_look__choice_luminous__label	Luminous
+design_look__choice_magenta__label	Magenta
+design_look__choice_midnight__label	Midnight
+design_look__choice_mocha_leather__label	Mocha leather
+design_look__choice_navy_suede__label	Navy suede
+design_look__choice_needle__label	Needle
+design_look__choice_night_suede__label	Night suede
+design_look__choice_normal__label	Normal
+design_look__choice_orange__label	Orange
+design_look__choice_purple__label	Purple
+design_look__choice_race_red__label	Race red
+design_look__choice_red__label	Red
+design_look__choice_same_as_speed__label	Same as speed
+design_look__choice_silver__label	Silver
+design_look__choice_smoked__label	Smoked
+design_look__choice_sweep_color__label	Sweep colour
+design_look__choice_track_blue__label	Track blue
+design_look__choice_violet__label	Violet
+design_look__choice_white__label	White
+design_look__option_accent__label	Accent
+design_look__option_background__label	Background
+design_look__option_glass__label	Glass
+design_look__option_glow__label	Glow
+design_look__option_glow_color__label	Glow colour
+design_look__option_leading_line__label	Leading line
+design_look__option_needle__label	Needle
+design_look__option_pointer__label	Pointer
+design_look__option_ram_panel__label	RAM panel
+design_look__option_rings__label	Rings
+design_look__option_shift_light__label	Shift light
+design_look__option_speed_panel__label	Speed panel
+design_look__option_sweep__label	Sweep
+editor__element__annunciator__name	Annunciator
+editor__element__battery__name	Battery
+editor__element__big__name	Main gauge
+editor__element__clock__name	Clock
+editor__element__console__name	Console
+editor__element__counts__name	Calls and messages
+editor__element__display__name	Display
+editor__element__lamps__name	Warning lights
+editor__element__link_speed__name	Link speed
+editor__element__low_battery__name	Low battery light
+editor__element__meters__name	Bar meters
+editor__element__music__name	Music
+editor__element__plate__name	Plate
+editor__element__ram__name	RAM
+editor__element__shift_lights__name	Shift lights
+editor__element__signal__name	Signal
+editor__element__status__name	Status
+editor__element__strip__name	Info strip
+editor__element__temperature__name	Temperature
+editor__element__warnings__name	Warning lights
+editor__element__wifi__name	Wi-Fi
+gauge__battery__temperature_percent	TEMP %1$d%%
+gauge__battery__word_low	LOW
+gauge__big__label_cpu	CPU %
+gauge__big__label_kmh	km/h
+gauge__big__label_mph	mph
+gauge__big__label_no_gps	NO GPS
+gauge__big__label_power	WATTS
+gauge__captions__bluetooth	BLUETOOTH
+gauge__captions__high_temperature	HIGH TEMP
+gauge__captions__low_battery	LOW BATT
+gauge__captions__low_temperature	LOW TEMP
+gauge__future__calls#one	CALL
+gauge__future__calls#other	CALLS
+gauge__future__cold	C
+gauge__future__fuel_empty	E
+gauge__future__fuel_full	F
+gauge__future__hot	H
+gauge__future__label_signal	SIGNAL
+gauge__future__messages#one	MESSAGE
+gauge__future__messages#other	MESSAGES
+gauge__future__music_off_subtitle	Turn them on in the app
+gauge__future__music_off_title	MUSIC AND CALLS ARE OFF
+gauge__future__music_plate	MUSIC
+gauge__future__nothing_playing	NOTHING PLAYING
+gauge__generic__percent	%1$d%%
+gauge__generic__unavailable	--
+gauge__meters__label_battery	BATT
+gauge__meters__label_ram	RAM
+gauge__meters__label_signal	SIG
+gauge__meters__label_temperature	TEMP
+gauge__meters__label_wifi	WIFI
+gauge__rally__button_mode	MODE
+gauge__rally__button_reset	RESET
+gauge__rings__label_battery	BATTERY
+gauge__rings__label_ram	RAM
+gauge__rings__label_signal	SIGNAL
+gauge__rings__label_wifi	WI-FI
+gauge__tape__label_ram	RAM %
+gauge__wifi__link_speed	%1$d MBPS
+gauge__wifi__status_connected	CONNECTED
+gauge__wifi__status_disabled	DISABLED
+gauge__wifi__status_mobile_data	MOBILE DATA
+gauge__wifi__status_no_network	NO NETWORK
+gauge__wifi__word_on	ON
+generic__app_name	Speedometer Live Wallpaper
+generic__button_back__content_description	Back
+generic__button_cancel__label	Cancel
+generic__button_ok__label	OK
+preview__future__song_artist	VGraphics
+preview__future__song_title	Night Drive
+screen__access__body	Future shows the song that's playing, with its cover and the volume, and how many calls you missed and messages you haven't read.\n\nFor that, Android has to give this app notification access. Android will warn that the app could read all your notifications: it only reads the song that's playing and counts missed calls and messages.\n\nNothing leaves your phone. You can turn the access off any time in Android's settings.
+screen__access__button_allowed__label	Allowed
+screen__access__button_done__label	Done
+screen__access__button_later__label	Not now
+screen__access__button_open__label	Open Android settings
+screen__access__hero__body	Future can show the song that's playing, and how many calls and messages you missed. Android has to allow it first.
+screen__access__hero__subtitle	For the Future style
+screen__access__message_no_settings	This phone has no notification access page.
+screen__access__row_counts__subtitle	Only how many, never who or what they say
+screen__access__row_counts__title	Missed calls and messages
+screen__access__row_privacy__subtitle	Turn it off any time in Android's settings
+screen__access__row_privacy__title	Nothing leaves your phone
+screen__access__row_song__subtitle	Its title, cover and the volume
+screen__access__row_song__title	The song that's playing
+screen__access__section_reads__label	What it reads
+screen__access__status_on	Turned on. Future now shows your music, calls and messages.
+screen__access__title	Music, calls and messages
+screen__access__top_bar__title	Notification access
+screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song and counts missed calls and messages.
+screen__app_settings__ad_choices_failed__message	Couldn't open your ad choices. Please try again.
+screen__app_settings__clock__format_follow_phone	Follow the phone
+screen__app_settings__clock__format_h12	12-hour
+screen__app_settings__clock__format_h24	24-hour
+screen__app_settings__clock__summary_seconds_off	seconds off
+screen__app_settings__clock__summary_seconds_on	seconds on
+screen__app_settings__clock_format_sheet__subtitle	How new styles show the time.
+screen__app_settings__clock_format_sheet__title	Clock
+screen__app_settings__clock_seconds_sheet__option_off	Hide seconds
+screen__app_settings__clock_seconds_sheet__option_on	Show seconds
+screen__app_settings__clock_seconds_sheet__subtitle	Whether new styles show the seconds.
+screen__app_settings__clock_seconds_sheet__title	Seconds
+screen__app_settings__copied__message	Every style now has %1$s's settings.
+screen__app_settings__copy_confirm__button_copy__label	Copy
+screen__app_settings__copy_confirm__message	Every style gets %1$s's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.
+screen__app_settings__copy_confirm__title	Copy to all styles?
+screen__app_settings__copy_source_sheet__subtitle	Pick the style whose settings every style gets.
+screen__app_settings__copy_source_sheet__title	Copy settings from
+screen__app_settings__foot__no_version	© G. Vergidis · VGraphics
+screen__app_settings__foot__version	Version %1$s · © G. Vergidis · VGraphics
+screen__app_settings__gps_blocked__button_open_settings__label	Open settings
+screen__app_settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
+screen__app_settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
+screen__app_settings__gps_rationale__button_continue__label	Continue
+screen__app_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It's used only to read your speed and never leaves the phone.
+screen__app_settings__gps_rationale__title	GPS speed
+screen__app_settings__licence_barlow__title	Barlow Condensed · SIL Open Font License 1.1
+screen__app_settings__licence_dseg__title	DSEG7 · SIL Open Font License 1.1
+screen__app_settings__licence_roboto__title	Roboto · Apache License 2.0
+screen__app_settings__licences_sheet__subtitle	The fonts in the app and the licences they come with.
+screen__app_settings__licences_sheet__title	Licences
+screen__app_settings__motion__balanced	Balanced
+screen__app_settings__motion__balanced_note	60 frames a second while a needle moves, nothing while they're still. Android's Battery saver switches to Saver.
+screen__app_settings__motion__saver	Saver
+screen__app_settings__motion__saver_note	30 frames a second while a needle moves, nothing while they're still. The lightest on your battery.
+screen__app_settings__motion__smooth	Smooth
+screen__app_settings__motion__smooth_note	Your screen's full rate while a needle moves, nothing while they're still. Android's Battery saver switches to Saver.
+screen__app_settings__motion__title	Motion and battery
+screen__app_settings__no_browser__message	No app on this phone can open that page.
+screen__app_settings__play_unavailable__message	Google Play isn't available right now.
+screen__app_settings__purchase_failed__message	The purchase didn't go through.
+screen__app_settings__restore_failed__message	Couldn't restore your purchases. Please try again.
+screen__app_settings__restored__message	Purchases restored from Google Play.
+screen__app_settings__row_access__off	Notification access · off
+screen__app_settings__row_access__on	Notification access · on
+screen__app_settings__row_access__title	Music, calls and messages
+screen__app_settings__row_ad_choices__subtitle	Change what you agreed to for ads
+screen__app_settings__row_ad_choices__title	Ad choices
+screen__app_settings__row_clock__summary	%1$s · %2$s
+screen__app_settings__row_clock__title	Clock
+screen__app_settings__row_copy__subtitle	Use one style's settings everywhere
+screen__app_settings__row_copy__title	Copy settings to all styles
+screen__app_settings__row_gps__allowed	Precise location · allowed
+screen__app_settings__row_gps__off	Precise location · off
+screen__app_settings__row_gps__title	GPS speed
+screen__app_settings__row_guide__subtitle	What every gauge and lamp shows
+screen__app_settings__row_guide__title	Guide
+screen__app_settings__row_licences__title	Licences
+screen__app_settings__row_previews__subtitle	Styles move in the gallery and on their pages
+screen__app_settings__row_previews__title	Live previews
+screen__app_settings__row_privacy_policy__subtitle	vgraphics.gr
+screen__app_settings__row_privacy_policy__title	Privacy policy
+screen__app_settings__row_rate__title	Rate on Google Play
+screen__app_settings__row_restore__subtitle	Bring back styles bought on this Google account
+screen__app_settings__row_restore__title	Restore purchases
+screen__app_settings__row_style_in_use__title	Style in use
+screen__app_settings__row_tile__button_add__label	Add
+screen__app_settings__row_tile__subtitle	Switch the mode from Quick Settings
+screen__app_settings__row_tile__subtitle_manual	Edit your Quick Settings panel and drag Big gauge in
+screen__app_settings__row_tile__title	Big gauge tile
+screen__app_settings__row_unlock_all__owned	Owned
+screen__app_settings__row_unlock_all__pending	Pending
+screen__app_settings__row_unlock_all__subtitle	Every style and layout, now and later
+screen__app_settings__row_unlock_all__title	Unlock all styles
+screen__app_settings__row_vibration__subtitle	A light tick on buttons and switches
+screen__app_settings__row_vibration__title	Vibration
+screen__app_settings__row_website__title	vgraphics.gr
+screen__app_settings__save_failed__message	Couldn't save that setting. Please try again.
+screen__app_settings__section_about__title	About
+screen__app_settings__section_new_styles__title	New styles start with
+screen__app_settings__section_permissions__title	Permissions
+screen__app_settings__section_previews__title	Previews and feedback
+screen__app_settings__section_privacy__title	Privacy
+screen__app_settings__section_purchases__title	Purchases
+screen__app_settings__section_wallpaper__title	Wallpaper
+screen__app_settings__speed_unit__kmh	km/h
+screen__app_settings__speed_unit__mph	mph
+screen__app_settings__speed_unit__title	Speed unit
+screen__app_settings__tile_add_failed__message	Couldn't add the tile. Edit your Quick Settings panel and drag Big gauge in.
+screen__app_settings__tile_added__message	Tile added. Swipe down and tap Big gauge to switch the mode.
+screen__app_settings__tile_already_added__message	The Big gauge tile is already in your Quick Settings panel.
+screen__app_settings__title	Settings
+screen__app_settings__unlock_all_pending__message	Payment pending. Every style unlocks when it goes through.
+screen__app_settings__unlocked_all__message	Every style is yours.
+screen__designs__amber_night__description	Night luxury: one big amber-lit dial over a dot-matrix information display.
+screen__designs__aura__description	Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.
+screen__designs__button_buy__label	Buy for %1$s
+screen__designs__button_buy_no_price__label	Buy
+screen__designs__button_unlock_all__label	Unlock all designs for %1$s
+screen__designs__button_unlock_all_no_price__label	Unlock all designs
+screen__designs__button_use__label	Use this design
+screen__designs__carbon__description	A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.
+screen__designs__circuit__description	The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.
+screen__designs__classic__description	The 2016 dashboard: five gauges, an LCD clock and warning lights.
+screen__designs__cockpit__description	An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.
+screen__designs__free	Free
+screen__designs__future__description	The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.
+screen__designs__glass__description	A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.
+screen__designs__graphite__description	Classic, flat: a satin ring around a plain graphite dial on a dark background.
+screen__designs__harbour__description	Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.
+screen__designs__horizon__description	A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.
+screen__designs__in_use	In use
+screen__designs__message_failed	The purchase didn't go through.
+screen__designs__message_pending	Payment pending. %1$s unlocks when it goes through.
+screen__designs__message_play_unavailable	Google Play isn't available right now.
+screen__designs__message_selected	%1$s is now your wallpaper's design.
+screen__designs__message_unlock_all_pending	Payment pending. Every design unlocks when it goes through.
+screen__designs__message_unlocked_all	Every design is yours. %1$s is now your wallpaper's design.
+screen__designs__owned	Owned
+screen__designs__pending	Payment pending
+screen__designs__preview__content_description	%1$s preview
+screen__designs__prism__description	An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.
+screen__designs__pulse__description	A neon HUD of rings: every reading a ring of light around the big number, magenta on black.
+screen__designs__rally__description	Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.
+screen__designs__steel__description	Classic, refined: satin chrome around spun graphite and an ice-white LCD.
+screen__designs__title	Designs
+screen__designs__torque__description	A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.
+screen__designs__track_night__description	A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.
+screen__designs__unlock_all__note	Every paid design, including the ones still to come.
+screen__designs__vector__description	A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.
+screen__designs__vintage__description	A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.
+screen__guide__battery__body	How full your battery is. LOW lights at the low battery level, and the green bolt while the phone charges.
+screen__guide__battery__title	Battery
+screen__guide__big_gauge__content_description	The big gauge, showing %1$s
+screen__guide__big_gauge__readout	The digits above the needle show the same value. CPU clock works only on phones that let apps read it.
+screen__guide__big_gauge__switch	Pick the mode in the style's settings or with the Big gauge tile. On many phones a tap on the gauge switches it too, but not on Samsung's home screen.
+screen__guide__chapter_big_gauge__title	Big gauge
+screen__guide__chapter_clock__title	Date and time
+screen__guide__chapter_lamps__title	Warning lamps
+screen__guide__chapter_music__title	Music, calls and messages
+screen__guide__chapter_small_gauges__title	Small gauges
+screen__guide__chapter_tile__title	Big gauge tile
+screen__guide__chip_big_gauge__label	Big gauge
+screen__guide__chip_clock__label	Clock
+screen__guide__chip_lamps__label	Lamps
+screen__guide__chip_music__label	Music
+screen__guide__chip_small_gauges__label	Small gauges
+screen__guide__chip_tile__label	Tile
+screen__guide__clock__body	The LCD under the big gauge shows the date and time. Pick the time format, date order, separators and seconds in the style's settings.
+screen__guide__lamp_bluetooth__subtitle	While Bluetooth is on
+screen__guide__lamp_bluetooth__title	Bluetooth
+screen__guide__lamp_charging__subtitle	The bolt on the battery gauge, while the phone charges
+screen__guide__lamp_charging__title	Charging
+screen__guide__lamp_high_temperature__subtitle	Battery hotter than %1$d °C, unless you change it
+screen__guide__lamp_high_temperature__title	High temperature
+screen__guide__lamp_low_battery__subtitle	At or below %1$d %%, unless you change it
+screen__guide__lamp_low_battery__title	Low battery
+screen__guide__lamp_low_temperature__subtitle	Battery colder than %1$d °C, unless you change it
+screen__guide__lamp_low_temperature__title	Low temperature
+screen__guide__lamps__body	Each lamp lights only when it has something to tell you. Switch any of them off, or change when it lights, in the style's settings.
+screen__guide__mode_cpu_clock__body	How fast the processor runs, as a share of its top speed
+screen__guide__mode_gps_speed__body	Your speed, with a red mark at the drive's top speed
+screen__guide__mode_power__body	Watts into the battery, or out of it with a minus
+screen__guide__music__access	For that, Android has to give the app notification access. Turn it on in App settings, under Permissions. Nothing leaves your phone.
+screen__guide__music__body	The Future style shows the song that's playing, and how many calls you missed and messages you haven't read.
+screen__guide__music_counts__subtitle	Only how many, never who or what
+screen__guide__music_counts__title	Missed calls and messages
+screen__guide__music_song__subtitle	With its cover and the volume
+screen__guide__music_song__title	The song that's playing
+screen__guide__ram__body	Top right: how much of the phone's memory is in use.
+screen__guide__ram__title	RAM
+screen__guide__signal__body	Top left: your mobile signal, from 0 to 4 bars.
+screen__guide__signal__title	Signal
+screen__guide__tile__body	Add the tile in App settings, or edit your Quick Settings panel and drag Big gauge in.
+screen__guide__tile__row_subtitle	Power, CPU clock and GPS speed take turns
+screen__guide__tile__row_title	Swipe down and tap Big gauge
+screen__guide__top_bar__title	Guide
+screen__guide__wifi__body	How strong your Wi-Fi signal is. The line under it reads CONNECTED with the link speed, NO NETWORK, MOBILE DATA or DISABLED.
+screen__guide__wifi__lamp	Its ON lamp is green on Wi-Fi and yellow on mobile data.
+screen__guide__wifi__title	Wi-Fi
+screen__home__button_customize__label	Customize
+screen__home__button_designs__subtitle	Classic, Future and more
+screen__home__button_designs__title	DESIGNS
+screen__home__button_guide__content_description	Guide
+screen__home__button_info__subtitle	What every gauge shows
+screen__home__button_info__title	INFO
+screen__home__button_set_wallpaper__label	Set as wallpaper
+screen__home__button_set_wallpaper__subtitle	Make it your live wallpaper
+screen__home__button_set_wallpaper__title	SET WALLPAPER
+screen__home__button_settings__content_description	Settings
+screen__home__button_settings__subtitle	Gauges, date, time and leds
+screen__home__button_settings__title	SETTINGS
+screen__home__button_styles__label	Styles
+screen__home__button_wallpaper_on__label	On your home screen
+screen__home__footer	© G. Vergidis · VGraphics
+screen__home__logo__content_description	Speedometer Live Wallpaper by VGraphics
+screen__home__now_showing__click_label	Open this style
+screen__home__now_showing__live	· live
+screen__home__picker_missing__message	This phone has no live wallpaper picker. Set it from your launcher's wallpaper settings.
+screen__info__led_bluetooth__body	Bluetooth: lights while Bluetooth is on.
+screen__info__led_high_temperature__body	High temperature: lights when the battery is hotter than the high temperature, 45 °C unless you change it.
+screen__info__led_low_battery__body	Low battery: lights when the battery is at or below the low battery level, 15 % unless you change it.
+screen__info__led_low_temperature__body	Low temperature: lights when the battery is colder than the low temperature, 0 °C unless you change it.
+screen__info__picture_cpu_clock__caption	CPU clock
+screen__info__picture_gps_speed__caption	GPS speed
+screen__info__picture_mobile_data__caption	On mobile data
+screen__info__picture_power__caption	Power
+screen__info__picture_wifi__caption	On Wi-Fi
+screen__info__section_battery__body	The battery gauge shows how full your battery is.
+screen__info__section_battery__charging	The green bolt lights while the phone charges.
+screen__info__section_battery__low	The LOW led lights at the low battery level.
+screen__info__section_battery__temperature	The small dial shows the battery's temperature, from the low temperature (C) to the high one (H).
+screen__info__section_battery__title	BATTERY
+screen__info__section_big_gauge__body	The big gauge shows one of three things. Pick it in Settings, or with the Big gauge tile in your Quick Settings panel. On many phones a tap on the gauge on your home screen switches it too (Samsung's home screen doesn't pass taps to wallpapers).
+screen__info__section_big_gauge__modes	• Power: watts going into the battery (to the right) or out of it (to the left, with a minus).\n• CPU clock: how fast the processor runs, as a share of its top speed. Only on phones that allow reading it.\n• GPS speed: your speed in km/h or mph. A red mark shows the top speed of the current drive.\n\nThe digits above the needle show the same value.
+screen__info__section_big_gauge__title	BIG GAUGE
+screen__info__section_date_time__body	The LCD under the big gauge shows the date and time. The time format, date order, separators and seconds are all in Settings.
+screen__info__section_date_time__title	DATE AND TIME
+screen__info__section_leds__body	The big gauge has four warning leds. Each one can be switched off in Settings.
+screen__info__section_leds__title	WARNING LEDS
+screen__info__section_ram__body	The small gauge at the top right shows how much of the phone's memory is in use.
+screen__info__section_ram__title	RAM
+screen__info__section_signal__body	The small gauge at the top left shows your mobile signal, from 0 to 4 bars.
+screen__info__section_signal__title	SIGNAL
+screen__info__section_wifi__body	The Wi-Fi gauge shows the strength of your Wi-Fi signal.
+screen__info__section_wifi__led	The ON led is green on Wi-Fi and yellow on mobile data.
+screen__info__section_wifi__status	Under it, a status line reads CONNECTED, NO NETWORK, MOBILE DATA or DISABLED. When connected, it also shows the link speed in Mbps.
+screen__info__section_wifi__title	WI-FI
+screen__info__title	Info
+screen__intro__key_art__content_description	Speedometer Live Wallpaper: the dashboard on a phone in a car at night
+screen__intro__logo__content_description	VGraphics
+screen__intro__skip__label	Skip
+screen__layout_editor__bigger__label	Make bigger
+screen__layout_editor__button_redo__content_description	Redo
+screen__layout_editor__button_reset__content_description	Reset the layout
+screen__layout_editor__button_save__label	Save layout
+screen__layout_editor__button_undo__content_description	Undo
+screen__layout_editor__discard__body	Your new arrangement isn't saved yet.
+screen__layout_editor__discard__button_discard__label	Discard
+screen__layout_editor__discard__button_keep__label	Keep editing
+screen__layout_editor__discard__title	Discard changes?
+screen__layout_editor__element__content_description	%1$s, move
+screen__layout_editor__element__select__label	Choose
+screen__layout_editor__hint	Tap a gauge to choose it. Drag it to move it, or drag its red handle to resize it.
+screen__layout_editor__move_down__label	Move down
+screen__layout_editor__move_left__label	Move left
+screen__layout_editor__move_right__label	Move right
+screen__layout_editor__move_up__label	Move up
+screen__layout_editor__not_editable__message	This layout can't be rearranged.
+screen__layout_editor__save_failed__message	Couldn't save the layout. Try again.
+screen__layout_editor__saved__message	Layout saved. %1$s now uses it.
+screen__layout_editor__size__content_description	Size of %1$s
+screen__layout_editor__size__label	Size
+screen__layout_editor__size__value	%1$d %%
+screen__layout_editor__smaller__label	Make smaller
+screen__layout_editor__subtitle	%1$s · from %2$s
+screen__layout_editor__subtitle_custom	%1$s · %2$s
+screen__layout_editor__title	Edit layout
+screen__settings__ad_choices_failed__message	Couldn't open your ad choices. Please try again.
+screen__settings__bluetooth_led__title	Bluetooth led
+screen__settings__celsius__value	%1$d °C
+screen__settings__charging_led__title	Charging led
+screen__settings__date_order__day_month_year	Day, month, year (%1$s)
+screen__settings__date_order__month_day_year	Month, day, year (%1$s)
+screen__settings__date_order__title	Date order
+screen__settings__date_order__year_month_day	Year, month, day (%1$s)
+screen__settings__date_separator__dash	Dash (%1$s)
+screen__settings__date_separator__dot	Dot (%1$s)
+screen__settings__date_separator__none	None (%1$s)
+screen__settings__date_separator__title	Date separator
+screen__settings__gps_blocked__button_open_settings__label	Open settings
+screen__settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
+screen__settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
+screen__settings__gps_rationale__button_continue__label	Continue
+screen__settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone.
+screen__settings__gps_rationale__title	GPS speed
+screen__settings__group_design__title	Design
+screen__settings__high_temperature__title	High temperature
+screen__settings__high_temperature_led__title	High temperature led
+screen__settings__low_battery_led__title	Low battery led
+screen__settings__low_battery_level__title	Low battery level
+screen__settings__low_temperature__title	Low temperature
+screen__settings__low_temperature_led__title	Low temperature led
+screen__settings__mode__cpu_clock	CPU clock
+screen__settings__mode__gps_speed	GPS speed
+screen__settings__mode__power	Power
+screen__settings__mode__title	Mode
+screen__settings__no_browser__message	No app on this phone can open the privacy policy.
+screen__settings__percent__value	%1$d %%
+screen__settings__row_access__off	Off
+screen__settings__row_access__on	On
+screen__settings__row_access__title	Music, calls and messages
+screen__settings__row_ad_choices__subtitle	Change how ads may use your data
+screen__settings__row_ad_choices__title	Ad choices
+screen__settings__row_design__title	Design
+screen__settings__row_privacy_policy__subtitle	Opens vgraphics.gr in your browser
+screen__settings__row_privacy_policy__title	Privacy policy
+screen__settings__save_failed__message	Couldn't save that setting. Please try again.
+screen__settings__section_big_gauge__title	Big gauge
+screen__settings__section_date_time__title	Date and time
+screen__settings__section_leds__title	Leds
+screen__settings__section_privacy__title	Privacy
+screen__settings__show_seconds__title	Show seconds
+screen__settings__speed_unit__kmh	km/h
+screen__settings__speed_unit__mph	mph
+screen__settings__speed_unit__title	Speed unit
+screen__settings__tile__subtitle	Add a Big gauge tile to switch the mode from the swipe-down panel
+screen__settings__tile__title	Quick Settings tile
+screen__settings__tile_add_failed__message	Couldn't add the tile. Edit your Quick Settings panel and drag Big gauge in.
+screen__settings__tile_added__message	Tile added. Swipe down and tap Big gauge to switch the mode.
+screen__settings__tile_already_added__message	The Big gauge tile is already in your Quick Settings panel.
+screen__settings__time_format__follow_phone	Follow phone
+screen__settings__time_format__h12	12-hour
+screen__settings__time_format__h24	24-hour
+screen__settings__time_format__title	Time format
+screen__settings__time_separator__colon	Colon (%1$s)
+screen__settings__time_separator__dash	Dash (%1$s)
+screen__settings__time_separator__dot	Dot (%1$s)
+screen__settings__time_separator__none	None (%1$s)
+screen__settings__time_separator__title	Time separator
+screen__settings__title	Settings
+screen__style__button_buy__label	Buy %1$s
+screen__style__button_buy_no_price__label	Buy
+screen__style__button_edit_layout__label	Edit layout
+screen__style__button_home_grid__content_description	Home screen view
+screen__style__button_in_use__label	In use
+screen__style__button_next__content_description	Next style
+screen__style__button_pause__content_description	Pause the demo
+screen__style__button_pending__label	Payment pending
+screen__style__button_play__content_description	Play the demo
+screen__style__button_previous__content_description	Previous style
+screen__style__button_try__label	Try it
+screen__style__button_unlock_all__label	Unlock all · %1$s
+screen__style__button_unlock_all_no_price__label	Unlock all
+screen__style__button_use__label	Use this style
+screen__style__button_use_layout__label	Use this layout
+screen__style__layouts__badge_editable__content_description	You can edit it
+screen__style__layouts__badge_fixed__content_description	Fixed layout
+screen__style__layouts__card__content_description	%1$s layout, running live
+screen__style__layouts__make_your_own	Make your own
+screen__style__layouts__note_custom	Your own arrangement, made in the layout editor.
+screen__style__layouts__note_editable	Move and resize %1$s's dials with Edit layout.
+screen__style__layouts__note_fixed	%1$s is a fixed layout: its dials stay where the style puts them.
+screen__style__layouts__title	Layouts · %1$d
+screen__style__message_layout_used	%1$s now uses this layout.
+screen__style__mode_cpu__label	CPU
+screen__style__mode_power__label	Power
+screen__style__mode_speed__label	Speed
+screen__style__position	%1$d / %2$d
+screen__style__preview__content_description	%1$s running a demo drive
+screen__style_settings__access__off	Off
+screen__style_settings__access__on	On
+screen__style_settings__access__subtitle	Lets %1$s show your music, calls and messages
+screen__style_settings__access__title	Notification access
+screen__style_settings__button_reset__label	Reset to %1$s's defaults
+screen__style_settings__celsius__value	%1$d °C
+screen__style_settings__date__title	Date
+screen__style_settings__date_order__day_month_year	Day, month, year
+screen__style_settings__date_order__month_day_year	Month, day, year
+screen__style_settings__date_order__year_month_day	Year, month, day
+screen__style_settings__full_screen__button_close__content_description	Close full screen
+screen__style_settings__gps_blocked__button_open_settings__label	Open settings
+screen__style_settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
+screen__style_settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
+screen__style_settings__gps_rationale__button_continue__label	Continue
+screen__style_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone.
+screen__style_settings__gps_rationale__title	GPS speed
+screen__style_settings__lamp_bluetooth__subtitle	Lights while Bluetooth is on
+screen__style_settings__lamp_bluetooth__title	Bluetooth
+screen__style_settings__lamp_charging__subtitle	Lights while the phone charges
+screen__style_settings__lamp_charging__title	Charging
+screen__style_settings__lamp_high_temperature__level	High temperature level
+screen__style_settings__lamp_high_temperature__subtitle	Battery hotter than
+screen__style_settings__lamp_high_temperature__title	High temperature
+screen__style_settings__lamp_low_battery__level	Low battery level
+screen__style_settings__lamp_low_battery__subtitle	Lights at or below the level
+screen__style_settings__lamp_low_battery__title	Low battery
+screen__style_settings__lamp_low_temperature__level	Low temperature level
+screen__style_settings__lamp_low_temperature__subtitle	Battery colder than
+screen__style_settings__lamp_low_temperature__title	Low temperature
+screen__style_settings__mode__cpu	CPU
+screen__style_settings__mode__cpu_unavailable	CPU isn't available: this phone doesn't let apps read it.
+screen__style_settings__mode__gps_speed	GPS speed
+screen__style_settings__mode__power	Power
+screen__style_settings__needle_feel__calm	Calm
+screen__style_settings__needle_feel__smooth	Smooth
+screen__style_settings__needle_feel__sporty	Sporty
+screen__style_settings__needle_feel__title	Needle feel
+screen__style_settings__percent__value	%1$d %%
+screen__style_settings__reset_done__button_undo__label	Undo
+screen__style_settings__reset_done__message	%1$s is back to its defaults.
+screen__style_settings__save_failed__message	Couldn't save that setting. Please try again.
+screen__style_settings__seconds__title	Seconds
+screen__style_settings__section_big_gauge__title	Big gauge
+screen__style_settings__section_clock__title	Clock
+screen__style_settings__section_infotainment__title	Music, calls and messages
+screen__style_settings__section_lamps__title	Warning lamps
+screen__style_settings__section_look__title	Look
+screen__style_settings__section_units__title	Units
+screen__style_settings__separator__colon	Colon
+screen__style_settings__separator__dash	Dash
+screen__style_settings__separator__dot	Dot
+screen__style_settings__separator__none	None
+screen__style_settings__separators__title	Separators
+screen__style_settings__separators__value	%1$s · %2$s
+screen__style_settings__sheet_date_order__subtitle	How the date reads on %1$s.
+screen__style_settings__sheet_date_order__title	Date order
+screen__style_settings__sheet_date_separator__subtitle	Between the day, month and year.
+screen__style_settings__sheet_date_separator__title	Date separator
+screen__style_settings__sheet_separators__date	Date
+screen__style_settings__sheet_separators__subtitle	What splits the clock and the date on %1$s.
+screen__style_settings__sheet_separators__time	Time
+screen__style_settings__sheet_time_separator__subtitle	Between the hours, minutes and seconds.
+screen__style_settings__sheet_time_separator__title	Time separator
+screen__style_settings__stage__button_full_screen__label	Full screen
+screen__style_settings__stage__hint	Changes show here at once and save as you go.
+screen__style_settings__stage__in_use	In use
+screen__style_settings__stage__label	Style settings
+screen__style_settings__stage__preview__content_description	%1$s, live preview
+screen__style_settings__startup_sweep__subtitle	Needles sweep to the top and back when you unlock the phone
+screen__style_settings__startup_sweep__title	Start-up sweep
+screen__style_settings__time_format__h12	12 h
+screen__style_settings__time_format__h24	24 h
+screen__style_settings__time_format__phone	Phone
+screen__style_settings__top_speed_mark__subtitle	A red mark at the drive's top speed
+screen__style_settings__top_speed_mark__title	Top-speed mark
+screen__style_settings__unit__app	App (%1$s)
+screen__style_settings__unit__kmh	km/h
+screen__style_settings__unit__mph	mph
+screen__styles__button_customize__label	Customize
+screen__styles__chip_free__label	Free
+screen__styles__chip_in_use__label	In use
+screen__styles__chip_layouts__label#one	%1$d layout
+screen__styles__chip_layouts__label#other	%1$d layouts
+screen__styles__chip_live__label	Live
+screen__styles__chip_locked__label	Locked
+screen__styles__chip_owned__label	Owned
+screen__styles__chip_pending__label	Pending
+screen__styles__count#one	%1$d style
+screen__styles__count#other	%1$d styles
+screen__styles__hero__kicker	On your wallpaper
+screen__styles__message_failed	The purchase didn't go through.
+screen__styles__message_pending	Payment pending. %1$s unlocks when it goes through.
+screen__styles__message_play_unavailable	Google Play isn't available right now.
+screen__styles__message_selected	%1$s is on your wallpaper.
+screen__styles__message_unlock_all_pending	Payment pending. Every style unlocks when it goes through.
+screen__styles__message_unlocked_all	Every style is yours. %1$s is on your wallpaper.
+screen__styles__message_unlocked_all_kept	Every style is yours.
+screen__styles__message_use_failed	Couldn't switch to %1$s. Try again.
+screen__styles__section_more__label	More styles
+screen__styles__section_yours__label	Your styles
+screen__styles__title	Styles
+screen__styles__unlock_all__button_no_price__label	Unlock
+screen__styles__unlock_all__subtitle	Every style and layout, now and later
+screen__styles__unlock_all__title	Unlock all styles
+tile__big_gauge__label	Big gauge
+tile__big_gauge__label_with_mode	Big gauge: %1$s
+tile__big_gauge__mode_cpu_clock	CPU clock
+tile__big_gauge__mode_gps_speed	GPS speed
+tile__big_gauge__mode_power	Power
+variation__amber_classic__name	Classic
+variation__amber_cluster__name	Car cluster
+variation__amber_night__name	Luxury cluster
+variation__aura_tower__name	Tower
+variation__aura_twin__name	Twin
+variation__carbon__name	Race dash
+variation__carbon_classic__name	Classic
+variation__carbon_pods__name	Race pods
+variation__circuit_stack__name	Stack
+variation__circuit_wide__name	Wide
+variation__classic__name	Classic
+variation__cockpit__name	Instrument panel
+variation__cockpit_classic__name	Classic
+variation__cockpit_pair__name	Attitude pair
+variation__custom__name	Your layout
+variation__future__name	Future
+variation__glass__name	HUD
+variation__glass_column__name	Column
+variation__glass_wide__name	Wide
+variation__graphite__name	Classic
+variation__graphite_helm__name	Helm
+variation__graphite_pair__name	Speedometer and clock
+variation__harbour_bridge__name	Bridge
+variation__harbour_helm__name	Helm
+variation__horizon_hud__name	Fighter HUD
+variation__prism_twin__name	Twin
+variation__prism_wide__name	Wide
+variation__pulse_rings__name	Rings
+variation__rally__name	Rally computer
+variation__rally_classic__name	Classic
+variation__rally_cluster__name	Car cluster
+variation__steel__name	Classic
+variation__steel_cluster__name	Car cluster
+variation__steel_six__name	Six gauges
+variation__torque_stack__name	Stack
+variation__torque_wide__name	Wide
+variation__track_pods__name	Pods
+variation__track_screen__name	Screen
+variation__vector_hexagons__name	Hexagons
+variation__vintage_classic__name	Classic
+variation__vintage_cluster__name	Car cluster
+variation__vintage_console__name	Console
+variation__vintage_pair__name	Speedometer and clock
+variation__vintage_six__name	Six gauges
+wallpaper__speedometer__description	A car-dashboard live wallpaper: power, CPU clock or GPS speed, with battery, Wi-Fi, signal and RAM gauges.

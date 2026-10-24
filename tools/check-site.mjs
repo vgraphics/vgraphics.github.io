@@ -9,6 +9,7 @@ import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
 import { hotspot } from './lib/cursors.mjs'
 import { documents, pieces, products, subpages } from './lib/product.mjs'
+import { imageSize } from './lib/image-size.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -239,6 +240,27 @@ for (const dir of readdirSync(root)) {
   if (!existsSync(join(root, dir, 'page.json'))) report(join(dir, 'index.html'), 'template', 'made by hand: every product page comes from tools/build-pages.mjs (give it a page.json and a theme pack)')
 }
 
+// No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
+// width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
+// stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that
+// sets both sides crops with object-fit.)
+for (const file of served) {
+  if (sources.has(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
+    const src = tag.match(/\ssrc="([^"]+)"/)?.[1]
+    const w = Number(tag.match(/\swidth="(\d+)"/)?.[1])
+    const h = Number(tag.match(/\sheight="(\d+)"/)?.[1])
+    if (!src || !w || !h || /^(data:|[a-z]+:|\/\/)/i.test(src)) continue
+    const clean = decodeURIComponent(src.replace(/[?#].*$/, ''))
+    const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
+    const own = existsSync(target) ? imageSize(target) : null
+    if (own && Math.abs((w / h) / (own.width / own.height) - 1) > 0.01) {
+      report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
+    }
+  }
+}
+
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.
 for (const file of files.filter((f) => /\.(css|html)$/.test(f))) {
   const text = readFileSync(join(root, file), 'utf8')
@@ -306,7 +328,7 @@ for (const l of sellers) {
 
 // assets/web-ads.js: the ad switch every web game's play page loads before it decides about ads (README, "Ads on the
 // web games"). Run as a browser runs it, it must define these settings and no others, well formed, nothing switched on
-// without a publisher id, that publisher in ads.txt, and an entry for every game with a play page (<game>/play/).
+// without a publisher id, that publisher in ads.txt, and an entry for every game whose play page (<game>/play/) loads it.
 const WEB_ADS = join('assets', 'web-ads.js')
 const isObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
 if (!existsSync(join(root, WEB_ADS))) report(WEB_ADS, 'web-ads', 'missing')
@@ -347,9 +369,13 @@ else {
         report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
       }
     }
+    // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
+    // and loads no switch, so it needs no entry.
     for (const dir of readdirSync(root)) {
       if (SKIP.includes(dir)) continue
-      if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
+      const play = join(root, dir, 'play', 'index.html')
+      if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
+      if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
   }
 }
