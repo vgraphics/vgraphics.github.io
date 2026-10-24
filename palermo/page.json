@@ -49,6 +49,8 @@
     "nav": [
       { "label": "Overview", "href": "/palermo/" },
       { "label": "Wiki", "href": "/palermo/wiki/" },
+      { "label": "Gallery", "href": "/palermo/gallery/" },
+      { "label": "Map", "href": "/palermo/map/" },
       { "label": "Privacy", "href": "/palermo/privacy.html", "wide": true }
     ],
     "footer": [

@@ -1,0 +1,211 @@
+{
+  "title": "Palermo Noir gallery: the characters and art of the mafia party game",
+  "description": "The cast and the art of Palermo Noir, the hidden-role party game for phones and a TV: every role card and the scenes of a night in 1950s Palermo, drawn in gold on navy.",
+  "social": {
+    "title": "Gallery · Palermo Noir",
+    "description": "Every role card and the scenes of a night in Palermo, drawn in gold engraved lines on navy.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora walks past a lit street lamp towards the domes of Palermo under a crescent moon, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "VGraphics",
+        "item": "https://vgraphics.gr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Games",
+        "item": "https://vgraphics.gr/games/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Palermo Noir",
+        "item": "https://vgraphics.gr/palermo/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Gallery",
+        "item": "https://vgraphics.gr/palermo/gallery/"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Palermo Noir gallery",
+    "lead": "Gallery",
+    "align": "center"
+  },
+  "sections": [
+    {
+      "id": "characters",
+      "title": "The characters",
+      "intro": "Every role in the deck, as its card shows it. Click a card to see it large, then zoom in on the engraving.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "portrait",
+          "items": [
+            {
+              "title": "Known Killer",
+              "src": "/palermo/img/roles/known-killer.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Known Killer's card: a man in a dark overcoat and a fedora lights a match, a rose pinned to his lapel"
+            },
+            {
+              "title": "Hidden Killer",
+              "src": "/palermo/img/roles/hidden-killer.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Hidden Killer's card: a slim figure in a long coat, a fedora pulled low over the face, a rose on the lapel"
+            },
+            {
+              "title": "Police Officer",
+              "src": "/palermo/img/roles/officer.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Police Officer's card: an officer in a peaked cap and a buttoned uniform, writing in a notebook"
+            },
+            {
+              "title": "Doctor",
+              "src": "/palermo/img/roles/doctor.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Doctor's card: a woman in a long coat with a stethoscope and a leather doctor's bag"
+            },
+            {
+              "title": "Citizen",
+              "src": "/palermo/img/roles/baker.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "A Citizen's card: a smiling baker in an apron with a basket of bread"
+            },
+            {
+              "title": "Detective",
+              "src": "/palermo/img/roles/inspector.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Detective's card: a tall detective in a trench coat and fedora with a pipe and a magnifying glass"
+            },
+            {
+              "title": "Seer",
+              "src": "/palermo/img/roles/seer.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Seer's card: a fortune teller in a patterned headscarf holding a fan of tarot cards"
+            },
+            {
+              "title": "Bulletproof",
+              "src": "/palermo/img/roles/bulletproof.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Bulletproof card: a relieved man in a waistcoat holding up a dented pocket watch"
+            },
+            {
+              "title": "Henchman",
+              "src": "/palermo/img/roles/henchman.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key"
+            },
+            {
+              "title": "Mayor",
+              "src": "/palermo/img/roles/mayor.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Mayor's card: a stout mayor with a curled moustache, a sash and a ceremonial key"
+            },
+            {
+              "title": "Hunter",
+              "src": "/palermo/img/roles/hunter.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Hunter's card: a countryman in a flat cap and tweed with a hunting horn, his hound at his feet"
+            },
+            {
+              "title": "Lawyer",
+              "src": "/palermo/img/roles/lawyer.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Lawyer's card: a lawyer in a pinstriped suit and round spectacles, a briefcase in one hand, one finger raised"
+            },
+            {
+              "title": "Kamikaze",
+              "src": "/palermo/img/roles/kamikaze.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse"
+            },
+            {
+              "title": "Madman",
+              "src": "/palermo/img/roles/madman.webp",
+              "width": 700,
+              "height": 980,
+              "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "scenes",
+      "title": "The scenes",
+      "intro": "One night in Palermo, from the deal to the verdict, and the key art.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "items": [
+            {
+              "title": "The key art",
+              "src": "/palermo/img/key-art-wide-1440.webp",
+              "full": "/palermo/img/key-art-wide-3200.webp",
+              "width": 3200,
+              "height": 1800,
+              "alt": "A man in a fedora and a long coat walks away down a cobbled street past a lit wrought-iron street lamp, towards the church domes of Palermo under a crescent moon, with a cat on a balcony, drawn in gold engraved lines on dark navy"
+            },
+            {
+              "title": "The deal",
+              "src": "/palermo/img/scene-deal-960.webp",
+              "full": "/palermo/img/scene-deal-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy"
+            },
+            {
+              "title": "The night",
+              "src": "/palermo/img/scene-night-960.webp",
+              "full": "/palermo/img/scene-night-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy"
+            },
+            {
+              "title": "The day",
+              "src": "/palermo/img/scene-suspects-960.webp",
+              "full": "/palermo/img/scene-suspects-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles"
+            },
+            {
+              "title": "The verdict",
+              "src": "/palermo/img/scene-verdict-960.webp",
+              "full": "/palermo/img/scene-verdict-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

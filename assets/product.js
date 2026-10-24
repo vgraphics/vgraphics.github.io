@@ -111,6 +111,113 @@
     });
   }
 
+  // An album's pictures open large (build-pages.mjs, album): the arrows, the buttons or a swipe move through the
+  // album; a click on the picture (or Enter) zooms in where it was clicked, and dragging moves it; Escape, the close
+  // button or a click outside closes. The pictures load only when opened.
+  const albumItems = document.querySelectorAll(".album-item");
+  if (albumItems.length) {
+    const box = document.createElement("div");
+    box.className = "lightbox";
+    box.hidden = true;
+    box.setAttribute("role", "dialog");
+    box.setAttribute("aria-modal", "true");
+    box.innerHTML = '<figure class="lb-stage"><div class="lb-frame" tabindex="0"><img alt=""></div><figcaption></figcaption></figure>' +
+      '<button class="lb-btn lb-prev" type="button" aria-label="Previous picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button><button class="lb-btn lb-next" type="button" aria-label="Next picture"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg></button>' +
+      '<button class="lb-btn lb-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button><p class="lb-count" aria-live="polite"></p>';
+    document.body.append(box);
+    const frame = box.querySelector(".lb-frame"), img = frame.querySelector("img"), cap = box.querySelector("figcaption"), count = box.querySelector(".lb-count");
+    const [prevBtn, nextBtn, closeBtn] = box.querySelectorAll(".lb-btn");
+    const ZOOM = 2.5;
+    let items = [], at = 0, from = null, zoomed = false, pan = [0, 0], drag = null;
+    const place = () => (img.style.transform = zoomed ? `translate(${pan[0]}px, ${pan[1]}px) scale(${ZOOM})` : "");
+    const clamp = () => {
+      const mx = (img.offsetWidth * (ZOOM - 1)) / 2, my = (img.offsetHeight * (ZOOM - 1)) / 2;
+      pan = [Math.max(-mx, Math.min(mx, pan[0])), Math.max(-my, Math.min(my, pan[1]))];
+    };
+    const zoom = (on, x = 0.5, y = 0.5) => {
+      zoomed = on;
+      box.classList.toggle("zoomed", on);
+      pan = on ? [(0.5 - x) * img.offsetWidth * (ZOOM - 1), (0.5 - y) * img.offsetHeight * (ZOOM - 1)] : [0, 0];
+      clamp();
+      place();
+    };
+    const show = (i) => {
+      at = (i + items.length) % items.length;
+      const b = items[at];
+      zoom(false);
+      img.src = b.dataset.full;
+      img.width = b.dataset.w;
+      img.height = b.dataset.h;
+      img.alt = b.querySelector("img").alt;
+      cap.textContent = b.querySelector("span").textContent;
+      count.textContent = `${at + 1} of ${items.length}`;
+      box.setAttribute("aria-label", cap.textContent);
+      prevBtn.hidden = nextBtn.hidden = items.length < 2;
+    };
+    const close = () => {
+      box.hidden = true;
+      document.documentElement.classList.remove("card-open");
+      from?.focus({ preventScroll: true });
+    };
+    for (const b of albumItems) {
+      b.addEventListener("click", () => {
+        items = [...b.closest(".album").querySelectorAll(".album-item")];
+        from = b;
+        show(items.indexOf(b));
+        box.hidden = false;
+        document.documentElement.classList.add("card-open");
+        frame.focus({ preventScroll: true });
+      });
+    }
+    prevBtn.addEventListener("click", () => show(at - 1));
+    nextBtn.addEventListener("click", () => show(at + 1));
+    closeBtn.addEventListener("click", close);
+    box.addEventListener("click", (e) => e.target === box && close());
+    // A click zooms in or out; a drag moves the zoomed picture; a swipe on the whole picture moves through the album
+    img.addEventListener("pointerdown", (e) => {
+      drag = { x: e.clientX, y: e.clientY, pan: [...pan], moved: false };
+      img.setPointerCapture(e.pointerId);
+    });
+    img.addEventListener("pointermove", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x, dy = e.clientY - drag.y;
+      if (Math.hypot(dx, dy) > 5) drag.moved = true;
+      if (zoomed && drag.moved) {
+        box.classList.add("dragging");
+        pan = [drag.pan[0] + dx, drag.pan[1] + dy];
+        clamp();
+        place();
+      }
+    });
+    img.addEventListener("pointerup", (e) => {
+      if (!drag) return;
+      const dx = e.clientX - drag.x;
+      box.classList.remove("dragging");
+      if (!drag.moved) {
+        const r = img.getBoundingClientRect();
+        zoom(!zoomed, zoomed ? 0.5 : (e.clientX - r.left) / r.width, zoomed ? 0.5 : (e.clientY - r.top) / r.height);
+      } else if (!zoomed && Math.abs(dx) > 50 && items.length > 1) show(at + (dx < 0 ? 1 : -1));
+      drag = null;
+    });
+    img.addEventListener("pointercancel", () => (drag = null, box.classList.remove("dragging")));
+    addEventListener("keydown", (e) => {
+      if (box.hidden) return;
+      if (e.key === "Escape") close();
+      else if (e.key === "ArrowRight" && !zoomed) show(at + 1);
+      else if (e.key === "ArrowLeft" && !zoomed) show(at - 1);
+      else if ((e.key === "Enter" || e.key === " ") && document.activeElement === frame) {
+        e.preventDefault();
+        zoom(!zoomed);
+      } else if (e.key === "Tab") {
+        // Keep the keyboard inside: the picture, the arrows, the close button
+        const stops = [frame, prevBtn, nextBtn, closeBtn].filter((s) => !s.hidden);
+        const i = stops.indexOf(document.activeElement);
+        e.preventDefault();
+        stops[(i + (e.shiftKey ? stops.length - 1 : 1)) % stops.length].focus();
+      }
+    });
+  }
+
   // A quote's recording (build-pages.mjs, quote "audio"): its button plays it and stops it again. It stops the
   // soundtrack while it speaks, and the soundtrack stops it; nothing loads until a button is pressed.
   const voices = [...document.querySelectorAll(".quote-play")];

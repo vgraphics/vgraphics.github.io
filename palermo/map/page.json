@@ -1,0 +1,58 @@
+{
+  "title": "Palermo Noir town map: the piazzas and neighbourhoods of the game",
+  "description": "Explore the town of Palermo Noir, the hidden-role party game for phones and a TV: click its piazzas and neighbourhoods and zoom across the whole map.",
+  "social": {
+    "title": "Town map · Palermo Noir",
+    "description": "Click the piazzas and neighbourhoods of Palermo Noir's town and zoom across the whole map.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora walks past a lit street lamp towards the domes of Palermo under a crescent moon, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "VGraphics",
+        "item": "https://vgraphics.gr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Games",
+        "item": "https://vgraphics.gr/games/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Palermo Noir",
+        "item": "https://vgraphics.gr/palermo/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Town map",
+        "item": "https://vgraphics.gr/palermo/map/"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Palermo Noir town map",
+    "lead": "Town map",
+    "align": "center"
+  },
+  "sections": [
+    {
+      "id": "town",
+      "title": "The town",
+      "intro": "Click a piazza or a neighbourhood to learn who lives there, and zoom across the whole town.",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "viewer"
+        }
+      ]
+    }
+  ]
+}

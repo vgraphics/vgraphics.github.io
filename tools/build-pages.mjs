@@ -34,7 +34,7 @@
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones, framed like playing cards; deck: true
 //                                for one row that scrolls sideways between two arrows), features (an item's value and label: its key
-//                                figure over its title), facts, actions, quote, chips, song, tour, soundtrack,
+//                                figure over its title), facts, actions, quote, chips, song, album, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -145,6 +145,13 @@ const BLOCKS = {
   // A button that plays one of the page's soundtrack tracks in its player, and pauses it again (assets/soundtrack.js):
   // { type: "song", track: its number in the list, label, note? }
   song: (b) => `<div class="badges sec-actions song-row"><button class="pill song-play" type="button" data-ost-song="${b.track - 1}" aria-pressed="false"><b>${NOTE}${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</button></div>`,
+
+  // Pictures in a grid, each opening large in the page's lightbox (assets/product.js): { type: "album", shape:
+  // "portrait" | "wide", items: [{ title, src, full?, width, height, alt }] }, src the grid's picture and full the
+  // lightbox's (src when there is one size), every path absolute. George, 24 Oct 2026: the product's gallery.
+  album: (b) => `<ul class="album ${b.shape ?? 'wide'}">
+          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}" loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
+        </ul>`,
 
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,
