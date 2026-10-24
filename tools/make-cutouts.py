@@ -1,8 +1,8 @@
 # Cuts figures drawn in light lines on a flat dark ground (Palermo Noir's cast: gold engraving on navy) out of their
-# ground, for a theme's edge ornaments (theme.json ornaments.edges): the ground joined to the picture's border becomes
-# transparent and everything the figure's outline encloses stays solid, so its dark clothes don't turn see-through.
-# Each figure is cropped to itself and written as <product>/img/orn/<name>-<width>.avif and .webp (with alpha), never
-# larger than the master; the theme.json entries are printed.
+# ground, for the figures beside section headings (page.json section "figure"): the ground joined to the picture's
+# border becomes transparent and everything the figure's outline encloses stays solid, so its dark clothes don't turn
+# see-through. Each figure is cropped to itself and written as <product>/img/cast/<name>-<width>.avif and .webp (with
+# alpha), never larger than the master; the page.json entries are printed.
 # Usage: python tools/make-cutouts.py <product> <name>=<master> [<name>=<master> ...]
 # (Pillow with AVIF and NumPy.)
 import json, os, sys
@@ -36,9 +36,9 @@ def cutout(path):
 
 def main():
     product = sys.argv[1]
-    out = os.path.join(ROOT, product, 'img', 'orn')
+    out = os.path.join(ROOT, product, 'img', 'cast')
     os.makedirs(out, exist_ok=True)
-    edges = []
+    figures = []
     for arg in sys.argv[2:]:
         name, path = arg.split('=', 1)
         fig = cutout(path)
@@ -50,8 +50,8 @@ def main():
             r.save(os.path.join(out, f'{name}-{w}.avif'), 'AVIF', quality=60)
             r.save(os.path.join(out, f'{name}-{w}.webp'), 'WEBP', quality=82, method=6)
         top = widths[-1]
-        edges.append({'src': f'/{product}/img/orn/{name}', 'widths': widths, 'width': top, 'height': round(fig.height * top / fig.width)})
-    print(json.dumps(edges, indent=2))
+        figures.append({'src': f'img/cast/{name}', 'widths': widths, 'width': top, 'height': round(fig.height * top / fig.width)})
+    print(json.dumps(figures))
 
 
 main()

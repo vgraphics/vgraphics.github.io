@@ -84,6 +84,7 @@
       "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
       "art": { "src": "img/scene-deal", "widths": [960, 1376], "width": 1376, "height": 768, "position": "50% 40%",
         "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy" },
+      "figure": { "src": "img/cast/officer", "widths": [260, 405], "width": 405, "height": 1059, "side": "right" },
       "blocks": [
         {
           "type": "steps",
@@ -103,6 +104,7 @@
       "intro": "The TV goes dark and the narrator sends the town to sleep. Every phone asks for two taps: your role's move, or who you trust, then who you suspect. So every phone looks the same, and nobody can tell who did what. On the first night the killers only meet each other and the Police Officer learns the Known Killer's face; from the second night the killers choose a victim.",
       "art": { "src": "img/scene-night", "widths": [960, 1376], "width": 1376, "height": 768, "position": "50% 50%",
         "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy" },
+      "figure": { "src": "img/cast/known-killer", "widths": [260, 373], "width": 373, "height": 995 },
       "blocks": [
         {
           "type": "cards",
@@ -128,6 +130,7 @@
       "intro": "At dawn the narrator tells the town who the killers found, or that the night passed without a murder, and the TV shows the town's rumour: the most suspected name. Then the room argues, and votes someone out of town.",
       "art": { "src": "img/scene-suspects", "widths": [960, 1376], "width": 1376, "height": 768, "position": "50% 55%",
         "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles" },
+      "figure": { "src": "img/cast/madman", "widths": [260, 418], "width": 418, "height": 1046, "side": "right" },
       "blocks": [
         {
           "type": "features",
@@ -160,6 +163,7 @@
       "intro": "The game ends the moment one side has won: the town when every killer is out, the killers when they match everyone else, the Madman alone if the town votes him out. Then the TV tells the whole story, and everyone stays in the room to play again.",
       "art": { "src": "img/scene-verdict", "widths": [960, 1376], "width": 1376, "height": 768, "position": "50% 60%",
         "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set" },
+      "figure": { "src": "img/cast/mayor", "widths": [260, 441], "width": 441, "height": 1000 },
       "blocks": [
         {
           "type": "features",

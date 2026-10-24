@@ -27,9 +27,10 @@
 //                                wiki entry's painting
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
-//   sections                     [{ id, eyebrow?, title, intro?, art?, stage?, blocks, more? }] or [{ id, band }]
+//   sections                     [{ id, eyebrow?, title, intro?, art?, figure?, stage?, blocks, more? }] or [{ id, band }]
 //                                art: { src, widths, width, height, alt, position? }: a picture across the section's top,
-//                                its heading starting in the picture's faded foot
+//                                its heading starting in the picture's faded foot; figure: { src, widths, width, height,
+//                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones), features, tour, soundtrack,
 //                                journey, embed, document
@@ -219,9 +220,28 @@ function section(product, s) {
     s.intro && `<p class="sec-intro">${s.intro}</p>`,
   ].filter(Boolean).join('\n          ')
   const blocks = s.blocks.map((b) => BLOCKS[b.type](b, product, s)).join('\n        ')
+  const art = s.art ? `
+      ${sectionArt(s.art)}` : ''
+  // A section's figure (page.json section "figure": { src, widths, width, height, side? }): one of the product's
+  // characters standing beside the section's words, inside the content's width, turned to face them (George, 24 Oct
+  // 2026: "Keep it as is but inside content width including character width"); decorative, so hidden from screen readers.
+  const f = s.figure
+  if (f && s.title) {
+    return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}" aria-labelledby="${s.id}-title">${art}
+      <div class="wrap with-figure${f.side === 'right' ? ' figure-right' : ''}">
+        <picture class="sec-figure" aria-hidden="true"><source type="image/avif" srcset="${set(f, 'avif', f.widths)}" sizes="260px"><img src="${esc(f.src)}-${f.widths.at(-1)}.webp" srcset="${set(f, 'webp', f.widths)}" sizes="260px" alt=""${dims(f)} loading="lazy" decoding="async"></picture>
+        <div class="sec-body">
+          <div class="sec-head">
+          ${head}
+          </div>
+          ${blocks}
+          ${s.more ? `<a class="more" href="${esc(s.more.href)}">${s.more.label}</a>` : ''}
+        </div>
+      </div>
+    </section>`
+  }
   // A section without a title is the page's own text under its hero (a policy, whose headings are its own).
-  return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>${s.art ? `
-      ${sectionArt(s.art)}` : ''}
+  return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>${art}
       <div class="wrap">${s.title ? `
         <div class="sec-head">
           ${head}
@@ -235,19 +255,15 @@ function section(product, s) {
     </section>`
 }
 
-// The theme's ornaments: edge pieces take turns left and right in the gaps after every second section (ornaments.every
-// sets another step, 1 for after each; none in the hero), and the horizon runs along the very bottom, above the footer.
+// The theme's ornaments: edge pieces take turns left and right in the gaps after every second section (none in the
+// hero), and the horizon runs along the very bottom, above the footer.
 function decorate(theme, parts) {
   const edges = theme.ornaments?.edges ?? []
-  const every = theme.ornaments?.every ?? 2
   const out = []
-  let k = 0
   parts.forEach((part, i) => {
     out.push(part)
-    if (!edges.length || (i + 1) % every || i >= parts.length - 1) return
-    const e = edges[k % edges.length]
-    out.push(ornament(e, `orn orn-${k % 2 ? 'right' : 'left'}`, e.sizes ?? '(max-width: 900px) 140px, 380px'))
-    k++
+    const e = edges[(i >> 1) % edges.length]
+    if (edges.length && i % 2 === 1 && i < parts.length - 1) out.push(ornament(e, `orn orn-${(i >> 1) % 2 ? 'right' : 'left'}`, e.sizes ?? '(max-width: 900px) 140px, 380px'))
   })
   const h = theme.ornaments?.horizon
   if (h) out.push(ornament(h, 'horizon', '100vw'))
@@ -271,9 +287,7 @@ export function render(slug, sub) {
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
-  // The edge pieces stand along the landing page only; a product's other pages keep to their words
-  const look = sub ? { ...t, ornaments: { ...t.ornaments, edges: [] } } : t
-  const body = decorate(look, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
+  const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
   const url = `https://vgraphics.gr${path}`
   const html = `<!doctype html>
 <html lang="en">

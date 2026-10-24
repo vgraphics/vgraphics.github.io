@@ -569,24 +569,28 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 }
 .has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); }
 
-/* A theme's edge pieces (theme.json ornaments.edges, Palermo Noir's cast): figures standing in the side margins between
-   sections, in turn on the left and the right, turned to face the page; only where the margins are wide enough, never
-   over the words. All of the same height, whatever their width. */
-.orn { position: relative; height: 0; z-index: 0; pointer-events: none; display: none; }
-@media (min-width: 1600px) {
-  .orn { display: block; }
-  .orn picture { position: absolute; bottom: 64px; height: clamp(280px, calc(((100vw - 1120px) / 2 - 136px) * 2), 500px); }
-  .orn img { display: block; width: auto; height: 100%; }
-  .orn-left picture { right: calc(50% + 560px + 96px); }
-  .orn-left img { transform: scaleX(-1); }
-  .orn-right picture { left: calc(50% + 560px + 96px); }
+/* Chapters (sections that open with art) may run wider than the page's column (optional --sec-max), the header,
+   footer and closing card keeping theirs. */
+.sec.has-art > .wrap { width: min(var(--sec-max, 1120px), 100% - 40px); }
+/* A section's figure (page.json section "figure"): the character beside the section's words, inside the content's
+   width, turned to face them and staying beside them while its cards scroll by; not on narrow screens. */
+.with-figure { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.with-figure.figure-right { grid-template-columns: minmax(0, 1fr) auto; }
+.with-figure.figure-right .sec-figure { order: 2; }
+.sec-figure { display: block; position: sticky; top: 104px; }
+.sec-figure img { display: block; width: auto; height: clamp(380px, 32vw, 560px); }
+.with-figure:not(.figure-right) .sec-figure img { transform: scaleX(-1); }
+.sec-body { min-width: 0; }
+@media (max-width: 900px) {
+  .with-figure, .with-figure.figure-right { grid-template-columns: minmax(0, 1fr); }
+  .sec-figure { display: none; }
 }
-/* The thread (optional tokens --thread and --thread-show: block): a fine line in the theme's colour that runs down into
-   each section that opens with art and ends in a small diamond, so the chapters read as one story. */
-.sec.has-art { position: relative; margin-top: var(--thread-space, 0px); } /* --thread-space: optional, room above a chapter for the thread */
+/* The thread (optional tokens --thread, --thread-show: block, --thread-space): a gold line with an arrowhead in the gap
+   before each chapter, pointing down to its art and stopping just above it, so the chapters read as one story. */
+.sec.has-art { position: relative; margin-top: var(--thread-space, 0px); }
 .sec.has-art::before, .sec.has-art::after { display: var(--thread-show, none); position: absolute; left: 50%; z-index: 1; pointer-events: none; }
-.sec.has-art::before { content: ""; top: calc((var(--section-pad) + var(--thread-space, 0px)) * -1); width: 1px; height: calc(var(--section-pad) + var(--sec-art-h) * 0.34); margin-left: -0.5px; background: linear-gradient(transparent, var(--thread) 35%, var(--thread)); }
-.sec.has-art::after { content: ""; top: calc(var(--sec-art-h) * 0.34 - var(--thread-space, 0px) - 5px); width: 9px; height: 9px; margin-left: -5px; border: 1px solid var(--thread); background: var(--page); transform: rotate(45deg); box-shadow: 0 0 12px color-mix(in srgb, var(--thread) 60%, transparent); }
+.sec.has-art::before { content: ""; top: calc((var(--section-pad) + var(--thread-space, 0px)) * -1 + 28px); width: 2px; height: calc(var(--section-pad) + var(--thread-space, 0px) - 58px); margin-left: -1px; background: linear-gradient(transparent, var(--thread) 30%, var(--thread)); }
+.sec.has-art::after { content: ""; top: -36px; width: 18px; height: 18px; margin-left: -9px; border-right: 2px solid var(--thread); border-bottom: 2px solid var(--thread); transform: rotate(45deg); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--thread) 60%, transparent)); }
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */
