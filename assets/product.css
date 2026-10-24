@@ -271,6 +271,10 @@ h1, h2, h3 {
 /* Sections */
 .sec { padding-block: var(--section-pad); }
 .sec-head { display: grid; gap: 12px; max-width: 46rem; margin-bottom: 32px; }
+/* Blocks in one section stand apart (George, 24 Oct 2026: "Spaces needed here."): every block after the first, in the
+   section or on its stage, keeps a gap above it, wider than the gaps inside a block, so two grids never read as one. */
+.sec > .wrap > :not(.sec-head, .more) + :not(.more),
+.sec:not(.intro) .scene > :not(.scene-art) + * { margin-top: var(--block-gap, clamp(28px, 4vw, 44px)); }
 .eyebrow { font: var(--label-weight) 0.95rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); }
 .sec h2 { font-size: var(--h2-size); }
 .sec-intro { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
