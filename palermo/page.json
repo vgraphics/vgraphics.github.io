@@ -82,6 +82,11 @@
       "eyebrow": "How to play",
       "title": "One phone each, one TV for the room",
       "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
+      "stage": {
+        "tall": { "src": "img/stage-how-tall", "widths": [432], "width": 432, "height": 768 },
+        "wide": { "src": "img/stage-how-wide", "widths": [960, 1376], "width": 1376, "height": 768 },
+        "position": "50% 50%"
+      },
       "blocks": [
         {
           "type": "steps",
@@ -99,6 +104,11 @@
       "eyebrow": "The roles",
       "title": "The classic game",
       "intro": "Every game keeps the heart of the Greek original: a Known Killer, a Hidden Killer, the Police Officer who learns the Known Killer's face on the first night, a Doctor, and the citizens. From 12 players there are three killers.",
+      "stage": {
+        "tall": { "src": "img/stage-roles-tall", "widths": [432], "width": 432, "height": 768 },
+        "wide": { "src": "img/stage-roles-wide", "widths": [960, 1376], "width": 1376, "height": 768 },
+        "position": "50% 40%"
+      },
       "blocks": [
         {
           "type": "cards",

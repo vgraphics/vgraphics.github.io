@@ -7,6 +7,8 @@
 # Usage: python tools/make-key-art.py <product> <wide master> <tall master>
 #        python tools/make-key-art.py <product> <wide master> --cut <x>   (no tall master: a 9:16 cut of the wide one at
 #                                                                         its full height, centred at x, 0 to 1)
+#        add --name <name> to write <name>-wide and <name>-tall instead of key-art-wide and key-art-tall: a section's
+#        stage picture (page.json "stage"), from the key art's world, in AVIF and WebP only
 # (Pillow with AVIF.) Old sizes of the same pictures are removed first, so a new key art leaves nothing behind.
 import json, os, re, sys
 from PIL import Image
@@ -18,7 +20,9 @@ TALL = ([480, 720, 1080, 1440], [1080])
 
 def save(im, out, name, choices):
     sizes, jpegs = choices
-    widths = [w for w in sizes if w <= im.width] or [im.width]
+    widths = [w for w in sizes if w <= im.width]
+    if not widths or widths[-1] < im.width < sizes[-1]:
+        widths.append(im.width)  # a master between two sizes is served whole as the largest
     for old in os.listdir(out):
         if re.fullmatch(rf'{name}-\d+\.(avif|webp|jpg)', old):
             os.remove(os.path.join(out, old))
@@ -36,6 +40,13 @@ def save(im, out, name, choices):
 
 
 def main():
+    args = sys.argv[1:]
+    name = 'key-art'
+    if '--name' in args:
+        i = args.index('--name')
+        name = args[i + 1]
+        del args[i:i + 2]
+    sys.argv[1:] = args
     product, wide_path = sys.argv[1], sys.argv[2]
     wide = Image.open(wide_path).convert('RGB')
     if sys.argv[3] == '--cut':
@@ -46,7 +57,10 @@ def main():
         tall = Image.open(sys.argv[3]).convert('RGB')
     out = os.path.join(ROOT, product, 'img')
     os.makedirs(out, exist_ok=True)
-    w, t = save(wide, out, 'key-art-wide', WIDE), save(tall, out, 'key-art-tall', TALL)
+    # A stage has no JPEG fallback: the template's stages serve AVIF and WebP only
+    jpeg = name == 'key-art'
+    w = save(wide, out, f'{name}-wide', WIDE if jpeg else (WIDE[0], []))
+    t = save(tall, out, f'{name}-tall', TALL if jpeg else (TALL[0], []))
     k = w['width'] / w['height']
     w['sizes'] = f'max(100vw, min({62.5 * k:.0f}vw, {100 * k:.0f}vh))'
     print(json.dumps({'tall': t, 'wide': w}))
