@@ -25,12 +25,15 @@
   gap: 22px;
   padding: 24px 18px 14px;
   text-align: center;
-  background: var(--dark);
+  background: var(--ost-bg, var(--dark));
   color: var(--on-art);
+  border: var(--ost-border, 0);
   border-radius: var(--radius);
-  box-shadow: var(--card-shadow);
+  box-shadow: var(--ost-shadow, var(--card-shadow));
 }
-.ost-backdrop { position: absolute; inset: 0; z-index: -1; }
+/* --ost-bg, --ost-border, --ost-shadow and --ost-backdrop: optional, for a pack whose page is as dark as the blurred
+   cover and wants its own panel instead (Palermo Noir: framed like its role cards; George, 24 Oct 2026) */
+.ost-backdrop { position: absolute; inset: 0; z-index: -1; display: var(--ost-backdrop, block); }
 .ost-backdrop img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* Its own cover: the top of it, the night sky, blurred */
 .ost-backdrop.blur img { inset: -12% -15% auto; width: 130%; height: 190%; object-position: 50% 0; filter: blur(36px) saturate(1.4); }
