@@ -548,14 +548,24 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 :root { --sec-art-h: clamp(260px, 56.25vw, 82vh); }
 .sec.has-art { padding-top: 0; }
 .sec-art { position: relative; height: var(--sec-art-h); max-width: var(--sec-art-w, none); margin-inline: auto; overflow: hidden; }
-@media (min-width: 1200px) { /* wider than the picture can fill sharply: its sides fade into the page */
-  .sec-art img { -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); }
-}
 .sec-art picture, .sec-art img { display: block; width: 100%; height: 100%; }
-.sec-art img { object-fit: cover; object-position: var(--sec-art-at, 50% 45%); }
-.sec-art::after {
+/* The picture's top and foot fade to nothing, so the page's own ground (its pattern too) runs on through them */
+.sec-art img {
+  object-fit: cover; object-position: var(--sec-art-at, 50% 45%);
+  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+  mask-image: linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+}
+@media (min-width: 1200px) { /* wider than the picture can fill sharply: its sides fade into the page too */
+  .sec-art img {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+    mask-composite: intersect;
+  }
+}
+.sec-art::after { /* a light shade under the heading, for its words */
   content: ""; position: absolute; inset: 0;
-  background: linear-gradient(var(--page), color-mix(in srgb, var(--page) 45%, transparent) 9%, transparent 20%, transparent 44%, color-mix(in srgb, var(--page) 82%, transparent) 76%, var(--page));
+  background: linear-gradient(transparent 50%, color-mix(in srgb, var(--page) 55%, transparent) 82%, transparent);
 }
 .has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); }
 
@@ -563,20 +573,20 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
    sections, in turn on the left and the right, turned to face the page; only where the margins are wide enough, never
    over the words. All of the same height, whatever their width. */
 .orn { position: relative; height: 0; z-index: 0; pointer-events: none; display: none; }
-@media (min-width: 1500px) {
+@media (min-width: 1600px) {
   .orn { display: block; }
-  .orn picture { position: absolute; bottom: 0; height: clamp(280px, calc(((100vw - 1120px) / 2 - 48px) * 2), 520px); }
+  .orn picture { position: absolute; bottom: 64px; height: clamp(280px, calc(((100vw - 1120px) / 2 - 136px) * 2), 500px); }
   .orn img { display: block; width: auto; height: 100%; }
-  .orn-left picture { right: calc(50% + 584px); }
+  .orn-left picture { right: calc(50% + 560px + 96px); }
   .orn-left img { transform: scaleX(-1); }
-  .orn-right picture { left: calc(50% + 584px); }
+  .orn-right picture { left: calc(50% + 560px + 96px); }
 }
 /* The thread (optional tokens --thread and --thread-show: block): a fine line in the theme's colour that runs down into
    each section that opens with art and ends in a small diamond, so the chapters read as one story. */
 .sec.has-art { position: relative; }
 .sec.has-art::before, .sec.has-art::after { display: var(--thread-show, none); position: absolute; left: 50%; z-index: 1; pointer-events: none; }
-.sec.has-art::before { content: ""; top: calc(var(--section-pad) * -1); width: 1px; height: calc(var(--section-pad) + var(--sec-art-h) * 0.2); margin-left: -0.5px; background: linear-gradient(transparent, var(--thread) 35%, var(--thread)); }
-.sec.has-art::after { content: ""; top: calc(var(--sec-art-h) * 0.2 - 5px); width: 9px; height: 9px; margin-left: -5px; border: 1px solid var(--thread); background: var(--page); transform: rotate(45deg); box-shadow: 0 0 12px color-mix(in srgb, var(--thread) 60%, transparent); }
+.sec.has-art::before { content: ""; top: calc(var(--section-pad) * -1); width: 1px; height: calc(var(--section-pad) + var(--sec-art-h) * 0.34); margin-left: -0.5px; background: linear-gradient(transparent, var(--thread) 35%, var(--thread)); }
+.sec.has-art::after { content: ""; top: calc(var(--sec-art-h) * 0.34 - 5px); width: 9px; height: 9px; margin-left: -5px; border: 1px solid var(--thread); background: var(--page); transform: rotate(45deg); box-shadow: 0 0 12px color-mix(in srgb, var(--thread) 60%, transparent); }
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */
