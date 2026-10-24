@@ -55,3 +55,12 @@ export const pieces = () => products().flatMap((slug) => [null, ...subpages(slug
     .flatMap((b) => (b.type === 'embed' ? [`${b.src}.html`] : b.type === 'document' ? [b.src] : []))
     .map((f) => join(dir, f))
 }))
+
+// The "document" blocks' copies alone, each with the address of the page it is set into: { file, url }.
+export const documents = () => products().flatMap((slug) => [null, ...subpages(slug)].flatMap((sub) => {
+  const dir = sub ? join(slug, sub) : slug
+  const page = JSON.parse(readFileSync(join(root, dir, 'page.json'), 'utf8'))
+  const path = page.path ?? (sub ? `/${slug}/${sub}/` : `/${slug}/`)
+  return (page.sections ?? []).flatMap((s) => s.blocks ?? []).filter((b) => b.type === 'document')
+    .map((b) => ({ file: join(dir, b.src), url: `https://vgraphics.gr${path}` }))
+}))
