@@ -104,11 +104,6 @@
       "eyebrow": "The roles",
       "title": "The classic game",
       "intro": "Every game keeps the heart of the Greek original: a Known Killer, a Hidden Killer, the Police Officer who learns the Known Killer's face on the first night, a Doctor, and the citizens. From 12 players there are three killers.",
-      "stage": {
-        "tall": { "src": "img/stage-roles-tall", "widths": [432], "width": 432, "height": 768 },
-        "wide": { "src": "img/stage-roles-wide", "widths": [960, 1376], "width": 1376, "height": 768 },
-        "position": "50% 40%"
-      },
       "blocks": [
         {
           "type": "cards",
@@ -144,6 +139,33 @@
             { "image": { "src": "img/roles/henchman.webp", "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Henchman", "text": "You know the killers, but they don't know you. You win with them." },
             { "image": { "src": "img/roles/kamikaze.webp", "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Kamikaze", "text": "You're with the killers. Once, during a day, you can take one player down with you." },
             { "image": { "src": "img/roles/madman.webp", "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask", "width": 700, "height": 980 }, "tag": "Solo", "title": "Madman", "text": "You win alone if the town votes you out, and that ends the game." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soundtrack",
+      "eyebrow": "The music",
+      "title": "Listen to the soundtrack",
+      "intro": "The music of an evening in Palermo, in the order you hear it: a 1950s Sicilian noir chamber orchestra with staccato strings, clarinet, mandolin and accordion. Hushed for the night, sunny but suspicious at noon, relentless for the vote, and a theme for whoever wins. Press play and keep reading; a small player stays with you down the page.",
+      "blocks": [
+        {
+          "type": "soundtrack",
+          "album": "Palermo Noir (Original Soundtrack)",
+          "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Palermo Noir soundtrack cover: a lit street lamp and a man in a fedora walking towards the domes of Palermo under a crescent moon, in gold lines on navy" },
+          "background": { "wide": { "src": "img/stage-night-wide", "widths": [960, 1376] }, "tall": { "src": "img/stage-night-tall", "widths": [432] } },
+          "youtube": null,
+          "soundcloud": null,
+          "tracks": [
+            { "title": "Main Theme", "src": "audio/01-main-theme.m4a", "duration": "1:59" },
+            { "title": "The Deal", "src": "audio/02-the-deal.m4a", "duration": "2:00" },
+            { "title": "Night Falls", "src": "audio/03-night-falls.m4a", "duration": "2:00" },
+            { "title": "Piazza at Noon", "src": "audio/04-piazza-at-noon.m4a", "duration": "2:05" },
+            { "title": "The Vote", "src": "audio/05-the-vote.m4a", "duration": "2:00" },
+            { "title": "The Town Wins", "src": "audio/06-the-town-wins.m4a", "duration": "0:42" },
+            { "title": "Palermo Belongs to Them", "src": "audio/07-palermo-belongs-to-them.m4a", "duration": "0:50" },
+            { "title": "The Madman's Tarantella", "src": "audio/08-the-madmans-tarantella.m4a", "duration": "0:42" },
+            { "title": "Another Night in Palermo", "src": "audio/09-another-night-in-palermo.m4a", "duration": "2:00" }
           ]
         }
       ]
