@@ -138,6 +138,20 @@
     document.addEventListener("play", (e) => e.target !== voice && stop(), true);
   }
 
+  // A footer scene's weather (tools/lib/partials.mjs, footerScene "weather"): one of its kinds at random on each visit,
+  // drifting clouds, rain or leaves on the wind; none with reduced motion.
+  const sky = document.querySelector(".foot-weather");
+  if (sky && !matchMedia("(prefers-reduced-motion: reduce)").matches) {
+    const kinds = sky.dataset.kinds.split(" ");
+    const kind = kinds[Math.floor(Math.random() * kinds.length)];
+    const rnd = (a, b) => a + Math.random() * (b - a);
+    const add = (cls, style) => sky.append(Object.assign(document.createElement("span"), { className: cls, style }));
+    if (kind === "clouds") for (let i = 0; i < 3; i++) add("fw-cloud", `top: ${8 + i * 20 + rnd(0, 8)}%; opacity: ${rnd(0.35, 0.7).toFixed(2)}; animation-duration: ${rnd(70, 130)}s; animation-delay: ${-rnd(0, 120)}s`);
+    if (kind === "rain") add("fw-rain", "");
+    if (kind === "wind") for (let i = 0; i < 7; i++) add("fw-leaf", `top: ${rnd(25, 80)}%; animation-duration: ${rnd(7, 13)}s; animation-delay: ${-rnd(0, 13)}s`);
+    sky.dataset.now = kind;
+  }
+
   // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled).
   const top = document.querySelector(".top");
   if (top) {

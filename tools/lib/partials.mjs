@@ -89,15 +89,43 @@ export function footer({ page }) {
   const sizes = a && `max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * ${r.toFixed(2)}))`
   const art = a ? `
     ${ornament(a, 'foot-art', sizes, `--foot-at: ${a.position}`)}` : ''
-  return `<footer class="foot${a ? ' has-art' : ''}">${art}
+  const f = page.footerScene && scene(page.footerScene)
+  return `<footer class="foot${a || f ? ' has-art' : ''}${f ? ' has-scene' : ''}">${art}${f ? f.sky : ''}
     <div class="wrap">
       <a class="foot-brand" href="${esc(s.nav[0].href)}">${brand(s, 48, '230px')}</a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
         ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${buttons(page)}
       <p class="legal">${LEGAL}${play}</p>
-    </div>
+    </div>${f ? f.band : ''}
   </footer>`
+}
+
+// A footer drawn as a scene instead of one picture (page.json "footerScene"; Palermo Noir, George, 24 Oct 2026: "a
+// pattern 50px around side walk ... above it a 120px around sea which ends to a line like horizon ... Above foot
+// elements the full moon. On the very bottom left, on the side walk stands the spy. Next to him some railings and a cat
+// on them and on the right a full lamp animating a blinking light ... Animating clouds or rain or wind randomly"). Along
+// its foot the sea and the sidewalk repeat sideways, so it fits any width; the figures stand on the sidewalk, the moon
+// above them; assets/product.js picks the weather. footerScene: { height, walk: { height, src? }, sea: { height, src? },
+// moon?, left: [figure], lamp?: figure + { lit?, glow: [x%, y%] }, weather: { kinds, cloud, leaf, rain } }, a figure
+// being { src, width, height, show (its height in px on wide screens), flip? }, every src absolute. Every piece is a
+// Recraft picture (George: "All graphics must be generated from recraft"); the page only places and moves them.
+function scene(s) {
+  const img = (p, cls, src = p.src) => `<img class="${cls}" src="${esc(src)}" alt="" width="${p.width}" height="${p.height}" style="--show: ${p.show}px" loading="lazy" decoding="async">`
+  const strip = (p, cls) => `<span class="${cls}" style="background-image: url('${esc(p.src)}')"></span>`
+  const l = s.lamp
+  const lamp = l ? `
+      <span class="fs-lamp" style="--show: ${l.show}px; --gx: ${l.glow[0]}%; --gy: ${l.glow[1]}%">${img(l, 'off')}${l.lit ? img(l, 'on', l.lit) : ''}<span class="glow"></span></span>` : ''
+  const w = s.weather
+  return {
+    sky: `
+    <div class="foot-weather" aria-hidden="true" data-kinds="${esc(w.kinds.join(' '))}" style="--cloud: url('${esc(w.cloud)}'); --leaf: url('${esc(w.leaf)}'); --rain: url('${esc(w.rain)}')"></div>`,
+    band: `
+    <div class="foot-scene" aria-hidden="true" style="--fs-h: ${s.height}px; --walk-h: ${s.walk.height}px; --sea-h: ${s.sea.height}px">
+      ${s.moon ? img(s.moon, 'fs-moon') : ''}${strip(s.sea, 'fs-sea')}${strip(s.walk, 'fs-walk')}
+      <span class="fs-left">${s.left.map((p) => img(p, `fs-fig${p.flip ? ' flip' : ''}`)).join('')}</span>${lamp}
+    </div>`,
+  }
 }
 
 // The product's stores, as round icon buttons beside the channels: a store appears once page.json's stores names it

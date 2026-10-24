@@ -690,7 +690,7 @@ html.card-open { overflow: hidden; }
   content: ""; position: absolute; inset: 0;
   background: linear-gradient(transparent 50%, color-mix(in srgb, var(--page) 55%, transparent) 82%, transparent);
 }
-.has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); }
+.sec.has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); } /* sections only: a footer with art has .has-art too */
 
 /* Chapters (sections that open with art) may run wider than the page's column (optional --sec-max), the header,
    footer and closing card keeping theirs. */
@@ -885,6 +885,36 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   background: linear-gradient(transparent, var(--foot-veil, color-mix(in srgb, var(--page) 80%, transparent)) 110px);
   pointer-events: none;
 }
+
+/* A footer drawn as a scene (tools/lib/partials.mjs, footerScene): the words in the night sky, and along the foot the
+   sea and the sidewalk repeating sideways, with figures standing on the sidewalk, the moon above them, a lamp that
+   flickers, and the weather assets/product.js picks. Smaller on phones; nothing moves with reduced motion. */
+.foot.has-scene { --fs-scale: 1; padding-top: calc(var(--cta-half, 150px) + 40px); background: linear-gradient(transparent, color-mix(in srgb, var(--surface) 55%, transparent)); }
+.foot.has-scene .wrap { padding-bottom: 20px; }
+.foot.has-scene .wrap::before { display: none; }
+.foot-scene { position: relative; height: calc(var(--fs-h) * var(--fs-scale)); } /* not clipped: the lamp's glow spreads past it (the footer clips sideways) */
+.foot-scene img { position: absolute; width: auto; max-width: none; height: calc(var(--show) * var(--fs-scale)); }
+.fs-sea, .fs-walk { position: absolute; left: 0; right: 0; background-repeat: repeat-x; background-size: auto 100%; }
+.fs-walk { bottom: 0; height: calc(var(--walk-h) * var(--fs-scale)); }
+.fs-sea { bottom: calc(var(--walk-h) * var(--fs-scale)); height: calc(var(--sea-h) * var(--fs-scale)); border-top: 1px solid color-mix(in srgb, var(--accent) 70%, transparent); }
+.fs-moon { top: 6px; right: 26%; filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent-2) 35%, transparent)); }
+.fs-left { position: absolute; left: clamp(10px, 4vw, 72px); bottom: calc(var(--walk-h) * var(--fs-scale) * 0.3); display: flex; align-items: flex-end; gap: calc(14px * var(--fs-scale)); }
+.fs-left img { position: static; }
+.fs-fig.flip { transform: scaleX(-1); }
+.fs-lamp { position: absolute; right: clamp(14px, 6vw, 110px); bottom: calc(var(--walk-h) * var(--fs-scale) * 0.3); height: calc(var(--show) * var(--fs-scale)); aspect-ratio: 3 / 10; }
+.fs-lamp img { position: absolute; inset: 0; height: 100%; }
+.fs-lamp .glow { position: absolute; left: var(--gx); top: var(--gy); width: 300%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 214 150 / 0.55), rgb(255 200 120 / 0.16) 45%, transparent); mix-blend-mode: screen; animation: fs-flicker 9s steps(1) infinite; }
+.fs-lamp .on { animation: fs-flicker 9s steps(1) infinite; }
+@keyframes fs-flicker { 0%, 31%, 34%, 36%, 70%, 72.5%, 100% { opacity: 1; } 32%, 35% { opacity: 0.25; } 71% { opacity: 0.45; } }
+.foot-weather { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fw-cloud { position: absolute; left: 0; width: 320px; height: 70px; background: var(--cloud) center / contain no-repeat; animation: fw-drift linear infinite; }
+@keyframes fw-drift { from { transform: translateX(-340px); } to { transform: translateX(100vw); } }
+.fw-rain { position: absolute; inset: -40px 0; opacity: 0.5; background: var(--rain) 0 0 / 240px auto repeat; animation: fw-fall 0.8s linear infinite; }
+@keyframes fw-fall { to { background-position: -40px 240px; } }
+.fw-leaf { position: absolute; left: 0; width: 22px; height: 22px; background: var(--leaf) center / contain no-repeat; animation: fw-blow linear infinite; }
+@keyframes fw-blow { 0% { transform: translate(-40px, 0) rotate(0); } 50% { transform: translate(50vw, -40px) rotate(220deg); } 100% { transform: translate(calc(100vw + 40px), 20px) rotate(440deg); } }
+@media (max-width: 700px) { .foot.has-scene { --fs-scale: 0.62; } .fs-moon { right: 10%; } }
+@media (prefers-reduced-motion: reduce) { .fs-lamp .glow, .fs-lamp .on { animation: none; } }
 
 @media (max-width: 900px) {
   .tour { grid-template-columns: 1fr; }
