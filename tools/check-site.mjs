@@ -276,7 +276,7 @@ for (const l of sellers) {
 
 // assets/web-ads.js: the ad switch every web game's play page loads before it decides about ads (README, "Ads on the
 // web games"). Run as a browser runs it, it must define these settings and no others, well formed, nothing switched on
-// without a publisher id, that publisher in ads.txt, and an entry for every game with a play page (<game>/play/).
+// without a publisher id, that publisher in ads.txt, and an entry for every game whose play page (<game>/play/) loads it.
 const WEB_ADS = join('assets', 'web-ads.js')
 const isObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
 if (!existsSync(join(root, WEB_ADS))) report(WEB_ADS, 'web-ads', 'missing')
@@ -317,9 +317,13 @@ else {
         report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
       }
     }
+    // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
+    // and loads no switch, so it needs no entry.
     for (const dir of readdirSync(root)) {
       if (SKIP.includes(dir)) continue
-      if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
+      const play = join(root, dir, 'play', 'index.html')
+      if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
+      if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
   }
 }
