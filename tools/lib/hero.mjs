@@ -1,8 +1,11 @@
-// The hero every product page opens with (George, 23 Oct 2026: "Heroes of all pages must have same height as hero in
-// overview"): the landing page's, its other pages' (ranking, room, policies) and every wiki page's. One box,
-// assets/product.css .key-art: the screen's height on landscape screens up to 16:10 (a 16:10 box on squarer ones),
-// the whole 9:16 tall picture on portrait screens up to 4:5, the art fading out at its foot and the page's words in
-// its last fifth. tools/build-pages.mjs and tools/build-wiki.mjs both build it here, so the pages can't drift apart.
+// The hero every product page opens with: the landing page's, its other pages' (ranking, room, policies) and every
+// wiki page's. One box, assets/product.css .key-art. The landing page's (the overview's) is the screen's height on
+// landscape screens up to 16:10 (a 16:10 box on squarer ones) and the whole 9:16 tall picture on portrait screens up
+// to 4:5. Every other page's is shorter, .key-art.is-page (George, 24 Oct 2026: "The hero height is not so good for
+// other pages other than overview. Revert to previous height +20%"): the band those pages had before 23 Oct, 20%
+// taller, showing the middle of the tall picture on portrait screens. The art fades out at its foot and the page's
+// words stand in its last fifth. tools/build-pages.mjs and tools/build-wiki.mjs both build it here, so the pages
+// can't drift apart.
 //
 // art: { alt, tall, wide, ultra?, position?, fade?: { wide, tall }, placeholder? }; each picture is
 // { src, widths, jpeg?, width, height, sizes? }, as src-<width>.avif and .webp, and src-<width>.jpg for the jpeg widths.
@@ -42,13 +45,14 @@ export function heroPicture(a) {
   return { picture, preloads }
 }
 
-// The hero: the art and, in its foot, the page's own words (foot: its markup). cls adds a page's own classes, attrs
-// any attributes (aria-labelledby). Per-picture settings become the box's custom properties: --art-at (the crop's
-// anchor on landscape screens), --art-fade and --art-fade-tall (where the fade starts), --art-placeholder.
-export function heroSection(a, { cls = '', attrs = '', foot }) {
+// The hero: the art and, in its foot, the page's own words (foot: its markup). overview: the landing page's full-height
+// box, else the other pages' shorter one. cls adds a page's own classes, attrs any attributes (aria-labelledby).
+// Per-picture settings become the box's custom properties: --art-at (the crop's anchor on landscape screens),
+// --art-fade and --art-fade-tall (where the fade starts), --art-placeholder.
+export function heroSection(a, { cls = '', attrs = '', foot, overview = false }) {
   const style = [a.position && `--art-at: ${a.position}`, a.fade && `--art-fade: ${a.fade.wide}; --art-fade-tall: ${a.fade.tall}`,
     a.placeholder && `--art-placeholder: ${a.placeholder}`].filter(Boolean).join('; ')
-  return `<section class="key-art${cls ? ' ' + cls : ''}"${style ? ` style="${esc(style)}"` : ''}${attrs}>
+  return `<section class="key-art${overview ? '' : ' is-page'}${cls ? ' ' + cls : ''}"${style ? ` style="${esc(style)}"` : ''}${attrs}>
       <picture>
         ${heroPicture(a).picture.join('\n        ')}
       </picture>
@@ -57,8 +61,9 @@ export function heroSection(a, { cls = '', attrs = '', foot }) {
 }
 
 // A wiki painting as hero art (wiki entries, and pages that open on one: "art": { "wiki": "<slug>" }), from
-// <product>/wiki/img/art/art.json (tools/make-wiki-art.py): the wide picture, and its 9:16 tall cut. A landscape box
-// is at least 16:10 and the picture is wider, so on most screens it is shown at the box's height: sizes says so.
+// <product>/wiki/img/art/art.json (tools/make-wiki-art.py): the wide picture, and its 9:16 tall version. These heroes
+// are the other pages' shorter box, clamp(384px, 43.2vw, 74.4svh) on landscape screens, so the picture is the screen's
+// width, or wider where the box's height asks for more: sizes says so.
 const arts = {}
 export function wikiArt(product, slug, extra = {}) {
   arts[product] ??= existsSync(join(root, product, 'wiki', 'img', 'art', 'art.json'))
@@ -67,7 +72,7 @@ export function wikiArt(product, slug, extra = {}) {
   if (!a) throw new Error(`${product}: no wiki painting "${slug}" in wiki/img/art (run tools/make-wiki-art.py)`)
   const base = `/${product}/wiki/img/art/${slug}`
   const k = a.width / a.height
-  const sizes = `max(100vw, min(${+(62.5 * k).toFixed(1)}vw, ${+(100 * k).toFixed(1)}vh))`
+  const sizes = `max(100vw, ${Math.round(384 * k)}px, min(${+(43.2 * k).toFixed(1)}vw, ${+(74.4 * k).toFixed(1)}vh))`
   return {
     position: '50% 35%', fade: { wide: '86%', tall: '80%' }, ...extra,
     tall: { src: `${base}-tall`, widths: a.tall.widths, jpeg: a.tall.jpeg, width: a.tall.width, height: a.tall.height },

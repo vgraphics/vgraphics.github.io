@@ -118,8 +118,8 @@ h1, h2, h3 {
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink)); /* optional */
 }
 
-/* The hero of every product page, the landing page's, its other pages' and every wiki page's (George, 23 Oct 2026:
-   "Heroes of all pages must have same height as hero in overview"; tools/lib/hero.mjs builds it for all of them).
+/* The hero of every product page, the landing page's, its other pages' and every wiki page's (tools/lib/hero.mjs
+   builds it for all of them; the other pages' is shorter, .is-page below).
    Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
    the wide picture (or the ultra-wide one past 2:1), cut to fill a 16:10 box no taller than the screen, so it fills
    the whole screen on most of them (George, 22 Oct: "Increase height of hero a bit", from 16:9). Portrait
@@ -169,6 +169,15 @@ h1, h2, h3 {
     mask-image: linear-gradient(#000 var(--art-fade-tall, 62%), transparent);
   }
   .foot-left .hero-foot .wrap { justify-items: center; text-align: center; }
+}
+/* Every other page's hero (the wiki's, the ranking's, the policies'; tools/lib/hero.mjs): shorter, so the page's own
+   content starts sooner (George, 24 Oct 2026: "The hero height is not so good for other pages other than overview.
+   Revert to previous height +20%"): the band those pages had before 23 Oct, 20% taller. Portrait screens show the
+   middle of the tall picture, where its subject stands. */
+.key-art.is-page { height: clamp(384px, 43.2vw, 74.4vh); height: clamp(384px, 43.2vw, 74.4svh); }
+@media (max-aspect-ratio: 4/5) {
+  .key-art.is-page { height: 134.4vw; }
+  .key-art.is-page picture img { object-position: 50% 50%; }
 }
 
 /* Store badges and buttons */

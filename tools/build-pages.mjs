@@ -52,10 +52,11 @@ const dims = (img) => ` width="${img.width}" height="${img.height}"`
 const image = (i, lazy = true) => `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
-// and the badges in its foot. The painted title stands in for the h1, which stays for screen readers and search.
-function hero(p) {
+// and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
+// stays for screen readers and search.
+function hero(p, overview) {
   const h = p.hero
-  return heroSection(h.art, { cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
+  return heroSection(h.art, { overview, cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
@@ -293,7 +294,7 @@ ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
   ${header(product, { current: path })}
 
   <main id="main">
-    ${hero(p)}
+    ${hero(p, !sub)}
 
     ${body.join('\n\n    ')}
   </main>
