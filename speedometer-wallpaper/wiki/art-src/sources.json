@@ -7,7 +7,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    887,
+    2337
+   ]
   },
   "big-gauge-tile": {
    "master": "big-gauge-tile.webp",
@@ -15,7 +19,11 @@
    "promptStart": "close up of an android phone s quick settings pane …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
    "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
-   "focus": 0.519
+   "focus": 0.519,
+   "tallCrop": [
+    959,
+    2337
+   ]
   },
   "power": {
    "master": "power.webp",
@@ -23,7 +31,11 @@
    "made": "Recraft V4.1 Pro, style from the product's key art, 22 Oct 2026",
    "promptStart": "night drive close up, a premium analog car power g …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    921,
+    2337
+   ]
   },
   "cpu-clock": {
    "master": "cpu-clock.webp",
@@ -31,7 +43,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    909,
+    2337
+   ]
   },
   "gps-speed": {
    "master": "gps-speed.webp",
@@ -39,7 +55,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1757,
+    2337
+   ]
   },
   "signal": {
    "master": "signal.webp",
@@ -47,7 +67,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    877,
+    2337
+   ]
   },
   "ram": {
    "master": "ram.webp",
@@ -55,7 +79,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1051,
+    2337
+   ]
   },
   "wifi": {
    "master": "wifi.webp",
@@ -63,14 +91,22 @@
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
    "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
-   "focus": 0.578
+   "focus": 0.578,
+   "tallCrop": [
+    808,
+    3116
+   ]
   },
   "battery": {
    "master": "battery.webp",
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    942,
+    2337
+   ]
   },
   "battery-temperature": {
    "master": "battery-temperature.webp",
@@ -78,7 +114,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1535,
+    2337
+   ]
   },
   "low-battery-light": {
    "master": "low-battery-light.webp",
@@ -86,7 +126,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    862,
+    2337
+   ]
   },
   "bluetooth-light": {
    "master": "bluetooth-light.webp",
@@ -94,7 +138,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1412,
+    2337
+   ]
   },
   "high-temperature-light": {
    "master": "high-temperature-light.webp",
@@ -103,7 +151,11 @@
    "promptStart": "Close up photorealistic night photo from inside a  …",
    "recraftProject": "https://www.recraft.ai/project/0b407a93-a80d-447b-82dd-19ae18898751",
    "upscale": "Recraft Crisp upscale, 1536x768 to 4096x2048, 24 Oct 2026, cut to 3584x2048 from x 300",
-   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation stands upright in a black suction-cup dashboard mount, slightly right of centre and large in the frame, seen almost straight on, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy with a thin bright edge highlight. Below it the dark dashboard. Behind it, through the rain-speckled windshield, a deep blue night city with tall glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen."
+   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation stands upright in a black suction-cup dashboard mount, slightly right of centre and large in the frame, seen almost straight on, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy with a thin bright edge highlight. Below it the dark dashboard. Behind it, through the rain-speckled windshield, a deep blue night city with tall glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen.",
+   "tallCrop": [
+    1272,
+    2044
+   ]
   },
   "low-temperature-light": {
    "master": "low-temperature-light.webp",
@@ -111,7 +163,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1072,
+    2337
+   ]
   },
   "charging-light": {
    "master": "charging-light.webp",
@@ -119,7 +175,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    856,
+    2337
+   ]
   },
   "low-light": {
    "master": "low-light.webp",
@@ -127,7 +187,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1759,
+    2337
+   ]
   },
   "wifi-on-light": {
    "master": "wifi-on-light.webp",
@@ -136,7 +200,11 @@
    "promptStart": "Close up photorealistic night photo from inside a  …",
    "recraftProject": "https://www.recraft.ai/project/0b407a93-a80d-447b-82dd-19ae18898751",
    "upscale": "Recraft Crisp upscale, 1536x768 to 4096x2048, 24 Oct 2026, cut to 3584x2048 from x 512",
-   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation held upright by a black spring clamp gripping its top edge, in a dashboard mount, right of centre and large in the frame, turned slightly towards the left, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy. Below it the dark dashboard with a soft reflection. Behind it, through the rain-speckled windshield, a deep blue night city with tall glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen."
+   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation held upright by a black spring clamp gripping its top edge, in a dashboard mount, right of centre and large in the frame, turned slightly towards the left, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy. Below it the dark dashboard with a soft reflection. Behind it, through the rain-speckled windshield, a deep blue night city with tall glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen.",
+   "tallCrop": [
+    1468,
+    2044
+   ]
   },
   "date-and-time": {
    "master": "date-and-time.webp",
@@ -144,7 +212,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    1662,
+    2337
+   ]
   },
   "settings": {
    "master": "settings.webp",
@@ -152,7 +224,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up of a phone on a car dashboard showing a d …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    906,
+    2337
+   ]
   },
   "set-as-wallpaper": {
    "master": "set-as-wallpaper.webp",
@@ -160,7 +236,11 @@
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "a hand placing a smartphone into a dashboard mount …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    854,
+    2337
+   ]
   },
   "designs-screen": {
    "master": "designs-screen.webp",
@@ -169,7 +249,11 @@
    "promptStart": "Close up photorealistic night photo from inside a  …",
    "recraftProject": "https://www.recraft.ai/project/0b407a93-a80d-447b-82dd-19ae18898751",
    "upscale": "Recraft Crisp upscale, 1536x768 to 4096x2048, 24 Oct 2026, cut to 3584x2048 from x 512",
-   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation stands upright on the dark dashboard in a small black phone stand, right of centre and large in the frame, seen straight on, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy with a thin bright edge highlight. Below it the dashboard and the slats of an air vent. Behind it, through the rain-speckled windshield, a deep blue night city with glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen."
+   "prompt": "Close up photorealistic night photo from inside a dark car: a modern frameless smartphone in portrait orientation stands upright on the dark dashboard in a small black phone stand, right of centre and large in the frame, seen straight on, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy with a thin bright edge highlight. Below it the dashboard and the slats of an air vent. Behind it, through the rain-speckled windshield, a deep blue night city with glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen.",
+   "tallCrop": [
+    1367,
+    2044
+   ]
   },
   "classic-design": {
    "master": "classic-design.webp",
@@ -177,7 +261,11 @@
    "promptStart": "close up, a smartphone mounted on a car dashboard  …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
    "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
-   "focus": 0.529
+   "focus": 0.529,
+   "tallCrop": [
+    610,
+    3116
+   ]
   },
   "future-design": {
    "master": "future-design.webp",
@@ -185,14 +273,22 @@
    "promptStart": "close up of a phone on a car dashboard showing a f …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
    "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
-   "focus": 0.523
+   "focus": 0.523,
+   "tallCrop": [
+    974,
+    2337
+   ]
   },
   "music-calls-messages": {
    "master": "music-calls-messages.webp",
    "made": "Recraft V4.1, style from the product's key art, 22 Oct 2026",
    "promptStart": "close up of a phone on a car dashboard showing a c …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
-   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a"
+   "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
+   "tallCrop": [
+    914,
+    2337
+   ]
   },
   "restoring-future": {
    "master": "restoring-future.webp",
@@ -200,7 +296,11 @@
    "promptStart": "two smartphones side by side on a car dashboard, b …",
    "recraftProject": "https://www.recraft.ai/project/f30a7955-2111-4e84-82e1-203f8d81d015",
    "upscale": "Recraft Crisp upscale, 1344x768 to 4096x2340, 23 Oct 2026, project https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
-   "focus": 0.492
+   "focus": 0.492,
+   "tallCrop": [
+    0,
+    4096
+   ]
   }
  }
 }

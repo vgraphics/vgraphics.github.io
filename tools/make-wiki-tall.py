@@ -1,16 +1,23 @@
 # Makes a wiki painting's own tall picture for portrait screens (George, 24 Oct 2026: "Make tall version for all
 # images. Crop sucks."): the master's subject whole, with more of its world above and below, instead of a 9:16 cut of
 # the wide picture.
-#   1. python tools/make-wiki-tall.py crop <product> <dir> [slug ...]
+#   1. python tools/make-wiki-tall.py crop <product> <dir> [slug ...] [--screens <folder>]
 #      writes <dir>/<slug>.jpg for each entry with a "tallCrop" [x, width] in sources.json: that full-height strip of
 #      the master (the subject whole), 1376 px on its long side, to outpaint to 9:16 in Recraft (Nano Banana 2.1),
 #      then Crisp upscale and export.
-#   2. python tools/make-wiki-tall.py <product> <slug> <outpaint>
+#   2. python tools/make-wiki-tall.py <product> <slug> <outpaint> [--screens <folder>]
 #      writes <product>/wiki/art-src/<slug>-tall.webp (1440x2560, the "tall" in sources.json) from the exported
 #      outpaint. The outpaint is one seamless picture, but it re-draws the strip at about half the master's resolution
 #      and changes small things in it (a swirl, a die's dots). So the crisp strip goes back where the outpaint holds it,
 #      found by matching, and fades into the outpaint's own copy just inside its top and foot; where the outpaint's new
 #      sky and ground start a shade off its strip, they are shaded to meet it (seams()).
+#   --screens <folder>: for paintings whose phones show the app (Speedometer). The strip comes from the screen-off copy
+#      in <folder> (tools/make-wiki-screens.py <product> --blank <folder>), never from a painting with an AI-drawn
+#      dial, and compose writes the tall background to art-src/painted/<slug>-tall.webp with the entry
+#      "<slug>-tall" in screens.json: each phone's glass (and its keep and clean polygons) mapped into the tall frame.
+#      Then python tools/make-wiki-screens.py <product> <slug>-tall lays the app's real screens in, writing
+#      art-src/<slug>-tall.webp, and "tall" in sources.json names it. A phone that runs past the wide picture's edge
+#      (its glass reaches past the frame) needs its glass checked in the tall picture.
 # Then python tools/make-wiki-art.py <product> <slug> makes the served sizes.
 import json, os, sys
 import numpy as np
@@ -29,20 +36,21 @@ def entries(product):
     return path, json.load(open(path, encoding='utf-8'))
 
 
-def strip(product, s):
-    im = Image.open(os.path.join(ROOT, product, 'wiki', 'art-src', s['master'])).convert('RGB')
+def strip(product, slug, s, screens=None):
+    src = os.path.join(screens, f'{slug}.webp') if screens else os.path.join(ROOT, product, 'wiki', 'art-src', s['master'])
+    im = Image.open(src).convert('RGB')
     x, w = s['tallCrop']
     # The master's first and last rows carry a little of what it was upscaled on: they're left out.
     return im.crop((x, 2, x + w, im.height - 2))
 
 
-def crop(product, out, only):
+def crop(product, out, only, screens=None):
     _, src = entries(product)
     os.makedirs(out, exist_ok=True)
     for slug, s in src['entries'].items():
         if 'tallCrop' not in s or (only and slug not in only):
             continue
-        c = strip(product, s)
+        c = strip(product, slug, s, screens)
         k = 1376 / max(c.size)
         c.resize((round(c.width * k), round(c.height * k)), Image.LANCZOS).save(os.path.join(out, f'{slug}.jpg'), quality=93)
         print(slug, c.size)
@@ -112,11 +120,35 @@ def seams(O, y0, y1):
     return C
 
 
-def compose(product, slug, outpaint):
+def screens_entry(product, slug, size, a, bx, by):
+    # The phones of the wide painting, mapped into the tall picture (tall = a * wide + b), as screens.json's
+    # "<slug>-tall": the same screens and fit, every polygon moved with the picture. An entry with a crop gives its
+    # polygons in the painting before the crop; the screen-off copy (size) is the crop, scaled back up.
+    path = os.path.join(ROOT, product, 'wiki', 'art-src', 'screens.json')
+    spec = json.load(open(path, encoding='utf-8'))
+    wide = spec['entries'][slug]
+    c = wide.get('crop', [0, 0, size[0], size[1]])
+    sx, sy = size[0] / (c[2] - c[0]), size[1] / (c[3] - c[1])
+    move = lambda poly: [[round(a * (px - c[0]) * sx + bx, 1), round(a * (py - c[1]) * sy + by, 1)] for px, py in poly]
+    def walk(v):
+        if isinstance(v, list) and v and isinstance(v[0], list) and len(v[0]) == 2 and all(isinstance(n, (int, float)) for n in v[0]):
+            return move(v)
+        if isinstance(v, list):
+            return [walk(i) for i in v]
+        if isinstance(v, dict):
+            return {key: (walk(val) if key in ('glass', 'keep', 'clean', 'poly') else val) for key, val in v.items()}
+        return v
+    tall = {key: walk(val) if key in ('phones', 'clean', 'keep') else val for key, val in wide.items() if key != 'crop'}
+    spec['entries'][f'{slug}-tall'] = tall
+    json.dump(spec, open(path, 'w', encoding='utf-8', newline='\n'), indent=1, ensure_ascii=False)
+
+
+def compose(product, slug, outpaint, screens=None):
     path, src = entries(product)
     s = src['entries'][slug]
     O = Image.open(outpaint).convert('RGB')
-    I = strip(product, s)
+    I = strip(product, slug, s, screens)
+    f1 = O.width / I.width
     I = I.resize((O.width, round(I.height * O.width / I.width)), Image.LANCZOS)
     k, x, y, err = locate(O, I)
     I = I.resize((max(round(I.width * k), O.width), round(I.height * k)), Image.LANCZOS).crop((-x, 0, -x + O.width, round(I.height * k)))
@@ -139,7 +171,12 @@ def compose(product, slug, outpaint):
 
 
 if __name__ == '__main__':
-    if sys.argv[1] == 'crop':
-        crop(sys.argv[2], sys.argv[3], sys.argv[4:])
+    args, screens = sys.argv[1:], None
+    if '--screens' in args:
+        i = args.index('--screens')
+        screens = args[i + 1]
+        args = args[:i] + args[i + 2:]
+    if args[0] == 'crop':
+        crop(args[1], args[2], args[3:], screens)
     else:
-        compose(*sys.argv[1:4])
+        compose(*args[:3], screens=screens)
