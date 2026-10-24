@@ -31,6 +31,7 @@
     // The two seek bars, the player's and the mini-bar's: each a waveform under a range input, kept in step.
     const bars = [...root.querySelectorAll(".ost-seek")].map((box) => ({ box, wave: box.querySelector(".ost-wave"), range: box.querySelector(".ost-range") }));
     const rows = [...root.querySelectorAll(".ost-track")];
+    const list = root.querySelector(".ost-list");
     const live = root.querySelector('[data-ost="live"]');
     const mini = root.querySelector(".ost-mini");
     const main = (name) => root.querySelector('.ost-player [data-ost="' + name + '"]');
@@ -109,9 +110,22 @@
       } catch (e) {}
     }
 
+    // The list shows three and a half rows and scrolls in its own box (soundtrack.css): the current track scrolls into
+    // it, the least that shows it whole, and the page stays where it is (scrollIntoView would move it too).
+    function reveal() {
+      const row = track().parentElement;
+      const top = row.offsetTop;
+      const bottom = top + row.offsetHeight;
+      let to = null;
+      if (top < list.scrollTop) to = top;
+      else if (bottom > list.scrollTop + list.clientHeight) to = bottom - list.clientHeight;
+      if (to !== null) list.scrollTo({ top: to, behavior: reduce.matches ? "instant" : "smooth" });
+    }
+
     function select(i) {
       at = (i + rows.length) % rows.length;
       rows.forEach((r, n) => (n === at ? r.setAttribute("aria-current", "true") : r.removeAttribute("aria-current")));
+      reveal();
       both("title").forEach((el) => (el.textContent = title()));
       main("label").textContent = "Track " + (at + 1) + " of " + rows.length;
       both("dur").forEach((el) => (el.textContent = clock(track().dataset.duration)));
