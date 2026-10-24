@@ -275,16 +275,39 @@
   .ost-volume, .ost-loop { grid-row: 2; }
 }
 
-/* The track list: the current track lit up, its coloured number turned into dancing bars while it plays */
+/* The track list: the current track lit up, its coloured number turned into dancing bars while it plays. At most
+   three and a half rows show (George, 24 Oct 2026: "Show max 3.5 songs. Its ugly current way."): the half row says
+   there is more, and the rest scroll in the list's own box, on a slim scrollbar in the product's colour (--sb, as on
+   the page), lightened to read on the dark stage. soundtrack.js scrolls the current track into the box. A row is
+   always --ost-row high: its title stays on one line. */
+.ost { --ost-row: 54px; --ost-row-gap: 6px; --ost-rows: 3.5; }
 .ost-tracks { display: grid; gap: 6px; width: 100%; }
-.ost-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.ost-list {
+  --ost-thumb: color-mix(in srgb, var(--sb) 60%, var(--on-art));
+  position: relative;
+  display: grid;
+  gap: var(--ost-row-gap);
+  max-height: calc(var(--ost-rows) * var(--ost-row) + (var(--ost-rows) - 0.5) * var(--ost-row-gap));
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ost-list::-webkit-scrollbar { width: 12px; }
+.ost-list::-webkit-scrollbar-track { border: 3px solid transparent; border-radius: 999px; background: color-mix(in srgb, var(--on-art) 10%, transparent); background-clip: padding-box; }
+.ost-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; border-radius: 999px; background: var(--ost-thumb); background-clip: padding-box; }
+.ost-list::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--ost-thumb) 80%, #FFFFFF); }
+.ost-list::-webkit-scrollbar-thumb:active { background-color: color-mix(in srgb, var(--ost-thumb) 64%, #FFFFFF); }
+@supports not selector(::-webkit-scrollbar) {
+  .ost-list { scrollbar-width: thin; scrollbar-color: var(--ost-thumb) color-mix(in srgb, var(--on-art) 10%, transparent); }
+}
 .ost-track {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
   width: 100%;
-  min-height: 54px;
+  min-height: var(--ost-row);
   padding: 8px 16px 8px 9px;
   border: 0;
   border-radius: var(--radius-sm);
@@ -299,6 +322,9 @@
 }
 .ost-track:hover { background: color-mix(in srgb, var(--on-art) 14%, transparent); }
 .ost-track[aria-current="true"] { background: var(--on-art); color: var(--dark); }
+/* Inside the row, so the list's box doesn't cut the ring off; dark on the lit row */
+.ost-track:focus-visible { outline-offset: -3px; }
+.ost-track[aria-current="true"]:focus-visible { outline-color: var(--dark); }
 .ost-n {
   position: relative;
   display: grid;
