@@ -13,7 +13,7 @@
   box-shadow: 0 4px 0 rgb(0 0 0 / 0.2);
   font: var(--display-weight) 1.05rem/1 var(--font-display);
   white-space: nowrap;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 120ms ease-out, background-color 150ms ease-out;
 }
 .ranking .tab:hover { transform: translateY(-2px); }
@@ -30,12 +30,12 @@
 .ranking .card-head h3 { font-size: 1.6rem; }
 .ranking .caption { margin: 2px 0 0; color: var(--muted); font-size: 0.95rem; line-height: 1.35; }
 .ranking .updated { display: flex; align-items: center; gap: 2px; margin: 0; color: var(--muted); font-size: 0.85rem; }
-.ranking .refresh { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; margin-right: -12px; border: 0; border-radius: 999px; background: transparent; color: var(--accent); font-size: 0.85rem; cursor: pointer; }
+.ranking .refresh { display: inline-flex; align-items: center; gap: 6px; min-height: 44px; padding: 0 12px; margin-right: -12px; border: 0; border-radius: 999px; background: transparent; color: var(--accent); font-size: 0.85rem; cursor: var(--cursor-link, pointer); }
 .ranking .refresh:hover { background: var(--page); }
 .ranking .refresh svg { width: 16px; height: 16px; }
 .ranking .refresh[aria-busy="true"] svg { animation: r-spin 900ms linear infinite; }
 @keyframes r-spin { to { transform: rotate(360deg); } }
-.ranking .refresh[disabled] { cursor: default; opacity: 0.6; }
+.ranking .refresh[disabled] { cursor: var(--cursor, default); opacity: 0.6; }
 
 .ranking .cols, .ranking .row { display: grid; grid-template-columns: 40px 40px minmax(0, 1fr) auto; align-items: center; column-gap: 12px; padding: 0 20px; }
 .ranking .cols { padding-block: 8px; border-block: 1px solid var(--line); background: var(--page); color: var(--muted); font: var(--label-weight) 0.75rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.07em; }

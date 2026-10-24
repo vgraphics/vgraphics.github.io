@@ -33,13 +33,14 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu and the cursors on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
 | `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the masters in `<product>/wiki/art-src/`, whose `sources.json` records each one's making, prompt and licence: `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
+| `tools/make-cursors.mjs` | Draws every product's cursors and VGraphics' (see "Cursors" below): `node tools/make-cursors.mjs`, then `node tools/build-pages.mjs` |
 | `tools/make-qr.py` | Writes a QR code as a small SVG, made once so the page loads no QR library: `python tools/make-qr.py <link> <out.svg>` (Python with segno) |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 
@@ -87,6 +88,24 @@ instances."): the company and product headers must come with their phone menu, a
 fails (one made by hand: make the page with the template), and so does a `<nav>` outside `<main>`, the footer and
 those headers. A header without a menu (a logo and a language button, as on the party games' doors) passes. Nothing
 is exempt: a page another repo writes (the hub, a play page, a policy's source) fails like any other.
+
+## Cursors
+
+Every page shows its product's own cursors (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"):
+a pointer, a hand over whatever clicks and a text cursor in text fields, in the product's look. The company pages and
+the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V2PeBPVi1AwabCjnTQsVa.
+
+- A product's three are `<product>/theme/cursor.svg`, `cursor-link.svg` and `cursor-text.svg`: 32 x 32, the click
+  point in each svg's `data-hotspot="x y"`. `tools/make-cursors.mjs` draws them in code, VGraphics' too
+  (`assets/img/cursor*.svg`). A new product adds its three there; `tools/build-pages.mjs` writes them into its
+  `theme.css` as `--cursor`, `--cursor-link` and `--cursor-text`. VGraphics' are set in `assets/vgraphics.css`.
+- They are set for mice and trackpads only (`(hover: hover) and (pointer: fine)`), so phones and tablets keep their
+  touch behaviour and never load the pictures. A missing or broken picture falls back to the system's cursor.
+- `assets/cursors.css` puts them to use, and every page links it. A stylesheet that sets its own cursor uses
+  `var(--cursor-link, pointer)` (or `--cursor-text`, `--cursor` with `text`, `default`) in place of the system's.
+- check-site holds every served page to this: the link, no bare `cursor: pointer`, `text` or `default`, and click
+  points that match the pictures. The hub's copy lives in the VHub repo (`hub/index.html`, its policy page and
+  `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and

@@ -6,6 +6,9 @@
 // theme.json: { "scheme": "light" | "dark", "fonts": [{ family, src, weight, preload? }], "tokens": { name: css value },
 //   "swatches": [colours the layout hands out in turn: steps, feature marks], "mark": "<svg>" | null (the feature
 //   lists' glyph, drawn in currentColor), "ornaments": { "edges": [...], "horizon": {...} | null } }
+// Beside it, the pack's cursors (theme/cursor.svg, cursor-link.svg, cursor-text.svg; tools/lib/cursors.mjs) become
+// theme.css's --cursor, --cursor-link and --cursor-text.
+import { cursorCss } from './cursors.mjs'
 
 // The tokens every pack sets, as assets/product.css reads them without a fallback. A pack may add its own (a game's
 // heart red, say) for its demo or pictures; product.css also reads a few optional ones (marked there) with fallbacks.
@@ -58,7 +61,8 @@ export function checkTheme(theme) {
 
 const FORMAT = { woff2: 'woff2', woff: 'woff', ttf: 'truetype', otf: 'opentype' }
 
-export function themeCss(slug, theme) {
+// cursors: the pack's cursor tokens, [[name, css value]] (tools/lib/cursors.mjs readCursors).
+export function themeCss(slug, theme, cursors = []) {
   const fonts = (theme.fonts || []).map((f) => `@font-face { font-family: "${f.family}"; src: url("${f.src}") format("${FORMAT[f.src.split('.').pop()]}"); font-weight: ${f.weight}; font-display: swap; }`)
   const vars = [
     ...Object.entries(theme.tokens).map(([k, v]) => `  --${k}: ${v};`),
@@ -70,5 +74,5 @@ ${fonts.join('\n')}
 :root {
 ${vars.join('\n')}
 }
-`
+${cursorCss(cursors)}`
 }

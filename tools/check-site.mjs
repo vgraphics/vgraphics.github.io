@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
+import { hotspot } from './lib/cursors.mjs'
 import { documents, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 
@@ -181,6 +182,35 @@ for (const file of served) {
   if (ours && !html.includes(MENU_JS)) burger(file, `does not load /assets/menu.js, the phone menu (${MENU_JS})`)
   const rest = html.replace(/<(main|footer|header)\b[^>]*>[\s\S]*?<\/\1>/g, '')
   if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
+}
+
+// The cursors (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"), on every page GitHub Pages
+// serves, whoever writes it, as the phone menu above: each links /assets/cursors.css, which shows its product's (or
+// VGraphics') pointer, hand and text cursor (tools/lib/cursors.mjs); no stylesheet or <style> sets the system's own
+// pointer, text or default cursor in their place (they use var(--cursor-link, pointer) and the like); and every
+// cursor picture a stylesheet names has its click point where the picture's data-hotspot says. The pieces the template
+// sets into pages (a demo, an embed's markup, a policy's source) are not pages.
+const cursor = (file, message) => report(file, 'cursors', message)
+const SYSTEM = { pointer: 'var(--cursor-link, pointer)', text: 'var(--cursor-text, text)', default: 'var(--cursor, default)' }
+const notPages = new Set([...pieces(), ...sources.keys()].map((f) => f.split(sep).join('/')))
+const styles = (html) => [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>|\sstyle="([^"]*)"/g)].map((m) => m[1] ?? m[2]).join('\n')
+const sheets = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.css'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f))).map((f) => [f, readFileSync(join(root, f), 'utf8')])
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!/<link rel="stylesheet" href="\/assets\/cursors\.css"/.test(html)) cursor(file, 'does not link /assets/cursors.css, which shows the cursors')
+  sheets.push([file, styles(html)])
+}
+for (const [file, text] of sheets) {
+  for (const [, kind] of text.matchAll(/(?<![-\w])cursor:\s*(pointer|text|default)\b/g)) cursor(file, `sets cursor: ${kind}, the system's own: use ${SYSTEM[kind]}`)
+  for (const [, name, url, x, y] of text.matchAll(/--(cursor(?:-link|-text)?):\s*url\(\s*"([^"]+)"\s*\)\s+(\d+)\s+(\d+)/g)) {
+    const picture = join(root, url.replace(/^\//, ''))
+    if (!url.startsWith('/') || !existsSync(picture)) continue // a missing one is reported under css-urls
+    const at = hotspot(readFileSync(picture, 'utf8'))
+    if (typeof at === 'string') cursor(file, `--${name}'s ${url} ${at}`)
+    else if (at.join(' ') !== `${x} ${y}`) cursor(file, `--${name} clicks at ${x} ${y}, but ${url}'s data-hotspot is ${at.join(' ')}`)
+  }
 }
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and

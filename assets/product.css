@@ -215,7 +215,7 @@ h1, h2, h3 {
   text-transform: var(--label-case);
   letter-spacing: var(--label-tracking);
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 160ms ease-out, filter 160ms ease-out;
 }
 .btn:hover { filter: brightness(1.08); }
@@ -508,7 +508,7 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
    open (assets/product.js keeps one open at a time). */
 .tour { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
 .tour .stage { position: sticky; top: 24px; justify-self: center; width: min(380px, 86vw); }
-.spot { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.spot { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: var(--cursor-link, pointer); }
 .spot::before { content: ""; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent), 0 4px 10px rgba(0, 0, 0, 0.6); transition: transform 180ms ease-out; }
 .spot::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 2px solid var(--accent); animation: ping 2.4s cubic-bezier(.2, .8, .2, 1) infinite; }
 .spot span { position: absolute; color: #fff; font: 800 0.9rem/1 var(--label-font); }
@@ -526,7 +526,7 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   width: 100%;
   min-height: 56px;
   padding: 12px 18px;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   font: var(--display-weight) 1.3rem/1.1 var(--font-display);
   text-transform: var(--display-case);
   letter-spacing: 0.03em;
@@ -763,7 +763,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .menu-toggle {
     display: inline-flex; align-items: center; justify-content: center; flex: none;
     width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; border-radius: 50%;
-    background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: pointer;
+    background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: var(--cursor-link, pointer);
     transition: color 200ms ease-out, background-color 200ms ease-out;
   }
   .top.scrolled .menu-toggle, .top.menu-open .menu-toggle { color: var(--ink); filter: none; }
