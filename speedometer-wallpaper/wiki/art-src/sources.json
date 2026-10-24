@@ -11,7 +11,8 @@
    "tallCrop": [
     887,
     2337
-   ]
+   ],
+   "tall": "big-gauge-tall.webp"
   },
   "big-gauge-tile": {
    "master": "big-gauge-tile.webp",
@@ -23,7 +24,8 @@
    "tallCrop": [
     959,
     2337
-   ]
+   ],
+   "tall": "big-gauge-tile-tall.webp"
   },
   "power": {
    "master": "power.webp",
@@ -35,7 +37,8 @@
    "tallCrop": [
     921,
     2337
-   ]
+   ],
+   "tall": "power-tall.webp"
   },
   "cpu-clock": {
    "master": "cpu-clock.webp",
@@ -47,7 +50,8 @@
    "tallCrop": [
     909,
     2337
-   ]
+   ],
+   "tall": "cpu-clock-tall.webp"
   },
   "gps-speed": {
    "master": "gps-speed.webp",
@@ -59,7 +63,8 @@
    "tallCrop": [
     1757,
     2337
-   ]
+   ],
+   "tall": "gps-speed-tall.webp"
   },
   "signal": {
    "master": "signal.webp",
@@ -71,7 +76,8 @@
    "tallCrop": [
     877,
     2337
-   ]
+   ],
+   "tall": "signal-tall.webp"
   },
   "ram": {
    "master": "ram.webp",
@@ -83,7 +89,8 @@
    "tallCrop": [
     1051,
     2337
-   ]
+   ],
+   "tall": "ram-tall.webp"
   },
   "wifi": {
    "master": "wifi.webp",
@@ -95,7 +102,8 @@
    "tallCrop": [
     808,
     3116
-   ]
+   ],
+   "tall": "wifi-tall.webp"
   },
   "battery": {
    "master": "battery.webp",
@@ -106,7 +114,8 @@
    "tallCrop": [
     942,
     2337
-   ]
+   ],
+   "tall": "battery-tall.webp"
   },
   "battery-temperature": {
    "master": "battery-temperature.webp",
@@ -118,7 +127,8 @@
    "tallCrop": [
     1535,
     2337
-   ]
+   ],
+   "tall": "battery-temperature-tall.webp"
   },
   "low-battery-light": {
    "master": "low-battery-light.webp",
@@ -130,7 +140,8 @@
    "tallCrop": [
     862,
     2337
-   ]
+   ],
+   "tall": "low-battery-light-tall.webp"
   },
   "bluetooth-light": {
    "master": "bluetooth-light.webp",
@@ -142,7 +153,8 @@
    "tallCrop": [
     1412,
     2337
-   ]
+   ],
+   "tall": "bluetooth-light-tall.webp"
   },
   "high-temperature-light": {
    "master": "high-temperature-light.webp",
@@ -155,7 +167,8 @@
    "tallCrop": [
     1272,
     2044
-   ]
+   ],
+   "tall": "high-temperature-light-tall.webp"
   },
   "low-temperature-light": {
    "master": "low-temperature-light.webp",
@@ -167,7 +180,8 @@
    "tallCrop": [
     1072,
     2337
-   ]
+   ],
+   "tall": "low-temperature-light-tall.webp"
   },
   "charging-light": {
    "master": "charging-light.webp",
@@ -179,7 +193,8 @@
    "tallCrop": [
     856,
     2337
-   ]
+   ],
+   "tall": "charging-light-tall.webp"
   },
   "low-light": {
    "master": "low-light.webp",
@@ -191,7 +206,8 @@
    "tallCrop": [
     1759,
     2337
-   ]
+   ],
+   "tall": "low-light-tall.webp"
   },
   "wifi-on-light": {
    "master": "wifi-on-light.webp",
@@ -204,7 +220,8 @@
    "tallCrop": [
     1468,
     2044
-   ]
+   ],
+   "tall": "wifi-on-light-tall.webp"
   },
   "date-and-time": {
    "master": "date-and-time.webp",
@@ -216,7 +233,8 @@
    "tallCrop": [
     1662,
     2337
-   ]
+   ],
+   "tall": "date-and-time-tall.webp"
   },
   "settings": {
    "master": "settings.webp",
@@ -228,7 +246,8 @@
    "tallCrop": [
     906,
     2337
-   ]
+   ],
+   "tall": "settings-tall.webp"
   },
   "set-as-wallpaper": {
    "master": "set-as-wallpaper.webp",
@@ -240,7 +259,8 @@
    "tallCrop": [
     854,
     2337
-   ]
+   ],
+   "tall": "set-as-wallpaper-tall.webp"
   },
   "designs-screen": {
    "master": "designs-screen.webp",
@@ -253,7 +273,8 @@
    "tallCrop": [
     1367,
     2044
-   ]
+   ],
+   "tall": "designs-screen-tall.webp"
   },
   "classic-design": {
    "master": "classic-design.webp",
@@ -265,7 +286,8 @@
    "tallCrop": [
     610,
     3116
-   ]
+   ],
+   "tall": "classic-design-tall.webp"
   },
   "future-design": {
    "master": "future-design.webp",
@@ -277,7 +299,8 @@
    "tallCrop": [
     974,
     2337
-   ]
+   ],
+   "tall": "future-design-tall.webp"
   },
   "music-calls-messages": {
    "master": "music-calls-messages.webp",
@@ -288,7 +311,8 @@
    "tallCrop": [
     914,
     2337
-   ]
+   ],
+   "tall": "music-calls-messages-tall.webp"
   },
   "restoring-future": {
    "master": "restoring-future.webp",
@@ -300,7 +324,8 @@
    "tallCrop": [
     0,
     4096
-   ]
+   ],
+   "tall": "restoring-future-tall.webp"
   }
  }
 }

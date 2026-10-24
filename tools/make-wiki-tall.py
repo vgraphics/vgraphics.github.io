@@ -163,10 +163,20 @@ def compose(product, slug, outpaint, screens=None):
     # To 9:16 exactly (the outpaint comes out a few pixels off), then to the size served.
     w = min(im.width, round(im.height * 9 / 16))
     hh = min(im.height, round(w * 16 / 9))
-    im = im.crop(((im.width - w) // 2, (im.height - hh) // 2, (im.width - w) // 2 + w, (im.height - hh) // 2 + hh))
-    im.resize(OUT, Image.LANCZOS).save(os.path.join(ROOT, product, 'wiki', 'art-src', f'{slug}-tall.webp'), 'WEBP', quality=90, method=6)
-    s['tall'] = f'{slug}-tall.webp'
-    json.dump(src, open(path, 'w', encoding='utf-8', newline='\n'), indent=1, ensure_ascii=False)
+    cx, cy = (im.width - w) // 2, (im.height - hh) // 2
+    im = im.crop((cx, cy, cx + w, cy + hh)).resize(OUT, Image.LANCZOS)
+    art = os.path.join(ROOT, product, 'wiki', 'art-src')
+    if screens:
+        # Where a point of the wide master lands in the tall picture (a * point + b), for the phones' glass.
+        f2 = OUT[0] / w
+        master = Image.open(os.path.join(screens, f'{slug}.webp')).size
+        screens_entry(product, slug, master, f1 * k * f2, (x - cx - s['tallCrop'][0] * f1 * k) * f2, (y - cy - 2 * f1 * k) * f2)
+        os.makedirs(os.path.join(art, 'painted'), exist_ok=True)
+        im.save(os.path.join(art, 'painted', f'{slug}-tall.webp'), 'WEBP', quality=90, method=6)
+    else:
+        im.save(os.path.join(art, f'{slug}-tall.webp'), 'WEBP', quality=90, method=6)
+        s['tall'] = f'{slug}-tall.webp'
+        json.dump(src, open(path, 'w', encoding='utf-8', newline='\n'), indent=1, ensure_ascii=False)
     print(f'{product} {slug}: strip rows {y}-{y + h} of {O.height}, scale {k:.3f}, x {x}, error {err:.1f}')
 
 
