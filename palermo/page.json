@@ -1,0 +1,177 @@
+{
+  "title": "Palermo Noir: Mafia Party Game for Phones and Your TV",
+  "description": "A hidden-role mafia party game for 6 to 14 friends: your phone holds your secret card, the TV shows the town, and a noir narrator runs every night. Free.",
+  "social": {
+    "title": "Palermo Noir: the mafia party game for your TV",
+    "description": "Hidden roles on your phones, the town on your TV, and a narrator who runs the night, so everyone plays. For 6 to 14 friends.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora walks past a lit street lamp towards the domes of Palermo under a crescent moon, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "VideoGame",
+        "@id": "https://vgraphics.gr/palermo/#game",
+        "name": "Palermo Noir",
+        "url": "https://vgraphics.gr/palermo/",
+        "description": "A hidden-role mafia party game for 6 to 14 players in one room: each phone holds its player's secret role card, the TV shows the town, and a narrator runs every night and day, so everyone plays. In English and Greek.",
+        "image": "https://vgraphics.gr/palermo/img/card-1200x630.jpg",
+        "genre": ["Party game", "Social deduction", "Hidden role"],
+        "gamePlatform": ["Web browser"],
+        "operatingSystem": "Web browser",
+        "applicationCategory": "GameApplication",
+        "playMode": "MultiPlayer",
+        "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 6, "maxValue": 14 },
+        "inLanguage": ["en", "el"],
+        "audience": { "@type": "PeopleAudience", "suggestedMinAge": 13 },
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" }
+        ]
+      }
+    ]
+  },
+  "site": {
+    "name": "Palermo Noir",
+    "icon": "/palermo/assets/icon-192.png",
+    "favicon": "/palermo/assets/icon-32.png",
+    "touchIcon": "/palermo/assets/icon-180.png",
+    "logo": { "src": "/palermo/assets/logo", "widths": [300, 600], "width": 1236, "height": 426 },
+    "parent": { "name": "Games", "href": "/games/" },
+    "nav": [
+      { "label": "Overview", "href": "/palermo/" },
+      { "label": "Privacy", "href": "/palermo/privacy.html", "wide": true }
+    ],
+    "footer": [
+      { "label": "Privacy policy", "href": "/palermo/privacy.html" }
+    ]
+  },
+  "hero": {
+    "lead": "Hidden roles on your phones. <em>The town on your TV.</em>",
+    "align": "center",
+    "badges": [
+      { "href": "#how", "label": "Coming soon", "note": "On the web first, then Android" },
+      { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
+    ],
+    "art": {
+      "alt": "A man in a fedora and a long coat walks away down a cobbled street past a lit wrought-iron street lamp, towards the church domes of Palermo under a crescent moon, with a cat on a balcony, drawn in gold engraved lines on dark navy",
+      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080], "jpeg": [1080], "width": 1080, "height": 1920 },
+      "wide": { "src": "img/key-art-wide", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 3200, "height": 1829, "sizes": "max(100vw, min(109vw, 175vh))" },
+      "position": "50% 30%",
+      "fade": { "wide": "74%", "tall": "70%" },
+      "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+    }
+  },
+  "intro": {
+    "id": "game",
+    "eyebrow": "A party game for phones and a TV",
+    "title": "Everybody plays, even the narrator",
+    "lede": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek."
+  },
+  "sections": [
+    {
+      "id": "how",
+      "eyebrow": "How to play",
+      "title": "One phone each, one TV for the room",
+      "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "<b>Open a room.</b> The host opens Palermo Noir on their phone and taps Create a room.",
+            "<b>Put the town on the TV.</b> Open vgraphics.gr/tv in the TV's browser and type the room code. Friends scan the QR code on the screen to join.",
+            "<b>Hold to see your card.</b> Everyone gets a secret role. At night every phone asks for the same two taps, so nobody can tell who did what.",
+            "<b>Talk, accuse, vote.</b> Each day the town points fingers and votes someone out. The town wins when every killer is gone, the killers when they match the rest."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "roles",
+      "eyebrow": "The roles",
+      "title": "The classic game",
+      "intro": "Every game keeps the heart of the Greek original: a Known Killer, a Hidden Killer, the Police Officer who learns the Known Killer's face on the first night, a Doctor, and the citizens. From 12 players there are three killers.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "dense": true,
+          "items": [
+            { "image": { "src": "img/roles/known-killer.webp", "alt": "The Known Killer's card: a man in a dark overcoat and a fedora lights a match, a rose pinned to his lapel", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Known Killer", "text": "Every night you and your partners choose a victim. The Police Officer knows who you are." },
+            { "image": { "src": "img/roles/hidden-killer.webp", "alt": "The Hidden Killer's card: a slim figure in a long coat, a fedora pulled low over the face, a rose on the lapel", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Hidden Killer", "text": "Every night you and your partners choose a victim. The Police Officer doesn't know you." },
+            { "image": { "src": "img/roles/officer.webp", "alt": "The Police Officer's card: an officer in a peaked cap and a buttoned uniform, writing in a notebook", "width": 700, "height": 980 }, "tag": "Town", "title": "Police Officer", "text": "On the first night you learn who the Known Killer is. Steer the town without giving yourself away." },
+            { "image": { "src": "img/roles/doctor.webp", "alt": "The Doctor's card: a woman in a long coat with a stethoscope and a leather doctor's bag", "width": 700, "height": 980 }, "tag": "Town", "title": "Doctor", "text": "From the second night, protect one player from the killers, never the same one two nights running." },
+            { "image": { "src": "img/roles/baker.webp", "alt": "A Citizen's card: a smiling baker in an apron with a basket of bread", "width": 700, "height": 980 }, "tag": "Town", "title": "Citizen", "text": "No power: listen, accuse, and vote the killers out. Citizens come as a baker, a fisherman, a seamstress and a kiosk owner." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "extras",
+      "eyebrow": "Extra roles",
+      "title": "When the classic game feels easy",
+      "intro": "Nine more roles from the way Greek groups play, plus the Lovers, two players tied by a heart: if one dies, so does the other. They unlock as a host plays, or all at once for groups who know the game. None of them costs anything.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "dense": true,
+          "items": [
+            { "image": { "src": "img/roles/hunter.webp", "alt": "The Hunter's card: a countryman in a flat cap and tweed with a hunting horn, his hound at his feet", "width": 700, "height": 980 }, "tag": "Town", "title": "Hunter", "text": "When you're out, by vote or by night, you take one player with you." },
+            { "image": { "src": "img/roles/mayor.webp", "alt": "The Mayor's card: a stout mayor with a curled moustache, a sash and a ceremonial key", "width": 700, "height": 980 }, "tag": "Town", "title": "Mayor", "text": "Reveal yourself during a day: from then on your vote counts twice." },
+            { "image": { "src": "img/roles/inspector.webp", "alt": "The Detective's card: a tall detective in a trench coat and fedora with a pipe and a magnifying glass", "width": 700, "height": 980 }, "tag": "Town", "title": "Detective", "text": "Each night, check one player: killer or not." },
+            { "image": { "src": "img/roles/seer.webp", "alt": "The Seer's card: a fortune teller in a patterned headscarf holding a fan of tarot cards", "width": 700, "height": 980 }, "tag": "Town", "title": "Seer", "text": "Once a game, at night, learn one player's exact role." },
+            { "image": { "src": "img/roles/bulletproof.webp", "alt": "The Bulletproof card: a relieved man in a waistcoat holding up a dented pocket watch", "width": 700, "height": 980 }, "tag": "Town", "title": "Bulletproof", "text": "You survive the killers' first attack on you, and only you are told." },
+            { "image": { "src": "img/roles/lawyer.webp", "alt": "The Lawyer's card: a lawyer in a pinstriped suit and round spectacles, a briefcase in one hand, one finger raised", "width": 700, "height": 980 }, "tag": "Town", "title": "Lawyer", "text": "You're dealt 5 of 17 power cards, such as Objection!, Alibi and Appeal, and keep 2. Each one works once." },
+            { "image": { "src": "img/roles/henchman.webp", "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Henchman", "text": "You know the killers, but they don't know you. You win with them." },
+            { "image": { "src": "img/roles/kamikaze.webp", "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse", "width": 700, "height": 980 }, "tag": "Killers", "tagTone": "alt", "title": "Kamikaze", "text": "You're with the killers. Once, during a day, you can take one player down with you." },
+            { "image": { "src": "img/roles/madman.webp", "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask", "width": 700, "height": 980 }, "tag": "Solo", "title": "Madman", "text": "You win alone if the town votes you out, and that ends the game." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "love",
+      "eyebrow": "Why your group will love it",
+      "title": "A night out, without leaving the sofa",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "Everybody plays", "text": "The game deals the cards, runs the nights, counts the votes and keeps the rules, so nobody sits out to narrate." },
+            { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen." },
+            { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same taps at night, and your card shows only while you hold it." },
+            { "title": "Votes counted at once", "text": "Open or secret ballots, ties and revotes, with arrows on the TV as the votes come in." },
+            { "title": "The truth at the end", "text": "Every card turns over, the story of every night is told, and awards go to the sharpest eye and the best liar." },
+            { "title": "Free, every role", "text": "Up to 14 players with every role in. Ads only between games, never during one." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "privacy",
+      "band": {
+        "art": "<img src=\"/palermo/assets/icon-192.png\" alt=\"\" width=\"72\" height=\"72\" loading=\"lazy\">",
+        "title": "For ages 13 and up",
+        "text": "Each phone gives its year of birth once, and only an age group is kept, never the year. Players join as a guest or with their VHub name, and the TV signs in as a screen, never as a person.",
+        "link": { "href": "/palermo/privacy.html", "label": "Privacy policy →" }
+      }
+    }
+  ],
+  "cta": {
+    "title": "Gather your town",
+    "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.",
+    "badges": [
+      { "href": "#how", "label": "Coming soon", "note": "On the web first, then Android" },
+      { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
+    ]
+  }
+}

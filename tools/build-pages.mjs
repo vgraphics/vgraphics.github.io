@@ -28,7 +28,8 @@
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
 //   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
-//                                blocks: gallery, steps, cards (layout icon | media | side), features, tour, soundtrack,
+//                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
+//                                many small media cards, two to a row on phones), features, tour, soundtrack,
 //                                journey, embed, document
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -136,7 +137,7 @@ const BLOCKS = {
       media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
     }[b.layout]
-    return `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}">
+    return `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}">
           ${b.items.map(card).join('\n          ')}
         </${b.ordered ? 'ol' : 'ul'}>`
   },

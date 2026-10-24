@@ -1,0 +1,55 @@
+# Writes a product's hero pictures, the sizes page.json hero.art names, from its key art masters:
+#   <product>/img/key-art-wide-<width>.avif/.webp (+ .jpg at 960 and 1920)   landscape screens
+#   <product>/img/key-art-tall-<width>.avif/.webp (+ .jpg at 1080)           portrait screens up to 4:5, a 9:16 cut
+# and prints the "tall" and "wide" entries for page.json (with the wide one's sizes: the hero box is at least 16:10 and
+# as tall as the screen, so a wider picture is shown at the box's height). Never larger than the master: a size the
+# master can't fill is left out.
+# Usage: python tools/make-key-art.py <product> <wide master> <tall master>
+#        python tools/make-key-art.py <product> <wide master> --cut <x>   (no tall master: a 9:16 cut of the wide one at
+#                                                                         its full height, centred at x, 0 to 1)
+# (Pillow with AVIF.) Old sizes of the same pictures are removed first, so a new key art leaves nothing behind.
+import json, os, re, sys
+from PIL import Image
+
+ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+WIDE = ([960, 1440, 1920, 2560, 3200], [960, 1920])
+TALL = ([480, 720, 1080, 1440], [1080])
+
+
+def save(im, out, name, choices):
+    sizes, jpegs = choices
+    widths = [w for w in sizes if w <= im.width] or [im.width]
+    for old in os.listdir(out):
+        if re.fullmatch(rf'{name}-\d+\.(avif|webp|jpg)', old):
+            os.remove(os.path.join(out, old))
+    for w in widths:
+        r = im.resize((w, round(im.height * w / im.width)), Image.LANCZOS) if w != im.width else im
+        base = os.path.join(out, f'{name}-{w}')
+        r.save(f'{base}.avif', 'AVIF', quality=55)
+        r.save(f'{base}.webp', 'WEBP', quality=80, method=6)
+        if w in jpegs:
+            r.save(f'{base}.jpg', 'JPEG', quality=84, optimize=True, progressive=True)
+    top = widths[-1]
+    entry = {'src': f'img/{name}', 'widths': widths, 'jpeg': [w for w in jpegs if w in widths] or None,
+             'width': top, 'height': round(im.height * top / im.width)}
+    return {k: v for k, v in entry.items() if v is not None}
+
+
+def main():
+    product, wide_path = sys.argv[1], sys.argv[2]
+    wide = Image.open(wide_path).convert('RGB')
+    if sys.argv[3] == '--cut':
+        x, w = float(sys.argv[4]), round(wide.height * 9 / 16)
+        left = min(max(round(wide.width * x - w / 2), 0), wide.width - w)
+        tall = wide.crop((left, 0, left + w, wide.height))
+    else:
+        tall = Image.open(sys.argv[3]).convert('RGB')
+    out = os.path.join(ROOT, product, 'img')
+    os.makedirs(out, exist_ok=True)
+    w, t = save(wide, out, 'key-art-wide', WIDE), save(tall, out, 'key-art-tall', TALL)
+    k = w['width'] / w['height']
+    w['sizes'] = f'max(100vw, min({62.5 * k:.0f}vw, {100 * k:.0f}vh))'
+    print(json.dumps({'tall': t, 'wide': w}))
+
+
+main()

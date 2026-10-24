@@ -435,6 +435,19 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .cards.side .card { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 22px; }
 .cards.side .card > img { border: var(--shot-frame); border-radius: calc(var(--radius) - 4px); box-shadow: var(--card-shadow); }
 .cards.side .card > div { display: grid; align-content: start; gap: 12px; }
+/* A deck of many pictures (page.json "dense": a game's role cards): smaller cards, as many to a row as fit, and two
+   to a row on phones rather than one long column. */
+.cards.media.dense { grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 14px; }
+.cards.media.dense .card { gap: 8px; padding: 16px; }
+.cards.media.dense .card > img { width: 86%; margin: 0 auto 4px; }
+.cards.media.dense h3 { font-size: 1.2rem; }
+.cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
+@media (max-width: 560px) {
+  .cards.media.dense { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cards.media.dense .card { padding: 12px 10px; }
+  .cards.media.dense h3 { font-size: 1.05rem; }
+  .cards.media.dense p { font-size: 0.86rem; line-height: 1.35; }
+}
 .tag {
   justify-self: start;
   display: inline-block;

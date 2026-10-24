@@ -1,0 +1,29 @@
+{
+  "path": "/palermo/privacy.html",
+  "title": "Privacy policy · Palermo Noir",
+  "description": "Privacy policy for Palermo Noir, the hidden-role party game for phones and a TV: what the game keeps, for how long, and how to delete it.",
+  "social": {
+    "title": "Privacy policy · Palermo Noir",
+    "description": "How Palermo Noir handles your data: your VHub account, your age group, rooms, analytics and ads.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora walks past a lit street lamp towards the domes of Palermo under a crescent moon, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" },
+      { "@type": "ListItem", "position": 4, "name": "Privacy policy", "item": "https://vgraphics.gr/palermo/privacy.html" }
+    ]
+  },
+  "hero": {
+    "title": "Palermo Noir privacy policy",
+    "lead": "Privacy policy",
+    "align": "center"
+  },
+  "sections": [
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
+  ]
+}
