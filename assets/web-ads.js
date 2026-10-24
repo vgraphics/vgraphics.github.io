@@ -9,7 +9,7 @@ window.VGRAPHICS_WEB_ADS = {
   client: "ca-pub-7821189101210154",
   // The banner under each game (AdSense display ads). true once Google has approved vgraphics.gr (AdSense → Sites:
   // "Ready").
-  banners: false,
+  banners: true,
   // The in-game ads: an interstitial between levels and rewarded videos (H5 Games Ads). true only once Google has
   // approved the account for H5 Games Ads, a separate application made after the site's approval.
   gameAds: false,
