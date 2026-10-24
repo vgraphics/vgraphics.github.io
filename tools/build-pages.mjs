@@ -159,8 +159,9 @@ const BLOCKS = {
 ${readFileSync(join(root, dir, `${b.src}.html`), 'utf8').trimEnd()}
         </div>`,
 
-  // A document another repo owns, set in the page as it is (the game's privacy policy and map rules, which the
-  // Deployer copies in from the game's repo): the <main> of the copy at src, without the heading the hero now shows.
+  // A document another repo owns, set in the page as it is (the products' privacy policies and Exitwise's map rules,
+  // copied in from their repos, Exitwise's policy by the Deployer): the <main> of the copy at src, without the heading
+  // the hero now shows. The copy is the text alone (check-site: one <main>, no chrome of its own, noindex).
   document: (b, { dir }) => {
     const file = join(root, dir, b.src)
     const main = readFileSync(file, 'utf8').replace(/\r\n/g, '\n').match(/<main\b[^>]*>([\s\S]*)<\/main>/)?.[1]

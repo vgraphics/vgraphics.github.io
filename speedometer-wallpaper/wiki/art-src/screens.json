@@ -1,0 +1,1250 @@
+{
+ "about": "Which of the app's screens goes into which phone of the wiki's paintings (tools/make-wiki-screens.py). screens: where each comes from: a render-test golden in the Games repo (SpeedometerWallpaper/<module>/src/test/screenshots/<file>, module logic_render unless named; crop = the part shown, in px), or a frame of the demo drive that DemoDriveFramesTest renders with the wallpaper's own renderer (<style>/<frame>.jpg, 1080x2400); overlays = Android's status bar and the key art's home screen, laid on after the screen is fitted. entries: each painting's phones: glass = the painted glass's corners (top left, top right, bottom right, bottom left, in the painting's px), the screen, and how it sits: bezel and corner as shares of the glass's short side; stretch = how much the screen may be stretched to the painted display's shape (1.12 = 12 %, more for a phone seen at an angle), past which it is padded with its own edge pixels (fill edge, the default), mirrored (mirror) or a colour; light, camera, blur, spill; keep = where the painting stays on top (a hand, a clamp, the dashboard), with feather in px and test skin for a hand; clean = made-up glyphs outside the screens filled in (a polygon: its bright marks; {poly, all: true}: the whole area, for a label on a plain face); crop = a box the finished picture is cut to and scaled back from (a flat band the painting came with).",
+ "screens": {
+  "amber-night-drive-101": {
+   "from": "frame",
+   "style": "amber_night",
+   "frame": 485,
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-drive-53": {
+   "from": "frame",
+   "style": "classic",
+   "frame": 299,
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-kmh-max": {
+   "from": "golden",
+   "file": "classic_kmh_max.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-cpu": {
+   "from": "golden",
+   "file": "classic_cpu.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-power": {
+   "from": "golden",
+   "file": "classic_power_1080x2400.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-long-texts": {
+   "from": "golden",
+   "file": "classic_long_texts.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "classic-fast-wifi": {
+   "from": "golden",
+   "file": "classic_fast_wifi.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "amber-classic-power": {
+   "from": "golden",
+   "file": "skin_amber_classic_power.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "amber-classic-long-texts": {
+   "from": "golden",
+   "file": "skin_amber_classic_long_texts.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "amber-cluster-long-texts": {
+   "from": "golden",
+   "file": "skin_amber_cluster_long_texts.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "graphite-long-texts": {
+   "from": "golden",
+   "file": "skin_graphite_long_texts.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "amber-night-power": {
+   "from": "golden",
+   "file": "skin_amber_night_power.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "future-power": {
+   "from": "golden",
+   "file": "future_power_1080x2400.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "future-glass-amber": {
+   "from": "golden",
+   "file": "future_glass_amber.png",
+   "overlays": [
+    "status-bar"
+   ]
+  },
+  "designs-future": {
+   "from": "golden",
+   "module": "feature_screens",
+   "file": "designs_future_not_owned.png"
+  },
+  "home-amber-classic": {
+   "from": "golden",
+   "file": "skin_amber_classic_power.png",
+   "overlays": [
+    "status-bar",
+    "home"
+   ]
+  },
+  "amber-classic-landscape": {
+   "from": "golden",
+   "file": "skin_amber_classic_landscape.png"
+  },
+  "amber-night-landscape": {
+   "from": "golden",
+   "file": "skin_amber_night_landscape.png"
+  },
+  "classic-landscape": {
+   "from": "golden",
+   "file": "classic_power_2520x1080.png"
+  },
+  "steel-landscape": {
+   "from": "golden",
+   "file": "skin_steel_landscape.png"
+  },
+  "graphite-landscape": {
+   "from": "golden",
+   "file": "skin_graphite_landscape.png"
+  },
+  "classic-fold": {
+   "from": "golden",
+   "file": "classic_power_2208x1840.png"
+  },
+  "future-landscape": {
+   "from": "golden",
+   "file": "future_power_2520x1080.png"
+  },
+  "classic-tablet": {
+   "from": "golden",
+   "file": "classic_power_2560x1600.png"
+  },
+  "settings-page": {
+   "from": "golden",
+   "module": "feature_screens",
+   "file": "app_settings_whole_page.png",
+   "crop": [
+    0,
+    0,
+    720,
+    1840
+   ]
+  },
+  "classic-drive-101": {
+   "from": "frame",
+   "style": "classic",
+   "frame": 481,
+   "overlays": [
+    "status-bar"
+   ]
+  }
+ },
+ "entries": {
+  "gps-speed": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2705.4,
+       312.7
+      ],
+      [
+       3311.1,
+       210.2
+      ],
+      [
+       3102.0,
+       1886.0
+      ],
+      [
+       2539.2,
+       1889.0
+      ]
+     ],
+     "screen": "classic-kmh-max",
+     "stretch": 1.2,
+     "corner": 0.07
+    }
+   ],
+   "clean": [
+    [
+     [
+      2695,
+      280
+     ],
+     [
+      2810,
+      268
+     ],
+     [
+      2810,
+      330
+     ],
+     [
+      2695,
+      342
+     ]
+    ]
+   ]
+  },
+  "battery-temperature": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2456.7,
+       298.2
+      ],
+      [
+       3248.2,
+       122.6
+      ],
+      [
+       3095.0,
+       2415.0
+      ],
+      [
+       2158.7,
+       2415.0
+      ]
+     ],
+     "screen": "classic-power",
+     "corner": 0.07
+    }
+   ],
+   "clean": [
+    [
+     [
+      2368,
+      282
+     ],
+     [
+      2462,
+      276
+     ],
+     [
+      2462,
+      336
+     ],
+     [
+      2368,
+      342
+     ]
+    ]
+   ]
+  },
+  "battery": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1677.9,
+       550.5
+      ],
+      [
+       2582.6,
+       470.5
+      ],
+      [
+       2546.7,
+       1489.4
+      ],
+      [
+       1637.9,
+       1511.2
+      ]
+     ],
+     "screen": "classic-fold",
+     "camera": "top",
+     "stretch": 1.1
+    }
+   ]
+  },
+  "big-gauge": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1725.9,
+       317.9
+      ],
+      [
+       2439.9,
+       291.4
+      ],
+      [
+       2428.4,
+       1785.0
+      ],
+      [
+       1670.8,
+       1785.0
+      ]
+     ],
+     "screen": "amber-night-drive-101"
+    }
+   ],
+   "clean": [
+    {
+     "poly": [
+      [
+       1550,
+       2015
+      ],
+      [
+       1615,
+       2015
+      ],
+      [
+       1615,
+       2064
+      ],
+      [
+       1550,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       1696,
+       2015
+      ],
+      [
+       1782,
+       2015
+      ],
+      [
+       1782,
+       2064
+      ],
+      [
+       1696,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2408,
+       2015
+      ],
+      [
+       2490,
+       2015
+      ],
+      [
+       2490,
+       2064
+      ],
+      [
+       2408,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2568,
+       2015
+      ],
+      [
+       2664,
+       2015
+      ],
+      [
+       2664,
+       2064
+      ],
+      [
+       2568,
+       2064
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       2748,
+       2015
+      ],
+      [
+       2824,
+       2015
+      ],
+      [
+       2824,
+       2064
+      ],
+      [
+       2748,
+       2064
+      ]
+     ],
+     "all": true
+    }
+   ]
+  },
+  "big-gauge-tile": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1446.2,
+       755.8
+      ],
+      [
+       2869.5,
+       748.4
+      ],
+      [
+       2840.0,
+       1453.8
+      ],
+      [
+       1384.9,
+       1444.1
+      ]
+     ],
+     "screen": "amber-night-landscape"
+    }
+   ]
+  },
+  "bluetooth-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2358.4,
+       370.0
+      ],
+      [
+       3170.6,
+       404.3
+      ],
+      [
+       2937.6,
+       2127.2
+      ],
+      [
+       1990.9,
+       2006.7
+      ]
+     ],
+     "screen": "classic-drive-53",
+     "stretch": 1.16
+    }
+   ]
+  },
+  "charging-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1370.0,
+       665.1
+      ],
+      [
+       2785.8,
+       533.5
+      ],
+      [
+       2701.9,
+       1360.5
+      ],
+      [
+       1264.2,
+       1367.6
+      ]
+     ],
+     "screen": "classic-tablet"
+    }
+   ]
+  },
+  "classic-design": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1311.8,
+       676.5
+      ],
+      [
+       3079.9,
+       616.0
+      ],
+      [
+       3053.2,
+       1550.6
+      ],
+      [
+       1255.3,
+       1359.6
+      ]
+     ],
+     "screen": "classic-landscape"
+    }
+   ]
+  },
+  "cpu-clock": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1824.3,
+       258.2
+      ],
+      [
+       2576.8,
+       150.5
+      ],
+      [
+       2414.6,
+       2079.6
+      ],
+      [
+       1577.4,
+       2040.3
+      ]
+     ],
+     "screen": "classic-cpu"
+    }
+   ]
+  },
+  "date-and-time": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2641.4,
+       306.1
+      ],
+      [
+       3243.8,
+       242.4
+      ],
+      [
+       3078.5,
+       1769.1
+      ],
+      [
+       2416.4,
+       1734.2
+      ]
+     ],
+     "screen": "amber-night-power"
+    }
+   ],
+   "clean": [
+    {
+     "poly": [
+      [
+       3166,
+       1550
+      ],
+      [
+       3212,
+       1550
+      ],
+      [
+       3212,
+       1592
+      ],
+      [
+       3166,
+       1592
+      ]
+     ],
+     "all": true
+    },
+    {
+     "poly": [
+      [
+       3162,
+       1602
+      ],
+      [
+       3198,
+       1602
+      ],
+      [
+       3198,
+       1648
+      ],
+      [
+       3162,
+       1648
+      ]
+     ],
+     "all": true
+    }
+   ]
+  },
+  "designs-screen": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2186.7,
+       313.6
+      ],
+      [
+       2915.8,
+       193.5
+      ],
+      [
+       2586.0,
+       1763.4
+      ],
+      [
+       1863.1,
+       1691.5
+      ]
+     ],
+     "screen": "designs-future",
+     "stretch": 1.16
+    }
+   ]
+  },
+  "future-design": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1786.4,
+       323.9
+      ],
+      [
+       2713.1,
+       227.0
+      ],
+      [
+       2430.2,
+       2113.4
+      ],
+      [
+       1571.3,
+       2019.3
+      ]
+     ],
+     "screen": "future-power"
+    }
+   ]
+  },
+  "high-temperature-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2137.3,
+       177.7
+      ],
+      [
+       2846.9,
+       100.6
+      ],
+      [
+       2516.2,
+       1817.7
+      ],
+      [
+       1740.9,
+       1716.2
+      ]
+     ],
+     "screen": "classic-drive-101",
+     "stretch": 1.16
+    }
+   ]
+  },
+  "low-battery-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1672.4,
+       347.0
+      ],
+      [
+       2362.6,
+       296.0
+      ],
+      [
+       2388.9,
+       1967.2
+      ],
+      [
+       1682.7,
+       1988.7
+      ]
+     ],
+     "screen": "classic-long-texts"
+    }
+   ]
+  },
+  "low-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2855,
+       185
+      ],
+      [
+       3450,
+       115
+      ],
+      [
+       3250,
+       1280
+      ],
+      [
+       2585,
+       1245
+      ]
+     ],
+     "screen": "graphite-long-texts",
+     "stretch": 1.24
+    }
+   ]
+  },
+  "low-temperature-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2006.5,
+       574.3
+      ],
+      [
+       2876.5,
+       572.4
+      ],
+      [
+       2717.8,
+       2475.0
+      ],
+      [
+       1603.6,
+       2475.0
+      ]
+     ],
+     "screen": "amber-cluster-long-texts",
+     "keep": [
+      {
+       "poly": [
+        [
+         1600,
+         1902
+        ],
+        [
+         1700,
+         1904
+        ],
+        [
+         1900,
+         1918
+        ],
+        [
+         2000,
+         1933
+        ],
+        [
+         2100,
+         1948
+        ],
+        [
+         2200,
+         1960
+        ],
+        [
+         2300,
+         1975
+        ],
+        [
+         2400,
+         1993
+        ],
+        [
+         2500,
+         2010
+        ],
+        [
+         2600,
+         2040
+        ],
+        [
+         2700,
+         2078
+        ],
+        [
+         2800,
+         2130
+        ],
+        [
+         3000,
+         2250
+        ],
+        [
+         3000,
+         2341
+        ],
+        [
+         1600,
+         2341
+        ]
+       ],
+       "feather": 7
+      },
+      {
+       "poly": [
+        [
+         2668,
+         1612
+        ],
+        [
+         2720,
+         1596
+        ],
+        [
+         2800,
+         1600
+        ],
+        [
+         2905,
+         1690
+        ],
+        [
+         2905,
+         1950
+        ],
+        [
+         2750,
+         1950
+        ],
+        [
+         2700,
+         1890
+        ],
+        [
+         2668,
+         1800
+        ]
+       ],
+       "feather": 2
+      },
+      {
+       "poly": [
+        [
+         1700,
+         1588
+        ],
+        [
+         1778,
+         1588
+        ],
+        [
+         1792,
+         1800
+        ],
+        [
+         1722,
+         1812
+        ],
+        [
+         1700,
+         1700
+        ]
+       ],
+       "feather": 2
+      }
+     ]
+    }
+   ],
+   "clean": [
+    [
+     [
+      1700,
+      1895
+     ],
+     [
+      2420,
+      1935
+     ],
+     [
+      2420,
+      1990
+     ],
+     [
+      1700,
+      1950
+     ]
+    ]
+   ]
+  },
+  "music-calls-messages": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1764.8,
+       271.7
+      ],
+      [
+       2492.4,
+       245.7
+      ],
+      [
+       2426.4,
+       1996.3
+      ],
+      [
+       1662.2,
+       1968.4
+      ]
+     ],
+     "screen": "future-glass-amber"
+    }
+   ],
+   "crop": [
+    288,
+    0,
+    3808,
+    2012
+   ]
+  },
+  "power": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1402.3,
+       833.2
+      ],
+      [
+       2777.6,
+       807.0
+      ],
+      [
+       2770.4,
+       1487.7
+      ],
+      [
+       1402.8,
+       1525.6
+      ]
+     ],
+     "screen": "amber-classic-landscape"
+    }
+   ]
+  },
+  "ram": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1913.4,
+       241.0
+      ],
+      [
+       2713.6,
+       71.5
+      ],
+      [
+       2582.3,
+       1887.3
+      ],
+      [
+       1726.0,
+       1937.9
+      ]
+     ],
+     "screen": "amber-classic-power"
+    }
+   ]
+  },
+  "restoring-future": {
+   "phones": [
+    {
+     "glass": [
+      [
+       343.1,
+       1164.0
+      ],
+      [
+       1921.4,
+       1161.8
+      ],
+      [
+       1923.3,
+       1854.9
+      ],
+      [
+       325.9,
+       1852.7
+      ]
+     ],
+     "screen": "future-landscape"
+    },
+    {
+     "glass": [
+      [
+       2100.7,
+       1218.5
+      ],
+      [
+       3698.8,
+       1218.7
+      ],
+      [
+       3701.4,
+       1881.0
+      ],
+      [
+       2099.1,
+       1881.5
+      ]
+     ],
+     "screen": "future-landscape"
+    }
+   ]
+  },
+  "set-as-wallpaper": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2003,
+       806
+      ],
+      [
+       2438,
+       752
+      ],
+      [
+       2206,
+       2036
+      ],
+      [
+       1606,
+       1993
+      ]
+     ],
+     "screen": "home-amber-classic",
+     "stretch": 1.2,
+     "keep": [
+      {
+       "poly": [
+        [
+         1860,
+         640
+        ],
+        [
+         2120,
+         640
+        ],
+        [
+         2120,
+         792
+        ],
+        [
+         2004,
+         826
+        ],
+        [
+         1994,
+         1012
+        ],
+        [
+         1860,
+         1012
+        ]
+       ],
+       "test": "skin",
+       "feather": 1.5
+      }
+     ]
+    }
+   ]
+  },
+  "settings": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1887.5,
+       436.7
+      ],
+      [
+       2508.7,
+       271.3
+      ],
+      [
+       2275.2,
+       2118.4
+      ],
+      [
+       1640.6,
+       2017.0
+      ]
+     ],
+     "screen": "settings-page",
+     "stretch": 1.2
+    }
+   ]
+  },
+  "signal": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1441.0,
+       987.0
+      ],
+      [
+       2670.0,
+       995.3
+      ],
+      [
+       2670.0,
+       1631.7
+      ],
+      [
+       1421.9,
+       1609.6
+      ]
+     ],
+     "screen": "steel-landscape"
+    }
+   ]
+  },
+  "wifi-on-light": {
+   "phones": [
+    {
+     "glass": [
+      [
+       2379.2,
+       315.4
+      ],
+      [
+       2962.3,
+       246.0
+      ],
+      [
+       2713.1,
+       1860.2
+      ],
+      [
+       2018.7,
+       1771.4
+      ]
+     ],
+     "screen": "classic-fast-wifi",
+     "stretch": 1.16,
+     "keep": [
+      {
+       "poly": [
+        [
+         2535,
+         240
+        ],
+        [
+         2560,
+         212
+        ],
+        [
+         2700,
+         198
+        ],
+        [
+         2745,
+         208
+        ],
+        [
+         2760,
+         240
+        ],
+        [
+         2752,
+         300
+        ],
+        [
+         2722,
+         320
+        ],
+        [
+         2562,
+         342
+        ],
+        [
+         2537,
+         326
+        ]
+       ],
+       "feather": 1.5
+      }
+     ]
+    }
+   ]
+  },
+  "wifi": {
+   "phones": [
+    {
+     "glass": [
+      [
+       1500.4,
+       597.9
+      ],
+      [
+       3320.4,
+       536.9
+      ],
+      [
+       3224.0,
+       1519.4
+      ],
+      [
+       1411.1,
+       1444.6
+      ]
+     ],
+     "screen": "graphite-landscape"
+    }
+   ]
+  }
+ }
+}

@@ -1,12 +1,13 @@
 // Checks the site's content rules before a push: node tools/check-site.mjs
 // Prints one "path: [rule] message" line per problem and exits 1, or prints "OK: …" and exits 0.
+import { execFileSync } from 'node:child_process'
 import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
-import { pieces, products, subpages } from './lib/product.mjs'
+import { documents, pieces, products, subpages } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -122,13 +123,63 @@ for (const file of pages) {
   if (!html.includes('href="/assets/vgraphics.css"')) continue
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
-  // The phone menu (assets/menu.js adds its button). The hub's pages come from the VHub repo, which adds it there.
-  if (!file.startsWith('hub' + sep) && !html.includes('<script src="/assets/menu.js" defer></script>')) report(file, 'menu', 'does not load /assets/menu.js, the phone menu')
   if (plain(foot) !== plain(home.foot)) report(file, 'menu', "footer differs from the home page's")
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
     if (href !== urlPath(file)) report(file, 'menu', `marks ${href} as the current page`)
   }
+}
+
+// The phone menu on every header (George, 24 Oct 2026: "at hub vgraphics page, the toolbar menu is not burger as other
+// pages. Find all instances."). This looks at every HTML file GitHub Pages serves, whoever writes it (this repo, the
+// template, the Deployer's hub/ and play pages): the files git tracks or would add, so only what git ignores
+// (_mockups/, .claude/worktrees/) is left out.
+// - The company header (class "site-head", with the nav.site-nav whose button /assets/menu.js adds) and a product's
+//   (class "top", from tools/lib/partials.mjs, with the menu-toggle button and the nav it opens) come on a page that
+//   loads /assets/menu.js and the header's stylesheet.
+// - Any other <header> holding a menu (a <nav>, or two links or more) fails: it is one made by hand, without the phone
+//   menu. A header with no menu (a logo and a language button, as the party games' doors have) has nothing to fold.
+// - A <nav> outside <main>, the footers and the headers is a menu of its own, without the phone menu, and fails.
+// - A document's source (a page.json "document" block: a policy another repo owns, which the template sets into its
+//   page) is the text alone: one <main>, no header, menu or footer of its own, kept out of search (noindex) and pointing
+//   to its page (canonical).
+// Nothing is exempt: a page another repo writes (VHub's hub/, since vhub-hub shipped VHub 880438d on 24 Oct 2026) fails
+// like any other until that repo brings the menu.
+const MENU_JS = '<script src="/assets/menu.js" defer></script>'
+const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)))
+const sources = new Map(documents().map((d) => [d.file.split(sep).join('/'), d.url]))
+const burger = (file, message) => report(file, 'burger', message)
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (sources.has(file)) {
+    const want = sources.get(file)
+    const got = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
+    if (html.match(/<main\b/g)?.length !== 1) report(file, 'source', 'needs exactly one <main> (the template sets in everything from the first to the last), not even in a comment')
+    if (/<(header|nav|footer)\b/.test(html.replace(/<main\b[^>]*>[\s\S]*<\/main>/, ''))) report(file, 'source', "has a header, menu or footer of its own: keep only the text, in <main> (the site's template adds the rest)")
+    if (!html.includes('<meta name="robots" content="noindex">')) report(file, 'source', 'not kept out of search: add <meta name="robots" content="noindex">')
+    if (got !== want) report(file, 'source', `canonical is ${got ?? 'missing'}, want ${want}, the page it is set into`)
+    continue
+  }
+  let ours = 0
+  for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
+    const cls = attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []
+    if (cls.includes('site-head')) {
+      ours++
+      if (!/<nav\b[^>]*class="site-nav"/.test(inner)) burger(file, 'has a company header without the nav.site-nav that /assets/menu.js folds')
+      if (!html.includes('href="/assets/vgraphics.css"')) burger(file, 'has the company header without /assets/vgraphics.css, which draws its phone menu')
+    } else if (cls.includes('top')) {
+      ours++
+      const id = inner.match(/<button class="menu-toggle"[^>]*aria-controls="([^"]+)"/)?.[1]
+      if (!id || !inner.includes(`id="${id}"`)) burger(file, 'has a product header without the menu-toggle button for its nav (tools/lib/partials.mjs writes both)')
+      if (!html.includes('href="/assets/product.css"')) burger(file, 'has a product header without /assets/product.css, which draws its phone menu')
+    } else if (/<nav\b/.test(inner) || (inner.match(/<a\b[^>]*\shref=/g)?.length ?? 0) >= 2) {
+      burger(file, `has <header${attrs}> with a menu, neither the company header nor a product's, so no phone menu: make the page with the template (tools/build-pages.mjs) or give it the company header`)
+    }
+  }
+  if (ours && !html.includes(MENU_JS)) burger(file, `does not load /assets/menu.js, the phone menu (${MENU_JS})`)
+  const rest = html.replace(/<(main|footer|header)\b[^>]*>[\s\S]*?<\/\1>/g, '')
+  if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
