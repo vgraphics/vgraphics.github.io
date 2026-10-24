@@ -30,6 +30,6 @@
     }
   },
   "sections": [
-    { "id": "rules", "blocks": [{ "type": "document", "src": "source.html" }] }
+    { "id": "map-rules", "blocks": [{ "type": "document", "src": "source.html" }] }
   ]
 }

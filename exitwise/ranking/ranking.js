@@ -11,7 +11,7 @@
   // ---------- Page ----------
   const $ = id => document.getElementById(id);
   const tabs = [...document.querySelectorAll(".tab")];
-  const rows = $("rows"), state = $("state"), count = $("count"), refresh = $("refresh"), status = $("status");
+  const rows = $("rows"), state = $("state"), count = $("board-count"), refresh = $("refresh"), status = $("status");
   const cache = {};
   let board = "score", request = 0;
   const reduced = matchMedia("(prefers-reduced-motion: reduce)").matches;

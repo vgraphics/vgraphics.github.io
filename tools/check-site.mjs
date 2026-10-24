@@ -213,6 +213,52 @@ for (const [file, text] of sheets) {
   }
 }
 
+// The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
+// chapter per anchor. This is a generic rule for all games and projects so implement for all."), on every page GitHub
+// Pages serves, as the phone menu and the cursors above. assets/stepper.js builds it from the page's chapters, which
+// this reads from the markup the same way: in <main>, the targets of a heading's link to itself (a.anchor, named by its
+// heading) and of the links in a <nav> of the page's own ("On this page", named by their words), each id once. A page
+// with two or more must load /assets/menu.js, which brings the stepper (or stepper.js itself), and each chapter must
+// point at one element of the page, or its bullet leads nowhere.
+const stepper = (file, message) => report(file, 'stepper', message)
+const STEPPER_JS = /<script type="module" src="\/assets\/stepper\.js"><\/script>/
+const words = (s) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+const literal = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+for (const f of ['stepper.js', 'stepper.css']) if (!existsSync(join(root, 'assets', f))) stepper(join('assets', f), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/stepper.js")')) {
+  stepper(join('assets', 'menu.js'), 'does not load /assets/stepper.js, the chapter stepper of every page with a header')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  const main = html.match(/<main\b[\s\S]*<\/main>/)?.[0] ?? ''
+  const chapters = new Map()
+  const add = (href, name) => {
+    if (href && !chapters.has(href)) chapters.set(href, name)
+  }
+  for (const [, inner] of main.matchAll(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/g)) {
+    for (const [tag] of inner.matchAll(/<a\b[^>]*>/g)) {
+      const href = tag.match(/\shref="#([^"]*)"/)?.[1]
+      if (/\sclass="(?:[^"]*\s)?anchor(?:\s[^"]*)?"/.test(tag)) add(href, words(inner))
+    }
+  }
+  for (const [, inner] of main.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)) {
+    for (const [, href, text] of inner.matchAll(/<a\b[^>]*\shref="#([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)) add(href, words(text))
+  }
+  let count = 0
+  for (const [href, name] of chapters) {
+    const id = decodeURIComponent(href)
+    const many = html.match(new RegExp(`\\sid="${literal(id)}"`, 'g'))?.length ?? 0
+    if (!many) stepper(file, `a chapter links to #${href}, which no element on the page has: its bullet would lead nowhere`)
+    else if (many > 1) stepper(file, `${many} elements have the id "${id}", a chapter's: give each its own`)
+    else if (!name) stepper(file, `the chapter #${href} has no name for its bullet: its heading or link has no words`)
+    else count++
+  }
+  if (count >= 2 && !html.includes(MENU_JS) && !STEPPER_JS.test(html)) {
+    stepper(file, `has ${count} chapters but no chapter stepper: load /assets/menu.js (${MENU_JS}), which brings /assets/stepper.js`)
+  }
+}
+
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
 // graphic"): each is exactly what tools/build-pages.mjs writes from its page.json and theme pack, and every product (a
 // folder with its own privacy policy) has one. So are a product's other pages with a page.json (exitwise/ranking).
