@@ -173,6 +173,8 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .site-nav a:hover::before { transform: scale(1.4); }
 .site-nav a[aria-current="page"] { background: var(--ink); color: var(--bg); }
 .site-nav a[aria-current="page"]::before { box-shadow: 0 0 0 2px var(--bg); }
+.site-nav .n-me { width: 22px; height: 22px; border-radius: 50%; object-fit: cover; flex: none; box-shadow: 0 0 0 2px var(--violet); }
+.site-nav a[aria-current="page"] .n-me { box-shadow: 0 0 0 2px var(--bg); }
 .site-nav .cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
 .site-nav .cta::before { content: none; }
 .site-nav .cta:hover { background: var(--violet); color: var(--on-violet); }
@@ -410,6 +412,7 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 }
 @media (max-width: 400px) {
   .site-nav a { padding: 0 8px; font-size: 0.95rem; }
+  .site-nav .n-me { width: 20px; height: 20px; }
 }
 @media (max-width: 350px) {
   .site-head .wrap { flex-wrap: wrap; justify-content: center; padding-block: 6px; }
