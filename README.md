@@ -72,9 +72,8 @@ check-site holds every HTML file the site serves to this, whoever writes it (Geo
 instances."): the company and product headers must come with their phone menu, any other header with a menu in it
 fails (one made by hand: make the page with the template), and so does a `<nav>` outside `<main>`, the footer and
 those headers. A header without a menu (a logo and a language button, as on the party games' doors) passes. Pages
-another repo writes that don't have the menu yet are listed in
-`BURGER_PENDING` in `tools/check-site.mjs` and printed on every run as pending instead of failing; check-site says when
-an entry can go.
+another repo writes that don't have the menu yet are listed in `BURGER_PENDING` in `tools/check-site.mjs` and printed
+on every run as pending instead of failing; check-site says when an entry can go.
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
 Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
