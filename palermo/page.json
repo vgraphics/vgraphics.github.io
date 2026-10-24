@@ -175,7 +175,7 @@
       "id": "love",
       "eyebrow": "Why your group will love it",
       "title": "A night out, without leaving the sofa",
-      "art": { "src": "img/scene-verdict", "widths": [960, 1376], "width": 1376, "height": 768, "layout": "side",
+      "art": { "src": "img/scene-verdict", "widths": [960, 1376], "width": 1376, "height": 768, "position": "50% 60%",
         "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set" },
       "blocks": [
         {

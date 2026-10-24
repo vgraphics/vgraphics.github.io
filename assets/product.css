@@ -546,7 +546,10 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
    the section carries on below it. */
 :root { --sec-art-h: clamp(260px, 56.25vw, 82vh); }
 .sec.has-art { padding-top: 0; }
-.sec-art { position: relative; height: var(--sec-art-h); overflow: hidden; }
+.sec-art { position: relative; height: var(--sec-art-h); max-width: var(--sec-art-w, none); margin-inline: auto; overflow: hidden; }
+@media (min-width: 1200px) { /* wider than the picture can fill sharply: its sides fade into the page */
+  .sec-art img { -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent); }
+}
 .sec-art picture, .sec-art img { display: block; width: 100%; height: 100%; }
 .sec-art img { object-fit: cover; object-position: var(--sec-art-at, 50% 45%); }
 .sec-art::after {
@@ -554,27 +557,6 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
   background: linear-gradient(var(--page), color-mix(in srgb, var(--page) 45%, transparent) 9%, transparent 20%, transparent 44%, color-mix(in srgb, var(--page) 82%, transparent) 76%, var(--page));
 }
 .has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); }
-/* Or half and half (art "layout": "side"): the whole picture on one side, its edges fading into the page, and the
-   section's words on the other; above the words on narrow screens. */
-.art-side .split { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: clamp(24px, 4vw, 56px); align-items: start; }
-.art-side .split-art { position: sticky; top: 96px; } /* the picture stays in view beside a long column of words */
-@media (min-width: 861px) { .split-body .features, .split-body .features.n4 { grid-template-columns: 1fr 1fr; } }
-.art-side.art-right .split-art { order: 2; }
-.split-art { margin: 0; }
-.split-art img {
-  display: block; width: 100%; height: auto;
-  -webkit-mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
-  -webkit-mask-composite: source-in;
-  mask-image: linear-gradient(to right, transparent, #000 8%, #000 92%, transparent), linear-gradient(transparent, #000 8%, #000 92%, transparent);
-  mask-composite: intersect;
-}
-.split-body { display: grid; gap: 24px; min-width: 0; }
-@media (max-width: 860px) {
-  .art-side .split { grid-template-columns: 1fr; }
-  .art-side.art-right .split-art { order: 0; }
-  .art-side .split-art { position: static; }
-  .split-art { margin-inline: -20px; }
-}
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */
