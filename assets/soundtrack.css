@@ -30,10 +30,12 @@
   border: var(--ost-border, 0);
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
+  outline: var(--ost-ring, 0);
+  outline-offset: -8px;
 }
-/* --ost-bg, --ost-border, --ost-backdrop-alpha and --ost-shade: optional, for a pack whose page is as dark as the
-   blurred cover and wants its own panel instead (Palermo Noir: the colour of its 13+ band, its night scene faint
-   behind; George, 24 Oct 2026) */
+/* --ost-bg, --ost-border, --ost-ring (a second line inside the border), --ost-backdrop-alpha and --ost-shade:
+   optional, for a pack whose page is as dark as the blurred cover and wants its own panel instead (Palermo Noir: the
+   colour of its 13+ band in a gold frame, its night scene faint behind; George, 24 Oct 2026) */
 .ost-backdrop { position: absolute; inset: 0; z-index: -1; opacity: var(--ost-backdrop-alpha, 1); }
 .ost-backdrop img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* Its own cover: the top of it, the night sky, blurred */
@@ -441,6 +443,7 @@
   gap: 2px 4px;
   width: min(1040px, 100% - 24px);
   padding: 8px 8px 4px;
+  border: var(--ost-border, 0); /* the player's frame, when the pack gives it one */
   border-radius: var(--radius-sm);
   background: color-mix(in srgb, var(--dark) 88%, transparent);
   color: var(--on-art);
