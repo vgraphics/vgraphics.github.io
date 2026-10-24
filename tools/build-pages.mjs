@@ -235,15 +235,19 @@ function section(product, s) {
     </section>`
 }
 
-// The theme's ornaments: edge pieces take turns left and right in the gaps after every second section (none in the
-// hero), and the horizon runs along the very bottom, above the footer.
+// The theme's ornaments: edge pieces take turns left and right in the gaps after every second section (ornaments.every
+// sets another step, 1 for after each; none in the hero), and the horizon runs along the very bottom, above the footer.
 function decorate(theme, parts) {
   const edges = theme.ornaments?.edges ?? []
+  const every = theme.ornaments?.every ?? 2
   const out = []
+  let k = 0
   parts.forEach((part, i) => {
     out.push(part)
-    const e = edges[(i >> 1) % edges.length]
-    if (edges.length && i % 2 === 1 && i < parts.length - 1) out.push(ornament(e, `orn orn-${(i >> 1) % 2 ? 'right' : 'left'}`, e.sizes ?? '(max-width: 900px) 140px, 380px'))
+    if (!edges.length || (i + 1) % every || i >= parts.length - 1) return
+    const e = edges[k % edges.length]
+    out.push(ornament(e, `orn orn-${k % 2 ? 'right' : 'left'}`, e.sizes ?? '(max-width: 900px) 140px, 380px'))
+    k++
   })
   const h = theme.ornaments?.horizon
   if (h) out.push(ornament(h, 'horizon', '100vw'))
@@ -267,7 +271,9 @@ export function render(slug, sub) {
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
-  const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
+  // The edge pieces stand along the landing page only; a product's other pages keep to their words
+  const look = sub ? { ...t, ornaments: { ...t.ornaments, edges: [] } } : t
+  const body = decorate(look, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
   const url = `https://vgraphics.gr${path}`
   const html = `<!doctype html>
 <html lang="en">

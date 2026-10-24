@@ -52,6 +52,8 @@
   --step-ink: #C9A46E;
   --step-bg: transparent;
   --ost-n-ink: #0B1623;
+  --thread: #C9A46E;
+  --thread-show: block;
   --step-size: 2.4rem;
   --step-text: #B9AB94;
   --step-stripe: 2px;
