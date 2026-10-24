@@ -111,15 +111,27 @@
     }
 
     // The list shows three and a half rows and scrolls in its own box (soundtrack.css): the current track scrolls into
-    // it, the least that shows it whole, and the page stays where it is (scrollIntoView would move it too).
+    // it, the least that shows it whole and clear of the faded edges (at the list's ends there is no fade), and the
+    // page stays where it is (scrollIntoView would move it too).
     function reveal() {
       const row = track().parentElement;
-      const top = row.offsetTop;
-      const bottom = top + row.offsetHeight;
+      const fade = parseFloat(getComputedStyle(list).getPropertyValue("--ost-fade")) || 0;
+      const top = row.offsetTop - fade;
+      const bottom = row.offsetTop + row.offsetHeight + fade;
+      const end = list.scrollHeight - list.clientHeight;
       let to = null;
-      if (top < list.scrollTop) to = top;
-      else if (bottom > list.scrollTop + list.clientHeight) to = bottom - list.clientHeight;
-      if (to !== null) list.scrollTo({ top: to, behavior: reduce.matches ? "instant" : "smooth" });
+      if (top < list.scrollTop) to = Math.max(0, top);
+      else if (bottom > list.scrollTop + list.clientHeight) to = Math.min(end, bottom - list.clientHeight);
+      if (to !== null && to !== list.scrollTop) list.scrollTo({ top: to, behavior: reduce.matches ? "instant" : "smooth" });
+    }
+
+    // The list's edges fade where more rows lie beyond them (soundtrack.css): "up" once it is scrolled down, "down"
+    // while rows lie below. The scrollbar's width, where it takes room beside the rows, keeps it out of the fade.
+    function edges() {
+      const up = list.scrollTop > 1;
+      const down = list.scrollTop + list.clientHeight < list.scrollHeight - 1;
+      list.dataset.more = [up && "up", down && "down"].filter(Boolean).join(" ");
+      list.style.setProperty("--ost-sb", list.offsetWidth - list.clientWidth + "px");
     }
 
     function select(i) {
@@ -293,6 +305,8 @@
     // Redraw the waveforms when a bar changes width (the mini-bar's first showing included).
     const resized = new ResizeObserver(draw);
     bars.forEach(({ box }) => resized.observe(box));
+    list.addEventListener("scroll", edges, { passive: true });
+    new ResizeObserver(edges).observe(list);
     // A track's title too long for its row scrolls to its end and back (soundtrack.css): this far, a quarter of the time
     // each way and a quarter resting at each end, slowly enough to read. With less motion asked for, it keeps its "...".
     // Measured again when a row changes width, the fonts arrive or the motion setting changes.

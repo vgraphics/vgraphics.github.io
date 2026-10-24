@@ -279,11 +279,21 @@
    three and a half rows show (George, 24 Oct 2026: "Show max 3.5 songs. Its ugly current way."): the half row says
    there is more, and the rest scroll in the list's own box, on a slim scrollbar in the product's colour (--sb, as on
    the page), lightened to read on the dark stage. soundtrack.js scrolls the current track into the box. A row is
-   always --ost-row high: its title stays on one line. */
+   always --ost-row high: its title stays on one line.
+   Its edges fade, never cut (George, 24 Oct: "No hard cut on list. Use fading edges."): over --ost-fade at the bottom
+   while more rows lie below, at the top once it is scrolled down (soundtrack.js sets data-more to "up", "down" or
+   both as it scrolls). The fade is a mask on the box, so it stays put while the rows scroll under it; its second layer
+   keeps the scrollbar's strip (--ost-sb, measured by soundtrack.js; 0 where the bar floats over the rows) out of it,
+   so the bar never fades. The bottom fade is the half row's height, so that row shows, fading, and the full rows
+   above it don't. */
+@property --ost-fade-top { syntax: "<length>"; inherits: false; initial-value: 0px; }
+@property --ost-fade-bottom { syntax: "<length>"; inherits: false; initial-value: 0px; }
 .ost { --ost-row: 54px; --ost-row-gap: 6px; --ost-rows: 3.5; }
 .ost-tracks { display: grid; gap: 6px; width: 100%; }
 .ost-list {
   --ost-thumb: color-mix(in srgb, var(--sb) 60%, var(--on-art));
+  --ost-fade: 30px;
+  --ost-sb: 0px;
   position: relative;
   display: grid;
   gap: var(--ost-row-gap);
@@ -292,7 +302,17 @@
   margin: 0;
   padding: 0;
   list-style: none;
+  -webkit-mask:
+    linear-gradient(transparent, #000 var(--ost-fade-top), #000 calc(100% - var(--ost-fade-bottom)), transparent) left top / calc(100% - var(--ost-sb)) 100% no-repeat,
+    linear-gradient(#000, #000) right top / var(--ost-sb) 100% no-repeat;
+  mask:
+    linear-gradient(transparent, #000 var(--ost-fade-top), #000 calc(100% - var(--ost-fade-bottom)), transparent) left top / calc(100% - var(--ost-sb)) 100% no-repeat,
+    linear-gradient(#000, #000) right top / var(--ost-sb) 100% no-repeat;
+  transition: --ost-fade-top 180ms ease-out, --ost-fade-bottom 180ms ease-out;
 }
+.ost-list[data-more~="up"] { --ost-fade-top: var(--ost-fade); }
+.ost-list[data-more~="down"] { --ost-fade-bottom: var(--ost-fade); }
+@media (prefers-reduced-motion: reduce) { .ost-list { transition: none; } }
 .ost-list::-webkit-scrollbar { width: 12px; }
 .ost-list::-webkit-scrollbar-track { border: 3px solid transparent; border-radius: 999px; background: color-mix(in srgb, var(--on-art) 10%, transparent); background-clip: padding-box; }
 .ost-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; border-radius: 999px; background: var(--ost-thumb); background-clip: padding-box; }
