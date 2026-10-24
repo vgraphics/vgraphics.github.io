@@ -1,9 +1,9 @@
 {
   "title": "Speedometer Live Wallpaper for Android: GPS Speed Dashboard",
-  "description": "Turn your Android home screen into a car dashboard: a free live wallpaper with a GPS speedometer, power, CPU clock, battery, RAM, signal and Wi-Fi gauges.",
+  "description": "Turn your Android home screen into a car dashboard: 19 live wallpaper styles with real gauges for GPS speed, battery watts, CPU, RAM, signal and Wi-Fi.",
   "social": {
     "title": "Speedometer Live Wallpaper",
-    "description": "Your phone as a car dashboard: live gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.",
+    "description": "Your phone as a car dashboard, in 19 live styles: real gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.",
     "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
     "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
   },
@@ -15,12 +15,13 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard: a big dial for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. The Classic design is free; the chrome Future design is a one-time purchase of €0.99.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €0.99, or €4.99 for all of them.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
-          "https://vgraphics.gr/speedometer-wallpaper/img/future-kmh.webp",
-          "https://vgraphics.gr/speedometer-wallpaper/img/designs.webp"
+          "https://vgraphics.gr/speedometer-wallpaper/img/styles/amber_night.webp",
+          "https://vgraphics.gr/speedometer-wallpaper/img/styles/torque.webp",
+          "https://vgraphics.gr/speedometer-wallpaper/img/future-kmh.webp"
         ],
         "operatingSystem": "Android",
         "applicationCategory": "DesktopEnhancementApplication",
@@ -32,17 +33,43 @@
           "url": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
         },
         "installUrl": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
-        "sameAs": ["https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"],
-        "author": { "@id": "https://vgraphics.gr/#organization" },
-        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+        "sameAs": [
+          "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
+        ],
+        "author": {
+          "@id": "https://vgraphics.gr/#organization"
+        },
+        "publisher": {
+          "@id": "https://vgraphics.gr/#organization"
+        }
       },
-      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "Organization",
+        "@id": "https://vgraphics.gr/#organization",
+        "name": "VGraphics",
+        "url": "https://vgraphics.gr/"
+      },
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
-          { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://vgraphics.gr/apps/" },
-          { "@type": "ListItem", "position": 3, "name": "Speedometer Live Wallpaper", "item": "https://vgraphics.gr/speedometer-wallpaper/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apps",
+            "item": "https://vgraphics.gr/apps/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Speedometer Live Wallpaper",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/"
+          }
         ]
       }
     ]
@@ -50,28 +77,94 @@
   "site": {
     "name": "Speedometer Live Wallpaper",
     "icon": "/speedometer-wallpaper/img/icon.png",
-    "parent": { "name": "Apps", "href": "/apps/" },
+    "parent": {
+      "name": "Apps",
+      "href": "/apps/"
+    },
     "nav": [
-      { "label": "Overview", "href": "/speedometer-wallpaper/" },
-      { "label": "Wiki", "href": "/speedometer-wallpaper/wiki/" },
-      { "label": "Privacy", "href": "/speedometer-wallpaper/privacy.html" }
+      {
+        "label": "Overview",
+        "href": "/speedometer-wallpaper/"
+      },
+      {
+        "label": "Wiki",
+        "href": "/speedometer-wallpaper/wiki/"
+      },
+      {
+        "label": "Privacy",
+        "href": "/speedometer-wallpaper/privacy.html"
+      }
     ],
     "footer": [
-      { "label": "Privacy policy", "href": "/speedometer-wallpaper/privacy.html" }
+      {
+        "label": "Privacy policy",
+        "href": "/speedometer-wallpaper/privacy.html"
+      }
     ]
   },
-  "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" },
+  "stores": {
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
+  },
   "hero": {
     "lead": "Your phone, as a <em>car dashboard.</em>",
     "align": "left",
-    "badges": ["google-play", { "href": "/speedometer-wallpaper/play/", "label": "Try it in your browser", "note": "Live demo, no install" }],
+    "badges": [
+      "google-play",
+      {
+        "href": "/speedometer-wallpaper/play/",
+        "label": "Try it in your browser",
+        "note": "Live demo, no install"
+      }
+    ],
     "art": {
       "alt": "Speedometer Live Wallpaper on a phone in a car's dashboard mount at night: the Amber Night gauges at 87 km/h, with rain on the windscreen, city lights and tail-light trails behind",
-      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
-      "ultra": { "src": "img/key-art-ultra", "widths": [1920, 2560, 3200], "width": 3200, "height": 1325, "sizes": "max(100vw, 242vh)" },
-      "wide": { "src": "img/key-art", "widths": [960, 1440, 1920, 2560, 3200], "jpeg": [960, 1920], "width": 1920, "height": 1080, "sizes": "max(100vw, min(111vw, 178vh))" },
+      "tall": {
+        "src": "img/key-art-tall",
+        "widths": [
+          480,
+          720,
+          1080,
+          1440
+        ],
+        "jpeg": [
+          1080
+        ],
+        "width": 1440,
+        "height": 2560
+      },
+      "ultra": {
+        "src": "img/key-art-ultra",
+        "widths": [
+          1920,
+          2560,
+          3200
+        ],
+        "width": 3200,
+        "height": 1325,
+        "sizes": "max(100vw, 242vh)"
+      },
+      "wide": {
+        "src": "img/key-art",
+        "widths": [
+          960,
+          1440,
+          1920,
+          2560,
+          3200
+        ],
+        "jpeg": [
+          960,
+          1920
+        ],
+        "width": 1920,
+        "height": 1080,
+        "sizes": "max(100vw, min(111vw, 178vh))"
+      },
       "position": "50% 22%",
-      "fade": { "wide": "78%", "tall": "76%" },
+      "fade": {
+        "wide": "78%",
+        "tall": "76%"
+      },
       "placeholder": "linear-gradient(160deg, #1B3550, #0D1622 55%, #0B0B0C)"
     }
   },
@@ -80,12 +173,37 @@
     "eyebrow": "Live wallpaper",
     "title": "A speedometer that really moves",
     "lede": "A live wallpaper with real gauges. The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock.",
-    "actions": [{ "href": "#tour", "label": "Tour the dashboard", "icon": "down", "button": true }],
+    "actions": [
+      {
+        "href": "#styles",
+        "label": "See the 19 styles",
+        "icon": "down",
+        "button": true
+      }
+    ],
     "demo": "demo/gauge",
     "caption": "The needle follows the digits, as it does on your home screen.",
     "stage": {
-      "tall": { "src": "img/demo/stage-tall", "widths": [640, 960, 1280], "width": 1280, "height": 2240 },
-      "wide": { "src": "img/demo/stage-wide", "widths": [960, 1600, 2400], "width": 2400, "height": 1372 },
+      "tall": {
+        "src": "img/demo/stage-tall",
+        "widths": [
+          640,
+          960,
+          1280
+        ],
+        "width": 1280,
+        "height": 2240
+      },
+      "wide": {
+        "src": "img/demo/stage-wide",
+        "widths": [
+          960,
+          1600,
+          2400
+        ],
+        "width": 2400,
+        "height": 1372
+      },
       "position": "50% 50%"
     }
   },
@@ -94,20 +212,151 @@
       "id": "shots",
       "eyebrow": "On your home screen",
       "title": "Rendered by the app itself",
-      "intro": "These are real renders. The dashboard fits phones and tablets of any shape.",
+      "intro": "Real renders, drawn by the wallpaper itself. Every style fits phones and tablets of any shape, upright or on its side.",
       "blocks": [
-        { "type": "gallery", "layout": "stage", "img": "img/gallery/", "widths": [360,540],
+        {
+          "type": "gallery",
+          "layout": "stage",
+          "img": "img/gallery/",
+          "widths": [
+            360,
+            540
+          ],
           "pickups": [
-            {"src":"pickup-dial-speed","x":9,"y":14,"wide":[44,14],"size":120,"depth":0.8,"turn":-8},
-            {"src":"pickup-dial-power","x":91,"y":12,"wide":[95,18],"size":96,"depth":0.5,"turn":10},
-            {"src":"pickup-dial-cpu","x":92,"y":86,"wide":[42,86],"size":84,"depth":0.35,"turn":-4}
+            {
+              "src": "pickup-dial-speed",
+              "x": 9,
+              "y": 14,
+              "wide": [
+                44,
+                14
+              ],
+              "size": 120,
+              "depth": 0.8,
+              "turn": -8
+            },
+            {
+              "src": "pickup-dial-power",
+              "x": 91,
+              "y": 12,
+              "wide": [
+                95,
+                18
+              ],
+              "size": 96,
+              "depth": 0.5,
+              "turn": 10
+            },
+            {
+              "src": "pickup-dial-cpu",
+              "x": 92,
+              "y": 86,
+              "wide": [
+                42,
+                86
+              ],
+              "size": 84,
+              "depth": 0.35,
+              "turn": -4
+            }
           ],
           "items": [
-            {"name":"shot-kmh","w":540,"h":1200,"world":"carbon","accent":"#F04A2C","tag":"GPS","place":"km/h or mph","caption":"Your real speed on your home screen","text":"The big dial reads your GPS speed in km/h or mph, and a red mark keeps the top speed of the drive.","alt":"The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges"},
-            {"name":"shot-power","w":540,"h":1200,"world":"cockpit","accent":"#FFB547","tag":"Power","place":"Watts","caption":"See the watts in and out","text":"Watts going into the battery show to the right, and watts going out to the left, with a minus.","alt":"Power mode: the big dial at 18.5 watts going into the battery"},
-            {"name":"shot-cpu","w":540,"h":1200,"world":"glass","accent":"#4BD66B","tag":"CPU","place":"Clock","caption":"Watch the processor work","text":"How fast the processor runs, as a share of its top speed, on phones that allow reading it.","alt":"CPU clock mode on the big dial"},
-            {"name":"shot-wifi","w":540,"h":1200,"world":"rally","accent":"#3FA9F5","tag":"Wi-Fi","place":"Link speed","caption":"Every gauge reads your phone","text":"Signal, Wi-Fi, RAM and battery gauges sit around the big dial, with the date and time on an LCD.","alt":"A fast Wi-Fi link on the Wi-Fi gauge"},
-            {"name":"shot-home","w":540,"h":1200,"world":"carbon","accent":"#F04A2C","tag":"The app","place":"Home","caption":"Set it up in one tap","text":"Set the wallpaper, swipe through the designs, and choose what the gauges, date, time and LEDs show.","alt":"The app's home screen: Set wallpaper, Designs, Settings and Info"}
+            {
+              "name": "shot-kmh",
+              "w": 540,
+              "h": 1200,
+              "world": "carbon",
+              "accent": "#F04A2C",
+              "tag": "GPS",
+              "place": "km/h or mph",
+              "caption": "Your real speed on your home screen",
+              "text": "The big dial reads your GPS speed in km/h or mph, and a red mark keeps the top speed of the drive.",
+              "alt": "The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges"
+            },
+            {
+              "name": "style-amber_night",
+              "w": 540,
+              "h": 1200,
+              "world": "cockpit",
+              "accent": "#FFB547",
+              "tag": "Amber Night",
+              "place": "Night luxury",
+              "caption": "One big amber-lit dial",
+              "text": "A dot-matrix display under it keeps the clock, the battery, the memory and the network.",
+              "alt": "The Amber Night style: one big amber-lit dial over a dot-matrix information display"
+            },
+            {
+              "name": "shot-power",
+              "w": 540,
+              "h": 1200,
+              "world": "cockpit",
+              "accent": "#FFB547",
+              "tag": "Power",
+              "place": "Watts",
+              "caption": "See the watts in and out",
+              "text": "Watts going into the battery show to the right, and watts going out to the left, with a minus.",
+              "alt": "Power mode: the big dial at 18.5 watts going into the battery"
+            },
+            {
+              "name": "style-torque",
+              "w": 540,
+              "h": 1200,
+              "world": "carbon",
+              "accent": "#F04A2C",
+              "tag": "Torque",
+              "place": "Muscle car",
+              "caption": "A rev arc with a red shift zone",
+              "text": "A big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
+              "alt": "The Torque style: a curved rev arc over a big round dial on gunmetal"
+            },
+            {
+              "name": "shot-cpu",
+              "w": 540,
+              "h": 1200,
+              "world": "glass",
+              "accent": "#4BD66B",
+              "tag": "CPU",
+              "place": "Clock",
+              "caption": "Watch the processor work",
+              "text": "How fast the processor runs, as a share of its top speed, on phones that allow reading it.",
+              "alt": "CPU clock mode on the big dial"
+            },
+            {
+              "name": "style-vintage",
+              "w": 540,
+              "h": 1200,
+              "world": "rally",
+              "accent": "#E8C27A",
+              "tag": "Vintage",
+              "place": "1960s",
+              "caption": "A cream speedometer on walnut",
+              "text": "A matching clock and a row of chrome-rimmed gauges on a walnut console.",
+              "alt": "The Vintage style: a cream speedometer and clock over a walnut console with small chrome gauges"
+            },
+            {
+              "name": "shot-wifi",
+              "w": 540,
+              "h": 1200,
+              "world": "rally",
+              "accent": "#3FA9F5",
+              "tag": "Wi-Fi",
+              "place": "Link speed",
+              "caption": "Every gauge reads your phone",
+              "text": "Signal, Wi-Fi, RAM and battery gauges sit around the big dial, with the date and time on an LCD.",
+              "alt": "A fast Wi-Fi link on the Wi-Fi gauge"
+            },
+            {
+              "name": "style-glass",
+              "w": 540,
+              "h": 1200,
+              "world": "glass",
+              "accent": "#3FA9F5",
+              "tag": "Glass",
+              "place": "Head-up display",
+              "caption": "Glowing arcs, no round gauges",
+              "text": "Cyan arcs and thin digits floating in brackets, like a car's head-up display.",
+              "alt": "The Glass style: glowing cyan arcs and thin digits in brackets"
+            }
           ]
         }
       ]
@@ -121,8 +370,8 @@
           "type": "steps",
           "items": [
             "Install <b>Speedometer Live Wallpaper</b> from Google Play.",
-            "Open it and tap <b>Set wallpaper</b>, then confirm on your home screen.",
-            "In <b>Settings</b>, choose what the big gauge shows, your units, and which lights and clock to show. In <b>Designs</b>, pick Classic or Future."
+            "Open it and tap <b>Set as wallpaper</b>, then confirm on your home screen.",
+            "Open <b>Styles</b> and pick one of 19 dashboards and its layout. <b>Customize</b> sets its big gauge, units, clock, lights and colours."
           ]
         }
       ]
@@ -131,82 +380,491 @@
       "id": "modes",
       "eyebrow": "The big gauge",
       "title": "One dial, three jobs",
-      "intro": "Pick the mode in Settings, tap the gauge on your home screen, or use the <b>Big gauge</b> tile in Quick Settings, which switches it on every phone, Samsung's included. The digits above the needle show the same value.",
+      "intro": "Pick the mode in a style's settings, tap the gauge on your home screen, or use the <b>Big gauge</b> tile in Quick Settings, which switches it on every phone, Samsung's included. The digits above the needle show the same value.",
       "blocks": [
         {
           "type": "cards",
           "layout": "media",
           "items": [
-            { "image": { "src": "img/dial-power.webp", "alt": "The big dial in power mode, at 18.5 watts", "width": 480, "height": 480 }, "tag": "Mode 1", "title": "Power", "text": "Watts going into the battery (to the right) or out of it (to the left, with a minus)." },
-            { "image": { "src": "img/dial-cpu.webp", "alt": "The big dial in CPU clock mode", "width": 480, "height": 480 }, "tag": "Mode 2", "title": "CPU clock", "text": "How fast the processor runs, as a share of its top speed. On phones that allow reading it." },
-            { "image": { "src": "img/dial-speed.webp", "alt": "The big dial in GPS speed mode, at 87 km/h", "width": 480, "height": 480 }, "tag": "Mode 3", "title": "GPS speed", "text": "Your speed in km/h or mph. A red mark shows the top speed of the current drive." }
+            {
+              "image": {
+                "src": "img/dial-power.webp",
+                "alt": "The big dial in power mode, at 18.5 watts",
+                "width": 480,
+                "height": 480
+              },
+              "tag": "Mode 1",
+              "title": "Power",
+              "text": "Watts going into the battery (to the right) or out of it (to the left, with a minus)."
+            },
+            {
+              "image": {
+                "src": "img/dial-cpu.webp",
+                "alt": "The big dial in CPU clock mode",
+                "width": 480,
+                "height": 480
+              },
+              "tag": "Mode 2",
+              "title": "CPU clock",
+              "text": "How fast the processor runs, as a share of its top speed. On phones that allow reading it."
+            },
+            {
+              "image": {
+                "src": "img/dial-speed.webp",
+                "alt": "The big dial in GPS speed mode, at 87 km/h",
+                "width": 480,
+                "height": 480
+              },
+              "tag": "Mode 3",
+              "title": "GPS speed",
+              "text": "Your speed in km/h or mph. A red mark shows the top speed of the current drive."
+            }
           ]
         }
       ]
     },
     {
-      "id": "designs",
-      "eyebrow": "Designs",
-      "title": "Classic, or Future",
-      "intro": "Open Designs in the app and swipe through them. Each preview is drawn by the wallpaper itself, at your phone's shape.",
+      "id": "styles",
+      "eyebrow": "Styles",
+      "title": "19 dashboards to choose from",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €0.99, once, or unlock them all for €4.99, including the styles still to come. Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
-          "layout": "side",
+          "layout": "tile",
           "items": [
-            { "image": { "src": "img/shot-kmh.webp", "alt": "The Classic design: the big speed dial with signal, RAM, Wi-Fi and battery gauges around it", "width": 540, "height": 1200 }, "tag": "Free", "title": "Classic", "text": "The 2016 dashboard: the big gauge with signal and RAM behind its shoulders, Wi-Fi and battery below, four warning lights and an LCD clock." },
             {
-              "image": { "src": "img/future-kmh.webp", "alt": "The Future design: a chrome dial at 72 km/h, the song that's playing, and 3 missed calls and 2 messages", "width": 540, "height": 1200 },
-              "tag": "€0.99, one time",
-              "tagTone": "alt",
+              "image": {
+                "src": "img/styles/classic.webp",
+                "alt": "The Classic style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Classic",
+              "tag": "Free",
+              "text": "The 2016 dashboard: five gauges, an LCD clock and warning lights.",
+              "href": "/speedometer-wallpaper/play/#style=classic"
+            },
+            {
+              "image": {
+                "src": "img/styles/steel.webp",
+                "alt": "The Steel style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Steel",
+              "tag": "Free",
+              "text": "Classic, refined: satin chrome around spun graphite and an ice-white LCD.",
+              "href": "/speedometer-wallpaper/play/#style=steel"
+            },
+            {
+              "image": {
+                "src": "img/styles/graphite.webp",
+                "alt": "The Graphite style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Graphite",
+              "tag": "Free",
+              "text": "Classic, flat: a satin ring around a plain graphite dial on a dark background.",
+              "href": "/speedometer-wallpaper/play/#style=graphite"
+            },
+            {
+              "image": {
+                "src": "img/styles/future.webp",
+                "alt": "The Future style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
               "title": "Future",
-              "text": "The 2016 chrome cluster, rebuilt: one big dial with the same three modes, battery and RAM arcs, the clock and date, and the Bluetooth and Wi-Fi status.",
-              "list": [
-                "<b>Your music on the dashboard.</b> The song that's playing, its cover and the media volume, plus how many calls you missed and messages you haven't read. Turn on notification access for it in Android's settings; nothing it reads leaves your phone.",
-                "<b>Buy once, keep it.</b> On a new phone with the same Google account, Future comes back by itself when you open the app."
-              ]
+              "tag": "€0.99",
+              "text": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
+              "href": "/speedometer-wallpaper/play/#style=future",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/carbon.webp",
+                "alt": "The Carbon style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Carbon",
+              "tag": "€0.99",
+              "text": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
+              "href": "/speedometer-wallpaper/play/#style=carbon",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/vintage.webp",
+                "alt": "The Vintage style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Vintage",
+              "tag": "€0.99",
+              "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
+              "href": "/speedometer-wallpaper/play/#style=vintage",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/amber_night.webp",
+                "alt": "The Amber Night style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Amber Night",
+              "tag": "€0.99",
+              "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
+              "href": "/speedometer-wallpaper/play/#style=amber",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/rally.webp",
+                "alt": "The Rally style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Rally",
+              "tag": "€0.99",
+              "text": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
+              "href": "/speedometer-wallpaper/play/#style=rally",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/glass.webp",
+                "alt": "The Glass style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Glass",
+              "tag": "€0.99",
+              "text": "A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.",
+              "href": "/speedometer-wallpaper/play/#style=glass",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/cockpit.webp",
+                "alt": "The Cockpit style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Cockpit",
+              "tag": "€0.99",
+              "text": "An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.",
+              "href": "/speedometer-wallpaper/play/#style=cockpit",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/harbour.webp",
+                "alt": "The Harbour style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Harbour",
+              "tag": "€0.99",
+              "text": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.",
+              "href": "/speedometer-wallpaper/play/#style=harbour",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/track_night.webp",
+                "alt": "The Track Night style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Track Night",
+              "tag": "€0.99",
+              "text": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
+              "href": "/speedometer-wallpaper/play/#style=track_night",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/torque.webp",
+                "alt": "The Torque style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Torque",
+              "tag": "€0.99",
+              "text": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
+              "href": "/speedometer-wallpaper/play/#style=torque",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/circuit.webp",
+                "alt": "The Circuit style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Circuit",
+              "tag": "€0.99",
+              "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
+              "href": "/speedometer-wallpaper/play/#style=circuit",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/prism.webp",
+                "alt": "The Prism style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Prism",
+              "tag": "€0.99",
+              "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
+              "href": "/speedometer-wallpaper/play/#style=prism",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/aura.webp",
+                "alt": "The Aura style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Aura",
+              "tag": "€0.99",
+              "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
+              "href": "/speedometer-wallpaper/play/#style=aura",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/pulse.webp",
+                "alt": "The Pulse style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Pulse",
+              "tag": "€0.99",
+              "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
+              "href": "/speedometer-wallpaper/play/#style=pulse",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/vector.webp",
+                "alt": "The Vector style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Vector",
+              "tag": "€0.99",
+              "text": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
+              "href": "/speedometer-wallpaper/play/#style=vector",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "img/styles/horizon.webp",
+                "alt": "The Horizon style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Horizon",
+              "tag": "€0.99",
+              "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
+              "href": "/speedometer-wallpaper/play/#style=horizon",
+              "tagTone": "alt"
             }
           ]
         },
         {
           "type": "features",
           "items": [
-            { "title": "Big gauge tile", "text": "Add the Big gauge tile to Quick Settings to switch the dial's mode from anywhere. Its subtitle shows the mode it's in." },
-            { "title": "Easy on the battery", "text": "Nothing redraws unless something changed, and everything stops while the wallpaper is hidden." },
-            { "title": "No ads on your wallpaper", "text": "A small banner shows inside the app only, never on your home screen." },
-            { "title": "Android only", "text": "Live wallpapers are an Android feature, so there's no iPhone version." }
+            {
+              "title": "Make it yours",
+              "text": "Customize sets each style's colours, glow, background and needle feel, and its own big gauge, units, clock and warning lights."
+            },
+            {
+              "title": "Layouts, and your own",
+              "text": "Most styles come in several layouts. Make your own: drag and resize the gauges, then save it as Custom."
+            },
+            {
+              "title": "Music on the dashboard",
+              "text": "Future shows the song that's playing, its cover and the volume, and your missed calls and unread messages, with notification access. Nothing it reads leaves your phone."
+            },
+            {
+              "title": "Buy once, keep it",
+              "text": "On a new phone with the same Google account, the styles you bought come back by themselves."
+            }
           ]
         }
       ]
     },
     {
+      "id": "good-to-know",
+      "eyebrow": "Good to know",
+      "title": "Made for every day",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "Big gauge tile",
+              "text": "Add the Big gauge tile to Quick Settings to switch the dial's mode from anywhere. Its subtitle shows the mode it's in."
+            },
+            {
+              "title": "Easy on the battery",
+              "text": "Saver, Balanced or Smooth: the gauges redraw only while a needle moves, and nothing runs while the wallpaper is hidden. Android's Battery saver switches to Saver."
+            },
+            {
+              "title": "No ads on your wallpaper",
+              "text": "A small banner shows inside the app only, never on your home screen."
+            },
+            {
+              "title": "Android only",
+              "text": "Live wallpapers are an Android feature, so there's no iPhone version."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "try",
+      "band": {
+        "art": "<span class=\"lcd\" data-ghost=\"88\">19</span>",
+        "title": "Try every style in your browser",
+        "text": "The real wallpaper runs on the page: pick a style and a layout, change the settings and tap the big gauge. No install needed.",
+        "link": {
+          "href": "/speedometer-wallpaper/play/",
+          "label": "Try it online →"
+        }
+      }
+    },
+    {
       "id": "tour",
       "eyebrow": "Tour the dashboard",
       "title": "What every gauge shows",
-      "intro": "Tap a red dot on the dashboard, or open a part below.",
+      "intro": "On the Classic dashboard: tap a red dot, or open a part below.",
       "blocks": [
         {
           "type": "tour",
-          "image": { "src": "img/shot-kmh.webp", "alt": "The full dashboard, with numbered parts", "width": 540, "height": 1200 },
+          "image": {
+            "src": "img/shot-kmh.webp",
+            "alt": "The full dashboard, with numbered parts",
+            "width": 540,
+            "height": 1200
+          },
           "open": "p3",
           "spots": [
-            { "part": "p1", "n": 1, "label": "Signal", "x": 19.5, "y": 24 },
-            { "part": "p2", "n": 2, "label": "RAM", "x": 80, "y": 24 },
-            { "part": "p3", "n": 3, "label": "The big gauge", "x": 53, "y": 31 },
-            { "part": "p4", "n": 4, "label": "Warning lights", "x": 35, "y": 40.5 },
-            { "part": "p4", "n": 4, "label": "Warning lights", "x": 65, "y": 40.5 },
-            { "part": "p5", "n": 5, "label": "Date and time", "x": 50, "y": 50 },
-            { "part": "p6", "n": 6, "label": "Wi-Fi", "x": 24, "y": 66 },
-            { "part": "p7", "n": 7, "label": "Battery", "x": 75, "y": 66 }
+            {
+              "part": "p1",
+              "n": 1,
+              "label": "Signal",
+              "x": 19.5,
+              "y": 24
+            },
+            {
+              "part": "p2",
+              "n": 2,
+              "label": "RAM",
+              "x": 80,
+              "y": 24
+            },
+            {
+              "part": "p3",
+              "n": 3,
+              "label": "The big gauge",
+              "x": 53,
+              "y": 31
+            },
+            {
+              "part": "p4",
+              "n": 4,
+              "label": "Warning lights",
+              "x": 35,
+              "y": 40.5
+            },
+            {
+              "part": "p4",
+              "n": 4,
+              "label": "Warning lights",
+              "x": 65,
+              "y": 40.5
+            },
+            {
+              "part": "p5",
+              "n": 5,
+              "label": "Date and time",
+              "x": 50,
+              "y": 50
+            },
+            {
+              "part": "p6",
+              "n": 6,
+              "label": "Wi-Fi",
+              "x": 24,
+              "y": 66
+            },
+            {
+              "part": "p7",
+              "n": 7,
+              "label": "Battery",
+              "x": 75,
+              "y": 66
+            }
           ],
           "parts": [
-            { "id": "p1", "n": 1, "title": "Signal", "body": "<p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p>", "more": "/speedometer-wallpaper/wiki/signal/" },
-            { "id": "p2", "n": 2, "title": "RAM", "body": "<p>The small gauge at the top right shows how much of the phone's memory is in use.</p>", "more": "/speedometer-wallpaper/wiki/ram/" },
-            { "id": "p3", "n": 3, "title": "The big gauge", "body": "<p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen, or use the Big gauge tile in Quick Settings, to switch. The digits above the needle show the same value.</p>", "more": "/speedometer-wallpaper/wiki/big-gauge/" },
-            { "id": "p4", "n": 4, "title": "Warning lights", "body": "<p>Four lights on the big gauge. Each one can be switched off in Settings.</p><ul><li><b>Low battery:</b> at or below the low battery level, 15 % unless you change it.</li><li><b>Bluetooth:</b> while Bluetooth is on.</li><li><b>High temperature:</b> when the battery is hotter than 45 °C, unless you change it.</li><li><b>Low temperature:</b> when the battery is colder than 0 °C, unless you change it.</li></ul>", "more": "/speedometer-wallpaper/wiki/#lights" },
-            { "id": "p5", "n": 5, "title": "Date and time", "body": "<p>The LCD under the big gauge. The time format, date order, separators and seconds are all in Settings.</p>", "more": "/speedometer-wallpaper/wiki/date-and-time/" },
-            { "id": "p6", "n": 6, "title": "Wi-Fi", "body": "<p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p>", "more": "/speedometer-wallpaper/wiki/wifi/" },
-            { "id": "p7", "n": 7, "title": "Battery", "body": "<p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p>", "more": "/speedometer-wallpaper/wiki/battery/" }
+            {
+              "id": "p1",
+              "n": 1,
+              "title": "Signal",
+              "body": "<p>The small gauge at the top left shows your mobile signal, from 0 to 4 bars.</p>",
+              "more": "/speedometer-wallpaper/wiki/signal/"
+            },
+            {
+              "id": "p2",
+              "n": 2,
+              "title": "RAM",
+              "body": "<p>The small gauge at the top right shows how much of the phone's memory is in use.</p>",
+              "more": "/speedometer-wallpaper/wiki/ram/"
+            },
+            {
+              "id": "p3",
+              "n": 3,
+              "title": "The big gauge",
+              "body": "<p>It shows one of three things: <b>power</b>, <b>CPU clock</b> or <b>GPS speed</b> (see the modes above). Tap it on your home screen, or use the Big gauge tile in Quick Settings, to switch. The digits above the needle show the same value.</p>",
+              "more": "/speedometer-wallpaper/wiki/big-gauge/"
+            },
+            {
+              "id": "p4",
+              "n": 4,
+              "title": "Warning lights",
+              "body": "<p>Four lights on the big gauge. Each one can be switched off in the style's settings.</p><ul><li><b>Low battery:</b> at or below the low battery level, 15 % unless you change it.</li><li><b>Bluetooth:</b> while Bluetooth is on.</li><li><b>High temperature:</b> when the battery is hotter than 45 °C, unless you change it.</li><li><b>Low temperature:</b> when the battery is colder than 0 °C, unless you change it.</li></ul>",
+              "more": "/speedometer-wallpaper/wiki/#lights"
+            },
+            {
+              "id": "p5",
+              "n": 5,
+              "title": "Date and time",
+              "body": "<p>The LCD under the big gauge. The time format, date order, separators and seconds are all in the style's settings.</p>",
+              "more": "/speedometer-wallpaper/wiki/date-and-time/"
+            },
+            {
+              "id": "p6",
+              "n": 6,
+              "title": "Wi-Fi",
+              "body": "<p>The strength of your Wi-Fi signal. Under it, a status line reads CONNECTED (with the link speed in Mbps), NO NETWORK, MOBILE DATA or DISABLED. The ON light is green on Wi-Fi and yellow on mobile data.</p>",
+              "more": "/speedometer-wallpaper/wiki/wifi/"
+            },
+            {
+              "id": "p7",
+              "n": 7,
+              "title": "Battery",
+              "body": "<p>How full your battery is. The LOW light comes on at the low battery level, and the green bolt lights while the phone charges. The small dial shows the battery's temperature, from low (C) to high (H).</p>",
+              "more": "/speedometer-wallpaper/wiki/battery/"
+            }
           ]
         }
       ]
@@ -217,13 +875,23 @@
         "art": "<span class=\"lcd\" data-ghost=\"88\">00</span>",
         "title": "Your readings stay on your phone",
         "text": "Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen. Future's music, calls and messages are read on the phone and stay there.",
-        "link": { "href": "/speedometer-wallpaper/privacy.html", "label": "Privacy policy →" }
+        "link": {
+          "href": "/speedometer-wallpaper/privacy.html",
+          "label": "Privacy policy →"
+        }
       }
     }
   ],
   "cta": {
     "title": "Put the dashboard on your phone",
     "text": "Free on Google Play, for Android phones and tablets.",
-    "badges": ["google-play", { "href": "/speedometer-wallpaper/play/", "label": "Try it in your browser", "note": "Live demo, no install" }]
+    "badges": [
+      "google-play",
+      {
+        "href": "/speedometer-wallpaper/play/",
+        "label": "Try it in your browser",
+        "note": "Live demo, no install"
+      }
+    ]
   }
 }
