@@ -32,7 +32,10 @@ main { overflow-x: clip; }
 @supports not selector(::-webkit-scrollbar) {
   html { scrollbar-color: var(--sb) var(--sb-track); }
 }
-img { max-width: 100%; }
+/* A picture keeps its own shape (George, 24 Oct 2026: "These are stretched."): a rule that sets only its width (the
+   cards' 78%) or only its height gets the other side from the picture, never from its width and height attributes.
+   A box that sets both sides crops with object-fit. As assets/vgraphics.css does for the company pages. */
+img { max-width: 100%; height: auto; }
 a { color: var(--link, var(--accent)); text-underline-offset: 3px; } /* --link: optional */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
