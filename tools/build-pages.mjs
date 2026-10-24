@@ -27,7 +27,10 @@
 //                                wiki entry's painting
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
-//   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
+//   sections                     [{ id, eyebrow?, title, intro?, art?, stage?, blocks, more? }] or [{ id, band }]
+//                                art: { src, widths, width, height, alt, position?, layout?, side? }: a picture across the
+//                                section's top, its heading starting in the picture's faded foot; with layout "side",
+//                                the whole picture beside the section's words (side "right" puts it on the right)
 //                                blocks: gallery, steps, cards (layout icon | media | side; dense: true for a deck of
 //                                many small media cards, two to a row on phones), features, tour, soundtrack,
 //                                journey, embed, document
@@ -187,6 +190,18 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
         </div>`,
 }
 
+// A section's art (page.json section "art"): the picture across the top of the section, full-bleed, fading into the
+// page at its foot, where the section's heading starts, inside the art's last 30% (George, 24 Oct 2026: "move art to
+// top of section and add scrim on bottom so title can sit and section continue"). { src, widths, width, height, alt,
+// position? }, as src-<width>.avif and .webp; lazy, so it waits for the scroll. With layout "side" (George: "We can use
+// 50-50 width art and content") the picture stands whole beside the section's words instead, on the left, or on the
+// right with side "right"; on narrow screens it goes above them.
+const artPicture = (a, sizes) => `<picture><source type="image/avif" srcset="${set(a, 'avif', a.widths)}" sizes="${sizes}"><img src="${esc(a.src)}-${a.widths.at(-1)}.webp" srcset="${set(a, 'webp', a.widths)}" sizes="${sizes}" alt="${esc(a.alt)}"${dims(a)} loading="lazy" decoding="async"></picture>`
+function sectionArt(a) {
+  const style = a.position ? ` style="${esc(`--sec-art-at: ${a.position}`)}"` : ''
+  return `<div class="sec-art"${style}>${artPicture(a, '100vw')}</div>`
+}
+
 function section(product, s) {
   if (s.band) {
     const b = s.band
@@ -206,8 +221,23 @@ function section(product, s) {
     s.intro && `<p class="sec-intro">${s.intro}</p>`,
   ].filter(Boolean).join('\n          ')
   const blocks = s.blocks.map((b) => BLOCKS[b.type](b, product, s)).join('\n        ')
+  if (s.art?.layout === 'side') {
+    return `<section class="sec art-side${s.art.side === 'right' ? ' art-right' : ''}" id="${s.id}" aria-labelledby="${s.id}-title">
+      <div class="wrap split">
+        <figure class="split-art">${artPicture(s.art, '(max-width: 860px) 100vw, 50vw')}</figure>
+        <div class="split-body">
+          <div class="sec-head">
+            ${head}
+          </div>
+          ${blocks}
+          ${s.more ? `<a class="more" href="${esc(s.more.href)}">${s.more.label}</a>` : ''}
+        </div>
+      </div>
+    </section>`
+  }
   // A section without a title is the page's own text under its hero (a policy, whose headings are its own).
-  return `<section class="sec" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>
+  return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>${s.art ? `
+      ${sectionArt(s.art)}` : ''}
       <div class="wrap">${s.title ? `
         <div class="sec-head">
           ${head}

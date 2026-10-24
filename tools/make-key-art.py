@@ -9,6 +9,8 @@
 #                                                                         its full height, centred at x, 0 to 1)
 #        add --name <name> to write <name>-wide and <name>-tall instead of key-art-wide and key-art-tall: a section's
 #        stage picture (page.json "stage"), from the key art's world, in AVIF and WebP only
+#        python tools/make-key-art.py <product> <picture> --name <name> --whole   (one picture shown whole, as a scenes
+#                                                                         block's: <name>-<width>, AVIF and WebP)
 # (Pillow with AVIF.) Old sizes of the same pictures are removed first, so a new key art leaves nothing behind.
 import json, os, re, sys
 from PIL import Image
@@ -49,6 +51,11 @@ def main():
     sys.argv[1:] = args
     product, wide_path = sys.argv[1], sys.argv[2]
     wide = Image.open(wide_path).convert('RGB')
+    if sys.argv[3] == '--whole':
+        out = os.path.join(ROOT, product, 'img')
+        os.makedirs(out, exist_ok=True)
+        print(json.dumps(save(wide, out, name, (WIDE[0], []))))
+        return
     if sys.argv[3] == '--cut':
         x, w = float(sys.argv[4]), round(wide.height * 9 / 16)
         left = min(max(round(wide.width * x - w / 2), 0), wide.width - w)
