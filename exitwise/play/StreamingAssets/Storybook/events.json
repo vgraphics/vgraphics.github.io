@@ -1,0 +1,59 @@
+{
+  "version": 1,
+  "language": "en",
+  "title": "Festival tales",
+  "menuMusic": "prologue",
+  "chapters": [
+    {
+      "id": "frost-festival",
+      "world": 0,
+      "label": "Frost Festival",
+      "title": "The tangled lantern tree",
+      "pages": [
+        {
+          "id": "frost-festival-opened",
+          "kind": "opened",
+          "unlockLevel": 1,
+          "lockedLine": "Play the Frost Festival to read on",
+          "music": "opens",
+          "panels": [
+            {
+              "id": "frost-festival-opened-1",
+              "line": "Snow fell on the tower, and Pip did a happy loop. \"The Frost Festival! Lanterns, cocoa and the great sled race!\"",
+              "alt": "Pip, a small sleek owl, loops through falling snow over a winter village square strung with warm lanterns; Prince Arlo laughs below."
+            },
+            {
+              "id": "frost-festival-opened-2",
+              "line": "But the lantern tree stood dark. Flurry the frost fox had tangled its lights in cursed arrows and growled at anyone near.",
+              "alt": "A tall pine in the village square, its lights wrapped in violet cursed arrows; Flurry, a frost fox wound in violet thorns, snarls at its foot."
+            },
+            {
+              "id": "frost-festival-opened-3",
+              "line": "Arlo tested his bowstring. \"Twenty tangles to the tree,\" said Pip, \"and then a very grumpy fox. Ready?\"",
+              "alt": "Prince Arlo, a knight archer with a golden longbow, grins at Pip perched on his shoulder, snowflakes on his silver armour."
+            }
+          ]
+        },
+        {
+          "id": "frost-festival-freed",
+          "kind": "freed",
+          "unlockLevel": 1,
+          "lockedLine": "Free Flurry in the Frost Festival to read on",
+          "music": "freed",
+          "panels": [
+            {
+              "id": "frost-festival-freed-1",
+              "line": "With the last arrow, the thorns let go. Flurry sneezed, shook off the snow and wagged a very fluffy tail.",
+              "alt": "Flurry the frost fox, free of the thorns, sneezes a puff of snow and wags a huge fluffy tail while violet threads fall away."
+            },
+            {
+              "id": "frost-festival-freed-2",
+              "line": "The lantern tree blazed with light, and the whole village cheered. Flurry won the sled race, sliding on his tummy.",
+              "alt": "The lantern tree glows gold over the cheering village; Flurry slides down a snowy hill on his tummy ahead of laughing sledders, Pip racing beside him."
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
