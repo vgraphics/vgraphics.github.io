@@ -8,6 +8,8 @@
 //   "pickups"?: [{ src, x, y, wide?: [x, y], size, depth, turn }] (things from the game floating around),
 //   "items": [{ name, w, h, world, accent, tag, place, caption, text, alt, link?: { href, label } }] }
 
+import { blurhashes } from './lib/blurhash.mjs'
+
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
 // How wide a phone's screen is drawn, for the browser to pick a picture size.
@@ -17,9 +19,11 @@ function srcset(data, name, ext) {
   return data.widths.map((w) => `${data.img}${name}-${w}.${ext} ${w}w`).join(', ')
 }
 
+// The picture carries its blurhash, which the lightbox paints until the full screenshot has loaded (data.hash).
 function shotPicture(data, shot) {
   const mid = data.widths.find((w) => w >= 540) ?? data.widths.at(-1)
-  return `<picture><source type="image/avif" srcset="${srcset(data, shot.name, 'avif')}" sizes="${SIZES}">` +
+  const hash = data.hash?.[`${data.img}${shot.name}-${mid}.webp`]
+  return `<picture${hash ? ` data-hash="${esc(hash)}"` : ''}><source type="image/avif" srcset="${srcset(data, shot.name, 'avif')}" sizes="${SIZES}">` +
     `<img src="${data.img}${shot.name}-${mid}.webp" srcset="${srcset(data, shot.name, 'webp')}" sizes="${SIZES}" ` +
     `width="${shot.w}" height="${shot.h}" alt="${esc(shot.alt)}" loading="lazy" decoding="async"></picture>`
 }
@@ -62,8 +66,15 @@ function sky(data) {
 }
 
 // label: the id of the section heading that names the gallery.
-export function renderGallery(data, { label } = {}) {
+// options.dir: the page's folder, which block.img is relative to (for the screenshots' blurhashes)
+export function renderGallery(data, { label, dir } = {}) {
   data = { ...data, items: data.items ?? data.shots }
+  if (dir) {
+    const mid = data.widths.find((w) => w >= 540) ?? data.widths.at(-1)
+    const files = data.items.map((s) => `${data.img}${s.name}-${mid}.webp`)
+    const got = blurhashes(files.map((f) => `${dir}/${f}`))
+    data.hash = Object.fromEntries(files.map((f) => [f, got[`${dir}/${f}`]]))
+  }
   const ratio = +(data.items[0].w / data.items[0].h).toFixed(4)
   return `<div class="gallery" data-gallery="stage" style="--ratio: ${ratio}"${label ? ` aria-labelledby="${label}"` : ''}>
   <div class="g-panel">

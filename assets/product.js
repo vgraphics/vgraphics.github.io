@@ -159,7 +159,9 @@
 
   // An album's pictures open large (build-pages.mjs, album): the arrows, the buttons or a swipe move through the
   // album; a click on the picture (or Enter) zooms in where it was clicked, and dragging moves it; Escape, the close
-  // button or a click outside closes. The pictures load only when opened.
+  // button or a click outside closes. The pictures load only when opened. The preview flies out of its tile and back
+  // into the one shown when it closes; a picture still loading shows its blurhash, never the one before it (George,
+  // 26 Oct 2026: "preview open on previous image until new loads. Also open preview with animation. Use blurhash.").
   const albumItems = document.querySelectorAll(".album-item");
   if (albumItems.length) {
     const box = document.createElement("div");
@@ -174,7 +176,7 @@
     const frame = box.querySelector(".lb-frame"), img = frame.querySelector("img"), cap = box.querySelector("figcaption"), count = box.querySelector(".lb-count");
     const [prevBtn, nextBtn, closeBtn] = box.querySelectorAll(".lb-btn");
     const ZOOM = 2.5;
-    let items = [], at = 0, from = null, zoomed = false, pan = [0, 0], drag = null;
+    let items = [], at = 0, zoomed = false, pan = [0, 0], drag = null;
     const place = () => (img.style.transform = zoomed ? `translate(${pan[0]}px, ${pan[1]}px) scale(${ZOOM})` : "");
     const clamp = () => {
       const mx = (img.offsetWidth * (ZOOM - 1)) / 2, my = (img.offsetHeight * (ZOOM - 1)) / 2;
@@ -187,32 +189,75 @@
       clamp();
       place();
     };
+    const still = matchMedia("(prefers-reduced-motion: reduce)");
+    const blur = import("/assets/blurhash.js").catch(() => null);
+    // The frame: the whole picture, as large as the box allows and no wider than 1600 px
+    const fit = () => {
+      const b = items[at], cs = getComputedStyle(box);
+      const w = +b.dataset.w, h = +b.dataset.h;
+      const s = Math.min(Math.min(1600, box.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight)) / w, (innerHeight - 170) / h);
+      frame.style.width = `${Math.round(w * s)}px`;
+      frame.style.height = `${Math.round(h * s)}px`;
+    };
     const show = (i) => {
       at = (i + items.length) % items.length;
       const b = items[at];
       zoom(false);
-      img.src = b.dataset.full;
+      // The picture before goes at once; this one's blurhash stands in until it has loaded, then it fades in
+      img.classList.remove("loaded");
+      frame.style.backgroundImage = "";
+      blur.then((m) => m && items[at] === b && b.dataset.hash && (frame.style.backgroundImage = `url(${m.url(b.dataset.hash, +b.dataset.w, +b.dataset.h)})`));
       img.width = b.dataset.w;
       img.height = b.dataset.h;
+      fit();
+      const src = new URL(b.dataset.full, location.href).href;
+      if (img.src !== src) img.src = src;
+      if (img.complete && img.naturalWidth) img.classList.add("loaded");
       img.alt = b.querySelector("img").alt;
       cap.textContent = b.querySelector("span").textContent;
       count.textContent = `${at + 1} of ${items.length}`;
       box.setAttribute("aria-label", cap.textContent);
       prevBtn.hidden = nextBtn.hidden = items.length < 2;
     };
-    const close = () => {
+    img.addEventListener("load", () => img.classList.add("loaded"));
+    addEventListener("resize", () => !box.hidden && fit());
+    // The flight between a tile and the frame: the tile's picture is a crop of the same picture, so they meet at
+    // their widths and centres
+    const flight = (tile) => {
+      const t = tile.getBoundingClientRect(), f = frame.getBoundingClientRect();
+      return `translate(${t.left + t.width / 2 - (f.left + f.width / 2)}px, ${t.top + t.height / 2 - (f.top + f.height / 2)}px) scale(${t.width / f.width})`;
+    };
+    const chrome = () => [cap, count, prevBtn, nextBtn, closeBtn];
+    const close = async () => {
+      if (box.hidden || box.classList.contains("closing")) return;
+      if (!still.matches) {
+        box.classList.add("closing");
+        const tile = items[at]?.querySelector("img"), r = tile?.getBoundingClientRect();
+        const back = r && r.bottom > 0 && r.top < innerHeight;
+        await Promise.all([
+          box.animate([{}, { backgroundColor: "transparent", backdropFilter: "blur(0px)" }], { duration: 300, easing: "ease-in" }).finished,
+          ...chrome().map((e) => e.animate([{}, { opacity: 0 }], { duration: 160, fill: "forwards" }).finished),
+          back ? frame.animate([{ transform: "none" }, { transform: flight(tile) }], { duration: 320, easing: "cubic-bezier(.4,0,.7,.2)" }).finished
+            : frame.animate([{}, { opacity: 0, transform: "scale(0.94)" }], { duration: 220, easing: "ease-in" }).finished,
+        ].map((p) => p.catch(() => {})));
+        box.classList.remove("closing");
+        chrome().forEach((e) => e.getAnimations().forEach((a) => a.cancel()));
+      }
       box.hidden = true;
       document.documentElement.classList.remove("card-open");
-      from?.focus({ preventScroll: true });
+      items[at]?.focus({ preventScroll: true });
     };
     for (const b of albumItems) {
       b.addEventListener("click", () => {
         items = [...b.closest(".album").querySelectorAll(".album-item")];
-        from = b;
-        show(items.indexOf(b));
         box.hidden = false;
+        show(items.indexOf(b));
         document.documentElement.classList.add("card-open");
         frame.focus({ preventScroll: true });
+        if (still.matches) return;
+        box.animate([{ backgroundColor: "transparent", backdropFilter: "blur(0px)" }, {}], { duration: 320, easing: "ease-out" });
+        chrome().forEach((e) => e.animate([{ opacity: 0 }, {}], { duration: 320, delay: 140, easing: "ease-out", fill: "backwards" }));
+        frame.animate([{ transform: flight(b.querySelector("img")) }, { transform: "none" }], { duration: 440, easing: "cubic-bezier(.2,.8,.2,1)" });
       });
     }
     prevBtn.addEventListener("click", () => show(at - 1));

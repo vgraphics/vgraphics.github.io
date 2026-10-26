@@ -21,7 +21,13 @@
   "hero": {
     "title": "Exitwise privacy policy",
     "lead": "Privacy policy",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "A round stone tower with a golden padlock on its door, on a floating island with lanterns and arrow signposts under a starry twilight sky",
+      "wiki": "privacy",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#36235F, #588660)"
+    }
   },
   "sections": [
     { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }

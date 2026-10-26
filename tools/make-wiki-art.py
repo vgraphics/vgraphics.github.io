@@ -9,6 +9,8 @@
 #   and the record: how it was made, its prompt, the Recraft project, the upscale } } }
 #   tall: a picture of its own for portrait screens (made for them), else a 9:16 cut of the master, centred on focus
 #   (0 is the left edge, 1 the right), so the entry's subject stays in the frame.
+#   text: real words and numbers over the ones the AI drew, set on the master and the tall picture before they are
+#   written (tools/wiki_text.py; it needs OpenCV and fontTools, only for the entries that have it).
 # Needs Pillow with AVIF support (Pillow 11.3 or later).
 import json, os, re, sys
 from PIL import Image
@@ -59,11 +61,14 @@ def main(product, only):
             if old.match(f):
                 os.remove(os.path.join(out, f))
         wide = Image.open(os.path.join(src, s['master'])).convert('RGB')
+        own = Image.open(os.path.join(src, s['tall'])).convert('RGB') if s.get('tall') else None
+        if s.get('text'):
+            from wiki_text import real_text
+            wide, own = real_text(product, s, wide, own)
         ws = widths(min(wide.width, WIDE_MAX), WIDE)
         wj = [w for w in WIDE_JPEG if w in ws] or ws[:1]
         size = save(wide, os.path.join(out, slug), ws, wj)
-        tall = Image.open(os.path.join(src, s['tall'])).convert('RGB') if s.get('tall') else wide
-        tall = cut(tall, s.get('focus', 0.5))
+        tall = cut(own if own is not None else wide, s.get('focus', 0.5))
         ts = widths(tall.width, TALL)
         tj = [w for w in TALL_JPEG if w in ts] or ts[-1:]
         tsize = save(tall, os.path.join(out, slug + '-tall'), ts, tj)

@@ -134,12 +134,15 @@ def exitwise(ref, recraft, out):
 
 
 SPEEDOMETER = {
-    "shots": ["shot-kmh", "shot-power", "shot-cpu", "shot-wifi"],
-    "dials": ["dial-speed", "dial-power", "dial-cpu"],
+    # The slides' frames and the floating dials, from img/: the gallery's own renders (img/renders/, written by
+    # tools/make-speedometer-renders.py), none of them shown anywhere else on the site (George, 26 Oct 2026: "Each art
+    # must be used only once!!"), and CPU mode's frame, which only the gallery shows.
+    "shots": ["shot-cpu", "renders/classic-mph", "renders/amber-night-119kmh", "renders/carbon-power", "renders/torque-71kmh",
+              "renders/vintage-pair-power", "renders/track-night-power", "renders/glass-49kmh"],
+    "dials": ["renders/dial-classic-17kmh", "renders/dial-vintage-power", "renders/dial-future-49kmh"],
     # The styles' own renders: logic_render's wallpaper goldens (TopScrimRendererTest, the S25+'s 1080x2340 screen),
-    # read from the Games repo. Gallery frames are cut to the site's 540x1200 phones (a few pixels off each side).
+    # read from the Games repo.
     "goldens": "SpeedometerWallpaper/logic_render/src/test/screenshots/wallpaper_{}.png",
-    "style_shots": ["amber_night", "torque", "vintage", "glass"],
     # Every style the app sells, for the Styles tiles (img/styles/<name>.webp, 360 px).
     "styles": ["classic", "steel", "graphite", "future", "carbon", "vintage", "amber_night", "rally", "glass", "cockpit",
                "harbour", "track_night", "torque", "circuit", "prism", "aura", "pulse", "vector", "horizon"],
@@ -147,30 +150,24 @@ SPEEDOMETER = {
 
 
 def speedometer(ref, out):
-    """Classic's frames are the site's 540x1200 pictures (no larger ones exist yet); the other styles' frames and the
-    Styles tiles are cut from the app's wallpaper goldens at `ref`; the big dial's three faces float around them."""
+    """The slides' frames are the site's 540x1200 pictures; the Styles tiles are cut from the app's wallpaper goldens
+    at `ref`; three big dials float around the slides."""
     img = os.path.join(SITE, "speedometer-wallpaper", "img")
-    for name in SPEEDOMETER["shots"]:
-        frame = Image.open(os.path.join(img, f"{name}.webp")).convert("RGB")
+    for path in SPEEDOMETER["shots"]:
+        name = os.path.basename(path)
+        frame = Image.open(os.path.join(img, f"{path}.webp")).convert("RGB")
         for width in (360, 540):
             save(scaled(frame, width), out, f"{name}-{width}")
         print("shot", name)
-    for name in SPEEDOMETER["style_shots"]:
-        golden = Image.open(io.BytesIO(blob(ref, SPEEDOMETER["goldens"].format(name)))).convert("RGB")
-        keep = round(golden.height * 540 / 1200)
-        left = (golden.width - keep) // 2
-        frame = golden.crop((left, 0, left + keep, golden.height)).resize((540, 1200), Image.LANCZOS)
-        for width in (360, 540):
-            save(scaled(frame, width), out, f"style-{name}-{width}")
-        print("style shot", name)
     tiles = os.path.join(img, "styles")
     os.makedirs(tiles, exist_ok=True)
     for name in SPEEDOMETER["styles"]:
         golden = Image.open(io.BytesIO(blob(ref, SPEEDOMETER["goldens"].format(name)))).convert("RGB")
         save(scaled(golden, 360), tiles, name, avif=False, webp_quality=82)
         print("style tile", name)
-    for dial in SPEEDOMETER["dials"]:
-        save(scaled(trimmed(Image.open(os.path.join(img, f"{dial}.webp"))), 240), out, f"pickup-{dial}", avif=False,
+    for path in SPEEDOMETER["dials"]:
+        dial = os.path.basename(path)
+        save(scaled(trimmed(Image.open(os.path.join(img, f"{path}.webp"))), 240), out, f"pickup-{dial}", avif=False,
              webp_quality=86)
         print("pickup", dial)
 

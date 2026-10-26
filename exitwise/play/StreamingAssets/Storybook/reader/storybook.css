@@ -1,0 +1,239 @@
+/* The Exitwise storybook, the HTML reader's look (storybook.js): Cinema, George's pick of 23 Oct 2026, the same as the
+   app's UI Toolkit reader (UI/Storybook.uss). The chapter list on the tower's night sky, then each painting full screen
+   with the camera moving over it and its line in a dark band. Lilita One sets titles and names, Comic Neue Bold the
+   story lines (both SIL OFL, latin subsets, in fonts/). Everything is under .xsb, so it can sit over the game or in a
+   site page. */
+
+@font-face {
+  font-family: "Xsb Lilita One";
+  src: url("fonts/lilita-one-latin.woff2") format("woff2");
+  font-weight: 400;
+  font-display: swap;
+}
+
+@font-face {
+  font-family: "Xsb Comic Neue";
+  src: url("fonts/comic-neue-700-latin.woff2") format("woff2");
+  font-weight: 700;
+  font-display: swap;
+}
+
+.xsb {
+  --xsb-night: #090716;
+  --xsb-sky: #17103a;
+  --xsb-ink: #f3eefe;
+  --xsb-muted: #bdb4de;
+  --xsb-gold: #f4c75f;
+  --xsb-gold-edge: #c49628;
+  --xsb-gold-ink: #3a2a1c;
+  --xsb-new: #ff5a6e;
+  --xsb-glass: rgba(14, 11, 30, 0.55);
+  /* The chapter list's starry sky: on the list inline, on the overlay over the game (see the chapter list below) */
+  --xsb-list-sky:
+    radial-gradient(1.2px 1.2px at 12% 6%, rgba(255, 255, 255, 0.7), transparent),
+    radial-gradient(1px 1px at 78% 3%, rgba(255, 255, 255, 0.6), transparent),
+    radial-gradient(1.4px 1.4px at 46% 11%, rgba(255, 255, 255, 0.55), transparent),
+    radial-gradient(1px 1px at 90% 14%, rgba(255, 255, 255, 0.5), transparent),
+    linear-gradient(var(--xsb-sky), var(--xsb-night) 340px);
+  --xsb-title: "Xsb Lilita One", "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
+  --xsb-text: "Xsb Comic Neue", "Comic Neue", "Comic Sans MS", system-ui, sans-serif;
+  color: var(--xsb-ink);
+  font: 700 16px/1.45 var(--xsb-text);
+  color-scheme: dark;
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.xsb *, .xsb *::before, .xsb *::after { box-sizing: inherit; }
+.xsb [hidden] { display: none !important; }
+.xsb img { -webkit-user-drag: none; }
+.xsb button { font: inherit; }
+.xsb :focus-visible { outline: 3px solid #b26bff; outline-offset: 3px; }
+
+.xsb--overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 2147483000;
+  background: var(--xsb-list-sky);
+  animation: xsb-in 0.2s ease-out;
+}
+
+.xsb--overlay.xsb--leaving { opacity: 0; transition: opacity 0.2s ease-in; }
+
+@keyframes xsb-in { from { opacity: 0; } }
+
+.xsb--inline { overflow: hidden; border-radius: 28px; background: var(--xsb-night); }
+
+/* A site page's book: the pages play over the whole window. */
+.xsb--layer { position: fixed; inset: 0; z-index: 2147483000; }
+
+.xsb-eyebrow { margin: 0; color: var(--xsb-gold); font: 400 12px/1.2 var(--xsb-title); letter-spacing: 0.14em; text-transform: uppercase; }
+
+.xsb-round {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: var(--xsb-glass);
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.38);
+  color: #fff;
+  cursor: var(--cursor-link, pointer);
+  transition: transform 0.08s;
+}
+
+.xsb-round:active { transform: scale(0.92); }
+.xsb-round svg { width: 22px; height: 22px; fill: none; stroke: currentColor; stroke-width: 3; stroke-linecap: round; stroke-linejoin: round; }
+.xsb-sound circle { fill: currentColor; stroke: none; }
+.xsb-sound .xsb-slash { display: none; }
+.xsb-sound--off { opacity: 0.7; }
+.xsb-sound--off .xsb-slash { display: inline; }
+
+/* ---------- The chapter list ---------- */
+
+.xsb-list {
+  container-type: inline-size;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  padding: max(14px, env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px)) max(26px, env(safe-area-inset-bottom, 0px)) max(14px, env(safe-area-inset-left, 0px));
+  background: var(--xsb-list-sky);
+}
+
+/* Over the game the list scrolls on its own (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): a thin
+   scrollbar in Exitwise's violet (#32044F, lightened to show on the night sky, as on the site's soundtrack player), and
+   its top and bottom edges fade while more chapters lie beyond (storybook.js loads the site's shared fade-edges.js on
+   vgraphics.gr). The fade is a mask on the list, so its sky moves to the overlay behind it, the same box, and stays
+   whole. */
+.xsb--overlay .xsb-list {
+  --fade-size: 40px;
+  position: absolute;
+  inset: 0;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, #32044F 60%, #ffffff) transparent;
+  background: none;
+}
+.xsb--inline .xsb-list { padding: clamp(16px, 3vw, 32px); }
+
+.xsb-top { display: flex; align-items: center; gap: 12px; }
+.xsb-heading { flex: 1; min-width: 0; }
+.xsb-booktitle { margin: 0; font: 400 27px/1.05 var(--xsb-title); text-wrap: balance; }
+
+.xsb-hero, .xsb-card {
+  position: relative;
+  display: block;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  overflow: hidden;
+  background: #221a42;
+  color: #fff;
+  text-align: left;
+}
+
+.xsb-hero { flex: none; aspect-ratio: 16 / 11; border-radius: 22px; box-shadow: 0 18px 40px rgba(0, 0, 0, 0.5); cursor: var(--cursor-link, pointer); }
+.xsb-hero > img, .xsb-card > img.xsb-cover { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.xsb-hero-fade { position: absolute; inset: 0; background: linear-gradient(to top, rgba(9, 7, 22, 0.94) 0%, rgba(9, 7, 22, 0.4) 42%, rgba(9, 7, 22, 0) 68%); }
+.xsb-hero-text { position: absolute; left: 18px; right: 18px; bottom: 16px; display: flex; flex-direction: column; align-items: flex-start; gap: 4px; }
+.xsb-hero-title { font: 400 36px/1 var(--xsb-title); text-shadow: 0 2px 10px rgba(0, 0, 0, 0.5); }
+.xsb-play {
+  margin-top: 8px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  height: 46px;
+  padding: 0 20px 0 15px;
+  border-radius: 999px;
+  border-bottom: 4px solid var(--xsb-gold-edge);
+  background: var(--xsb-gold);
+  color: var(--xsb-gold-ink);
+  font: 400 17px/1 var(--xsb-title);
+}
+.xsb-play svg { width: 16px; height: 16px; fill: currentColor; }
+
+.xsb-sec { flex: none; margin: 8px 0 0; color: var(--xsb-muted); font: 400 13px/1 var(--xsb-title); letter-spacing: 0.16em; text-transform: uppercase; }
+
+.xsb-grid { display: grid; grid-template-columns: minmax(0, 1fr); gap: 12px; }
+
+.xsb-card { aspect-ratio: 2.35 / 1; border-radius: 16px; cursor: var(--cursor-link, pointer); transition: transform 0.08s; }
+button.xsb-card:active, .xsb-hero:active { transform: scale(0.98); }
+.xsb-card-fade { position: absolute; inset: 0; background: linear-gradient(to right, rgba(9, 7, 22, 0.86) 0%, rgba(9, 7, 22, 0.35) 55%, rgba(9, 7, 22, 0) 82%); }
+.xsb-meta { position: absolute; left: 16px; right: 74px; bottom: 13px; display: flex; flex-direction: column; gap: 2px; }
+.xsb-card-title { font: 400 26px/1 var(--xsb-title); text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5); }
+.xsb-medal { position: absolute; right: 10px; bottom: 10px; width: 56px; height: 56px; filter: drop-shadow(0 6px 10px rgba(0, 0, 0, 0.45)); }
+.xsb-new { position: absolute; top: 10px; right: 10px; padding: 4px 9px; border-radius: 999px; background: var(--xsb-new); font: 400 12px/1.1 var(--xsb-title); letter-spacing: 0.06em; }
+
+/* Locked: blurred, wrapped in the Duskweaver's violet threads, tied with his knot. */
+.xsb-card--locked { cursor: var(--cursor, default); }
+.xsb-tint { position: absolute; inset: 0; background: linear-gradient(120deg, rgba(48, 24, 104, 0.7), rgba(14, 11, 30, 0.78)); }
+.xsb-threads { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: fill; }
+.xsb-knot { position: absolute; right: 14px; top: 50%; width: 52px; height: 52px; transform: translateY(-50%); }
+.xsb-lockline { font: 700 15px/1.3 var(--xsb-text); color: #e6deff; }
+.xsb-unlock { margin-top: 4px; color: var(--xsb-gold); font: 400 14px/1.2 var(--xsb-title); text-decoration: underline; text-underline-offset: 3px; }
+
+@container (min-width: 700px) {
+  .xsb-list { padding-inline: 34px; gap: 18px; }
+  .xsb-hero { aspect-ratio: 21 / 8; }
+  .xsb-hero-text { left: 30px; bottom: 26px; }
+  .xsb-hero-title { font-size: 52px; }
+  .xsb-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; }
+  .xsb-card { aspect-ratio: 16 / 9; }
+  .xsb-card-fade { background: linear-gradient(to top, rgba(9, 7, 22, 0.9), rgba(9, 7, 22, 0) 62%); }
+  .xsb-knot { top: 16px; transform: none; }
+}
+
+/* ---------- Reading: one painting at a time, full screen ---------- */
+
+.xsb-player { position: absolute; inset: 0; overflow: hidden; background: #000; touch-action: pan-y; user-select: none; -webkit-user-select: none; cursor: var(--cursor-link, pointer); }
+.xsb-player:focus { outline: none; }
+.xsb-scene, .xsb-shot { position: absolute; inset: 0; overflow: hidden; }
+.xsb-shot { background: var(--xsb-night); }
+.xsb-backdrop { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.xsb-paint { position: absolute; left: 0; top: 0; max-width: none; transform-origin: 50% 50%; will-change: transform; pointer-events: none; }
+
+/* A panel not painted yet: what it shows, on its world's dusk colour. */
+.xsb-missing { position: absolute; inset: 0; display: grid; place-items: center; padding: 24px; background: var(--xsb-dusk, #3a2c60); color: rgba(255, 255, 255, 0.82); font-size: 18px; text-align: center; }
+
+.xsb-ptop { position: absolute; left: 0; right: 0; top: 0; display: flex; flex-direction: column; gap: 10px; padding: max(10px, env(safe-area-inset-top, 0px)) max(12px, env(safe-area-inset-right, 0px)) 30px max(12px, env(safe-area-inset-left, 0px)); background: linear-gradient(to bottom, rgba(9, 7, 22, 0.72), rgba(9, 7, 22, 0)); }
+.xsb-segs { display: flex; gap: 4px; }
+.xsb-segs span { flex: 1; height: 4px; border-radius: 4px; background: rgba(255, 255, 255, 0.28); }
+.xsb-segs span.xsb-done { background: rgba(255, 255, 255, 0.92); }
+.xsb-segs span.xsb-now { background: var(--xsb-gold); }
+.xsb-bar { display: flex; align-items: center; gap: 10px; }
+.xsb-ptitle { margin: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; font: 400 20px/1.1 var(--xsb-title); text-shadow: 0 2px 8px rgba(0, 0, 0, 0.6); }
+
+.xsb-cap { position: absolute; left: 0; right: 0; bottom: 0; padding: 64px max(22px, env(safe-area-inset-right, 0px)) max(26px, env(safe-area-inset-bottom, 0px)) max(22px, env(safe-area-inset-left, 0px)); text-align: center; pointer-events: none; background: linear-gradient(to top, rgba(9, 7, 22, 0.95) 0%, rgba(9, 7, 22, 0.84) 48%, rgba(9, 7, 22, 0) 100%); }
+.xsb-line { margin: 0 auto; max-width: 30ch; font: 700 21px/1.45 var(--xsb-text); color: #fff; text-shadow: 0 2px 10px rgba(0, 0, 0, 0.55); text-wrap: pretty; }
+.xsb-hint { margin: 12px 0 0; color: rgba(255, 255, 255, 0.62); font: 400 12px/1 var(--xsb-title); letter-spacing: 0.16em; text-transform: uppercase; }
+
+.xsb-over { position: absolute; inset: 0; display: grid; place-items: center; padding: 100px 24px 40px; pointer-events: none; }
+.xsb-over > * { pointer-events: auto; }
+.xsb-lock, .xsb-end { display: flex; flex-direction: column; align-items: center; gap: 10px; text-align: center; }
+.xsb-lock { max-width: 30ch; }
+.xsb-end { width: min(100%, 420px); }
+.xsb-knot-big { width: 96px; height: 96px; }
+.xsb-bigline { margin: 0; font: 400 30px/1.08 var(--xsb-title); text-wrap: balance; }
+.xsb-level { margin: 0; color: var(--xsb-muted); }
+.xsb-upnext { width: 100%; display: flex; align-items: center; gap: 12px; padding: 10px 14px 10px 10px; border: 0; border-radius: 18px; background: rgba(255, 255, 255, 0.1); box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.22); color: #fff; text-align: left; cursor: var(--cursor-link, pointer); }
+.xsb-upnext img { flex: none; width: 104px; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 10px; }
+.xsb-uptext { flex: 1; min-width: 0; display: flex; flex-direction: column; gap: 2px; }
+.xsb-uptitle { font: 400 23px/1.05 var(--xsb-title); }
+.xsb-upnext > svg { flex: none; width: 22px; height: 22px; fill: var(--xsb-gold); }
+.xsb-ghost { min-height: 46px; padding: 0 22px; border: 0; border-radius: 999px; background: transparent; box-shadow: inset 0 0 0 2px rgba(255, 255, 255, 0.38); color: #fff; font: 400 16px/1 var(--xsb-title); cursor: var(--cursor-link, pointer); }
+
+@media (orientation: landscape) and (min-width: 700px) {
+  .xsb-ptop { padding-inline: 24px; }
+  .xsb-cap { padding-bottom: max(36px, env(safe-area-inset-bottom, 0px)); }
+  .xsb-line { max-width: 44ch; font-size: 26px; }
+  .xsb-bigline { font-size: 38px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .xsb--overlay, .xsb--overlay.xsb--leaving { animation: none; transition: none; }
+  .xsb-round, .xsb-card { transition: none; }
+}

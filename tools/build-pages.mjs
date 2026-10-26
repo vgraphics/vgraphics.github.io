@@ -52,6 +52,7 @@ import { loadProduct, loadSubpage, products, root, subpages } from './lib/produc
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
+import { blurhashes } from './lib/blurhash.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
@@ -68,10 +69,11 @@ const image = (i, lazy = true) => (i.widths
   : `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`)
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
-// and the badges in its foot. The painted title stands in for the h1, which stays for screen readers and search.
-function hero(p) {
+// and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
+// stays for screen readers and search.
+function hero(p, overview) {
   const h = p.hero
-  return heroSection(h.art, { cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
+  return heroSection(h.art, { overview, cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
@@ -157,18 +159,23 @@ const BLOCKS = {
   song: (b) => `<div class="badges sec-actions song-row"><button class="pill song-play" type="button" data-ost-song="${b.track - 1}" aria-pressed="false"><b>${NOTE}${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</button></div>`,
 
   // Pictures in a grid, each opening large in the page's lightbox (assets/product.js): { type: "album", shape:
-  // "portrait" | "wide", items: [{ title, src, full?, width, height, alt }] }, src the grid's picture and full the
-  // lightbox's (src when there is one size), every path absolute. George, 24 Oct 2026: the product's gallery.
-  album: (b) => `<ul class="album ${b.shape ?? 'wide'}">
-          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}" loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
-        </ul>`,
+  // "portrait" | "wide", items: [{ title, src, full?, width, height, alt, position? }] }, src the grid's picture and
+  // full the lightbox's (src when there is one size), every path absolute; position the focal point the tile's frame
+  // keeps (assets/product.css); each tile carries its picture's blurhash, which the lightbox paints until the full
+  // picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
+  album: (b) => {
+    const hash = blurhashes(b.items.map((p) => p.src))
+    return `<ul class="album ${b.shape ?? 'wide'}">
+          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" data-hash="${esc(hash[p.src])}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
+        </ul>`
+  },
 
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,
 
   // A gallery with a layout is the shared screenshot gallery (tools/gallery.mjs, assets/gallery/); without one, a row
   // that scrolls sideways, its sides fading while more lies beyond (assets/fade-edges.js).
-  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title` }) : `<div class="shots fade-edges">
+  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title`, dir: product.sub ? `${product.slug}/${product.sub}` : product.slug }) : `<div class="shots fade-edges">
           ${b.items.map((i) => `<figure>${image(i)}${i.caption ? `<figcaption>${i.caption}</figcaption>` : ''}</figure>`).join('\n          ')}
         </div>`,
 
@@ -420,7 +427,7 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   ${header(product, { current: path })}
 
   <main id="main">
-    ${hero(p)}
+    ${hero(p, !sub)}
 
     ${body.join('\n\n    ')}
   </main>

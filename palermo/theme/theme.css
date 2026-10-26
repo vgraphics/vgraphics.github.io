@@ -54,6 +54,7 @@
   --step-ink: #C9A46E;
   --step-bg: transparent;
   --ost-n-ink: #0B1623;
+  --dot-ink: #0B1623;
   --ost-bg: var(--card-bg);
   --ost-border: 1px solid var(--accent);
   --ost-ring: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);

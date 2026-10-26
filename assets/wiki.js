@@ -221,10 +221,20 @@
   // ---------- World map ----------
   document.querySelectorAll('[data-worlds]').forEach((wm) => {
     const tiles = [...wm.querySelectorAll('[data-world]')], cardsList = [...wm.querySelectorAll('[data-world-card]')]
-    tiles.forEach((t) => t.addEventListener('click', (e) => {
-      e.preventDefault()
+    const open = (t) => {
       tiles.forEach((x) => { x.classList.toggle('on', x === t); if (x === t) x.setAttribute('aria-current', 'true'); else x.removeAttribute('aria-current') })
       cardsList.forEach((c) => c.classList.toggle('is-off', c.dataset.worldCard !== t.dataset.world))
-    }))
+    }
+    tiles.forEach((t) => t.addEventListener('click', (e) => { e.preventDefault(); open(t) }))
+    // A link to a world's card (#world-<id>, from the journey's tiles) opens it and brings it into view: the hidden card
+    // gave the browser nothing to scroll to.
+    const fromHash = () => {
+      const t = tiles.find((x) => `#world-${x.dataset.world}` === location.hash)
+      if (!t) return
+      open(t)
+      document.getElementById(`world-${t.dataset.world}`)?.scrollIntoView({ block: 'center' })
+    }
+    fromHash()
+    addEventListener('hashchange', fromHash)
   })
 })()
