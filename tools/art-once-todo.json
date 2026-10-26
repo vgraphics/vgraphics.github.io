@@ -3,65 +3,20 @@
   "reuses": [
     {
       "art": [
-        "speedometer-wallpaper/img/gallery/shot-power",
-        "speedometer-wallpaper/img/gallery/shot-wifi",
-        "speedometer-wallpaper/img/shot-power",
         "speedometer-wallpaper/img/styles/classic"
       ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
+      "todo": "To do (no credits): goes when styles/styles.json's \"published\" turns true: the landing page's tiles then link to the style pages, whose preview they are.",
       "places": [
-        "/apps/ section.page-hero",
-        "/speedometer-wallpaper/#shots",
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/classic/#look"
       ]
     },
     {
       "art": [
-        "speedometer-wallpaper/img/dial-power",
-        "speedometer-wallpaper/img/gallery/pickup-dial-power"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ section.page-hero",
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/big-gauge-tile/ section.w-block",
-        "/speedometer-wallpaper/wiki/power/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/shot-kmh",
-        "speedometer-wallpaper/img/shot-kmh"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#tour",
-        "/speedometer-wallpaper/wiki/classic-design/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/future-kmh"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/wiki/music-calls-messages/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-torque",
         "speedometer-wallpaper/img/styles/torque"
       ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
+      "todo": "To do (no credits): goes when styles/styles.json's \"published\" turns true: the landing page's tiles then link to the style pages, whose preview they are.",
       "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/#shots",
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/torque/#look"
       ]
@@ -168,20 +123,6 @@
     },
     {
       "art": [
-        "speedometer-wallpaper/img/dial-speed",
-        "speedometer-wallpaper/img/gallery/pickup-dial-speed"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/ article.b.x-speedo.s7.r2",
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/big-gauge/ section.w-block",
-        "/speedometer-wallpaper/wiki/gps-speed/ section.w-block"
-      ]
-    },
-    {
-      "art": [
         "assets/img/exitwise-maps"
       ],
       "todo": "To do (no credits): one of the two company pages shows a fresh capture of the map editor, or the services card links to /multiplayer/#maps, whose preview it then is.",
@@ -226,48 +167,30 @@
     },
     {
       "art": [
-        "speedometer-wallpaper/img/dial-cpu",
-        "speedometer-wallpaper/img/gallery/pickup-dial-cpu"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/cpu-clock/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-amber_night",
         "speedometer-wallpaper/img/styles/amber_night"
       ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
+      "todo": "To do (no credits): goes when styles/styles.json's \"published\" turns true: the landing page's tiles then link to the style pages, whose preview they are.",
       "places": [
-        "/speedometer-wallpaper/#shots",
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/amber-night/#look"
       ]
     },
     {
       "art": [
-        "speedometer-wallpaper/img/gallery/style-vintage",
         "speedometer-wallpaper/img/styles/vintage"
       ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
+      "todo": "To do (no credits): goes when styles/styles.json's \"published\" turns true: the landing page's tiles then link to the style pages, whose preview they are.",
       "places": [
-        "/speedometer-wallpaper/#shots",
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/vintage/#look"
       ]
     },
     {
       "art": [
-        "speedometer-wallpaper/img/gallery/style-glass",
         "speedometer-wallpaper/img/styles/glass"
       ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
+      "todo": "To do (no credits): goes when styles/styles.json's \"published\" turns true: the landing page's tiles then link to the style pages, whose preview they are.",
       "places": [
-        "/speedometer-wallpaper/#shots",
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/glass/#look"
       ]
@@ -410,16 +333,6 @@
       "places": [
         "/speedometer-wallpaper/#styles",
         "/speedometer-wallpaper/styles/horizon/#look"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/designs"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/wiki/designs-screen/ section.w-block",
-        "/speedometer-wallpaper/wiki/restoring-future/ section.w-block"
       ]
     }
   ]
