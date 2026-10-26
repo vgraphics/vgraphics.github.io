@@ -262,6 +262,18 @@
       ]
     },
     {
+      "id": "whats-new",
+      "title": "What's new",
+      "intro": "Every update to the game, newest first.",
+      "blocks": [{ "type": "news", "empty": "Palermo Noir isn't out yet: its first release will show here, with every update after it." }]
+    },
+    {
+      "id": "faq",
+      "title": "Questions and answers",
+      "intro": "Quick answers about playing, rooms and your data.",
+      "blocks": [{ "type": "faq", "src": "faq.json" }]
+    },
+    {
       "id": "privacy",
       "band": {
         "art": "<img src=\"/palermo/assets/icon-192.png\" alt=\"\" width=\"72\" height=\"72\" loading=\"lazy\">",
