@@ -24,7 +24,7 @@ const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 const COMPANY = [
   'VGRAPHICS SINGLE MEMBER P.C.', 'private company', 'G.E.MI.', '181823306000', 'ELGEMI.181823306000', 'EL802736373',
   'Kalamaria', 'Thessaloniki', '22/01/2025', 'https://publicity.businessportal.gr/company/181823306000',
-  'gvergidis90@gmail.com',
+  'support@vgraphics.gr',
 ]
 // The site is in English (George, 22 Oct 2026): no Greek letters on a page in English, nor in the SVG pictures the pages
 // show. The Greek names belong in the Greek store listings. GREEK_OK lists, by page path, any text that must legally stay
@@ -53,12 +53,20 @@ const PIECES = new Set(pieces())
 const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f) && !PIECES.has(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
 let links = 0
+// George's own Gmail address stays off everything vgraphics.gr serves (George, 26 Oct 2026): people write to
+// support@vgraphics.gr. GitHub Pages serves tools/ too, so its scripts are read for it as well.
+const GMAIL = /gvergidis\d/i
+const NO_GMAIL = 'shows the Gmail address; the public contact is support@vgraphics.gr'
+for (const file of readdirSync(join(root, 'tools'), { recursive: true }).map((f) => join('tools', f))) {
+  if (statSync(join(root, file)).isFile() && GMAIL.test(readFileSync(join(root, file), 'utf8'))) report(file, 'no-gmail', NO_GMAIL)
+}
 
 for (const file of files.filter((f) => TEXT.test(f))) {
   const text = readFileSync(join(root, file), 'utf8')
   if (/\.(html|txt|xml)$/.test(file) && text.includes('vgraphics.github.io')) report(file, 'old-domain', 'mentions vgraphics.github.io')
   if (/6955395543|695 539 5543/.test(text)) report(file, 'no-phone', 'contains the phone number')
   if (/kafkasou|καυκ[άα]σου/i.test(text)) report(file, 'no-street', 'contains the street address')
+  if (GMAIL.test(text)) report(file, 'no-gmail', NO_GMAIL)
   if (file.endsWith('.svg') && GREEK.test(text)) report(file, 'english', 'Greek letters in a picture the English pages show')
 }
 
