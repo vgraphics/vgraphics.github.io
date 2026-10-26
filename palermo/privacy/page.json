@@ -24,9 +24,10 @@
     "align": "center",
     "art": {
       "alt": "A narrow Palermo street at night with every shutter closed, a black cat on the one lit windowsill, a heavy studded door with a brass keyhole and a man in a fedora walking away, drawn in gold engraved lines on navy",
-      "tall": { "src": "img/hero-privacy-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3870 },
-      "wide": { "src": "img/hero-privacy-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1629, "sizes": "max(100vw, min(147vw, 236vh))" },
+      "tall": { "src": "img/hero-privacy-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3154 },
+      "wide": { "src": "img/hero-privacy-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1466, "sizes": "max(100vw, min(164vw, 262vh))" },
       "position": "50% 40%",
+      "fade": { "wide": "74%", "tall": "70%" },
       "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
     }
   },
