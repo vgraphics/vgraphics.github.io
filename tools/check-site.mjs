@@ -458,6 +458,10 @@ const wraps = (file, css) => {
   for (const { selector } of cssRules(css).filter((r) => /\.(subnav|site-nav)\b/.test(r.selector) && /white-space:\s*(?!\s|nowrap)/.test(r.body))) {
     oneLine(file, `"${selector}" lets a header link wrap (white-space): menu items keep to one line`)
   }
+  // A product header's link or play label hidden where the row is short would be out of reach: the menu folds instead.
+  for (const { selector } of cssRules(css).filter((r) => /\.subnav\b[^,]*\s\S/.test(r.selector) && /display:\s*none|visibility:\s*hidden|clip:\s*rect\(0/.test(r.body))) {
+    oneLine(file, `"${selector}" hides part of the product header's menu: show every item where the row fits and let assets/menu.js fold it where it doesn't`)
+  }
 }
 for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/]]) {
   if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header's links can wrap`)

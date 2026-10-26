@@ -189,14 +189,11 @@ h1, h2, h3 {
   transition: transform 160ms ease-out;
 }
 .subnav a.play:hover svg { transform: scale(1.08); }
-/* Between the phone panel and the wide screens it shows only its icon (its words stay for screen readers, its title for
-   the pointer), so the menu keeps to one row beside the logo and clear of a title painted across the top of the key
-   art (Exitwise's); its words come back past 1300px, as the wide-only links did. In the folded panel it has them. */
-@media (min-width: 561px) and (max-width: 1300px) {
-  :is(.top.scrolled, .top):not(.folded) .subnav a.play { width: 44px; padding: 0 0 3px; }
-  .top:not(.folded) .subnav a.play svg { width: 20px; height: 20px; padding: 0; background: none; box-shadow: none; color: inherit; }
-  .top:not(.folded) .subnav a.play .play-label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
-}
+/* A row a little too wide for the screen first draws closer (.compact, assets/menu.js): the links and the play button
+   pad less, before the menu folds. */
+.top.compact .subnav { gap: 2px; }
+.top.compact .subnav a { padding: 0 10px; }
+:is(.top.scrolled, .top).compact .subnav a.play { margin-left: 4px; padding: 0 14px 3px 6px; }
 /* In the folded panel it is the last row, a full-width button with its words. */
 :is(.top.scrolled, .top).folded .subnav a.play { min-height: 52px; margin: 8px 0 0; }
 
@@ -928,15 +925,6 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .band { grid-template-columns: 1fr; }
   .news { grid-template-columns: minmax(0, 1fr); }
 }
-/* Below 1300px the menu keeps only its main links (the rest are in the footer), so it stays clear of a title painted
-   across the top of the key art. */
-@media (max-width: 1300px) {
-  .subnav .wide-only:not([aria-current]) { display: none; }
-}
-/* Beside the play button with its words they wait for 1800px, where both still stay clear of that title. */
-@media (min-width: 1301px) and (max-width: 1799px) {
-  .subnav:has(> .play) .wide-only:not([aria-current]) { display: none; }
-}
 @media (max-width: 560px) {
   body { font-size: calc(var(--body-size) - 1px); }
   .subnav a { padding: 0 12px; }
@@ -963,11 +951,11 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .faq-a { padding-inline: 16px; }
 }
 /* The menu folded (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger menu.";
-   26 Oct 2026: "Map rules - always single line menu items."): on phones (below 561px), and wherever the row would not
-   fit beside the logo with each link on one line, assets/menu.js folds the menu into a button at the right
-   (tools/lib/partials.mjs) and marks the header .folded. The button opens the menu as a panel under the header: every
-   link, the wide-only ones too, in the product's page colour and label face, the current page in the look its bar
-   gives it once scrolled. While menu.js measures (.measuring) nothing moves, and a phone shows no row before it has.
+   26 Oct 2026: "Map rules - always single line menu items."): the row shows every link and the play button with its
+   words wherever they fit beside the logo, drawn closer (.compact) where they only just would. On phones (below 561px)
+   and wherever they don't, assets/menu.js folds the menu into a button at the right (tools/lib/partials.mjs) and marks
+   the header .folded, so no link is ever out of reach. The button opens the menu as a panel under the header: every
+   link, in the product's page colour and label face, the current page in the look its bar gives it once scrolled. While menu.js measures (.measuring) nothing moves, and a phone shows no row before it has.
    Without JavaScript the row stays, its links wrapping onto more rows but never inside one. */
 .menu-toggle { display: none; }
 .top.measuring, .top.measuring * { transition: none !important; }
@@ -1027,7 +1015,6 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .folded .subnav { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
 }
 .top.folded .subnav a { min-height: 52px; padding: 0 16px; font-size: 1.15rem; border-radius: var(--radius-sm); color: var(--ink); text-shadow: none; }
-.top.folded .subnav a.wide-only { display: inline-flex; }
 .top.folded .subnav a:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 .top.folded .subnav a[aria-current="page"] {
   background: var(--nav-current-bg-scrolled, var(--nav-current-bg));

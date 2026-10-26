@@ -58,11 +58,12 @@ function brand(s, height, sizes) {
 }
 
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
-// key art, in the pack's on-art colours. On phones the menu folds into the button, which opens it as a panel
-// (assets/menu.js, assets/product.css). A product that can be played or tried in the browser (page.json site.play:
-// { label, href }) ends its menu with that page, drawn as its main button (George, 26 Oct 2026: "For all landing pages,
-// when there is a play online/test online, make it a fancy primary button last on the toolbar buttons."), so it is the
-// phone panel's last item too; its title names it where the button shows only its icon.
+// key art, in the pack's on-art colours. On phones, and wherever the row doesn't fit, the menu folds into the button,
+// which opens it as a panel (assets/menu.js, assets/product.css); every link shows wherever it fits (a nav entry's
+// "wide" only marks it wide-only, a secondary link). A product that can be played or tried in the browser (page.json
+// site.play: { label, href }) ends its menu with that page, drawn as its main button (George, 26 Oct 2026: "For all
+// landing pages, when there is a play online/test online, make it a fancy primary button last on the toolbar
+// buttons."), so it is the phone panel's last item too.
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)

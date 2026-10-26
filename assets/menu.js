@@ -67,15 +67,22 @@
         }
       }
     });
-    // A product's header: folded on a phone, or where its row (the logo, then every link on one line) is wider than the
-    // header; measured unfolded, with its transitions off, so nothing on screen moves. Again when the screen changes
-    // size and when a font arrives, which makes the links wider or narrower.
+    // A product's header: its row (the logo, then every link and the play button with its words, each on one line) as
+    // it is where it fits the header, drawn closer (.compact) where only that fits, and folded on a phone or where
+    // neither does. Measured unfolded, with its transitions off, so nothing on screen moves; again when the screen
+    // changes size and when a font arrives, which makes the links wider or narrower.
     if (head.classList.contains("top")) {
       const phone = matchMedia("(max-width: 560px)");
+      const over = () => head.scrollWidth > head.clientWidth;
       const fit = () => {
         head.classList.add("measuring");
-        head.classList.remove("folded");
-        const fold = phone.matches || head.scrollWidth > head.clientWidth;
+        head.classList.remove("folded", "compact");
+        let fold = phone.matches;
+        if (!fold && over()) {
+          head.classList.add("compact");
+          fold = over();
+          if (fold) head.classList.remove("compact");
+        }
         head.classList.toggle("folded", fold);
         void head.offsetWidth;
         head.classList.remove("measuring");
