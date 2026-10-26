@@ -88,7 +88,7 @@
     "police-officer",
     "the-night"
    ],
-   "artAlt": "The Known Killer, a man in a fedora and a dark overcoat lighting a match, in front of Palermo's rooftops at night"
+   "artAlt": "The Known Killer, in a fedora and a dark overcoat with a rose on the lapel, lights a match in a doorway of a narrow Palermo alley at night, a black cat on a step"
   },
   {
    "slug": "hidden-killer",
@@ -119,7 +119,7 @@
     "detective",
     "henchman"
    ],
-   "artAlt": "The Hidden Killer, a slim figure in a long coat with his fedora pulled low, in front of Palermo's rooftops at night"
+   "artAlt": "The Hidden Killer, his fedora pulled low, stands in a crowd under a piazza's arcades while the Detective peers at him through a magnifying glass"
   },
   {
    "slug": "police-officer",
@@ -155,7 +155,7 @@
     "doctor",
     "the-night"
    ],
-   "artAlt": "The Police Officer in a peaked cap and uniform, writing in his notebook, in front of Palermo's rooftops at night"
+   "artAlt": "The Police Officer writes in his notebook under a street lamp, watching the Known Killer pass on the other side of the street at night"
   },
   {
    "slug": "doctor",
@@ -190,7 +190,7 @@
     "bulletproof",
     "the-night"
    ],
-   "artAlt": "The Doctor, a woman in a long coat with a stethoscope and a leather bag, in front of Palermo's rooftops at night"
+   "artAlt": "The Doctor sits at a sleeping patient's bedside by the light of an oil lamp, her bag at her feet and Palermo's rooftops in the window"
   },
   {
    "slug": "citizen",
@@ -225,7 +225,7 @@
     "the-night",
     "mayor"
    ],
-   "artAlt": "A Citizen, a smiling baker in an apron with a basket of bread, in front of a Palermo piazza at midnight"
+   "artAlt": "The town's citizens at the market: the Baker at his bread stall, the Fisherman with his net, the Seamstress and the newspaper seller reading at his kiosk"
   },
   {
    "slug": "detective",
@@ -256,7 +256,7 @@
     "seer",
     "henchman"
    ],
-   "artAlt": "The Detective in a belted trench coat and fedora, with a pipe and a magnifying glass, in front of Palermo's rooftops at night"
+   "artAlt": "The Detective crouches under a street lamp at night, studying footprints on the cobbles through his magnifying glass, his pipe smoking"
   },
   {
    "slug": "seer",
@@ -287,7 +287,7 @@
     "bulletproof",
     "the-night"
    ],
-   "artAlt": "The Seer, a fortune teller in a patterned headscarf and shawl holding a fan of tarot cards, in front of Palermo's rooftops at night"
+   "artAlt": "The Seer, a fortune teller in a headscarf, turns over a tarot card at a candlelit table with a glowing crystal ball"
   },
   {
    "slug": "bulletproof",
@@ -318,7 +318,7 @@
     "known-killer",
     "the-night"
    ],
-   "artAlt": "Bulletproof, a relieved man in a waistcoat holding up a dented pocket watch, in front of Palermo's rooftops at night"
+   "artAlt": "The Bulletproof man grins at his scratched front door, holding up a dented pocket watch, while neighbours look out of their windows"
   },
   {
    "slug": "henchman",
@@ -349,7 +349,7 @@
     "kamikaze",
     "winning"
    ],
-   "artAlt": "The Henchman, a young man in braces and a cap with a matchstick in his mouth, in front of Palermo's rooftops at night"
+   "artAlt": "The Henchman leans on an old car in a garage, twirling a key, as the two killers walk past under a street lamp outside"
   },
   {
    "slug": "mayor",
@@ -380,7 +380,7 @@
     "injunction",
     "ties"
    ],
-   "artAlt": "The Mayor, a stout man with a curled moustache, a sash and a ceremonial key, in front of a Palermo piazza at midnight"
+   "artAlt": "The Mayor, in his sash, raises his big ornate key from the town hall balcony as the townspeople below look up"
   },
   {
    "slug": "hunter",
@@ -414,7 +414,7 @@
     "the-day",
     "winning"
    ],
-   "artAlt": "The Hunter, a countryman in a flat cap and tweed with a hunting horn, his hound at his feet, in front of a Palermo piazza at midnight"
+   "artAlt": "The Hunter raises his brass horn by an olive tree and a stone wall at the edge of town, his hound at his feet"
   },
   {
    "slug": "lawyer",
@@ -451,7 +451,7 @@
     "client",
     "the-contract"
    ],
-   "artAlt": "The Lawyer in a pinstriped three-piece suit and round spectacles, a briefcase in one hand and a finger raised, in front of a Palermo piazza at midnight"
+   "artAlt": "The Lawyer, in round spectacles, fans out his power cards at his desk under a brass lamp, law books on the shelves behind him"
   },
   {
    "slug": "kamikaze",
@@ -483,7 +483,7 @@
     "hunter",
     "injunction"
    ],
-   "artAlt": "The Kamikaze, a grinning man in a striped shirt holding up a round cartoon bomb, in front of a Palermo piazza at midnight"
+   "artAlt": "The grinning Kamikaze leaps over a fountain holding up a cartoon bomb with a lit fuse while the townspeople scatter"
   },
   {
    "slug": "madman",
@@ -514,7 +514,7 @@
     "the-day",
     "ties"
    ],
-   "artAlt": "The Madman in a rumpled suit with wild hair, holding a cracked harlequin mask, in front of a Palermo piazza at midnight"
+   "artAlt": "The Madman dances down the town hall steps holding his cracked harlequin mask while the townspeople point at him"
   },
   {
    "slug": "lovers",
@@ -541,7 +541,7 @@
     "hunter",
     "host-rules"
    ],
-   "artAlt": "The Lovers, a seamstress and a kiosk owner standing side by side, in front of a Palermo piazza at midnight"
+   "artAlt": "The Seamstress and the newspaper seller hold hands on a small stone bridge over a canal under the full moon"
   },
   {
    "slug": "objection",
@@ -575,7 +575,7 @@
     "retrial",
     "lawyer"
    ],
-   "artAlt": "The Objection! power card, a raised hand in a pinstriped sleeve above a judge's gavel, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer springs up in a courtroom at night, one finger raised, his open briefcase and papers on the table in front of him"
   },
   {
    "slug": "client",
@@ -610,7 +610,7 @@
     "safe-house",
     "the-contract"
    ],
-   "artAlt": "The Client power card, two hands shaking above a leather briefcase, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer shakes hands with the Fisherman, his secret client, by a tall window in a courthouse corridor"
   },
   {
    "slug": "appeal",
@@ -644,7 +644,7 @@
     "sealed-evidence",
     "objection"
    ],
-   "artAlt": "The Appeal power card, a rolled parchment tied with a ribbon and a wax seal, beside a quill, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The condemned Fisherman pleads in a beam of light while the Lawyer holds a sealed parchment and an hourglass runs on the judge's bench"
   },
   {
    "slug": "retrial",
@@ -678,7 +678,7 @@
     "hung-jury",
     "ties"
    ],
-   "artAlt": "The Retrial power card, two crossed ballot slips beside an hourglass just turned over, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer turns over an hourglass on the judge's bench while two townspeople wait at the front of the courtroom"
   },
   {
    "slug": "hung-jury",
@@ -712,7 +712,7 @@
     "gag-order",
     "ties"
    ],
-   "artAlt": "The Hung jury power card, a brass scales of justice with both pans perfectly level, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "A jury argues around a long table at night, split into two equal halves, with brass scales hanging level between them"
   },
   {
    "slug": "alibi",
@@ -746,7 +746,7 @@
     "client",
     "the-night"
    ],
-   "artAlt": "The Alibi power card, an open pocket watch on its chain leaning on a theatre ticket stub, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "In a theatre box, the Lawyer slips the Seamstress a ticket stub, a gold pocket watch on the ledge and the lit stage below"
   },
   {
    "slug": "cross-examination",
@@ -780,7 +780,7 @@
     "appeal",
     "gag-order"
    ],
-   "artAlt": "The Cross-examination power card, an empty wooden witness stand in a cone of spotlight, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Henchman sits in the witness stand under a cone of light while the Lawyer leans on the rail, questioning him"
   },
   {
    "slug": "case-file",
@@ -814,7 +814,7 @@
     "seer",
     "the-night"
    ],
-   "artAlt": "The Case file power card, a thick case folder tied with string, a photograph and a fingerprint card clipped to it, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer opens a thick case file under his desk lamp at night, holding up a fingerprint card, a magnifying glass on the desk"
   },
   {
    "slug": "plea-bargain",
@@ -848,7 +848,7 @@
     "last-will",
     "lawyer"
    ],
-   "artAlt": "The Plea bargain power card, open handcuffs lying on a signed document beside a fountain pen, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "In a small police office, the Lawyer slides a signed paper across the table to the Police Officer, open handcuffs between them"
   },
   {
    "slug": "last-will",
@@ -882,7 +882,7 @@
     "sealed-evidence",
     "detective"
    ],
-   "artAlt": "The Last will power card, a sealed envelope beside a candle burned low, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer's empty study by candlelight: his spectacles beside a sealed envelope, a candle burned low and his briefcase on the chair"
   },
   {
    "slug": "gag-order",
@@ -916,7 +916,7 @@
     "change-of-venue",
     "the-day"
    ],
-   "artAlt": "The Gag order power card, a ballot box with its slot tied shut by a ribbon and a wax seal, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The newspaper seller posts his ballot into a box whose slot is tied shut with a ribbon and a wax seal, while the Lawyer raises a finger"
   },
   {
    "slug": "safe-house",
@@ -950,7 +950,7 @@
     "doctor",
     "client"
    ],
-   "artAlt": "The Safe house power card, a heavy studded door in a stone doorway under a lit lantern, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer holds a heavy studded door open for the Seamstress at night while the two killers watch from down the street"
   },
   {
    "slug": "bail",
@@ -984,7 +984,7 @@
     "objection",
     "the-day"
    ],
-   "artAlt": "The Bail power card, an ornate iron key across a sprung-open padlock, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer, holding up a big iron key, walks out of the old town jail beside the freed Fisherman, the gate open behind them"
   },
   {
    "slug": "change-of-venue",
@@ -1018,7 +1018,7 @@
     "host-rules",
     "the-day"
    ],
-   "artAlt": "The Change of venue power card, a ballot box half hidden behind a velvet curtain, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer draws a velvet curtain round the ballot box while the Baker and other townspeople wait in line with their ballots"
   },
   {
    "slug": "injunction",
@@ -1052,7 +1052,7 @@
     "kamikaze",
     "hung-jury"
    ],
-   "artAlt": "The Injunction power card, a rubber stamp beside a sheet stamped with a bold cross, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "On the town hall steps the Lawyer brings down a rubber stamp on a paper while the Mayor frowns and the Kamikaze lowers his bomb"
   },
   {
    "slug": "power-of-attorney",
@@ -1086,7 +1086,7 @@
     "the-day",
     "night-announcer"
    ],
-   "artAlt": "The Power of attorney power card, a pale ghostly hand holding a quill over a ballot slip, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "A ghostly hand guides the Lawyer's quill over a ballot in the town hall while the townspeople on the benches see nothing"
   },
   {
    "slug": "sealed-evidence",
@@ -1120,7 +1120,7 @@
     "last-will",
     "retrial"
    ],
-   "artAlt": "The Sealed evidence power card, an evidence envelope closed with a wax seal and string, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer holds up a sealed evidence envelope in court while the condemned Fisherman and the jury lean in to see"
   },
   {
    "slug": "the-contract",
@@ -1155,7 +1155,7 @@
     "client",
     "host-rules"
    ],
-   "artAlt": "The The contract power card, a long contract with a wax seal, a fountain pen and a signet ring, in gold engraved lines on navy, in front of a Palermo piazza at night"
+   "artAlt": "The Lawyer signs a contract with a client whose face stays in shadow, in the back room of a café under a hanging lamp"
   },
   {
    "slug": "a-round",
@@ -1180,7 +1180,7 @@
     "the-day",
     "winning"
    ],
-   "artAlt": "Six players lean over a café table in a Palermo piazza at night, role cards dealt face down among a candle, an espresso and a black rose"
+   "artAlt": "Palermo from night to day: the two killers whisper on the moonlit rooftops while the Mayor, the Baker and the Seamstress meet in the morning light"
   },
   {
    "slug": "the-night",
@@ -1198,7 +1198,7 @@
     "doctor",
     "the-day"
    ],
-   "artAlt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo, under the moon"
+   "artAlt": "A Palermo piazza at midnight: the two killers whisper under an archway, the Doctor hurries past with her bag and the Detective watches from a window"
   },
   {
    "slug": "the-day",
@@ -1216,7 +1216,7 @@
     "the-night",
     "winning"
    ],
-   "artAlt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other"
+   "artAlt": "The town argues around the fountain in the piazza: the Mayor, the Baker, the Seamstress and the Lawyer, with the Madman on the fountain's rim"
   },
   {
    "slug": "winning",
@@ -1233,7 +1233,7 @@
     "lovers",
     "the-day"
    ],
-   "artAlt": "A shaft of light on an empty chair with a black rose in a Palermo piazza at night, the six characters standing around it"
+   "artAlt": "The townspeople cheer and throw their hats on the town hall steps as the Police Officer leads the two killers away"
   },
   {
    "slug": "ties",
@@ -1250,7 +1250,7 @@
     "retrial",
     "host-rules"
    ],
-   "artAlt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight"
+   "artAlt": "The Seamstress and the newspaper seller stand side by side under two lamps, two equal piles of ballots and an hourglass in front of them"
   },
   {
    "slug": "night-announcer",
@@ -1267,7 +1267,7 @@
     "power-of-attorney",
     "host-rules"
    ],
-   "artAlt": "Palermo at night from a rooftop terrace, a man in a fedora lighting a match above the sleeping city"
+   "artAlt": "The Fisherman holds up a lantern on a rooftop above the sleeping town, watching over the streets below"
   },
   {
    "slug": "host-rules",
@@ -1298,7 +1298,7 @@
     "ties",
     "phones-and-tv"
    ],
-   "artAlt": "A café table in a Palermo piazza at night with role cards dealt face down"
+   "artAlt": "The host's card table under a hanging lamp: a deck of role cards, an hourglass, a brass bell, ballots and a pocket watch, the town's lights through the window"
   },
   {
    "slug": "phones-and-tv",
@@ -1330,7 +1330,7 @@
     "night-announcer",
     "host-rules"
    ],
-   "artAlt": "Six players around a café table in a Palermo piazza at night"
+   "artAlt": "Friends on sofas in a lamplit living room, each holding a phone, with Palermo's seafront at night on the big screen on the wall"
   }
  ]
 }
