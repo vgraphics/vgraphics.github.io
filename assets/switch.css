@@ -1,0 +1,70 @@
+/* The site's one on/off control (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): a switch, never a
+   checkbox. It is a real checkbox underneath, <input type="checkbox" class="switch" role="switch">, so Space flips it,
+   Tab reaches it, a <label> around it or pointing at it names it and a tap on its words flips it too, and forms read it
+   as before; only its look is a track and a knob.
+   - On is the product's colour, the same pair as selected text (assets/no-select.css), which tools/lib/theme.mjs holds
+     to 4.5:1: --selection with its words' --selection-ink, by default the scrollbar's colour (--sb from
+     assets/product.css; --scrollbar, else the accent) with the page's. Off is in the muted words' colour.
+   - On and off show without colour too: the knob's side, and a bar (on) or a ring (off) in the track, as iOS's On/Off
+     labels. Windows' contrast themes get the system's colours.
+   - The knob slides in 160ms; with reduced motion it jumps.
+   check-site holds every page to it: a checkbox that isn't this switch, or a page with one that doesn't link this file,
+   fails. */
+input.switch {
+  --sw-on: var(--selection, var(--sb, var(--scrollbar, var(--accent, Highlight))));
+  --sw-ink: var(--selection-ink, var(--page, #FFFFFF));
+  --sw-off: var(--muted, currentColor);
+  position: relative;
+  display: inline-block;
+  flex: none;
+  box-sizing: border-box;
+  width: 52px;
+  height: 30px;
+  margin: 0;
+  vertical-align: middle;
+  -webkit-appearance: none;
+  appearance: none;
+  border: 2px solid var(--sw-off);
+  border-radius: 999px;
+  background: transparent;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 160ms ease-out, border-color 160ms ease-out;
+}
+/* The knob: 20px in the 26px inside, 3px from each end. */
+input.switch::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  background: var(--sw-off);
+  transition: transform 160ms ease-out, background-color 160ms ease-out;
+}
+/* Off: a ring where the knob goes when on. */
+input.switch::before {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 8px;
+  box-sizing: border-box;
+  width: 10px;
+  height: 10px;
+  margin-top: -5px;
+  border: 2px solid var(--sw-off);
+  border-radius: 50%;
+}
+input.switch:checked { border-color: var(--sw-on); background: var(--sw-on); }
+input.switch:checked::after { background: var(--sw-ink); transform: translateX(22px); }
+/* On: a bar where the knob was. */
+input.switch:checked::before { right: auto; left: 11px; width: 2px; border: 0; border-radius: 1px; background: var(--sw-ink); }
+input.switch:focus-visible { outline: 3px solid var(--sw-on); outline-offset: 3px; }
+input.switch:disabled { opacity: 0.45; cursor: var(--cursor, default); }
+
+@media (prefers-reduced-motion: reduce) {
+  input.switch, input.switch::after { transition: none; }
+}
+@media (forced-colors: active) {
+  input.switch { --sw-on: Highlight; --sw-ink: HighlightText; --sw-off: CanvasText; forced-color-adjust: none; }
+}
