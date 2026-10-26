@@ -1,22 +1,43 @@
 {
   "entries": [
     {
+      "version": "2.0.4",
+      "date": "2026-10-26",
+      "platforms": [
+        "Android"
+      ],
+      "title": "17 new styles",
+      "items": [
+        "17 new styles to choose from — from chrome car dials to neon heads-up displays and race clusters",
+        "Customize every style: change its colours, background and glow, and drag, resize and arrange the gauges into your own layout",
+        "A redesigned app with live previews of every style"
+      ],
+      "commit": "bb6ac7d4"
+    },
+    {
       "version": "2.0.8273146a",
       "date": "2026-10-24",
-      "platforms": ["Web"],
+      "platforms": [
+        "Web"
+      ],
       "title": "Try it in your browser",
       "items": [
         "The real wallpaper runs on this site, live in a phone, with nothing to install.",
         "Pick a style and its layout, change its settings, and tap the big gauge to switch what it shows.",
         "GPS speed shows how fast you're going once you allow your browser's location."
       ],
-      "link": { "href": "/speedometer-wallpaper/play/", "label": "Try it now" },
+      "link": {
+        "href": "/speedometer-wallpaper/play/",
+        "label": "Try it now"
+      },
       "commit": "8273146a"
     },
     {
       "version": "2.0.0",
       "date": "2026-10-17",
-      "platforms": ["Android"],
+      "platforms": [
+        "Android"
+      ],
       "title": "Rebuilt, and out on Google Play",
       "items": [
         "Your home screen as a car dashboard, rebuilt from the 2016 original.",
