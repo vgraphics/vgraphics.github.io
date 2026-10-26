@@ -1,9 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.0.18",
+      "date": "2026-10-26",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "cd2af9f2"
+    },
+    {
       "version": "1.0.6a32905f",
       "date": "2026-10-22",
-      "platforms": ["Web"],
+      "platforms": [
+        "Web"
+      ],
       "items": [
         "A new start: the VGraphics intro, then Exitwise's own key art while the game loads, over a squishy new loading bar.",
         "The level map is painted in a new style for all 17 worlds, and fills wide windows edge to edge.",
@@ -15,7 +28,10 @@
     {
       "version": "1.0.17",
       "date": "2026-10-21",
-      "platforms": ["Android", "Web"],
+      "platforms": [
+        "Android",
+        "Web"
+      ],
       "items": [
         "All 17 world backgrounds and all 12 animal avatars are redrawn with brand-new art.",
         "Fresh icons for the powerups, the coin, the tutorial hand and the map editor's bomb tool."
@@ -25,7 +41,10 @@
     {
       "version": "1.0.16",
       "date": "2026-10-21",
-      "platforms": ["Android", "Web"],
+      "platforms": [
+        "Android",
+        "Web"
+      ],
       "items": [
         "New background music for the menu and the levels.",
         "Eleven new sound effects, including bombs, clicks, losing a heart and completing a level.",
@@ -36,7 +55,9 @@
     {
       "version": "1.0.14",
       "date": "2026-10-21",
-      "platforms": ["Android"],
+      "platforms": [
+        "Android"
+      ],
       "items": [
         "Real sound effects across the whole game, in place of the old beeps.",
         "Sign in with Google or Play Games and get a one-time thank-you of 100 coins for linking your account.",
@@ -49,7 +70,9 @@
     {
       "version": "1.0.13",
       "date": "2026-10-19",
-      "platforms": ["Android"],
+      "platforms": [
+        "Android"
+      ],
       "items": [
         "Play with friends keeps a history of your last 50 matches, and you can share any match's results as a picture.",
         "The host picks the world and the lives for a match, and each game scores points for speed, hearts left and your place.",
@@ -62,7 +85,10 @@
     {
       "version": "0.1.0",
       "date": "2026-10-18",
-      "platforms": ["Android", "Web"],
+      "platforms": [
+        "Android",
+        "Web"
+      ],
       "items": [
         "Exitwise is out, on Google Play and in your browser.",
         "New How to play: short lessons that bring in each obstacle one at a time, with a hand that shows every tap.",
