@@ -86,7 +86,7 @@ export function footer({ page }) {
   // The product's own pages (its menu, without Overview, under the footer's names for them), then the studio's.
   const own = new Map(s.nav.slice(1).map((n) => [n.href, n.label]))
   for (const l of s.footer) own.set(l.href, l.label)
-  const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:gvergidis90@gmail.com', 'Contact']]
+  const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:support@vgraphics.gr', 'Contact']]
   const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
   const a = page.footerArt
   // The picture fills the footer, about clamp(170px, 21vw, 420px) of art above the links plus the links themselves

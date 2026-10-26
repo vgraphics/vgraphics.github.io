@@ -11,7 +11,7 @@ world whose colours the demo board wears: the tall one is the backdrop itself, a
 without the river and the pond, at 3:2 so a stage of about that shape keeps the trees whole. Speedometer's are cut
 from its key art's Recraft night drive. Needs Pillow with AVIF (12 or later) and numpy.
 
-The pictures in use (Recraft Pro on gvergidis90@gmail.com, so VGraphics owns them; project "VGraphics site demo stages",
+The pictures in use (Recraft Pro on the VGraphics Google account, so VGraphics owns them; project "VGraphics site demo stages",
 https://www.recraft.ai/project/448793a3-8896-4eda-9a7e-43018ae0189e, 22 Oct 2026; Recraft V4.1, then Crisp upscale):
 - Exitwise wide, style "Exitwise Map", 3:2: "Top-down view, seen from directly above, of a sunny green meadow for a casual
   puzzle game backdrop. Round leafy trees, a few pine trees, pink and yellow flower bushes, red spotted mushrooms and

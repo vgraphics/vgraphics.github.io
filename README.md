@@ -55,7 +55,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
 `/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
-and fonts on the static pages, and no phone number or street address. The site is in English: no Greek letters on its
+and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
+alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
+`tools/` and this README included. The site is in English: no Greek letters on its
 pages or in the SVGs they show (the Greek product names belong in the Greek store listings). **Run
 `node tools/check-site.mjs` before every push.**
 
@@ -250,7 +252,7 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
   canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
   date. `robots.txt` points to it.
-- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on gvergidis90@gmail.com, verified by the
+- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
   `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
   its verification. The sitemap is submitted there under Sitemaps.
 
