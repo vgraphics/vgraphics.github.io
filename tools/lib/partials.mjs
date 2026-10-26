@@ -12,6 +12,7 @@ export const LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 18
 export const ICONS = {
   down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
   chevron: '<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg>',
+  play: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg>',
 }
 
 // Every section heading carries a link to itself (George, 22 Oct 2026: "All sections ... must have anchors and copy on
@@ -58,10 +59,15 @@ function brand(s, height, sizes) {
 
 // The product's logo and menu. current: the menu link of the page shown (an href). onArt: the header lies over the
 // key art, in the pack's on-art colours. On phones the menu folds into the button, which opens it as a panel
-// (assets/menu.js, assets/product.css).
+// (assets/menu.js, assets/product.css). A product that can be played or tried in the browser (page.json site.play:
+// { label, href }) ends its menu with that page, drawn as its main button (George, 26 Oct 2026: "For all landing pages,
+// when there is a play online/test online, make it a fancy primary button last on the toolbar buttons."), so it is the
+// phone panel's last item too; its title names it where the button shows only its icon.
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
+  const p = s.play
+  if (p) links.push(`<a class="play" href="${esc(p.href)}" title="${esc(p.label)}"${p.href === current ? ' aria-current="page"' : ''}>${ICONS.play}<span class="play-label">${esc(p.label)}</span></a>`)
   return `<header class="top">
     <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>

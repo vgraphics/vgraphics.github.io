@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, "What's new" and "Questions and answers" on every landing page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper and the play button on every served page, "What's new" and "Questions and answers" on every landing page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
@@ -141,6 +141,24 @@ focusing a bullet shows the chapter's name.
   so it never takes a tap meant for the page (touch screens 1320px wide or more get 44px bullets that take taps).
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
+
+## Play button
+
+A product that can be played or tried on the site ends its header with that page, drawn as a button (George, 26 Oct
+2026: "For all landing pages, when there is a play online/test online, make it a fancy primary button last on the
+toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's "Try online"
+(`/speedometer-wallpaper/play/`).
+
+- The product's page.json names it: `site.play`, `{ "label": "Play online", "href": "/<product>/play/" }`. The header
+  (`tools/lib/partials.mjs`) adds it after the menu's links on every page of the product, the wikis too, so it is the
+  phone panel's last item as well. A product without `site.play` shows no button.
+- `assets/product.css` draws it as the product's main button, from its pack's `--cta`, `--cta-ink` and `--cta-edge`:
+  lit face, edge, glow, a sheen now and then, a lift on hover and a press; nothing moves with reduced motion. From
+  561px to 1300px it shows only its icon (its title names it), so the menu keeps to one row and clear of a title
+  painted on the key art; with the button there, the wide-only links show from 1800px. In the phone panel it is a
+  full-width button with its words.
+- check-site holds every served page to this: a product with a play page (`<product>/play/`) has `site.play`, and
+  every product header in its folder ends with that one button, inside its menu, going to that address.
 
 ## What's new and Questions and answers
 
