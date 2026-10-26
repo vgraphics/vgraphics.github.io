@@ -137,7 +137,7 @@
         { "type": "quote", "text": "The town is whispering. Which name do you hear?", "by": "The narrator", "audio": "audio/narrator-night.m4a", "listen": "Hear the narrator" },
         { "type": "facts", "items": [{ "value": "2 taps", "label": "on every phone" }, { "value": "45 s", "label": "night timer by default" }, { "value": "Silent", "label": "phones never make a sound" }, { "value": "1 victim", "label": "from the second night" }] },
         { "type": "chips", "label": "Who acts at night", "items": [{ "title": "Known Killer", "image": { "src": "img/roles/thumb/known-killer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/known-killer/" }, { "title": "Hidden Killer", "image": { "src": "img/roles/thumb/hidden-killer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/hidden-killer/" }, { "title": "Police Officer", "image": { "src": "img/roles/thumb/officer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/police-officer/" }, { "title": "Doctor", "image": { "src": "img/roles/thumb/doctor-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/doctor/" }, { "title": "Detective", "image": { "src": "img/roles/thumb/inspector-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/detective/" }, { "title": "Seer", "image": { "src": "img/roles/thumb/seer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/seer/" }, { "title": "Bulletproof", "image": { "src": "img/roles/thumb/bulletproof-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/bulletproof/" }] },
-        { "type": "song", "track": 3, "label": "Play the night's music", "note": "The chapter's music" }
+        { "type": "song", "track": 3, "label": "Play “The Town Sleeps”", "note": "The chapter's music" }
       ]
     },
     {
@@ -224,7 +224,7 @@
       "blocks": [
         {
           "type": "soundtrack",
-          "album": "Palermo Noir (Original Soundtrack)",
+          "album": "Palermo Noir — Original Soundtrack",
           "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Palermo Noir soundtrack cover: a shaft of light on an empty chair with a black rose, in a Palermo piazza at night before the cathedral, in gold engraved lines on navy" },
           "background": { "wide": { "src": "img/scene-night", "widths": [960, 1280, 1920, 2560, 3840] }, "tall": { "src": "img/scene-night", "widths": [960] } },
           "youtube": null,
@@ -232,7 +232,7 @@
           "tracks": [
             { "title": "Main Theme", "src": "audio/01-main-theme.m4a", "duration": "1:59" },
             { "title": "The Deal", "src": "audio/02-the-deal.m4a", "duration": "2:00" },
-            { "title": "Night Falls", "src": "audio/03-night-falls.m4a", "duration": "2:00" },
+            { "title": "The Town Sleeps", "src": "audio/03-the-town-sleeps.m4a", "duration": "2:00" },
             { "title": "Piazza at Noon", "src": "audio/04-piazza-at-noon.m4a", "duration": "2:05" },
             { "title": "The Vote", "src": "audio/05-the-vote.m4a", "duration": "2:00" },
             { "title": "The Town Wins", "src": "audio/06-the-town-wins.m4a", "duration": "0:42" },
