@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.20",
+      "date": "2026-10-27",
+      "platforms": [
+        "Android"
+      ],
+      "title": "On/off switches replace checkboxes",
+      "items": [
+        "On/off options now use a switch that slides across and turns green when on, in place of the old tick boxes and On/Off labels.",
+        "In the browser, the page's text no longer gets selected and the right-click and long-press menus stay closed while you play; typing in text fields still works as normal."
+      ],
+      "commit": "a428d155"
+    },
+    {
       "version": "1.0.f4f96dbf",
       "date": "2026-10-26",
       "platforms": [
