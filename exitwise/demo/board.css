@@ -1,7 +1,7 @@
 /* Exitwise's playable board on the intro's stage (demo/board.html, run by board.js), as the game shows a level: its
    HUD over the world (the white button with the UI's beige lip, the count in the title face, the hearts), and the
    board in George's flat candy look, which board.js draws. Colours from the theme pack. */
-.play { width: min(100%, 460px); margin-inline: auto; }
+.board-play { width: min(100%, 460px); margin-inline: auto; }
 .hud { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 8px; margin-bottom: 14px; }
 .reset {
   justify-self: start;

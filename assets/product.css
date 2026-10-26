@@ -85,6 +85,7 @@ h1, h2, h3 {
 .top.scrolled a { color: var(--ink); text-shadow: none; }
 .product-name {
   display: inline-flex;
+  flex: none; /* the logo keeps its size: a row short of room folds its menu instead (assets/menu.js) */
   align-items: center;
   gap: 10px;
   min-height: 44px;
@@ -100,7 +101,7 @@ h1, h2, h3 {
 .product-name img.logo { height: 42px; }
 .foot-brand img.logo { height: 64px; }
 .subnav { display: flex; flex: none; gap: 4px; }
-.subnav a {
+.subnav a, .top > a.play {
   display: inline-flex;
   flex: none;
   align-items: center;
@@ -135,9 +136,11 @@ h1, h2, h3 {
    A pill lit from above that stands on a deeper edge, ringed in a light shade of its colour and glowing in it, so it
    shows on a dark sky as on the light bar; the play sign sits in a disc of its words' colour. A sheen crosses it now
    and then, it lifts and glows brighter under the pointer and sinks when pressed (none of it moves with reduced
-   motion: the rule at the end). :is(.top.scrolled, .top) makes it as specific as the bar's own link rules, so it keeps
-   its look over the art, on the bar, as the current page and in the phone panel. */
-:is(.top.scrolled, .top) .subnav a.play {
+   motion: the rule at the end). :is(.subnav a.play, a.play) is the button wherever it sits (in the menu, or in the
+   folded bar), and with :is(.top.scrolled, .top) as specific as the bar's own link rules, so it keeps its look over
+   the art, on the bar and as the current page. No other stylesheet may style a bare .play (tools/check-site.mjs): the
+   intro's demo once widened it to 460px with one. */
+:is(.top.scrolled, .top) :is(.subnav a.play, a.play) {
   --play: var(--selection, var(--sb));
   --play-ink: var(--selection-ink, var(--page));
   --play-lit: color-mix(in srgb, var(--play) 74%, #FFFFFF);
@@ -161,18 +164,18 @@ h1, h2, h3 {
   box-shadow: var(--play-light), inset 0 -3px 0 var(--play-deep), var(--play-rim), 0 6px 22px -6px var(--play-glow);
   transition: transform 160ms ease-out, box-shadow 160ms ease-out, filter 160ms ease-out;
 }
-:is(.top.scrolled, .top) .subnav a.play:hover {
+:is(.top.scrolled, .top) :is(.subnav a.play, a.play):hover {
   transform: translateY(-1px);
   filter: brightness(1.08) saturate(1.1);
   box-shadow: var(--play-light), inset 0 -3px 0 var(--play-deep), 0 0 0 1.5px var(--play-glow), 0 10px 30px -4px var(--play-glow);
 }
-:is(.top.scrolled, .top) .subnav a.play:active {
+:is(.top.scrolled, .top) :is(.subnav a.play, a.play):active {
   transform: translateY(1px);
   filter: brightness(0.96);
   box-shadow: var(--play-light), inset 0 -1px 0 var(--play-deep), var(--play-rim), 0 3px 10px -6px var(--play-glow);
 }
 /* The sheen: a band of light under the words, out of sight to the left until it crosses, every six seconds */
-.subnav a.play::after {
+.top a.play::after {
   content: "";
   position: absolute;
   inset: 0;
@@ -183,19 +186,23 @@ h1, h2, h3 {
   pointer-events: none;
 }
 @keyframes play-sheen { 72% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
-.subnav a.play svg {
+.top a.play svg {
   flex: none; width: 30px; height: 30px; padding: 7px; border-radius: 50%;
   background: var(--play-ink); color: var(--play); box-shadow: 0 1px 3px rgb(0 0 0 / 0.25);
   transition: transform 160ms ease-out;
 }
-.subnav a.play:hover svg { transform: scale(1.08); }
+.top a.play:hover svg { transform: scale(1.08); }
 /* A row a little too wide for the screen first draws closer (.compact, assets/menu.js): the links and the play button
    pad less, before the menu folds. */
 .top.compact .subnav { gap: 2px; }
 .top.compact .subnav a { padding: 0 10px; }
 :is(.top.scrolled, .top).compact .subnav a.play { margin-left: 4px; padding: 0 14px 3px 6px; }
-/* In the folded panel it is the last row, a full-width button with its words. */
-:is(.top.scrolled, .top).folded .subnav a.play { min-height: 52px; margin: 8px 0 0; }
+/* Folded, it leaves the panel for the bar beside the menu button (assets/menu.js), the page's main action always in
+   sight: with its words wherever they fit there, else (a narrow phone) its icon alone (.play-icon), its words still
+   there for screen readers and its title for the pointer. */
+:is(.top.scrolled, .top).play-icon > a.play { width: 44px; gap: 0; padding: 0 0 3px; }
+.top.play-icon > a.play svg { width: 20px; height: 20px; padding: 0; background: none; box-shadow: none; color: inherit; }
+.top.play-icon > a.play .play-label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
 
 /* The hero of every product page, the landing page's, its other pages' and every wiki page's (tools/lib/hero.mjs
    builds it for all of them; the other pages' is shorter, .is-page below).

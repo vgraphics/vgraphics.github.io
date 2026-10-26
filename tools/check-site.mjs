@@ -461,18 +461,22 @@ for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/
 // header link wrap again, and no link of a header's menu holds a line break.
 const oneLine = (file, message) => report(file, 'one-line', message)
 const cssRules = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ selector: m[1].trim(), body: m[2] }))
-const ruleOf = (file, selector) => cssRules(readFileSync(join(root, file), 'utf8')).find((r) => r.selector === selector)?.body ?? ''
+const ruleOf = (file, selector) => cssRules(readFileSync(join(root, file), 'utf8')).find((r) => r.selector.split(',').map((s) => s.trim()).includes(selector))?.body ?? ''
 const wraps = (file, css) => {
   for (const { selector } of cssRules(css).filter((r) => /\.(subnav|site-nav)\b/.test(r.selector) && /white-space:\s*(?!\s|nowrap)/.test(r.body))) {
     oneLine(file, `"${selector}" lets a header link wrap (white-space): menu items keep to one line`)
+  }
+  // A bare .play rule styles the header's play button too (the intro's demo once made it 460px wide, and the menu folded).
+  for (const { selector } of cssRules(css).filter((r) => r.selector.split(',').some((s) => /(^|[\s>+~])\.play$/.test(s.trim())))) {
+    oneLine(file, `"${selector}" styles every .play, the header's play button too: give it a class of its own`)
   }
   // A product header's link or play label hidden where the row is short would be out of reach: the menu folds instead.
   for (const { selector } of cssRules(css).filter((r) => /\.subnav\b[^,]*\s\S/.test(r.selector) && /display:\s*none|visibility:\s*hidden|clip:\s*rect\(0/.test(r.body))) {
     oneLine(file, `"${selector}" hides part of the product header's menu: show every item where the row fits and let assets/menu.js fold it where it doesn't`)
   }
 }
-for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/]]) {
-  if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header's links can wrap`)
+for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/], [join('assets', 'product.css'), '.product-name', /flex:\s*none/]]) {
+  if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header can squeeze or wrap`)
 }
 if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('classList.toggle("folded"')) {
   oneLine(join('assets', 'menu.js'), "does not fold the product header's menu (.folded) where its row would not fit")

@@ -69,14 +69,19 @@
     });
     // A product's header: its row (the logo, then every link and the play button with its words, each on one line) as
     // it is where it fits the header, drawn closer (.compact) where only that fits, and folded on a phone or where
-    // neither does. Measured unfolded, with its transitions off, so nothing on screen moves; again when the screen
-    // changes size and when a font arrives, which makes the links wider or narrower.
+    // neither does. Folded, the play button leaves the panel for the bar, beside the menu button, so the page's main
+    // action stays in sight: with its words where they fit, else its icon alone (.play-icon). Measured unfolded, with
+    // its transitions off, so nothing on screen moves; again whenever the header changes size and when a font arrives,
+    // which makes the links wider or narrower.
     if (head.classList.contains("top")) {
       const phone = matchMedia("(max-width: 560px)");
+      const play = panel.querySelector("a.play");
       const over = () => head.scrollWidth > head.clientWidth;
       const fit = () => {
+        const focused = play && document.activeElement === play;
         head.classList.add("measuring");
-        head.classList.remove("folded", "compact");
+        head.classList.remove("folded", "compact", "play-icon");
+        if (play && play.parentNode !== panel) panel.append(play);
         let fold = phone.matches;
         if (!fold && over()) {
           head.classList.add("compact");
@@ -84,12 +89,18 @@
           if (fold) head.classList.remove("compact");
         }
         head.classList.toggle("folded", fold);
+        if (fold && play) {
+          if (play.nextElementSibling !== button) button.before(play);
+          head.classList.toggle("play-icon", over());
+        }
         void head.offsetWidth;
         head.classList.remove("measuring");
+        if (focused) play.focus();
         if (!fold) set(false, false);
       };
       fit();
-      addEventListener("resize", fit);
+      // The header spans the screen: its own size changes with it (the window, the page's scrollbar coming and going).
+      new ResizeObserver(fit).observe(head);
       document.fonts?.addEventListener("loadingdone", fit);
     }
     // The screen grows past the phone layout (the button is gone), or the page is left with the panel open.

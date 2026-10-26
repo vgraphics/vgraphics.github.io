@@ -89,13 +89,18 @@ Change it there too and release `vhub-hub`: until then the check reports every h
 On phones every header folds its menu into a button at the right that opens it as a panel (George, 23 Oct 2026: "At
 mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
 header below 561px and wherever its row would not fit. Menu items keep to one line (George, 26 Oct 2026: "Map rules -
-always single line menu items."): every header link is `white-space: nowrap`, the product header keeps its logo and
-menu on one row, and `assets/menu.js` measures that row (on load, on resize and when a font arrives): every link and
-the play button with its words show wherever they fit, drawn closer (`.compact`, less padding) where only that fits,
-and elsewhere the menu folds into its visible button (`.folded`) instead of squeezing, wrapping or hiding a link. A nav
-entry's `"wide": true` no longer hides it on narrower screens. check-site
-fails a header rule that lets a link wrap or hides a product header's link or play label (`display: none`,
-`visibility: hidden`, a clip), a `<br>` in a header's menu, and the fold missing from menu.js.
+always single line menu items."): every header link is `white-space: nowrap`, the product header keeps its logo (at its
+own size) and menu on one row, and `assets/menu.js` measures that row (on load, whenever the header changes size and
+when a font arrives): every link and the play button with its words show wherever they fit, drawn closer (`.compact`,
+less padding) where only that fits, and elsewhere the menu folds into its visible button (`.folded`) instead of
+squeezing, wrapping or hiding a link. Folded, the play button moves out of the panel into the bar beside the button, the
+page's main action always in sight, with its words unless a narrow phone has room only for its icon (`.play-icon`).
+Measured in Chrome after the fonts load, Exitwise shows its full row from about 1000px, its compact row at 768 and 790,
+and folds on phones ("Play online" with its words at 390, its icon at 360); Speedometer full from 790, compact at 768.
+A nav entry's `"wide": true` no longer hides it on narrower screens. check-site fails a header rule that lets a link
+wrap or hides a product header's link or play label (`display: none`, `visibility: hidden`, a clip), a logo free to
+shrink, a bare `.play` rule anywhere (the intro's demo once used one, which made the play button 460px wide and pushed
+the menu over), a `<br>` in a header's menu, and the fold missing from menu.js.
 `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
 header's markup stays the copy above. Every company page loads it in its `<head>` with
 `<script src="/assets/menu.js" defer></script>`, and the CSS acts only on pages that do. The hub's pages carry the
@@ -218,7 +223,8 @@ toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's 
   lit from above on a deeper edge, a light rim, a glow in a lighter shade of it, the play sign in a disc of its words'
   colour, a sheen now and then, a lift and brighter glow on hover and a press; nothing moves with reduced motion.
   `tools/lib/theme.mjs` fails a pack whose pair reads under 4.5:1 or whose colour is greyish (saturation under 35%).
-  It always shows its words: in the row wherever the row fits, and in the folded panel as a full-width button.
+  It always shows its words, in the row and, folded, in the bar beside the menu button; only a phone too narrow for
+  them shows its icon alone there.
 - check-site holds every served page to this: a product with a play page (`<product>/play/`) has `site.play`, and
   every product header in its folder ends with that one button, inside its menu, going to that address.
 
