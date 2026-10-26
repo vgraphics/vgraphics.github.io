@@ -126,16 +126,6 @@
     },
     {
       "art": [
-        "exitwise/wiki/img/v12-rocks-bombs"
-      ],
-      "todo": "To do (no credits): one of the two entries shows another level: the unused exitwise/img/5-bombs.webp or a fresh capture.",
-      "places": [
-        "/exitwise/wiki/bomb-arrow/ section.w-block",
-        "/exitwise/wiki/rock/ section.w-block"
-      ]
-    },
-    {
-      "art": [
         "exitwise/img/7-win"
       ],
       "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
@@ -153,17 +143,6 @@
       "places": [
         "/ article.b.x-game.s7.r2",
         "/exitwise/wiki/hard-levels/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "assets/img/exitwise-board",
-        "exitwise/img/1-board"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/exitwise/wiki/how-to-play/ section.w-block",
-        "/games/ section.page-hero"
       ]
     },
     {
