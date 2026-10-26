@@ -1,0 +1,531 @@
+{
+ "about": "The masters of Palermo Noir's wiki pictures (WebP, quality 90): one Recraft scene per entry, a wide picture (4096x2286) for heroes on landscape screens and for the cards, and a tall one (2286x4096) for portrait screens. tools/make-wiki-art.py makes the served sizes from them. George asked for them on 26 Oct 2026 ('Generate art for each wiki item. Same we did at exitwise.'), picked the four samples on the review page https://claude.ai/artifact/YNHdfu7s2QDSNvXM7cxSFv and approved the full set the same day. Each entry's prompt is the opening, its cast sentence, the town sentence, 'The scene: ' + its scene and the wide closing; the tall picture's prompt is the opening, the cast sentence, the recompose sentence and the tall closing, with the 1K wide as the last reference.",
+ "licence": "Made on VGraphics' Recraft Pro plan (gvergidis90@gmail.com, a paid plan, plus purchased credit packs), so the images are VGraphics' to use commercially under Recraft's terms. Nano Banana 2 is Google's partner model in Recraft; its usage policy was accepted on 22 Oct 2026.",
+ "model": "Nano Banana 2 in Recraft, 1K (1376x768 wide, 768x1376 tall), one take per picture, then Recraft Crisp upscale (4096x2286 and 2286x4096), 26 Oct 2026. No readable text in any picture: papers, cards and screens carry only lines, patterns and plain strokes.",
+ "references": {
+  "style": "References 1-4: George's four portraits, VHub docs/party/design-pass/art/refs-george/2.webp, 3.webp, 4.webp and 5.png",
+  "cast": "References 5 and on: the character's picked cast picture, VHub docs/party/design-pass/art/raw-cast-v2/cast-<key>.png (listed per entry)",
+  "town": "Last reference of a wide picture: the current hero, the seafront (palermo/img/key-art-wide-1920.webp)",
+  "wide": "Last reference of a tall picture: the entry's own 1K wide picture"
+ },
+ "prompt": {
+  "opening": "References 1 to 4 show the exact art style to copy: gold engraved line art on a flat dark navy background. Faces and skin are drawn with dense, fine, perfectly vertical parallel lines, with one side of each face falling into solid navy shadow along a sharp clean edge; hair and hats with flowing parallel contour lines; clothes outlined in thin warm-gold lines and filled with long vertical hatching. Only warm tan-gold lines (about #C9A98A, highlights #E0C2A5) on navy (#0C1725), {light}: no other colours, no grey, no paper texture.",
+  "light": {
+   "night": "with the warm glow of lamps, candles or a match as the only light",
+   "early morning": "with the warm gold light of early morning as the only light, the sky still a deep navy"
+  },
+  "cast": "One character: \"Reference 5 is the game's character <cast description>: draw them exactly as they look there, the same face, clothes and props.\" Several: \"References 5 to <n> are the game's characters: <descriptions>. Draw them exactly as they look there, the same faces, clothes and props.\" (The samples name the character the same way, in their own words.)",
+  "town": "Reference <n> shows how the game draws its town at night: draw the buildings, lamps, stones and sky in that same engraved look.",
+  "closingWide": "This is the wide hero picture of a page in the game's wiki: a 16:9 cinematic scene, every wall, stone and fold fully drawn in fine engraved hatching, with rich depth from the foreground to the background. Keep the faces and hands in the middle band of the picture, well clear of the top and bottom edges. Keep the bottom fifth calm and dark, fading into shadow, so words can sit there, and keep the top left corner quiet for the logo. Crime is implied, never shown: no blood, no bodies, no guns, no knives. No text, no letters, no numbers, no signs, no frame, no border.",
+  "recomposeTall": "Reference <n> is the wide version of this same picture: recompose that exact scene as a tall 9:16 portrait picture, with the same place, the same people, clothes, props, light and details, rearranged to fill the tall frame: bring the main figures closer and larger in the upper middle, with the setting around and above them.",
+  "closingTall": "This is the tall version of the same hero picture, for phone screens: a 9:16 portrait-format scene, every wall, stone and fold fully drawn in fine engraved hatching, with rich depth. Keep the faces and hands in the upper middle of the picture. Keep the bottom fifth calm and dark, fading into shadow, so words can sit there, and keep the top left corner quiet for the logo. Crime is implied, never shown: no blood, no bodies, no guns, no knives. No text, no letters, no numbers, no signs, no frame, no border.",
+  "corner": "The full set's tall pictures and the three redone wides replace 'keep the top left corner quiet for the logo' with 'keep the top left corner darker and calm for the logo, but still fully drawn edge to edge: no blank boxes or empty patches anywhere' (the first Power of attorney came back with a blank box there)."
+ },
+ "recraftProjects": {
+  "samples": "https://www.recraft.ai/project/29ac6e5f-41cd-4265-ad39-6bbea0f3523f (Palermo Noir wiki art: Known Killer, Doctor, Objection!, The night)",
+  "fullSet": "https://www.recraft.ai/project/0f8fa6d3-3227-418f-9a98-19ae814c738f (Palermo Noir wiki art, full set: the other 37, their redos and their tall pictures)",
+  "upscales": "https://www.recraft.ai/project/2ac1eeef-5ad9-4570-9db1-0bb07435413f and https://www.recraft.ai/project/7e4c9498-d203-49df-9322-cc268bfc3c47 (Palermo Noir wiki art, upscales and upscales 2: the full set's 1K pictures dropped in by name and Crisp-upscaled)"
+ },
+ "entries": {
+  "known-killer": {
+   "master": "known-killer.webp",
+   "tall": "known-killer-tall.webp",
+   "scene": "a narrow back alley in old Palermo at night. In the right third of the picture the Known Killer stands in a stone doorway, half turned towards us, lighting a cigarette with a match cupped in his hands; the small flame lights his face from below and throws his long shadow up the wall behind him. The alley runs away to the left between tall old houses with wrought-iron balconies, closed wooden shutters and laundry lines, one street lamp glowing far down at its end, the wet cobblestones catching its light, and a black cat watching from a step.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png"
+   ],
+   "light": "night",
+   "made": "Sample, Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art'",
+   "castSentence": "Reference 5 is the game's character, the Known Killer: draw him exactly as he looks there, the same face, fedora, dark overcoat with the collar turned up and the rose pinned to his lapel.",
+   "tallPrompt": "The opening, the cast sentence, \"Reference 6 is the wide version of this same picture: recompose that exact scene as a tall 9:16 portrait picture, with the same place, the same characters, clothes, props, light and details, rearranged to fill the tall frame.\", then \"The Known Killer stands in the stone doorway on the right, seen from the knees up and large in the frame, lighting his cigarette with the match cupped in his hands, his long shadow on the wall behind him; the narrow alley rises away beside him with its balconies, shutters and laundry lines, the street lamp glowing at its far end and the black cat on a step.\", then the tall closing."
+  },
+  "hidden-killer": {
+   "master": "hidden-killer.webp",
+   "tall": "hidden-killer-tall.webp",
+   "scene": "Under the arcades of a piazza at dusk, among a crowd of townspeople, the Hidden Killer stands in the middle, his fedora low and his face in shadow; beside him the Detective peers at him through his magnifying glass and sees nothing to suspect.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-inspector-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "police-officer": {
+   "master": "police-officer.webp",
+   "tall": "police-officer-tall.webp",
+   "scene": "A street corner at night: the Police Officer stands under a street lamp with his notebook and pencil, watching across the street where the Known Killer passes in the shadows and glances back; their eyes meet.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-officer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "doctor": {
+   "master": "doctor.webp",
+   "tall": "doctor-tall.webp",
+   "scene": "a small bedroom in an old Palermo house at night. In the left half of the picture the Doctor sits on a wooden chair at a bedside, leaning forward, listening with her stethoscope to a sleeping patient whose face is turned away under the blankets; her open leather doctor's bag stands on the floor by her feet. A small oil lamp on the bedside table casts a warm pool of light over her face and hands, the pillow and a glass of water. Behind them a tall window with half-open wooden shutters shows the moonlit rooftops and a church dome; the rest of the room falls into dark navy shadow.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-doctor-2.png"
+   ],
+   "light": "night",
+   "made": "Sample, Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art'",
+   "castSentence": "Reference 5 is the game's character, the Doctor: draw her exactly as she looks there, the same face, pinned-up hair, long coat, stethoscope and leather doctor's bag.",
+   "tallPrompt": "The opening, the cast sentence, \"Reference 6 is the wide version of this same picture: recompose that exact scene as a tall 9:16 portrait picture, with the same place, the same characters, clothes, props, light and details, rearranged to fill the tall frame.\", then \"The Doctor sits at the bedside in the middle of the picture, seen from her head to her shoes, leaning over the sleeping patient with her stethoscope, the oil lamp and the glass of water on the bedside table beside her, her open bag at her feet, and the shuttered window with the moonlit rooftops and the dome above them.\", then the tall closing."
+  },
+  "citizen": {
+   "master": "citizen.webp",
+   "tall": "citizen-tall.webp",
+   "scene": "The morning market in a Palermo square, the sky still dark navy with the first gold light: the Baker at his stall of round loaves, the Fisherman with his net and a basket of fish, the Seamstress with her bolt of cloth, the kiosk owner at his newspaper kiosk, awnings, lemons and a fountain behind.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kiosk-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "note": "Redone once: the first take's kiosk newspapers had mastheads that looked like lettering. The redo's prompt adds: 'No newspaper, sign, awning or stall carries any words: every page shows only plain lines and small pictures, no headlines, no letters.' and has the kiosk owner hold a folded newspaper turned away from us."
+  },
+  "detective": {
+   "master": "detective.webp",
+   "tall": "detective-tall.webp",
+   "scene": "Under a lone street lamp at night, the Detective crouches over the wet cobbles studying a trail of footprints through his magnifying glass, pipe smoke curling up into the lamplight; behind him a narrow street and a closed café with chairs stacked on its tables.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-inspector-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "seer": {
+   "master": "seer.webp",
+   "tall": "seer-tall.webp",
+   "scene": "A fortune teller's small room lit by candles: the Seer sits at a round table with a fringed cloth, turning over one tarot card from her fan (plain pictures only, no letters or numbers), a crystal ball glowing faintly, a beaded curtain and the night street behind.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seer-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "bulletproof": {
+   "master": "bulletproof.webp",
+   "tall": "bulletproof-tall.webp",
+   "scene": "Dawn at his front door: the Bulletproof man in shirt sleeves and waistcoat holds up his dented pocket watch on its chain with a relieved grin; the door's wood is scratched where something struck it in the night, and neighbours peer from their shutters.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-bulletproof-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "henchman": {
+   "master": "henchman.webp",
+   "tall": "henchman-tall.webp",
+   "scene": "An old garage at night: the Henchman leans on a 1940s car, twirling a car key on his finger, a matchstick in his mouth, watching through the open door as the two killers walk past under a street lamp without seeing him.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-henchman-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "mayor": {
+   "master": "mayor.webp",
+   "tall": "mayor-tall.webp",
+   "scene": "The town hall balcony in the morning light: the Mayor steps forward with his sash, raising the big ornate key high to reveal himself, while the townspeople in the piazza below look up in surprise.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-mayor-1.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "hunter": {
+   "master": "hunter.webp",
+   "tall": "hunter-tall.webp",
+   "scene": "At the edge of town at dawn, by a dry stone wall and olive trees, the Hunter raises his brass hunting horn to his lips, his hound alert at his feet; the town's rooftops and bell tower behind.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hunter-1.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "note": "The tall picture is the first take (he stands high on the horizon). A second take with the one-scene sentence drew a giant head of him behind the figure, so it was not used."
+  },
+  "lawyer": {
+   "master": "lawyer.webp",
+   "tall": "lawyer-tall.webp",
+   "scene": "The Lawyer's study at night: he sits at a big desk under a brass lamp, his briefcase open, fanning out five blank power cards with ornamental borders (no letters or numbers) and choosing two; shelves of law books with plain spines behind him.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "kamikaze": {
+   "master": "kamikaze.webp",
+   "tall": "kamikaze-tall.webp",
+   "scene": "A busy piazza by day: the wild-eyed Kamikaze jumps onto the rim of the fountain, holding up his round cartoon bomb with a sparkling fuse and grinning, while the townspeople scatter in comic surprise. Comic, not realistic.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kamikaze-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "madman": {
+   "master": "madman.webp",
+   "tall": "madman-tall.webp",
+   "scene": "The town hall steps by day: the Madman dances on one foot with his cracked harlequin mask raised and a crooked grin, while the townspeople below point at him, argue and raise their hands to vote him out.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-madman-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "note": "Wide redone once: the first take drew the Madman twice; the redo's prompt adds 'There is only one Madman in the picture, drawn once.' Tall redone once: the first tall take had a blank navy box in the top left corner; the second drops the logo-corner sentence and adds 'One single continuous scene from top to bottom with one horizon and one sky, never two views stacked or a band of figures floating over the scene; every figure stands on the ground.'"
+  },
+  "lovers": {
+   "master": "lovers.webp",
+   "tall": "lovers-tall.webp",
+   "scene": "A small stone bridge over a canal at night under the full moon: the Seamstress and the kiosk owner stand close together, holding hands, a ribbon tied round both their wrists in a bow; lamps reflected in the water.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kiosk-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "objection": {
+   "master": "objection.webp",
+   "tall": "objection-tall.webp",
+   "scene": "a 1950s Palermo courtroom at night, lit by brass lamps. In the middle of the picture the Lawyer has sprung up from the defence table, one arm raised high with the index finger pointing straight up as he calls objection, his open briefcase and scattered papers on the table in front of him. Behind him stand the judge's high carved wooden bench with a gavel resting on its round block, the scales of justice carved in relief above it, tall arched windows with the moon outside, and rows of empty wooden benches fading into the dark.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Sample, Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art'",
+   "castSentence": "Reference 5 is the game's character, the Lawyer: draw him exactly as he looks there, the same face, round spectacles, slicked-back grey hair, pinstriped three-piece suit and leather briefcase.",
+   "tallPrompt": "The opening, the cast sentence, \"Reference 6 is the wide version of this same picture: recompose that exact scene as a tall 9:16 portrait picture, with the same place, the same characters, clothes, props, light and details, rearranged to fill the tall frame.\", then \"The Lawyer stands in the middle of the picture, seen from the waist up and large in the frame, his arm raised high with the index finger pointing up; the judge's carved bench with the gavel and the scales of justice in relief rise above and behind him, and the table with his open briefcase and papers lies in front of him.\", then the tall closing."
+  },
+  "client": {
+   "master": "client.webp",
+   "tall": "client-tall.webp",
+   "scene": "A courthouse corridor by a tall window: the Lawyer shakes hands with his secret client, the nervous Fisherman, cap in his other hand; the Lawyer's briefcase stands at his feet and the corridor runs into shadow.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "appeal": {
+   "master": "appeal.webp",
+   "tall": "appeal-tall.webp",
+   "scene": "The courtroom under a single cone of spotlight: the condemned Fisherman stands at the rail pleading with an open hand, the Lawyer beside him holding a rolled parchment tied with a ribbon and a wax seal; a large hourglass runs on the judge's bench.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "retrial": {
+   "master": "retrial.webp",
+   "tall": "retrial-tall.webp",
+   "scene": "The courtroom: the Lawyer turns over a large hourglass on the judge's bench, the sand starting to run again, while two townspeople stand side by side at the front and the benches hold up folded paper ballots once more.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "hung-jury": {
+   "master": "hung-jury.webp",
+   "tall": "hung-jury-tall.webp",
+   "scene": "The jury room at night: townspeople sit round a long table arguing in two equal halves, and in the middle of the table a brass scales of justice hangs perfectly level under a hanging lamp.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kiosk-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "alibi": {
+   "master": "alibi.webp",
+   "tall": "alibi-tall.webp",
+   "scene": "A theatre box at night, the stage glowing below: the Lawyer slips the Seamstress a torn theatre ticket stub (no words on it), while a gold pocket watch lies open on the velvet ledge, its dial with plain tick marks only.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "cross-examination": {
+   "master": "cross-examination.webp",
+   "tall": "cross-examination-tall.webp",
+   "scene": "The courtroom at night: a cone of spotlight falls on the witness stand where the Henchman sits gripping the rail, while the Lawyer leans on it, questioning him; a small hourglass runs beside them.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-henchman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "case-file": {
+   "master": "case-file.webp",
+   "tall": "case-file-tall.webp",
+   "scene": "The Lawyer at his desk under a lamp at night, opening a thick case folder bound with string; papers and a small photograph of a street lamp spill out, he holds a fingerprint card, and a magnifying glass lies on the desk.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "plea-bargain": {
+   "master": "plea-bargain.webp",
+   "tall": "plea-bargain-tall.webp",
+   "scene": "A small police office lit by a bare bulb: across a table the Lawyer slides a signed document (its writing only plain wavy strokes) to the Police Officer, an open pair of handcuffs lying between them.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-officer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "last-will": {
+   "master": "last-will.webp",
+   "tall": "last-will-tall.webp",
+   "scene": "The Lawyer's study by candlelight, his chair empty: his round spectacles lie folded on the desk beside a sealed envelope with a large wax seal and a candle burned low, a thin curl of smoke rising; his briefcase leans on the chair.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "gag-order": {
+   "master": "gag-order.webp",
+   "tall": "gag-order-tall.webp",
+   "scene": "The town hall during the vote: the kiosk owner reaches to drop his folded ballot into a wooden ballot box, but its slot is tied shut with a ribbon and a wax seal; the Lawyer stands beside it with one finger raised.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kiosk-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "safe-house": {
+   "master": "safe-house.webp",
+   "tall": "safe-house-tall.webp",
+   "scene": "A heavy studded wooden door in a stone doorway at night, a wall lantern lit above: the Lawyer holds it open as the Seamstress slips inside, while far down the street the two killers watch from the shadows.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "bail": {
+   "master": "bail.webp",
+   "tall": "bail-tall.webp",
+   "scene": "Dawn outside the old town jail: its heavy iron gate stands open with a sprung padlock hanging on it, and the Lawyer, briefcase in hand and a big iron key held up, walks out beside the freed Fisherman.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "change-of-venue": {
+   "master": "change-of-venue.webp",
+   "tall": "change-of-venue-tall.webp",
+   "scene": "The town hall: the Lawyer draws a heavy velvet curtain across a booth round the wooden ballot box, while the Baker and other townspeople wait in line with folded ballots.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "injunction": {
+   "master": "injunction.webp",
+   "tall": "injunction-tall.webp",
+   "scene": "The town hall steps: the Lawyer brings a big rubber stamp down on a sheet of paper marked with one large X; beside him the Mayor frowns at his ornate key, and the Kamikaze lowers his cartoon bomb, its fuse out.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-mayor-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kamikaze-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "power-of-attorney": {
+   "master": "power-of-attorney.webp",
+   "tall": "power-of-attorney-tall.webp",
+   "scene": "The town hall during the vote: a pale, translucent, ghostly hand rises beside the Lawyer and guides his quill over a folded ballot, while the townspeople at the benches see nothing.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "note": "Redone once: the first take left a blank box in the top left corner (see prompt.corner)."
+  },
+  "sealed-evidence": {
+   "master": "sealed-evidence.webp",
+   "tall": "sealed-evidence-tall.webp",
+   "scene": "The courtroom: the Lawyer holds up a large paper evidence envelope closed with a wax seal pressed with a star, about to break it, while the condemned Fisherman and the jury lean forward to see.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "the-contract": {
+   "master": "the-contract.webp",
+   "tall": "the-contract-tall.webp",
+   "scene": "The back room of a café at night under a single hanging lamp: the Lawyer and a client whose face stays in shadow sign a long contract (its writing only plain wavy strokes), a fountain pen and a heavy signet ring on the table.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "a-round": {
+   "master": "a-round.webp",
+   "tall": "a-round-tall.webp",
+   "scene": "One wide panorama of Palermo turning from night to day, left to right: on the left the moonlit rooftops where the two killers whisper; in the middle the street lamps going out; on the right dawn breaking over the piazza where the Mayor, the Baker and the Seamstress gather to talk and vote.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-mayor-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "the-night": {
+   "master": "the-night.webp",
+   "tall": "the-night-tall.webp",
+   "scene": "a quiet Palermo piazza at midnight under a full moon veiled by thin clouds; every window is dark and shuttered, the whole town asleep. On the left, in the shadow of a stone archway, the two killers lean together and whisper, choosing tonight's victim. In the middle a baroque stone fountain and one ornate street lamp glow warm gold over the empty cobbles. On the right the Doctor hurries along the wall with her bag towards a door, and above her, at an upper window, the Detective watches the square through a gap in the shutters, his pipe in his mouth. Small full-length figures, far apart, each in their own pool of light or shadow.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-doctor-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-inspector-2.png"
+   ],
+   "light": "night",
+   "made": "Sample, Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art'",
+   "castSentence": "References 5 to 8 are the game's characters: the Known Killer (fedora, rose on the lapel), the Hidden Killer (fedora pulled low, his face in shadow), the Doctor (a woman with her leather bag) and the Detective (trench coat, pipe, magnifying glass): draw them exactly as they look there, the same faces, clothes and props.",
+   "tallPrompt": "The opening, the cast sentence, \"Reference 9 is the wide version of this same picture: recompose that exact scene as a tall 9:16 portrait picture, with the same place, the same characters, clothes, props, light and details, rearranged to fill the tall frame.\", then \"The tall picture shows the same piazza from a little further back: the full moon and the carved palazzo at the top, the Detective watching from his upper window, the street lamp and the fountain in the middle, the two killers whispering under the archway on the left and the Doctor hurrying with her bag on the right, all small full-length figures.\", then the tall closing."
+  },
+  "the-day": {
+   "master": "the-day.webp",
+   "tall": "the-day-tall.webp",
+   "scene": "Morning in the piazza, the first gold light on the rooftops: the town gathers round the fountain arguing, the Lawyer pointing, the Mayor with his key, the Baker and the Seamstress, the Madman grinning on the fountain's rim.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-mayor-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-madman-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "note": "Tall redone once: the first take stacked the townspeople in a band above a second view of the piazza; the second adds the same one-scene sentence as the Madman's and 'The townspeople stand together on the cobbles of the piazza around the fountain, with the Madman crouching on its rim.'"
+  },
+  "winning": {
+   "master": "winning.webp",
+   "tall": "winning-tall.webp",
+   "scene": "The town hall steps at dawn after the last vote: the townspeople cheer and throw their hats in the air, the Mayor raises his key, and the Police Officer leads the two killers away down the steps, their roses fallen on the stone.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-officer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-mayor-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-known-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-hidden-killer-2.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-baker-2.png"
+   ],
+   "light": "early morning",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "ties": {
+   "master": "ties.webp",
+   "tall": "ties-tall.webp",
+   "scene": "The town hall during the vote: the Seamstress and the kiosk owner stand side by side at the front under two cones of light, and on the table before them lie two exactly equal piles of folded ballots, with an hourglass running.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png",
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-kiosk-2.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "night-announcer": {
+   "master": "night-announcer.webp",
+   "tall": "night-announcer-tall.webp",
+   "scene": "On a rooftop above the sleeping town at night, the first player out, the Fisherman, now pale and translucent like a ghost, holds up a lantern and watches over every street; far below, tiny figures move through the dark lanes.",
+   "cast": [
+    "VHub docs/party/design-pass/art/raw-cast-v2/cast-fisherman-1.png"
+   ],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "host-rules": {
+   "master": "host-rules.webp",
+   "tall": "host-rules-tall.webp",
+   "scene": "The host's card table at night under a hanging lamp: a deck of role cards face down with ornate backs, an hourglass, a small brass bell, folded ballots and an open pocket watch with plain tick marks; the town's lights through the window behind. No people.",
+   "cast": [],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  },
+  "phones-and-tv": {
+   "master": "phones-and-tv.webp",
+   "tall": "phones-and-tv-tall.webp",
+   "scene": "A cosy living room at night drawn in the same engraved style: friends on sofas, each holding a phone whose screen is only a soft glow, and on the wall a big TV showing a moonlit Palermo piazza (a picture only, no text or code); a lamp and a bowl of lemons.",
+   "cast": [],
+   "light": "night",
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+  }
+ },
+ "medals": {
+  "about": "The medals of the 8 rules pages (shown beside What it does), each its own picture so no two pages share one (George, 26 Oct: Each art must be used only once). Before, they were crops of the landing page's scenes, and five were the same picture. Masters in art-src/medals/<slug>.webp (1024, WebP q90); the served medal is img/medals/<slug>.webp (320, WebP q86). The role and power medals are crops of the role and power cards, as before (tools/make-wiki-composites.py).",
+  "made": "Nano Banana 2 in Recraft at 1K, 1:1, one take each, 26 Oct 2026, project Palermo Noir wiki medals, https://www.recraft.ai/project/75b4ce03-db55-4a5b-81dc-36dc82b57f53. George kept the samples (the-night, ties, phones-and-tv) and approved the other five. Same licence as above.",
+  "references": "References 1-4: George's four portraits (as for the scenes); reference 5: the Alibi power card, VHub docs/party/design-pass/art/raw-powers/power-6-1.png, for the objects' look.",
+  "prompt": "\"The four reference images show the exact art style to copy. Gold engraved line art on a flat dark navy background. Surfaces are drawn with dense, fine, perfectly vertical parallel lines, with one side of each object falling into solid navy shadow along a sharp clean edge, and clean contour lines in warm gold. Only warm tan-gold lines (about #C9A98A, highlights #E0C2A5) on navy (#0C1725): no other colours, no gradients, no grey, no paper texture. Reference 5 shows how the game draws its objects: draw in exactly that look. Using exactly that style, line weight and colours, draw a small square emblem for a page of a 1950s Palermo murder-mystery game's wiki (none of the people in the references):\" + the object + \" The object is centred in a square frame, large and clear, filling about two thirds of it, with calm empty navy space around it and nothing else in the picture; only a faint short line of shadow beneath it. Draw it with the same level of detail as the references: fine vertical hatching and clean contours. No faces, no people, no text, no letters, no numbers, no frame, no border.\"",
+  "entries": {
+   "the-night": {
+    "master": "medals/the-night.webp",
+    "object": "a single ornate wrought-iron street lamp glowing warm gold, a thin crescent moon hanging just above it."
+   },
+   "ties": {
+    "master": "medals/ties.webp",
+    "object": "a single coin spinning on its edge, caught in mid-turn, between two equal small stacks of folded paper ballot slips."
+   },
+   "phones-and-tv": {
+    "master": "medals/phones-and-tv.webp",
+    "object": "a 1950s television set on short legs, its rounded screen glowing softly with no picture, and a modern smartphone lying in front of it, its screen only a soft glow."
+   },
+   "a-round": {
+    "master": "medals/a-round.webp",
+    "object": "a fan of five playing cards lying face down with ornate patterned backs, beside a small brass candlestick with a lit candle."
+   },
+   "the-day": {
+    "master": "medals/the-day.webp",
+    "object": "a small stone bell tower with its bell swinging, the rays of the rising sun fanning out behind it."
+   },
+   "winning": {
+    "master": "medals/winning.webp",
+    "object": "a gold laurel wreath tied with a ribbon around a large ornate town key."
+   },
+   "night-announcer": {
+    "master": "medals/night-announcer.webp",
+    "object": "an old brass hand lantern with its flame lit, hanging from a hook beside a rolled paper scroll tied with a ribbon."
+   },
+   "host-rules": {
+    "master": "medals/host-rules.webp",
+    "object": "a small brass desk bell beside an open pocket watch with plain tick marks and a short stack of face-down cards with ornate backs."
+   }
+  }
+ }
+}

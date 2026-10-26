@@ -61,15 +61,16 @@ function artPicture(w, slug, { cls, sizes }) {
   const fallback = img.jpeg ? `${img.src}-${img.jpeg[0]}.jpg" srcset="${srcset(img, 'jpg', img.jpeg)}" sizes="${sizes}` : `${img.src}-${img.widths[0]}.webp`
   return `<picture class="${cls}">${['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(img, x, img.widths)}" sizes="${sizes}">`).join('')}<img src="${fallback}" width="${a.width}" height="${a.height}" alt="" loading="lazy"></picture>`
 }
-// The index hero: the wiki's own painting (wiki.json "art": { "wiki": "<slug>", alt, ... }, George, 24 Oct 2026: "Privacy
-// policy uses the same image as overview. Generate another please. WiKi page too."), else the landing page's key art
-// (page.json hero.art), named from the product's folder.
+// The index hero: the wiki's own picture (wiki.json "art", George, 24 Oct 2026: "Privacy policy uses the same image as
+// overview. Generate another please. WiKi page too."), either one of its paintings ({ "wiki": "<slug>", alt, ... }) or
+// a picture of its own, as page.json's hero.art ({ alt, tall, wide, ... }, named from the product's folder; Palermo's,
+// George's round-5 pick); else the landing page's key art (page.json hero.art).
 function keyArt(product, w) {
   if (w.indexArt?.wiki) {
     const { wiki, ...given } = w.indexArt
     return wikiArt(product.slug, wiki, given)
   }
-  const a = product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
+  const a = w.indexArt?.wide ? w.indexArt : product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
   return { ...a, tall: at(a.tall), wide: at(a.wide), ultra: at(a.ultra) }
 }
 
@@ -194,7 +195,7 @@ function whatBlock(w, e) {
   const [lead, ...rest] = e.what || []
   if (!lead) return ''
   const split = (p) => { const m = p.match(/^(.+?[.!?])\s+([\s\S]*)$/); return m ? [m[1], m[2]] : [p, ''] }
-  return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.product.slug === 'exitwise' ? 'What it does' : 'What it shows'}`)}
+  return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.whatTitle || (w.product.slug === 'exitwise' ? 'What it does' : 'What it shows')}`)}
       <div class="w-what">
         <div class="w-what-lead">${piece(e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
         <div class="w-what-cards">${rest.map((p, i) => { const [h, t] = split(p); return `<div class="w-what-card" style="--k: var(--swatch-${(i % 6) + 1})"><b>${h}</b>${t ? `<p>${t}</p>` : ''}</div>` }).join('')}</div>` : ''}
