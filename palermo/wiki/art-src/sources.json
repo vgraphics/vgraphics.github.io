@@ -26,6 +26,28 @@
   "fullSet": "https://www.recraft.ai/project/0f8fa6d3-3227-418f-9a98-19ae814c738f (Palermo Noir wiki art, full set: the other 37, their redos and their tall pictures)",
   "upscales": "https://www.recraft.ai/project/2ac1eeef-5ad9-4570-9db1-0bb07435413f and https://www.recraft.ai/project/7e4c9498-d203-49df-9322-cc268bfc3c47 (Palermo Noir wiki art, upscales and upscales 2: the full set's 1K pictures dropped in by name and Crisp-upscaled)"
  },
+ "grade": {
+  "about": "The set's colour balance, which every Palermo picture keeps (George, 27 Oct 2026: 'Some images on palermo are more oragne than the others' and 'Never use any filter. All images must be same style.', meaning no picture with a colour cast of its own). The target is the median of the 98 paintings on the site (the wiki scenes wide and tall, the heroes, the chapter scenes), as CIE Lab a*/b* band means: shadows L* under 30, mid-tones 30 to 60, lights over 60. Measure a picture with 'python tools/grade-art.py <picture> --measure'; one that strays is graded back with tools/grade-art.py at the setting below, from its original, or redrawn.",
+  "target": {
+   "shadow": [
+    1.33,
+    -8.67
+   ],
+   "mid": [
+    3.82,
+    13.24
+   ],
+   "light": [
+    5.9,
+    29.73
+   ]
+  },
+  "setting": {
+   "hue": 0.7,
+   "chroma": 0.65
+  },
+  "measured": "27 Oct 2026, all 125 Palermo pictures: the warm outliers were Alibi (+4.06 on the set spread), its tall picture (+2.92), the wiki hero (+2.17, tall +1.42) and the soundtrack backdrop (+1.83); after the grade +0.47, +0.34, +0.31/+0.40 and +0.68. Role cards, medals and cast figures measure cooler only because each is one figure on plain navy; left as they are."
+ },
  "entries": {
   "known-killer": {
    "master": "known-killer.webp",
@@ -258,7 +280,12 @@
     "VHub docs/party/design-pass/art/raw-cast-v2/cast-seamstress-1.png"
    ],
    "light": "night",
-   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
+   "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
+   "graded": {
+    "why": "Its velvet and stage glow came out red-orange, so it ran far warmer than its neighbours Retrial and Hung jury (mid-tone a* 9.7 against the set's 3.8)",
+    "how": "tools/grade-art.py --target sources.json --hue 0.7 --chroma 0.65, on the wide and the tall master; George kept both on the review page https://claude.ai/artifact/WPR1iHsqQNG9xyWCykNrC9 (27 Oct 2026, \"Keep all\")",
+    "original": "git show d622131:palermo/wiki/art-src/alibi.webp (and alibi-tall.webp)"
+   }
   },
   "cross-examination": {
    "master": "cross-examination.webp",
