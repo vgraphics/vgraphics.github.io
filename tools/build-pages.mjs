@@ -60,6 +60,7 @@ import { tryBlock } from './lib/try.mjs'
 import { faq, faqData, readFaq } from './lib/faq.mjs'
 import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
+import { imageSize } from './lib/image-size.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
@@ -118,9 +119,25 @@ ${demo.trimEnd()}
     </section>`
 }
 
-// A product's wiki (for the journey block): its wiki.json, read once.
+// A product's wiki (for the journey block and the gallery's albums): its wiki.json, read once.
 const wikis = {}
 const wikiOf = (slug) => (wikis[slug] ??= JSON.parse(readFileSync(join(root, slug, 'wiki', 'wiki.json'), 'utf8')))
+
+// An album's items from a section of the product's wiki (the album block's from)
+function wikiAlbum(slug, from) {
+  const entries = wikiOf(slug).entries.filter((e) => e.section === from.wiki)
+  if (!entries.length) throw new Error(`${slug}: the wiki has no section "${from.wiki}" for the album`)
+  return entries.flatMap((e) => {
+    if (from.medals) {
+      const master = `${slug}/wiki/art-src/medals/${e.slug}.webp`
+      const size = existsSync(join(root, master)) && imageSize(join(root, master))
+      return size ? [{ title: e.name, src: e.image, full: `/${master}`, ...size, alt: `The ${e.name} medal` }] : []
+    }
+    const { wide } = wikiArt(slug, e.slug)
+    const small = wide.widths.find((w) => w >= 640) ?? wide.widths[0]
+    return [{ title: e.name, src: `${wide.src}-${small}.webp`, full: `${wide.src}-${wide.widths.at(-1)}.webp`, width: wide.width, height: wide.height, alt: e.artAlt }]
+  })
+}
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
 // The quote's play button (a pause while it speaks) and the song button's note
@@ -160,14 +177,20 @@ const BLOCKS = {
   song: (b) => `<div class="badges sec-actions song-row"><button class="pill song-play" type="button" data-ost-song="${b.track - 1}" aria-pressed="false"><b>${NOTE}${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</button></div>`,
 
   // Pictures in a grid, each opening large in the page's lightbox (assets/product.js): { type: "album", shape:
-  // "portrait" | "wide", items: [{ title, src, full?, width, height, alt, position? }] }, src the grid's picture and
-  // full the lightbox's (src when there is one size), every path absolute; position the focal point the tile's frame
-  // keeps (assets/product.css); each tile carries its picture's blurhash, which the lightbox paints until the full
-  // picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
-  album: (b) => {
-    const hash = blurhashes(b.items.map((p) => p.src))
+  // "portrait" | "wide" | "square", items: [{ title, src, full?, width, height, alt, position? }] }, src the grid's
+  // picture and full the lightbox's (src when there is one size), every path absolute; position the focal point the
+  // tile's frame keeps (assets/product.css); each tile carries its picture's blurhash, which the lightbox paints until
+  // the full picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
+  // Or from: { wiki: "<section id>", medals?: true } in place of items: that section of the product's wiki, in the
+  // wiki's order, each entry's painting (its 640 size in the grid, its largest in the lightbox) or, with medals, its
+  // medal (the 320 in the grid, its master in wiki/art-src/medals in the lightbox; a medal without a master of its
+  // own, a crop of a card the gallery already shows, is left out). George, 27 Oct 2026: "Add all art (even from wiki
+  // and overview) to gallery.", so the gallery follows the wiki by itself.
+  album: (b, product) => {
+    const items = b.from ? wikiAlbum(product.slug, b.from) : b.items
+    const hash = blurhashes(items.map((p) => p.src))
     return `<ul class="album ${b.shape ?? 'wide'}">
-          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" data-hash="${esc(hash[p.src])}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
+          ${items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" data-hash="${esc(hash[p.src])}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
         </ul>`
   },
 

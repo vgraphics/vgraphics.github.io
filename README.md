@@ -373,10 +373,14 @@ No hero, section or card shows a picture that is shown anywhere else on the site
   the page it previews. Every page's hero and sections stay unique."):
   - A card that links to a page showing the same picture is that page's preview, like its link preview. Examples are
     the wiki's cards for its entries and the style pages' tiles for each other.
-  - A product gallery's tiles may repeat art shown elsewhere. That means the pictures of the template's gallery block:
-    a stage slide's screenshot (`.g-screen`) or a picture in its plain row (`.shots.fade-edges`), and an album's tiles
-    (`.album-item`), whose lightbox shows them by script. It never covers the gallery page's hero, the gallery's
-    backdrop and pedestals, or any other section.
+  - A product gallery's tiles may repeat any picture of the same product: the gallery is the product's whole art
+    collection (George, 27 Oct 2026: "Add all art (even from wiki and overview) to gallery. Gallery is almost
+    empty."). That means the pictures of the template's gallery block: a stage slide's screenshot (`.g-screen`) or a
+    picture in its plain row (`.shots.fade-edges`), and an album's tiles (`.album-item`), whose lightbox shows them by
+    script. It never covers the gallery page's hero, the gallery's backdrop and pedestals, or any other section. A
+    tile showing another product's picture, or the hero of the page it is on, counts like any other place.
+    An album can fill itself from a section of the product's wiki (`"from": { "wiki": "<section>" }`, with
+    `"medals": true` for the section's medals), so the gallery keeps up with the wiki.
 - `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
   passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
   taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
