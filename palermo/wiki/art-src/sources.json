@@ -487,5 +487,45 @@
    "light": "night",
    "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'"
   }
+ },
+ "medals": {
+  "about": "The medals of the 8 rules pages (shown beside What it does), each its own picture so no two pages share one (George, 26 Oct: Each art must be used only once). Before, they were crops of the landing page's scenes, and five were the same picture. Masters in art-src/medals/<slug>.webp (1024, WebP q90); the served medal is img/medals/<slug>.webp (320, WebP q86). The role and power medals are crops of the role and power cards, as before (tools/make-wiki-composites.py).",
+  "made": "Nano Banana 2 in Recraft at 1K, 1:1, one take each, 26 Oct 2026, project Palermo Noir wiki medals, https://www.recraft.ai/project/75b4ce03-db55-4a5b-81dc-36dc82b57f53. George kept the samples (the-night, ties, phones-and-tv) and approved the other five. Same licence as above.",
+  "references": "References 1-4: George's four portraits (as for the scenes); reference 5: the Alibi power card, VHub docs/party/design-pass/art/raw-powers/power-6-1.png, for the objects' look.",
+  "prompt": "\"The four reference images show the exact art style to copy. Gold engraved line art on a flat dark navy background. Surfaces are drawn with dense, fine, perfectly vertical parallel lines, with one side of each object falling into solid navy shadow along a sharp clean edge, and clean contour lines in warm gold. Only warm tan-gold lines (about #C9A98A, highlights #E0C2A5) on navy (#0C1725): no other colours, no gradients, no grey, no paper texture. Reference 5 shows how the game draws its objects: draw in exactly that look. Using exactly that style, line weight and colours, draw a small square emblem for a page of a 1950s Palermo murder-mystery game's wiki (none of the people in the references):\" + the object + \" The object is centred in a square frame, large and clear, filling about two thirds of it, with calm empty navy space around it and nothing else in the picture; only a faint short line of shadow beneath it. Draw it with the same level of detail as the references: fine vertical hatching and clean contours. No faces, no people, no text, no letters, no numbers, no frame, no border.\"",
+  "entries": {
+   "the-night": {
+    "master": "medals/the-night.webp",
+    "object": "a single ornate wrought-iron street lamp glowing warm gold, a thin crescent moon hanging just above it."
+   },
+   "ties": {
+    "master": "medals/ties.webp",
+    "object": "a single coin spinning on its edge, caught in mid-turn, between two equal small stacks of folded paper ballot slips."
+   },
+   "phones-and-tv": {
+    "master": "medals/phones-and-tv.webp",
+    "object": "a 1950s television set on short legs, its rounded screen glowing softly with no picture, and a modern smartphone lying in front of it, its screen only a soft glow."
+   },
+   "a-round": {
+    "master": "medals/a-round.webp",
+    "object": "a fan of five playing cards lying face down with ornate patterned backs, beside a small brass candlestick with a lit candle."
+   },
+   "the-day": {
+    "master": "medals/the-day.webp",
+    "object": "a small stone bell tower with its bell swinging, the rays of the rising sun fanning out behind it."
+   },
+   "winning": {
+    "master": "medals/winning.webp",
+    "object": "a gold laurel wreath tied with a ribbon around a large ornate town key."
+   },
+   "night-announcer": {
+    "master": "medals/night-announcer.webp",
+    "object": "an old brass hand lantern with its flame lit, hanging from a hook beside a rolled paper scroll tied with a ribbon."
+   },
+   "host-rules": {
+    "master": "medals/host-rules.webp",
+    "object": "a small brass desk bell beside an open pocket watch with plain tick marks and a short stack of face-down cards with ornate backs."
+   }
+  }
  }
 }
