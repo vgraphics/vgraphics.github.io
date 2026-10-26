@@ -1,7 +1,6 @@
 {
   "title": "Rally Speedometer Live Wallpaper: Rally Car Dashboard",
-  "description": "Rally: rally instruments with a rally computer's LCD. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
-  "robots": "noindex",
+  "description": "Rally: rally instruments with a rally computer's LCD. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Rally, a Speedometer Live Wallpaper style",
     "description": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
@@ -16,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/rally/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/rally/",
         "name": "Rally Speedometer Live Wallpaper: Rally Car Dashboard",
-        "description": "Rally: rally instruments with a rally computer's LCD. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "description": "Rally: rally instruments with a rally computer's LCD. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/rally.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -92,10 +91,10 @@
           "engine": "/speedometer-wallpaper/play/app/",
           "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
-          "measurementId": null,
+          "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€2.39",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -135,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€0.99, once",
+              "title": "€2.39, once",
               "text": "Buy Rally once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Glass",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.",
               "href": "/speedometer-wallpaper/styles/glass/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Cockpit",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.",
               "href": "/speedometer-wallpaper/styles/cockpit/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Harbour",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.",
               "href": "/speedometer-wallpaper/styles/harbour/",
               "tagTone": "alt"
@@ -211,7 +210,7 @@
                 "height": 780
               },
               "title": "Track Night",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
               "href": "/speedometer-wallpaper/styles/track-night/",
               "tagTone": "alt"

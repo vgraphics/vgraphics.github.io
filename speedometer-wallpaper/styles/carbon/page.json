@@ -1,7 +1,6 @@
 {
   "title": "Carbon Speedometer Live Wallpaper: Race Car Dash",
-  "description": "Carbon: a race dash with shift lights on carbon fibre. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
-  "robots": "noindex",
+  "description": "Carbon: a race dash with shift lights on carbon fibre. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Carbon, a Speedometer Live Wallpaper style",
     "description": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
@@ -16,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/carbon/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/carbon/",
         "name": "Carbon Speedometer Live Wallpaper: Race Car Dash",
-        "description": "Carbon: a race dash with shift lights on carbon fibre. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "description": "Carbon: a race dash with shift lights on carbon fibre. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/carbon.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -92,10 +91,10 @@
           "engine": "/speedometer-wallpaper/play/app/",
           "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
-          "measurementId": null,
+          "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€2.39",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -135,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€0.99, once",
+              "title": "€2.39, once",
               "text": "Buy Carbon once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Vintage",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
               "href": "/speedometer-wallpaper/styles/vintage/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Amber Night",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
               "href": "/speedometer-wallpaper/styles/amber-night/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Rally",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
               "href": "/speedometer-wallpaper/styles/rally/",
               "tagTone": "alt"
@@ -211,7 +210,7 @@
                 "height": 780
               },
               "title": "Glass",
-              "tag": "€0.99",
+              "tag": "€2.39",
               "text": "A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.",
               "href": "/speedometer-wallpaper/styles/glass/",
               "tagTone": "alt"
