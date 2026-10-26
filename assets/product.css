@@ -984,7 +984,7 @@ html.card-open { overflow: hidden; }
   height: 34px;
   border-radius: 50%;
   background: var(--dot);
-  color: var(--step-ink);
+  color: var(--dot-ink, var(--step-ink)); /* --dot-ink: optional, for a pack whose step ink is one of its swatches */
   text-shadow: var(--step-shadow, none);
   font: var(--display-weight) 1rem/1 var(--step-font);
   box-shadow: 0 3px 0 rgb(30 20 50 / 0.25);
