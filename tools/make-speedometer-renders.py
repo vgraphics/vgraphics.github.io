@@ -28,10 +28,11 @@ GOLDENS = {
 # nothing around it: Classic's small gauges and Future's clock sit just outside.
 DIAL = (540, 969)
 
-# name: (source, "phone" or a dial's radius). Where each is shown is in the comment beside it.
+# name: (source, "phone", a dial's radius, or (radius, (x, y)) for a dial away from DIAL). Where each is shown is in
+# the comment beside it.
 RENDERS = {
     # The landing page's gallery (make-gallery-images.py), one per slide and floating dial.
-    "classic-mph": ("golden:logic/classic_mph", "phone"),                      # GPS: 54 mph
+    "prism-119kmh": ("drive:prism/0520", "phone"),                             # GPS: Prism at 119 km/h
     "amber-night-119kmh": ("drive:amber_night/0520", "phone"),                 # Amber Night at 119 km/h
     "carbon-power": ("golden:logic/skin_carbon_classic_power", "phone"),       # Power
     "torque-71kmh": ("drive:torque/0468", "phone"),                            # Torque at 71 km/h
@@ -41,13 +42,14 @@ RENDERS = {
     "dial-vintage-power": ("golden:logic/skin_vintage_classic_power", 490),
     "dial-classic-17kmh": ("drive:classic/0104", 462),
     "dial-future-49kmh": ("drive:future/0156", 465),
-    # /apps/ (and the home page's Apps door, its preview): the styles its words name, Steel, the 1960s walnut console
-    # (Vintage) and the fighter jet's head-up display (Horizon), in layouts no other page shows.
-    "harbour-helm-power": ("golden:logic/skin_harbour_helm_power", "phone"),
-    "dial-amber-power": ("golden:logic/skin_amber_classic_power", 462),
-    "steel-six-power": ("golden:logic/skin_steel_six_power", "phone"),
-    "vintage-cluster-power": ("golden:logic/skin_vintage_cluster_power", "phone"),
-    "horizon-119kmh": ("drive:horizon/0520", "phone"),
+    # /apps/ and the home page's Apps door: George's picks (26 Oct 2026: "Use prism, use vintage speedometer and clock,
+    # use aura tower, use glass."), each in a layout or reading no other page shows.
+    "prism-twin-kmh": ("golden:logic/cluster_prism_twin_kmh", "phone"),               # /apps/ hero phone
+    "dial-aura-tower-kmh": ("golden:logic/cluster_aura_tower_kmh", (404, (540, 640))),  # /apps/ hero dial
+    "aura-tower-power": ("golden:logic/cluster_aura_tower_power", "phone"),           # /apps/ screens
+    "vintage-speedo-clock-power": ("golden:logic/skin_vintage_power", "phone"),       # /apps/ screens
+    "glass-column-power": ("golden:logic/skin_glass_column_power", "phone"),          # /apps/ screens
+    "glass-119kmh": ("drive:glass/0520", "phone"),                                    # the home page's Apps door
     # The home page's Speedometer block.
     "dial-classic-71kmh": ("drive:classic/0468", 462),
     # The wiki's medals.
@@ -89,10 +91,10 @@ def phone(img):
     return img.crop((left, 0, left + keep, img.height)).resize((540, 1200), Image.LANCZOS)
 
 
-def dial(img, r):
+def dial(img, r, centre=DIAL):
     if img.size != (1080, 2400):
         sys.exit(f"a dial is cut from a 1080x2400 screen, not {img.size}")
-    x, y = DIAL
+    x, y = centre
     out = img.crop((x - r, y - r, x + r, y + r)).convert("RGBA")
     # The circle, drawn four times larger and scaled down for a smooth edge.
     mask = Image.new("L", (out.width * 4, out.height * 4), 0)
@@ -112,7 +114,13 @@ def main():
     os.makedirs(OUT, exist_ok=True)
     for name, (spec, kind) in RENDERS.items():
         img = source(spec, games, args.ref, promo)
-        (phone(img) if kind == "phone" else dial(img, kind)).save(os.path.join(OUT, f"{name}.webp"), quality=84, method=6)
+        if kind == "phone":
+            out = phone(img)
+        elif isinstance(kind, tuple):
+            out = dial(img, *kind)
+        else:
+            out = dial(img, kind)
+        out.save(os.path.join(OUT, f"{name}.webp"), quality=84, method=6)
         print(name, spec)
 
 
