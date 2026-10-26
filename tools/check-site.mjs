@@ -454,6 +454,45 @@ for (const file of served) {
 }
 for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/no-select.css') reselect(file, css)
 
+// Menu items on one line (George, 26 Oct 2026: "Map rules - always single line menu items."): the header's links keep
+// to one line (white-space: nowrap on the product header's .subnav a and the company header's .site-nav a), the
+// product header keeps its logo and menu on one row (.top's flex-wrap: nowrap), and assets/menu.js folds that menu into
+// its button wherever the row would not fit (.folded). No other rule of a stylesheet or <style> on a served page lets a
+// header link wrap again, and no link of a header's menu holds a line break.
+const oneLine = (file, message) => report(file, 'one-line', message)
+const cssRules = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ selector: m[1].trim(), body: m[2] }))
+const ruleOf = (file, selector) => cssRules(readFileSync(join(root, file), 'utf8')).find((r) => r.selector.split(',').map((s) => s.trim()).includes(selector))?.body ?? ''
+const wraps = (file, css) => {
+  for (const { selector } of cssRules(css).filter((r) => /\.(subnav|site-nav)\b/.test(r.selector) && /white-space:\s*(?!\s|nowrap)/.test(r.body))) {
+    oneLine(file, `"${selector}" lets a header link wrap (white-space): menu items keep to one line`)
+  }
+  // A bare .play rule styles the header's play button too (the intro's demo once made it 460px wide, and the menu folded).
+  for (const { selector } of cssRules(css).filter((r) => r.selector.split(',').some((s) => /(^|[\s>+~])\.play$/.test(s.trim())))) {
+    oneLine(file, `"${selector}" styles every .play, the header's play button too: give it a class of its own`)
+  }
+  // A product header's link or play label hidden where the row is short would be out of reach: the menu folds instead.
+  for (const { selector } of cssRules(css).filter((r) => /\.subnav\b[^,]*\s\S/.test(r.selector) && /display:\s*none|visibility:\s*hidden|clip:\s*rect\(0/.test(r.body))) {
+    oneLine(file, `"${selector}" hides part of the product header's menu: show every item where the row fits and let assets/menu.js fold it where it doesn't`)
+  }
+}
+for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/], [join('assets', 'product.css'), '.product-name', /flex:\s*none/]]) {
+  if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header can squeeze or wrap`)
+}
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('classList.toggle("folded"')) {
+  oneLine(join('assets', 'menu.js'), "does not fold the product header's menu (.folded) where its row would not fit")
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [, inner] of html.matchAll(/<header\b[^>]*>([\s\S]*?)<\/header>/g)) {
+    for (const [, nav] of inner.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)) {
+      if (/<br\b/i.test(nav)) oneLine(file, "a link of the header's menu holds a line break (<br>): menu items keep to one line")
+    }
+  }
+  wraps(file, [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n'))
+}
+for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
+
 // Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice
 // on a page GitHub Pages serves is the site's switch, a real checkbox that /assets/switch.css draws as a track and a
 // knob: <input type="checkbox" class="switch" role="switch">, on a page that links that stylesheet. That holds for the

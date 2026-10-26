@@ -44,6 +44,15 @@ export const contrast = (a, b) => {
   const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p)
   return (x + 0.05) / (y + 0.05)
 }
+// A colour's saturation (HSL, 0 to 1): a grey's is near 0.
+function saturation(hex) {
+  const n = hex.replace('#', '')
+  const full = n.length === 3 ? [...n].map((c) => c + c).join('') : n
+  const c = [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16) / 255)
+  const [max, min] = [Math.max(...c), Math.min(...c)]
+  const l = (max + min) / 2
+  return max === min ? 0 : (max - min) / (1 - Math.abs(2 * l - 1))
+}
 
 // What's wrong with a pack, as messages (none means it's fine).
 export function checkTheme(theme) {
@@ -54,11 +63,16 @@ export function checkTheme(theme) {
     const c = contrast(t[fg], t[bg])
     if (c < min) problems.push(`--${fg} on --${bg} is ${c.toFixed(2)}:1, under ${min}:1`)
   }
-  // What a text field selects (assets/no-select.css): optional --selection-ink on --selection, by default the page's
-  // colour on the scrollbar's (the accent's, without one).
+  // What a text field selects (assets/no-select.css) and the header's play or try button (assets/product.css): optional
+  // --selection-ink on --selection, by default the page's colour on the scrollbar's (the accent's, without one).
   const [ink, sel] = [t['selection-ink'] ?? t.page, t.selection ?? t.scrollbar ?? t.accent]
   if (/^#[0-9a-f]{3,6}$/i.test(ink ?? '') && /^#[0-9a-f]{3,6}$/i.test(sel ?? '') && contrast(ink, sel) < 4.5) {
-    problems.push(`selected text, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
+    problems.push(`selected text and the play button, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
+  }
+  // That colour is the product's own, never a grey (George, 26 Oct 2026, on Exitwise's play button: "Create a better
+  // play online button. More purple like the logo stroke.").
+  if (/^#[0-9a-f]{3,6}$/i.test(sel ?? '') && saturation(sel) < 0.35) {
+    problems.push(`the play button's colour ${sel} (--selection: by default --scrollbar or --accent) is greyish (saturation ${Math.round(saturation(sel) * 100)}%, under 35%): give the pack its own colour`)
   }
   if (!['light', 'dark'].includes(theme.scheme)) problems.push('scheme is not "light" or "dark"')
   if (!Array.isArray(theme.swatches) || !theme.swatches.length) problems.push('no swatches')
