@@ -37,9 +37,41 @@ function breadcrumbs(w, entry) {
   return JSON.stringify(ld).replace(/</g, '\\u003c')
 }
 
+// An entry as an article (structured data, beside the breadcrumbs): its painting, what it is about (the game or app
+// its landing page describes, by that page's @id), and VGraphics as author and publisher.
+function article(product, e, { description, path, image }) {
+  const about = product.page.structuredData?.['@graph']?.[0]
+  const vgraphics = { '@type': 'Organization', '@id': 'https://vgraphics.gr/#organization', name: 'VGraphics', url: 'https://vgraphics.gr/' }
+  const ld = {
+    '@context': 'https://schema.org',
+    '@type': 'Article',
+    headline: e.name,
+    description,
+    image: `https://vgraphics.gr${image.src}`,
+    url: `https://vgraphics.gr${path}`,
+    mainEntityOfPage: `https://vgraphics.gr${path}`,
+    inLanguage: 'en',
+    ...(about?.['@id'] && { about: { '@type': about['@type'], '@id': about['@id'], name: about.name } }),
+    author: vgraphics,
+    publisher: vgraphics,
+  }
+  return JSON.stringify(ld).replace(/</g, '\\u003c')
+}
+
+// An entry's search title: the first of wiki.json's "entryTitles" that fits in 60 characters, filled with the entry's
+// name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
+// patterns with {kind} are passed over. Else "<name> · <product> wiki".
+function entryTitle(w, e) {
+  const kind = w.sections.find((s) => s.id === e.section)?.kind
+  return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
+    .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
+    .find((t) => t.length <= 60) ?? `${e.name} · ${w.product.name} wiki`
+}
+
 // An entry's search description: its summary, then the sentences of "What it does" while they fit in 160 characters.
-// The first one that doesn't fit is cut at a word, so the description always says more than the summary.
-function describe(e) {
+// The first one that doesn't fit is cut at a word, so the description always says more than the summary. A short one
+// ends with wiki.json's "entryTail" when it fits (what the product is, in the words people search for).
+function describe(e, tail) {
   let d = strip(e.summary).trim()
   if (!/[.!?]$/.test(d)) d += '.'
   for (const s of (e.what || []).flatMap((x) => strip(x).trim().split(/(?<=[.!?])\s+/))) {
@@ -50,7 +82,17 @@ function describe(e) {
     if (160 - d.length > 40) d += ' ' + s.slice(0, 158 - d.length).replace(/\s+\S*$/, '').replace(/[\s,:;(–-]+$/, '') + '…'
     break
   }
+  if (tail && d.length + 1 + tail.length <= 160) d += ' ' + tail
   return d
+}
+
+// A page's link preview: a painting's own 1280 px JPEG (an entry's, or the index's when it is one of the paintings),
+// else the wiki's product image (wiki.json product.image), with the landing page's words for it when it is the same.
+function preview(w, product, slug, alt) {
+  const a = slug && w.art[slug]
+  if (a?.jpeg?.includes(1280)) return { src: `/${w.product.slug}/wiki/img/art/${slug}-1280.jpg`, width: 1280, height: Math.round((1280 * a.height) / a.width), alt }
+  const card = product.page.social
+  return { src: w.product.image, alt: w.product.image === card?.image ? card.imageAlt : w.product.name }
 }
 
 // ---------- Pictures ----------
@@ -94,7 +136,7 @@ const card = (w, e) => {
 }
 
 // ---------- The page shell ----------
-function shell(w, product, { title, description, path, body, entry, preload = '', script }) {
+function shell(w, product, { title, description, path, body, entry, image, preload = '', script }) {
   const p = w.product
   return `<!doctype html>
 <html lang="en">
@@ -109,10 +151,15 @@ function shell(w, product, { title, description, path, body, entry, preload = ''
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="VGraphics">${p.image ? `
-  <meta property="og:image" content="https://vgraphics.gr${esc(p.image)}">
-  <meta name="twitter:card" content="summary_large_image">` : ''}
-  <script type="application/ld+json">${breadcrumbs(w, entry)}</script>${preload ? `
+  <meta property="og:site_name" content="VGraphics">${image?.src ? `
+  <meta property="og:image" content="https://vgraphics.gr${esc(image.src)}">${image.width ? `
+  <meta property="og:image:width" content="${image.width}">
+  <meta property="og:image:height" content="${image.height}">` : ''}
+  <meta property="og:image:alt" content="${esc(image.alt)}">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr${esc(image.src)}">` : ''}
+  <script type="application/ld+json">${breadcrumbs(w, entry)}</script>${entry ? `
+  <script type="application/ld+json">${article(product, entry, { description, path, image })}</script>` : ''}${preload ? `
   ${preload}` : ''}
   <link rel="stylesheet" href="/${p.slug}/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">
@@ -160,7 +207,8 @@ ${tiles}
   <div class="w-chips wrap" role="group" aria-label="Show"><button type="button" class="w-chip on" data-filter="all">All <b>${w.entries.length}</b></button>${w.sections.map((s) => `<button type="button" class="w-chip" data-filter="${s.id}">${esc(s.title)}</button>`).join('')}</div>
 ${sections}
   <p class="w-empty wrap" id="empty" hidden>Nothing matches that. Try another word.</p>`
-  return shell(w, product, { title: w.metaTitle ?? `${w.title} · ${p.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${p.slug}/wiki/`, body, script: true, preload: heroPicture(art).preloads.join('\n  ') })
+  const image = preview(w, product, w.indexArt?.wiki, art.alt)
+  return shell(w, product, { title: w.metaTitle ?? `${w.title} · ${p.name}`, description: w.metaDescription ?? strip(w.intro), path: `/${p.slug}/wiki/`, body, image, script: true, preload: heroPicture(art).preloads.join('\n  ') })
 }
 
 // ---------- Entry ----------
@@ -274,7 +322,8 @@ function entryPage(w, product, e, i) {
     <nav class="w-pager" aria-label="More entries">${prev ? `<a class="w-btn ghost" href="/${p.slug}/wiki/${prev.slug}/" rel="prev"><span aria-hidden="true">◀</span> ${esc(prev.name)}</a>` : '<span></span>'}${next ? `<a class="w-btn" href="/${p.slug}/wiki/${next.slug}/" rel="next">${esc(next.name)} <span aria-hidden="true">▶</span></a>` : '<span></span>'}</nav>
   </article>`
   return shell(w, product, {
-    title: `${e.name} · ${p.name} wiki`, description: describe(e), path: `/${p.slug}/wiki/${e.slug}/`, body, entry: e,
+    title: entryTitle(w, e), description: describe(e, w.entryTail), path: `/${p.slug}/wiki/${e.slug}/`, body, entry: e,
+    image: preview(w, product, e.slug, e.artAlt || `${e.name}, from the ${p.name} wiki`),
     preload: heroPicture(art).preloads.join('\n  '), script: !!(e.board || e.gauge || e.worldMap),
   })
 }

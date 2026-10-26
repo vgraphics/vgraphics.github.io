@@ -4,6 +4,8 @@
   "intro": "Every obstacle, powerup and rule in Exitwise: what it does, when it first shows up, and how to deal with it.",
   "metaTitle": "Exitwise wiki: every obstacle and powerup in the arrow puzzle",
   "metaDescription": "Every obstacle, powerup and rule in Exitwise, the free arrow puzzle game: what it does, the level it first shows up on, and how to beat it.",
+  "entryTitles": ["{name} ({kind}) · Exitwise arrow puzzle wiki", "{name} · Exitwise arrow puzzle game wiki", "{name} · Exitwise arrow puzzle wiki"],
+  "entryTail": "From Exitwise, the free arrow puzzle game.",
   "source": "Written from the game on main (39aa208, 2026-10-17: the update with mirrors, portals, ice, shutters, the colour family and chain bombs). Later generated from Core's WikiCatalog.",
   "art": {"wiki": "index", "alt": "A giant open storybook in a meadow with a tower of colourful worlds rising from its pages up to a glowing door under purple crystals", "position": "50% 40%", "placeholder": "linear-gradient(#462A6E, #3E745E)"},
   "figureTitle": "In the game",
@@ -15,8 +17,8 @@
     {"label":"Map rules","href":"/exitwise/map-rules.html","wide":true}
   ],
   "sections": [
-    {"id":"traps","title":"Obstacles","intro":"Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it."},
-    {"id":"powerups","title":"Powerups","intro":"One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop. None of them ever costs a heart, and none touches an arrow hidden under a shutter."},
+    {"id":"traps","title":"Obstacles","kind":"obstacle","intro":"Things on the board that change where your arrows can go, and the arrows that deal with them. A new one arrives every 20 to 30 levels, starts on an easy level built to teach it, and then stays, mixed in with the ones before it."},
+    {"id":"powerups","title":"Powerups","kind":"powerup","intro":"One-tap helpers. You get 3 of each for free when it unlocks; more cost coins in the shop. None of them ever costs a heart, and none touches an arrow hidden under a shutter."},
     {"id":"basics","title":"Basics","intro":"How the game works: hearts, coins, hints, hard levels, worlds, and the ways to play with others."}
   ],
   "entries": [

@@ -24,6 +24,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
 | `speedometer-wallpaper/play/` | Speedometer's try page: the real app's engine (Kotlin/Wasm and Skia), live in a phone with its styles and settings. The page is the template's (`play/page.json`, the "try" block); the engine's files in `play/app/` come only from the Deployer's `speedometer-web` project, never by hand. `play/img/play-qr.svg` is the store link's QR code (`tools/make-qr.py`). |
 | `speedometer/` | The short address `vgraphics.gr/speedometer/`: it forwards at once to the try page (noindex) |
+| `index.php/contact/`, `index.php/about-2/` | The old WordPress site's pages, which Google still asked for in October 2026 (Search Console, "Not found (404)"): each forwards at once (noindex, an instant meta refresh, which Google treats as a permanent redirect) to the home page's contact card and studio section. Add another the same way only for an old address people may still reach; anything else may stay 404 |
 | `speedometer-wallpaper/styles/` | A page for each of Speedometer's 19 styles at `styles/<style>/`, from the template (a page group: a folder of pages with no `page.json` of its own). `styles/styles.json` holds each style's name, price, words and picture; `tools/make-style-pages.mjs` writes every `styles/<style>/page.json` and the landing page's style tiles from it, so never edit those by hand. Each page shows the style live (the "try" block with `"style"` and `"startup": false`: no start-up, George 26 Oct 2026, "Try page only"), its look, and the next styles. `"published": false` keeps them out of search and the sitemap, and the landing tiles open the try page, until the Play release that has the 19 styles: then set it to `true` and run the generator, build-pages and build-sitemap. |
 | `speedometer-wallpaper/l/` | The page a Speedometer market layout's share link opens, `/speedometer-wallpaper/l/?c=<CODE>` (the app's `MarketCodes`; noindex), from the template with its card beside it (`layout.html`, `.css`, `.js`). On Android it asks Chrome for the app (an https intent; Chrome comes back with `&app=none` without it); everywhere it shows the code, Google Play with `utm_content=layout_<CODE>` for the app to open the layout after the install, and the try page. The web market's layout page, with the layout drawn live, replaces the card later. |
 | `exitwise/ranking/` | Exitwise's global ranking: the game's four global boards (top 100 each), read live from VHub (`leaderboards/exitwise.*` in the `vgraphics-vhub` Firestore, pictures from its Storage) without signing in. `boards.js` holds the reads and the avatars for this page, the home and services podium (`assets/podium.js`) and the multiplayer page. VHub's `backend/firestore.rules` allow those reads; `?emulator=127.0.0.1` reads VHub's emulators (project `demo-vhub`), `?emulator=127.0.0.1:PORT` a Firestore emulator on that port, on localhost only. |
@@ -273,19 +274,39 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 
 ## Search engines
 
-- **Titles and descriptions:** each page has its own `<title>` of about 60 characters and a meta description of about
-  155, with the words people search for: "arrow puzzle game", "logic puzzle", "free puzzle game" for Exitwise,
-  "speedometer live wallpaper", "GPS speedometer", "car dashboard" for Speedometer, and "app development Greece",
-  "game development", "Kotlin", "Unity" for the services.
+- **Titles and descriptions:** each page has its own `<title>` of about 60 characters, the main search words first,
+  and a meta description of about 155, with the words people search for (Google's suggestions, 27 Oct 2026): "arrow
+  puzzle game", "online", "free", "logic puzzle", "arrow escape" for Exitwise; "mafia party game", "hidden role",
+  "mafia game roles and rules" for Palermo Noir (in Greece the game itself is called Palermo); "speedometer live
+  wallpaper", "car dashboard", "GPS speedometer" for Speedometer; "app development", "game development", "Greece",
+  "Kotlin", "Unity" for the services. A landing page's h1 (for screen readers and search, under the painted logo) is its
+  `hero.title`, what the product is in those words. Wiki entries take theirs from their wiki.json's `entryTitles`
+  (the first that fits in 60 characters, with the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"),
+  and a short description ends with its `entryTail`.
+- **Link previews:** every page has og:title, og:description, og:image (with its size and alt) and a large Twitter
+  card. A wiki entry shows its own painting (its 1280 px JPEG), a wiki index its own when it is one of the paintings.
+- **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
+  data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
+  same title or the same description. The canonical address is checked on every page.
 - **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: legal name,
   logo, G.E.MI. and VAT numbers, Kalamaria, the Google Play developer page and GitHub) and the WebSite. Exitwise's page
   has a VideoGame, Speedometer's a MobileApplication, the services page a Service for each thing we build, and every
   other page a BreadcrumbList. The wikis get theirs from `tools/build-wiki.mjs`, with each wiki's `metaTitle`,
-  `metaDescription` and `product.parent` from its `wiki.json`. check-site fails on a block that isn't valid JSON. Try a
-  page in Google's Rich Results Test after changing its structured data.
-- **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
-  canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
-  date. `robots.txt` points to it.
+  `metaDescription` and `product.parent` from its `wiki.json`, and each entry is also an Article about its product (the
+  `@id` its landing page gives the game or app). No aggregate ratings anywhere: the only ratings are Google Play's, which
+  Google doesn't allow on our own pages. check-site fails on a block that isn't valid JSON. Try a page in Google's Rich
+  Results Test after changing its structured data.
+- **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page, and after pages change.
+  It lists every page's canonical URL, except pages marked `noindex` (the 404 and room invite pages), each with its
+  `<lastmod>`: the date of the last commit that changed the page, or today while it has uncommitted changes. check-site
+  fails while a page is missing or extra, or has no date, but doesn't check the dates (the Deployer's What's new
+  rewrites a landing page without the sitemap; it catches up on the next run), and when a listed address is no page,
+  is noindex, or isn't its page's own canonical. `robots.txt` points to it.
+- **Search Console's 404s that stay:** `/assets/startup/` and `/speedometer-wallpaper/img/key-art-tall` are not links
+  but the try page's start-up settings (the start-up's folder, and the key art's name before its width), which Google
+  reads as addresses. Nothing belongs there, so they stay 404, which doesn't hurt the site. Same for the hub's
+  `/hub/boards/?b=…` under "Alternative page with proper canonical tag": a board picked in the address, whose canonical
+  is `/hub/boards/` on purpose.
 - **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
   `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
   its verification. The sitemap is submitted there under Sitemaps.
