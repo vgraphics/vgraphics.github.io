@@ -862,6 +862,20 @@ else {
   for (const [, u] of have.matchAll(/<url><loc>([^<]*)<\/loc>(?!<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod><\/url>)/g)) {
     report('sitemap.xml', 'sitemap', `${u} has no <lastmod> date: run node tools/build-sitemap.mjs`)
   }
+  // Each address listed is a page that exists, may be indexed, and names that very address as its canonical (no
+  // other form of it: with or without the trailing slash or .html), so Google never finds a listed page pointing away.
+  for (const u of h) {
+    const path = u.startsWith('https://vgraphics.gr/') ? decodeURIComponent(u.slice('https://vgraphics.gr'.length)) : null
+    const file = path && join(root, path.endsWith('/') ? join(path, 'index.html') : path)
+    if (!file || !existsSync(file) || !statSync(file).isFile()) {
+      report('sitemap.xml', 'sitemap', `lists ${u}, which is no page on vgraphics.gr${file && existsSync(file) ? ' (a folder: its page ends with /)' : ''}`)
+      continue
+    }
+    const html = readFileSync(file, 'utf8')
+    const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
+    if (canonical !== u) report('sitemap.xml', 'sitemap', `lists ${u}, whose canonical is ${canonical ?? 'missing'}`)
+    if (/<meta name="robots" content="[^"]*noindex/i.test(html)) report('sitemap.xml', 'sitemap', `lists ${u}, which is noindex`)
+  }
 }
 const robots = join(root, 'robots.txt')
 if (!existsSync(robots)) report('robots.txt', 'robots', 'missing')
