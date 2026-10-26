@@ -41,18 +41,54 @@
     update();
   }
 
+  // One recording at a time, for the quotes' buttons and the role cards' voices: a button plays its recording and stops
+  // it again, the soundtrack stops while it speaks and stops it in turn, and the button's --played (0 to 1) follows it
+  // for a ring. Nothing loads until a button is pressed.
+  let voice = null, on = null, tick = 0;
+  const hush = () => {
+    voice?.pause();
+    cancelAnimationFrame(tick);
+    on?.setAttribute("aria-pressed", "false");
+    on?.style.removeProperty("--played");
+    on = null;
+  };
+  const speak = (b, src) => {
+    if (on === b) return hush();
+    hush();
+    if (!voice) {
+      voice = new Audio();
+      voice.preload = "none";
+      voice.addEventListener("ended", hush);
+      voice.addEventListener("error", hush);
+      document.addEventListener("play", (e) => e.target !== voice && hush(), true);
+    }
+    document.querySelectorAll(".ost audio").forEach((a) => a.pause());
+    voice.src = src;
+    voice.play().catch(() => on === b && hush()); // a play cut short by the next one leaves the next one alone
+    on = b;
+    b.setAttribute("aria-pressed", "true");
+    const follow = () => {
+      if (voice.duration) b.style.setProperty("--played", (voice.currentTime / voice.duration).toFixed(3));
+      tick = requestAnimationFrame(follow);
+    };
+    follow();
+  };
+
   // A card with a back (cards item "back"; Palermo's role cards): a click grows it to a full-screen view, flying from
   // its place; a click on it there turns it over to its back, and again to its front; a click outside it, Escape or
-  // the close button flies it home (no flight with reduced motion). George, 24 Oct 2026.
+  // the close button flies it home (no flight with reduced motion). George, 24 Oct 2026. A card with a recording (cards
+  // item "voice") gets a play button under it there, with a ring that fills as it speaks and the line as a caption; it
+  // stops when the view closes (George, 26 Oct 2026: "add a play button to listen to his voice").
   const openers = [...document.querySelectorAll(".card")].filter((c) => c.querySelector(":scope > template.card-back"));
   if (openers.length) {
     const view = document.createElement("div");
     view.className = "card-view";
     view.hidden = true;
-    view.innerHTML = '<div class="card-view-shade"></div><div class="card-view-fly"><div class="card-view-turn" role="dialog" aria-modal="true" tabindex="-1"><div class="card-face card-front"></div><div class="card-face card-back"></div></div></div><p class="card-view-hint">Tap the card to turn it over. Tap outside it to close.</p><button class="card-view-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
+    view.innerHTML = '<div class="card-view-shade"></div><div class="card-view-fly"><div class="card-view-turn" role="dialog" aria-modal="true" tabindex="-1"><div class="card-face card-front"></div><div class="card-face card-back"></div></div></div><div class="card-view-voice" hidden><button class="quote-play card-view-play" type="button" aria-pressed="false"><svg class="ring" viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23"/><circle class="played" cx="24" cy="24" r="23"/></svg><svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg></button><p class="card-view-line"><span class="card-view-said"></span><span class="card-view-by"></span></p></div><p class="card-view-hint">Tap the card to turn it over. Tap outside it to close.</p><button class="card-view-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>';
     document.body.append(view);
     const fly = view.querySelector(".card-view-fly"), turn = view.querySelector(".card-view-turn"), shade = view.querySelector(".card-view-shade");
     const front = view.querySelector(".card-front"), backFace = view.querySelector(".card-back"), closeBtn = view.querySelector(".card-view-close");
+    const bar = view.querySelector(".card-view-voice"), play = view.querySelector(".card-view-play");
     const calm = matchMedia("(prefers-reduced-motion: reduce)");
     let from = null;
     // The transform that puts the view's card exactly over the card on the page
@@ -67,6 +103,14 @@
       backFace.replaceChildren(card.querySelector("h3").cloneNode(true), card.querySelector(":scope > template.card-back").content.cloneNode(true));
       turn.classList.remove("turned");
       turn.setAttribute("aria-label", card.querySelector("h3").textContent);
+      const v = card.dataset;
+      bar.hidden = !v.voice;
+      view.classList.toggle("has-voice", Boolean(v.voice));
+      if (v.voice) {
+        bar.querySelector(".card-view-said").textContent = `“${v.voiceLine}”`;
+        bar.querySelector(".card-view-by").textContent = v.voiceBy;
+        play.setAttribute("aria-label", v.voiceLabel);
+      }
       view.hidden = false;
       document.documentElement.classList.add("card-open");
       turn.focus({ preventScroll: true });
@@ -76,6 +120,7 @@
     };
     const close = async () => {
       if (view.hidden) return;
+      if (on === play) hush();
       if (!calm.matches && from) {
         shade.animate([{ opacity: 1 }, { opacity: 0 }], { duration: 340, easing: "ease-in", fill: "forwards" });
         turn.classList.remove("turned");
@@ -96,14 +141,15 @@
     }
     turn.addEventListener("click", (e) => { if (!e.target.closest("a")) turn.classList.toggle("turned"); });
     turn.addEventListener("keydown", (e) => { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); turn.classList.toggle("turned"); } });
-    view.addEventListener("click", (e) => { if (!e.target.closest(".card-view-turn")) close(); });
+    view.addEventListener("click", (e) => { if (!e.target.closest(".card-view-turn, .card-view-voice")) close(); });
+    play.addEventListener("click", () => speak(play, from.dataset.voice));
     closeBtn.addEventListener("click", close);
     addEventListener("keydown", (e) => {
       if (view.hidden) return;
       if (e.key === "Escape") close();
-      // Keep the keyboard inside the view: the card, its back's link, the close button
+      // Keep the keyboard inside the view: the card, its back's link, the play button, the close button
       if (e.key === "Tab") {
-        const stops = [turn, ...turn.querySelectorAll(".card-back a"), closeBtn];
+        const stops = [turn, ...turn.querySelectorAll(".card-back a"), ...(bar.hidden ? [] : [play]), closeBtn];
         const i = stops.indexOf(document.activeElement);
         e.preventDefault();
         stops[(i + (e.shiftKey ? stops.length - 1 : 1)) % stops.length].focus();
@@ -218,32 +264,8 @@
     });
   }
 
-  // A quote's recording (build-pages.mjs, quote "audio"): its button plays it and stops it again. It stops the
-  // soundtrack while it speaks, and the soundtrack stops it; nothing loads until a button is pressed.
-  const voices = [...document.querySelectorAll(".quote-play")];
-  if (voices.length) {
-    const voice = new Audio();
-    let on = null;
-    const stop = () => {
-      voice.pause();
-      on?.setAttribute("aria-pressed", "false");
-      on = null;
-    };
-    voice.addEventListener("ended", stop);
-    voice.addEventListener("error", stop);
-    for (const b of voices) {
-      b.addEventListener("click", () => {
-        if (on === b) return stop();
-        stop();
-        document.querySelectorAll(".ost audio").forEach((a) => a.pause());
-        voice.src = b.dataset.voice;
-        voice.play().catch(stop);
-        on = b;
-        b.setAttribute("aria-pressed", "true");
-      });
-    }
-    document.addEventListener("play", (e) => e.target !== voice && stop(), true);
-  }
+  // A quote's recording (build-pages.mjs, quote "audio"): its button plays it and stops it again, on the one player above
+  for (const b of document.querySelectorAll(".quote-play[data-voice]")) b.addEventListener("click", () => speak(b, b.dataset.voice));
 
   // A footer scene's weather (tools/lib/partials.mjs, footerScene "weather"): one of its kinds at random on each visit,
   // drifting clouds, rain or leaves on the wind; none with reduced motion.

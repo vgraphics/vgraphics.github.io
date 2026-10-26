@@ -192,10 +192,13 @@ const BLOCKS = {
     // A card's back (cards item "back": HTML, "facts": [[label, value]], "href": its page): kept in a <template>, which
     // assets/product.js turns the card over to in its full-screen view; without JavaScript it stays unseen.
     const back = (c) => (c.back ? `<template class="card-back">${c.facts ? `<dl>${c.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}${c.back}${c.href ? `<a class="card-more" href="${esc(c.href)}">${c.more ?? 'Read more'} →</a>` : ''}</template>` : '')
+    // A card's recording (cards item "voice": { src, line, by, label }): its full-screen view plays it, with the line
+    // as a caption (assets/product.js); nothing loads until it's played
+    const voice = (c) => (c.voice ? ` data-voice="${esc(c.voice.src)}" data-voice-line="${esc(c.voice.line)}" data-voice-by="${esc(c.voice.by)}" data-voice-label="${esc(c.voice.label)}"` : '')
     const card = {
       // An icon from the product's folder, set in the page so it needs no request, beside the words; the card links.
       icon: (c) => `<li class="card"><a href="${esc(c.href)}"><span class="pic">${readFileSync(join(root, slug, c.icon), 'utf8').trim().replace('<svg', '<svg aria-hidden="true"')}</span><span>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p></span></a></li>`,
-      media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}${back(c)}</li>`,
+      media: (c) => `<li class="card"${voice(c)}>${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}${back(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
       // A small picture card in a dense grid (a product's styles): the whole card links, when it has an href.
       tile: (c) => {

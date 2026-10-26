@@ -610,6 +610,20 @@ html.card-open { overflow: hidden; }
   width: 48px; height: 48px; padding: 0; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface); color: var(--accent); cursor: pointer;
 }
 .card-view-close svg { width: 22px; height: 22px; }
+/* A card's recording under it (cards item "voice"): the quotes' play button with a ring that fills as it speaks, and
+   the line beside it; the card shrinks to leave it room */
+.card-view.has-voice .card-view-fly { width: min(88vw, 470px, calc((100vh - 210px) * 0.6)); }
+.card-view-voice { position: relative; display: flex; align-items: center; gap: 16px; width: min(88vw, 470px); }
+.card-view-voice[hidden] { display: none; }
+.card-view-play.quote-play { flex: none; width: 48px; height: 48px; margin: 0 0 0 5px; font-size: 1rem; }
+.card-view-play.quote-play[aria-pressed="true"] { box-shadow: none; }
+.card-view-play .ring { position: absolute; inset: -6px; width: 60px; height: 60px; fill: none; stroke: var(--accent); stroke-width: 1.6; transform: rotate(-90deg); opacity: 0; transition: opacity 200ms ease-out; }
+.card-view-play .ring circle:first-child { opacity: 0.3; }
+.card-view-play .ring .played { stroke-dasharray: 144.5; stroke-dashoffset: calc(144.5 * (1 - var(--played, 0))); }
+.card-view-play[aria-pressed="true"] .ring { opacity: 1; }
+.card-view-line { display: grid; gap: 4px; min-width: 0; margin: 0; text-align: left; }
+.card-view-said { color: var(--ink); font: italic 400 1.02rem/1.4 var(--font-body); text-wrap: pretty; }
+.card-view-by { color: var(--accent); font: var(--label-weight) 0.74rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; }
 @media (prefers-reduced-motion: reduce) { .card-view-turn { transition: none; } .cards.deck .card { transition: none; } }
 .cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
 @media (max-width: 560px) {
