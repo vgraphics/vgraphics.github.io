@@ -137,7 +137,7 @@ SPEEDOMETER = {
     # The slides' frames and the floating dials, from img/: the gallery's own renders (img/renders/, written by
     # tools/make-speedometer-renders.py), none of them shown anywhere else on the site (George, 26 Oct 2026: "Each art
     # must be used only once!!"), and CPU mode's frame, which only the gallery shows.
-    "shots": ["shot-cpu", "renders/classic-mph", "renders/amber-night-119kmh", "renders/carbon-power", "renders/torque-71kmh",
+    "shots": ["shot-cpu", "renders/prism-119kmh", "renders/amber-night-119kmh", "renders/carbon-power", "renders/torque-71kmh",
               "renders/vintage-pair-power", "renders/track-night-power", "renders/glass-49kmh"],
     "dials": ["renders/dial-classic-17kmh", "renders/dial-vintage-power", "renders/dial-future-49kmh"],
     # The styles' own renders: logic_render's wallpaper goldens (TopScrimRendererTest, the S25+'s 1080x2340 screen),
