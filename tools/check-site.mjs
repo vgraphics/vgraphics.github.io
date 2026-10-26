@@ -12,7 +12,7 @@ import { hotspot } from './lib/cursors.mjs'
 import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
-import { readNews } from './lib/news.mjs'
+import { emptyProblems, readNews } from './lib/news.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -318,6 +318,7 @@ for (const slug of products()) {
   for (const b of sections.flatMap((s) => s.blocks ?? [])) {
     if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
     if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
+    if (b.type === 'news') for (const m of emptyProblems(b.empty)) report(file, 'faq-news', m)
   }
 }
 

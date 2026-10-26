@@ -157,8 +157,11 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   market-design.md` §7): a headline and at most three short lines, one entry per production release, a web-only one
   only when it changes what visitors can do. The newest stands open in a card; the ones before it are rows beside it
   that each open their lines, at most three and a half showing, the rest scrolling in the list's own box with fading
-  edges and the product's scrollbar. A product not out yet has `"entries": []`, and the block shows its `empty` words
-  (or the default line) until its first release.
+  edges and the product's scrollbar. A product not out yet has `"entries": []`, and until its first release the newest
+  release's card holds its place (George, 26 Oct 2026: "Design the empty view better please."): a calendar emblem in
+  the product's colour, a title, a line and an optional link. The block's `empty` is that line, or
+  `{ "title": "Coming soon", "text": "…", "link": { "href": "/palermo/play/", "label": "Try it online" } }` (each
+  optional: the title defaults to "Coming soon", the line to the default one, and with no link there is none).
 - **The Deployer writes the changelog:** every release players get (a Play build that reaches production, a promotion,
   a web build) adds its notes, the same player-facing lines Google Play shows, with the day and where it shipped, then
   runs `tools/build-pages.mjs <product>` and this check, and pushes (`src/projects/siteNews.ts` in the Deployer). A web
@@ -178,9 +181,9 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   script, the plain rows. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.
 - check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
-  and a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and
-  the check says why). Every served page with questions and answers loads `/assets/menu.js` (or `faq.js` itself), and
-  menu.js loads `faq.js`.
+  a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and the
+  check says why), and a news block's `empty` that is a line or `{ title, text, link }`. Every served page with
+  questions and answers loads `/assets/menu.js` (or `faq.js` itself), and menu.js loads `faq.js`.
 
 ## Search engines
 
