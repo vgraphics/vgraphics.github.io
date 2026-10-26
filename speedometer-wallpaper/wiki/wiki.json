@@ -2,7 +2,9 @@
   "product": {"name":"Speedometer Live Wallpaper","slug":"speedometer-wallpaper","home":"/speedometer-wallpaper/","icon":"/speedometer-wallpaper/img/icon.png","logo":"/img/vgraphics-logo-light.png","image":"/speedometer-wallpaper/img/card.jpg","parent":{"name":"Apps","href":"/apps/"}},
   "title": "Speedometer wiki",
   "intro": "Every gauge, light, style and setting on your dashboard: what it shows, and how to set it up.",
-  "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and setting",
+  "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and style",
+  "entryTitles": ["{name} ({kind}) · Speedometer Live Wallpaper wiki", "{name} · Speedometer Live Wallpaper wiki", "{name} · Speedometer wallpaper wiki"],
+  "entryTail": "In Speedometer Live Wallpaper, the car dashboard wallpaper for Android.",
   "metaDescription": "Every gauge, warning light, style and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
   "source": "Written from the app's screens and strings, version 2.0.4 with 19 styles (Games main bb6ac7d4, 26 Oct 2026), after the 2.0.0 text of 17 Oct (Games main 39aa208).",
   "art": {"wiki": "index", "alt": "Three phones on a car's dashboard at night showing the Classic, Amber Night and Future designs, with rain and city lights on the windscreen", "position": "50% 40%", "placeholder": "linear-gradient(#0B121A, #040508)"},
@@ -13,7 +15,7 @@
   ],
   "sections": [
     {"id":"big","title":"The big gauge","intro":"The dial in the middle. It shows one of three things; pick it in the style's settings (Customize), tap it on your home screen, or use the Big gauge tile."},
-    {"id":"gauges","title":"Small gauges","intro":"The four dials around it, and the little temperature dial."},
+    {"id":"gauges","title":"Small gauges","kind":"gauge","intro":"The four dials around it, and the little temperature dial."},
     {"id":"lights","title":"Warning lights","intro":"Lights on the big gauge and the small gauges. Each warning light can be switched off in Customize → Warning lamps."},
     {"id":"setup","title":"Clock, settings & help","intro":"The digital clock, every setting, and answers to common questions."},
     {"id":"designs","title":"Styles","intro":"19 styles. Classic, Steel and Graphite are free; every other style is a one-time purchase, or unlock them all at once. Pick one on the Styles screen."}

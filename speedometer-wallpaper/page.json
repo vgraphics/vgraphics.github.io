@@ -1,5 +1,5 @@
 {
-  "title": "Speedometer Live Wallpaper for Android: GPS Speed Dashboard",
+  "title": "Speedometer Live Wallpaper: GPS Car Dashboard for Android",
   "description": "Turn your Android home screen into a car dashboard: 19 live wallpaper styles with real gauges for GPS speed, battery watts, CPU, RAM, signal and Wi-Fi.",
   "social": {
     "title": "Speedometer Live Wallpaper",
@@ -110,6 +110,7 @@
     "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
   },
   "hero": {
+    "title": "Speedometer Live Wallpaper: a car dashboard for your Android phone",
     "lead": "Your phone, as a <em>car dashboard.</em>",
     "align": "left",
     "badges": [

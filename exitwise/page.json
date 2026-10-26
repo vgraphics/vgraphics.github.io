@@ -1,6 +1,6 @@
 {
-  "title": "Exitwise: Arrow Escape Puzzle Game, Free on Android and Web",
-  "description": "Tap an arrow and it slides off the board, if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds. Play on Android or online.",
+  "title": "Exitwise: Free Arrow Puzzle Game, Online and on Android",
+  "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online or on Android.",
   "social": {
     "title": "Exitwise: Arrow Escape Puzzle",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
@@ -77,6 +77,7 @@
   },
   "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
   "hero": {
+    "title": "Exitwise: the arrow escape puzzle game",
     "lead": "Arrow Escape Puzzle",
     "align": "center",
     "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
@@ -92,7 +93,7 @@
   "intro": {
     "id": "try",
     "title": "Try the arrow puzzle right here",
-    "lede": "Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.",
+    "lede": "A free arrow puzzle game: tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 logic puzzles in 17 worlds.",
     "demo": "demo/board",
     "caption": "Tap an arrow whose path to the edge is clear.",
     "stage": {

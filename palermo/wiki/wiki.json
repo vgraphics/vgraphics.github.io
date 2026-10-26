@@ -23,6 +23,8 @@
  },
  "metaTitle": "Palermo Noir wiki: every role and rule of the mafia party game",
  "metaDescription": "Every role in Palermo Noir, the hidden-role mafia party game for phones and a TV: the killers, the Police Officer, the Doctor, the Lawyer's cards and the rules.",
+ "entryTitles": ["{name} ({kind}) · Palermo Noir mafia party game wiki", "{name} · Palermo Noir mafia party game wiki", "{name} · Palermo Noir mafia game wiki"],
+ "entryTail": "In Palermo Noir, the mafia party game for phones and a TV.",
  "source": "Written from the game's own texts (Palermo repo, assets/messages/en.json, engine/roles.ts, engine/rules.ts and engine/flow.ts at 2e16c55, 24 Oct 2026) and VHub's docs/party/palermo-design.md and design-pass/art/round-2-plan.md.",
  "whatTitle": "What it does",
  "relatedTitle": "See also",
@@ -46,11 +48,13 @@
   {
    "id": "roles",
    "title": "The roles",
+   "kind": "role",
    "intro": "Every card a player can be dealt. The classic roles are in every game; the extras unlock as a host plays, or all at once for groups who know Palermo. None of them costs anything."
   },
   {
    "id": "powers",
    "title": "The Lawyer's briefcase",
+   "kind": "Lawyer's card",
    "intro": "At the deal the Lawyer is dealt 5 of these 17 power cards at random and keeps 2. Each works once, at its own moment. The contract is a host variant that makes him Solo."
   },
   {

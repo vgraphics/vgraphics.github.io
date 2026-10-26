@@ -273,19 +273,33 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 
 ## Search engines
 
-- **Titles and descriptions:** each page has its own `<title>` of about 60 characters and a meta description of about
-  155, with the words people search for: "arrow puzzle game", "logic puzzle", "free puzzle game" for Exitwise,
-  "speedometer live wallpaper", "GPS speedometer", "car dashboard" for Speedometer, and "app development Greece",
-  "game development", "Kotlin", "Unity" for the services.
+- **Titles and descriptions:** each page has its own `<title>` of about 60 characters, the main search words first,
+  and a meta description of about 155, with the words people search for (Google's suggestions, 27 Oct 2026): "arrow
+  puzzle game", "online", "free", "logic puzzle", "arrow escape" for Exitwise; "mafia party game", "hidden role",
+  "mafia game roles and rules" for Palermo Noir (in Greece the game itself is called Palermo); "speedometer live
+  wallpaper", "car dashboard", "GPS speedometer" for Speedometer; "app development", "game development", "Greece",
+  "Kotlin", "Unity" for the services. A landing page's h1 (for screen readers and search, under the painted logo) is its
+  `hero.title`, what the product is in those words. Wiki entries take theirs from their wiki.json's `entryTitles`
+  (the first that fits in 60 characters, with the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"),
+  and a short description ends with its `entryTail`.
+- **Link previews:** every page has og:title, og:description, og:image (with its size and alt) and a large Twitter
+  card. A wiki entry shows its own painting (its 1280 px JPEG), a wiki index its own when it is one of the paintings.
+- **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
+  data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
+  same title or the same description. The canonical address is checked on every page.
 - **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: legal name,
   logo, G.E.MI. and VAT numbers, Kalamaria, the Google Play developer page and GitHub) and the WebSite. Exitwise's page
   has a VideoGame, Speedometer's a MobileApplication, the services page a Service for each thing we build, and every
   other page a BreadcrumbList. The wikis get theirs from `tools/build-wiki.mjs`, with each wiki's `metaTitle`,
-  `metaDescription` and `product.parent` from its `wiki.json`. check-site fails on a block that isn't valid JSON. Try a
-  page in Google's Rich Results Test after changing its structured data.
-- **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
-  canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
-  date. `robots.txt` points to it.
+  `metaDescription` and `product.parent` from its `wiki.json`, and each entry is also an Article about its product (the
+  `@id` its landing page gives the game or app). No aggregate ratings anywhere: the only ratings are Google Play's, which
+  Google doesn't allow on our own pages. check-site fails on a block that isn't valid JSON. Try a page in Google's Rich
+  Results Test after changing its structured data.
+- **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page, and after pages change.
+  It lists every page's canonical URL, except pages marked `noindex` (the 404 and room invite pages), each with its
+  `<lastmod>`: the date of the last commit that changed the page, or today while it has uncommitted changes. check-site
+  fails while a page is missing or extra, or has no date, but doesn't check the dates (the Deployer's What's new
+  rewrites a landing page without the sitemap; it catches up on the next run). `robots.txt` points to it.
 - **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
   `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
   its verification. The sitemap is submitted there under Sitemaps.
