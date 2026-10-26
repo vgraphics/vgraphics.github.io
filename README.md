@@ -148,10 +148,14 @@ with a `faq` block (Exitwise's and Speedometer's sit after the features, just be
 with titles, each is a chapter with its heading's link and a bullet on the stepper.
 
 - **What's new** (`tools/lib/news.mjs`) reads `<product>/changelog.json`: `{ "entries": [...] }`, newest first, each
-  `{ version, date (YYYY-MM-DD), platforms (["Android", "Web"]), items (plain lines for players), commit }`. The newest
-  stands open in a card; the ones before it are rows beside it that each open their lines, at most three and a half
-  showing, the rest scrolling in the list's own box with fading edges and the product's scrollbar. A product not out
-  yet has `"entries": []`, and the block shows its `empty` words (or the default line) until its first release.
+  `{ version, date (YYYY-MM-DD), platforms (["Android", "Web"]), items (plain lines for players), commit }`, and, written
+  by hand, `title` (a one-line headline, shown in place of "Version …") and `link` (`{ href, label }`, under the lines).
+  Speedometer's entries read as its web market design asks (Games `docs/superpowers/specs/2026-10-26-speedometer-web-
+  market-design.md` §7): a headline and at most three short lines, one entry per production release, a web-only one
+  only when it changes what visitors can do. The newest stands open in a card; the ones before it are rows beside it
+  that each open their lines, at most three and a half showing, the rest scrolling in the list's own box with fading
+  edges and the product's scrollbar. A product not out yet has `"entries": []`, and the block shows its `empty` words
+  (or the default line) until its first release.
 - **The Deployer writes the changelog:** every release players get (a Play build that reaches production, a promotion,
   a web build) adds its notes, the same player-facing lines Google Play shows, with the day and where it shipped, then
   runs `tools/build-pages.mjs <product>` and this check, and pushes (`src/projects/siteNews.ts` in the Deployer). A web
