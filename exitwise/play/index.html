@@ -40,10 +40,21 @@
       /* The game's font for the loading screen, from the site's Exitwise pages (a local build shows a stand-in). */
       @font-face { font-family: "Lilita One"; font-display: block; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); }
       :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
-              --ad: 0px; }
+              --ad: 0px; --violet: #32044F; }
       html.with-banner { --ad: 58px; }
       html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink);
                    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      /* No selecting, no long-press menu and no dragging pictures on the page: the loader, the footer, the sign-in card
+         and the storybook reader (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page. Global
+         rule. Selected highlighted text must have color of app or game."); the script below blocks the right-click menu.
+         The fields people type in, and the copy buttons' hidden text box, keep both, so paste and copying work; what's
+         selected there shows in Exitwise's deep violet (the logo's stroke, the site's --scrollbar for Exitwise). */
+      html { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      img { -webkit-user-drag: none; }
+      input, textarea, [contenteditable]:not([contenteditable="false"]) {
+        -webkit-user-select: text; user-select: text; -webkit-touch-callout: default;
+      }
+      ::selection { background: var(--violet); color: var(--card); }
       /* The game fills the window's whole width, as in the CrazyGames build (WebGLTemplates/Responsive): it keeps its own
          buttons in a centred column on wide windows and gives the board the rest. Only the footer and the banner strip
          are under it, and nothing beside it. */
@@ -160,6 +171,20 @@
       /* Wide windows: the card waits in the bottom right corner, beside the loading bar rather than over it. */
       @media (min-width: 900px) { #consent { justify-content: flex-end; } }
     </style>
+    <script>
+      // No right-click menu (nor Android's long-press one) outside the fields people type in, from the first frame, and
+      // no dragging pictures in Firefox, which ignores -webkit-user-drag (George, 26 Oct 2026: "Dont allow text
+      // selection and right clicking in any page.").
+      (function () {
+        var FIELDS = 'input, textarea, [contenteditable]:not([contenteditable="false"])';
+        document.addEventListener("contextmenu", function (e) {
+          if (!(e.target.closest && e.target.closest(FIELDS))) e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target.tagName === "IMG") e.preventDefault();
+        });
+      })();
+    </script>
     <!-- The ad switch of every VGraphics web game: the site's /assets/web-ads.js (window.VGRAPHICS_WEB_ADS), read before
          the page decides about ads. A local build has no such file, so it shows no ads, as before. -->
     <script src="/assets/web-ads.js"></script>
@@ -708,7 +733,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.f4f96dbf",
+        productVersion: "1.0.a428d155",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
