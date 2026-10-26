@@ -549,11 +549,15 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 /* The full-screen view: the card large in the middle over a dimmed page, turning over to its back on a click */
 html.card-open { overflow: hidden; }
 
-/* An album: pictures in a grid, each opening in the lightbox (build-pages.mjs, album; assets/product.js) */
+/* An album: pictures in a grid, each opening in the lightbox (build-pages.mjs, album; assets/product.js). Every tile
+   has its album's one frame, 16:9 (5:7 for a portrait album, a card's shape), the picture filling it from its focal
+   point (an item's "position"), so the rows line up and the captions sit on one line (George, 26 Oct 2026: "All items
+   must have same height here."); the lightbox shows the whole picture. */
 .album { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px 22px; margin: 0; padding: 0; list-style: none; }
 .album.portrait { grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 22px 18px; }
-.album-item { display: grid; gap: 10px; width: 100%; padding: 0; border: 0; background: none; color: var(--ink); font: 700 0.95rem/1.3 var(--font-body); text-align: center; cursor: zoom-in; }
-.album-item img { width: 100%; border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: var(--radius-sm); box-shadow: var(--card-shadow); transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out; }
+.album-item { display: grid; align-content: start; gap: 10px; width: 100%; padding: 0; border: 0; background: none; color: var(--ink); font: 700 0.95rem/1.3 var(--font-body); text-align: center; cursor: zoom-in; }
+.album-item img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: var(--at, 50% 50%); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: var(--radius-sm); box-shadow: var(--card-shadow); transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out; }
+.album.portrait .album-item img { aspect-ratio: 5 / 7; }
 .album-item:hover img, .album-item:focus-visible img { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--card-lift); }
 .lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 60px 76px 64px; background: color-mix(in srgb, var(--page) 94%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
 .lightbox[hidden] { display: none; }
