@@ -14,7 +14,6 @@ body {
   background-image: var(--page-pattern);
   background-size: var(--page-pattern-size);
   background-position: var(--page-pattern-position, 0 0); /* optional */
-  background-repeat: var(--page-pattern-repeat, repeat); /* optional: a picture laid once, as Palermo's, says no-repeat */
 }
 /* The ornaments reach past the screen's edges; clip, unlike hidden, makes no scroll box, so sticky pieces still stick. */
 main { overflow-x: clip; }
@@ -189,10 +188,7 @@ h1, h2, h3 {
    subject. The foot fades out into the page, and the lead line and store badges stand in its last fifth. The painted
    title stands in for the h1, which stays for screen readers and search. Per-picture settings come from page.json:
    --art-at (the crop's anchor), --art-fade and --art-fade-tall (where the fade starts). */
-/* --hero-h names the box's height once, so a theme can measure from it (Palermo's page picture starts below it) */
-:root { --hero-h: min(62.5vw, 100vh); }
-@supports (height: 100svh) { :root { --hero-h: min(62.5vw, 100svh); } }
-.key-art { position: relative; height: var(--hero-h); }
+.key-art { position: relative; height: min(62.5vw, 100vh); height: min(62.5vw, 100svh); }
 .key-art picture, .key-art picture img { display: block; width: 100%; height: 100%; }
 .key-art picture img {
   object-fit: cover;
@@ -227,7 +223,7 @@ h1, h2, h3 {
 }
 .lead em { font-style: inherit; color: var(--lead-em); }
 @media (max-aspect-ratio: 4/5) {
-  :root { --hero-h: 177.78vw; }
+  .key-art { height: 177.78vw; }
   .key-art picture img {
     object-position: 50% 0;
     -webkit-mask-image: linear-gradient(#000 var(--art-fade-tall, 62%), transparent);
@@ -347,7 +343,7 @@ h1, h2, h3 {
 .sec > .wrap > :not(.sec-head, .more) + :not(.more),
 .sec:not(.intro) .scene > :not(.scene-art) + * { margin-top: var(--block-gap, clamp(28px, 4vw, 44px)); }
 .eyebrow { font: var(--label-weight) 0.95rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); }
-.sec h2 { font-size: var(--h2-size); }
+.sec h2 { font-size: var(--h2-size); text-wrap: balance; } /* a title on two lines splits evenly, never one word left over */
 .sec-intro { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
 /* A heading's link to itself: muted, shown on hover or focus (always on touch screens), in the heading's line. */
 .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--muted); opacity: 0; transition: opacity 150ms ease-out; }
@@ -919,22 +915,27 @@ html.card-open { overflow: hidden; }
 .band .link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
 /* A section's art (page.json section "art"): the picture full-bleed across the section's top, a scrim fading its foot
    into the page, and the section's heading starting inside the picture's last 30%, so the art opens the section and
-   the section carries on below it. */
-:root { --sec-art-h: clamp(260px, 56.25vw, 82vh); }
+   the section carries on below it. A phone sees the picture's whole width (16:9 boxes, never cut at the sides); a
+   wide, short screen gets a box no wider than 2.2 times its height, so a 16:9 picture loses at most a fifth of its
+   height and its people stay above the heading (George, 26 Oct 2026: "only a part of the moon is showing which is a
+   bad result"). */
+:root { --sec-art-h: clamp(180px, 56.25vw, 82vh); }
 .sec.has-art { padding-top: 0; }
-.sec-art { position: relative; height: var(--sec-art-h); max-width: var(--sec-art-w, none); margin-inline: auto; overflow: hidden; }
+.sec-art { position: relative; height: var(--sec-art-h); max-width: min(var(--sec-art-w, 100%), var(--sec-art-h) * 2.2); margin-inline: auto; overflow: hidden; }
 .sec-art picture, .sec-art img { display: block; width: 100%; height: 100%; }
-/* The picture's top and foot fade to nothing, so the page's own ground (its pattern too) runs on through them */
+/* The picture's top and foot fade to nothing, so the page's own ground (its pattern too) runs on through them. A
+   picture with something near its top edge (a moon) sets a shorter top fade (page.json art "fade": { "top" }) and is
+   anchored at its top ("position": "50% 0%"), so the fade never cuts it. */
 .sec-art img {
   object-fit: cover; object-position: var(--sec-art-at, 50% 45%);
-  -webkit-mask-image: linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
-  mask-image: linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+  -webkit-mask-image: linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
+  mask-image: linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
 }
-@media (min-width: 1200px) { /* wider than the picture can fill sharply: its sides fade into the page too */
+@media (min-aspect-ratio: 1804/1000) { /* the box stops at 2.2 times its height (82vh), short of the screen's sides: they fade into the page */
   .sec-art img {
-    -webkit-mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
     -webkit-mask-composite: source-in;
-    mask-image: linear-gradient(to right, transparent, #000 9%, #000 91%, transparent), linear-gradient(transparent, #000 14%, #000 52%, transparent 97%);
+    mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
     mask-composite: intersect;
   }
 }

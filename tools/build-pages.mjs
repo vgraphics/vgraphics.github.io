@@ -283,10 +283,10 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
 // A section's art (page.json section "art"): the picture across the top of the section, full-bleed, fading into the
 // page at its foot, where the section's heading starts, inside the art's last 30% (George, 24 Oct 2026: "move art to
 // top of section and add scrim on bottom so title can sit and section continue"). { src, widths, width, height, alt,
-// position? }, as src-<width>.avif and .webp; lazy, so it waits for the scroll. It is never drawn wider than 1.2 times
-// the picture (--sec-art-w), its sides fading into the page on wider screens, so it stays sharp.
+// position?, fade?: { top } }, as src-<width>.avif and .webp; lazy, so it waits for the scroll. It is never drawn wider
+// than 1.2 times the picture (--sec-art-w), so it stays sharp.
 function sectionArt(a) {
-  const style = `--sec-art-w: ${Math.round(a.width * 1.2)}px${a.position ? `; --sec-art-at: ${a.position}` : ''}`
+  const style = `--sec-art-w: ${Math.round(a.width * 1.2)}px${a.position ? `; --sec-art-at: ${a.position}` : ''}${a.fade?.top ? `; --sec-art-fade-top: ${a.fade.top}` : ''}`
   const sizes = `min(100vw, ${Math.round(a.width * 1.2)}px)`
   return `<div class="sec-art" style="${esc(style)}"><picture><source type="image/avif" srcset="${set(a, 'avif', a.widths)}" sizes="${sizes}"><img src="${esc(a.src)}-${a.widths.at(-1)}.webp" srcset="${set(a, 'webp', a.widths)}" sizes="${sizes}" alt="${esc(a.alt)}"${dims(a)} loading="lazy" decoding="async"></picture></div>`
 }

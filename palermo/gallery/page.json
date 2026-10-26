@@ -45,7 +45,7 @@
       "alt": "A man in a trench coat and a fedora stands alone in the long gallery of a Palermo palazzo at night, looking up at gilt-framed portraits under a crystal chandelier, drawn in gold engraved lines on navy",
       "tall": { "src": "img/hero-gallery-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3193 },
       "wide": { "src": "img/hero-gallery-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1426, "sizes": "max(100vw, min(168vw, 269vh))" },
-      "position": "50% 40%",
+      "position": "20% 40%",
       "fade": { "wide": "74%", "tall": "70%" },
       "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
     }

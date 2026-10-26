@@ -68,7 +68,7 @@
       "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440, 2160], "jpeg": [1080], "width": 2160, "height": 3870 },
       "wide": { "src": "img/key-art-wide", "widths": [960, 1280, 1920, 2560, 3840], "jpeg": [960, 1920], "width": 3840, "height": 1629, "sizes": "max(100vw, min(147vw, 236vh))" },
-      "position": "50% 30%",
+      "position": "25% 30%",
       "fade": { "wide": "74%", "tall": "70%" },
       "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
     }
@@ -108,7 +108,7 @@
       "eyebrow": "Chapter 1 · The deal",
       "title": "One phone each, one TV for the room",
       "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
-      "art": { "src": "img/scene-deal", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 40%",
+      "art": { "src": "img/scene-deal", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
         "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy" },
       "figure": { "src": "img/cast/officer", "widths": [260, 520, 1040], "width": 1040, "height": 2711, "side": "right" },
       "blocks": [
@@ -130,7 +130,7 @@
       "eyebrow": "Chapter 2 · The night",
       "title": "The town sleeps, two taps each",
       "intro": "The TV goes dark and the narrator sends the town to sleep. Every phone asks for two taps: your role's move, or who you trust, then who you suspect. So every phone looks the same, and nobody can tell who did what. On the first night the killers only meet each other and the Police Officer learns the Known Killer's face; from the second night the killers choose a victim.",
-      "art": { "src": "img/scene-night", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 50%",
+      "art": { "src": "img/scene-night", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
         "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy" },
       "figure": { "src": "img/cast/known-killer", "widths": [260, 520, 1040], "width": 1040, "height": 2790 },
       "blocks": [
@@ -145,7 +145,7 @@
       "eyebrow": "Chapter 3 · The day",
       "title": "Accuse, argue, vote",
       "intro": "At dawn the narrator tells the town who the killers found, or that the night passed without a murder, and the TV shows the town's rumour: the most suspected name. Then the room argues, and votes someone out of town.",
-      "art": { "src": "img/scene-suspects", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 55%",
+      "art": { "src": "img/scene-suspects", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
         "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles" },
       "figure": { "src": "img/cast/madman", "widths": [260, 520, 1040], "width": 1040, "height": 2607, "side": "right" },
       "blocks": [
@@ -168,7 +168,7 @@
       "eyebrow": "Chapter 4 · The verdict",
       "title": "The truth comes out",
       "intro": "The game ends the moment one side has won: the town when every killer is out, the killers when they match everyone else, the Madman alone if the town votes him out. Then the TV tells the whole story, and everyone stays in the room to play again.",
-      "art": { "src": "img/scene-verdict", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 60%",
+      "art": { "src": "img/scene-verdict", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
         "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set" },
       "figure": { "src": "img/cast/mayor", "widths": [260, 520, 1040], "width": 1040, "height": 2367 },
       "blocks": [
