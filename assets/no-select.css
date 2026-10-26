@@ -1,0 +1,31 @@
+/* No text selection on any page (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page. Global
+   rule. Selected highlighted text must have color of app or game."): the page's words can't be selected, its pictures
+   can't be dragged away, and a long press on a phone opens no menu for a link or a picture. assets/no-select.js links
+   this file on every page (and keeps the right-click menu shut).
+   Text fields people type in are the exception: their words select, and a long press there still offers Paste.
+   What does get selected (a text field's words) is highlighted in the page's own colour: --selection, with its words in
+   --selection-ink. A product's theme pack may set both; otherwise they are its scrollbar's colour (--scrollbar, else
+   its accent) and its page's colour, which read on each other in every pack (tools/lib/theme.mjs checks 4.5:1). The
+   company pages and the hub set theirs in assets/vgraphics.css: the page's own dot and the words that go on it. */
+html {
+  -webkit-user-select: none;
+  user-select: none;
+  -webkit-touch-callout: none;
+}
+img { -webkit-user-drag: none; }
+/* Plain :not()s, which every browser knows: one that dropped this rule would leave the fields untypeable on old iPhones. */
+textarea, [contenteditable]:not([contenteditable="false"]),
+input:not([type="checkbox"]):not([type="radio"]):not([type="range"]):not([type="color"]):not([type="file"]):not([type="submit"]):not([type="reset"]):not([type="button"]):not([type="image"]):not([type="hidden"]) {
+  -webkit-user-select: text;
+  user-select: text;
+  -webkit-touch-callout: default;
+}
+::selection {
+  background: var(--selection, var(--sb, var(--scrollbar, var(--accent, Highlight))));
+  color: var(--selection-ink, var(--page, HighlightText));
+}
+/* The same for older Firefox, in a rule of its own: a browser that doesn't know a selector drops its whole rule. */
+::-moz-selection {
+  background: var(--selection, var(--sb, var(--scrollbar, var(--accent, Highlight))));
+  color: var(--selection-ink, var(--page, HighlightText));
+}

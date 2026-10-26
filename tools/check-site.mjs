@@ -382,6 +382,32 @@ for (const file of served) {
   }
 }
 
+// No text selection and no right-click (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page.
+// Global rule. Selected highlighted text must have color of app or game."), on every page GitHub Pages serves, as the
+// phone menu and the cursors above: each loads /assets/menu.js, which brings /assets/no-select.js, or no-select.js
+// itself. That links /assets/no-select.css, which turns selecting off everywhere but in text fields and colours their
+// selection in the page's own colour, and keeps the right-click menu shut. No other stylesheet, <style> or style=""
+// turns selecting back on.
+const noSelect = (file, message) => report(file, 'no-select', message)
+const NO_SELECT_JS = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>/
+for (const f of ['no-select.js', 'no-select.css']) if (!existsSync(join(root, 'assets', f))) noSelect(join('assets', f), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/no-select.js")')) {
+  noSelect(join('assets', 'menu.js'), 'does not load /assets/no-select.js, which keeps the text of every page with a header from being selected')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
+    noSelect(file, `lets its text be selected and opens the right-click menu: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
+  }
+}
+for (const [file, text] of sheets) {
+  if (file === 'assets/no-select.css') continue
+  for (const [, kind] of text.matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)) {
+    noSelect(file, `sets user-select: ${kind}, which lets text be selected again: only text fields may be (assets/no-select.css)`)
+  }
+}
+
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
 // width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
 // stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that

@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
@@ -144,6 +144,29 @@ focusing a bullet shows the chapter's name.
   so it never takes a tap meant for the page (touch screens 1320px wide or more get 44px bullets that take taps).
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
+
+## No text selection, no right-click
+
+No page lets its text be selected or opens the browser's own menu (George, 26 Oct 2026: "Dont allow text selection and
+right clicking in any page. Global rule. Selected highlighted text must have color of app or game."). Pictures and
+links can't be dragged off the page, and a long press on a phone opens no menu for them.
+
+- `assets/no-select.js` keeps the menu shut (right-click, and the long press on Android) and stops native drags; it
+  links `assets/no-select.css`, which turns selecting off on the whole page, image drags in Safari and Chrome, and the
+  long-press callout on iPhones. `assets/menu.js` loads it on every page with a header, so the template's pages, the
+  hand-made ones and the hub's get it with no line of their own. A page without a header loads it itself:
+  `<script src="/assets/no-select.js" defer></script>` (the Exitwise play page, from the Games repo's
+  `WebGLTemplates/Portfolio/index.html`, and the `/speedometer/` forward).
+- Text fields people type in (`input`, `textarea`, `[contenteditable]`) are the exception: their words select, and they
+  keep their menu, so Paste works. So does an element made to be dragged (`draggable="true"`).
+- What a field selects shows in the page's own colour: `--selection`, with its words in `--selection-ink`. A product's
+  pack may set both (`selection`, `selection-ink`); otherwise they are its scrollbar's colour (`--scrollbar`, else the
+  accent) and its page's (`--page`): Exitwise's deep violet with cream, Speedometer's red with black, Palermo's gold
+  with navy. `tools/lib/theme.mjs` holds the pair to 4.5:1. The company pages and the hub (`assets/vgraphics.css`) use
+  the page's own dot and the words that go on it.
+- check-site holds every served page to this: it loads `/assets/menu.js` or `/assets/no-select.js`, and no stylesheet,
+  `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain` but `assets/no-select.css`. A policy's
+  source (the text alone, kept out of search) is not a page and is left as it comes from its repo.
 
 ## Play button
 
