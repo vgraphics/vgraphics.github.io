@@ -136,7 +136,7 @@
       "blocks": [
         { "type": "quote", "text": "The town is whispering. Which name do you hear?", "by": "The narrator", "audio": "audio/narrator-night.m4a", "listen": "Hear the narrator" },
         { "type": "facts", "items": [{ "value": "2 taps", "label": "on every phone" }, { "value": "45 s", "label": "night timer by default" }, { "value": "Silent", "label": "phones never make a sound" }, { "value": "1 victim", "label": "from the second night" }] },
-        { "type": "chips", "label": "Who acts at night", "items": [{ "title": "Known Killer", "image": { "src": "img/roles/thumb/known-killer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/known-killer/" }, { "title": "Hidden Killer", "image": { "src": "img/roles/thumb/hidden-killer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/hidden-killer/" }, { "title": "Police Officer", "image": { "src": "img/roles/thumb/officer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/police-officer/" }, { "title": "Doctor", "image": { "src": "img/roles/thumb/doctor-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/doctor/" }, { "title": "Detective", "image": { "src": "img/roles/thumb/inspector-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/detective/" }, { "title": "Seer", "image": { "src": "img/roles/thumb/seer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/seer/" }, { "title": "Bulletproof", "image": { "src": "img/roles/thumb/bulletproof-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/bulletproof/" }] },
+        { "type": "chips", "label": "Who acts at night", "items": [{ "title": "Known Killer", "image": { "src": "/palermo/wiki/img/medals/known-killer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/known-killer/" }, { "title": "Hidden Killer", "image": { "src": "/palermo/wiki/img/medals/hidden-killer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/hidden-killer/" }, { "title": "Police Officer", "image": { "src": "/palermo/wiki/img/medals/police-officer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/police-officer/" }, { "title": "Doctor", "image": { "src": "/palermo/wiki/img/medals/doctor.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/doctor/" }, { "title": "Detective", "image": { "src": "/palermo/wiki/img/medals/detective.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/detective/" }, { "title": "Seer", "image": { "src": "/palermo/wiki/img/medals/seer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/seer/" }, { "title": "Bulletproof", "image": { "src": "/palermo/wiki/img/medals/bulletproof.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/bulletproof/" }] },
         { "type": "song", "track": 3, "label": "Play “The Town Sleeps”", "note": "The chapter's music" }
       ]
     },
@@ -159,7 +159,7 @@
             { "value": "1st out", "label": "sees every role", "title": "The night announcer", "text": "From then on they tell the dawns, as Greek groups always did." }
           ]
         },
-        { "type": "chips", "label": "Who acts by day", "items": [{ "title": "Citizen", "image": { "src": "img/roles/thumb/baker-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/citizen/" }, { "title": "Mayor", "image": { "src": "img/roles/thumb/mayor-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/mayor/" }, { "title": "Kamikaze", "image": { "src": "img/roles/thumb/kamikaze-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/kamikaze/" }, { "title": "Lawyer", "image": { "src": "img/roles/thumb/lawyer-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/lawyer/" }] },
+        { "type": "chips", "label": "Who acts by day", "items": [{ "title": "Citizen", "image": { "src": "/palermo/wiki/img/medals/citizen.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/citizen/" }, { "title": "Mayor", "image": { "src": "/palermo/wiki/img/medals/mayor.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/mayor/" }, { "title": "Kamikaze", "image": { "src": "/palermo/wiki/img/medals/kamikaze.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/kamikaze/" }, { "title": "Lawyer", "image": { "src": "/palermo/wiki/img/medals/lawyer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/lawyer/" }] },
         { "type": "song", "track": 4, "label": "Play “Piazza at Noon”", "note": "The chapter's music" }
       ]
     },
@@ -182,7 +182,7 @@
             { "value": "XP", "label": "for every game", "title": "XP and achievements", "text": "Every game counts on your VHub profile, in every VGraphics game." }
           ]
         },
-        { "type": "chips", "label": "Who can change the ending", "items": [{ "title": "Madman", "image": { "src": "img/roles/thumb/madman-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/madman/" }, { "title": "Hunter", "image": { "src": "img/roles/thumb/hunter-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/hunter/" }, { "title": "Henchman", "image": { "src": "img/roles/thumb/henchman-120.webp", "width": 120, "height": 168 }, "href": "/palermo/wiki/henchman/" }] },
+        { "type": "chips", "label": "Who can change the ending", "items": [{ "title": "Madman", "image": { "src": "/palermo/wiki/img/medals/madman.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/madman/" }, { "title": "Hunter", "image": { "src": "/palermo/wiki/img/medals/hunter.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/hunter/" }, { "title": "Henchman", "image": { "src": "/palermo/wiki/img/medals/henchman.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/henchman/" }] },
         { "type": "song", "track": 6, "label": "Play “The Town Wins”", "note": "The chapter's music" }
       ]
     },
@@ -226,7 +226,6 @@
           "type": "soundtrack",
           "album": "Palermo Noir — Original Soundtrack",
           "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Palermo Noir soundtrack cover: a shaft of light on an empty chair with a black rose, in a Palermo piazza at night before the cathedral, in gold engraved lines on navy" },
-          "background": { "wide": { "src": "img/scene-night", "widths": [960, 1280, 1920, 2560, 3840] }, "tall": { "src": "img/scene-night", "widths": [960] } },
           "youtube": null,
           "soundcloud": null,
           "tracks": [

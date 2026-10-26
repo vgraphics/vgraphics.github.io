@@ -72,6 +72,9 @@
     .party article { border-radius: var(--r-lg); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
     .party .art { padding: 28px 28px 0; display: grid; place-items: end center; min-height: 300px; }
     .party .art img { width: min(100%, 520px); margin-bottom: -18px; }
+    /* Palermo Noir's key art, linked to its page (whose hero it is, so this is that page's preview), cut to 640:420 */
+    .party .art a { display: contents; }
+    .party .art img.key { aspect-ratio: 640 / 420; object-fit: cover; object-position: 15% 50%; border-radius: 14px 14px 0 0; }
     .party .words { display: grid; gap: 12px; align-content: start; justify-items: start; padding: 30px 30px 34px; background: var(--surface); border-top: 1px solid var(--line); }
     .party h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.1; }
     .party .gloss { margin-top: -6px; color: var(--ink-2); font-weight: 600; }
@@ -193,7 +196,7 @@
       </div>
       <div class="party">
         <article class="p-palermo" id="palermo" aria-labelledby="palermo-title">
-          <div class="art"><img src="/assets/img/palermo.svg" alt="Palermo Noir: the town at night and the narrator on the TV, with a phone hiding each player's role" width="640" height="420" loading="lazy"></div>
+          <div class="art"><a href="/palermo/" tabindex="-1" aria-hidden="true"><img class="key" src="/palermo/img/key-art-wide-960.webp" alt="" width="960" height="407" loading="lazy"></a></div>
           <div class="words">
             <span class="soon">Coming soon</span>
             <h3 id="palermo-title">Palermo Noir</h3>
