@@ -1,0 +1,38 @@
+[
+  {
+    "q": "Is Speedometer Live Wallpaper free?",
+    "a": "Yes. The app and three styles, Classic, Steel and Graphite, are free. Every other style is €0.99, once, or unlock them all for €4.99, including the styles still to come. A small banner shows inside the app only, never on your home screen."
+  },
+  {
+    "q": "How do I set it as my wallpaper?",
+    "a": "Open the app and tap Set as wallpaper, then confirm on your home screen. Then open Styles and pick a dashboard and its layout. <a href=\"/speedometer-wallpaper/wiki/set-as-wallpaper/\">Setting the wallpaper</a> has every step."
+  },
+  {
+    "q": "Does it drain my battery?",
+    "a": "Very little. The gauges redraw only while a needle moves, and nothing runs while the wallpaper is hidden behind an app. Pick Saver, Balanced or Smooth in the settings; Android's Battery saver switches it to Saver by itself."
+  },
+  {
+    "q": "How does the GPS speedometer work?",
+    "a": "Switch the big gauge to GPS speed and allow your precise location. It shows your speed in km/h or mph, and a red mark keeps the top speed of the drive. Your location is used only for the speed, only while the wallpaper is on screen, and never leaves your phone."
+  },
+  {
+    "q": "How do I switch what the big gauge shows?",
+    "a": "Tap the gauge on your home screen, pick the mode in the style's settings, or add the Big gauge tile to Quick Settings, which switches it on every phone, Samsung's included. It shows power, CPU clock or GPS speed."
+  },
+  {
+    "q": "Why does the CPU clock not move on my phone?",
+    "a": "Some phones don't let apps read how fast the processor runs, so the CPU clock mode has nothing to show there. Power and GPS speed work on every phone."
+  },
+  {
+    "q": "Is there an iPhone version?",
+    "a": "No: live wallpapers are an Android feature, so the app is Android only. You can still <a href=\"/speedometer-wallpaper/play/\">try every style in your browser</a>, on any phone or computer."
+  },
+  {
+    "q": "Will I keep the styles I bought on a new phone?",
+    "a": "Yes. On a new phone with the same Google account, the styles you bought come back by themselves."
+  },
+  {
+    "q": "What does the app read, and where does it go?",
+    "a": "Nothing the gauges read is sent anywhere. Battery, memory, signal and Wi-Fi are read on the phone, and Future's music, missed calls and messages only with the notification access you give it. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
+  }
+]

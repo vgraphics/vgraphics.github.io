@@ -1,0 +1,28 @@
+{
+  "entries": [
+    {
+      "version": "2.0.8273146a",
+      "date": "2026-10-24",
+      "platforms": ["Web"],
+      "items": [
+        "Try the wallpaper in your browser: the real app draws it, live in a phone on this site, with nothing to install.",
+        "Pick any of the 19 styles and its layouts, change its settings, and tap the big gauge to switch its mode.",
+        "GPS speed can show how fast you're going, from your browser's location, once you allow it."
+      ],
+      "commit": "8273146a"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-17",
+      "platforms": ["Android"],
+      "items": [
+        "Speedometer Live Wallpaper 2.0 is out on Google Play, rebuilt from the 2016 original: your home screen as a car dashboard.",
+        "The big gauge shows power, CPU clock or GPS speed: tap it, or use the new Quick Settings tile, to switch.",
+        "In GPS mode a red mark keeps the top speed of your drive.",
+        "Browse the designs with live previews and buy more through Google Play. The Future design shows your music, missed calls and messages.",
+        "Update from inside the app as soon as a new version is out."
+      ],
+      "commit": "c882e811"
+    }
+  ]
+}
