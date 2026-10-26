@@ -278,7 +278,9 @@ No hero, section or card shows a picture that is shown anywhere else on the site
   its middle (a cut from its side goes unseen). `tools/art-prints.py` makes the prints (Python with Pillow). check-site
   keeps them in the temp folder, so only new files need Python.
 - These don't count: the `<head>` (link previews, preloads), logos, store badges, the soundtrack's cover, QR codes,
-  pictures of 256 px or smaller (icons, sprites, game pieces), and pictures a script shows. A product's footer picture
+  pictures of 256 px or smaller (icons, sprites, game pieces), the start-up's welcome splash on a play page (the WebGL
+  template's `#loader-art`: the key art is the welcome splash after the VGraphics intro), and pictures a script shows
+  (the try pages' start-up builds its splash that way). A product's footer picture
   and its theme's ornaments are on every page of the product by design, and count as one place each.
 - Two kinds of repeat are allowed (George, 26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as
   the page it previews. Every page's hero and sections stay unique."):

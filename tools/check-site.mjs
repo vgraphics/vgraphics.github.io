@@ -415,8 +415,10 @@ for (const file of served) {
 //   ornaments. The footer's picture and the ornaments are on every page of a product by design (George, 23 Oct 2026:
 //   "The foother must be same on all pages."), one place each.
 // - Not counted, on purpose (keep this list short): the <head> (link previews, preloads, icons), logos, store badges,
-//   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), pictures a script shows
-//   (the start-up's welcome splash is the key art's own job), stylesheet backgrounds, a picture in a link to a page
+//   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), the start-up's welcome
+//   splash (the key art's own job, after the VGraphics intro: in a play page's markup, the WebGL template's
+//   #loader-art; the try pages' start-up builds its own by script), pictures a script shows, stylesheet
+//   backgrounds, a picture in a link to a page
 //   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles (George,
 //   26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as the page it previews. Every page's
 //   hero and sections stay unique."). Gallery tiles are the pictures of the template's gallery block, a stage slide's
@@ -439,6 +441,7 @@ function artPlace(page, chain) {
   const has = (c) => chain.some((e) => e.cls.includes(c))
   const both = (a, b) => chain.some((e) => e.cls.includes(a) && e.cls.includes(b))
   if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur') || both('shots', 'fade-edges')) return { free: true }
+  if (/^\/[^/]+\/play\/$/.test(page) && chain.some((e) => e.id === 'loader-art')) return { free: true }
   const product = page.split('/')[1]
   if (has('foot-art')) return { place: `the footer of /${product}/` }
   if (has('orn') || has('horizon')) return { place: `the ornaments of /${product}/` }
