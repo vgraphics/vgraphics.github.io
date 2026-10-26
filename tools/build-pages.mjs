@@ -418,6 +418,7 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${trial ? `
   <link rel="stylesheet" href="/assets/startup/startup.css">
+  <link rel="stylesheet" href="/assets/switch.css">
   <link rel="stylesheet" href="/assets/try/try.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}

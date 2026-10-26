@@ -181,15 +181,17 @@
   };
 
   function control(setting, value) {
-    var row = document.createElement('div');
+    // An on/off row is a <label>, so a tap on its words flips the switch too.
+    var row = document.createElement(setting.type === 'toggle' ? 'label' : 'div');
     row.className = 'try-setting';
     var label = document.createElement('span');
     label.textContent = setting.label;
     row.appendChild(label);
     if (setting.type === 'toggle') {
+      // The site's switch (assets/switch.css), never a checkbox.
       var box = document.createElement('input');
       box.type = 'checkbox';
-      box.className = 'try-switch';
+      box.className = 'switch';
       box.setAttribute('role', 'switch');
       box.setAttribute('aria-label', setting.label);
       box.setAttribute('data-focus', setting.key);

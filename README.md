@@ -176,6 +176,23 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
 
+## Switches, never checkboxes
+
+Every on/off choice is a switch, never a checkbox (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles.").
+A choice of a few is a segmented control or option cards (the try page's segments and swatches), never a row of
+checkboxes.
+
+- `assets/switch.css` is the one switch: `<input type="checkbox" class="switch" role="switch">`, a real checkbox drawn
+  as a track and a knob, so Space flips it, Tab reaches it and a `<label>` names it (a tap on the label's words flips it
+  too). On is the page's selection colour (the product's scrollbar colour with its page's, unless the pack sets
+  `selection`), off is in its muted colour, and a bar (on) or a ring (off) in the track says which without colour. The
+  knob slides in 160ms, and jumps with reduced motion. Windows' contrast themes get the system colours.
+- A page with a switch links it: `<link rel="stylesheet" href="/assets/switch.css">`. The template adds it to the pages
+  with the try panel, whose on/off settings `assets/try/try.js` makes as switches, each in a `<label>` row.
+- check-site holds every served page to this: each checkbox in its markup is the switch, each one the site's own
+  scripts make gets the `switch` class and role, and a page with either links `switch.css`. The hub, the Exitwise game
+  and the Speedometer engine are built in their own repos, with their own switch, held there by their tests.
+
 ## Play button
 
 A product that can be played or tried on the site ends its header with that page, drawn as a button (George, 26 Oct

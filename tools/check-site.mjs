@@ -454,6 +454,46 @@ for (const file of served) {
 }
 for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/no-select.css') reselect(file, css)
 
+// Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice
+// on a page GitHub Pages serves is the site's switch, a real checkbox that /assets/switch.css draws as a track and a
+// knob: <input type="checkbox" class="switch" role="switch">, on a page that links that stylesheet. That holds for the
+// checkboxes in a page's markup and for those the site's own scripts make (the try page's settings, assets/try/try.js):
+// each `type = 'checkbox'` there gives the input the "switch" class and role in the lines that follow, and every page
+// that loads such a script links switch.css. A choice of a few is a segmented control or option cards, never a row of
+// checkboxes. The scripts other repos build (VHub's hub, the Exitwise game, the Speedometer engine) draw their own
+// switch in their repo, whose tests hold it; here only their markup is read.
+const switchRule = (file, message) => report(file, 'switch', message)
+const SWITCH_CSS = /<link rel="stylesheet" href="\/assets\/switch\.css">/
+const BUILT = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app)\//
+const isSwitch = (tag) => /\srole="switch"/.test(tag) && /\sclass="(?:[^"]*\s)?switch(?:\s[^"]*)?"/.test(tag)
+if (!existsSync(join(root, 'assets', 'switch.css'))) switchRule(join('assets', 'switch.css'), 'missing')
+// The site's own scripts that make checkboxes, by their address.
+const switchScripts = new Set()
+const ownScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT.test(f) && !f.startsWith('tools/'))
+for (const file of ownScripts) {
+  const js = readFileSync(join(root, file), 'utf8')
+  for (const m of js.matchAll(/(?<!\[)\btype\s*[=:]\s*(['"])checkbox\1|setAttribute\(\s*(['"])type\2\s*,\s*(['"])checkbox\3/g)) {
+    switchScripts.add('/' + file)
+    const next = js.slice(m.index, m.index + 400)
+    const cls = /class(?:Name)?\s*=\s*(['"])(?:[^'"]*\s)?switch(?:\s[^'"]*)?\1|classList\.add\([^)]*(['"])switch\2/.test(next)
+    const role = /setAttribute\(\s*(['"])role\1\s*,\s*(['"])switch\2|\brole\s*[:=]\s*(['"])switch\3/.test(next)
+    if (!cls || !role) switchRule(file, `line ${js.slice(0, m.index).split('\n').length} makes a checkbox that isn't the site's switch: give it the class "switch" and role "switch" (assets/switch.css)`)
+  }
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  const boxes = [...html.matchAll(/<input\b[^>]*>/gi)].map((m) => m[0]).filter((tag) => /\stype=["']?checkbox\b/i.test(tag))
+  for (const tag of boxes.filter((t) => !isSwitch(t))) {
+    switchRule(file, `${tag} is a checkbox: make it the site's switch, <input type="checkbox" class="switch" role="switch"> (assets/switch.css)`)
+  }
+  const makes = [...html.matchAll(/<script\b[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]).filter((src) => switchScripts.has(src))
+  if ((boxes.length || makes.length) && !SWITCH_CSS.test(html)) {
+    switchRule(file, `has switches (${boxes.length ? 'in its markup' : makes.join(', ')}) but doesn't link /assets/switch.css, which draws them: <link rel="stylesheet" href="/assets/switch.css">`)
+  }
+}
+
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
 // width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
 // stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that
