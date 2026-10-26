@@ -1,0 +1,37 @@
+{
+  "path": "/palermo/privacy.html",
+  "title": "Privacy policy · Palermo Noir",
+  "description": "Privacy policy for Palermo Noir, the hidden-role party game for phones and a TV: what the game keeps, for how long, and how to delete it.",
+  "social": {
+    "title": "Privacy policy · Palermo Noir",
+    "description": "How Palermo Noir handles your data: your VHub account, your age group, rooms, analytics and ads.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" },
+      { "@type": "ListItem", "position": 4, "name": "Privacy policy", "item": "https://vgraphics.gr/palermo/privacy.html" }
+    ]
+  },
+  "hero": {
+    "title": "Palermo Noir privacy policy",
+    "lead": "Privacy policy",
+    "align": "center",
+    "art": {
+      "alt": "A narrow Palermo street at night with every shutter closed, a black cat on the one lit windowsill, a heavy studded door with a brass keyhole and a man in a fedora walking away, drawn in gold engraved lines on navy",
+      "tall": { "src": "img/hero-privacy-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3154 },
+      "wide": { "src": "img/hero-privacy-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1466, "sizes": "max(100vw, min(164vw, 262vh))" },
+      "position": "50% 40%",
+      "fade": { "wide": "74%", "tall": "70%" },
+      "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+    }
+  },
+  "sections": [
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
+  ]
+}

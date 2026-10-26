@@ -1,0 +1,66 @@
+{
+  "title": "Palermo Noir town map: the piazzas and neighbourhoods of the game",
+  "description": "Explore the town of Palermo Noir, the hidden-role party game for phones and a TV: click its piazzas and neighbourhoods and zoom across the whole map.",
+  "social": {
+    "title": "Town map · Palermo Noir",
+    "description": "Click the piazzas and neighbourhoods of Palermo Noir's town and zoom across the whole map.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "name": "VGraphics",
+        "item": "https://vgraphics.gr/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "name": "Games",
+        "item": "https://vgraphics.gr/games/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "name": "Palermo Noir",
+        "item": "https://vgraphics.gr/palermo/"
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "name": "Town map",
+        "item": "https://vgraphics.gr/palermo/map/"
+      }
+    ]
+  },
+  "hero": {
+    "title": "Palermo Noir town map",
+    "lead": "Town map",
+    "align": "center",
+    "art": {
+      "alt": "An old map of Palermo unrolled on a table under a desk lamp, held flat by a brass compass, a magnifying glass, an espresso and a black rose, a gloved hand on it, and through the window the spy and the moonlit seafront, drawn in gold engraved lines on navy",
+      "tall": { "src": "img/hero-map-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3213 },
+      "wide": { "src": "img/hero-map-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1442, "sizes": "max(100vw, min(166vw, 266vh))" },
+      "position": "0% 40%",
+      "fade": { "wide": "74%", "tall": "70%" },
+      "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+    }
+  },
+  "sections": [
+    {
+      "id": "town",
+      "title": "The town",
+      "intro": "Click a piazza or a neighbourhood to learn who lives there, and zoom across the whole town.",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "viewer"
+        }
+      ]
+    }
+  ]
+}

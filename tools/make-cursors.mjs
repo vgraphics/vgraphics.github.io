@@ -3,7 +3,7 @@
 // whatever clicks (cursor-link.svg) and the text cursor in text fields (cursor-text.svg). 32 x 32 vector pictures, the
 // click point in each svg's data-hotspot="x y", which tools/build-pages.mjs and tools/check-site.mjs read
 // (tools/lib/cursors.mjs). George picked these from three options each on the review page
-// https://claude.ai/artifact/4V2PeBPVi1AwabCjnTQsVa (gvergidis90@gmail.com). Drawn in code: no Recraft, nothing to
+// https://claude.ai/artifact/4V2PeBPVi1AwabCjnTQsVa (George's main Claude account). Drawn in code: no Recraft, nothing to
 // license. Usage: node tools/make-cursors.mjs, then node tools/build-pages.mjs. A new product adds its three here.
 import { mkdirSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'

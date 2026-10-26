@@ -28,10 +28,16 @@
 //                                wiki entry's painting
 //   intro                        { id, eyebrow?, title, lede, actions?, demo, caption?, stage? }: a section whose stage
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
-//   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
-//                                blocks: gallery, steps, cards (layout icon | media | side | tile), features, tour, soundtrack,
-//                                journey, embed, document, try (the product's web version, tools/lib/try.mjs), faq
-//                                (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
+//   sections                     [{ id, eyebrow?, title, intro?, art?, figure?, stage?, blocks, more? }] or [{ id, band }]
+//                                art: { src, widths, width, height, alt, position? }: a picture across the section's top,
+//                                its heading starting in the picture's faded foot; figure: { src, widths, width, height,
+//                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
+//                                blocks: gallery, steps, cards (layout icon | media | side | tile; dense: true for a deck
+//                                of many small media cards, two to a row on phones, framed like playing cards; deck: true
+//                                for one row that scrolls sideways between two arrows), features (an item's value and
+//                                label: its key figure over its title), facts, actions, quote, chips, song, album, tour,
+//                                soundtrack, journey, embed, document, try (the product's web version, tools/lib/try.mjs),
+//                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
@@ -46,6 +52,7 @@ import { loadProduct, loadSubpage, products, root, subpages } from './lib/produc
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
+import { blurhashes } from './lib/blurhash.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
@@ -55,7 +62,11 @@ import { renderGallery } from './gallery.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
-const image = (i, lazy = true) => `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
+// A picture: the one file src names, or, when it names its widths, <src>-<width>.webp in each (the second the
+// fallback) with sizes (its shown width, by default the page's), so a phone never fetches the 4K one
+const image = (i, lazy = true) => (i.widths
+  ? `<img src="${esc(`${i.src}-${i.widths[Math.min(1, i.widths.length - 1)]}.webp`)}" srcset="${esc(i.widths.map((w) => `${i.src}-${w}.webp ${w}w`).join(', '))}" sizes="${esc(i.sizes ?? '100vw')}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
+  : `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`)
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
 // and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
@@ -111,13 +122,60 @@ const wikis = {}
 const wikiOf = (slug) => (wikis[slug] ??= JSON.parse(readFileSync(join(root, slug, 'wiki', 'wiki.json'), 'utf8')))
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
+// The quote's play button (a pause while it speaks) and the song button's note
+const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+const NOTE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.2l10-2.2v11.3h-2V7.1L11 8.4v9.1H9z"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.3" r="2.5"/></svg>'
+
 const BLOCKS = {
+  // A row of buttons and pills, the same kinds as the hero's badges: { type: "actions", items: [...] }
+  actions: (b, product) => actions(product.page, b.items, 'badges sec-actions'),
+
+  // Key figures in a row, each a big value over its label: { type: "facts", items: [{ value, label }] }
+  facts: (b) => `<ul class="facts-row">
+          ${b.items.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('\n          ')}
+        </ul>`,
+
+  // A line said in the product, set large across the content's width, with a small play button after its last word
+  // when the page has the recording (assets/product.js plays it; listen is the button's name for screen readers):
+  // { type: "quote", text, by?, audio?, listen? }. George, 24 Oct 2026: "a small play/pause next to quotes".
+  quote: (b) => {
+    const cut = b.text.lastIndexOf(' ') + 1
+    const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
+    return `<figure class="sec-quote">
+          <blockquote><p>${text}</p></blockquote>${b.by ? `
+          <figcaption>${b.by}</figcaption>` : ''}
+        </figure>`
+  },
+
+  // Small cards in a row under their label, each linking to its page (Palermo Noir's roles who act in a chapter):
+  // { type: "chips", label, items: [{ title, image: { src, width, height }, href }] }
+  chips: (b) => `<div class="sec-chips">
+          <span class="chips-label">${b.label}</span>
+          <ul>${b.items.map((c) => `<li><a href="${esc(c.href)}"><img src="${esc(c.image.src)}" alt="" width="${c.image.width}" height="${c.image.height}" loading="lazy" decoding="async"><span>${c.title}</span></a></li>`).join('')}</ul>
+        </div>`,
+
+  // A button that plays one of the page's soundtrack tracks in its player, and pauses it again (assets/soundtrack.js):
+  // { type: "song", track: its number in the list, label, note? }
+  song: (b) => `<div class="badges sec-actions song-row"><button class="pill song-play" type="button" data-ost-song="${b.track - 1}" aria-pressed="false"><b>${NOTE}${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</button></div>`,
+
+  // Pictures in a grid, each opening large in the page's lightbox (assets/product.js): { type: "album", shape:
+  // "portrait" | "wide", items: [{ title, src, full?, width, height, alt, position? }] }, src the grid's picture and
+  // full the lightbox's (src when there is one size), every path absolute; position the focal point the tile's frame
+  // keeps (assets/product.css); each tile carries its picture's blurhash, which the lightbox paints until the full
+  // picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
+  album: (b) => {
+    const hash = blurhashes(b.items.map((p) => p.src))
+    return `<ul class="album ${b.shape ?? 'wide'}">
+          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" data-hash="${esc(hash[p.src])}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
+        </ul>`
+  },
+
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,
 
   // A gallery with a layout is the shared screenshot gallery (tools/gallery.mjs, assets/gallery/); without one, a row
   // that scrolls sideways, its sides fading while more lies beyond (assets/fade-edges.js).
-  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title` }) : `<div class="shots fade-edges">
+  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title`, dir: product.sub ? `${product.slug}/${product.sub}` : product.slug }) : `<div class="shots fade-edges">
           ${b.items.map((i) => `<figure>${image(i)}${i.caption ? `<figcaption>${i.caption}</figcaption>` : ''}</figure>`).join('\n          ')}
         </div>`,
 
@@ -138,10 +196,16 @@ const BLOCKS = {
   cards: (b, { slug }) => {
     const tag = (c) => (c.tag ? `<span class="tag${c.tagTone === 'alt' ? ' alt' : ''}">${c.tag}</span>` : '')
     const list = (c) => (c.list ? `<ul>${c.list.map((x) => `<li>${x}</li>`).join('')}</ul>` : '')
+    // A card's back (cards item "back": HTML, "facts": [[label, value]], "href": its page): kept in a <template>, which
+    // assets/product.js turns the card over to in its full-screen view; without JavaScript it stays unseen.
+    const back = (c) => (c.back ? `<template class="card-back">${c.facts ? `<dl>${c.facts.map(([k, v]) => `<div><dt>${k}</dt><dd>${v}</dd></div>`).join('')}</dl>` : ''}${c.back}${c.href ? `<a class="card-more" href="${esc(c.href)}">${c.more ?? 'Read more'} →</a>` : ''}</template>` : '')
+    // A card's recording (cards item "voice": { src, line, by, label }): its full-screen view plays it, with the line
+    // as a caption (assets/product.js); nothing loads until it's played
+    const voice = (c) => (c.voice ? ` data-voice="${esc(c.voice.src)}" data-voice-line="${esc(c.voice.line)}" data-voice-by="${esc(c.voice.by)}" data-voice-label="${esc(c.voice.label)}"` : '')
     const card = {
       // An icon from the product's folder, set in the page so it needs no request, beside the words; the card links.
       icon: (c) => `<li class="card"><a href="${esc(c.href)}"><span class="pic">${readFileSync(join(root, slug, c.icon), 'utf8').trim().replace('<svg', '<svg aria-hidden="true"')}</span><span>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p></span></a></li>`,
-      media: (c) => `<li class="card">${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</li>`,
+      media: (c) => `<li class="card"${voice(c)}>${image(c.image)}${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}${back(c)}</li>`,
       side: (c) => `<li class="card">${image(c.image)}<div>${tag(c)}<h3>${c.title}</h3><p>${c.text}</p>${list(c)}</div></li>`,
       // A small picture card in a dense grid (a product's styles): the whole card links, when it has an href.
       tile: (c) => {
@@ -149,15 +213,21 @@ const BLOCKS = {
         return `<li class="card">${c.href ? `<a href="${esc(c.href)}">${body}</a>` : body}</li>`
       },
     }[b.layout]
-    return `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}">
+    const cards = `<${b.ordered ? 'ol' : 'ul'} class="cards ${b.layout}${b.dense ? ' dense' : ''}${b.deck ? ' deck' : ''}">
           ${b.items.map(card).join('\n          ')}
         </${b.ordered ? 'ol' : 'ul'}>`
+    if (!b.deck) return cards
+    // A deck: one row that scrolls sideways, with an arrow on each side (assets/product.js moves it a card at a time)
+    const arrow = (dir, label) => `<button class="deck-btn ${dir}" type="button" aria-label="${label}" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="${dir === 'prev' ? 'M15 5l-7 7 7 7' : 'M9 5l7 7-7 7'}"/></svg></button>`
+    return `<div class="deck-wrap">${arrow('prev', 'Previous cards')}
+        ${cards}
+        ${arrow('next', 'Next cards')}</div>`
   },
 
   features: (b, { theme }) => {
     const mark = theme.mark ? theme.mark.replace('<svg', '<svg class="mark" aria-hidden="true"') : ''
     return `<ul class="features${b.items.length === 4 ? ' n4' : ''}">
-          ${b.items.map((f, i) => `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
+          ${b.items.map((f, i) => `<li${f.value ? ' class="has-fact"' : ''} style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${f.value ? `<span class="feat-fact"><strong>${f.value}</strong><small>${f.label}</small></span>` : ''}${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
         </ul>`
   },
 
@@ -210,6 +280,17 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
         </div>`,
 }
 
+// A section's art (page.json section "art"): the picture across the top of the section, full-bleed, fading into the
+// page at its foot, where the section's heading starts, inside the art's last 30% (George, 24 Oct 2026: "move art to
+// top of section and add scrim on bottom so title can sit and section continue"). { src, widths, width, height, alt,
+// position?, fade?: { top } }, as src-<width>.avif and .webp; lazy, so it waits for the scroll. It is never drawn wider
+// than 1.2 times the picture (--sec-art-w), so it stays sharp.
+function sectionArt(a) {
+  const style = `--sec-art-w: ${Math.round(a.width * 1.2)}px${a.position ? `; --sec-art-at: ${a.position}` : ''}${a.fade?.top ? `; --sec-art-fade-top: ${a.fade.top}` : ''}`
+  const sizes = `min(100vw, ${Math.round(a.width * 1.2)}px)`
+  return `<div class="sec-art" style="${esc(style)}"><picture><source type="image/avif" srcset="${set(a, 'avif', a.widths)}" sizes="${sizes}"><img src="${esc(a.src)}-${a.widths.at(-1)}.webp" srcset="${set(a, 'webp', a.widths)}" sizes="${sizes}" alt="${esc(a.alt)}"${dims(a)} loading="lazy" decoding="async"></picture></div>`
+}
+
 function section(product, s) {
   if (s.band) {
     const b = s.band
@@ -229,8 +310,28 @@ function section(product, s) {
     s.intro && `<p class="sec-intro">${s.intro}</p>`,
   ].filter(Boolean).join('\n          ')
   const blocks = s.blocks.map((b) => BLOCKS[b.type](b, product, s)).join('\n        ')
+  const art = s.art ? `
+      ${sectionArt(s.art)}` : ''
+  // A section's figure (page.json section "figure": { src, widths, width, height, side? }): one of the product's
+  // characters standing beside the section's words, inside the content's width, turned to face them (George, 24 Oct
+  // 2026: "Keep it as is but inside content width including character width"); decorative, so hidden from screen readers.
+  const f = s.figure
+  if (f && s.title) {
+    return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}" aria-labelledby="${s.id}-title">${art}
+      <div class="wrap with-figure${f.side === 'right' ? ' figure-right' : ''}">
+        <picture class="sec-figure" aria-hidden="true"><source type="image/avif" srcset="${set(f, 'avif', f.widths)}" sizes="260px"><img src="${esc(f.src)}-${f.widths.at(-1)}.webp" srcset="${set(f, 'webp', f.widths)}" sizes="260px" alt=""${dims(f)} loading="lazy" decoding="async"></picture>
+        <div class="sec-body">
+          <div class="sec-head">
+          ${head}
+          </div>
+          ${blocks}
+          ${s.more ? `<a class="more" href="${esc(s.more.href)}">${s.more.label}</a>` : ''}
+        </div>
+      </div>
+    </section>`
+  }
   // A section without a title is the page's own text under its hero (a policy, whose headings are its own).
-  return `<section class="sec" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>
+  return `<section class="sec${s.art ? ' has-art' : ''}" id="${s.id}"${s.title ? ` aria-labelledby="${s.id}-title"` : ''}>${art}
       <div class="wrap">${s.title ? `
         <div class="sec-head">
           ${head}
@@ -317,6 +418,7 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/assets/gallery/gallery.css">` : ''}${ost ? `
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${trial ? `
   <link rel="stylesheet" href="/assets/startup/startup.css">
+  <link rel="stylesheet" href="/assets/switch.css">
   <link rel="stylesheet" href="/assets/try/try.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}

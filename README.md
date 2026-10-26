@@ -7,7 +7,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | Path | What |
 |---|---|
 | `index.html` | Home page: the four menus as four doors, then games, apps, playing together, services and the studio |
-| `games/index.html` | Games: Exitwise, and the two party games in design (no dates) |
+| `games/index.html` | Games: Exitwise, and the two party games on the way (no dates): Palermo Noir, with its own page at `/palermo/`, and Quizfall, still in design |
 | `apps/index.html` | Apps: Speedometer Live Wallpaper |
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
@@ -44,6 +44,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
+| `tools/make-key-art.py` | Writes a product's hero pictures (`<product>/img/key-art-wide-*` and `key-art-tall-*`, AVIF, WebP and JPEG) from its key art masters and prints their page.json entries: `python tools/make-key-art.py <product> <wide master> <tall master>`, or `--cut <x>` for a 9:16 cut of the wide one. Never larger than the master. |
+| `tools/make-product-card.py` | Draws a product's link-preview card `<product>/img/card-1200x630.jpg` from its key art and approved logo, with one line set in its own font: `python tools/make-product-card.py <product> <key art> <logo PNG> "<line>" [x]` |
 | `tools/make-cursors.mjs` | Draws every product's cursors and VGraphics' (see "Cursors" below): `node tools/make-cursors.mjs`, then `node tools/build-pages.mjs` |
 | `tools/make-qr.py` | Writes a QR code as a small SVG, made once so the page loads no QR library: `python tools/make-qr.py <link> <out.svg>` (Python with segno) |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
@@ -53,7 +55,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
 `/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
-and fonts on the static pages, and no phone number or street address. The site is in English: no Greek letters on its
+and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
+alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
+`tools/` and this README included. The site is in English: no Greek letters on its
 pages or in the SVGs they show (the Greek product names belong in the Greek store listings). **Run
 `node tools/check-site.mjs` before every push.**
 
@@ -123,10 +127,10 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
-Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
+Wallpaper `docs/speedometer-privacy-policy.html`, Palermo Noir `docs/privacy-policy.html` (repo `vgraphics/palermo`). After you edit a policy there, copy it here unchanged, push, and
 check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
 `exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
-`speedometer-wallpaper/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
+`speedometer-wallpaper/privacy/source.html`, Palermo Noir's to `palermo/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
 the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
 adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
 too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
@@ -179,6 +183,23 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
+
+## Switches, never checkboxes
+
+Every on/off choice is a switch, never a checkbox (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles.").
+A choice of a few is a segmented control or option cards (the try page's segments and swatches), never a row of
+checkboxes.
+
+- `assets/switch.css` is the one switch: `<input type="checkbox" class="switch" role="switch">`, a real checkbox drawn
+  as a track and a knob, so Space flips it, Tab reaches it and a `<label>` names it (a tap on the label's words flips it
+  too). On is the page's selection colour (the product's scrollbar colour with its page's, unless the pack sets
+  `selection`), off is in its muted colour, and a bar (on) or a ring (off) in the track says which without colour. The
+  knob slides in 160ms, and jumps with reduced motion. Windows' contrast themes get the system colours.
+- A page with a switch links it: `<link rel="stylesheet" href="/assets/switch.css">`. The template adds it to the pages
+  with the try panel, whose on/off settings `assets/try/try.js` makes as switches, each in a `<label>` row.
+- check-site holds every served page to this: each checkbox in its markup is the switch, each one the site's own
+  scripts make gets the `switch` class and role, and a page with either links `switch.css`. The hub, the Exitwise game
+  and the Speedometer engine are built in their own repos, with their own switch, held there by their tests.
 
 ## Play button
 
@@ -259,7 +280,7 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
   canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
   date. `robots.txt` points to it.
-- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on gvergidis90@gmail.com, verified by the
+- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
   `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
   its verification. The sitemap is submitted there under Sitemaps.
 

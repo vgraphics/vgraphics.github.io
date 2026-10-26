@@ -361,7 +361,7 @@ h1, h2, h3 {
 .sec > .wrap > :not(.sec-head, .more) + :not(.more),
 .sec:not(.intro) .scene > :not(.scene-art) + * { margin-top: var(--block-gap, clamp(28px, 4vw, 44px)); }
 .eyebrow { font: var(--label-weight) 0.95rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); }
-.sec h2 { font-size: var(--h2-size); }
+.sec h2 { font-size: var(--h2-size); text-wrap: balance; } /* a title on two lines splits evenly, never one word left over */
 .sec-intro { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
 /* A heading's link to itself: muted, shown on hover or focus (always on touch screens), in the heading's line. */
 .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--muted); opacity: 0; transition: opacity 150ms ease-out; }
@@ -532,6 +532,142 @@ a.journey-head:hover b, a.journey-head:focus-visible b { text-decoration: underl
 .cards.side .card { grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 22px; }
 .cards.side .card > img { border: var(--shot-frame); border-radius: calc(var(--radius) - 4px); box-shadow: var(--card-shadow); }
 .cards.side .card > div { display: grid; align-content: start; gap: 12px; }
+/* A deck of many pictures (page.json "dense": a game's role cards): smaller cards, as many to a row as fit, and two
+   to a row on phones rather than one long column. */
+.cards.media.dense { grid-template-columns: repeat(auto-fill, minmax(min(100%, 280px), 1fr)); gap: 18px; }
+.cards.media.dense .card {
+  position: relative; gap: 8px; padding: 20px 18px 22px; text-align: center; justify-items: center;
+  /* framed like a playing card: a fine edge in the accent, a second ring inside it, a corner mark at two corners */
+  background: linear-gradient(var(--surface-2), var(--surface)); border: 1px solid var(--accent); border-radius: 10px;
+  box-shadow: inset 0 0 0 6px var(--surface), inset 0 0 0 7px color-mix(in srgb, var(--accent) 55%, transparent), 0 20px 34px -20px #000;
+}
+.cards.media.dense .card::before, .cards.media.dense .card::after { content: ""; position: absolute; width: 14px; height: 14px; border: 2px solid var(--accent); }
+.cards.media.dense .card::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.cards.media.dense .card::after { bottom: 12px; right: 12px; border-left: 0; border-top: 0; }
+.cards.media.dense .card > img { width: 92%; margin: 0 auto 4px; border-radius: 3px; }
+.cards.media.dense .tag { justify-self: center; }
+.cards.media.dense h3 { width: 100%; padding: 7px 0 5px; border-block: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); font-size: 1.2rem; letter-spacing: 0.03em; }
+/* One deck (cards "deck": true): the cards in a single row at the content's width, with hard edges, scrolled sideways
+   by an arrow before and after it (or a swipe); the arrows stand outside the content where the screen has room. */
+.deck-wrap { display: grid; grid-template-columns: 52px minmax(0, 1fr) 52px; gap: 20px; align-items: center; }
+@media (min-width: 1300px) { .deck-wrap { margin-inline: -72px; } }
+.cards.deck { display: flex; gap: 18px; overflow-x: auto; scroll-snap-type: x mandatory; padding: 6px 0 10px; scrollbar-width: none; }
+.cards.deck::-webkit-scrollbar { display: none; }
+.cards.deck > li { flex: 0 0 calc((100% - 2 * 18px) / 3); scroll-snap-align: start; } /* three whole cards in view */
+@media (max-width: 900px) { .cards.deck > li { flex-basis: calc((100% - 18px) / 2); } }
+@media (max-width: 560px) { .cards.deck > li { flex-basis: 100%; } }
+.deck-btn {
+  display: grid; place-items: center; width: 52px; height: 52px; padding: 0;
+  border: 1px solid var(--accent); border-radius: 50%; background: color-mix(in srgb, var(--page) 88%, transparent); color: var(--accent);
+  box-shadow: 0 10px 24px -10px #000; cursor: var(--cursor-link, pointer); transition: transform 150ms ease-out, background 150ms ease-out;
+}
+.deck-btn[hidden] { display: grid; visibility: hidden; } /* keeps its place, so the deck never shifts */
+.deck-btn svg { width: 24px; height: 24px; }
+.deck-btn:hover { background: var(--surface-2); transform: scale(1.06); }
+@media (max-width: 560px) { .deck-wrap { grid-template-columns: 40px minmax(0, 1fr) 40px; gap: 8px; } .deck-btn { width: 40px; height: 40px; } }
+/* A deck's cards lift under the pointer: each opens to a full-screen view (assets/product.js, the cards' "back") */
+.cards.deck .card:has(> template.card-back) { cursor: zoom-in; transition: transform 180ms ease-out, box-shadow 180ms ease-out; }
+.cards.deck .card:has(> template.card-back):is(:hover, :focus-visible) {
+  transform: translateY(-6px);
+  box-shadow: inset 0 0 0 6px var(--surface), inset 0 0 0 7px color-mix(in srgb, var(--accent) 70%, transparent), 0 0 0 1px var(--accent), 0 26px 40px -18px #000, 0 0 30px -6px color-mix(in srgb, var(--accent) 45%, transparent);
+  outline: none;
+}
+/* The full-screen view: the card large in the middle over a dimmed page, turning over to its back on a click */
+html.card-open { overflow: hidden; }
+
+/* An album: pictures in a grid, each opening in the lightbox (build-pages.mjs, album; assets/product.js). Every tile
+   has its album's one frame, 16:9 (5:7 for a portrait album, a card's shape), the picture filling it from its focal
+   point (an item's "position"), so the rows line up and the captions sit on one line (George, 26 Oct 2026: "All items
+   must have same height here."); the lightbox shows the whole picture. */
+.album { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 300px), 1fr)); gap: 24px 22px; margin: 0; padding: 0; list-style: none; }
+.album.portrait { grid-template-columns: repeat(auto-fill, minmax(min(100%, 170px), 1fr)); gap: 22px 18px; }
+.album-item { display: grid; align-content: start; gap: 10px; width: 100%; padding: 0; border: 0; background: none; color: var(--ink); font: 700 0.95rem/1.3 var(--font-body); text-align: center; cursor: zoom-in; }
+.album-item img { width: 100%; height: auto; aspect-ratio: 16 / 9; object-fit: cover; object-position: var(--at, 50% 50%); border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent); border-radius: var(--radius-sm); box-shadow: var(--card-shadow); transition: transform 160ms ease-out, box-shadow 160ms ease-out, border-color 160ms ease-out; }
+.album.portrait .album-item img { aspect-ratio: 5 / 7; }
+.album-item:hover img, .album-item:focus-visible img { transform: translateY(-3px); border-color: var(--accent); box-shadow: var(--card-lift); }
+.lightbox { position: fixed; inset: 0; z-index: 1000; display: grid; place-items: center; padding: 60px 76px 64px; background: color-mix(in srgb, var(--page) 94%, transparent); -webkit-backdrop-filter: blur(8px); backdrop-filter: blur(8px); }
+.lightbox[hidden] { display: none; }
+.lb-stage { display: grid; justify-items: center; gap: 12px; max-width: 100%; margin: 0; }
+/* The frame is sized by assets/product.js to the whole picture; behind it the picture's blurhash, until the picture
+   has loaded and fades in (it hides at once when the next one starts) */
+.lb-frame { overflow: hidden; border-radius: 6px; outline: none; background: var(--surface) center / 100% 100% no-repeat; }
+.lb-frame img { display: block; width: 100%; height: 100%; opacity: 0; cursor: zoom-in; transition: transform 220ms ease-out; touch-action: none; user-select: none; -webkit-user-drag: none; }
+.lb-frame img.loaded { opacity: 1; transition: opacity 280ms ease-out, transform 220ms ease-out; }
+.lb-frame:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.lightbox.zoomed .lb-frame img { cursor: grab; }
+.lightbox.dragging .lb-frame img { cursor: grabbing; transition: none; }
+.lb-stage figcaption { font: var(--display-weight) 1.3rem/1.2 var(--font-display); color: var(--ink); }
+.lb-btn { position: absolute; display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid color-mix(in srgb, var(--accent) 60%, transparent); border-radius: 50%; background: var(--surface); color: var(--ink); cursor: var(--cursor-link, pointer); transition: background-color 160ms ease-out; }
+.lb-btn:hover { background: var(--surface-2); }
+.lb-btn svg { width: 22px; height: 22px; }
+.lb-prev { top: 50%; left: 16px; translate: 0 -50%; }
+.lb-next { top: 50%; right: 16px; translate: 0 -50%; }
+.lb-close { top: 12px; right: 16px; }
+.lb-count { position: absolute; bottom: 16px; left: 50%; margin: 0; translate: -50% 0; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+@media (max-width: 700px) {
+  .lightbox { padding: 60px 12px 76px; }
+  .lb-prev, .lb-next { top: auto; bottom: 12px; translate: none; }
+  .lb-prev { left: 12px; }
+  .lb-next { right: 12px; }
+  .lb-count { bottom: 28px; }
+}
+@media (prefers-reduced-motion: reduce) { .lb-frame img, .lb-frame img.loaded { transition: none; } }
+.card-view { position: fixed; inset: 0; z-index: 60; display: grid; place-items: center; align-content: center; gap: 16px; padding: 24px; }
+.card-view[hidden] { display: none; }
+.card-view-shade { position: absolute; inset: 0; background: color-mix(in srgb, var(--page) 86%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.card-view-fly { position: relative; width: min(88vw, 470px, calc((100vh - 120px) * 0.6)); aspect-ratio: 3 / 5; perspective: 1800px; transform-origin: center; }
+.card-view-turn { position: absolute; inset: 0; transform-style: preserve-3d; transition: transform 700ms cubic-bezier(.3,.7,.2,1); cursor: var(--cursor-link, pointer); outline: none; }
+.card-view-turn.turned { transform: rotateY(180deg); }
+.card-face {
+  position: absolute; inset: 0; display: grid; align-content: start; justify-items: center; gap: 10px; padding: 28px 28px 30px;
+  overflow: hidden; text-align: center; color: var(--ink); -webkit-backface-visibility: hidden; backface-visibility: hidden;
+  background: linear-gradient(var(--surface-2), var(--surface)); border: 1px solid var(--accent); border-radius: 14px;
+  box-shadow: inset 0 0 0 8px var(--surface), inset 0 0 0 9px color-mix(in srgb, var(--accent) 55%, transparent), 0 40px 90px -30px #000;
+}
+.card-face::before, .card-face::after { content: ""; position: absolute; width: 18px; height: 18px; border: 2px solid var(--accent); }
+.card-face::before { top: 16px; left: 16px; border-right: 0; border-bottom: 0; }
+.card-face::after { bottom: 16px; right: 16px; border-left: 0; border-top: 0; }
+.card-front { display: flex; flex-direction: column; align-items: center; } /* the art takes the room the words leave */
+.card-front img { flex: 1 1 auto; min-height: 0; width: 100%; height: 100%; object-fit: contain; border-radius: 4px; }
+.card-face .tag { justify-self: center; }
+.card-face h3 { width: 100%; margin: 0; padding: 9px 0 7px; border-block: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); font: var(--display-weight) clamp(1.5rem, 3.4vw, 2rem)/1.1 var(--font-display); letter-spacing: 0.03em; }
+.card-face p { margin: 0; color: var(--muted); font-size: 1.04rem; line-height: 1.5; }
+.card-back { transform: rotateY(180deg); align-content: center; gap: 14px; }
+.card-back dl { display: grid; grid-template-columns: repeat(auto-fit, minmax(110px, 1fr)); gap: 10px; width: 100%; margin: 0; }
+.card-back dl div { display: grid; gap: 2px; }
+.card-back dt { color: var(--accent); font: var(--label-weight) 0.72rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; }
+.card-back dd { margin: 0; font-weight: 600; font-size: 0.95rem; }
+.card-back p { text-align: left; }
+.card-more { justify-self: center; margin-top: 4px; color: var(--accent); font: var(--label-weight) 0.95rem/1 var(--label-font); text-decoration: none; letter-spacing: 0.04em; }
+.card-more:hover { text-decoration: underline; }
+.card-view-hint { position: relative; margin: 0; color: var(--muted); font: var(--label-weight) 0.85rem/1.3 var(--label-font); letter-spacing: 0.04em; text-align: center; }
+.card-view-close {
+  position: absolute; top: calc(16px + env(safe-area-inset-top, 0px)); right: calc(16px + env(safe-area-inset-right, 0px)); display: grid; place-items: center;
+  width: 48px; height: 48px; padding: 0; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface); color: var(--accent); cursor: var(--cursor-link, pointer);
+}
+.card-view-close svg { width: 22px; height: 22px; }
+/* A card's recording under it (cards item "voice"): the quotes' play button with a ring that fills as it speaks, and
+   the line beside it; the card shrinks to leave it room */
+.card-view.has-voice .card-view-fly { width: min(88vw, 470px, calc((100vh - 210px) * 0.6)); }
+.card-view-voice { position: relative; display: flex; align-items: center; gap: 16px; width: min(88vw, 470px); }
+.card-view-voice[hidden] { display: none; }
+.card-view-play.quote-play { flex: none; width: 48px; height: 48px; margin: 0 0 0 5px; font-size: 1rem; }
+.card-view-play.quote-play[aria-pressed="true"] { box-shadow: none; }
+.card-view-play .ring { position: absolute; inset: -6px; width: 60px; height: 60px; fill: none; stroke: var(--accent); stroke-width: 1.6; transform: rotate(-90deg); opacity: 0; transition: opacity 200ms ease-out; }
+.card-view-play .ring circle:first-child { opacity: 0.3; }
+.card-view-play .ring .played { stroke-dasharray: 144.5; stroke-dashoffset: calc(144.5 * (1 - var(--played, 0))); }
+.card-view-play[aria-pressed="true"] .ring { opacity: 1; }
+.card-view-line { display: grid; gap: 4px; min-width: 0; margin: 0; text-align: left; }
+.card-view-said { color: var(--ink); font: italic 400 1.02rem/1.4 var(--font-body); text-wrap: pretty; }
+.card-view-by { color: var(--accent); font: var(--label-weight) 0.74rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; }
+@media (prefers-reduced-motion: reduce) { .card-view-turn { transition: none; } .cards.deck .card { transition: none; } }
+.cards.media.dense p { font-size: 0.95rem; line-height: 1.4; }
+@media (max-width: 560px) {
+  .cards.media.dense { grid-template-columns: 1fr 1fr; gap: 10px; }
+  .cards.media.dense .card { padding: 12px 10px; }
+  .cards.media.dense h3 { font-size: 1.05rem; }
+  .cards.media.dense p { font-size: 0.86rem; line-height: 1.35; }
+}
 /* Tiles: a dense grid of small picture cards (a product's styles), each one a link when it has one. */
 .cards.tile { grid-template-columns: repeat(auto-fill, minmax(min(168px, 42%), 1fr)); gap: 14px; }
 .cards.tile .card { padding: 0; transition: transform 150ms ease-out, box-shadow 150ms ease-out; }
@@ -570,6 +706,58 @@ a.journey-head:hover b, a.journey-head:focus-visible b { text-decoration: underl
   box-shadow: inset var(--feature-stripe, 0px) 0 0 var(--accent); /* optional */
   color: var(--feature-text, var(--ink)); /* optional */
 }
+/* Key figures in a row (the "facts" block) and a row of buttons inside a section (the "actions" block) */
+.facts-row { list-style: none; margin: 0 0 30px; padding: 0; display: flex; flex-wrap: wrap; gap: 16px 40px; }
+.facts-row li { display: grid; gap: 4px; }
+.facts-row b { font: var(--display-weight) clamp(1.7rem, 2.6vw, 2.3rem)/1 var(--font-display); color: var(--accent); }
+.facts-row span { font: var(--label-weight) 0.8rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.sec-actions { justify-content: flex-start; margin-bottom: 14px; }
+
+/* A line said in the product, large across the content's width, with a button to hear it (build-pages.mjs, quote) */
+.sec-quote { --hang: clamp(30px, 3.4vw, 46px); display: grid; justify-items: start; gap: 12px; margin: 30px 0 64px; }
+.sec-quote blockquote { position: relative; margin: 0; padding-left: var(--hang); }
+.sec-quote blockquote::before { content: "\201C"; position: absolute; top: -0.1em; left: 0; font: var(--display-weight) clamp(3rem, 6vw, 4.6rem)/1 var(--font-display); color: var(--accent); }
+.sec-quote p { margin: 0; font: var(--display-weight) clamp(1.7rem, 3.3vw, 2.7rem)/1.15 var(--font-display); color: var(--lead-ink, var(--ink)); text-wrap: balance; }
+.sec-quote figcaption { padding-left: var(--hang); font: var(--label-weight) 0.8rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); }
+/* The small play button after the quote's last word, kept on its line (a pause while it speaks; 44 px to touch) */
+.quote-end { white-space: nowrap; }
+.quote-play {
+  position: relative; display: inline-grid; place-items: center; width: clamp(30px, 0.8em, 38px); height: clamp(30px, 0.8em, 38px);
+  margin-left: 0.3em; padding: 0; border: 0; border-radius: 50%; background: var(--accent); color: var(--cta-ink); font-size: inherit;
+  vertical-align: middle; cursor: var(--cursor-link, pointer); transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+.quote-play::after { content: ""; position: absolute; inset: -8px; border-radius: 50%; }
+.quote-play svg { width: 44%; height: 44%; fill: currentColor; }
+.quote-play .i-pause, .quote-play[aria-pressed="true"] .i-play { display: none; }
+.quote-play[aria-pressed="true"] .i-pause { display: block; }
+.quote-play:hover { transform: scale(1.08); }
+.quote-play[aria-pressed="true"] { box-shadow: 0 0 0 5px color-mix(in srgb, var(--accent) 25%, transparent); }
+
+/* Small cards in a row under their label, each a link (build-pages.mjs, chips): the roles who act in a chapter, each
+   showing the picture of the page it links to (Palermo's: its wiki entry's medal), so it is that page's preview */
+.sec-chips { display: grid; gap: 12px; margin: 52px 0 24px; }
+.chips-label { font: var(--label-weight) 0.8rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.sec-chips ul { display: flex; flex-wrap: wrap; gap: 14px 12px; margin: 0; padding: 0; list-style: none; }
+.sec-chips a { display: grid; justify-items: center; gap: 7px; width: 76px; color: var(--ink); font: 700 0.78rem/1.2 var(--font-body); text-align: center; text-decoration: none; }
+.sec-chips img { width: 60px; height: auto; border: 1px solid var(--accent); border-radius: 4px; box-shadow: 0 10px 18px -10px #000; transition: transform 160ms ease-out, box-shadow 160ms ease-out; }
+.sec-chips a:hover img { transform: translateY(-3px); box-shadow: 0 14px 22px -10px #000; }
+
+/* A button that plays one of the page's songs (build-pages.mjs, song; assets/soundtrack.js) */
+.song-row { margin-top: 26px; }
+.sec-chips + .song-row { margin-top: 0; }
+.song-play { font: inherit; cursor: var(--cursor-link, pointer); }
+.song-play b { display: inline-flex; align-items: center; gap: 8px; }
+.song-play svg { width: 18px; height: 18px; color: var(--accent); }
+.song-play[aria-pressed="true"] { border-color: var(--accent); }
+/* A feature with its key figure over it (features item value, label): the figures and their rules line up across a
+   row, however their labels wrap (George, 24 Oct 2026: "Top row and bottom row are not combined perfectly") */
+.features li.has-fact { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 2; row-gap: 18px; column-gap: 14px; }
+/* two to a row, so each feature's words run in two lines rather than five (George, 24 Oct: "info is too tight"; option B) */
+.features:has(> .has-fact) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; row-gap: clamp(32px, 4vw, 48px); }
+.feat-fact { grid-column: 1 / -1; display: grid; align-content: end; gap: 5px; padding-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
+.feat-fact strong { font: var(--display-weight) clamp(1.7rem, 2.6vw, 2.3rem)/1 var(--font-display); color: var(--accent); }
+.feat-fact small { font: var(--label-weight) 0.78rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.features + .cards { margin-top: 28px; } /* a section's features followed by its cards (Palermo's day chapter) */
 .features .mark { flex: none; width: 30px; height: 30px; margin-top: 3px; color: var(--c); }
 .features b {
   display: block;
@@ -743,6 +931,60 @@ a.journey-head:hover b, a.journey-head:focus-visible b { text-decoration: underl
 .band h2 { margin-bottom: 6px; font-size: 1.8rem; }
 .band p { margin: 0; color: var(--muted); }
 .band .link { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+/* A section's art (page.json section "art"): the picture full-bleed across the section's top, a scrim fading its foot
+   into the page, and the section's heading starting inside the picture's last 30%, so the art opens the section and
+   the section carries on below it. A phone sees the picture's whole width (16:9 boxes, never cut at the sides); a
+   wide, short screen gets a box no wider than 2.2 times its height, so a 16:9 picture loses at most a fifth of its
+   height and its people stay above the heading (George, 26 Oct 2026: "only a part of the moon is showing which is a
+   bad result"). */
+:root { --sec-art-h: clamp(180px, 56.25vw, 82vh); }
+.sec.has-art { padding-top: 0; }
+.sec-art { position: relative; height: var(--sec-art-h); max-width: min(var(--sec-art-w, 100%), var(--sec-art-h) * 2.2); margin-inline: auto; overflow: hidden; }
+.sec-art picture, .sec-art img { display: block; width: 100%; height: 100%; }
+/* The picture's top and foot fade to nothing, so the page's own ground (its pattern too) runs on through them. A
+   picture with something near its top edge (a moon) sets a shorter top fade (page.json art "fade": { "top" }) and is
+   anchored at its top ("position": "50% 0%"), so the fade never cuts it. */
+.sec-art img {
+  object-fit: cover; object-position: var(--sec-art-at, 50% 45%);
+  -webkit-mask-image: linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
+  mask-image: linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
+}
+@media (min-aspect-ratio: 1804/1000) { /* the box stops at 2.2 times its height (82vh), short of the screen's sides: they fade into the page */
+  .sec-art img {
+    -webkit-mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
+    -webkit-mask-composite: source-in;
+    mask-image: linear-gradient(to right, transparent, #000 3%, #000 97%, transparent), linear-gradient(transparent, #000 var(--sec-art-fade-top, 14%), #000 52%, transparent 97%);
+    mask-composite: intersect;
+  }
+}
+.sec-art::after { /* a light shade under the heading, for its words */
+  content: ""; position: absolute; inset: 0;
+  background: linear-gradient(transparent 50%, color-mix(in srgb, var(--page) 55%, transparent) 82%, transparent);
+}
+.sec.has-art > .wrap { position: relative; margin-top: calc(var(--sec-art-h) * -0.3); } /* sections only: a footer with art has .has-art too */
+
+/* Chapters (sections that open with art) may run wider than the page's column (optional --sec-max), the header,
+   footer and closing card keeping theirs. */
+.sec.has-art > .wrap { width: min(var(--sec-max, 1120px), 100% - 40px); }
+/* A section's figure (page.json section "figure"): the character beside the section's words, inside the content's
+   width, turned to face them and staying beside them while its cards scroll by; not on narrow screens. */
+.with-figure { display: grid; grid-template-columns: auto minmax(0, 1fr); gap: clamp(28px, 4vw, 64px); align-items: start; }
+.with-figure.figure-right { grid-template-columns: minmax(0, 1fr) auto; }
+.with-figure.figure-right .sec-figure { order: 2; }
+.sec-figure { display: block; position: sticky; top: 104px; }
+.sec-figure img { display: block; width: auto; height: clamp(380px, 32vw, 560px); }
+.with-figure:not(.figure-right) .sec-figure img { transform: scaleX(-1); }
+.sec-body { min-width: 0; }
+@media (max-width: 900px) {
+  .with-figure, .with-figure.figure-right { grid-template-columns: minmax(0, 1fr); }
+  .sec-figure { display: none; }
+}
+/* The thread (optional tokens --thread, --thread-show: block, --thread-space): a gold line with an arrowhead in the gap
+   before each chapter, pointing down to its art and stopping just above it, so the chapters read as one story. */
+.sec.has-art { position: relative; margin-top: var(--thread-space, 0px); }
+.sec.has-art::before, .sec.has-art::after { display: var(--thread-show, none); position: absolute; left: 50%; z-index: 1; pointer-events: none; }
+.sec.has-art::before { content: ""; top: calc((var(--section-pad) + var(--thread-space, 0px)) * -1 + 28px); width: 2px; height: calc(var(--section-pad) + var(--thread-space, 0px) - 58px); margin-left: -1px; background: linear-gradient(transparent, var(--thread) 30%, var(--thread)); }
+.sec.has-art::after { content: ""; top: -36px; width: 18px; height: 18px; margin-left: -9px; border-right: 2px solid var(--thread); border-bottom: 2px solid var(--thread); transform: rotate(45deg); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--thread) 60%, transparent)); }
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */
@@ -773,7 +1015,7 @@ a.journey-head:hover b, a.journey-head:focus-visible b { text-decoration: underl
   height: 34px;
   border-radius: 50%;
   background: var(--dot);
-  color: var(--step-ink);
+  color: var(--dot-ink, var(--step-ink)); /* --dot-ink: optional, for a pack whose step ink is one of its swatches */
   text-shadow: var(--step-shadow, none);
   font: var(--display-weight) 1rem/1 var(--step-font);
   box-shadow: 0 3px 0 rgb(30 20 50 / 0.25);
@@ -914,6 +1156,36 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   background: linear-gradient(transparent, var(--foot-veil, color-mix(in srgb, var(--page) 80%, transparent)) 110px);
   pointer-events: none;
 }
+
+/* A footer drawn as a scene (tools/lib/partials.mjs, footerScene): the words in the night sky, and along the foot the
+   sea and the sidewalk repeating sideways, with figures standing on the sidewalk, the moon above them, a lamp that
+   flickers, and the weather assets/product.js picks. Smaller on phones; nothing moves with reduced motion. */
+.foot.has-scene { --fs-scale: 1; padding-top: calc(var(--cta-half, 150px) + 40px); background: linear-gradient(transparent, color-mix(in srgb, var(--surface) 55%, transparent)); }
+.foot.has-scene .wrap { padding-bottom: 20px; }
+.foot.has-scene .wrap::before { display: none; }
+.foot-scene { position: relative; height: calc(var(--fs-h) * var(--fs-scale)); } /* not clipped: the lamp's glow spreads past it (the footer clips sideways) */
+.foot-scene img { position: absolute; width: auto; max-width: none; height: calc(var(--show) * var(--fs-scale)); }
+.fs-sea, .fs-walk { position: absolute; left: 0; right: 0; background-repeat: repeat-x; background-size: auto 100%; }
+.fs-walk { bottom: 0; height: calc(var(--walk-h) * var(--fs-scale)); }
+.fs-sea { bottom: calc(var(--walk-h) * var(--fs-scale)); height: calc(var(--sea-h) * var(--fs-scale)); border-top: 1px solid color-mix(in srgb, var(--accent) 70%, transparent); }
+.fs-moon { top: 6px; right: 26%; filter: drop-shadow(0 0 24px color-mix(in srgb, var(--accent-2) 35%, transparent)); }
+.fs-left { position: absolute; left: clamp(10px, 4vw, 72px); bottom: calc(var(--walk-h) * var(--fs-scale) * 0.3); display: flex; align-items: flex-end; gap: calc(14px * var(--fs-scale)); }
+.fs-left img { position: static; }
+.fs-fig.flip { transform: scaleX(-1); }
+.fs-lamp { position: absolute; right: clamp(14px, 6vw, 110px); bottom: calc(var(--walk-h) * var(--fs-scale) * 0.3); height: calc(var(--show) * var(--fs-scale)); aspect-ratio: 3 / 10; }
+.fs-lamp img { position: absolute; inset: 0; height: 100%; }
+.fs-lamp .glow { position: absolute; left: var(--gx); top: var(--gy); width: 300%; aspect-ratio: 1; translate: -50% -50%; border-radius: 50%; background: radial-gradient(closest-side, rgb(255 214 150 / 0.55), rgb(255 200 120 / 0.16) 45%, transparent); mix-blend-mode: screen; animation: fs-flicker 9s steps(1) infinite; }
+.fs-lamp .on { animation: fs-flicker 9s steps(1) infinite; }
+@keyframes fs-flicker { 0%, 31%, 34%, 36%, 70%, 72.5%, 100% { opacity: 1; } 32%, 35% { opacity: 0.25; } 71% { opacity: 0.45; } }
+.foot-weather { position: absolute; inset: 0; z-index: -1; overflow: hidden; pointer-events: none; }
+.fw-cloud { position: absolute; left: 0; width: 320px; height: 70px; background: var(--cloud) center / contain no-repeat; animation: fw-drift linear infinite; }
+@keyframes fw-drift { from { transform: translateX(-340px); } to { transform: translateX(100vw); } }
+.fw-rain { position: absolute; inset: -40px 0; opacity: 0.5; background: var(--rain) 0 0 / 240px auto repeat; animation: fw-fall 0.8s linear infinite; }
+@keyframes fw-fall { to { background-position: -40px 240px; } }
+.fw-leaf { position: absolute; left: 0; width: 22px; height: 22px; background: var(--leaf) center / contain no-repeat; animation: fw-blow linear infinite; }
+@keyframes fw-blow { 0% { transform: translate(-40px, 0) rotate(0); } 50% { transform: translate(50vw, -40px) rotate(220deg); } 100% { transform: translate(calc(100vw + 40px), 20px) rotate(440deg); } }
+@media (max-width: 700px) { .foot.has-scene { --fs-scale: 0.62; } .fs-moon { right: 10%; } }
+@media (prefers-reduced-motion: reduce) { .fs-lamp .glow, .fs-lamp .on { animation: none; } }
 
 @media (max-width: 900px) {
   .tour { grid-template-columns: 1fr; }
