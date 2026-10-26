@@ -70,6 +70,33 @@ for (const file of files.filter((f) => TEXT.test(f))) {
   if (file.endsWith('.svg') && GREEK.test(text)) report(file, 'english', 'Greek letters in a picture the English pages show')
 }
 
+// Search results and link previews (George, 27 Oct 2026: "SEO all my pages"): every page search engines may index (no
+// noindex) has a title and a description of its own, a canonical address (checked for every page below), one h1,
+// structured data, and a link preview (og:title, og:description, twitter:card) whose picture is a file on this site.
+// The template writes all of it from page.json and wiki.json; README "Search engines".
+const seoTitles = new Map()
+const seoDescriptions = new Map()
+const metaContent = (html, attr, name) => html.match(new RegExp(`<meta ${attr}="${name}" content="([^"]*)"`))?.[1]?.trim()
+function seo(file, html) {
+  const head = html.split(/<\/head>/i)[0]
+  const title = head.match(/<title>([^<]*)<\/title>/)?.[1]?.trim()
+  const description = metaContent(head, 'name', 'description')
+  if (title) seoTitles.set(title, [...(seoTitles.get(title) ?? []), file])
+  if (!description) report(file, 'seo', 'no meta description')
+  else seoDescriptions.set(description, [...(seoDescriptions.get(description) ?? []), file])
+  const h1 = (html.match(/<h1[\s>]/g) ?? []).length
+  if (h1 !== 1) report(file, 'seo', `${h1} h1 headings, want one`)
+  if (!/<script type="application\/ld\+json">/.test(head)) report(file, 'seo', 'no structured data (JSON-LD) in its head')
+  for (const [attr, name] of [['property', 'og:title'], ['property', 'og:description'], ['name', 'twitter:card']]) {
+    if (!metaContent(head, attr, name)) report(file, 'seo', `no ${name}`)
+  }
+  const image = metaContent(head, 'property', 'og:image')
+  if (!image) report(file, 'seo', 'no og:image (the link preview\'s picture)')
+  else if (!image.startsWith('https://vgraphics.gr/') || !existsSync(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length))))) {
+    report(file, 'seo', `og:image ${image} is not a file on vgraphics.gr`)
+  }
+}
+
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
 
@@ -97,6 +124,8 @@ for (const file of pages) {
     }
   }
 
+  if (!/<meta name="robots" content="[^"]*noindex/i.test(html)) seo(file, html)
+
   if (/<html[^>]*\slang="en"/.test(html)) {
     const text = (GREEK_OK[urlPath(file)] ?? []).reduce((t, s) => t.replaceAll(s, ''), html)
     const at = text.search(GREEK)
@@ -116,6 +145,15 @@ for (const file of pages) {
     let target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
     if (clean.endsWith('/') || (existsSync(target) && statSync(target).isDirectory())) target = join(target, 'index.html')
     if (!existsSync(target)) report(file, 'links', `broken link ${ref}`)
+  }
+}
+// Two pages to index with one title or one description compete for the same search, and Google shows neither well.
+for (const [what, seen] of [['title', seoTitles], ['description', seoDescriptions]]) {
+  for (const [text, list] of seen) {
+    for (const file of list.length > 1 ? list : []) {
+      const others = list.filter((f) => f !== file)
+      report(file, 'seo', `same ${what} as ${others[0]}${others.length > 1 ? ` and ${others.length - 1} more` : ''}: "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}"`)
+    }
   }
 }
 
@@ -815,18 +853,37 @@ else {
   for (const s of COMPANY) if (!html.includes(s)) report('company/index.html', 'company', `missing "${s}"`)
 }
 
-// sitemap.xml lists every page search engines may index, at its canonical address, exactly as tools/build-sitemap.mjs
-// writes it; robots.txt points to it and blocks nothing.
+// sitemap.xml lists every page search engines may index, at its canonical address, as tools/build-sitemap.mjs writes
+// it, each with the day it last changed (whose value isn't checked: it moves with every commit, and the Deployer rewrites
+// some pages without the sitemap); robots.txt points to it and blocks nothing.
 const sitemapFile = join(root, 'sitemap.xml')
 if (!existsSync(sitemapFile)) report('sitemap.xml', 'sitemap', 'missing: run node tools/build-sitemap.mjs')
 else {
+  const undated = (text) => text.replace(/<lastmod>[^<]*<\/lastmod>/g, '')
   const want = sitemap()
   const have = readFileSync(sitemapFile, 'utf8').replace(/\r\n/g, '\n')
   const locs = (text) => new Set([...text.matchAll(/<loc>([^<]*)<\/loc>/g)].map((m) => m[1]))
   const [w, h] = [locs(want), locs(have)]
   for (const u of w) if (!h.has(u)) report('sitemap.xml', 'sitemap', `doesn't list ${u}: run node tools/build-sitemap.mjs`)
   for (const u of h) if (!w.has(u)) report('sitemap.xml', 'sitemap', `lists ${u}, which isn't a page to index: run node tools/build-sitemap.mjs`)
-  if (have !== want && [...w].every((u) => h.has(u)) && w.size === h.size) report('sitemap.xml', 'sitemap', 'not as tools/build-sitemap.mjs writes it: run it')
+  if (undated(have) !== undated(want) && [...w].every((u) => h.has(u)) && w.size === h.size) report('sitemap.xml', 'sitemap', 'not as tools/build-sitemap.mjs writes it: run it')
+  for (const [, u] of have.matchAll(/<url><loc>([^<]*)<\/loc>(?!<lastmod>\d{4}-\d{2}-\d{2}<\/lastmod><\/url>)/g)) {
+    report('sitemap.xml', 'sitemap', `${u} has no <lastmod> date: run node tools/build-sitemap.mjs`)
+  }
+  // Each address listed is a page that exists, may be indexed, and names that very address as its canonical (no
+  // other form of it: with or without the trailing slash or .html), so Google never finds a listed page pointing away.
+  for (const u of h) {
+    const path = u.startsWith('https://vgraphics.gr/') ? decodeURIComponent(u.slice('https://vgraphics.gr'.length)) : null
+    const file = path && join(root, path.endsWith('/') ? join(path, 'index.html') : path)
+    if (!file || !existsSync(file) || !statSync(file).isFile()) {
+      report('sitemap.xml', 'sitemap', `lists ${u}, which is no page on vgraphics.gr${file && existsSync(file) ? ' (a folder: its page ends with /)' : ''}`)
+      continue
+    }
+    const html = readFileSync(file, 'utf8')
+    const canonical = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
+    if (canonical !== u) report('sitemap.xml', 'sitemap', `lists ${u}, whose canonical is ${canonical ?? 'missing'}`)
+    if (/<meta name="robots" content="[^"]*noindex/i.test(html)) report('sitemap.xml', 'sitemap', `lists ${u}, which is noindex`)
+  }
 }
 const robots = join(root, 'robots.txt')
 if (!existsSync(robots)) report('robots.txt', 'robots', 'missing')

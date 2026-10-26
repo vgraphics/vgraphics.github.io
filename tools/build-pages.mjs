@@ -10,7 +10,8 @@
 // A product's other page holds the same fields as its landing page, except site, stores and footerArt (the product's),
 // with intro and cta optional (its closing card is the product's unless it gives its own), and path (its address, when
 // it isn't /<product>/<page>/) and robots ("noindex") as extras; its hero shows the product's key art unless it gives
-// its own art, and hero.title is its heading (the landing page's is the product's name). Every page's hero is the
+// its own art, and hero.title is its heading (the landing page's h1, for screen readers and search, is its hero.title,
+// what the product is in the words people search for, else the product's name). Every page's hero is the
 // landing page's height (George, 23 Oct 2026), the one box in tools/lib/hero.mjs.
 //
 // page.json holds the page's words, links and pictures (trusted HTML from this repo):
