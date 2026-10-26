@@ -52,6 +52,7 @@ import { loadProduct, loadSubpage, products, root, subpages } from './lib/produc
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
+import { blurhashes } from './lib/blurhash.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
@@ -159,17 +160,21 @@ const BLOCKS = {
   // Pictures in a grid, each opening large in the page's lightbox (assets/product.js): { type: "album", shape:
   // "portrait" | "wide", items: [{ title, src, full?, width, height, alt, position? }] }, src the grid's picture and
   // full the lightbox's (src when there is one size), every path absolute; position the focal point the tile's frame
-  // keeps (assets/product.css). George, 24 Oct 2026: the product's gallery.
-  album: (b) => `<ul class="album ${b.shape ?? 'wide'}">
-          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
-        </ul>`,
+  // keeps (assets/product.css); each tile carries its picture's blurhash, which the lightbox paints until the full
+  // picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
+  album: (b) => {
+    const hash = blurhashes(b.items.map((p) => p.src))
+    return `<ul class="album ${b.shape ?? 'wide'}">
+          ${b.items.map((p) => `<li><button class="album-item" type="button" data-full="${esc(p.full ?? p.src)}" data-w="${p.width}" data-h="${p.height}" data-hash="${esc(hash[p.src])}" aria-label="${esc(`Enlarge: ${p.title}`)}"><img src="${esc(p.src)}" alt="${esc(p.alt)}" width="${p.width}" height="${p.height}"${p.position ? ` style="${esc(`--at: ${p.position}`)}"` : ''} loading="lazy" decoding="async"><span>${p.title}</span></button></li>`).join('\n          ')}
+        </ul>`
+  },
 
   // The album, a small player and the track list (tools/lib/soundtrack.mjs, assets/soundtrack.css and .js)
   soundtrack,
 
   // A gallery with a layout is the shared screenshot gallery (tools/gallery.mjs, assets/gallery/); without one, a row
   // that scrolls sideways, its sides fading while more lies beyond (assets/fade-edges.js).
-  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title` }) : `<div class="shots fade-edges">
+  gallery: (b, product, s) => b.layout ? renderGallery(b, { label: `${s.id}-title`, dir: product.sub ? `${product.slug}/${product.sub}` : product.slug }) : `<div class="shots fade-edges">
           ${b.items.map((i) => `<figure>${image(i)}${i.caption ? `<figcaption>${i.caption}</figcaption>` : ''}</figure>`).join('\n          ')}
         </div>`,
 
