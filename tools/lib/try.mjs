@@ -6,14 +6,18 @@
 // <engine>), never by hand.
 //
 // page.json: { "type": "try", "product", "engine", "store", "referrer", "measurementId", "prices", "qr", "startup",
-//   "labels" }
+//   "style", "labels" }
 //   product        the engine's name for analytics and the visitor's saved look ("speedometer")
 //   engine         the folder of the engine's files, ending in "/" (vgtry.js, the wasm, art/, fonts/, styles/)
 //   store          the Google Play link; referrer, the install referrer it carries (step 6: the app opens on the style)
 //   measurementId  the product's Google Analytics web stream ("G-…"), or null: no statistics and no question
 //   prices         { premium, all }: what a premium style and "Unlock all" cost (the engine knows only which are free)
 //   qr             { src, alt }: a QR code of the store link, for desktop visitors (tools/make-qr.py)
-//   startup        { art: { tall, wide }, minMs }: the welcome art (as src-<width>.webp) and its least time on screen
+//   startup        { art: { tall, wide }, minMs }: the welcome art (as src-<width>.webp) and its least time on screen;
+//                  false leaves the start-up out: the product starts only on its try page (George, 26 Oct 2026: "Try
+//                  page only"), and a page that shows it as a preview (a style's page) draws it at once
+//   style          one style's page (speedometer-wallpaper/styles/<style>/): the phone opens on that style, and the
+//                  panel has no list of styles and no previous and next; its layouts and settings stay
 //   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
 import { esc } from './partials.mjs'
 
@@ -47,10 +51,24 @@ export function tryBlock(b, page) {
     measurementId: b.measurementId ?? null,
     prices: b.prices ?? {},
     gpsLabel: l.gps ?? 'Use my real speed',
-    startup: { base: '/assets/startup/', minMs: 2000, ...b.startup },
+    startup: b.startup === false ? false : { base: '/assets/startup/', minMs: 2000, ...b.startup },
+    ...(b.style ? { style: b.style } : {}),
   }
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
+  const step = (action, label, icon) => (config.style ? '' : `<button class="try-step" type="button" data-action="${action}" aria-label="${label}">${ICON[icon]}</button>`)
+  // A style's own page shows that style's layouts alone; the try page lists every style, its layouts under the list.
+  const styles = config.style
+    ? `<section class="try-group try-layouts" hidden aria-labelledby="try-layouts-title">
+              <h3 id="try-layouts-title">Layouts</h3>
+              <div class="try-chips"></div>
+            </section>`
+    : `<section class="try-group" aria-labelledby="try-styles-title">
+              <h3 id="try-styles-title">Styles</h3>
+              <ul class="try-styles"></ul>
+              <div class="try-layouts" hidden><h4>Layouts</h4><div class="try-chips"></div></div>
+              ${l.unlock ? `<p class="try-unlock">${l.unlock}</p>` : ''}
+            </section>`
   return `<div class="try" data-state="idle">
           <script type="application/json" class="try-config">${json}</script>
           <div class="try-stage">
@@ -68,9 +86,7 @@ export function tryBlock(b, page) {
           </div>
           <div class="try-panel">
             <div class="try-now">
-              <button class="try-step" type="button" data-action="prev" aria-label="The style before">${ICON.prev}</button>
-              <div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>
-              <button class="try-step" type="button" data-action="next" aria-label="The next style">${ICON.next}</button>
+              ${[step('prev', 'The style before', 'prev'), '<div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>', step('next', 'The next style', 'next')].filter(Boolean).join('\n              ')}
             </div>
             <p class="try-hint">${l.gauge ?? 'Tap the big gauge to switch what it shows, as on your phone.'}</p>
             <div class="try-quick">
@@ -79,12 +95,7 @@ export function tryBlock(b, page) {
             </div>
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
-            <section class="try-group" aria-labelledby="try-styles-title">
-              <h3 id="try-styles-title">Styles</h3>
-              <ul class="try-styles"></ul>
-              <div class="try-layouts" hidden><h4>Layouts</h4><div class="try-chips"></div></div>
-              ${l.unlock ? `<p class="try-unlock">${l.unlock}</p>` : ''}
-            </section>
+            ${styles}
             <section class="try-group" aria-labelledby="try-settings-title">
               <h3 id="try-settings-title">Settings</h3>
               <div class="try-settings"></div>
