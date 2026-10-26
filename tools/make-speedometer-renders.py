@@ -1,0 +1,120 @@
+"""The app's real renders the Speedometer pages show beside their own: each place gets a picture of its own (George,
+26 Oct 2026: "Each art must be used only once!!"), written to speedometer-wallpaper/img/renders/.
+
+    python tools/make-speedometer-renders.py [--ref main] [--games <Games repo>] [--promo <frames folder>]
+
+Every picture is the app's own drawing, never a painted one:
+- "golden:<name>": logic_render's or feature_screens' screenshot goldens in the Games repo (read straight from git at
+  --ref, no checkout needed);
+- "drive:<style>/<frame>": a frame of the Promo demo drive (Promo/speedometer/frames/<style>/<frame>.jpg, the app's
+  engine at the drive's speed; the frame number sets the speed).
+A "phone" is the whole screen at 540x1200, as the site's other phones; a "dial" is the big dial alone, a 480 px circle
+on a transparent ground, as img/dial-*.webp. Every design these come from draws its big dial at the same place.
+The gallery (tools/make-gallery-images.py) takes its frames and floating dials from here too.
+A name never ends in a number (classic-119kmh, not classic-119): check-site reads <name>-<number> as one picture's
+sizes.
+Needs Pillow with WebP.
+"""
+import argparse, io, os, subprocess, sys
+from PIL import Image, ImageDraw
+
+SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+OUT = os.path.join(SITE, "speedometer-wallpaper", "img", "renders")
+GOLDENS = {
+    "logic": "SpeedometerWallpaper/logic_render/src/test/screenshots/{}.png",
+    "screens": "SpeedometerWallpaper/feature_screens/src/test/screenshots/{}.png",
+}
+# The big dial's middle on the app's 1080x2400 screen. Each dial below gives the radius that holds its bezel and
+# nothing around it: Classic's small gauges and Future's clock sit just outside.
+DIAL = (540, 969)
+
+# name: (source, "phone" or a dial's radius). Where each is shown is in the comment beside it.
+RENDERS = {
+    # The landing page's gallery (make-gallery-images.py), one per slide and floating dial.
+    "classic-mph": ("golden:logic/classic_mph", "phone"),                      # GPS: 54 mph
+    "amber-night-119kmh": ("drive:amber_night/0520", "phone"),                 # Amber Night at 119 km/h
+    "carbon-power": ("golden:logic/skin_carbon_classic_power", "phone"),       # Power
+    "torque-71kmh": ("drive:torque/0468", "phone"),                            # Torque at 71 km/h
+    "vintage-pair-power": ("golden:logic/skin_vintage_pair_power", "phone"),   # Vintage
+    "track-night-power": ("golden:logic/skin_track_night_power", "phone"),     # Every gauge
+    "glass-49kmh": ("drive:glass/0156", "phone"),                              # Glass at 49 km/h
+    "dial-vintage-power": ("golden:logic/skin_vintage_classic_power", 490),
+    "dial-classic-17kmh": ("drive:classic/0104", 462),
+    "dial-future-49kmh": ("drive:future/0156", 465),
+    # /apps/ (and the home page's Apps door, its preview): the styles its words name, Steel, the 1960s walnut console
+    # (Vintage) and the fighter jet's head-up display (Horizon), in layouts no other page shows.
+    "harbour-helm-power": ("golden:logic/skin_harbour_helm_power", "phone"),
+    "dial-amber-power": ("golden:logic/skin_amber_classic_power", 462),
+    "steel-six-power": ("golden:logic/skin_steel_six_power", "phone"),
+    "vintage-cluster-power": ("golden:logic/skin_vintage_cluster_power", "phone"),
+    "horizon-119kmh": ("drive:horizon/0520", "phone"),
+    # The home page's Speedometer block.
+    "dial-classic-71kmh": ("drive:classic/0468", 462),
+    # The wiki's medals.
+    "dial-classic-49kmh": ("drive:classic/0156", 462),                         # classic-design
+    "dial-classic-104kmh": ("drive:classic/0624", 462),                        # big-gauge
+    "dial-classic-31kmh": ("drive:classic/0312", 462),                         # gps-speed
+    "dial-cockpit-power": ("golden:logic/skin_cockpit_classic_power", 462),    # power
+    "dial-rally-power": ("golden:logic/skin_rally_classic_power", 490),        # big-gauge-tile
+    "dial-future-cpu": ("golden:logic/future_cpu", 465),                       # cpu-clock
+    "settings-owned": ("golden:screens/app_settings_owned_allowed", "phone"),  # restoring-future
+}
+
+
+def beside(path, marker):
+    """A folder beside the site's checkout, known by `marker` inside it (a worktree of the site sits deeper, so look up
+    a few levels; the site's own games/ folder is not the Games repo)."""
+    folder = SITE
+    for _ in range(5):
+        folder = os.path.dirname(folder)
+        if os.path.isdir(os.path.join(folder, path, marker)):
+            return os.path.join(folder, path)
+    sys.exit(f"{path} not found beside the site; pass it")
+
+
+def source(spec, games, ref, promo):
+    kind, _, what = spec.partition(":")
+    if kind == "golden":
+        group, _, name = what.partition("/")
+        data = subprocess.run(["git", "-C", games, "cat-file", "blob", f"{ref}:{GOLDENS[group].format(name)}"],
+                              capture_output=True, check=True).stdout
+        return Image.open(io.BytesIO(data)).convert("RGB")
+    return Image.open(os.path.join(promo, f"{what}.jpg")).convert("RGB")
+
+
+def phone(img):
+    # The site's phones are 540x1200 (9:20): a taller screen loses a few pixels at each side.
+    keep = min(img.width, round(img.height * 540 / 1200))
+    left = (img.width - keep) // 2
+    return img.crop((left, 0, left + keep, img.height)).resize((540, 1200), Image.LANCZOS)
+
+
+def dial(img, r):
+    if img.size != (1080, 2400):
+        sys.exit(f"a dial is cut from a 1080x2400 screen, not {img.size}")
+    x, y = DIAL
+    out = img.crop((x - r, y - r, x + r, y + r)).convert("RGBA")
+    # The circle, drawn four times larger and scaled down for a smooth edge.
+    mask = Image.new("L", (out.width * 4, out.height * 4), 0)
+    ImageDraw.Draw(mask).ellipse((0, 0, mask.width - 1, mask.height - 1), fill=255)
+    out.putalpha(mask.resize(out.size, Image.LANCZOS))
+    return out.resize((480, 480), Image.LANCZOS)
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
+    parser.add_argument("--ref", default="main", help="Games repo branch or commit to read the goldens from")
+    parser.add_argument("--games", help="the Games repo (found beside the site by default)")
+    parser.add_argument("--promo", help="the demo drive's frames (Promo/speedometer/frames beside the site by default)")
+    args = parser.parse_args()
+    games = args.games or beside("Games", ".git")
+    promo = args.promo or beside(os.path.join("Promo", "speedometer", "frames"), "classic")
+    os.makedirs(OUT, exist_ok=True)
+    for name, (spec, kind) in RENDERS.items():
+        img = source(spec, games, args.ref, promo)
+        (phone(img) if kind == "phone" else dial(img, kind)).save(os.path.join(OUT, f"{name}.webp"), quality=84, method=6)
+        print(name, spec)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

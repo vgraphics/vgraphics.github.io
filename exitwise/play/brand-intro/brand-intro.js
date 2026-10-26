@@ -2,11 +2,13 @@
 // downloads, then fades to show the loader underneath (the game's art and loading bar), which has been counting all
 // along. A tap, click or key skips to the loader, never past it. Same file in both templates (BrandIntroTests).
 // The page calls VGIntro.gameReady(then) when Unity is ready: the intro gives way at once if it's still on, and
-// then() runs once the welcome art has been seen.
+// then() runs once the welcome art has been on screen for WELCOME_MS. VGIntro.welcomeMs() says how long it has been on
+// screen, for the game's splash_shown, and VGIntro.welcomeWindow() when, so the page's bar can fill across it.
+// docs/brand/splash/brand-intro.test.mjs checks the timing.
 (function () {
   var loader = document.getElementById("loader");
   if (!loader) return;
-  var WELCOME_MS = 1200; // the welcome art never just flashes
+  var WELCOME_MS = 2000; // the welcome art never just flashes: at least 2 s (George, 22 Oct)
   var NO_FRAME_MS = 1000; // no picture by then: skip the intro
   var CAP_MS = 4000; // never longer
   var STILL_MS = 1000; // reduced motion: the film's last frame, held
@@ -46,14 +48,38 @@
   var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
   var playing = false;
   var over = false;
+  var gone = false;
   var shownAt = 0;
   var onReady = null;
+  var bars = [];
+  // When the welcome art came (the page gives #loader with-art once its picture can be drawn), or -1.
+  var artAt = -1;
+  var artCame = function () {
+    if (artAt < 0 && loader.classList.contains("with-art")) artAt = now();
+    return artAt >= 0;
+  };
+  // The art is on screen from when the intro over it has gone, or from its own arrival if that was later.
+  var artFrom = function () { return Math.max(shownAt, artAt); };
+  // The page's bar: then(from, until), performance.now() ms, once the intro has gone. It fills from where it is at `from`
+  // to full at `until`, just as the game may come in; with no art there is nothing to wait for, and until is from.
+  var open = function (then) {
+    var from = artCame() ? artFrom() : now();
+    then(from, artCame() ? from + WELCOME_MS : from);
+  };
+  if (!artCame()) {
+    new MutationObserver(function (changes, watch) {
+      if (!artCame()) return;
+      watch.disconnect();
+      // Art after the intro has gone: its own 2 s, so the bar's too.
+      if (gone) bars.forEach(open);
+    }).observe(loader, { attributes: true, attributeFilter: ["class"] });
+  }
 
-  // The page's then(), once the art under the intro has been on screen for WELCOME_MS; at once if there is no art.
+  // The page's then(), once the art has been on screen for WELCOME_MS; at once if there is no art.
   var welcome = function () {
     var then = onReady;
     onReady = null;
-    var wait = loader.classList.contains("with-art") ? Math.max(0, shownAt + WELCOME_MS - now()) : 0;
+    var wait = artCame() ? Math.max(0, artFrom() + WELCOME_MS - now()) : 0;
     setTimeout(then, wait);
   };
   var finish = function (quick) {
@@ -67,6 +93,8 @@
     setTimeout(function () {
       video.pause();
       layer.remove();
+      gone = true;
+      bars.forEach(open);
     }, fade);
     if (onReady) welcome();
   };
@@ -93,6 +121,16 @@
       onReady = then;
       if (over) welcome();
       else finish(true);
+    },
+    // How long the welcome art has been on screen so far, in ms: -1 while it isn't yet, or if it never came.
+    welcomeMs: function () {
+      return over && artCame() && now() >= artFrom() ? Math.round(now() - artFrom()) : -1;
+    },
+    // When the page's loading bar may fill (see open): then(from, until) once the intro has gone, and again if the art
+    // comes after it.
+    welcomeWindow: function (then) {
+      bars.push(then);
+      if (gone) open(then);
     }
   };
 })();
