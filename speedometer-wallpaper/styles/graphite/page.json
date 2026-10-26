@@ -1,7 +1,6 @@
 {
   "title": "Graphite Speedometer Live Wallpaper: Flat Dark Dashboard",
   "description": "Graphite: Classic made flat, with graphite dials on a dark background. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. Free.",
-  "robots": "noindex",
   "social": {
     "title": "Graphite, a Speedometer Live Wallpaper style",
     "description": "Classic, flat: a satin ring around a plain graphite dial on a dark background.",
@@ -94,8 +93,8 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€1.19",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Future",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
               "href": "/speedometer-wallpaper/styles/future/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Carbon",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
               "href": "/speedometer-wallpaper/styles/carbon/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Vintage",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
               "href": "/speedometer-wallpaper/styles/vintage/",
               "tagTone": "alt"
@@ -211,7 +210,7 @@
                 "height": 780
               },
               "title": "Amber Night",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
               "href": "/speedometer-wallpaper/styles/amber-night/",
               "tagTone": "alt"

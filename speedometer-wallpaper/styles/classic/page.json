@@ -1,7 +1,6 @@
 {
   "title": "Classic Speedometer Live Wallpaper: Free Car Dashboard",
   "description": "Classic: the original 2016 dashboard with five gauges. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. Free.",
-  "robots": "noindex",
   "social": {
     "title": "Classic, a Speedometer Live Wallpaper style",
     "description": "The 2016 dashboard: five gauges, an LCD clock and warning lights.",
@@ -94,8 +93,8 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€1.19",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -196,7 +195,7 @@
                 "height": 780
               },
               "title": "Future",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
               "href": "/speedometer-wallpaper/styles/future/",
               "tagTone": "alt"
@@ -209,7 +208,7 @@
                 "height": 780
               },
               "title": "Carbon",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
               "href": "/speedometer-wallpaper/styles/carbon/",
               "tagTone": "alt"

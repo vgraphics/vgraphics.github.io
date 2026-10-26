@@ -1,7 +1,6 @@
 {
   "title": "Aura Speedometer Live Wallpaper: Premium Sport Dials",
-  "description": "Aura: premium sport dials with chrome rings on graphite leather. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
-  "robots": "noindex",
+  "description": "Aura: premium sport dials with chrome rings on graphite leather. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
   "social": {
     "title": "Aura, a Speedometer Live Wallpaper style",
     "description": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
@@ -16,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/aura/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/aura/",
         "name": "Aura Speedometer Live Wallpaper: Premium Sport Dials",
-        "description": "Aura: premium sport dials with chrome rings on graphite leather. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "description": "Aura: premium sport dials with chrome rings on graphite leather. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/aura.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -94,8 +93,8 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€1.19",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -135,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€0.99, once",
+              "title": "€1.19, once",
               "text": "Buy Aura once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Pulse",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
               "href": "/speedometer-wallpaper/styles/pulse/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Vector",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
               "href": "/speedometer-wallpaper/styles/vector/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Horizon",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
               "href": "/speedometer-wallpaper/styles/horizon/",
               "tagTone": "alt"

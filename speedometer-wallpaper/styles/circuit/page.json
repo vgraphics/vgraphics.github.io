@@ -1,7 +1,6 @@
 {
   "title": "Circuit Speedometer Live Wallpaper: Blue Track Cluster",
-  "description": "Circuit: a track car cluster of glowing blue sweeps on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
-  "robots": "noindex",
+  "description": "Circuit: a track car cluster of glowing blue sweeps on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
   "social": {
     "title": "Circuit, a Speedometer Live Wallpaper style",
     "description": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
@@ -16,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/circuit/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/circuit/",
         "name": "Circuit Speedometer Live Wallpaper: Blue Track Cluster",
-        "description": "Circuit: a track car cluster of glowing blue sweeps on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "description": "Circuit: a track car cluster of glowing blue sweeps on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/circuit.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -94,8 +93,8 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€1.19",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -135,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€0.99, once",
+              "title": "€1.19, once",
               "text": "Buy Circuit once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Prism",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
               "href": "/speedometer-wallpaper/styles/prism/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Aura",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
               "href": "/speedometer-wallpaper/styles/aura/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Pulse",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
               "href": "/speedometer-wallpaper/styles/pulse/",
               "tagTone": "alt"
@@ -211,7 +210,7 @@
                 "height": 780
               },
               "title": "Vector",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
               "href": "/speedometer-wallpaper/styles/vector/",
               "tagTone": "alt"

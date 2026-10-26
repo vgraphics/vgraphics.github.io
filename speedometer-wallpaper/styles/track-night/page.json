@@ -1,7 +1,6 @@
 {
   "title": "Track Night Speedometer Live Wallpaper: Race Screen",
-  "description": "Track Night: a race screen with shift lights, in electric blue. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
-  "robots": "noindex",
+  "description": "Track Night: a race screen with shift lights, in electric blue. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
   "social": {
     "title": "Track Night, a Speedometer Live Wallpaper style",
     "description": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
@@ -16,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/track-night/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/track-night/",
         "name": "Track Night Speedometer Live Wallpaper: Race Screen",
-        "description": "Track Night: a race screen with shift lights, in electric blue. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "description": "Track Night: a race screen with shift lights, in electric blue. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/track-night.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -94,8 +93,8 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€0.99",
-            "all": "€4.99"
+            "premium": "€1.19",
+            "all": "€5.99"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
@@ -135,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€0.99, once",
+              "title": "€1.19, once",
               "text": "Buy Track Night once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -172,7 +171,7 @@
                 "height": 780
               },
               "title": "Torque",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
               "href": "/speedometer-wallpaper/styles/torque/",
               "tagTone": "alt"
@@ -185,7 +184,7 @@
                 "height": 780
               },
               "title": "Circuit",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
               "href": "/speedometer-wallpaper/styles/circuit/",
               "tagTone": "alt"
@@ -198,7 +197,7 @@
                 "height": 780
               },
               "title": "Prism",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
               "href": "/speedometer-wallpaper/styles/prism/",
               "tagTone": "alt"
@@ -211,7 +210,7 @@
                 "height": 780
               },
               "title": "Aura",
-              "tag": "€0.99",
+              "tag": "€1.19",
               "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
               "href": "/speedometer-wallpaper/styles/aura/",
               "tagTone": "alt"
