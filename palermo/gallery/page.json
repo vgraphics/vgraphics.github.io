@@ -5,7 +5,7 @@
     "title": "Gallery · Palermo Noir",
     "description": "Every role card and the scenes of a night in Palermo, drawn in gold engraved lines on navy.",
     "image": "/palermo/img/card-1200x630.jpg",
-    "imageAlt": "Palermo Noir: a man in a fedora walks past a lit street lamp towards the domes of Palermo under a crescent moon, drawn in gold lines on navy, beside the Palermo Noir logo"
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
   },
   "structuredData": {
     "@context": "https://schema.org",
@@ -168,8 +168,8 @@
               "src": "/palermo/img/key-art-wide-1440.webp",
               "full": "/palermo/img/key-art-wide-3200.webp",
               "width": 3200,
-              "height": 1800,
-              "alt": "A man in a fedora and a long coat walks away down a cobbled street past a lit wrought-iron street lamp, towards the church domes of Palermo under a crescent moon, with a cat on a balcony, drawn in gold engraved lines on dark navy"
+              "height": 1358,
+              "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy"
             },
             {
               "title": "The deal",

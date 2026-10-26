@@ -3,8 +3,9 @@
 @font-face { font-family: "Sofia Sans"; src: url("/palermo/fonts/sofia-sans-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
 :root {
   --page: #0B1623;
-  --page-pattern: repeating-linear-gradient(90deg, rgba(201, 164, 110, 0.035) 0 1px, transparent 1px 7px);
-  --page-pattern-size: auto;
+  --page-pattern: repeating-linear-gradient(90deg, rgba(201, 164, 110, 0.035) 0 1px, transparent 1px 7px), url('/palermo/img/page-bg-1920.webp');
+  --page-pattern-size: auto, 100% auto;
+  --page-pattern-position: 0 0, 50% 0;
   --surface: #112033;
   --surface-2: #172A40;
   --ink: #EFE5D4;
