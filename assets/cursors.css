@@ -1,0 +1,17 @@
+/* The cursors on every page (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"): the pointer
+   everywhere, the hand on whatever clicks, the text cursor in text fields, in the look of the page's product (its
+   theme pack's --cursor, --cursor-link and --cursor-text, tools/lib/cursors.mjs) or of VGraphics (assets/vgraphics.css).
+   Those are set for mice and trackpads only, so phones, tablets and a page without them keep the system's cursors, as
+   does a browser whose picture fails to load. Every page links this file, and a stylesheet that sets its own cursor
+   uses var(--cursor-link, pointer) and the like (tools/check-site.mjs checks both). No specificity (:where), so a
+   page's own rule always wins; focus rings are left alone. */
+:where(html) { cursor: var(--cursor, auto); }
+:where(a[href], area[href], button, [role="button"], [role="link"], [role="tab"], summary, select,
+  label:has(> input:is([type="checkbox"], [type="radio"])),
+  input:is([type="checkbox"], [type="radio"], [type="range"], [type="color"], [type="file"], [type="submit"], [type="reset"], [type="button"], [type="image"])):where(:not(:disabled)) {
+  cursor: var(--cursor-link, pointer);
+}
+:where(textarea, input:not([type]), [contenteditable]:not([contenteditable="false"]),
+  input:is([type="text"], [type="search"], [type="email"], [type="url"], [type="tel"], [type="password"], [type="number"], [type="date"], [type="time"], [type="datetime-local"], [type="month"], [type="week"])) {
+  cursor: var(--cursor-text, text);
+}

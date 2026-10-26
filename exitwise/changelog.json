@@ -1,0 +1,75 @@
+{
+  "entries": [
+    {
+      "version": "1.0.6a32905f",
+      "date": "2026-10-22",
+      "platforms": ["Web"],
+      "items": [
+        "A new start: the VGraphics intro, then Exitwise's own key art while the game loads, over a squishy new loading bar.",
+        "The level map is painted in a new style for all 17 worlds, and fills wide windows edge to edge.",
+        "The dots of the board's grid are easier to see.",
+        "Settings fits wide windows: two groups side by side, with nothing to scroll."
+      ],
+      "commit": "6a32905f"
+    },
+    {
+      "version": "1.0.17",
+      "date": "2026-10-21",
+      "platforms": ["Android", "Web"],
+      "items": [
+        "All 17 world backgrounds and all 12 animal avatars are redrawn with brand-new art.",
+        "Fresh icons for the powerups, the coin, the tutorial hand and the map editor's bomb tool."
+      ],
+      "commit": "4f5d9766"
+    },
+    {
+      "version": "1.0.16",
+      "date": "2026-10-21",
+      "platforms": ["Android", "Web"],
+      "items": [
+        "New background music for the menu and the levels.",
+        "Eleven new sound effects, including bombs, clicks, losing a heart and completing a level.",
+        "Lighter audio files, for a smaller download."
+      ],
+      "commit": "48fea01d"
+    },
+    {
+      "version": "1.0.14",
+      "date": "2026-10-21",
+      "platforms": ["Android"],
+      "items": [
+        "Real sound effects across the whole game, in place of the old beeps.",
+        "Sign in with Google or Play Games and get a one-time thank-you of 100 coins for linking your account.",
+        "The level map opens on your current level, scrolls smoothly, and celebrates when a new world unlocks.",
+        "On landscape and other wide screens, everything is about 30% bigger and the board fills the window.",
+        "Your privacy choices now control ads and analytics."
+      ],
+      "commit": "973d5cb1"
+    },
+    {
+      "version": "1.0.13",
+      "date": "2026-10-19",
+      "platforms": ["Android"],
+      "items": [
+        "Play with friends keeps a history of your last 50 matches, and you can share any match's results as a picture.",
+        "The host picks the world and the lives for a match, and each game scores points for speed, hearts left and your place.",
+        "Your profile photo now shows everywhere: in rooms, on the leaderboards, on profiles and on map cards.",
+        "Switches are now keys and their gates locked doors, and portals have coloured rims and numbers, so matching ends are easy to spot.",
+        "How to play lets you watch each move play out before you go on to the next lesson."
+      ],
+      "commit": "3b1ffea1"
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-10-18",
+      "platforms": ["Android", "Web"],
+      "items": [
+        "Exitwise is out, on Google Play and in your browser.",
+        "New How to play: short lessons that bring in each obstacle one at a time, with a hand that shows every tap.",
+        "Daily, Ranking, Friends and Maps are round buttons near the top of the home screen, leaving more room for the map.",
+        "In rooms everyone plays exactly the same board, from Easy to a much bigger Expert that uses every obstacle."
+      ],
+      "commit": "b837763d"
+    }
+  ]
+}

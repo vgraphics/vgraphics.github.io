@@ -73,3 +73,10 @@
   --swatch-6: #8C5CF0;
   color-scheme: light;
 }
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/exitwise/theme/cursor.svg") 3 2, auto;
+    --cursor-link: url("/exitwise/theme/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/exitwise/theme/cursor-text.svg") 16 16, text;
+  }
+}

@@ -1,0 +1,228 @@
+{
+  "title": "Torque Speedometer Live Wallpaper: Muscle Car Dash",
+  "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+  "robots": "noindex",
+  "social": {
+    "title": "Torque, a Speedometer Live Wallpaper style",
+    "description": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
+    "image": "/speedometer-wallpaper/img/styles/cards/torque.jpg",
+    "imageAlt": "The Torque style of Speedometer Live Wallpaper, as the app draws it, over the night drive of its key art"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/torque/#page",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/styles/torque/",
+        "name": "Torque Speedometer Live Wallpaper: Muscle Car Dash",
+        "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/torque.jpg",
+        "about": {
+          "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
+        }
+      },
+      {
+        "@type": "MobileApplication",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
+        "name": "Speedometer Live Wallpaper",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apps",
+            "item": "https://vgraphics.gr/apps/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Speedometer Live Wallpaper",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Styles",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/#styles"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Torque",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/styles/torque/"
+          }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "Torque, a Speedometer Live Wallpaper style",
+    "lead": "A muscle-car dash, <em>on gunmetal.</em>",
+    "align": "left",
+    "badges": [
+      {
+        "href": "#live",
+        "label": "See it live",
+        "icon": "down",
+        "button": true
+      },
+      "google-play"
+    ]
+  },
+  "sections": [
+    {
+      "id": "live",
+      "eyebrow": "Live",
+      "title": "Torque, live",
+      "intro": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Torque's layouts and colours.",
+      "blocks": [
+        {
+          "type": "try",
+          "product": "speedometer",
+          "engine": "/speedometer-wallpaper/play/app/",
+          "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
+          "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
+          "measurementId": null,
+          "prices": {
+            "premium": "€0.99",
+            "all": "€4.99"
+          },
+          "qr": {
+            "src": "/speedometer-wallpaper/play/img/play-qr.svg",
+            "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play"
+          },
+          "startup": false,
+          "style": "torque",
+          "labels": {
+            "screen": "Speedometer Live Wallpaper, live: tap the big gauge to switch it",
+            "gauge": "Tap the big gauge to switch between power, CPU clock and speed, as on your phone.",
+            "gps": "Use my real speed",
+            "get": "Set it as your wallpaper",
+            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one."
+          }
+        }
+      ]
+    },
+    {
+      "id": "look",
+      "eyebrow": "The look",
+      "title": "About Torque",
+      "intro": "Torque is a muscle car's dash on gunmetal: a curved arc with a red zone across the top, a big round dial under it, the time framed like a gear number, and two side arcs drawn as fuel and temperature.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/speedometer-wallpaper/img/styles/torque.webp",
+              "alt": "The Torque style, as the wallpaper draws it",
+              "width": 360,
+              "height": 780,
+              "caption": "Torque, drawn by the app itself"
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "€0.99, once",
+              "text": "Buy Torque once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
+            },
+            {
+              "title": "One dial, three jobs",
+              "text": "The big gauge shows power, CPU clock or GPS speed. Tap it on your home screen to switch, as in every style."
+            },
+            {
+              "title": "Make it yours",
+              "text": "Customize sets Torque's colours and background, and its units, clock and warning lights."
+            },
+            {
+              "title": "Layouts, and your own",
+              "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "eyebrow": "Styles",
+      "title": "More styles",
+      "intro": "Every style runs live on its own page. Or <a href=\"/speedometer-wallpaper/play/\">try them all in your browser</a>.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "tile",
+          "items": [
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/circuit.webp",
+                "alt": "The Circuit style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Circuit",
+              "tag": "€0.99",
+              "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
+              "href": "/speedometer-wallpaper/styles/circuit/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/prism.webp",
+                "alt": "The Prism style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Prism",
+              "tag": "€0.99",
+              "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
+              "href": "/speedometer-wallpaper/styles/prism/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/aura.webp",
+                "alt": "The Aura style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Aura",
+              "tag": "€0.99",
+              "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
+              "href": "/speedometer-wallpaper/styles/aura/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/pulse.webp",
+                "alt": "The Pulse style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Pulse",
+              "tag": "€0.99",
+              "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
+              "href": "/speedometer-wallpaper/styles/pulse/",
+              "tagTone": "alt"
+            }
+          ]
+        }
+      ],
+      "more": {
+        "href": "/speedometer-wallpaper/#styles",
+        "label": "All 19 styles →"
+      }
+    }
+  ]
+}

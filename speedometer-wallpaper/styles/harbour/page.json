@@ -1,0 +1,228 @@
+{
+  "title": "Harbour Speedometer Live Wallpaper: Marine Brass Gauges",
+  "description": "Harbour: marine brass and navy enamel gauges on a teak deck. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+  "robots": "noindex",
+  "social": {
+    "title": "Harbour, a Speedometer Live Wallpaper style",
+    "description": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.",
+    "image": "/speedometer-wallpaper/img/styles/cards/harbour.jpg",
+    "imageAlt": "The Harbour style of Speedometer Live Wallpaper, as the app draws it, over the night drive of its key art"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/harbour/#page",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/styles/harbour/",
+        "name": "Harbour Speedometer Live Wallpaper: Marine Brass Gauges",
+        "description": "Harbour: marine brass and navy enamel gauges on a teak deck. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/harbour.jpg",
+        "about": {
+          "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
+        }
+      },
+      {
+        "@type": "MobileApplication",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
+        "name": "Speedometer Live Wallpaper",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apps",
+            "item": "https://vgraphics.gr/apps/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Speedometer Live Wallpaper",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Styles",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/#styles"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Harbour",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/styles/harbour/"
+          }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "Harbour, a Speedometer Live Wallpaper style",
+    "lead": "Marine brass, <em>on a teak deck.</em>",
+    "align": "left",
+    "badges": [
+      {
+        "href": "#live",
+        "label": "See it live",
+        "icon": "down",
+        "button": true
+      },
+      "google-play"
+    ]
+  },
+  "sections": [
+    {
+      "id": "live",
+      "eyebrow": "Live",
+      "title": "Harbour, live",
+      "intro": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Harbour's layouts and colours.",
+      "blocks": [
+        {
+          "type": "try",
+          "product": "speedometer",
+          "engine": "/speedometer-wallpaper/play/app/",
+          "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
+          "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
+          "measurementId": null,
+          "prices": {
+            "premium": "€0.99",
+            "all": "€4.99"
+          },
+          "qr": {
+            "src": "/speedometer-wallpaper/play/img/play-qr.svg",
+            "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play"
+          },
+          "startup": false,
+          "style": "harbour",
+          "labels": {
+            "screen": "Speedometer Live Wallpaper, live: tap the big gauge to switch it",
+            "gauge": "Tap the big gauge to switch between power, CPU clock and speed, as on your phone.",
+            "gps": "Use my real speed",
+            "get": "Set it as your wallpaper",
+            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one."
+          }
+        }
+      ]
+    },
+    {
+      "id": "look",
+      "eyebrow": "The look",
+      "title": "About Harbour",
+      "intro": "Harbour is a boat's instrument panel: brass bezels with a rope edge around navy enamel dials on a teak deck, a gold needle, and counters in brass frames.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/speedometer-wallpaper/img/styles/harbour.webp",
+              "alt": "The Harbour style, as the wallpaper draws it",
+              "width": 360,
+              "height": 780,
+              "caption": "Harbour, drawn by the app itself"
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "€0.99, once",
+              "text": "Buy Harbour once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
+            },
+            {
+              "title": "One dial, three jobs",
+              "text": "The big gauge shows power, CPU clock or GPS speed. Tap it on your home screen to switch, as in every style."
+            },
+            {
+              "title": "Make it yours",
+              "text": "Customize sets Harbour's colours and background, and its units, clock and warning lights."
+            },
+            {
+              "title": "Layouts, and your own",
+              "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "eyebrow": "Styles",
+      "title": "More styles",
+      "intro": "Every style runs live on its own page. Or <a href=\"/speedometer-wallpaper/play/\">try them all in your browser</a>.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "tile",
+          "items": [
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/track_night.webp",
+                "alt": "The Track Night style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Track Night",
+              "tag": "€0.99",
+              "text": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
+              "href": "/speedometer-wallpaper/styles/track-night/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/torque.webp",
+                "alt": "The Torque style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Torque",
+              "tag": "€0.99",
+              "text": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
+              "href": "/speedometer-wallpaper/styles/torque/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/circuit.webp",
+                "alt": "The Circuit style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Circuit",
+              "tag": "€0.99",
+              "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
+              "href": "/speedometer-wallpaper/styles/circuit/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/prism.webp",
+                "alt": "The Prism style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Prism",
+              "tag": "€0.99",
+              "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
+              "href": "/speedometer-wallpaper/styles/prism/",
+              "tagTone": "alt"
+            }
+          ]
+        }
+      ],
+      "more": {
+        "href": "/speedometer-wallpaper/#styles",
+        "label": "All 19 styles →"
+      }
+    }
+  ]
+}
