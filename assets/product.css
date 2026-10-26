@@ -180,8 +180,8 @@ h1, h2, h3 {
   :is(.top.scrolled, .top) .subnav a.play { min-height: 52px; margin: 8px 0 0; }
 }
 
-/* The hero of every product page, the landing page's, its other pages' and every wiki page's (George, 23 Oct 2026:
-   "Heroes of all pages must have same height as hero in overview"; tools/lib/hero.mjs builds it for all of them).
+/* The hero of every product page, the landing page's, its other pages' and every wiki page's (tools/lib/hero.mjs
+   builds it for all of them; the other pages' is shorter, .is-page below).
    Key art: the product's welcome picture edge to edge from the very top (George's hero rules). Landscape screens get
    the wide picture (or the ultra-wide one past 2:1), cut to fill a 16:10 box no taller than the screen, so it fills
    the whole screen on most of them (George, 22 Oct: "Increase height of hero a bit", from 16:9). Portrait
@@ -234,6 +234,15 @@ h1, h2, h3 {
     mask-image: linear-gradient(#000 var(--art-fade-tall, 62%), transparent);
   }
   .foot-left .hero-foot .wrap { justify-items: center; text-align: center; }
+}
+/* Every other page's hero (the wiki's, the ranking's, the policies'; tools/lib/hero.mjs): shorter, so the page's own
+   content starts sooner (George, 24 Oct 2026: "The hero height is not so good for other pages other than overview.
+   Revert to previous height +20%"): the band those pages had before 23 Oct, 20% taller. Portrait screens show the
+   middle of the tall picture, where its subject stands. */
+.key-art.is-page { height: clamp(384px, 43.2vw, 74.4vh); height: clamp(384px, 43.2vw, 74.4svh); }
+@media (max-aspect-ratio: 4/5) {
+  .key-art.is-page { height: 134.4vw; }
+  .key-art.is-page picture img { object-position: 50% 50%; }
 }
 
 /* Store badges and buttons */
@@ -452,25 +461,28 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 
 /* The journey: the level map's worlds as tiles in play order, each on its own world art with what it brings, linking
    to the wiki (tools/lib/journey.mjs). With detail, each piece has its line under its name. Tiles share a row and grow
-   to fill it. */
+   to fill it. The world's art belongs to its name's link, to the world's card on the wiki's world map: it fills the
+   tile, behind the shade, so a click anywhere on the tile but a piece opens that card. */
 .journey { list-style: none; padding: 0; margin: 0; display: grid; gap: 12px; grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
 .journey.detail { display: flex; flex-wrap: wrap; gap: 14px; }
 .journey.detail > li { flex: 1 1 320px; }
-.journey-world { position: relative; isolation: isolate; overflow: hidden; padding: 14px; border-radius: var(--radius); background: var(--w) var(--art) center / cover; box-shadow: var(--card-shadow); }
-.journey-world::before { content: ""; position: absolute; inset: 0; z-index: -1; background: linear-gradient(180deg, rgb(20 12 40 / 0.5), rgb(20 12 40 / 0.08) 45%, rgb(20 12 40 / 0.25)); }
-.journey-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; color: #FFFFFF; text-shadow: 0 2px 6px rgb(0 0 0 / 0.6); }
+.journey-world { position: relative; isolation: isolate; overflow: hidden; padding: 14px; border-radius: var(--radius); background: var(--w); box-shadow: var(--card-shadow); }
+.journey-world::before { content: ""; position: absolute; inset: 0; z-index: -1; pointer-events: none; background: linear-gradient(180deg, rgb(20 12 40 / 0.5), rgb(20 12 40 / 0.08) 45%, rgb(20 12 40 / 0.25)); }
+.journey-head { display: flex; justify-content: space-between; align-items: baseline; gap: 8px; margin: 0 0 10px; color: #FFFFFF; text-decoration: none; text-shadow: 0 2px 6px rgb(0 0 0 / 0.6); }
+.journey-head::after { content: ""; position: absolute; inset: 0; z-index: -2; background: var(--art) center / cover; }
+a.journey-head:hover b, a.journey-head:focus-visible b { text-decoration: underline; text-underline-offset: 3px; }
 .journey-head b { font: var(--display-weight) 1.3rem/1 var(--font-display); }
 .journey-head span { font-weight: 700; font-size: 0.82rem; }
 .journey-world ul { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
-.journey-world a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgb(255 255 255 / 0.96); color: var(--ink); text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgb(0 0 0 / 0.2); transition: transform 150ms ease-out; }
-.journey-world a:hover { transform: translateY(-2px); }
+.journey-world ul a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgb(255 255 255 / 0.96); color: var(--ink); text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgb(0 0 0 / 0.2); transition: transform 150ms ease-out; }
+.journey-world ul a:hover { transform: translateY(-2px); }
 .journey-piece { display: grid; place-items: center; flex: none; width: 30px; height: 30px; }
 .journey-piece svg, .journey-piece img { width: 100%; height: 100%; }
 .journey.detail .journey-world { padding: 16px; }
 .journey.detail .journey-head b { font-size: 1.5rem; }
-.journey.detail .journey-world a { align-items: flex-start; padding: 10px 12px 10px 8px; }
+.journey.detail .journey-world ul a { align-items: flex-start; padding: 10px 12px 10px 8px; }
 .journey.detail .journey-piece { width: 36px; height: 36px; }
-.journey.detail .journey-world a > span:last-child { display: grid; gap: 3px; }
+.journey.detail .journey-world ul a > span:last-child { display: grid; gap: 3px; }
 .journey.detail small { color: var(--muted); font: var(--body-weight) 0.9rem/1.35 var(--font-body); }
 
 /* Card grids: "icon" cards link to a wiki entry, "media" ones show a picture on top, "side" ones beside the words. */

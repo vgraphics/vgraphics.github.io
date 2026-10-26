@@ -13,7 +13,7 @@
  "title": "Palermo Noir wiki",
  "heading": "Every role, power and rule",
  "intro": "Every role you can be dealt, every card in the Lawyer's briefcase, and how a round of Palermo Noir plays, from the deal to the verdict.",
- "heroArt": {
+ "art": {
   "alt": "A man in a fedora and a trench coat studies a cork evidence board of engraved portraits of suspects linked by strings, a black rose at its centre, under a hanging lamp in a dark Palermo office, drawn in gold engraved lines on navy",
   "tall": { "src": "img/hero-wiki-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3193 },
   "wide": { "src": "img/hero-wiki-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1515, "sizes": "max(100vw, min(158vw, 253vh))" },

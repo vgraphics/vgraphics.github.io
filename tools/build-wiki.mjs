@@ -61,10 +61,16 @@ function artPicture(w, slug, { cls, sizes }) {
   const fallback = img.jpeg ? `${img.src}-${img.jpeg[0]}.jpg" srcset="${srcset(img, 'jpg', img.jpeg)}" sizes="${sizes}` : `${img.src}-${img.widths[0]}.webp`
   return `<picture class="${cls}">${['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(img, x, img.widths)}" sizes="${sizes}">`).join('')}<img src="${fallback}" width="${a.width}" height="${a.height}" alt="" loading="lazy"></picture>`
 }
-// The index hero: the wiki's own (wiki.json "heroArt", as page.json's hero.art; each picture is shown once, George 26 Oct
-// 2026), or else the landing page's key art, named from the product's folder.
+// The index hero: the wiki's own picture (wiki.json "art", George, 24 Oct 2026: "Privacy policy uses the same image as
+// overview. Generate another please. WiKi page too."), either one of its paintings ({ "wiki": "<slug>", alt, ... }) or
+// a picture of its own, as page.json's hero.art ({ alt, tall, wide, ... }, named from the product's folder; Palermo's,
+// George's round-5 pick); else the landing page's key art (page.json hero.art).
 function keyArt(product, w) {
-  const a = w.heroArt ?? product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
+  if (w.indexArt?.wiki) {
+    const { wiki, ...given } = w.indexArt
+    return wikiArt(product.slug, wiki, given)
+  }
+  const a = w.indexArt?.wide ? w.indexArt : product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
   return { ...a, tall: at(a.tall), wide: at(a.wide), ultra: at(a.ultra) }
 }
 
@@ -223,18 +229,22 @@ function worldMap(w) {
     </section>`
 }
 // "In the game": a phone on small screens; on wide ones the browser game's wide player, the world's level-map art
-// edge to edge with the game in the middle. A wide figure (wider than tall) is shown as it is.
+// edge to edge with the game in the middle. A wide figure (wider than tall) is shown as it is. Each entry has a band of
+// its own, cut from another row of its world's map (tools/make-wiki-map-art.py), so no band is shown twice (George,
+// 26 Oct 2026: "Each art must be used only once!!").
 function inTheGame(w, e) {
   const f = e.figure
   if (!f) return ''
   const wide = f.width > f.height
-  // The world the screenshot shows (named in its words), else the one the entry arrives in.
+  // The world the screenshot shows (named in its words), else the one the entry arrives in. make-wiki-map-art.py
+  // makes the same choice.
   const named = w.worlds?.find((x) => new RegExp(`\\b${x.name}\\b`, 'i').test(`${f.alt} ${f.caption || ''}`))
   const wd = named || worldOf(w, e.firstLevel) || w.worlds?.[0]
-  const band = !wide && w.bands && wd && w.bands.includes(wd.id) ? wd.id : null
+  const file = `${w.product.slug}/wiki/img/bands/${e.slug}.webp`
+  const band = !wide && w.bands && wd && w.bands.includes(wd.id) && existsSync(join(root, file))
   const play = w.playHref ? `<a class="w-btn" href="${esc(w.playHref)}">Play in your browser</a>` : ''
   return `<section class="w-block" aria-labelledby="h-game">${h2('h-game', `${esc(w.figureTitle || 'In the game')}`)}
-      <figure class="w-player${wide ? ' is-wide' : ''}"><div class="w-player-screen"${band ? ` style="--band: url(/${w.product.slug}/wiki/img/bands/${band}.webp)"` : ''}><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.width}" height="${f.height}" loading="lazy"></div><figcaption><span>${f.caption || ''}</span>${play}</figcaption></figure>
+      <figure class="w-player${wide ? ' is-wide' : ''}"><div class="w-player-screen"${band ? ` style="--band: url(/${file})"` : ''}><img src="${esc(f.src)}" alt="${esc(f.alt)}" width="${f.width}" height="${f.height}" loading="lazy"></div><figcaption><span>${f.caption || ''}</span>${play}</figcaption></figure>
     </section>`
 }
 function entryPage(w, product, e, i) {
@@ -278,6 +288,8 @@ for (const slug of products) {
   const w = JSON.parse(readFileSync(join(dir, 'wiki.json'), 'utf8'))
   const product = loadProduct(slug)
   const artFile = join(dir, 'img', 'art', 'art.json')
+  // wiki.json's own "art" (the index hero's painting) stays as indexArt; w.art becomes the paintings' sizes.
+  w.indexArt = w.art
   w.art = existsSync(artFile) ? JSON.parse(readFileSync(artFile, 'utf8')) : {}
   // Every entry belongs to a known section and has its painting; order entries by section so prev/next follows the index.
   const order = w.sections.map((s) => s.id)

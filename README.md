@@ -39,8 +39,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
-| `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
+| `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
 | `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the masters in `<product>/wiki/art-src/`, whose `sources.json` records each one's making, prompt and licence: `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. |
+| `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
 | `tools/make-key-art.py` | Writes a product's hero pictures (`<product>/img/key-art-wide-*` and `key-art-tall-*`, AVIF, WebP and JPEG) from its key art masters and prints their page.json entries: `python tools/make-key-art.py <product> <wide master> <tall master>`, or `--cut <x>` for a 9:16 cut of the wide one. Never larger than the master. |
@@ -50,6 +51,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 | `tools/make-style-pages.mjs`, `tools/make-style-cards.py` | Write the style pages' `page.json` and the landing page's style tiles from `<product>/styles/styles.json` (`node tools/make-style-pages.mjs`, then `build-pages` and `build-sitemap`), and each style page's link-preview card, the key art behind the style's name, price and real render (`python tools/make-style-cards.py`, Python with Pillow, fontTools and brotli). check-site fails while either is out of date. |
 | `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
+| `tools/make-speedometer-renders.py` | Writes `speedometer-wallpaper/img/renders/`: the app's real renders (its screenshot goldens in the Games repo and frames of the Promo demo drive) that the gallery, `/apps/`, the home page and the wiki's medals show, each place its own: `python tools/make-speedometer-renders.py`, then `python tools/make-gallery-images.py speedometer-wallpaper` (Python with Pillow) |
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
 `/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
@@ -279,10 +281,18 @@ No hero, section or card shows a picture that is shown anywhere else on the site
   its middle (a cut from its side goes unseen). `tools/art-prints.py` makes the prints (Python with Pillow). check-site
   keeps them in the temp folder, so only new files need Python.
 - These don't count: the `<head>` (link previews, preloads), logos, store badges, the soundtrack's cover, QR codes,
-  pictures of 256 px or smaller (icons, sprites, game pieces), and pictures a script shows. A product's footer picture
+  pictures of 256 px or smaller (icons, sprites, game pieces), the start-up's welcome splash on a play page (the WebGL
+  template's `#loader-art`: the key art is the welcome splash after the VGraphics intro), and pictures a script shows
+  (the try pages' start-up builds its splash that way). A product's footer picture
   and its theme's ornaments are on every page of the product by design, and count as one place each.
-- A card that links to a page showing the same picture is that page's preview, like its link preview, and is allowed.
-  Examples are the wiki's cards for its entries and the style pages' tiles for each other.
+- Two kinds of repeat are allowed (George, 26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as
+  the page it previews. Every page's hero and sections stay unique."):
+  - A card that links to a page showing the same picture is that page's preview, like its link preview. Examples are
+    the wiki's cards for its entries and the style pages' tiles for each other.
+  - A product gallery's tiles may repeat art shown elsewhere. That means the pictures of the template's gallery block:
+    a stage slide's screenshot (`.g-screen`) or a picture in its plain row (`.shots.fade-edges`), and an album's tiles
+    (`.album-item`), whose lightbox shows them by script. It never covers the gallery page's hero, the gallery's
+    backdrop and pedestals, or any other section.
 - `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
   passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
   taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
