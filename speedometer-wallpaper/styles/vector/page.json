@@ -1,0 +1,225 @@
+{
+  "title": "Vector Speedometer Live Wallpaper: Violet Hexagon HUD",
+  "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+  "robots": "noindex",
+  "social": {
+    "title": "Vector, a Speedometer Live Wallpaper style",
+    "description": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
+    "image": "/speedometer-wallpaper/img/styles/cards/vector.jpg",
+    "imageAlt": "The Vector style of Speedometer Live Wallpaper, as the app draws it, over the night drive of its key art"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/vector/#page",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/styles/vector/",
+        "name": "Vector Speedometer Live Wallpaper: Violet Hexagon HUD",
+        "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €0.99, once.",
+        "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/vector.jpg",
+        "about": {
+          "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
+        }
+      },
+      {
+        "@type": "MobileApplication",
+        "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
+        "name": "Speedometer Live Wallpaper",
+        "url": "https://vgraphics.gr/speedometer-wallpaper/"
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Apps",
+            "item": "https://vgraphics.gr/apps/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Speedometer Live Wallpaper",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Styles",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/#styles"
+          },
+          {
+            "@type": "ListItem",
+            "position": 5,
+            "name": "Vector",
+            "item": "https://vgraphics.gr/speedometer-wallpaper/styles/vector/"
+          }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "Vector, a Speedometer Live Wallpaper style",
+    "lead": "A neon HUD <em>in violet hexagons.</em>",
+    "align": "left",
+    "badges": [
+      {
+        "href": "#live",
+        "label": "See it live",
+        "icon": "down",
+        "button": true
+      },
+      "google-play"
+    ]
+  },
+  "sections": [
+    {
+      "id": "live",
+      "eyebrow": "Live",
+      "title": "Vector, live",
+      "intro": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Vector's layouts and colours.",
+      "blocks": [
+        {
+          "type": "try",
+          "product": "speedometer",
+          "engine": "/speedometer-wallpaper/play/app/",
+          "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
+          "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
+          "measurementId": null,
+          "prices": {
+            "premium": "€0.99",
+            "all": "€4.99"
+          },
+          "qr": {
+            "src": "/speedometer-wallpaper/play/img/play-qr.svg",
+            "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play"
+          },
+          "startup": false,
+          "style": "vector",
+          "labels": {
+            "screen": "Speedometer Live Wallpaper, live: tap the big gauge to switch it",
+            "gauge": "Tap the big gauge to switch between power, CPU clock and speed, as on your phone.",
+            "gps": "Use my real speed",
+            "get": "Set it as your wallpaper",
+            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one."
+          }
+        }
+      ]
+    },
+    {
+      "id": "look",
+      "eyebrow": "The look",
+      "title": "About Vector",
+      "intro": "Vector is a neon HUD built from hexagons: a faceted sweep that thickens as the reading climbs, and crisp thin digits, violet on black.",
+      "blocks": [
+        {
+          "type": "gallery",
+          "items": [
+            {
+              "src": "/speedometer-wallpaper/img/styles/vector.webp",
+              "alt": "The Vector style, as the wallpaper draws it",
+              "width": 360,
+              "height": 780,
+              "caption": "Vector, drawn by the app itself"
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "€0.99, once",
+              "text": "Buy Vector once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
+            },
+            {
+              "title": "One dial, three jobs",
+              "text": "The big gauge shows power, CPU clock or GPS speed. Tap it on your home screen to switch, as in every style."
+            },
+            {
+              "title": "Make it yours",
+              "text": "Customize sets Vector's colours and background, and its units, clock and warning lights."
+            },
+            {
+              "title": "Layouts, and your own",
+              "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "eyebrow": "Styles",
+      "title": "More styles",
+      "intro": "Every style runs live on its own page. Or <a href=\"/speedometer-wallpaper/play/\">try them all in your browser</a>.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "tile",
+          "items": [
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/horizon.webp",
+                "alt": "The Horizon style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Horizon",
+              "tag": "€0.99",
+              "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
+              "href": "/speedometer-wallpaper/styles/horizon/",
+              "tagTone": "alt"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/classic.webp",
+                "alt": "The Classic style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Classic",
+              "tag": "Free",
+              "text": "The 2016 dashboard: five gauges, an LCD clock and warning lights.",
+              "href": "/speedometer-wallpaper/styles/classic/"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/steel.webp",
+                "alt": "The Steel style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Steel",
+              "tag": "Free",
+              "text": "Classic, refined: satin chrome around spun graphite and an ice-white LCD.",
+              "href": "/speedometer-wallpaper/styles/steel/"
+            },
+            {
+              "image": {
+                "src": "/speedometer-wallpaper/img/styles/graphite.webp",
+                "alt": "The Graphite style, as the wallpaper draws it",
+                "width": 360,
+                "height": 780
+              },
+              "title": "Graphite",
+              "tag": "Free",
+              "text": "Classic, flat: a satin ring around a plain graphite dial on a dark background.",
+              "href": "/speedometer-wallpaper/styles/graphite/"
+            }
+          ]
+        }
+      ],
+      "more": {
+        "href": "/speedometer-wallpaper/#styles",
+        "label": "All 19 styles →"
+      }
+    }
+  ]
+}

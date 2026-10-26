@@ -886,14 +886,23 @@
       "eyebrow": "Updates",
       "title": "What's new",
       "intro": "Every update to the app and its web version, newest first.",
-      "blocks": [{ "type": "news" }]
+      "blocks": [
+        {
+          "type": "news"
+        }
+      ]
     },
     {
       "id": "faq",
       "eyebrow": "Help",
       "title": "Questions and answers",
       "intro": "Quick answers about styles, battery, GPS speed and your data. The <a href=\"/speedometer-wallpaper/wiki/\">wiki</a> explains every gauge.",
-      "blocks": [{ "type": "faq", "src": "faq.json" }]
+      "blocks": [
+        {
+          "type": "faq",
+          "src": "faq.json"
+        }
+      ]
     }
   ],
   "cta": {

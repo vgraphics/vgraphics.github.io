@@ -4,7 +4,8 @@
 // dark launch; the start-up plays when the phone comes into view, so a visitor waits for it alone. The panel is built from the engine's own catalog: its styles with
 // their pictures, Free or the price, their layouts, and the app's settings in the app's words. The look shown is kept
 // in this browser and can be shared as a link (#style=…). The store links carry the style shown, for the app to open
-// on it after the install.
+// on it after the install. A style's own page (config.style) opens on that style and has no list of styles; a page
+// without the start-up (config.startup false) draws the wallpaper as soon as the engine is ready.
 //
 // Statistics (Google Analytics 4, the product's web stream) only with a measurement id, and only after the visitor says
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
@@ -256,6 +257,7 @@
 
   function buildStyles() {
     var list = $('.try-styles');
+    if (!list) return;
     list.textContent = '';
     catalog.styles.forEach(function (style) {
       var item = document.createElement('li');
@@ -443,10 +445,17 @@
     });
   }
 
-  // A share link opens on its look; without one, the last look seen in this browser.
+  // A share link opens on its look; without one, the last look seen in this browser. A style's own page opens on its
+  // style: there a link or a saved look counts only when it is of that style.
+  var ofThisStyle = function (look) {
+    return !config.style || new RegExp('(^|&)style=' + config.style + '(&|$)').test(look) ? look : '';
+  };
   var sharedLook = function () {
     var hash = location.hash.replace(/^#/, '');
-    return /(^|&)style=/.test(hash) ? hash : '';
+    return /(^|&)style=/.test(hash) ? ofThisStyle(hash) : '';
+  };
+  var firstLook = function () {
+    return sharedLook() || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
   };
 
   // The page's timeline, for measuring how long a visitor waits: performance marks (try:load, try:view, try:ready, and
@@ -472,7 +481,7 @@
     prepared = true;
     mark('load');
     setState('starting');
-    startup = window.VGStartup ? window.VGStartup.mount(screen, {
+    startup = config.startup && window.VGStartup ? window.VGStartup.mount(screen, {
       art: config.startup.art,
       minMs: config.startup.minMs,
       base: config.startup.base,
@@ -491,7 +500,7 @@
       return window.VGTry.start({
         host: screen,
         base: config.engine,
-        look: sharedLook() || stored(LOOK_KEY) || '',
+        look: firstLook(),
         onProgress: function (progress) {
           if (startup) startup.progress(Math.max(creep, Math.min(0.95, 0.6 + progress.files * 0.03)));
         }
@@ -504,9 +513,9 @@
       wire();
       setState('running');
       analytics.event('web_ready', { ms: app.info.ms, bytes: app.info.bytes, files: app.info.files, style: last.style });
-      return startup ? startup.ready() : { shownMs: 0 };
+      return startup ? startup.ready() : null;
     }).then(function (shown) {
-      analytics.event('splash_shown', { ms: shown.shownMs });
+      if (shown) analytics.event('splash_shown', { ms: shown.shownMs });
       var marks = window.performance && performance.getEntriesByName ? performance.getEntriesByName('try:view') : [];
       if (marks.length) analytics.event('web_first_frame', { ms: Math.round(now() - marks[0].startTime) });
       timeline();

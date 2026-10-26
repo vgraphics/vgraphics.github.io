@@ -19,9 +19,13 @@ export function loadProduct(slug) {
 }
 
 // A product's other pages made from the same template: <product>/<page>/page.json (exitwise/ranking, exitwise/room,
-// exitwise/privacy), in folder order.
-export const subpages = (slug) => readdirSync(join(root, slug), { withFileTypes: true })
-  .filter((d) => d.isDirectory() && existsSync(join(root, slug, d.name, 'page.json'))).map((d) => d.name).sort()
+// exitwise/privacy), and the pages of a group, <product>/<group>/<page>/page.json, when the group's folder has no
+// page.json of its own (speedometer-wallpaper/styles/vintage), named "<group>/<page>"; in folder order.
+const folders = (dir) => readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+export const subpages = (slug) => folders(join(root, slug)).flatMap((name) => {
+  if (existsSync(join(root, slug, name, 'page.json'))) return [name]
+  return folders(join(root, slug, name)).filter((page) => existsSync(join(root, slug, name, page, 'page.json'))).map((page) => `${name}/${page}`)
+}).sort()
 
 // A sub-page: its own words and sections, with the product's site block, stores, theme pack, footer art and closing
 // card, and the product's key art in its hero unless it brings its own ("art": { "wiki": "<slug>", ... } opens on that

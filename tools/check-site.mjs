@@ -7,6 +7,7 @@ import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
+import { styleSources, strayStylePages } from './make-style-pages.mjs'
 import { hotspot } from './lib/cursors.mjs'
 import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
@@ -280,6 +281,19 @@ for (const slug of products()) {
     const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
     if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
   }
+}
+// A product's style pages and its landing page's style tiles come from <product>/styles/styles.json
+// (tools/make-style-pages.mjs), each page with its link-preview picture (tools/make-style-cards.py).
+try {
+  for (const { file, text } of styleSources()) {
+    const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
+    if (have !== text) report(file, 'styles', 'not as tools/make-style-pages.mjs writes it: edit styles/styles.json, then run it and tools/build-pages.mjs')
+    const card = JSON.parse(text).social?.image
+    if (file.includes(`${sep}styles${sep}`) && card && !existsSync(join(root, card))) report(file, 'styles', `no link-preview picture ${card}: run python tools/make-style-cards.py`)
+  }
+  for (const dir of strayStylePages()) report(dir, 'styles', 'a style page styles.json no longer lists: delete it')
+} catch (e) {
+  report('styles/styles.json', 'styles', e.message)
 }
 for (const dir of readdirSync(root)) {
   // hub/ is VHub's web app, an app page only the Deployer's vhub-hub writes (README, "The app pages"), not a product
