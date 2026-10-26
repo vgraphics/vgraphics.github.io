@@ -47,6 +47,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/make-qr.py` | Writes a QR code as a small SVG, made once so the page loads no QR library: `python tools/make-qr.py <link> <out.svg>` (Python with segno) |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
 | `tools/make-style-pages.mjs`, `tools/make-style-cards.py` | Write the style pages' `page.json` and the landing page's style tiles from `<product>/styles/styles.json` (`node tools/make-style-pages.mjs`, then `build-pages` and `build-sitemap`), and each style page's link-preview card, the key art behind the style's name, price and real render (`python tools/make-style-cards.py`, Python with Pillow, fontTools and brotli). check-site fails while either is out of date. |
+| `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
 `/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
@@ -264,3 +265,22 @@ switch the same way Exitwise's does (the games repo's `docs/web-ads-adsense.md`,
 - that publisher's line in `ads.txt`;
 - an entry for every game whose play page (`<game>/play/`) loads the switch. An app's try page loads none and shows no
   ads.
+
+## Every picture once
+
+No hero, section or card shows a picture that is shown anywhere else on the site, on another page or the same one
+(George, 26 Oct 2026: "Each art must be used only once!! General rule!!"). Each page gets its own picture.
+
+- A picture is all of its files: its sizes and formats, the wide, tall and ultra cuts one `<picture>` holds, and its
+  copies under other names. check-site finds those by content: the same bytes, or nearly the same small print. That
+  covers a copy at another size or in another format, one trimmed a little at an edge, and a cut of another shape from
+  its middle (a cut from its side goes unseen). `tools/art-prints.py` makes the prints (Python with Pillow). check-site
+  keeps them in the temp folder, so only new files need Python.
+- These don't count: the `<head>` (link previews, preloads), logos, store badges, the soundtrack's cover, QR codes,
+  pictures of 256 px or smaller (icons, sprites, game pieces), and pictures a script shows. A product's footer picture
+  and its theme's ornaments are on every page of the product by design, and count as one place each.
+- A card that links to a page showing the same picture is that page's preview, like its link preview, and is allowed.
+  Examples are the wiki's cards for its entries and the style pages' tiles for each other.
+- `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
+  passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
+  taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
