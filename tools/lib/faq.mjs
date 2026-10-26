@@ -1,7 +1,9 @@
 // "Questions and answers" on every product's landing page (George, 25 Oct 2026, on the Speedometer web ideas page:
 // "This apply as global rule. All landing pages must have it."; D:\Projects\Mine\CLAUDE.md): the template's "faq"
-// block, a list of questions that each open their answer (details and summary, so it needs no script, and keyboards and
-// screen readers get it from the browser), and the same questions as FAQPage structured data in the page's head.
+// block, a list of questions that each open their answer (details and summary, so it works without script, and keyboards
+// and screen readers get it from the browser), and the same questions as FAQPage structured data in the page's head.
+// assets/faq.js, which menu.js loads, animates the opening and closing and keeps one open at a time (George, 26 Oct
+// 2026: "FAQ must open/close with animation always. One open at a time.").
 // The questions come from the block's items in page.json, or from the file its src names beside page.json (faq.json):
 // [{ q, a }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them.
 import { existsSync, readFileSync } from 'node:fs'
