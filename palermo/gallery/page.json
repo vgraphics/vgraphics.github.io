@@ -54,101 +54,115 @@
           "items": [
             {
               "title": "Known Killer",
-              "src": "/palermo/img/roles/known-killer.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Known Killer's card: a man in a dark overcoat and a fedora lights a match, a rose pinned to his lapel"
+              "src": "/palermo/img/roles/known-killer-720.webp",
+              "width": 2020,
+              "height": 2827,
+              "alt": "The Known Killer's card: a man in a dark overcoat and a fedora lights a match, a rose pinned to his lapel",
+              "full": "/palermo/img/roles/known-killer-2020.webp"
             },
             {
               "title": "Hidden Killer",
-              "src": "/palermo/img/roles/hidden-killer.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Hidden Killer's card: a slim figure in a long coat, a fedora pulled low over the face, a rose on the lapel"
+              "src": "/palermo/img/roles/hidden-killer-720.webp",
+              "width": 2160,
+              "height": 3026,
+              "alt": "The Hidden Killer's card: a slim figure in a long coat, a fedora pulled low over the face, a rose on the lapel",
+              "full": "/palermo/img/roles/hidden-killer-2160.webp"
             },
             {
               "title": "Police Officer",
-              "src": "/palermo/img/roles/officer.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Police Officer's card: an officer in a peaked cap and a buttoned uniform, writing in a notebook"
+              "src": "/palermo/img/roles/officer-720.webp",
+              "width": 2160,
+              "height": 3024,
+              "alt": "The Police Officer's card: an officer in a peaked cap and a buttoned uniform, writing in a notebook",
+              "full": "/palermo/img/roles/officer-2160.webp"
             },
             {
               "title": "Doctor",
-              "src": "/palermo/img/roles/doctor.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Doctor's card: a woman in a long coat with a stethoscope and a leather doctor's bag"
+              "src": "/palermo/img/roles/doctor-720.webp",
+              "width": 2160,
+              "height": 3023,
+              "alt": "The Doctor's card: a woman in a long coat with a stethoscope and a leather doctor's bag",
+              "full": "/palermo/img/roles/doctor-2160.webp"
             },
             {
               "title": "Citizen",
-              "src": "/palermo/img/roles/baker.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "A Citizen's card: a smiling baker in an apron with a basket of bread"
+              "src": "/palermo/img/roles/baker-720.webp",
+              "width": 2160,
+              "height": 3025,
+              "alt": "A Citizen's card: a smiling baker in an apron with a basket of bread",
+              "full": "/palermo/img/roles/baker-2160.webp"
             },
             {
               "title": "Detective",
-              "src": "/palermo/img/roles/inspector.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Detective's card: a tall detective in a trench coat and fedora with a pipe and a magnifying glass"
+              "src": "/palermo/img/roles/inspector-720.webp",
+              "width": 2160,
+              "height": 3022,
+              "alt": "The Detective's card: a tall detective in a trench coat and fedora with a pipe and a magnifying glass",
+              "full": "/palermo/img/roles/inspector-2160.webp"
             },
             {
               "title": "Seer",
-              "src": "/palermo/img/roles/seer.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Seer's card: a fortune teller in a patterned headscarf holding a fan of tarot cards"
+              "src": "/palermo/img/roles/seer-720.webp",
+              "width": 2160,
+              "height": 3024,
+              "alt": "The Seer's card: a fortune teller in a patterned headscarf holding a fan of tarot cards",
+              "full": "/palermo/img/roles/seer-2160.webp"
             },
             {
               "title": "Bulletproof",
-              "src": "/palermo/img/roles/bulletproof.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Bulletproof card: a relieved man in a waistcoat holding up a dented pocket watch"
+              "src": "/palermo/img/roles/bulletproof-720.webp",
+              "width": 2114,
+              "height": 2960,
+              "alt": "The Bulletproof card: a relieved man in a waistcoat holding up a dented pocket watch",
+              "full": "/palermo/img/roles/bulletproof-2114.webp"
             },
             {
               "title": "Henchman",
-              "src": "/palermo/img/roles/henchman.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key"
+              "src": "/palermo/img/roles/henchman-720.webp",
+              "width": 2149,
+              "height": 3009,
+              "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key",
+              "full": "/palermo/img/roles/henchman-2149.webp"
             },
             {
               "title": "Mayor",
-              "src": "/palermo/img/roles/mayor.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Mayor's card: a stout mayor with a curled moustache, a sash and a ceremonial key"
+              "src": "/palermo/img/roles/mayor-720.webp",
+              "width": 2080,
+              "height": 2912,
+              "alt": "The Mayor's card: a stout mayor with a curled moustache, a sash and a ceremonial key",
+              "full": "/palermo/img/roles/mayor-2080.webp"
             },
             {
               "title": "Hunter",
-              "src": "/palermo/img/roles/hunter.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Hunter's card: a countryman in a flat cap and tweed with a hunting horn, his hound at his feet"
+              "src": "/palermo/img/roles/hunter-720.webp",
+              "width": 2160,
+              "height": 3025,
+              "alt": "The Hunter's card: a countryman in a flat cap and tweed with a hunting horn, his hound at his feet",
+              "full": "/palermo/img/roles/hunter-2160.webp"
             },
             {
               "title": "Lawyer",
-              "src": "/palermo/img/roles/lawyer.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Lawyer's card: a lawyer in a pinstriped suit and round spectacles, a briefcase in one hand, one finger raised"
+              "src": "/palermo/img/roles/lawyer-720.webp",
+              "width": 2160,
+              "height": 3024,
+              "alt": "The Lawyer's card: a lawyer in a pinstriped suit and round spectacles, a briefcase in one hand, one finger raised",
+              "full": "/palermo/img/roles/lawyer-2160.webp"
             },
             {
               "title": "Kamikaze",
-              "src": "/palermo/img/roles/kamikaze.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse"
+              "src": "/palermo/img/roles/kamikaze-720.webp",
+              "width": 2068,
+              "height": 2895,
+              "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse",
+              "full": "/palermo/img/roles/kamikaze-2068.webp"
             },
             {
               "title": "Madman",
-              "src": "/palermo/img/roles/madman.webp",
-              "width": 700,
-              "height": 980,
-              "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask"
+              "src": "/palermo/img/roles/madman-720.webp",
+              "width": 2160,
+              "height": 3025,
+              "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask",
+              "full": "/palermo/img/roles/madman-2160.webp"
             }
           ]
         }
@@ -165,42 +179,42 @@
           "items": [
             {
               "title": "The key art",
-              "src": "/palermo/img/key-art-wide-1440.webp",
-              "full": "/palermo/img/key-art-wide-3200.webp",
-              "width": 3200,
-              "height": 1358,
+              "src": "/palermo/img/key-art-wide-1280.webp",
+              "full": "/palermo/img/key-art-wide-3840.webp",
+              "width": 3840,
+              "height": 1629,
               "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy"
             },
             {
               "title": "The deal",
-              "src": "/palermo/img/scene-deal-960.webp",
-              "full": "/palermo/img/scene-deal-1376.webp",
-              "width": 1376,
-              "height": 768,
+              "src": "/palermo/img/scene-deal-1280.webp",
+              "full": "/palermo/img/scene-deal-3840.webp",
+              "width": 3840,
+              "height": 2143,
               "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy"
             },
             {
               "title": "The night",
-              "src": "/palermo/img/scene-night-960.webp",
-              "full": "/palermo/img/scene-night-1376.webp",
-              "width": 1376,
-              "height": 768,
+              "src": "/palermo/img/scene-night-1280.webp",
+              "full": "/palermo/img/scene-night-3840.webp",
+              "width": 3840,
+              "height": 2143,
               "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy"
             },
             {
               "title": "The day",
-              "src": "/palermo/img/scene-suspects-960.webp",
-              "full": "/palermo/img/scene-suspects-1376.webp",
-              "width": 1376,
-              "height": 768,
+              "src": "/palermo/img/scene-suspects-1280.webp",
+              "full": "/palermo/img/scene-suspects-3840.webp",
+              "width": 3840,
+              "height": 2143,
               "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles"
             },
             {
               "title": "The verdict",
-              "src": "/palermo/img/scene-verdict-960.webp",
-              "full": "/palermo/img/scene-verdict-1376.webp",
-              "width": 1376,
-              "height": 768,
+              "src": "/palermo/img/scene-verdict-1280.webp",
+              "full": "/palermo/img/scene-verdict-3840.webp",
+              "width": 3840,
+              "height": 2143,
               "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set"
             }
           ]

@@ -16,8 +16,9 @@ import json, os, re, sys
 from PIL import Image
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-WIDE = ([960, 1440, 1920, 2560, 3200], [960, 1920])
-TALL = ([480, 720, 1080, 1440], [1080])
+# Up to 4K (George, 26 Oct 2026: "All of them must be 4k"): 3840 wide, and the tall cut at the same height
+WIDE = ([960, 1280, 1920, 2560, 3840], [960, 1920])
+TALL = ([480, 720, 1080, 1440, 2160], [1080])
 
 
 def save(im, out, name, choices):

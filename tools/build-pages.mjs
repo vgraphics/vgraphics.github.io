@@ -60,7 +60,11 @@ import { renderGallery } from './gallery.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
-const image = (i, lazy = true) => `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
+// A picture: the one file src names, or, when it names its widths, <src>-<width>.webp in each (the second the
+// fallback) with sizes (its shown width, by default the page's), so a phone never fetches the 4K one
+const image = (i, lazy = true) => (i.widths
+  ? `<img src="${esc(`${i.src}-${i.widths[Math.min(1, i.widths.length - 1)]}.webp`)}" srcset="${esc(i.widths.map((w) => `${i.src}-${w}.webp ${w}w`).join(', '))}" sizes="${esc(i.sizes ?? '100vw')}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`
+  : `<img src="${esc(i.src)}" alt="${esc(i.alt)}"${dims(i)}${lazy ? ' loading="lazy"' : ''}>`)
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
 // and the badges in its foot. The painted title stands in for the h1, which stays for screen readers and search.

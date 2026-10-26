@@ -6,7 +6,7 @@
   ],
   "tokens": {
     "page": "#0B1623",
-    "page-pattern": "repeating-linear-gradient(90deg, rgba(201, 164, 110, 0.035) 0 1px, transparent 1px 7px), url('/palermo/img/page-bg-1920.webp')",
+    "page-pattern": "repeating-linear-gradient(90deg, rgba(201, 164, 110, 0.035) 0 1px, transparent 1px 7px), url('/palermo/img/page-bg-2048.webp')",
     "page-pattern-size": "auto, 100% auto",
     "page-pattern-position": "0 0, 50% 0",
     "surface": "#112033",

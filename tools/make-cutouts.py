@@ -10,7 +10,8 @@ import numpy as np
 from PIL import Image, ImageDraw, ImageFilter
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
-WIDTHS = [260, 520]
+WIDTHS = [260, 520, 1040]  # the page shows a figure at about 260 px wide: 1x, 2x and 3x screens
+MASK_HEIGHT = 1280  # the outline is found at this height: on a 4K master its gaps are wide enough to let the fill in
 
 
 def cutout(path):
@@ -19,14 +20,17 @@ def cutout(path):
     border = np.concatenate([a[0], a[-1], a[:, 0], a[:, -1]])
     ground = np.median(border, axis=0)
     diff = np.abs(a - ground).max(axis=2)
-    lines = Image.fromarray(((diff > 22) * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
+    small = im if im.height <= MASK_HEIGHT else im.resize((round(im.width * MASK_HEIGHT / im.height), MASK_HEIGHT), Image.LANCZOS)
+    small_diff = np.abs(np.asarray(small).astype(np.int16) - ground).max(axis=2)
+    lines = Image.fromarray(((small_diff > 22) * 255).astype(np.uint8)).filter(ImageFilter.MaxFilter(5))
     # Fill the ground from the border: whatever the fill can't reach is the figure
     fill = lines.convert('L')
     for xy in [(0, 0), (fill.width - 1, 0), (0, fill.height - 1), (fill.width - 1, fill.height - 1)]:
         if fill.getpixel(xy) == 0:
             ImageDraw.floodfill(fill, xy, 128)
-    figure = (np.asarray(fill) != 128)
-    solid = Image.fromarray((figure * 255).astype(np.uint8)).filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(1.2))
+    mask = Image.fromarray(((np.asarray(fill) != 128) * 255).astype(np.uint8))
+    solid = mask.filter(ImageFilter.MinFilter(3)).filter(ImageFilter.GaussianBlur(1.2)).resize(im.size, Image.BILINEAR)
+    figure = np.asarray(mask.resize(im.size, Image.BILINEAR)) / 255
     soft = np.clip((diff - 8) / 30, 0, 1) * 255  # the outermost strokes, antialiased
     alpha = np.maximum(np.asarray(solid).astype(float), soft * figure)
     rgba = np.dstack([a.astype(np.uint8), alpha.astype(np.uint8)])
