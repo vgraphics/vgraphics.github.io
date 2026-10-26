@@ -123,6 +123,8 @@
     .x-party img { width: 100%; margin-right: -26px; transition: transform 300ms var(--ease); }
     a.x-party:hover img { transform: translateY(-4px) rotate(-1.5deg); }
     .x-palermo { background: #24205A; }
+    /* Palermo Noir's key art (its own page's hero, so this card is that page's preview), cut to the card's 640:420 */
+    .x-party img.key { aspect-ratio: 640 / 420; object-fit: cover; object-position: 15% 50%; border-radius: 14px; }
     .x-quiz { background: var(--sun); color: var(--on-block); }
     .x-quiz .soon { background: #16151B; color: #fff; }
 
@@ -243,7 +245,7 @@
     <div class="wrap">
       <div class="section-head split">
         <h2 id="games-title"><span class="dot c-sun" aria-hidden="true"></span>Games</h2>
-        <p class="lede">A puzzle game you can play today on Android and in your browser, and two party games for phones and the TV in design.</p>
+        <p class="lede">A puzzle game you can play today on Android and in your browser, and two party games for phones and the TV on the way.</p>
         <a class="more c-sun" href="/games/">All games <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="grid">
@@ -263,13 +265,13 @@
           <div class="shots"><img src="/assets/img/exitwise-giant.webp" alt="A giant Exitwise board packed with long, colourful arrows" width="480" height="853" loading="lazy"><img src="/assets/img/exitwise-key-art.webp" alt="Exitwise's welcome screen: a tower of colourful worlds under the Exitwise title, with a glowing door at the top" width="480" height="853" loading="lazy"></div>
         </article>
 
-        <a class="b x-party x-palermo s5" href="/games/#palermo">
+        <a class="b x-party x-palermo s5" href="/palermo/">
           <div class="copy">
-            <span class="soon">In design</span>
+            <span class="soon">Coming soon</span>
             <h3>Palermo Noir</h3>
             <p>A hidden-role party game. Phones are the controllers, the TV is the town, and a narrator runs every night.</p>
           </div>
-          <img src="/assets/img/palermo.svg" alt="" width="640" height="420" loading="lazy">
+          <img class="key" src="/palermo/img/key-art-wide-960.webp" alt="" width="960" height="407" loading="lazy">
         </a>
         <a class="b x-party x-quiz s5" href="/games/#quizfall">
           <div class="copy">
@@ -430,10 +432,10 @@
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
     <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>

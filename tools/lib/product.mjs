@@ -44,6 +44,7 @@ export function loadSubpage(slug, sub) {
     site: p.site,
     stores: p.stores,
     footerArt: own.footerArt ?? p.footerArt,
+    footerScene: own.footerScene ?? p.footerScene,
     cta: own.cta ?? p.cta,
     path: own.path ?? `/${slug}/${sub}/`,
     hero: { ...own.hero, art: { ...art, tall: rebase(art.tall), wide: rebase(art.wide), ultra: rebase(art.ultra) } },

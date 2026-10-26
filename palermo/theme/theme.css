@@ -1,0 +1,100 @@
+/* palermo's theme pack, written by tools/build-pages.mjs from theme.json: edit that, not this. */
+@font-face { font-family: "Noto Serif Display"; src: url("/palermo/fonts/noto-serif-display-condensed-700-latin.woff2") format("woff2"); font-weight: 700; font-display: swap; }
+@font-face { font-family: "Sofia Sans"; src: url("/palermo/fonts/sofia-sans-latin.woff2") format("woff2"); font-weight: 400 700; font-display: swap; }
+:root {
+  --page: #0B1623;
+  --page-pattern: repeating-linear-gradient(90deg, rgba(201, 164, 110, 0.035) 0 1px, transparent 1px 7px);
+  --page-pattern-size: auto;
+  --surface: #112033;
+  --surface-2: #172A40;
+  --ink: #EFE5D4;
+  --muted: #B9AB94;
+  --line: #2B3D55;
+  --link: #E3C9AC;
+  --accent: #C9A46E;
+  --accent-2: #E3C9AC;
+  --accent-3: #8FA6C4;
+  --cta: #C9A46E;
+  --cta-ink: #0B1623;
+  --cta-edge: #8C6C3F;
+  --on-art: #F3E9D8;
+  --on-art-shadow: 0 1px 8px rgba(0, 0, 0, 0.75);
+  --art-shade: rgba(11, 22, 35, 0.72);
+  --lead-ink: #F3E9D8;
+  --lead-em: #C9A46E;
+  --lead-shadow: 0 2px 18px rgba(0, 0, 0, 0.9);
+  --lead-style: normal;
+  --lead-size: clamp(2rem, 4.4vw, 3.6rem);
+  --radius: 12px;
+  --radius-sm: 8px;
+  --card-bg: linear-gradient(180deg, #13253B, #0F1D2E);
+  --card-border: 1px solid #2E4560;
+  --card-shadow: 0 20px 40px -24px #000;
+  --card-lift: 0 26px 46px -22px #000;
+  --card-stripe: 0px;
+  --font-display: "Noto Serif Display", Georgia, "Times New Roman", serif;
+  --font-body: "Sofia Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --display-weight: 700;
+  --display-case: none;
+  --display-tracking: 0.01em;
+  --display-leading: 1.04;
+  --label-font: "Sofia Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --label-weight: 700;
+  --label-case: uppercase;
+  --label-tracking: 0.12em;
+  --body-size: 18px;
+  --body-weight: 400;
+  --h2-size: clamp(2.3rem, 5.2vw, 3.8rem);
+  --section-pad: 84px;
+  --intro-bg: linear-gradient(#10213A, #0B1623 78%);
+  --shot-frame: 1px solid #2E4560;
+  --step-font: "Noto Serif Display", Georgia, "Times New Roman", serif;
+  --step-ink: #C9A46E;
+  --step-bg: transparent;
+  --ost-n-ink: #0B1623;
+  --dot-ink: #0B1623;
+  --ost-bg: var(--card-bg);
+  --ost-border: 1px solid var(--accent);
+  --ost-ring: 1px solid color-mix(in srgb, var(--accent) 55%, transparent);
+  --ost-corner: 2px solid var(--accent);
+  --ost-backdrop-alpha: 0.14;
+  --ost-shade: none;
+  --thread: #C9A46E;
+  --thread-show: block;
+  --thread-space: 200px;
+  --sec-max: 1400px;
+  --step-size: 2.4rem;
+  --step-text: #B9AB94;
+  --step-stripe: 2px;
+  --tag-bg: transparent;
+  --tag-ink: #C9A46E;
+  --tag-pad: 0;
+  --nav-current-bg: transparent;
+  --nav-current-ink: #F3E9D8;
+  --nav-current-line: inset 0 -2px 0 #C9A46E;
+  --nav-current-radius: 0;
+  --foot-rule: 1px solid #2B3D55;
+  --foot-panel: rgba(11, 22, 35, 0.8);
+  --band-bg: radial-gradient(ellipse 70% 120% at 50% 120%, rgba(201, 164, 110, 0.2), transparent 70%), linear-gradient(180deg, #13253B, #0F1D2E);
+  --feature-bg: none;
+  --feature-pad: 0;
+  --feature-stripe: 0px;
+  --feature-text: #B9AB94;
+  --feature-title-font: "Noto Serif Display", Georgia, "Times New Roman", serif;
+  --feature-title-weight: 700;
+  --feature-title-size: 1.3rem;
+  --feature-title-case: none;
+  --feature-title-tracking: 0.01em;
+  --scrollbar: #C9A46E;
+  --swatch-1: #C9A46E;
+  --swatch-2: #E3C9AC;
+  --swatch-3: #8FA6C4;
+  color-scheme: dark;
+}
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/palermo/theme/cursor.svg") 3 3, auto;
+    --cursor-link: url("/palermo/theme/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/palermo/theme/cursor-text.svg") 5 27, text;
+  }
+}
