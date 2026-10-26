@@ -189,7 +189,10 @@ h1, h2, h3 {
    subject. The foot fades out into the page, and the lead line and store badges stand in its last fifth. The painted
    title stands in for the h1, which stays for screen readers and search. Per-picture settings come from page.json:
    --art-at (the crop's anchor), --art-fade and --art-fade-tall (where the fade starts). */
-.key-art { position: relative; height: min(62.5vw, 100vh); height: min(62.5vw, 100svh); }
+/* --hero-h names the box's height once, so a theme can measure from it (Palermo's page picture starts below it) */
+:root { --hero-h: min(62.5vw, 100vh); }
+@supports (height: 100svh) { :root { --hero-h: min(62.5vw, 100svh); } }
+.key-art { position: relative; height: var(--hero-h); }
 .key-art picture, .key-art picture img { display: block; width: 100%; height: 100%; }
 .key-art picture img {
   object-fit: cover;
@@ -224,7 +227,7 @@ h1, h2, h3 {
 }
 .lead em { font-style: inherit; color: var(--lead-em); }
 @media (max-aspect-ratio: 4/5) {
-  .key-art { height: 177.78vw; }
+  :root { --hero-h: 177.78vw; }
   .key-art picture img {
     object-position: 50% 0;
     -webkit-mask-image: linear-gradient(#000 var(--art-fade-tall, 62%), transparent);

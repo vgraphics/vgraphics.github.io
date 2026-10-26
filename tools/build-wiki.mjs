@@ -61,9 +61,10 @@ function artPicture(w, slug, { cls, sizes }) {
   const fallback = img.jpeg ? `${img.src}-${img.jpeg[0]}.jpg" srcset="${srcset(img, 'jpg', img.jpeg)}" sizes="${sizes}` : `${img.src}-${img.widths[0]}.webp`
   return `<picture class="${cls}">${['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(img, x, img.widths)}" sizes="${sizes}">`).join('')}<img src="${fallback}" width="${a.width}" height="${a.height}" alt="" loading="lazy"></picture>`
 }
-// The index hero is the landing page's own key art (page.json hero.art), named from the product's folder.
-function keyArt(product) {
-  const a = product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
+// The index hero: the wiki's own (wiki.json "heroArt", as page.json's hero.art; each picture is shown once, George 26 Oct
+// 2026), or else the landing page's key art, named from the product's folder.
+function keyArt(product, w) {
+  const a = w.heroArt ?? product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
   return { ...a, tall: at(a.tall), wide: at(a.wide), ultra: at(a.ultra) }
 }
 
@@ -142,7 +143,7 @@ function indexPage(w, product) {
       ${w.entries.filter((e) => e.section === s.id).map((e) => card(w, e)).join('\n      ')}
     </div>
   </section>`).join('\n')
-  const art = keyArt(product)
+  const art = keyArt(product, w)
   const body = `  ${heroSection(art, { cls: 'w-hero is-index', foot: `<div class="w-hero-foot wrap">
       <p class="w-kicker">${esc(p.name)} wiki</p>
       <h1>${esc(w.heading || w.title)}</h1>
