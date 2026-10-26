@@ -416,22 +416,29 @@ for (const file of served) {
 //   "The foother must be same on all pages."), one place each.
 // - Not counted, on purpose (keep this list short): the <head> (link previews, preloads, icons), logos, store badges,
 //   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), pictures a script shows
-//   (the start-up's welcome splash is the key art's own job), stylesheet backgrounds, and a picture in a link to a page
-//   that shows it: that card is the page's preview, as its link preview is.
+//   (the start-up's welcome splash is the key art's own job), stylesheet backgrounds, a picture in a link to a page
+//   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles (George,
+//   26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as the page it previews. Every page's
+//   hero and sections stay unique."). Gallery tiles are the pictures of the template's gallery block, a stage slide's
+//   screenshot (.g-screen) or a picture in its plain row (.shots.fade-edges), and an album's tiles (.album-item), whose
+//   lightbox shows them by script; never the gallery page's hero, the gallery's backdrop and pedestals, or any other
+//   section.
 // - tools/art-once-todo.json lists the reuses known when the rule came in (26 Oct 2026), each with its fix, until the
 //   fix lands. A listed picture passes while it is shown only in places its entry names: a new place fails, and so
 //   does a fixed picture until its entry is taken out, so the list only shrinks.
 const ART_TODO = join('tools', 'art-once-todo.json')
 const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
 const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
-const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr',
+  'g-screen', 'album-item'])
 const ICON = 256
 const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')
 // Where a picture is (chain: its element and the elements around it, outermost first): { free } when it isn't counted,
 // else { place, to }, to being the page its link leads to.
 function artPlace(page, chain) {
   const has = (c) => chain.some((e) => e.cls.includes(c))
-  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || (has('ost-backdrop') && has('blur'))) return { free: true }
+  const both = (a, b) => chain.some((e) => e.cls.includes(a) && e.cls.includes(b))
+  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur') || both('shots', 'fade-edges')) return { free: true }
   const product = page.split('/')[1]
   if (has('foot-art')) return { place: `the footer of /${product}/` }
   if (has('orn') || has('horizon')) return { place: `the ornaments of /${product}/` }
@@ -611,7 +618,8 @@ function pictureUses(file) {
   for (const { arts, uses: all } of pictures.values()) {
     if (Math.max(...[...arts].map((a) => sizes.get(a) ?? 0)) <= ICON) continue
     const counted = all.filter((u) => !u.free)
-    const shown = new Set(counted.filter((u) => !u.to || u.to === u.page).map((u) => u.page))
+    // The pages that show the picture themselves (in a gallery tile too), whose previews may show it.
+    const shown = new Set(all.filter((u) => !u.to || u.to === u.page).map((u) => u.page))
     const places = [...new Set(counted.filter((u) => !(u.to && u.to !== u.page && shown.has(u.to))).map((u) => u.place))].sort()
     if (places.length < 2) continue
     const names = [...arts].sort()

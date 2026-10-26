@@ -280,8 +280,14 @@ No hero, section or card shows a picture that is shown anywhere else on the site
 - These don't count: the `<head>` (link previews, preloads), logos, store badges, the soundtrack's cover, QR codes,
   pictures of 256 px or smaller (icons, sprites, game pieces), and pictures a script shows. A product's footer picture
   and its theme's ornaments are on every page of the product by design, and count as one place each.
-- A card that links to a page showing the same picture is that page's preview, like its link preview, and is allowed.
-  Examples are the wiki's cards for its entries and the style pages' tiles for each other.
+- Two kinds of repeat are allowed (George, 26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as
+  the page it previews. Every page's hero and sections stay unique."):
+  - A card that links to a page showing the same picture is that page's preview, like its link preview. Examples are
+    the wiki's cards for its entries and the style pages' tiles for each other.
+  - A product gallery's tiles may repeat art shown elsewhere. That means the pictures of the template's gallery block:
+    a stage slide's screenshot (`.g-screen`) or a picture in its plain row (`.shots.fade-edges`), and an album's tiles
+    (`.album-item`), whose lightbox shows them by script. It never covers the gallery page's hero, the gallery's
+    backdrop and pedestals, or any other section.
 - `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
   passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
   taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
