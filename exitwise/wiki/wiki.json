@@ -5,6 +5,7 @@
   "metaTitle": "Exitwise wiki: every obstacle and powerup in the arrow puzzle",
   "metaDescription": "Every obstacle, powerup and rule in Exitwise, the free arrow puzzle game: what it does, the level it first shows up on, and how to beat it.",
   "source": "Written from the game on main (39aa208, 2026-10-17: the update with mirrors, portals, ice, shutters, the colour family and chain bombs). Later generated from Core's WikiCatalog.",
+  "art": {"wiki": "index", "alt": "A giant open storybook in a meadow with a tower of colourful worlds rising from its pages up to a glowing door under purple crystals", "position": "50% 40%", "placeholder": "linear-gradient(#462A6E, #3E745E)"},
   "figureTitle": "In the game",
   "nav": [
     {"label":"Overview","href":"/exitwise/"},

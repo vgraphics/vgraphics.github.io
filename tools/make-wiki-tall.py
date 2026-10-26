@@ -155,8 +155,10 @@ def compose(product, slug, outpaint, screens=None):
     C = seams(np.asarray(O, float), y, y + I.height)
     Ia = np.asarray(I, float)[:O.height - y]
     h = Ia.shape[0]
-    d = np.minimum(np.arange(h), np.arange(h)[::-1]) / h
-    a = np.clip((d - MARGIN) / BAND, 0, 1)
+    # tallMargin [top, foot] in sources.json starts the crisp strip further in, where the outpaint re-drew what the
+    # master's edge cut off (colour switch: the lantern the master shows only the foot of).
+    m0, m1 = s.get('tallMargin', [MARGIN, MARGIN])
+    a = np.clip(np.minimum(np.arange(h) / h - m0, np.arange(h)[::-1] / h - m1) / BAND, 0, 1)
     a = (a * a * (3 - 2 * a))[:, None, None]
     C[y:y + h] = a * Ia + (1 - a) * C[y:y + h]
     im = Image.fromarray(np.clip(C, 0, 255).astype(np.uint8))

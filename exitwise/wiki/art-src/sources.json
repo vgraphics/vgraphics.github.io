@@ -1,5 +1,5 @@
 {
- "about": "The masters of the wiki's paintings (WebP, quality 90) and where each came from. tools/make-wiki-art.py makes the served sizes from them. Licence: every image was made on VGraphics' Recraft Pro plan (a paid plan, so the images are ours to use commercially); the Worlds outpaint used Nano Banana 2.1 through the same Recraft Pro plan.",
+ "about": "The masters of the wiki's paintings (WebP, quality 90) and where each came from. tools/make-wiki-art.py makes the served sizes from them. Licence: every image was made on VGraphics' Recraft Pro plan (a paid plan, so the images are ours to use commercially); the Worlds outpaint used Nano Banana 2.1 through the same Recraft Pro plan. Each entry's \"tall\" is its own picture for portrait screens (George, 24 Oct 2026: \"Make tall version for all images. Crop sucks.\"): the master's tallCrop strip outpainted to 9:16 with Nano Banana 2.1 in Recraft (projects https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb and https://www.recraft.ai/project/ace58357-e13c-4c4b-bf56-438de61d7c58), Recraft Crisp-upscaled (26 Oct 2026, project https://www.recraft.ai/project/7bc4e391-4760-4cd0-96e3-e73a4fa06e52) and composed with the crisp strip by tools/make-wiki-tall.py.",
  "entries": {
   "rock": {
    "master": "rock.webp",
@@ -156,7 +156,11 @@
     490,
     3116
    ],
-   "tall": "colour-switch-tall.webp"
+   "tall": "colour-switch-tall.webp",
+   "tallMargin": [
+    0.11,
+    0.02
+   ]
   },
   "auto-play": {
    "master": "auto-play.webp",
@@ -338,6 +342,34 @@
    "recraftProject": "https://www.recraft.ai/project/94d31d74-4f24-40e0-8aca-c1989844979a",
    "upscale": "Recraft Crisp upscale of the outpaint (1355x768 to 4096x2322) and of the island (to 1161x2322 at the same height), 23 Oct 2026",
    "compose": "tools/make-wiki-worlds.py: worlds.webp from worlds-outpaint.webp and worlds-island.webp (the island put back crisp in the middle, the new sea shaded to meet it); worlds-island.webp is also the tall picture for phones"
+  },
+  "index": {
+   "master": "index.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 26 Oct 2026; the wiki index's own picture (George, 24 Oct 2026: \"WiKi page too.\")",
+   "promptStart": "Bright storybook game illustration in the same sty …",
+   "prompt": "Bright storybook game illustration in the same style, colours and light as the reference: a giant open storybook lying in a green meadow at violet-to-peach twilight, and rising out of its pages a little stack of colourful worlds: a green meadow, a candy land, a desert with cacti, a smoking volcano, an ice cap and purple crystals, with colourful arrows flying around them and a glowing door at the very top. Soft clouds and shooting stars. Wide panoramic composition, the book and its worlds in the middle, sky above and meadow below. The book's pages show only soft painted pictures. No text, no letters, no numbers, no logo, no borders or frames.",
+   "recraftProject": "https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb",
+   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2341, 26 Oct 2026, project https://www.recraft.ai/project/7bc4e391-4760-4cd0-96e3-e73a4fa06e52",
+   "tallCrop": [
+    819,
+    2458
+   ],
+   "tallPrompt": "Above: more of the same starry violet night sky with soft pink clouds and shooting stars, and more of the same hanging purple crystal stalactites along the top edge, getting a little darker towards the top. Below: more of the same green meadow with dark pine trees at the sides, small flowers and the winding turquoise river, the open book's lower edge resting in the grass. Same bright storybook game illustration style, colours and light as the middle. One continuous seamless scene; keep the middle exactly as it is; no new big objects, no text, no borders or frames.",
+   "tall": "index-tall.webp"
+  },
+  "privacy": {
+   "master": "privacy.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 26 Oct 2026; the privacy page's own picture (George, 24 Oct 2026: \"Privacy policy uses the same image as overview. Generate another please.\")",
+   "promptStart": "Bright storybook game illustration in the same sty …",
+   "prompt": "Bright storybook game illustration in the same style, colours and light as the reference: a small floating island at violet-to-peach twilight with soft clouds and shooting stars; on it a cosy round stone tower with a heavy rounded wooden door, a big glowing golden padlock on the door and a friendly golden key hanging on a hook beside it, a little garden of pink flowers, glowing lanterns along a curving stone path, colourful arrow-shaped wooden signposts pointing to the door. Wide panoramic composition, the tower slightly right of centre, the whole tower visible with sky above and meadow below. No text, no letters, no numbers, no logo, no borders or frames.",
+   "recraftProject": "https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb",
+   "upscale": "Recraft Crisp upscale, 2688x1536 to 4096x2341, 26 Oct 2026, project https://www.recraft.ai/project/7bc4e391-4760-4cd0-96e3-e73a4fa06e52",
+   "tallCrop": [
+    1024,
+    2458
+   ],
+   "tallPrompt": "Above: more of the same starry violet night sky with soft pink clouds and shooting stars, and more of the same hanging purple crystal stalactites along the top edge, getting a little darker towards the top. Below: more of the same green valley far below the floating island, with dark pine trees at the sides, small flowers and the winding turquoise river. Same bright storybook game illustration style, colours and light as the middle. One continuous seamless scene; keep the middle exactly as it is; no new big objects, no second island, no text, no borders or frames.",
+   "tall": "privacy-tall.webp"
   }
  }
 }

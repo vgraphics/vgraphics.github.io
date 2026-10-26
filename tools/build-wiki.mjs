@@ -65,8 +65,8 @@ function artPicture(w, slug, { cls, sizes }) {
 // policy uses the same image as overview. Generate another please. WiKi page too."), else the landing page's key art
 // (page.json hero.art), named from the product's folder.
 function keyArt(product, w) {
-  if (w.art?.wiki) {
-    const { wiki, ...given } = w.art
+  if (w.indexArt?.wiki) {
+    const { wiki, ...given } = w.indexArt
     return wikiArt(product.slug, wiki, given)
   }
   const a = product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
@@ -282,6 +282,8 @@ for (const slug of products) {
   const w = JSON.parse(readFileSync(join(dir, 'wiki.json'), 'utf8'))
   const product = loadProduct(slug)
   const artFile = join(dir, 'img', 'art', 'art.json')
+  // wiki.json's own "art" (the index hero's painting) stays as indexArt; w.art becomes the paintings' sizes.
+  w.indexArt = w.art
   w.art = existsSync(artFile) ? JSON.parse(readFileSync(artFile, 'utf8')) : {}
   // Every entry belongs to a known section and has its painting; order entries by section so prev/next follows the index.
   const order = w.sections.map((s) => s.id)

@@ -1,5 +1,5 @@
 {
- "about": "The masters of the wiki's paintings (WebP, quality 90) and where each came from. Recraft painted the scenes (painted/<slug>.webp, as upscaled); tools/make-wiki-screens.py lays the app's own screens into their phones (screens.json says which, from the app's render-test goldens and demo-drive frames) and writes <slug>.webp, so every dial, number and readout on a phone is the app's (George, 24 Oct 2026: the painted dials were garbled). tools/make-wiki-art.py makes the served sizes from <slug>.webp. Licence: every image was made on VGraphics' Recraft Pro plan (a paid plan, so the images are ours to use commercially); the Worlds outpaint used Nano Banana 2.1 through the same Recraft Pro plan.",
+ "about": "The masters of the wiki's paintings (WebP, quality 90) and where each came from. Recraft painted the scenes (painted/<slug>.webp, as upscaled); tools/make-wiki-screens.py lays the app's own screens into their phones (screens.json says which, from the app's render-test goldens and demo-drive frames) and writes <slug>.webp, so every dial, number and readout on a phone is the app's (George, 24 Oct 2026: the painted dials were garbled). tools/make-wiki-art.py makes the served sizes from <slug>.webp. Licence: every image was made on VGraphics' Recraft Pro plan (a paid plan, so the images are ours to use commercially); the Worlds outpaint used Nano Banana 2.1 through the same Recraft Pro plan. Each entry's \"tall\" is its own picture for portrait screens (George, 24 Oct 2026: \"Make tall version for all images. Crop sucks.\"): the master's tallCrop strip outpainted to 9:16 with Nano Banana 2.1 in Recraft (projects https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb and https://www.recraft.ai/project/ace58357-e13c-4c4b-bf56-438de61d7c58), Recraft Crisp-upscaled (26 Oct 2026, project https://www.recraft.ai/project/7bc4e391-4760-4cd0-96e3-e73a4fa06e52) and composed with the crisp strip by tools/make-wiki-tall.py.",
  "entries": {
   "big-gauge": {
    "master": "big-gauge.webp",
@@ -326,6 +326,34 @@
     4096
    ],
    "tall": "restoring-future-tall.webp"
+  },
+  "index": {
+   "master": "index.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 26 Oct 2026, with blank screens; the wiki index's own picture (George, 24 Oct 2026: \"WiKi page too.\"): three phones, one per design",
+   "promptStart": "Photorealistic night photo from inside a dark car, …",
+   "prompt": "Photorealistic night photo from inside a dark car, a wide view across the dashboard: three modern frameless smartphones in portrait orientation stand upright side by side in small black phone stands on the dark dashboard, evenly spaced across the middle of the frame and clearly apart, each seen straight on, tall slim phones with 20:9 proportions and thin bezels, their glass screens completely black, blank and glossy with thin bright edge highlights. Behind them, through the rain-speckled windshield, a deep blue night city with tall glowing towers, round blurred bokeh lights and long red tail-light streaks on the highway. Shallow depth of field, the phones in sharp focus, rich fine detail, deep teal blue with warm red and amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screens.",
+   "recraftProject": "https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb",
+   "upscale": "none: 3072x1536 is already Recraft's largest size",
+   "tallCrop": [
+    369,
+    2335
+   ],
+   "tall": "index-tall.webp",
+   "tallPrompt": "Above: only more of the same dark blue windscreen glass with small rain drops and a few soft out-of-focus specks, getting darker towards the top, and at the very top the edge of the car's dark roof lining. The city lights stay where they are now: no second horizon, no second city, no more buildings, no more lights and no road above. Below: more of the same dark car dashboard, its soft leather curves and seams, fading into shadow towards the bottom. Same photorealistic cinematic night look, colours and light as the middle. One continuous seamless scene; keep the middle exactly as it is; no new phones, no new objects, no text, no borders or frames."
+  },
+  "privacy": {
+   "master": "privacy.webp",
+   "made": "Recraft V4.1 Pro, style from the product's key art, 26 Oct 2026, with blank screens; the privacy page's own picture (George, 24 Oct 2026: \"Privacy policy uses the same image as overview. Generate another please.\")",
+   "promptStart": "Photorealistic night photo from inside a dark park …",
+   "prompt": "Photorealistic night photo from inside a dark parked car, a calm and private moment: a modern frameless smartphone in portrait orientation stands upright in a black suction-cup dashboard mount, slightly right of centre, seen almost straight on, a tall slim phone with 20:9 proportions and thin bezels, its glass screen completely black, blank and glossy with a thin bright edge highlight. Below it the dark leather dashboard with a soft reflection. Behind it, through the rain-speckled windshield, a quiet deep blue night street with a single warm street lamp, round blurred bokeh lights and soft glowing city towers far away. Wide panoramic composition with space around the phone. Shallow depth of field, the phone in sharp focus, rich fine detail, deep teal blue with warm amber accents, cinematic automotive advertising photo. No text, no logos, no people, nothing on the screen.",
+   "recraftProject": "https://www.recraft.ai/project/2cdd5ac9-8349-431c-9f0a-041bd2a92feb",
+   "upscale": "none: 3072x1536 is already Recraft's largest size",
+   "tallCrop": [
+    1382,
+    1536
+   ],
+   "tall": "privacy-tall.webp",
+   "tallPrompt": "Above: only more of the same dark blue windscreen glass with small rain drops and a few soft out-of-focus specks, getting darker towards the top, and at the very top the edge of the car's dark roof lining. The city lights stay where they are now: no second horizon, no second city, no more buildings, no more lights and no road above. Below: more of the same dark car dashboard, its soft leather curves and seams, fading into shadow towards the bottom. Same photorealistic cinematic night look, colours and light as the middle. One continuous seamless scene; keep the middle exactly as it is; no new phones, no new objects, no text, no borders or frames."
   }
  }
 }
