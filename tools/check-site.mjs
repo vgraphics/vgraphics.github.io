@@ -8,8 +8,10 @@ import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
 import { hotspot } from './lib/cursors.mjs'
-import { documents, pieces, products, subpages } from './lib/product.mjs'
+import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
+import { readFaq } from './lib/faq.mjs'
+import { readNews } from './lib/news.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -284,6 +286,25 @@ for (const dir of readdirSync(root)) {
   // landing page: its privacy.html is VHub's policy, which comes with each release, and it has no page.json.
   if (SKIP.includes(dir) || dir === 'hub' || !existsSync(join(root, dir, 'privacy.html'))) continue
   if (!existsSync(join(root, dir, 'page.json'))) report(join(dir, 'index.html'), 'template', 'made by hand: every product page comes from tools/build-pages.mjs (give it a page.json and a theme pack)')
+}
+
+// "What's new" and "Questions and answers" on every product's landing page (George, 25 Oct 2026: "This apply as global
+// rule. All landing pages must have it."): its page.json has a section of each name, with the template's news block
+// and faq block, so each is a chapter with its heading's link (and a bullet on the stepper); the questions are well
+// formed, and so is the changelog the news block reads (<product>/changelog.json, which the Deployer adds to).
+const CHAPTERS = [['news', "What's new"], ['faq', 'Questions and answers']]
+for (const slug of products()) {
+  const file = join(slug, 'page.json')
+  const sections = loadProduct(slug).page.sections ?? []
+  for (const [type, title] of CHAPTERS) {
+    const at = sections.filter((s) => s.blocks?.some((b) => b.type === type))
+    if (!at.length) report(file, 'faq-news', `no "${title}" section: add one with a ${type} block (README, "What's new and Questions and answers")`)
+    for (const s of at) if (s.title !== title) report(file, 'faq-news', `the section with the ${type} block is titled ${s.title ? `"${s.title}"` : 'nothing'}, not "${title}": every landing page names it the same`)
+  }
+  for (const b of sections.flatMap((s) => s.blocks ?? [])) {
+    if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
+    if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
+  }
 }
 
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its

@@ -18,6 +18,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
+| `<product>/changelog.json`, `<product>/faq.json` | The landing page's "What's new" (every release players got, which the Deployer adds to) and "Questions and answers" (see "What's new and Questions and answers" below) |
 | `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template |
 | `<product>/<page>/page.json` | A product's other pages, made from the same template as its landing page by `tools/build-pages.mjs`: Exitwise's ranking, room, privacy policy and map rules, and Speedometer's privacy policy. A page's own markup sits beside its page.json (`ranking.html`, `.css`, `.js`) |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
@@ -33,7 +34,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, "What's new" and "Questions and answers" on every landing page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
@@ -137,6 +138,37 @@ focusing a bullet shows the chapter's name.
   so it never takes a tap meant for the page (touch screens 1320px wide or more get 44px bullets that take taps).
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
+
+## What's new and Questions and answers
+
+Every product's landing page has a "What's new" chapter and a "Questions and answers" chapter (George, 25 Oct 2026:
+"This apply as global rule. All landing pages must have it."). Both are template blocks, so every product gets them the
+same way: in its page.json, a section titled "What's new" with a `news` block and one titled "Questions and answers"
+with a `faq` block (Exitwise's and Speedometer's sit after the features, just before the closing card). Being sections
+with titles, each is a chapter with its heading's link and a bullet on the stepper.
+
+- **What's new** (`tools/lib/news.mjs`) reads `<product>/changelog.json`: `{ "entries": [...] }`, newest first, each
+  `{ version, date (YYYY-MM-DD), platforms (["Android", "Web"]), items (plain lines for players), commit }`, and, written
+  by hand, `title` (a one-line headline, shown in place of "Version …") and `link` (`{ href, label }`, under the lines).
+  Speedometer's entries read as its web market design asks (Games `docs/superpowers/specs/2026-10-26-speedometer-web-
+  market-design.md` §7): a headline and at most three short lines, one entry per production release, a web-only one
+  only when it changes what visitors can do. The newest stands open in a card; the ones before it are rows beside it
+  that each open their lines, at most three and a half showing, the rest scrolling in the list's own box with fading
+  edges and the product's scrollbar. A product not out yet has `"entries": []`, and the block shows its `empty` words
+  (or the default line) until its first release.
+- **The Deployer writes the changelog:** every release players get (a Play build that reaches production, a promotion,
+  a web build) adds its notes, the same player-facing lines Google Play shows, with the day and where it shipped, then
+  runs `tools/build-pages.mjs <product>` and this check, and pushes (`src/projects/siteNews.ts` in the Deployer). A web
+  build of the commit a store release came from joins that release's entry. Edit an entry by hand only to fix its
+  words, and run `node tools/build-pages.mjs` after.
+- **Questions and answers** (`tools/lib/faq.mjs`) reads the block's `items`, or the file its `src` names beside
+  page.json (`faq.json`): `[{ "q": "plain words", "a": "trusted HTML, or a list of paragraphs" }]`, 6 to 10 of them.
+  Each question opens its answer (details and summary, no script), and the page's head carries them as FAQPage
+  structured data. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
+  other search engines and assistants; the questions are there for people.
+- check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
+  and a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and
+  the check says why).
 
 ## Search engines
 

@@ -543,6 +543,86 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .part .body b { color: var(--ink); font-weight: 600; }
 .part .body .more { justify-self: start; margin-top: 0; color: var(--ink); font: var(--label-weight) 1rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); text-decoration-color: var(--accent); text-underline-offset: 5px; }
 
+/* Questions and answers, on every landing page (the "faq" block, tools/lib/faq.mjs): each question a row that opens its
+   answer under it. details and summary do the opening, so it works without script. */
+.faq { display: grid; gap: 10px; max-width: 54rem; }
+.faq-item { border: var(--card-border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--card-shadow); }
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: 700 1.08rem/1.35 var(--font-body);
+  list-style: none;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.faq-item > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.faq-item .chev, .news-list .chev { flex: none; width: 20px; height: 20px; margin-left: auto; color: var(--muted); transition: transform 200ms ease-out; }
+.faq-item[open] > summary .chev, .news-list details[open] > summary .chev { transform: rotate(180deg); }
+.faq-a { display: grid; gap: 10px; padding: 2px 18px 18px; color: var(--muted); }
+.faq-a p { max-width: 46em; margin: 0; }
+.faq-a a, .faq-a b { color: var(--ink); }
+
+/* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
+   beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and
+   scrolls in its own box (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): the half row says there
+   is more, its edges fade (assets/fade-edges.js, through its class fade-edges; --fade-size is the half row) and its
+   scrollbar is in the product's colour (--sb). A closed row is always --news-row high: its line never wraps. */
+.news { --news-row: 56px; --news-gap: 6px; --news-rows: 3.5; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 18px; align-items: start; }
+.news.single { grid-template-columns: minmax(0, 46rem); }
+.news-latest, .news-older { padding: 22px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); }
+.news-latest { display: grid; gap: 12px; align-content: start; }
+.news h3 { font-size: 1.5rem; }
+.news-older h3 { margin-bottom: 12px; font-size: 1.2rem; }
+.news-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; color: var(--muted); font: var(--label-weight) 0.92rem/1.3 var(--label-font); }
+.news ul { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; color: var(--muted); }
+.news-list {
+  --fade-size: calc(var(--news-row) / 2);
+  display: grid;
+  gap: var(--news-gap);
+  max-height: calc(var(--news-rows) * var(--news-row) + (var(--news-rows) - 0.5) * var(--news-gap));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.news-list::-webkit-scrollbar { width: 12px; }
+.news-list::-webkit-scrollbar-track { background: transparent; }
+.news-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; background-clip: padding-box; }
+@supports not selector(::-webkit-scrollbar) {
+  .news-list { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
+}
+.news-list summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--news-row);
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  white-space: nowrap;
+  list-style: none;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out;
+}
+.news-list summary::-webkit-details-marker { display: none; }
+.news-list summary:hover { background: color-mix(in srgb, var(--ink) 10%, var(--surface-2)); }
+.news-list summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.news-list summary b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.news-list summary time { color: var(--muted); font-size: 0.9rem; }
+.news-list details > .news-meta { margin: 12px 14px 0; }
+.news-list details > ul { margin: 10px 14px 14px; }
+.news-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 800; text-decoration-color: var(--accent); text-underline-offset: 5px; }
+.news-list .news-link { margin: -8px 14px 8px; }
+.news-empty { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+
 /* Band: one promise in a wide panel, with a small picture, its words and a link. */
 .band { display: grid; grid-template-columns: auto 1fr auto; gap: 26px; align-items: center; padding: 30px; }
 .band h2 { margin-bottom: 6px; font-size: 1.8rem; }
@@ -728,6 +808,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .features, .features.n4 { grid-template-columns: 1fr 1fr; }
   .cards.media .card > img { width: 60%; }
   .band { grid-template-columns: 1fr; }
+  .news { grid-template-columns: minmax(0, 1fr); }
 }
 /* Below 1300px the menu keeps only its main links (the rest are in the footer), so it stays clear of a title painted
    across the top of the key art. */
@@ -751,6 +832,9 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .cards.side .card { grid-template-columns: 1fr; }
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }
+  .news-latest, .news-older { padding: 18px 16px; }
+  .faq-item > summary { padding-inline: 16px; font-size: 1rem; }
+  .faq-a { padding-inline: 16px; }
 }
 /* The menu on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger
    menu."): below 561px, where the menu no longer fits beside the logo (Exitwise's needs about 390px for its three main

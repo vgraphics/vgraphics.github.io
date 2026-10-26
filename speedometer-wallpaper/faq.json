@@ -1,0 +1,42 @@
+[
+  {
+    "q": "Does a live wallpaper drain my battery?",
+    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode."
+  },
+  {
+    "q": "How does it know my speed, and how accurate is it?",
+    "a": "From your phone's GPS, so it needs a view of the sky: in a tunnel or a car park the gauge waits for a new fix. It shows your speed in km/h or mph, and a red mark keeps the top speed of the drive. It isn't a certified speedometer, so go by your car's own. It's for passengers: never handle your phone while driving."
+  },
+  {
+    "q": "Does it work without an internet connection?",
+    "a": "Yes. The gauges and GPS speed need no connection. Buying a style needs one, to reach Google Play, and so does the small banner inside the app."
+  },
+  {
+    "q": "Which phones does it work on?",
+    "a": "Android phones and tablets with Android 8.0 or newer, of any shape: every style fits the screen upright or on its side, including flip phones' main screens and foldables' cover and inner screens. There's no iPhone version: live wallpapers are an Android feature."
+  },
+  {
+    "q": "How do I set it as my wallpaper?",
+    "a": "Install it from Google Play, open it and tap Set as wallpaper, then confirm on your home screen. Then open Styles and pick a dashboard and its layout. <a href=\"/speedometer-wallpaper/wiki/set-as-wallpaper/\">Setting the wallpaper</a> has every step."
+  },
+  {
+    "q": "Which styles are free?",
+    "a": "Classic, Steel and Graphite. Every other style is €0.99, once, or unlock them all for €4.99, including the styles still to come. On a new phone with the same Google account, the styles you bought come back by themselves."
+  },
+  {
+    "q": "Do I need an account?",
+    "a": "No. There's nothing to sign up for: the styles you buy belong to your Google Play account."
+  },
+  {
+    "q": "Why does the app ask for notification access?",
+    "a": "Only for the Future style, which shows the song that's playing with its cover, and your missed calls and unread messages. It reads them from your phone's notifications, on the phone, and nothing leaves it. Every other gauge works without the access."
+  },
+  {
+    "q": "Can I try it before installing?",
+    "a": "Yes: <a href=\"/speedometer-wallpaper/play/\">try it in your browser</a>. The real wallpaper runs in a phone on the page, with its styles and settings, on any phone or computer."
+  },
+  {
+    "q": "What data does the app collect?",
+    "a": "Very little. What the gauges read stays on your phone, and your location is used only for GPS speed. The app sends anonymous usage statistics and crash reports, and the banner's ads follow the consent choice you make. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
+  }
+]

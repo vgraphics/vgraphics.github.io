@@ -1,0 +1,29 @@
+{
+  "entries": [
+    {
+      "version": "2.0.8273146a",
+      "date": "2026-10-24",
+      "platforms": ["Web"],
+      "title": "Try it in your browser",
+      "items": [
+        "The real wallpaper runs on this site, live in a phone, with nothing to install.",
+        "Pick a style and its layout, change its settings, and tap the big gauge to switch what it shows.",
+        "GPS speed shows how fast you're going once you allow your browser's location."
+      ],
+      "link": { "href": "/speedometer-wallpaper/play/", "label": "Try it now" },
+      "commit": "8273146a"
+    },
+    {
+      "version": "2.0.0",
+      "date": "2026-10-17",
+      "platforms": ["Android"],
+      "title": "Rebuilt, and out on Google Play",
+      "items": [
+        "Your home screen as a car dashboard, rebuilt from the 2016 original.",
+        "The big gauge shows power, CPU clock or GPS speed: tap it, or use the Quick Settings tile, to switch.",
+        "Browse designs with live previews; Future shows your music, missed calls and messages."
+      ],
+      "commit": "c882e811"
+    }
+  ]
+}

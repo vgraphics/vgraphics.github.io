@@ -29,7 +29,9 @@
 //                                holds demo/<demo>.html (its .css and .js beside it), the caption under it
 //   sections                     [{ id, eyebrow?, title, intro?, stage?, blocks, more? }] or [{ id, band }]
 //                                blocks: gallery, steps, cards (layout icon | media | side | tile), features, tour, soundtrack,
-//                                journey, embed, document, try (the product's web version, tools/lib/try.mjs)
+//                                journey, embed, document, try (the product's web version, tools/lib/try.mjs), faq
+//                                (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
+//                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
 //                                src-<width>.avif and .webp, the tall one on narrow screens
@@ -46,6 +48,8 @@ import { soundtrack } from './lib/soundtrack.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
+import { faq, faqData, readFaq } from './lib/faq.mjs'
+import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
@@ -181,6 +185,13 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   // start-up in assets/startup/).
   try: (b, product) => tryBlock(b, product.page),
 
+  // Questions that each open their answer, from page.json or the faq.json beside it (tools/lib/faq.mjs); the page's
+  // head carries them as FAQPage structured data too.
+  faq: (b, { dir }) => faq(readFaq(b, dir).items),
+
+  // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
+  news: (b, { dir }) => news(readNews(b, dir).entries, b),
+
   // Numbered spots on a phone screen, each opening its part of the list (assets/product.js; without JavaScript every
   // part stays open).
   tour: (b) => `<div class="tour" data-open="${b.open}">
@@ -262,6 +273,7 @@ export function render(slug, sub) {
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
+  const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
   const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
@@ -292,6 +304,9 @@ export function render(slug, sub) {
   <meta name="twitter:image" content="https://vgraphics.gr${esc(p.social.image)}">${p.structuredData ? `
   <script type="application/ld+json">
 ${JSON.stringify(p.structuredData, null, 2).replace(/</g, '\\u003c')}
+  </script>` : ''}${questions.length ? `
+  <script type="application/ld+json">
+${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   </script>` : ''}
   ${[...fonts, ...art.preloads].join('\n  ')}
   <link rel="stylesheet" href="/${slug}/theme/theme.css">
