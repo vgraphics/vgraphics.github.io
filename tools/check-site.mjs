@@ -387,9 +387,48 @@ for (const file of served) {
 // phone menu and the cursors above: each loads /assets/menu.js, which brings /assets/no-select.js, or no-select.js
 // itself. That links /assets/no-select.css, which turns selecting off everywhere but in text fields and colours their
 // selection in the page's own colour, and keeps the right-click menu shut. No other stylesheet, <style> or style=""
-// turns selecting back on.
+// turns selecting back on, but for the text fields: another repo's own piece for its pages (the hub's, the Exitwise
+// play page's) may let them be selected too.
 const noSelect = (file, message) => report(file, 'no-select', message)
 const NO_SELECT_JS = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>/
+// s split wherever at(character) is true outside brackets, parentheses and quotes.
+const splitTop = (s, at) => {
+  const parts = []
+  let [depth, quote, from] = [0, '', 0]
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i]
+    if (quote) {
+      if (c === quote) quote = ''
+    } else if (c === '"' || c === "'") quote = c
+    else if (c === '(' || c === '[') depth++
+    else if (c === ')' || c === ']') depth--
+    else if (!depth && at(c)) {
+      parts.push(s.slice(from, i))
+      from = i + 1
+    }
+  }
+  return [...parts, s.slice(from)].map((p) => p.trim()).filter(Boolean)
+}
+// Whether each selector of a list ends on a text field: input, textarea, [contenteditable], or :is() or :where() of them.
+const fieldsOnly = (list) => splitTop(list, (c) => c === ',').every((selector) => {
+  const last = splitTop(selector, (c) => /[\s>+~]/.test(c)).at(-1) ?? ''
+  const inner = last.match(/^:(?:is|where)\(([\s\S]*)\)$/)
+  return inner ? fieldsOnly(inner[1]) : /^(?:input|textarea)(?![-\w])|^\[contenteditable\b/i.test(last)
+})
+// Each user-select in a stylesheet that turns selecting back on, with its rule's selector.
+const reselects = (css) => {
+  css = css.replace(/\/\*[\s\S]*?\*\//g, '')
+  return [...css.matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)].map((m) => {
+    const open = css.lastIndexOf('{', m.index)
+    const start = Math.max(css.lastIndexOf('}', open), css.lastIndexOf('{', open - 1), css.lastIndexOf(';', open)) + 1
+    return { kind: m[1], selector: open < 0 || css.lastIndexOf('}', m.index) > open ? '' : css.slice(start, open).trim() }
+  })
+}
+const reselect = (file, css) => {
+  for (const { kind, selector } of reselects(css)) {
+    if (!selector || !fieldsOnly(selector)) noSelect(file, `${selector ? `"${selector}"` : 'a rule'} sets user-select: ${kind}, which lets text be selected again: only text fields (input, textarea, [contenteditable]) may be`)
+  }
+}
 for (const f of ['no-select.js', 'no-select.css']) if (!existsSync(join(root, 'assets', f))) noSelect(join('assets', f), 'missing')
 if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/no-select.js")')) {
   noSelect(join('assets', 'menu.js'), 'does not load /assets/no-select.js, which keeps the text of every page with a header from being selected')
@@ -400,13 +439,12 @@ for (const file of served) {
   if (!html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
     noSelect(file, `lets its text be selected and opens the right-click menu: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
   }
-}
-for (const [file, text] of sheets) {
-  if (file === 'assets/no-select.css') continue
-  for (const [, kind] of text.matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)) {
-    noSelect(file, `sets user-select: ${kind}, which lets text be selected again: only text fields may be (assets/no-select.css)`)
+  for (const [, css] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) reselect(file, css)
+  for (const [, kind] of [...html.matchAll(/\sstyle="([^"]*)"/g)].flatMap((m) => [...m[1].matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)])) {
+    noSelect(file, `a style="" sets user-select: ${kind}, which lets text be selected again: only text fields (input, textarea, [contenteditable]) may be`)
   }
 }
+for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/no-select.css') reselect(file, css)
 
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
 // width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The

@@ -164,9 +164,13 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   accent) and its page's (`--page`): Exitwise's deep violet with cream, Speedometer's red with black, Palermo's gold
   with navy. `tools/lib/theme.mjs` holds the pair to 4.5:1. The company pages and the hub (`assets/vgraphics.css`) use
   the page's own dot and the words that go on it.
+- The script puts `no-select.css` first in the head, so a page's own rules win at equal weight: the hub, the party kit
+  and the Exitwise play page carry their own piece from their repos (the same rules, in their colours), which stays in
+  charge there.
 - check-site holds every served page to this: it loads `/assets/menu.js` or `/assets/no-select.js`, and no stylesheet,
-  `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain` but `assets/no-select.css`. A policy's
-  source (the text alone, kept out of search) is not a page and is left as it comes from its repo.
+  `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
+  every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
+  search) is not a page and is left as it comes from its repo.
 
 ## Play button
 

@@ -9,11 +9,12 @@
 // write (the hub's) all get it with no line of their own; a page without one loads it with
 // <script src="/assets/no-select.js" defer></script> (tools/check-site.mjs checks every page does one or the other).
 (() => {
+  // First in the head, so a page's own rules (another repo's piece for its pages, say) win over these at equal weight.
   if (!document.querySelector('link[href="/assets/no-select.css"]')) {
     const sheet = document.createElement("link");
     sheet.rel = "stylesheet";
     sheet.href = "/assets/no-select.css";
-    document.head.append(sheet);
+    document.head.prepend(sheet);
   }
 
   // The text fields of no-select.css.
