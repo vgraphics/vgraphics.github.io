@@ -40,7 +40,14 @@
   "hero": {
     "title": "Palermo Noir town map",
     "lead": "Town map",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "An old map of Palermo unrolled on a table under a desk lamp, held flat by a brass compass, a magnifying glass, an espresso and a black rose, a gloved hand on it, and through the window the spy and the moonlit seafront, drawn in gold engraved lines on navy",
+      "tall": { "src": "img/hero-map-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3870 },
+      "wide": { "src": "img/hero-map-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1629, "sizes": "max(100vw, min(147vw, 236vh))" },
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+    }
   },
   "sections": [
     {

@@ -44,7 +44,7 @@
     "icon": "/palermo/assets/icon-192.png",
     "favicon": "/palermo/assets/icon-32.png",
     "touchIcon": "/palermo/assets/icon-180.png",
-    "logo": { "src": "/palermo/assets/logo", "widths": [300, 600], "width": 1236, "height": 426 },
+    "logo": { "src": "/palermo/assets/logo", "widths": [300, 600], "width": 3017, "height": 1462 },
     "parent": { "name": "Games", "href": "/games/" },
     "nav": [
       { "label": "Overview", "href": "/palermo/" },
@@ -225,9 +225,10 @@
         {
           "type": "soundtrack",
           "album": "Palermo Noir — Original Soundtrack",
-          "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Palermo Noir soundtrack cover: a shaft of light on an empty chair with a black rose, in a Palermo piazza at night before the cathedral, in gold engraved lines on navy" },
+          "cover": { "src": "img/cover", "widths": [320, 640, 1280, 2048], "width": 2048, "height": 2048, "alt": "The Palermo Noir soundtrack cover: a violinist in a fedora and a long coat plays on a Palermo rooftop against a huge full moon, the domes and bell towers below, in gold engraved lines on navy" },
+          "background": { "wide": { "src": "img/ost-backdrop", "widths": [960, 1280, 1920, 2560, 3840] }, "tall": { "src": "img/ost-backdrop", "widths": [960] } },
           "youtube": null,
-          "soundcloud": null,
+          "soundcloud": "https://soundcloud.com/vgraphics/sets/palermo-noir-original-soundtrack",
           "tracks": [
             { "title": "Main Theme", "src": "audio/01-main-theme.m4a", "duration": "1:59" },
             { "title": "The Deal", "src": "audio/02-the-deal.m4a", "duration": "2:00" },
