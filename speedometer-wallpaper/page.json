@@ -100,7 +100,11 @@
         "label": "Privacy policy",
         "href": "/speedometer-wallpaper/privacy.html"
       }
-    ]
+    ],
+    "play": {
+      "label": "Try online",
+      "href": "/speedometer-wallpaper/play/"
+    }
   },
   "stores": {
     "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"

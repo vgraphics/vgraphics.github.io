@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, "What's new" and "Questions and answers" on every landing page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
@@ -144,6 +144,24 @@ focusing a bullet shows the chapter's name.
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
 
+## Play button
+
+A product that can be played or tried on the site ends its header with that page, drawn as a button (George, 26 Oct
+2026: "For all landing pages, when there is a play online/test online, make it a fancy primary button last on the
+toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's "Try online"
+(`/speedometer-wallpaper/play/`).
+
+- The product's page.json names it: `site.play`, `{ "label": "Play online", "href": "/<product>/play/" }`. The header
+  (`tools/lib/partials.mjs`) adds it after the menu's links on every page of the product, the wikis too, so it is the
+  phone panel's last item as well. A product without `site.play` shows no button.
+- `assets/product.css` draws it as the product's main button, from its pack's `--cta`, `--cta-ink` and `--cta-edge`:
+  lit face, edge, glow, a sheen now and then, a lift on hover and a press; nothing moves with reduced motion. From
+  561px to 1300px it shows only its icon (its title names it), so the menu keeps to one row and clear of a title
+  painted on the key art; with the button there, the wide-only links show from 1800px. In the phone panel it is a
+  full-width button with its words.
+- check-site holds every served page to this: a product with a play page (`<product>/play/`) has `site.play`, and
+  every product header in its folder ends with that one button, inside its menu, going to that address.
+
 ## What's new and Questions and answers
 
 Every product's landing page has a "What's new" chapter and a "Questions and answers" chapter (George, 25 Oct 2026:
@@ -159,8 +177,11 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   market-design.md` §7): a headline and at most three short lines, one entry per production release, a web-only one
   only when it changes what visitors can do. The newest stands open in a card; the ones before it are rows beside it
   that each open their lines, at most three and a half showing, the rest scrolling in the list's own box with fading
-  edges and the product's scrollbar. A product not out yet has `"entries": []`, and the block shows its `empty` words
-  (or the default line) until its first release.
+  edges and the product's scrollbar. A product not out yet has `"entries": []`, and until its first release the newest
+  release's card holds its place (George, 26 Oct 2026: "Design the empty view better please."): a calendar emblem in
+  the product's colour, a title, a line and an optional link. The block's `empty` is that line, or
+  `{ "title": "Coming soon", "text": "…", "link": { "href": "/palermo/play/", "label": "Try it online" } }` (each
+  optional: the title defaults to "Coming soon", the line to the default one, and with no link there is none).
 - **The Deployer writes the changelog:** every release players get (a Play build that reaches production, a promotion,
   a web build) adds its notes, the same player-facing lines Google Play shows, with the day and where it shipped, then
   runs `tools/build-pages.mjs <product>` and this check, and pushes (`src/projects/siteNews.ts` in the Deployer). A web
@@ -168,12 +189,21 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   words, and run `node tools/build-pages.mjs` after.
 - **Questions and answers** (`tools/lib/faq.mjs`) reads the block's `items`, or the file its `src` names beside
   page.json (`faq.json`): `[{ "q": "plain words", "a": "trusted HTML, or a list of paragraphs" }]`, 6 to 10 of them.
-  Each question opens its answer (details and summary, no script), and the page's head carries them as FAQPage
-  structured data. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
+  Each question opens its answer (details and summary, so it works without script), and the page's head carries them
+  as FAQPage structured data.
+- **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
+  animation always. One open at a time."). `assets/faq.js`, which `assets/menu.js` loads on a page with a faq block,
+  takes over the questions' clicks (and Enter and Space): an answer grows from its question as it fades in (260 ms)
+  and closes the same way back (200 ms), both easing out, with the chevron turning along; a click mid-way turns it
+  round from where it is. Opening one closes any other open in the same list, and the question being opened stays
+  where it is on the screen while rows above it close. Under reduced motion the answer only fades, briefly. The
+  browser keeps the open state screen readers announce, find-in-page (a row it opens closes the others) and, without
+  script, the plain rows. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.
 - check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
-  and a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and
-  the check says why).
+  a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and the
+  check says why), and a news block's `empty` that is a line or `{ title, text, link }`. Every served page with
+  questions and answers loads `/assets/menu.js` (or `faq.js` itself), and menu.js loads `faq.js`.
 
 ## Search engines
 

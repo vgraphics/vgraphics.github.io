@@ -72,7 +72,8 @@
       { "label": "Global ranking", "href": "/exitwise/ranking/" },
       { "label": "Privacy policy", "href": "/exitwise/privacy.html" },
       { "label": "Map rules", "href": "/exitwise/map-rules.html" }
-    ]
+    ],
+    "play": { "label": "Play online", "href": "/exitwise/play/" }
   },
   "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
   "hero": {
