@@ -18,12 +18,10 @@
         "exitwise/img/key-art-tall",
         "exitwise/img/key-art-wide"
       ],
-      "todo": "The landing page keeps it; wiki-heroes-round2 gives the privacy page and the wiki index their own paintings. To do (Recraft): a stage of its own, wide and tall, behind the ranking's boards.",
+      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a stage of its own, wide and tall, behind the ranking's boards.",
       "places": [
         "/exitwise/ hero",
-        "/exitwise/privacy.html hero",
-        "/exitwise/ranking/#boards",
-        "/exitwise/wiki/ hero"
+        "/exitwise/ranking/#boards"
       ]
     },
     {
@@ -117,12 +115,11 @@
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"
       ],
-      "todo": "The landing page keeps it; wiki-heroes-round2 gives the privacy page and the wiki index their own paintings. To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for /play/ and /l/, and for every style page, made before the 19-style release publishes them.",
+      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for /play/ and /l/, and for every style page, made before the 19-style release publishes them.",
       "places": [
         "/speedometer-wallpaper/ hero",
         "/speedometer-wallpaper/l/ hero",
         "/speedometer-wallpaper/play/ hero",
-        "/speedometer-wallpaper/privacy.html hero",
         "/speedometer-wallpaper/styles/amber-night/ hero",
         "/speedometer-wallpaper/styles/aura/ hero",
         "/speedometer-wallpaper/styles/carbon/ hero",
@@ -141,8 +138,7 @@
         "/speedometer-wallpaper/styles/torque/ hero",
         "/speedometer-wallpaper/styles/track-night/ hero",
         "/speedometer-wallpaper/styles/vector/ hero",
-        "/speedometer-wallpaper/styles/vintage/ hero",
-        "/speedometer-wallpaper/wiki/ hero"
+        "/speedometer-wallpaper/styles/vintage/ hero"
       ]
     }
   ]
