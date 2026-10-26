@@ -1,7 +1,9 @@
 // Checks the site's content rules before a push: node tools/check-site.mjs
 // Prints one "path: [rule] message" line per problem and exits 1, or prints "OK: …" and exits 0.
 import { execFileSync } from 'node:child_process'
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { existsSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
@@ -340,6 +342,228 @@ for (const file of served) {
       report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
     }
   }
+}
+
+// Every picture is used once (George, 26 Oct 2026, on Palermo's gallery: "Gallery has same hero as overview. Thats
+// forbidden. Each art must be used only once!! General rule!!"): on the pages GitHub Pages serves, no hero, section or
+// card shows a picture that is shown anywhere else on the site, on another page or the same one.
+// - A picture is all of its files: its sizes and formats (<name>-<width>.avif, .webp, .jpg), the cuts one <picture>
+//   holds (wide, tall, ultra), and its copies under other names, found by their content: the same bytes, or nearly the
+//   same small print (tools/art-prints.py): a copy at another size or in another format, one trimmed a little at an
+//   edge, or a cut of another shape from its middle. The prints are kept in the temp folder by each file's hash, so
+//   only new files need Python.
+// - A place is a page's hero, the section (or article) the picture is in, a product's footer, or its theme's
+//   ornaments. The footer's picture and the ornaments are on every page of a product by design (George, 23 Oct 2026:
+//   "The foother must be same on all pages."), one place each.
+// - Not counted, on purpose (keep this list short): the <head> (link previews, preloads, icons), logos, store badges,
+//   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), pictures a script shows
+//   (the start-up's welcome splash is the key art's own job), stylesheet backgrounds, and a picture in a link to a page
+//   that shows it: that card is the page's preview, as its link preview is.
+// - tools/art-once-todo.json lists the reuses known when the rule came in (26 Oct 2026), each with its fix, until the
+//   fix lands. A listed picture passes while it is shown only in places its entry names: a new place fails, and so
+//   does a fixed picture until its entry is taken out, so the list only shrinks.
+const ART_TODO = join('tools', 'art-once-todo.json')
+const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
+const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
+const ICON = 256
+const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')
+// Where a picture is (chain: its element and the elements around it, outermost first): { free } when it isn't counted,
+// else { place, to }, to being the page its link leads to.
+function artPlace(page, chain) {
+  const has = (c) => chain.some((e) => e.cls.includes(c))
+  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || (has('ost-backdrop') && has('blur'))) return { free: true }
+  const product = page.split('/')[1]
+  if (has('foot-art')) return { place: `the footer of /${product}/` }
+  if (has('orn') || has('horizon')) return { place: `the ornaments of /${product}/` }
+  const href = chain.findLast((e) => e.tag === 'a' && e.href)?.href
+  let to
+  try {
+    const u = href && new URL(href, `https://vgraphics.gr${page}`)
+    if (u?.origin === 'https://vgraphics.gr') to = u.pathname.replace(/(^|\/)index\.html$/, '$1')
+  } catch {}
+  if (has('key-art')) return { place: `${page} hero`, to }
+  const box = chain.findLast((e) => ['section', 'article', 'aside', 'header', 'footer'].includes(e.tag))
+  return { place: box?.id ? `${page}#${box.id}` : `${page} ${box ? [box.tag, ...box.cls].join('.') : 'body'}`, to }
+}
+// A page's pictures, in its <body>: one use per <picture> (all its sources), per <img> outside one, and per element
+// whose style attribute names one (a band's or a world card's --art), each { page, files, place | free, to }.
+function pictureUses(file) {
+  const page = urlPath(file)
+  const html = readFileSync(join(root, file), 'utf8').replace(/<(script|style)\b([^>]*)>[\s\S]*?<\/\1>/gi, '<$1$2></$1>')
+  const uses = new Map()
+  const stack = []
+  const resolve = (ref) => {
+    let clean = ref.replace(/^https:\/\/vgraphics\.gr(?=\/)/, '').replace(/[?#].*$/, '')
+    if (!clean || /^(data:|[a-z]+:|\/\/)/i.test(clean)) return null
+    try {
+      clean = decodeURIComponent(clean)
+    } catch {}
+    if (!PICTURE.test(clean)) return null
+    const target = clean.startsWith('/') ? clean.slice(1) : join(dirname(file), clean)
+    return existsSync(join(root, target)) ? target.split(sep).join('/') : null
+  }
+  for (const m of html.slice(Math.max(0, html.search(/<body\b/))).matchAll(/<(\/?)([a-zA-Z][\w-]*)\b([^>]*)>/g)) {
+    const [, close, name, attrs] = m
+    const tag = name.toLowerCase()
+    if (close) {
+      const at = stack.findLastIndex((e) => e.tag === tag)
+      if (at >= 0) stack.length = at
+      continue
+    }
+    const el = { tag, at: m.index, cls: attrs.match(/\sclass="([^"]*)"/)?.[1].trim().split(/\s+/) ?? [], id: attrs.match(/\sid="([^"]*)"/)?.[1], href: attrs.match(/\shref="([^"]*)"/)?.[1] }
+    const refs = []
+    if (tag === 'img' || tag === 'source') {
+      for (const [, a, v] of attrs.matchAll(/\s(src|srcset)="([^"]*)"/g)) refs.push(...(a === 'srcset' ? v.split(',').map((s) => s.trim().split(/\s+/)[0]) : [v]))
+    }
+    for (const [, u] of (attrs.match(/\sstyle="([^"]*)"/)?.[1] ?? '').matchAll(/url\(\s*(?:&quot;|['"])?([^'")&]+)/g)) refs.push(u)
+    const files = refs.map(resolve).filter(Boolean)
+    if (files.length) {
+      const chain = [...stack, el]
+      const key = chain.findLast((e) => e.tag === 'picture')?.at ?? el.at
+      if (!uses.has(key)) uses.set(key, { page, files: new Set(), ...artPlace(page, chain) })
+      for (const f of files) uses.get(key).files.add(f)
+    }
+    if (!VOIDS.has(tag) && !attrs.endsWith('/')) stack.push(el)
+  }
+  return [...uses.values()]
+}
+{
+  const uses = served.filter((f) => !notPages.has(f) && !PARTIAL.test(f)).flatMap(pictureUses)
+  const parent = new Map()
+  const find = (a) => {
+    while (parent.get(a) !== a) a = parent.get(a)
+    return a
+  }
+  const unite = (a, b) => parent.set(find(b), find(a))
+  // Each picture's largest side, from its smallest file's shape and its widest size's name (<name>-<width>), and one
+  // file to fingerprint: about 512 px wide, WebP or JPEG before AVIF (quicker to read).
+  const files = new Map()
+  for (const u of uses) {
+    u.arts = [...new Set([...u.files].map(artOf))]
+    for (const a of u.arts) if (!parent.has(a)) parent.set(a, a)
+    for (const a of u.arts.slice(1)) unite(u.arts[0], a)
+    for (const f of u.files) files.set(artOf(f), (files.get(artOf(f)) ?? new Set()).add(f))
+  }
+  const sizes = new Map()
+  const reps = new Map()
+  for (const [a, set] of files) {
+    const list = [...set].map((f) => ({ f, w: Number(f.match(/-(\d+)\.\w+$/)?.[1]) || 0 }))
+    const size = imageSize(join(root, list.reduce((x, y) => (y.w < x.w ? y : x)).f))
+    if (!size) continue
+    const k = size.width / size.height
+    const widest = Math.max(size.width, ...list.map((x) => x.w))
+    sizes.set(a, Math.max(widest, widest / k))
+    const score = (x) => Math.abs((x.w || size.width) - 512) + (/\.avif$/i.test(x.f) ? 4096 : 0)
+    reps.set(a, { file: list.reduce((x, y) => (score(y) < score(x) ? y : x)).f, k })
+  }
+  // The prints of one version of tools/art-prints.py, so a change to it makes them anew.
+  const PRINTER = join(root, 'tools', 'art-prints.py')
+  const PRINTS = join(tmpdir(), `vgraphics-art-prints-${createHash('sha1').update(readFileSync(PRINTER)).digest('hex').slice(0, 10)}.json`)
+  let prints = {}
+  try {
+    prints = JSON.parse(readFileSync(PRINTS, 'utf8'))
+  } catch {}
+  for (const r of reps.values()) r.hash = createHash('sha1').update(readFileSync(join(root, r.file))).digest('hex')
+  const missing = [...reps.values()].filter((r) => !(r.hash in prints) && !/\.svg$/i.test(r.file))
+  if (missing.length) {
+    try {
+      const got = JSON.parse(execFileSync('python', [PRINTER], { cwd: root, input: missing.map((r) => r.file).join('\n'), encoding: 'utf8', maxBuffer: 1 << 26 }))
+      for (const r of missing) prints[r.hash] = got[r.file] ?? null
+      writeFileSync(`${PRINTS}.${process.pid}`, JSON.stringify(prints))
+      renameSync(`${PRINTS}.${process.pid}`, PRINTS)
+    } catch (e) {
+      report(join('tools', 'art-prints.py'), 'art-once', `can't fingerprint ${missing.length} picture(s), so copies under other names go unseen (it needs Python with Pillow 11.3 or later): ${e.message.split('\n')[0]}`)
+    }
+  }
+  // Copies: the same bytes, or prints that match when laid over each other. Two of nearly the same shape (within 15%)
+  // are laid whole, or one is cut to the other's shape at its start, middle or end (a copy cut a little); two of
+  // different shapes by their centre squares (a 1:1 or 4:3 cut from the middle of a wide picture; a cut from its side
+  // goes unseen). They match within 3.5 grey levels
+  // (root mean square, of 255, on a grid 32 cells wide): a copy or a re-cut measures 2 or so, two screens of one app
+  // that differ only in their readings 5 and up.
+  const byHash = new Map()
+  for (const [a, r] of reps) byHash.has(r.hash) ? unite(byHash.get(r.hash), a) : byHash.set(r.hash, a)
+  // A print's region [x0, y0, x1, y1] (in its pixels) averaged into a grid of n x m cells.
+  const grid = (t, [x0, y0, x1, y1], n, m) => {
+    const out = new Float64Array(n * m)
+    const [sx, sy] = [(x1 - x0) / n, (y1 - y0) / m]
+    for (let j = 0; j < m; j++) {
+      for (let i = 0; i < n; i++) {
+        const [ax, ay] = [x0 + i * sx, y0 + j * sy]
+        let [sum, area] = [0, 0]
+        for (let y = Math.floor(ay); y < Math.min(Math.ceil(ay + sy), t.h); y++) {
+          const wy = Math.min(ay + sy, y + 1) - Math.max(ay, y)
+          for (let x = Math.floor(ax); x < Math.min(Math.ceil(ax + sx), t.w); x++) {
+            const wx = Math.min(ax + sx, x + 1) - Math.max(ax, x)
+            sum += t.px[y * t.w + x] * wx * wy
+            area += wx * wy
+          }
+        }
+        out[j * n + i] = sum / area
+      }
+    }
+    return out
+  }
+  const rms = (x, y) => {
+    let sum = 0
+    for (let i = 0; i < x.length; i++) sum += (x[i] - y[i]) ** 2
+    return Math.sqrt(sum / x.length)
+  }
+  const thumbs = [...reps].filter(([, r]) => prints[r.hash]).map(([a, r]) => {
+    const [, w, h, hex] = prints[r.hash].match(/^(\d+)x(\d+):([0-9a-f]*)$/)
+    const t = { a, k: r.k, w: Number(w), h: Number(h), px: Buffer.from(hex, 'hex') }
+    const s = Math.min(t.w, t.h)
+    t.rows = Math.max(1, Math.round(32 / t.k))
+    t.whole = grid(t, [0, 0, t.w, t.h], 32, t.rows)
+    t.small = grid(t, [0, 0, t.w, t.h], 8, 8)
+    t.square = grid(t, [(t.w - s) / 2, (t.h - s) / 2, (t.w + s) / 2, (t.h + s) / 2], 32, 32)
+    return t
+  })
+  const copies = (a, b) => {
+    const [W, N] = a.k >= b.k ? [a, b] : [b, a]
+    const f = N.k / W.k
+    if (f < 0.85) return rms(W.square, N.square) <= 3.5
+    // A first look at 8 x 8 passes over pictures that are nothing alike.
+    if (rms(W.small, N.small) > 24) return false
+    return [0, 0.5, 1].some((at) => {
+      const [from, to] = [at * (1 - f), at * (1 - f) + f]
+      return rms(grid(W, [from * W.w, 0, to * W.w, W.h], 32, N.rows), N.whole) <= 3.5 ||
+        rms(grid(N, [0, from * N.h, N.w, to * N.h], 32, W.rows), W.whole) <= 3.5
+    })
+  }
+  for (let i = 0; i < thumbs.length; i++) {
+    for (let j = i + 1; j < thumbs.length; j++) if (copies(thumbs[i], thumbs[j])) unite(thumbs[i].a, thumbs[j].a)
+  }
+  const pictures = new Map()
+  for (const u of uses) {
+    const p = find(u.arts[0])
+    if (!pictures.has(p)) pictures.set(p, { arts: new Set(), uses: [] })
+    pictures.get(p).uses.push(u)
+    for (const a of u.arts) pictures.get(p).arts.add(a)
+  }
+  let todo = []
+  try {
+    todo = JSON.parse(readFileSync(join(root, ART_TODO), 'utf8')).reuses
+  } catch (e) {
+    report(ART_TODO, 'art-once', `can't be read: ${e.message}`)
+  }
+  const listed = new Set()
+  for (const { arts, uses: all } of pictures.values()) {
+    if (Math.max(...[...arts].map((a) => sizes.get(a) ?? 0)) <= ICON) continue
+    const counted = all.filter((u) => !u.free)
+    const shown = new Set(counted.filter((u) => !u.to || u.to === u.page).map((u) => u.page))
+    const places = [...new Set(counted.filter((u) => !(u.to && u.to !== u.page && shown.has(u.to))).map((u) => u.place))].sort()
+    if (places.length < 2) continue
+    const names = [...arts].sort()
+    const t = todo.find((x) => x.art.some((a) => arts.has(a)))
+    if (t) listed.add(t)
+    const extra = t ? places.filter((p) => !t.places.includes(p)) : places
+    if (!extra.length) continue
+    const art = `${names[0]}${names.length > 1 ? ` (with ${names.slice(1).join(', ')})` : ''}`
+    report(names[0], 'art-once', `${art} is shown in ${places.length} places: ${places.join('; ')}. Give each its own picture${t ? ` (${ART_TODO} lists it, but not in ${extra.join('; ')})` : ''}`)
+  }
+  for (const t of todo) if (!listed.has(t)) report(ART_TODO, 'art-once', `${t.art[0]} is no longer shown in two places: take its entry out`)
 }
 
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.
