@@ -1,9 +1,11 @@
 // The header's menu on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a
-// burger menu."): a button at the header's right opens the menu as a panel under it. The stylesheets decide where the
-// button shows: assets/vgraphics.css below 768px, where the company header's full row no longer fits, and
-// assets/product.css below 561px. This file opens and closes the panel: the button again, Escape, a tap outside it or
-// one of its links closes it. While it is open, Tab stays in the button and the panel, the rest of the page is inert,
-// and closing gives focus back to the button.
+// burger menu."): a button at the header's right opens the menu as a panel under it. assets/vgraphics.css shows the
+// company header's button below 768px, where its full row no longer fits. A product's header (assets/product.css)
+// keeps every link on one line (George, 26 Oct 2026: "Map rules - always single line menu items."), so this file folds
+// its menu into the button (.folded) on phones and wherever the row would not fit beside the logo, and unfolds it where
+// it fits again. This file opens and closes the panel: the button again, Escape, a tap outside it or one of its links
+// closes it. While it is open, Tab stays in the button and the panel, the rest of the page is inert, and closing gives
+// focus back to the button.
 // The company header gets its button here, so its markup stays the copy tools/check-site.mjs compares on every company
 // page (the hub's pages, which the VHub repo writes, too). The product header has its own (tools/lib/partials.mjs).
 // A panel taller than a short screen scrolls, with a fading bottom edge while more lies below; and since every page
@@ -65,6 +67,24 @@
         }
       }
     });
+    // A product's header: folded on a phone, or where its row (the logo, then every link on one line) is wider than the
+    // header; measured unfolded, with its transitions off, so nothing on screen moves. Again when the screen changes
+    // size and when a font arrives, which makes the links wider or narrower.
+    if (head.classList.contains("top")) {
+      const phone = matchMedia("(max-width: 560px)");
+      const fit = () => {
+        head.classList.add("measuring");
+        head.classList.remove("folded");
+        const fold = phone.matches || head.scrollWidth > head.clientWidth;
+        head.classList.toggle("folded", fold);
+        void head.offsetWidth;
+        head.classList.remove("measuring");
+        if (!fold) set(false, false);
+      };
+      fit();
+      addEventListener("resize", fit);
+      document.fonts?.addEventListener("loadingdone", fit);
+    }
     // The screen grows past the phone layout (the button is gone), or the page is left with the panel open.
     addEventListener("resize", () => {
       if (open && !button.offsetWidth) set(false, false);

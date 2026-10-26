@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
@@ -84,7 +84,12 @@ Change it there too and release `vhub-hub`: until then the check reports every h
 
 On phones every header folds its menu into a button at the right that opens it as a panel (George, 23 Oct 2026: "At
 mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
-header below 561px. `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
+header below 561px and wherever its row would not fit. Menu items keep to one line (George, 26 Oct 2026: "Map rules -
+always single line menu items."): every header link is `white-space: nowrap`, the product header keeps its logo and
+menu on one row, and `assets/menu.js` measures that row (on load, on resize and when a font arrives) and folds the menu
+into its button (`.folded`) wherever it is wider than the header, instead of letting it squeeze or wrap. check-site
+fails a header rule that lets a link wrap, a `<br>` in a header's menu, and the fold missing from menu.js.
+`assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
 header's markup stays the copy above. Every company page loads it in its `<head>` with
 `<script src="/assets/menu.js" defer></script>`, and the CSS acts only on pages that do. The hub's pages carry the
 same line from the VHub repo's `hub/index.html` and policy page (since VHub 880438d). The product pages' button comes
@@ -182,10 +187,15 @@ toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's 
 - The product's page.json names it: `site.play`, `{ "label": "Play online", "href": "/<product>/play/" }`. The header
   (`tools/lib/partials.mjs`) adds it after the menu's links on every page of the product, the wikis too, so it is the
   phone panel's last item as well. A product without `site.play` shows no button.
-- `assets/product.css` draws it as the product's main button, from its pack's `--cta`, `--cta-ink` and `--cta-edge`:
-  lit face, edge, glow, a sheen now and then, a lift on hover and a press; nothing moves with reduced motion. From
-  561px to 1300px it shows only its icon (its title names it), so the menu keeps to one row and clear of a title
-  painted on the key art; with the button there, the wide-only links show from 1800px. In the phone panel it is a
+- `assets/product.css` draws it as the product's eye-catching button in its own colour, never a grey (George, 26 Oct
+  2026, on Exitwise's: "Create a better play online button. More purple like the logo stroke."): the colour its
+  scrollbar, stepper and selected text wear (`--selection`, else `--scrollbar`, else the accent: Exitwise's deep violet
+  #32044F, Speedometer's red, Palermo's gold) with the words that read on it (`--selection-ink`, else the page's). A pill
+  lit from above on a deeper edge, a light rim, a glow in a lighter shade of it, the play sign in a disc of its words'
+  colour, a sheen now and then, a lift and brighter glow on hover and a press; nothing moves with reduced motion.
+  `tools/lib/theme.mjs` fails a pack whose pair reads under 4.5:1 or whose colour is greyish (saturation under 35%).
+  From 561px to 1300px it shows only its icon (its title names it), so the menu keeps to one row and clear of a title
+  painted on the key art; with the button there, the wide-only links show from 1800px. In the folded panel it is a
   full-width button with its words.
 - check-site holds every served page to this: a product with a play page (`<product>/play/`) has `site.play`, and
   every product header in its folder ends with that one button, inside its menu, going to that address.

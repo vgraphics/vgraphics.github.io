@@ -446,6 +446,37 @@ for (const file of served) {
 }
 for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/no-select.css') reselect(file, css)
 
+// Menu items on one line (George, 26 Oct 2026: "Map rules - always single line menu items."): the header's links keep
+// to one line (white-space: nowrap on the product header's .subnav a and the company header's .site-nav a), the
+// product header keeps its logo and menu on one row (.top's flex-wrap: nowrap), and assets/menu.js folds that menu into
+// its button wherever the row would not fit (.folded). No other rule of a stylesheet or <style> on a served page lets a
+// header link wrap again, and no link of a header's menu holds a line break.
+const oneLine = (file, message) => report(file, 'one-line', message)
+const cssRules = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ selector: m[1].trim(), body: m[2] }))
+const ruleOf = (file, selector) => cssRules(readFileSync(join(root, file), 'utf8')).find((r) => r.selector === selector)?.body ?? ''
+const wraps = (file, css) => {
+  for (const { selector } of cssRules(css).filter((r) => /\.(subnav|site-nav)\b/.test(r.selector) && /white-space:\s*(?!\s|nowrap)/.test(r.body))) {
+    oneLine(file, `"${selector}" lets a header link wrap (white-space): menu items keep to one line`)
+  }
+}
+for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/]]) {
+  if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header's links can wrap`)
+}
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('classList.toggle("folded"')) {
+  oneLine(join('assets', 'menu.js'), "does not fold the product header's menu (.folded) where its row would not fit")
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [, inner] of html.matchAll(/<header\b[^>]*>([\s\S]*?)<\/header>/g)) {
+    for (const [, nav] of inner.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)) {
+      if (/<br\b/i.test(nav)) oneLine(file, "a link of the header's menu holds a line break (<br>): menu items keep to one line")
+    }
+  }
+  wraps(file, [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n'))
+}
+for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
+
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
 // width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
 // stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that
