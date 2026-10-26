@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, "What's new" and "Questions and answers" on every landing page, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors and the chapter stepper on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles and the bands behind "In the game" from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map changes |
@@ -166,12 +166,21 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   words, and run `node tools/build-pages.mjs` after.
 - **Questions and answers** (`tools/lib/faq.mjs`) reads the block's `items`, or the file its `src` names beside
   page.json (`faq.json`): `[{ "q": "plain words", "a": "trusted HTML, or a list of paragraphs" }]`, 6 to 10 of them.
-  Each question opens its answer (details and summary, no script), and the page's head carries them as FAQPage
-  structured data. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
+  Each question opens its answer (details and summary, so it works without script), and the page's head carries them
+  as FAQPage structured data.
+- **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
+  animation always. One open at a time."). `assets/faq.js`, which `assets/menu.js` loads on a page with a faq block,
+  takes over the questions' clicks (and Enter and Space): an answer grows from its question as it fades in (260 ms)
+  and closes the same way back (200 ms), both easing out, with the chevron turning along; a click mid-way turns it
+  round from where it is. Opening one closes any other open in the same list, and the question being opened stays
+  where it is on the screen while rows above it close. Under reduced motion the answer only fades, briefly. The
+  browser keeps the open state screen readers announce, find-in-page (a row it opens closes the others) and, without
+  script, the plain rows. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.
 - check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
   and a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and
-  the check says why).
+  the check says why). Every served page with questions and answers loads `/assets/menu.js` (or `faq.js` itself), and
+  menu.js loads `faq.js`.
 
 ## Search engines
 

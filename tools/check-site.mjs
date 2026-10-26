@@ -321,6 +321,24 @@ for (const slug of products()) {
   }
 }
 
+// The questions and answers open and close with an animation, one at a time (George, 26 Oct 2026: "FAQ must open/close
+// with animation always. One open at a time."): assets/faq.js does it, which /assets/menu.js loads on a page with a faq
+// block, so every served page with one loads menu.js (or faq.js itself). Without it the answers still open, but jump,
+// and several stay open.
+const faqJs = (file, message) => report(file, 'faq-js', message)
+const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
+if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/faq.js")')) {
+  faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js, which animates the questions and answers of every page with them')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (/<div class="faq">/.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
+    faqJs(file, `has questions and answers that open with no animation and several at a time: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
+  }
+}
+
 // No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
 // width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
 // stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that

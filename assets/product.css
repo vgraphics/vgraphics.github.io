@@ -544,7 +544,8 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .part .body .more { justify-self: start; margin-top: 0; color: var(--ink); font: var(--label-weight) 1rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); text-decoration-color: var(--accent); text-underline-offset: 5px; }
 
 /* Questions and answers, on every landing page (the "faq" block, tools/lib/faq.mjs): each question a row that opens its
-   answer under it. details and summary do the opening, so it works without script. */
+   answer under it. details and summary do the opening, so it works without script; assets/faq.js animates it, one
+   open at a time. */
 .faq { display: grid; gap: 10px; max-width: 54rem; }
 .faq-item { border: var(--card-border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--card-shadow); }
 .faq-item > summary {
@@ -568,6 +569,11 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .faq-a { display: grid; gap: 10px; padding: 2px 18px 18px; color: var(--muted); }
 .faq-a p { max-width: 46em; margin: 0; }
 .faq-a a, .faq-a b { color: var(--ink); }
+/* While assets/faq.js moves a row, the row clips what grows or goes (faq-moving), and its chevron turns at the row's
+   pace: with it as it opens, back at once as it starts closing (faq-closing). Under reduced motion it just flips. */
+.faq-item.faq-moving { overflow: hidden; }
+.faq-item .chev { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.faq-item[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
 
 /* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
    beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and
