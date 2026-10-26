@@ -168,7 +168,7 @@
   background: var(--g-btn, #fff);
   color: var(--g-btn-ink, var(--g-ink));
   box-shadow: 0 4px 0 rgb(0 0 0 / 0.16), 0 10px 18px -10px rgb(0 0 0 / 0.5);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: translate 120ms var(--g-ease), box-shadow 120ms var(--g-ease);
 }
 .g-btn:hover { translate: 0 -1px; }
@@ -189,7 +189,7 @@
   background: color-mix(in srgb, var(--accent) 55%, transparent);
   color: #fff;
   font: var(--g-display-weight, 400) 0.9rem/1 var(--g-display);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 220ms var(--g-pop), background-color 200ms;
 }
 .g-dot[aria-current="true"] {
@@ -330,7 +330,7 @@
 /* Room under the phones for their pedestals' roots. */
 .gallery[data-gallery="stage"]:has(.g-ped) .g-track { --room: 0.64; }
 .gallery[data-gallery="stage"] .g-fig { position: relative; margin: 0; }
-.gallery[data-gallery="stage"] .g-slide:not(.is-current) .g-phone { cursor: pointer; }
+.gallery[data-gallery="stage"] .g-slide:not(.is-current) .g-phone { cursor: var(--cursor-link, pointer); }
 /* The pedestal: the product's art if it has one, otherwise a soft glow on the ground. */
 .gallery[data-gallery="stage"] .g-fig::after {
   content: "";

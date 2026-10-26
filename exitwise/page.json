@@ -227,6 +227,18 @@
           ]
         }
       ]
+    },
+    {
+      "id": "whats-new",
+      "title": "What's new",
+      "intro": "Every update to the game, newest first, on Android and in your browser.",
+      "blocks": [{ "type": "news" }]
+    },
+    {
+      "id": "faq",
+      "title": "Questions and answers",
+      "intro": "Quick answers about playing, saving and staying free. The <a href=\"/exitwise/wiki/\">wiki</a> has every obstacle and powerup.",
+      "blocks": [{ "type": "faq", "src": "faq.json" }]
     }
   ],
   "cta": {

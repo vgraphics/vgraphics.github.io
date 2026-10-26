@@ -7,7 +7,12 @@ import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
-import { documents, pieces, products, subpages } from './lib/product.mjs'
+import { styleSources, strayStylePages } from './make-style-pages.mjs'
+import { hotspot } from './lib/cursors.mjs'
+import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
+import { imageSize } from './lib/image-size.mjs'
+import { readFaq } from './lib/faq.mjs'
+import { readNews } from './lib/news.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -182,6 +187,81 @@ for (const file of served) {
   if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
+// The cursors (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"), on every page GitHub Pages
+// serves, whoever writes it, as the phone menu above: each links /assets/cursors.css, which shows its product's (or
+// VGraphics') pointer, hand and text cursor (tools/lib/cursors.mjs); no stylesheet or <style> sets the system's own
+// pointer, text or default cursor in their place (they use var(--cursor-link, pointer) and the like); and every
+// cursor picture a stylesheet names has its click point where the picture's data-hotspot says. The pieces the template
+// sets into pages (a demo, an embed's markup, a policy's source) are not pages.
+const cursor = (file, message) => report(file, 'cursors', message)
+const SYSTEM = { pointer: 'var(--cursor-link, pointer)', text: 'var(--cursor-text, text)', default: 'var(--cursor, default)' }
+const notPages = new Set([...pieces(), ...sources.keys()].map((f) => f.split(sep).join('/')))
+const styles = (html) => [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>|\sstyle="([^"]*)"/g)].map((m) => m[1] ?? m[2]).join('\n')
+const sheets = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.css'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f))).map((f) => [f, readFileSync(join(root, f), 'utf8')])
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!/<link rel="stylesheet" href="\/assets\/cursors\.css"/.test(html)) cursor(file, 'does not link /assets/cursors.css, which shows the cursors')
+  sheets.push([file, styles(html)])
+}
+for (const [file, text] of sheets) {
+  for (const [, kind] of text.matchAll(/(?<![-\w])cursor:\s*(pointer|text|default)\b/g)) cursor(file, `sets cursor: ${kind}, the system's own: use ${SYSTEM[kind]}`)
+  for (const [, name, url, x, y] of text.matchAll(/--(cursor(?:-link|-text)?):\s*url\(\s*"([^"]+)"\s*\)\s+(\d+)\s+(\d+)/g)) {
+    const picture = join(root, url.replace(/^\//, ''))
+    if (!url.startsWith('/') || !existsSync(picture)) continue // a missing one is reported under css-urls
+    const at = hotspot(readFileSync(picture, 'utf8'))
+    if (typeof at === 'string') cursor(file, `--${name}'s ${url} ${at}`)
+    else if (at.join(' ') !== `${x} ${y}`) cursor(file, `--${name} clicks at ${x} ${y}, but ${url}'s data-hotspot is ${at.join(' ')}`)
+  }
+}
+
+// The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
+// chapter per anchor. This is a generic rule for all games and projects so implement for all."), on every page GitHub
+// Pages serves, as the phone menu and the cursors above. assets/stepper.js builds it from the page's chapters, which
+// this reads from the markup the same way: in <main>, the targets of a heading's link to itself (a.anchor, named by its
+// heading) and of the links in a <nav> of the page's own ("On this page", named by their words), each id once. A page
+// with two or more must load /assets/menu.js, which brings the stepper (or stepper.js itself), and each chapter must
+// point at one element of the page, or its bullet leads nowhere.
+const stepper = (file, message) => report(file, 'stepper', message)
+const STEPPER_JS = /<script type="module" src="\/assets\/stepper\.js"><\/script>/
+const words = (s) => s.replace(/<[^>]+>/g, '').replace(/\s+/g, ' ').trim()
+const literal = (s) => s.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+for (const f of ['stepper.js', 'stepper.css']) if (!existsSync(join(root, 'assets', f))) stepper(join('assets', f), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/stepper.js")')) {
+  stepper(join('assets', 'menu.js'), 'does not load /assets/stepper.js, the chapter stepper of every page with a header')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  const main = html.match(/<main\b[\s\S]*<\/main>/)?.[0] ?? ''
+  const chapters = new Map()
+  const add = (href, name) => {
+    if (href && !chapters.has(href)) chapters.set(href, name)
+  }
+  for (const [, inner] of main.matchAll(/<h[1-6]\b[^>]*>([\s\S]*?)<\/h[1-6]>/g)) {
+    for (const [tag] of inner.matchAll(/<a\b[^>]*>/g)) {
+      const href = tag.match(/\shref="#([^"]*)"/)?.[1]
+      if (/\sclass="(?:[^"]*\s)?anchor(?:\s[^"]*)?"/.test(tag)) add(href, words(inner))
+    }
+  }
+  for (const [, inner] of main.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)) {
+    for (const [, href, text] of inner.matchAll(/<a\b[^>]*\shref="#([^"]*)"[^>]*>([\s\S]*?)<\/a>/g)) add(href, words(text))
+  }
+  let count = 0
+  for (const [href, name] of chapters) {
+    const id = decodeURIComponent(href)
+    const many = html.match(new RegExp(`\\sid="${literal(id)}"`, 'g'))?.length ?? 0
+    if (!many) stepper(file, `a chapter links to #${href}, which no element on the page has: its bullet would lead nowhere`)
+    else if (many > 1) stepper(file, `${many} elements have the id "${id}", a chapter's: give each its own`)
+    else if (!name) stepper(file, `the chapter #${href} has no name for its bullet: its heading or link has no words`)
+    else count++
+  }
+  if (count >= 2 && !html.includes(MENU_JS) && !STEPPER_JS.test(html)) {
+    stepper(file, `has ${count} chapters but no chapter stepper: load /assets/menu.js (${MENU_JS}), which brings /assets/stepper.js`)
+  }
+}
+
 // Product landing pages come from one template (George, 22 Oct 2026: "the same layouts with different content and
 // graphic"): each is exactly what tools/build-pages.mjs writes from its page.json and theme pack, and every product (a
 // folder with its own privacy policy) has one. So are a product's other pages with a page.json (exitwise/ranking).
@@ -202,11 +282,64 @@ for (const slug of products()) {
     if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
   }
 }
+// A product's style pages and its landing page's style tiles come from <product>/styles/styles.json
+// (tools/make-style-pages.mjs), each page with its link-preview picture (tools/make-style-cards.py).
+try {
+  for (const { file, text } of styleSources()) {
+    const have = existsSync(join(root, file)) ? readFileSync(join(root, file), 'utf8').replace(/\r\n/g, '\n') : null
+    if (have !== text) report(file, 'styles', 'not as tools/make-style-pages.mjs writes it: edit styles/styles.json, then run it and tools/build-pages.mjs')
+    const card = JSON.parse(text).social?.image
+    if (file.includes(`${sep}styles${sep}`) && card && !existsSync(join(root, card))) report(file, 'styles', `no link-preview picture ${card}: run python tools/make-style-cards.py`)
+  }
+  for (const dir of strayStylePages()) report(dir, 'styles', 'a style page styles.json no longer lists: delete it')
+} catch (e) {
+  report('styles/styles.json', 'styles', e.message)
+}
 for (const dir of readdirSync(root)) {
   // hub/ is VHub's web app, an app page only the Deployer's vhub-hub writes (README, "The app pages"), not a product
   // landing page: its privacy.html is VHub's policy, which comes with each release, and it has no page.json.
   if (SKIP.includes(dir) || dir === 'hub' || !existsSync(join(root, dir, 'privacy.html'))) continue
   if (!existsSync(join(root, dir, 'page.json'))) report(join(dir, 'index.html'), 'template', 'made by hand: every product page comes from tools/build-pages.mjs (give it a page.json and a theme pack)')
+}
+
+// "What's new" and "Questions and answers" on every product's landing page (George, 25 Oct 2026: "This apply as global
+// rule. All landing pages must have it."): its page.json has a section of each name, with the template's news block
+// and faq block, so each is a chapter with its heading's link (and a bullet on the stepper); the questions are well
+// formed, and so is the changelog the news block reads (<product>/changelog.json, which the Deployer adds to).
+const CHAPTERS = [['news', "What's new"], ['faq', 'Questions and answers']]
+for (const slug of products()) {
+  const file = join(slug, 'page.json')
+  const sections = loadProduct(slug).page.sections ?? []
+  for (const [type, title] of CHAPTERS) {
+    const at = sections.filter((s) => s.blocks?.some((b) => b.type === type))
+    if (!at.length) report(file, 'faq-news', `no "${title}" section: add one with a ${type} block (README, "What's new and Questions and answers")`)
+    for (const s of at) if (s.title !== title) report(file, 'faq-news', `the section with the ${type} block is titled ${s.title ? `"${s.title}"` : 'nothing'}, not "${title}": every landing page names it the same`)
+  }
+  for (const b of sections.flatMap((s) => s.blocks ?? [])) {
+    if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
+    if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
+  }
+}
+
+// No stretched pictures (George, 24 Oct 2026: "These are stretched."): every <img> on a served page that states its
+// width and height states its own picture's shape, within rounding, so a box sized from them never squeezes it. (The
+// stylesheets keep the rest: assets/product.css and assets/vgraphics.css give every img height: auto, and a box that
+// sets both sides crops with object-fit.)
+for (const file of served) {
+  if (sources.has(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [tag] of html.matchAll(/<img\b[^>]*>/g)) {
+    const src = tag.match(/\ssrc="([^"]+)"/)?.[1]
+    const w = Number(tag.match(/\swidth="(\d+)"/)?.[1])
+    const h = Number(tag.match(/\sheight="(\d+)"/)?.[1])
+    if (!src || !w || !h || /^(data:|[a-z]+:|\/\/)/i.test(src)) continue
+    const clean = decodeURIComponent(src.replace(/[?#].*$/, ''))
+    const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
+    const own = existsSync(target) ? imageSize(target) : null
+    if (own && Math.abs((w / h) / (own.width / own.height) - 1) > 0.01) {
+      report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
+    }
+  }
 }
 
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.
@@ -276,7 +409,7 @@ for (const l of sellers) {
 
 // assets/web-ads.js: the ad switch every web game's play page loads before it decides about ads (README, "Ads on the
 // web games"). Run as a browser runs it, it must define these settings and no others, well formed, nothing switched on
-// without a publisher id, that publisher in ads.txt, and an entry for every game with a play page (<game>/play/).
+// without a publisher id, that publisher in ads.txt, and an entry for every game whose play page (<game>/play/) loads it.
 const WEB_ADS = join('assets', 'web-ads.js')
 const isObject = (v) => !!v && typeof v === 'object' && !Array.isArray(v)
 if (!existsSync(join(root, WEB_ADS))) report(WEB_ADS, 'web-ads', 'missing')
@@ -317,9 +450,13 @@ else {
         report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
       }
     }
+    // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
+    // and loads no switch, so it needs no entry.
     for (const dir of readdirSync(root)) {
       if (SKIP.includes(dir)) continue
-      if (existsSync(join(root, dir, 'play', 'index.html')) && !Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, which has a play page (${dir}/play/)`)
+      const play = join(root, dir, 'play', 'index.html')
+      if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
+      if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
   }
 }

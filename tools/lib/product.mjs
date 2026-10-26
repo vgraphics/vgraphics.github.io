@@ -4,6 +4,7 @@
 import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { readCursors } from './cursors.mjs'
 import { wikiArt } from './hero.mjs'
 
 export const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
@@ -11,15 +12,20 @@ export const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 // Every product with a landing page made from the template, in folder order.
 export const products = () => readdirSync(root).filter((d) => existsSync(join(root, d, 'page.json'))).sort()
 
+// cursors: its theme pack's cursor pictures as theme.css tokens, and what's wrong with them (tools/lib/cursors.mjs)
 export function loadProduct(slug) {
   const read = (...p) => JSON.parse(readFileSync(join(root, slug, ...p), 'utf8'))
-  return { slug, page: read('page.json'), theme: read('theme', 'theme.json') }
+  return { slug, page: read('page.json'), theme: read('theme', 'theme.json'), cursors: readCursors(join(root, slug, 'theme'), `/${slug}/theme`) }
 }
 
 // A product's other pages made from the same template: <product>/<page>/page.json (exitwise/ranking, exitwise/room,
-// exitwise/privacy), in folder order.
-export const subpages = (slug) => readdirSync(join(root, slug), { withFileTypes: true })
-  .filter((d) => d.isDirectory() && existsSync(join(root, slug, d.name, 'page.json'))).map((d) => d.name).sort()
+// exitwise/privacy), and the pages of a group, <product>/<group>/<page>/page.json, when the group's folder has no
+// page.json of its own (speedometer-wallpaper/styles/vintage), named "<group>/<page>"; in folder order.
+const folders = (dir) => readdirSync(dir, { withFileTypes: true }).filter((d) => d.isDirectory()).map((d) => d.name)
+export const subpages = (slug) => folders(join(root, slug)).flatMap((name) => {
+  if (existsSync(join(root, slug, name, 'page.json'))) return [name]
+  return folders(join(root, slug, name)).filter((page) => existsSync(join(root, slug, name, page, 'page.json'))).map((page) => `${name}/${page}`)
+}).sort()
 
 // A sub-page: its own words and sections, with the product's site block, stores, theme pack, footer art and closing
 // card, and the product's key art in its hero unless it brings its own ("art": { "wiki": "<slug>", ... } opens on that

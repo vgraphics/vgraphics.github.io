@@ -32,6 +32,7 @@
   </script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
   <script src="/assets/menu.js" defer></script>
   <style>
     .pg-multi { --accent: var(--coral); }
@@ -80,7 +81,7 @@
     .live i { width: 9px; height: 9px; border-radius: 50%; background: #4BD66B; animation: pulse 2s ease-out infinite; }
     @keyframes pulse { from { box-shadow: 0 0 0 0 rgba(75, 214, 107, 0.6); } to { box-shadow: 0 0 0 9px rgba(75, 214, 107, 0); } }
     .tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
-    .tabs button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--night-text); font: 700 0.9rem/1 var(--body); cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
+    .tabs button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--night-text); font: 700 0.9rem/1 var(--body); cursor: var(--cursor-link, pointer); transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
     .tabs button:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
     .tabs button[aria-selected="true"] { background: var(--sun); color: #16151B; }
     .lb-caption { color: var(--night-text); font-size: 0.95rem; }

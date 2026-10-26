@@ -32,7 +32,10 @@ main { overflow-x: clip; }
 @supports not selector(::-webkit-scrollbar) {
   html { scrollbar-color: var(--sb) var(--sb-track); }
 }
-img { max-width: 100%; height: auto; } /* height from the picture's own ratio wherever CSS sets only a width */
+/* A picture keeps its own shape (George, 24 Oct 2026: "These are stretched."): a rule that sets only its width (the
+   cards' 78%) or only its height gets the other side from the picture, never from its width and height attributes.
+   A box that sets both sides crops with object-fit. As assets/vgraphics.css does for the company pages. */
+img { max-width: 100%; height: auto; }
 a { color: var(--link, var(--accent)); text-underline-offset: 3px; } /* --link: optional */
 :focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
 .wrap { width: min(1120px, 100% - 40px); margin-inline: auto; }
@@ -212,7 +215,7 @@ h1, h2, h3 {
   text-transform: var(--label-case);
   letter-spacing: var(--label-tracking);
   text-decoration: none;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 160ms ease-out, filter 160ms ease-out;
 }
 .btn:hover { filter: brightness(1.08); }
@@ -268,6 +271,10 @@ h1, h2, h3 {
 /* Sections */
 .sec { padding-block: var(--section-pad); }
 .sec-head { display: grid; gap: 12px; max-width: 46rem; margin-bottom: 32px; }
+/* Blocks in one section stand apart (George, 24 Oct 2026: "Spaces needed here."): every block after the first, in the
+   section or on its stage, keeps a gap above it, wider than the gaps inside a block, so two grids never read as one. */
+.sec > .wrap > :not(.sec-head, .more) + :not(.more),
+.sec:not(.intro) .scene > :not(.scene-art) + * { margin-top: var(--block-gap, clamp(28px, 4vw, 44px)); }
 .eyebrow { font: var(--label-weight) 0.95rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.2em; color: var(--accent); }
 .sec h2 { font-size: var(--h2-size); }
 .sec-intro { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
@@ -552,6 +559,17 @@ html.card-open { overflow: hidden; }
   .cards.media.dense h3 { font-size: 1.05rem; }
   .cards.media.dense p { font-size: 0.86rem; line-height: 1.35; }
 }
+/* Tiles: a dense grid of small picture cards (a product's styles), each one a link when it has one. */
+.cards.tile { grid-template-columns: repeat(auto-fill, minmax(min(168px, 42%), 1fr)); gap: 14px; }
+.cards.tile .card { padding: 0; transition: transform 150ms ease-out, box-shadow 150ms ease-out; }
+.cards.tile .card > a, .cards.tile .card:not(:has(> a)) { display: grid; align-content: start; gap: 8px; padding: 10px 10px 14px; color: inherit; text-decoration: none; }
+.cards.tile .card:has(> a):hover, .cards.tile .card:focus-within { transform: translateY(-3px); box-shadow: var(--card-lift); }
+.cards.tile .card > a:focus-visible { outline-offset: -3px; border-radius: inherit; }
+.cards.tile img { display: block; width: 100%; border-radius: calc(var(--radius-sm) - 4px); background: #000; }
+.cards.tile .tile-head { display: flex; flex-wrap: wrap; align-items: baseline; justify-content: space-between; gap: 2px 8px; }
+.cards.tile h3 { font-size: 1.1rem; line-height: 1.1; }
+.cards.tile .tag { font-size: 0.7rem; }
+.cards.tile p { font-size: 0.86rem; line-height: 1.4; }
 .tag {
   justify-self: start;
   display: inline-block;
@@ -656,7 +674,7 @@ html.card-open { overflow: hidden; }
    open (assets/product.js keeps one open at a time). */
 .tour { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
 .tour .stage { position: sticky; top: 24px; justify-self: center; width: min(380px, 86vw); }
-.spot { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: pointer; }
+.spot { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: var(--cursor-link, pointer); }
 .spot::before { content: ""; width: 26px; height: 26px; border-radius: 50%; background: var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 30%, transparent), 0 4px 10px rgba(0, 0, 0, 0.6); transition: transform 180ms ease-out; }
 .spot::after { content: ""; position: absolute; inset: 6px; border-radius: 50%; border: 2px solid var(--accent); animation: ping 2.4s cubic-bezier(.2, .8, .2, 1) infinite; }
 .spot span { position: absolute; color: #fff; font: 800 0.9rem/1 var(--label-font); }
@@ -674,7 +692,7 @@ html.card-open { overflow: hidden; }
   width: 100%;
   min-height: 56px;
   padding: 12px 18px;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   font: var(--display-weight) 1.3rem/1.1 var(--font-display);
   text-transform: var(--display-case);
   letter-spacing: 0.03em;
@@ -690,6 +708,86 @@ html.card-open { overflow: hidden; }
 .part .body ul { margin: 0; padding-left: 1.1em; display: grid; gap: 4px; }
 .part .body b { color: var(--ink); font-weight: 600; }
 .part .body .more { justify-self: start; margin-top: 0; color: var(--ink); font: var(--label-weight) 1rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); text-decoration-color: var(--accent); text-underline-offset: 5px; }
+
+/* Questions and answers, on every landing page (the "faq" block, tools/lib/faq.mjs): each question a row that opens its
+   answer under it. details and summary do the opening, so it works without script. */
+.faq { display: grid; gap: 10px; max-width: 54rem; }
+.faq-item { border: var(--card-border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--card-shadow); }
+.faq-item > summary {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  min-height: 56px;
+  padding: 12px 18px;
+  border-radius: var(--radius-sm);
+  color: var(--ink);
+  font: 700 1.08rem/1.35 var(--font-body);
+  list-style: none;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out;
+}
+.faq-item > summary::-webkit-details-marker { display: none; }
+.faq-item > summary:hover { background: color-mix(in srgb, var(--ink) 5%, transparent); }
+.faq-item > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.faq-item .chev, .news-list .chev { flex: none; width: 20px; height: 20px; margin-left: auto; color: var(--muted); transition: transform 200ms ease-out; }
+.faq-item[open] > summary .chev, .news-list details[open] > summary .chev { transform: rotate(180deg); }
+.faq-a { display: grid; gap: 10px; padding: 2px 18px 18px; color: var(--muted); }
+.faq-a p { max-width: 46em; margin: 0; }
+.faq-a a, .faq-a b { color: var(--ink); }
+
+/* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
+   beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and
+   scrolls in its own box (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): the half row says there
+   is more, its edges fade (assets/fade-edges.js, through its class fade-edges; --fade-size is the half row) and its
+   scrollbar is in the product's colour (--sb). A closed row is always --news-row high: its line never wraps. */
+.news { --news-row: 56px; --news-gap: 6px; --news-rows: 3.5; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 18px; align-items: start; }
+.news.single { grid-template-columns: minmax(0, 46rem); }
+.news-latest, .news-older { padding: 22px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); }
+.news-latest { display: grid; gap: 12px; align-content: start; }
+.news h3 { font-size: 1.5rem; }
+.news-older h3 { margin-bottom: 12px; font-size: 1.2rem; }
+.news-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; color: var(--muted); font: var(--label-weight) 0.92rem/1.3 var(--label-font); }
+.news ul { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; color: var(--muted); }
+.news-list {
+  --fade-size: calc(var(--news-row) / 2);
+  display: grid;
+  gap: var(--news-gap);
+  max-height: calc(var(--news-rows) * var(--news-row) + (var(--news-rows) - 0.5) * var(--news-gap));
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.news-list::-webkit-scrollbar { width: 12px; }
+.news-list::-webkit-scrollbar-track { background: transparent; }
+.news-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; background-clip: padding-box; }
+@supports not selector(::-webkit-scrollbar) {
+  .news-list { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
+}
+.news-list summary {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  min-height: var(--news-row);
+  padding: 0 14px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  white-space: nowrap;
+  list-style: none;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out;
+}
+.news-list summary::-webkit-details-marker { display: none; }
+.news-list summary:hover { background: color-mix(in srgb, var(--ink) 10%, var(--surface-2)); }
+.news-list summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.news-list summary b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
+.news-list summary time { color: var(--muted); font-size: 0.9rem; }
+.news-list details > .news-meta { margin: 12px 14px 0; }
+.news-list details > ul { margin: 10px 14px 14px; }
+.news-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 800; text-decoration-color: var(--accent); text-underline-offset: 5px; }
+.news-list .news-link { margin: -8px 14px 8px; }
+.news-empty { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
 
 /* Band: one promise in a wide panel, with a small picture, its words and a link. */
 .band { display: grid; grid-template-columns: auto 1fr auto; gap: 26px; align-items: center; padding: 30px; }
@@ -955,6 +1053,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .features, .features.n4 { grid-template-columns: 1fr 1fr; }
   .cards.media .card > img { width: 60%; }
   .band { grid-template-columns: 1fr; }
+  .news { grid-template-columns: minmax(0, 1fr); }
 }
 /* Below 1300px the menu keeps only its main links (the rest are in the footer), so it stays clear of a title painted
    across the top of the key art. */
@@ -978,6 +1077,9 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .cards.side .card { grid-template-columns: 1fr; }
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }
+  .news-latest, .news-older { padding: 18px 16px; }
+  .faq-item > summary { padding-inline: 16px; font-size: 1rem; }
+  .faq-a { padding-inline: 16px; }
 }
 /* The menu on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger
    menu."): below 561px, where the menu no longer fits beside the logo (Exitwise's needs about 390px for its three main
@@ -990,7 +1092,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .menu-toggle {
     display: inline-flex; align-items: center; justify-content: center; flex: none;
     width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; border-radius: 50%;
-    background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: pointer;
+    background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: var(--cursor-link, pointer);
     transition: color 200ms ease-out, background-color 200ms ease-out;
   }
   .top.scrolled .menu-toggle, .top.menu-open .menu-toggle { color: var(--ink); filter: none; }
