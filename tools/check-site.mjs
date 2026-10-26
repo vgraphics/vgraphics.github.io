@@ -570,20 +570,22 @@ for (const file of served) {
 //   splash (the key art's own job, after the VGraphics intro: in a play page's markup, the WebGL template's
 //   #loader-art; the try pages' start-up builds its own by script), pictures a script shows, stylesheet
 //   backgrounds, a picture in a link to a page
-//   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles (George,
-//   26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as the page it previews. Every page's
-//   hero and sections stay unique."). Gallery tiles are the pictures of the template's gallery block, a stage slide's
-//   screenshot (.g-screen) or a picture in its plain row (.shots.fade-edges), and an album's tiles (.album-item), whose
-//   lightbox shows them by script; never the gallery page's hero, the gallery's backdrop and pedestals, or any other
-//   section.
+//   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles showing
+//   any picture of the same product: the gallery is the product's whole art collection (George, 27 Oct 2026: "Add all
+//   art (even from wiki and overview) to gallery. Gallery is almost empty."; before, 26 Oct: "a wiki card or gallery
+//   tile may show the same picture as the page it previews"). Gallery tiles are the pictures of the template's gallery
+//   block, a stage slide's screenshot (.g-screen) or a picture in its plain row (.shots.fade-edges), and an album's
+//   tiles (.album-item), whose lightbox shows them by script; never the gallery page's hero, the gallery's backdrop and
+//   pedestals, or any other section. A tile still counts, as a place of its own, when its picture is another
+//   product's or the hero of the page it is on (only the gallery's hero stays unique).
 // - tools/art-once-todo.json lists the reuses known when the rule came in (26 Oct 2026), each with its fix, until the
 //   fix lands. A listed picture passes while it is shown only in places its entry names: a new place fails, and so
 //   does a fixed picture until its entry is taken out, so the list only shrinks.
 const ART_TODO = join('tools', 'art-once-todo.json')
 const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
 const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
-const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr',
-  'g-screen', 'album-item'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
+const TILE = new Set(['g-screen', 'album-item'])
 const ICON = 256
 const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')
 // Where a picture is (chain: its element and the elements around it, outermost first): { free } when it isn't counted,
@@ -591,9 +593,11 @@ const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(
 function artPlace(page, chain) {
   const has = (c) => chain.some((e) => e.cls.includes(c))
   const both = (a, b) => chain.some((e) => e.cls.includes(a) && e.cls.includes(b))
-  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur') || both('shots', 'fade-edges')) return { free: true }
+  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur')) return { free: true }
   if (/^\/[^/]+\/play\/$/.test(page) && chain.some((e) => e.id === 'loader-art')) return { free: true }
   const product = page.split('/')[1]
+  // A gallery tile: free while its picture is the product's own (pictureUses checks its files, the count its hero)
+  if (chain.some((e) => e.cls.some((c) => TILE.has(c))) || both('shots', 'fade-edges')) return { free: true, tile: product, place: `${page} gallery tiles` }
   if (has('foot-art')) return { place: `the footer of /${product}/` }
   if (has('orn') || has('horizon')) return { place: `the ornaments of /${product}/` }
   const href = chain.findLast((e) => e.tag === 'a' && e.href)?.href
@@ -646,6 +650,8 @@ function pictureUses(file) {
     }
     if (!VOIDS.has(tag) && !attrs.endsWith('/')) stack.push(el)
   }
+  // A tile showing another product's picture counts
+  for (const u of uses.values()) if (u.tile && [...u.files].some((f) => !f.startsWith(`${u.tile}/`))) u.free = false
   return [...uses.values()]
 }
 {
@@ -771,7 +777,9 @@ function pictureUses(file) {
   const listed = new Set()
   for (const { arts, uses: all } of pictures.values()) {
     if (Math.max(...[...arts].map((a) => sizes.get(a) ?? 0)) <= ICON) continue
-    const counted = all.filter((u) => !u.free)
+    // A tile counts on the page whose hero shows the same picture
+    const heroes = new Set(all.filter((u) => !u.free && u.place === `${u.page} hero`).map((u) => u.page))
+    const counted = all.filter((u) => !u.free || (u.tile && heroes.has(u.page)))
     // The pages that show the picture themselves (in a gallery tile too), whose previews may show it.
     const shown = new Set(all.filter((u) => !u.to || u.to === u.page).map((u) => u.page))
     const places = [...new Set(counted.filter((u) => !(u.to && u.to !== u.page && shown.has(u.to))).map((u) => u.place))].sort()

@@ -1,9 +1,9 @@
 {
-  "title": "Palermo Noir gallery: the characters and art of the mafia party game",
-  "description": "The cast and the art of Palermo Noir, the hidden-role party game for phones and a TV: every role card and the scenes of a night in 1950s Palermo, drawn in gold on navy.",
+  "title": "Palermo Noir gallery: every picture of the mafia party game",
+  "description": "The whole art collection of Palermo Noir, the hidden-role party game for phones and a TV: the key art, every role card, the wiki’s scenes of every role, power and rule, the medals and the soundtrack art, drawn in gold on navy.",
   "social": {
     "title": "Gallery · Palermo Noir",
-    "description": "Every role card and the scenes of a night in Palermo, drawn in gold engraved lines on navy.",
+    "description": "Every picture of Palermo Noir: the key art, the role cards, the wiki’s scenes and medals and the soundtrack art, in gold engraved lines on navy.",
     "image": "/palermo/img/card-1200x630.jpg",
     "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
   },
@@ -43,18 +43,98 @@
     "align": "center",
     "art": {
       "alt": "A man in a trench coat and a fedora stands alone in the long gallery of a Palermo palazzo at night, looking up at gilt-framed portraits under a crystal chandelier, drawn in gold engraved lines on navy",
-      "tall": { "src": "img/hero-gallery-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3193 },
-      "wide": { "src": "img/hero-gallery-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1426, "sizes": "max(100vw, min(168vw, 269vh))" },
+      "tall": {
+        "src": "img/hero-gallery-tall",
+        "widths": [
+          480,
+          720,
+          1080,
+          1440,
+          2160
+        ],
+        "width": 2160,
+        "height": 3193
+      },
+      "wide": {
+        "src": "img/hero-gallery-wide",
+        "widths": [
+          960,
+          1280,
+          1920,
+          2560,
+          3840
+        ],
+        "width": 3840,
+        "height": 1426,
+        "sizes": "max(100vw, min(168vw, 269vh))"
+      },
       "position": "20% 40%",
-      "fade": { "wide": "74%", "tall": "70%" },
+      "fade": {
+        "wide": "74%",
+        "tall": "70%"
+      },
       "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
     }
   },
   "sections": [
     {
-      "id": "characters",
-      "title": "The characters",
-      "intro": "Every role in the deck, as its card shows it. Click a card to see it large, then zoom in on the engraving.",
+      "id": "overview",
+      "title": "Overview",
+      "intro": "The key art and the four chapters of a round from the landing page, from the deal to the verdict. Click a picture to see it large, then zoom in on the engraving.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "items": [
+            {
+              "title": "The key art",
+              "src": "/palermo/img/key-art-wide-960.webp",
+              "full": "/palermo/img/key-art-wide-3840.webp",
+              "position": "22% 50%",
+              "width": 3840,
+              "height": 1629,
+              "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy"
+            },
+            {
+              "title": "The deal",
+              "src": "/palermo/img/scene-deal-960.webp",
+              "full": "/palermo/img/scene-deal-3840.webp",
+              "width": 3840,
+              "height": 2143,
+              "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy"
+            },
+            {
+              "title": "The night",
+              "src": "/palermo/img/scene-night-960.webp",
+              "full": "/palermo/img/scene-night-3840.webp",
+              "width": 3840,
+              "height": 2143,
+              "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy"
+            },
+            {
+              "title": "The day",
+              "src": "/palermo/img/scene-suspects-960.webp",
+              "full": "/palermo/img/scene-suspects-3840.webp",
+              "width": 3840,
+              "height": 2143,
+              "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles"
+            },
+            {
+              "title": "The verdict",
+              "src": "/palermo/img/scene-verdict-960.webp",
+              "full": "/palermo/img/scene-verdict-3840.webp",
+              "width": 3840,
+              "height": 2143,
+              "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cast",
+      "title": "The cast",
+      "intro": "Every role in the deck, as its card shows it.",
       "blocks": [
         {
           "type": "album",
@@ -177,54 +257,112 @@
       ]
     },
     {
-      "id": "scenes",
-      "title": "The scenes",
-      "intro": "One night in Palermo, from the deal to the verdict, and the key art.",
+      "id": "roles",
+      "title": "The roles",
+      "intro": "The wiki’s scene for every role, each caught in its moment of the night.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "from": {
+            "wiki": "roles"
+          }
+        }
+      ]
+    },
+    {
+      "id": "briefcase",
+      "title": "The Lawyer’s briefcase",
+      "intro": "A scene for each of the Lawyer’s 18 power cards, then the cards’ own pictures.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "from": {
+            "wiki": "powers"
+          }
+        },
+        {
+          "type": "album",
+          "shape": "square",
+          "from": {
+            "wiki": "powers",
+            "medals": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "how-it-plays",
+      "title": "How it plays",
+      "intro": "A round from the deal to the verdict, how a game is won and the host’s rules, each with its scene and its medal.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "from": {
+            "wiki": "rules"
+          }
+        },
+        {
+          "type": "album",
+          "shape": "square",
+          "from": {
+            "wiki": "rules",
+            "medals": true
+          }
+        }
+      ]
+    },
+    {
+      "id": "around-the-site",
+      "title": "Around the site",
+      "intro": "The pictures at the top of the other Palermo pages, and the soundtrack’s cover and courtyard.",
       "blocks": [
         {
           "type": "album",
           "shape": "wide",
           "items": [
             {
-              "title": "The key art",
-              "src": "/palermo/img/key-art-wide-1280.webp",
-              "full": "/palermo/img/key-art-wide-3840.webp",
-              "position": "22% 50%",
+              "title": "The wiki",
+              "src": "/palermo/img/hero-wiki-wide-960.webp",
+              "full": "/palermo/img/hero-wiki-wide-3840.webp",
               "width": 3840,
-              "height": 1629,
-              "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy"
+              "height": 1515,
+              "alt": "A man in a fedora and a trench coat studies a cork evidence board of engraved portraits of suspects linked by strings, a black rose at its centre, under a hanging lamp in a dark Palermo office, drawn in gold engraved lines on navy"
             },
             {
-              "title": "The deal",
-              "src": "/palermo/img/scene-deal-1280.webp",
-              "full": "/palermo/img/scene-deal-3840.webp",
+              "title": "The town map",
+              "src": "/palermo/img/hero-map-wide-960.webp",
+              "full": "/palermo/img/hero-map-wide-3840.webp",
               "width": 3840,
-              "height": 2143,
-              "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy"
+              "height": 1442,
+              "alt": "An old map of Palermo unrolled on a table under a desk lamp, held flat by a brass compass, a magnifying glass, an espresso and a black rose, a gloved hand on it, and through the window the spy and the moonlit seafront, drawn in gold engraved lines on navy"
             },
             {
-              "title": "The night",
-              "src": "/palermo/img/scene-night-1280.webp",
-              "full": "/palermo/img/scene-night-3840.webp",
+              "title": "Privacy",
+              "src": "/palermo/img/hero-privacy-wide-960.webp",
+              "full": "/palermo/img/hero-privacy-wide-3840.webp",
               "width": 3840,
-              "height": 2143,
-              "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy"
+              "height": 1466,
+              "alt": "A narrow Palermo street at night with every shutter closed, a black cat on the one lit windowsill, a heavy studded door with a brass keyhole and a man in a fedora walking away, drawn in gold engraved lines on navy"
             },
             {
-              "title": "The day",
-              "src": "/palermo/img/scene-suspects-1280.webp",
-              "full": "/palermo/img/scene-suspects-3840.webp",
-              "width": 3840,
-              "height": 2143,
-              "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles"
+              "title": "The soundtrack",
+              "src": "/palermo/img/cover-640.webp",
+              "full": "/palermo/img/cover-2048.webp",
+              "position": "50% 30%",
+              "width": 2048,
+              "height": 2048,
+              "alt": "The Palermo Noir soundtrack cover: a violinist in a fedora and a long coat plays on a Palermo rooftop against a huge full moon, the domes and bell towers below, in gold engraved lines on navy"
             },
             {
-              "title": "The verdict",
-              "src": "/palermo/img/scene-verdict-1280.webp",
-              "full": "/palermo/img/scene-verdict-3840.webp",
+              "title": "The soundtrack’s courtyard",
+              "src": "/palermo/img/ost-backdrop-960.webp",
+              "full": "/palermo/img/ost-backdrop-3840.webp",
               "width": 3840,
-              "height": 2143,
-              "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set"
+              "height": 1736,
+              "alt": "The courtyard of a Palermo palazzo at night behind the music player: arcades and a double staircase, music stands, chairs, a cello and a violin under a wall lantern, a man in a fedora watching from the balcony, drawn in gold engraved lines on navy"
             }
           ]
         }
