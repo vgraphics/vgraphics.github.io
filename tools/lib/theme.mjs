@@ -54,6 +54,12 @@ export function checkTheme(theme) {
     const c = contrast(t[fg], t[bg])
     if (c < min) problems.push(`--${fg} on --${bg} is ${c.toFixed(2)}:1, under ${min}:1`)
   }
+  // What a text field selects (assets/no-select.css): optional --selection-ink on --selection, by default the page's
+  // colour on the scrollbar's (the accent's, without one).
+  const [ink, sel] = [t['selection-ink'] ?? t.page, t.selection ?? t.scrollbar ?? t.accent]
+  if (/^#[0-9a-f]{3,6}$/i.test(ink ?? '') && /^#[0-9a-f]{3,6}$/i.test(sel ?? '') && contrast(ink, sel) < 4.5) {
+    problems.push(`selected text, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
+  }
   if (!['light', 'dark'].includes(theme.scheme)) problems.push('scheme is not "light" or "dark"')
   if (!Array.isArray(theme.swatches) || !theme.swatches.length) problems.push('no swatches')
   return problems
