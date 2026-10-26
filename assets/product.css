@@ -14,6 +14,7 @@ body {
   background-image: var(--page-pattern);
   background-size: var(--page-pattern-size);
   background-position: var(--page-pattern-position, 0 0); /* optional */
+  background-repeat: var(--page-pattern-repeat, repeat); /* optional: a picture laid once, as Palermo's, says no-repeat */
 }
 /* The ornaments reach past the screen's edges; clip, unlike hidden, makes no scroll box, so sticky pieces still stick. */
 main { overflow-x: clip; }
