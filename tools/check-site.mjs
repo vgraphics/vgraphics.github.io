@@ -24,7 +24,7 @@ const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 const COMPANY = [
   'VGRAPHICS SINGLE MEMBER P.C.', 'private company', 'G.E.MI.', '181823306000', 'ELGEMI.181823306000', 'EL802736373',
   'Kalamaria', 'Thessaloniki', '22/01/2025', 'https://publicity.businessportal.gr/company/181823306000',
-  'gvergidis90@gmail.com',
+  'support@vgraphics.gr',
 ]
 // The site is in English (George, 22 Oct 2026): no Greek letters on a page in English, nor in the SVG pictures the pages
 // show. The Greek names belong in the Greek store listings. GREEK_OK lists, by page path, any text that must legally stay
@@ -53,12 +53,20 @@ const PIECES = new Set(pieces())
 const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f) && !PIECES.has(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
 let links = 0
+// George's own Gmail address stays off everything vgraphics.gr serves (George, 26 Oct 2026): people write to
+// support@vgraphics.gr. GitHub Pages serves tools/ too, so its scripts are read for it as well.
+const GMAIL = /gvergidis\d/i
+const NO_GMAIL = 'shows the Gmail address; the public contact is support@vgraphics.gr'
+for (const file of readdirSync(join(root, 'tools'), { recursive: true }).map((f) => join('tools', f))) {
+  if (statSync(join(root, file)).isFile() && GMAIL.test(readFileSync(join(root, file), 'utf8'))) report(file, 'no-gmail', NO_GMAIL)
+}
 
 for (const file of files.filter((f) => TEXT.test(f))) {
   const text = readFileSync(join(root, file), 'utf8')
   if (/\.(html|txt|xml)$/.test(file) && text.includes('vgraphics.github.io')) report(file, 'old-domain', 'mentions vgraphics.github.io')
   if (/6955395543|695 539 5543/.test(text)) report(file, 'no-phone', 'contains the phone number')
   if (/kafkasou|καυκ[άα]σου/i.test(text)) report(file, 'no-street', 'contains the street address')
+  if (GMAIL.test(text)) report(file, 'no-gmail', NO_GMAIL)
   if (file.endsWith('.svg') && GREEK.test(text)) report(file, 'english', 'Greek letters in a picture the English pages show')
 }
 
@@ -379,6 +387,149 @@ for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')
   if (/<div class="faq">/.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
     faqJs(file, `has questions and answers that open with no animation and several at a time: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
+  }
+}
+
+// No text selection and no right-click (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page.
+// Global rule. Selected highlighted text must have color of app or game."), on every page GitHub Pages serves, as the
+// phone menu and the cursors above: each loads /assets/menu.js, which brings /assets/no-select.js, or no-select.js
+// itself. That links /assets/no-select.css, which turns selecting off everywhere but in text fields and colours their
+// selection in the page's own colour, and keeps the right-click menu shut. No other stylesheet, <style> or style=""
+// turns selecting back on, but for the text fields: another repo's own piece for its pages (the hub's, the Exitwise
+// play page's) may let them be selected too.
+const noSelect = (file, message) => report(file, 'no-select', message)
+const NO_SELECT_JS = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>/
+// s split wherever at(character) is true outside brackets, parentheses and quotes.
+const splitTop = (s, at) => {
+  const parts = []
+  let [depth, quote, from] = [0, '', 0]
+  for (let i = 0; i < s.length; i++) {
+    const c = s[i]
+    if (quote) {
+      if (c === quote) quote = ''
+    } else if (c === '"' || c === "'") quote = c
+    else if (c === '(' || c === '[') depth++
+    else if (c === ')' || c === ']') depth--
+    else if (!depth && at(c)) {
+      parts.push(s.slice(from, i))
+      from = i + 1
+    }
+  }
+  return [...parts, s.slice(from)].map((p) => p.trim()).filter(Boolean)
+}
+// Whether each selector of a list ends on a text field: input, textarea, [contenteditable], or :is() or :where() of them.
+const fieldsOnly = (list) => splitTop(list, (c) => c === ',').every((selector) => {
+  const last = splitTop(selector, (c) => /[\s>+~]/.test(c)).at(-1) ?? ''
+  const inner = last.match(/^:(?:is|where)\(([\s\S]*)\)$/)
+  return inner ? fieldsOnly(inner[1]) : /^(?:input|textarea)(?![-\w])|^\[contenteditable\b/i.test(last)
+})
+// Each user-select in a stylesheet that turns selecting back on, with its rule's selector.
+const reselects = (css) => {
+  css = css.replace(/\/\*[\s\S]*?\*\//g, '')
+  return [...css.matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)].map((m) => {
+    const open = css.lastIndexOf('{', m.index)
+    const start = Math.max(css.lastIndexOf('}', open), css.lastIndexOf('{', open - 1), css.lastIndexOf(';', open)) + 1
+    return { kind: m[1], selector: open < 0 || css.lastIndexOf('}', m.index) > open ? '' : css.slice(start, open).trim() }
+  })
+}
+const reselect = (file, css) => {
+  for (const { kind, selector } of reselects(css)) {
+    if (!selector || !fieldsOnly(selector)) noSelect(file, `${selector ? `"${selector}"` : 'a rule'} sets user-select: ${kind}, which lets text be selected again: only text fields (input, textarea, [contenteditable]) may be`)
+  }
+}
+for (const f of ['no-select.js', 'no-select.css']) if (!existsSync(join(root, 'assets', f))) noSelect(join('assets', f), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/no-select.js")')) {
+  noSelect(join('assets', 'menu.js'), 'does not load /assets/no-select.js, which keeps the text of every page with a header from being selected')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
+    noSelect(file, `lets its text be selected and opens the right-click menu: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
+  }
+  for (const [, css] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) reselect(file, css)
+  for (const [, kind] of [...html.matchAll(/\sstyle="([^"]*)"/g)].flatMap((m) => [...m[1].matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)])) {
+    noSelect(file, `a style="" sets user-select: ${kind}, which lets text be selected again: only text fields (input, textarea, [contenteditable]) may be`)
+  }
+}
+for (const [file, css] of sheets) if (file.endsWith('.css') && file !== 'assets/no-select.css') reselect(file, css)
+
+// Menu items on one line (George, 26 Oct 2026: "Map rules - always single line menu items."): the header's links keep
+// to one line (white-space: nowrap on the product header's .subnav a and the company header's .site-nav a), the
+// product header keeps its logo and menu on one row (.top's flex-wrap: nowrap), and assets/menu.js folds that menu into
+// its button wherever the row would not fit (.folded). No other rule of a stylesheet or <style> on a served page lets a
+// header link wrap again, and no link of a header's menu holds a line break.
+const oneLine = (file, message) => report(file, 'one-line', message)
+const cssRules = (css) => [...css.replace(/\/\*[\s\S]*?\*\//g, '').matchAll(/([^{}]+)\{([^{}]*)\}/g)].map((m) => ({ selector: m[1].trim(), body: m[2] }))
+const ruleOf = (file, selector) => cssRules(readFileSync(join(root, file), 'utf8')).find((r) => r.selector.split(',').map((s) => s.trim()).includes(selector))?.body ?? ''
+const wraps = (file, css) => {
+  for (const { selector } of cssRules(css).filter((r) => /\.(subnav|site-nav)\b/.test(r.selector) && /white-space:\s*(?!\s|nowrap)/.test(r.body))) {
+    oneLine(file, `"${selector}" lets a header link wrap (white-space): menu items keep to one line`)
+  }
+  // A bare .play rule styles the header's play button too (the intro's demo once made it 460px wide, and the menu folded).
+  for (const { selector } of cssRules(css).filter((r) => r.selector.split(',').some((s) => /(^|[\s>+~])\.play$/.test(s.trim())))) {
+    oneLine(file, `"${selector}" styles every .play, the header's play button too: give it a class of its own`)
+  }
+  // A product header's link or play label hidden where the row is short would be out of reach: the menu folds instead.
+  for (const { selector } of cssRules(css).filter((r) => /\.subnav\b[^,]*\s\S/.test(r.selector) && /display:\s*none|visibility:\s*hidden|clip:\s*rect\(0/.test(r.body))) {
+    oneLine(file, `"${selector}" hides part of the product header's menu: show every item where the row fits and let assets/menu.js fold it where it doesn't`)
+  }
+}
+for (const [file, selector, want] of [[join('assets', 'product.css'), '.subnav a', /white-space:\s*nowrap/], [join('assets', 'vgraphics.css'), '.site-nav a', /white-space:\s*nowrap/], [join('assets', 'product.css'), '.top', /flex-wrap:\s*nowrap/], [join('assets', 'product.css'), '.product-name', /flex:\s*none/]]) {
+  if (!want.test(ruleOf(file, selector))) oneLine(file, `the "${selector}" rule does not set ${want.source.replace(/:\\s\*/, ': ')}, so the header can squeeze or wrap`)
+}
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('classList.toggle("folded"')) {
+  oneLine(join('assets', 'menu.js'), "does not fold the product header's menu (.folded) where its row would not fit")
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [, inner] of html.matchAll(/<header\b[^>]*>([\s\S]*?)<\/header>/g)) {
+    for (const [, nav] of inner.matchAll(/<nav\b[^>]*>([\s\S]*?)<\/nav>/g)) {
+      if (/<br\b/i.test(nav)) oneLine(file, "a link of the header's menu holds a line break (<br>): menu items keep to one line")
+    }
+  }
+  wraps(file, [...html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)].map((m) => m[1]).join('\n'))
+}
+for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
+
+// Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice
+// on a page GitHub Pages serves is the site's switch, a real checkbox that /assets/switch.css draws as a track and a
+// knob: <input type="checkbox" class="switch" role="switch">, on a page that links that stylesheet. That holds for the
+// checkboxes in a page's markup and for those the site's own scripts make (the try page's settings, assets/try/try.js):
+// each `type = 'checkbox'` there gives the input the "switch" class and role in the lines that follow, and every page
+// that loads such a script links switch.css. A choice of a few is a segmented control or option cards, never a row of
+// checkboxes. The scripts other repos build (VHub's hub, the Exitwise game, the Speedometer engine) draw their own
+// switch in their repo, whose tests hold it; here only their markup is read.
+const switchRule = (file, message) => report(file, 'switch', message)
+const SWITCH_CSS = /<link rel="stylesheet" href="\/assets\/switch\.css">/
+const BUILT = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app)\//
+const isSwitch = (tag) => /\srole="switch"/.test(tag) && /\sclass="(?:[^"]*\s)?switch(?:\s[^"]*)?"/.test(tag)
+if (!existsSync(join(root, 'assets', 'switch.css'))) switchRule(join('assets', 'switch.css'), 'missing')
+// The site's own scripts that make checkboxes, by their address.
+const switchScripts = new Set()
+const ownScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT.test(f) && !f.startsWith('tools/'))
+for (const file of ownScripts) {
+  const js = readFileSync(join(root, file), 'utf8')
+  for (const m of js.matchAll(/(?<!\[)\btype\s*[=:]\s*(['"])checkbox\1|setAttribute\(\s*(['"])type\2\s*,\s*(['"])checkbox\3/g)) {
+    switchScripts.add('/' + file)
+    const next = js.slice(m.index, m.index + 400)
+    const cls = /class(?:Name)?\s*=\s*(['"])(?:[^'"]*\s)?switch(?:\s[^'"]*)?\1|classList\.add\([^)]*(['"])switch\2/.test(next)
+    const role = /setAttribute\(\s*(['"])role\1\s*,\s*(['"])switch\2|\brole\s*[:=]\s*(['"])switch\3/.test(next)
+    if (!cls || !role) switchRule(file, `line ${js.slice(0, m.index).split('\n').length} makes a checkbox that isn't the site's switch: give it the class "switch" and role "switch" (assets/switch.css)`)
+  }
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  const boxes = [...html.matchAll(/<input\b[^>]*>/gi)].map((m) => m[0]).filter((tag) => /\stype=["']?checkbox\b/i.test(tag))
+  for (const tag of boxes.filter((t) => !isSwitch(t))) {
+    switchRule(file, `${tag} is a checkbox: make it the site's switch, <input type="checkbox" class="switch" role="switch"> (assets/switch.css)`)
+  }
+  const makes = [...html.matchAll(/<script\b[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]).filter((src) => switchScripts.has(src))
+  if ((boxes.length || makes.length) && !SWITCH_CSS.test(html)) {
+    switchRule(file, `has switches (${boxes.length ? 'in its markup' : makes.join(', ')}) but doesn't link /assets/switch.css, which draws them: <link rel="stylesheet" href="/assets/switch.css">`)
   }
 }
 

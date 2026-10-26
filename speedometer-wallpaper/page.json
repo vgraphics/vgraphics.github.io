@@ -266,7 +266,7 @@
           ],
           "items": [
             {
-              "name": "classic-mph",
+              "name": "prism-119kmh",
               "w": 540,
               "h": 1200,
               "world": "carbon",
@@ -274,8 +274,8 @@
               "tag": "GPS",
               "place": "km/h or mph",
               "caption": "Your real speed on your home screen",
-              "text": "The big dial reads your GPS speed in km/h or mph, and a red mark keeps the top speed of the drive.",
-              "alt": "The wallpaper on a phone: the big speed dial at 54 mph with battery, RAM, Wi-Fi and signal gauges"
+              "text": "The big gauge reads your GPS speed in km/h or mph, here on Prism's blue panel, with the memory in use on the red one below.",
+              "alt": "The wallpaper on a phone: the Prism style at 119 km/h, a blue faceted panel for the speed over a red one for the memory in use"
             },
             {
               "name": "amber-night-119kmh",

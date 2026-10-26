@@ -1,0 +1,271 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy policy · Palermo Noir</title>
+  <!-- The text only: vgraphics.gr sets the main element below into the page the canonical link names, with the site's
+       header, hero and footer (its tools/build-pages.mjs). This copy has no look or menu of its own, so it stays out
+       of search. The source is this file in the Palermo repo (docs/privacy-policy.html); copy it unchanged to the
+       site's palermo/privacy/source.html after every change. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/palermo/privacy.html">
+</head>
+<body>
+<main id="main" class="wrap">
+  <div class="head">
+    <p class="kicker">Palermo Noir</p>
+    <h1>Privacy policy</h1>
+    <span class="updated">Last updated: 26 October 2026</span>
+    <p class="intro">
+      This policy explains what happens to your information when you play <strong>Palermo Noir</strong> (the "game"),
+      a party game for one room: each player uses their own phone, and a TV or another big screen shows the game. The
+      game is made by VGraphics ("we", "us") and runs on our website, vgraphics.gr.
+    </p>
+  </div>
+
+  <h2 class="short-title" id="short">The short version</h2>
+  <ul class="short">
+    <li>You don't need to sign up. Your phone joins with a VHub guest account, a random identifier with no name or
+      email. If you have a VHub account, you play under it.</li>
+    <li>The game is for ages 13 and up. Each phone gives its year of birth once, and we keep only an age group, never
+      the year.</li>
+    <li>The others in your room see the name and picture you play under, and what you do in the open, like votes and
+      accusations. Your role stays on your phone until the end of the game, when every card is shown to the room.</li>
+    <li>Rooms are deleted automatically a day after they close. A summary of each game with no players in it is kept
+      for a year.</li>
+    <li>The TV holds no account and no information about anyone. It can only show the room it was opened for.</li>
+    <li>We use Google Analytics, only if you allow it (and never for players under 16), and our own error reports.
+      Neither receives your name or your role.</li>
+    <li>The free game shows ads between games, never during one.</li>
+    <li>Deleting your VHub account deletes your data in this game too.</li>
+  </ul>
+
+  <div class="layout">
+    <nav class="toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#account">Your account</a></li>
+        <li><a href="#age">Your age</a></li>
+        <li><a href="#rooms">Rooms and games</a></li>
+        <li><a href="#tv">The TV</a></li>
+        <li><a href="#results">Results, XP and achievements</a></li>
+        <li><a href="#device">Stored on your device</a></li>
+        <li><a href="#analytics">Analytics &amp; error reports</a></li>
+        <li><a href="#ads">Advertising</a></li>
+        <li><a href="#delete">Deleting your data</a></li>
+        <li><a href="#children">Children</a></li>
+        <li><a href="#rights">Your rights</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#contact">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="doc">
+      <section id="account">
+        <h2>Your account</h2>
+        <p>
+          Every VGraphics game uses one account, your VHub account, run by us at
+          <a href="https://vgraphics.gr/hub/">vgraphics.gr/hub</a>. The first time your phone joins a room, VHub makes a
+          guest account for it: a random identifier with no name, email or other contact details. If you have signed in
+          to VHub (for example with Google), you play under that account instead. What VHub keeps about you, and how
+          signing in works, is in <a href="https://vgraphics.gr/hub/privacy.html">VHub's privacy policy</a>.
+        </p>
+        <p>
+          The game has its own Google Firebase project for its rooms. VHub gives your phone a session for that project
+          with the same identifier, so the game knows which seat is yours. The game never makes accounts of its own and
+          never asks for your email.
+        </p>
+      </section>
+
+      <section id="age">
+        <h2>Your age</h2>
+        <p>
+          The game is for ages 13 and up. The first time a phone joins a room, it asks for a year of birth. We work out an
+          age group from it (under 13, 13 to 15, or 16 and over) and keep only the group and the date it was given, on
+          your phone and, if you have a VHub account, in your account. The year itself isn't kept anywhere.
+        </p>
+        <ul>
+          <li><strong>Under 13:</strong> the phone can't join a room. The answer is kept on the phone for 24 hours, so
+            another year can't simply be tried at once, and then forgotten.</li>
+          <li><strong>13 to 15:</strong> we never ask for consent to analytics or personalised ads. Analytics stays in
+            its consent-denied mode and ads are never personalised (see below).</li>
+          <li><strong>16 and over:</strong> the game asks once whether you allow analytics.</li>
+        </ul>
+        <p>The TV doesn't ask: no person signs in on it.</p>
+      </section>
+
+      <section id="rooms">
+        <h2>Rooms and games</h2>
+        <p>
+          A room is stored in Google Firebase Realtime Database, in Google's data centres in Belgium (europe-west1), and
+          run by our server code on Google Cloud Functions in the same place. For each room it keeps the room's code, the
+          host's rules and, for each player:
+        </p>
+        <ul>
+          <li>the VHub identifier, and the name and picture you play under: your VHub username and picture, or a name
+            for that room only (2 to 16 characters) and one of the game's preset pictures;</li>
+          <li>whether your phone is connected;</li>
+          <li>the role the game dealt you, readable only by your phone (and by your partners if you are a killer);</li>
+          <li>what you do in the game: your night taps, accusations and votes, and what happened to you.</li>
+        </ul>
+        <p>
+          Everyone in the room, and anyone watching it, sees the names and pictures, who is still in the game, and what
+          happens in the open: accusations, open votes and the verdicts. Secret votes and night actions stay on our
+          server. When the game ends, it shows the room the truth: every player's role, and the story of every night and
+          day, including the secret votes unless the host turned that off. A first player out may also see the roles
+          during the game, as the night announcer (a Greek custom), if the host allows it; the TV then says so.
+        </p>
+        <p>
+          A room closes 30 minutes after its last phone goes offline, or 8 hours after it was opened, and is deleted
+          automatically 24 hours after it closes.
+        </p>
+      </section>
+
+      <section id="tv">
+        <h2>The TV</h2>
+        <p>
+          The host's phone shows a link for the room's big screen (a smart TV's browser, a laptop or a computer). That
+          screen signs in to the game's Firebase project as a display, with an anonymous identifier that isn't linked to
+          any person and is never turned into an account. It can only show the room its link names, and it can't play,
+          vote or act. It holds no progress, and it is forgotten when the room ends.
+        </p>
+      </section>
+
+      <section id="results">
+        <h2>Results, XP and achievements</h2>
+        <p>
+          When a game ends, our server keeps a summary of it in Google Firebase Cloud Firestore, so we can balance the
+          role setups: the setup and rules, the number of players, nights and days, and which side won. It has no player
+          identifiers, names or votes in it, and it is kept for 12 months.
+        </p>
+        <p>
+          It also sends VHub one result for each player: your VHub identifier, your role and team, whether your side won
+          and whether you were still in the game, and counts such as your votes against killers, saves and finds. VHub
+          turns them into XP, achievements and your match history, under
+          <a href="https://vgraphics.gr/hub/privacy.html">VHub's privacy policy</a>.
+        </p>
+      </section>
+
+      <section id="device">
+        <h2>Information stored on your device</h2>
+        <p>
+          The game keeps a few things in your browser's storage on vgraphics.gr: your age group and when you gave it, your
+          answer about analytics, the name and preset picture you last joined with, and your VHub session, which every
+          VGraphics game on vgraphics.gr shares. Clearing the site's data in your browser deletes them.
+        </p>
+      </section>
+
+      <section id="analytics">
+        <h2>Analytics and error reports</h2>
+        <p>
+          We use Google Analytics (through Google Firebase) to see how the game is played: for example how many players a
+          room has, how long a game lasts, which side wins with which setup, and where phones lose their connection. It
+          receives no names, no VHub identifiers and no roles. If you are 16 or over and allow it, it uses an identifier
+          stored in your browser. If you say no, if you are under 16, and always on the TV, it runs in its consent-denied
+          mode: it stores nothing on your device and sends only basic signals without an identifier. You can change your
+          answer by clearing the site's data for vgraphics.gr in your browser: the game then asks again. See
+          <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+        </p>
+        <p>
+          When something goes wrong in the game, it sends us an error report through our own server to Google Cloud
+          Logging, so we can fix it: the error and where in the code it happened, the game's version, the room's internal
+          identifier (not its code), the step of the game, your browser and its version, the kind of device (phone,
+          tablet, TV or computer) and the page's address without its query. Reports never contain names, roles or
+          anything secret, and they are kept for 30 days.
+        </p>
+        <p>
+          The Android app, when it comes, will use Firebase Analytics and Firebase Crashlytics instead, and this policy
+          will say so before it does.
+        </p>
+      </section>
+
+      <section id="ads">
+        <h2>Advertising</h2>
+        <p>
+          To keep the game free, it shows ads only between games: a short video on the TV when the host starts the next
+          game, and a small banner on the phones in the room's lobby and on the end screen. Never during a game, and never
+          before a room's first game. The ads are delivered by Google AdSense and Google's ad placements for web games.
+          Third-party vendors, including Google, use cookies to serve ads based on your earlier visits to our website or
+          other websites. Google's use of advertising cookies lets it and its partners serve ads based on your visits to
+          our website and/or other sites on the internet. You can opt out of personalized advertising in
+          <a href="https://www.google.com/settings/ads">Google's Ads Settings</a>. See
+          <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps
+          that use its services</a>.
+        </p>
+        <p>
+          Google may automatically collect information such as your IP address (and the rough location it reveals), your
+          browser and device, your language, and how you interact with ads. It uses it to show ads, limit how often you
+          see the same ad, measure results, prevent fraud and, where you allow it, to personalize ads. We don't receive
+          this information about you personally.
+        </p>
+        <p>
+          Where the law requires it (for example in the European Economic Area, the UK and Switzerland), Google's consent
+          message asks for your consent before your data is used for personalized ads (see the
+          <a href="https://policies.google.com/privacy">Google Privacy Policy</a>). Players aged 13 to 15 only ever get
+          ads that aren't personalized. If you live in a US state with a consumer privacy law (such as California,
+          Colorado, Connecticut, Texas or Virginia), you can opt out of the sale or sharing of your personal information
+          for ads with the "Do Not Sell or Share My Personal Information" link that Google's consent tool shows. You can
+          change your choice at any time with the privacy settings link that Google's consent tool adds to the page.
+        </p>
+      </section>
+
+      <section id="delete" class="delete">
+        <h2>Deleting your data</h2>
+        <ul>
+          <li><strong>Rooms:</strong> deleted automatically 24 hours after they close; you don't need to do anything.</li>
+          <li><strong>Your account and everything in it:</strong> delete your VHub account at
+            <a href="https://vgraphics.gr/hub/delete/">vgraphics.gr/hub/delete</a>. That also deletes your data in this
+            game, wherever it is kept.</li>
+          <li><strong>On your device:</strong> clear the site's data for vgraphics.gr in your browser.</li>
+          <li>You can also email us at the address below and we will delete it for you.</li>
+        </ul>
+        <p>
+          The game summaries described above hold nobody's data, so they are kept for their 12 months.
+        </p>
+      </section>
+
+      <section id="children">
+        <h2>Children</h2>
+        <p>
+          The game is for ages 13 and up, and a phone that gives a year of birth under 13 can't join a room. We don't
+          knowingly collect personal information from children under 13. If you believe a child has played anyway,
+          contact us and we will help remove their data.
+        </p>
+      </section>
+
+      <section id="rights">
+        <h2>Your rights</h2>
+        <p>
+          We don't hold your real name or contact details through this game. You can see what the game shows about you in
+          the room, change the name you play under for a room, and delete everything as described under "Deleting your
+          data". If you'd like a copy of your data, anything else deleted or corrected, or have a question about your
+          data, email us and we'll help. You also have the right to complain to the Hellenic Data Protection Authority
+          (<a href="https://www.dpa.gr/en">dpa.gr</a>). For data collected by Google for ads, use the links above. Firebase
+          and Google Cloud are provided by Google; see <a href="https://firebase.google.com/support/privacy">Privacy and
+          Security in Firebase</a>.
+        </p>
+      </section>
+
+      <section id="changes">
+        <h2>Changes to this policy</h2>
+        <p>
+          If the game starts handling information differently, we will update this page and the date at the top.
+        </p>
+      </section>
+
+      <section id="contact">
+        <h2>Contact</h2>
+        <p>The game is published by, and your data is controlled by:</p>
+        <address class="contact">
+          VGRAPHICS SINGLE MEMBER P.C.<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          G.E.MI. no. 181823306000<br>
+          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+        </address>
+      </section>
+    </div>
+  </div>
+</main>
+</body>
+</html>

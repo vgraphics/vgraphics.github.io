@@ -1,0 +1,42 @@
+[
+  {
+    "q": "What is Palermo Noir?",
+    "a": "A hidden-role mafia party game for a room of friends, the game Greeks know as Palermo, a cousin of Mafia and Werewolf. Your phone holds your secret card, the TV shows the town, and a noir narrator runs every night, so nobody has to sit out to lead the game."
+  },
+  {
+    "q": "How many players do we need?",
+    "a": "From 6 to 14. By default the town hides two killers up to 11 players, and three from 12. The host picks the roles and the timers before the deal, or starts from a preset: Classic, Quick or Full house."
+  },
+  {
+    "q": "What do we need to play?",
+    "a": "A phone each and one screen the whole room can see: a smart TV's browser, or a laptop on the TV. Open <b>vgraphics.gr/tv</b> on the screen and type the room code; friends scan the QR code to join. Nothing to install."
+  },
+  {
+    "q": "Is it free?",
+    "a": "Yes, with every role in. Ads only show outside play, between games and never during one."
+  },
+  {
+    "q": "Do I need an account?",
+    "a": "No. Join as a guest, or with your free <a href=\"/hub/\">VHub name</a>, which keeps your games, XP and achievements across every VGraphics game. The TV signs in as a screen, never as a person."
+  },
+  {
+    "q": "Is it for kids?",
+    "a": "It's for ages 13 and up. Each phone gives its year of birth once and only an age group is kept, never the year."
+  },
+  {
+    "q": "Which languages does it speak?",
+    "a": "English or Greek. The narrator, the cards and every screen follow the host's language."
+  },
+  {
+    "q": "When can we play?",
+    "a": "Soon: on the web first, then on Android. The first release will show under What's new on this page."
+  },
+  {
+    "q": "What happens to our data?",
+    "a": "A room closes 30 minutes after its last phone goes offline, or 8 hours after it opened, and is deleted 24 hours after it closes. A short summary of each game, with no names, identifiers or votes, is kept for 12 months. Analytics runs only with your consent. The <a href=\"/palermo/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "Where can I read the rules?",
+    "a": "In the <a href=\"/palermo/wiki/\">wiki</a>: every role, every card in the Lawyer's briefcase, and how a round plays, from the deal to the verdict."
+  }
+]
