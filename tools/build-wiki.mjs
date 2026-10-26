@@ -61,8 +61,14 @@ function artPicture(w, slug, { cls, sizes }) {
   const fallback = img.jpeg ? `${img.src}-${img.jpeg[0]}.jpg" srcset="${srcset(img, 'jpg', img.jpeg)}" sizes="${sizes}` : `${img.src}-${img.widths[0]}.webp`
   return `<picture class="${cls}">${['avif', 'webp'].map((x) => `<source type="image/${x}" srcset="${srcset(img, x, img.widths)}" sizes="${sizes}">`).join('')}<img src="${fallback}" width="${a.width}" height="${a.height}" alt="" loading="lazy"></picture>`
 }
-// The index hero is the landing page's own key art (page.json hero.art), named from the product's folder.
-function keyArt(product) {
+// The index hero: the wiki's own painting (wiki.json "art": { "wiki": "<slug>", alt, ... }, George, 24 Oct 2026: "Privacy
+// policy uses the same image as overview. Generate another please. WiKi page too."), else the landing page's key art
+// (page.json hero.art), named from the product's folder.
+function keyArt(product, w) {
+  if (w.indexArt?.wiki) {
+    const { wiki, ...given } = w.indexArt
+    return wikiArt(product.slug, wiki, given)
+  }
   const a = product.page.hero.art, at = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${product.slug}/${img.src}` }
   return { ...a, tall: at(a.tall), wide: at(a.wide), ultra: at(a.ultra) }
 }
@@ -142,7 +148,7 @@ function indexPage(w, product) {
       ${w.entries.filter((e) => e.section === s.id).map((e) => card(w, e)).join('\n      ')}
     </div>
   </section>`).join('\n')
-  const art = keyArt(product)
+  const art = keyArt(product, w)
   const body = `  ${heroSection(art, { cls: 'w-hero is-index', foot: `<div class="w-hero-foot wrap">
       <p class="w-kicker">${esc(p.name)} wiki</p>
       <h1>${esc(w.heading || w.title)}</h1>
@@ -281,6 +287,8 @@ for (const slug of products) {
   const w = JSON.parse(readFileSync(join(dir, 'wiki.json'), 'utf8'))
   const product = loadProduct(slug)
   const artFile = join(dir, 'img', 'art', 'art.json')
+  // wiki.json's own "art" (the index hero's painting) stays as indexArt; w.art becomes the paintings' sizes.
+  w.indexArt = w.art
   w.art = existsSync(artFile) ? JSON.parse(readFileSync(artFile, 'utf8')) : {}
   // Every entry belongs to a known section and has its painting; order entries by section so prev/next follows the index.
   const order = w.sections.map((s) => s.id)

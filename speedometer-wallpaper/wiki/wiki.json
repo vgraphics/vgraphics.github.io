@@ -5,6 +5,7 @@
   "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and setting",
   "metaDescription": "Every gauge, warning light, design and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
   "source": "Written from the app's Info, Settings and Designs screens and docs/speedometer-wallpaper.md (Games main 39aa208, 2026-10-17: version 2.0.0 with the Future design). Later generated from the app's own strings.",
+  "art": {"wiki": "index", "alt": "Three phones on a car's dashboard at night showing the Classic, Amber Night and Future designs, with rain and city lights on the windscreen", "position": "50% 40%", "placeholder": "linear-gradient(#0B121A, #040508)"},
   "nav": [
     {"label":"Overview","href":"/speedometer-wallpaper/"},
     {"label":"Wiki","href":"/speedometer-wallpaper/wiki/","current":true},

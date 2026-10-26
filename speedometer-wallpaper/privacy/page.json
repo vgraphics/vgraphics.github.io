@@ -21,7 +21,13 @@
   "hero": {
     "title": "Speedometer Live Wallpaper privacy policy",
     "lead": "Privacy policy",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "A phone in a dashboard mount at night showing the Classic gauges at 53 km/h, with rain and city lights on the windscreen",
+      "wiki": "privacy",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#0B1117, #030406)"
+    }
   },
   "sections": [
     { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
