@@ -390,13 +390,18 @@
   "power-of-attorney": {
    "master": "power-of-attorney.webp",
    "tall": "power-of-attorney-tall.webp",
-   "scene": "The town hall during the vote: a pale, translucent, ghostly hand rises beside the Lawyer and guides his quill over a folded ballot, while the townspeople at the benches see nothing.",
+   "scene": "The town hall during the vote: the Lawyer writes with his quill on a folded ballot, voting in another player's name, while the townspeople at the benches look on.",
    "cast": [
     "VHub docs/party/design-pass/art/raw-cast-v2/cast-lawyer-2.png"
    ],
    "light": "night",
    "made": "Nano Banana 2 in Recraft at 1K, Crisp upscale, 26 Oct 2026, project 'Palermo Noir wiki art, full set'",
-   "note": "Redone once: the first take left a blank box in the top left corner (see prompt.corner)."
+   "note": "Redone once: the first take left a blank box in the top left corner (see prompt.corner).",
+   "edited": {
+    "why": "George, 27 Oct 2026: \"These double god hands are wrong. Remove them from art.\" The first takes had a pale, translucent ghost arm beside the Lawyer (two hands in the wide picture, one in the tall).",
+    "how": "Nano Banana 2 edits in Recraft (project 'Palermo Noir key art', 27 Oct 2026) of a crop round the arm, cut from the 4K master (wide 2400,300,3776,1876 at 2K; tall 1150,1100,2286,2800 at 1K, Crisp-upscaled): 'Remove the pale, translucent, glowing ghost arm and its ghost hands completely ... continue what is behind them ... in exactly the same gold engraved line style'. Patched back into the master only where the edit changed the picture (the arm, its faint glow, the man it covered), with a soft edge; the rest keeps every original pixel.",
+    "original": "git show fc7847b:palermo/wiki/art-src/power-of-attorney.webp (and power-of-attorney-tall.webp)"
+   }
   },
   "sealed-evidence": {
    "master": "sealed-evidence.webp",
@@ -553,6 +558,10 @@
     "master": "medals/host-rules.webp",
     "object": "a small brass desk bell beside an open pocket watch with plain tick marks and a short stack of face-down cards with ornate backs."
    }
+  },
+  "power-of-attorney": {
+   "master": "medals/power-of-attorney.webp",
+   "made": "Its own picture since 27 Oct 2026: before, a crop of the game's Power of attorney card (VHub docs/party/design-pass/art/raw-powers/power-16-1.png), which shows the same pale ghost hand writing. A Nano Banana 2 edit of that crop in Recraft (1K, project 'Palermo Noir key art') removed the hand: 'Remove the pale glowing hand completely ... Keep the feather quill exactly as it is, standing on its own with its nib touching the folded paper'. George approved removing the hands (27 Oct, 'Remove them from art')."
   }
  }
 }

@@ -9,7 +9,9 @@
 # The wiki masters are WebP at quality 90, so a .webp out is written the same way; a .png out (a hero master) is
 # lossless. Grade from the original, never from a graded picture (the record in sources.json names the commit that
 # holds it).
-# Usage: python tools/grade-art.py <in> <out> --target <json> [--hue 0.6] [--chroma 0.8]
+# A transparent picture (a logo) keeps its alpha and only its opaque pixels count; a logo takes --no-bands, so its gold
+# letters only turn to the set's gold and calm down (George, 27 Oct: "Logo is a bit orange too.").
+# Usage: python tools/grade-art.py <in> <out> --target <json> [--hue 0.6] [--chroma 0.8] [--no-bands]
 #        python tools/grade-art.py <picture> --measure     (prints the band colours and the warm-to-cool ratio)
 # Needs numpy and Pillow.
 import argparse, json, math
@@ -60,8 +62,11 @@ def soft_bands(L):
     return {'shadow': s, 'light': li, 'mid': np.clip(1 - s - li, 0, 1)}
 
 
-def grade(lab, target, hue, chroma):
+def grade(lab, target, hue, chroma, bands=True, keep=None):
+    # keep: the pixels that count (a logo's opaque ones); bands=False skips step 3, for a picture with no navy ground
+    # of its own (a logo's gold letters would be pulled toward a painting's mixed mid-tones)
     L, a, b = lab[..., 0], lab[..., 1], lab[..., 2]
+    keep = np.ones(L.shape, bool) if keep is None else keep
     C, h = np.hypot(a, b), np.degrees(np.arctan2(b, a))
     gold = np.mean([math.degrees(math.atan2(target[n][1], target[n][0])) for n in ('mid', 'light')])
     # warm: reds to yellows (-20 to 100 degrees), easing out to -50 and 130; grey pixels (C* under 3) are left alone
@@ -72,9 +77,9 @@ def grade(lab, target, hue, chroma):
     a, b = C * np.cos(h), C * np.sin(h)
     # each band's mean onto the target's, twice (the soft bands overlap, so one pass falls a little short)
     w = soft_bands(L)
-    for _ in range(2):
+    for _ in range(2 if bands else 0):
         for n in BANDS:
-            sel = band(L, n)
+            sel = band(L, n) & keep
             da, db = target[n][0] - a[sel].mean(), target[n][1] - b[sel].mean()
             a, b = a + w[n] * da, b + w[n] * db
     return np.stack([L, a, b], -1)
@@ -87,20 +92,27 @@ def main():
     p.add_argument('--target')
     p.add_argument('--hue', type=float, default=0.6)
     p.add_argument('--chroma', type=float, default=0.8)
+    p.add_argument('--no-bands', action='store_true')
     p.add_argument('--measure', action='store_true')
     o = p.parse_args()
-    lab = to_lab(np.asarray(Image.open(o.src).convert('RGB'), dtype=np.float32))
+    src = Image.open(o.src)
+    alpha = src.getchannel('A') if 'A' in src.getbands() else None  # a transparent picture keeps its alpha
+    keep = np.asarray(alpha) > 0 if alpha else None
+    lab = to_lab(np.asarray(src.convert('RGB'), dtype=np.float32))
     if o.measure:
-        print(json.dumps(measure(lab)))
+        print(json.dumps(measure(lab if keep is None else lab[keep])))
         return
     target = json.load(open(o.target, encoding='utf-8'))
     target = target.get('grade', {}).get('target', target)  # a sources.json with a "grade" record, or the bare target
-    out = grade(lab, target, o.hue, o.chroma)
-    if o.out.lower().endswith('.png'):  # a hero master, kept lossless
-        Image.fromarray(to_rgb(out)).save(o.out, 'PNG', optimize=True)
+    out = Image.fromarray(to_rgb(grade(lab, target, o.hue, o.chroma, not o.no_bands, keep)))
+    if alpha:
+        out.putalpha(alpha)
+    if o.out.lower().endswith('.png'):  # a hero master or a logo, kept lossless
+        out.save(o.out, 'PNG', optimize=True)
     else:
-        Image.fromarray(to_rgb(out)).save(o.out, 'WEBP', quality=90, method=6)
-    print(o.out, json.dumps(measure(to_lab(to_rgb(out).astype(np.float32)))))
+        out.save(o.out, 'WEBP', quality=90, method=6)
+    graded = to_lab(np.asarray(out.convert('RGB'), dtype=np.float32))
+    print(o.out, json.dumps(measure(graded if keep is None else graded[keep])))
 
 
 if __name__ == '__main__':
