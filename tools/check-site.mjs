@@ -14,7 +14,7 @@ import { hotspot } from './lib/cursors.mjs'
 import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
-import { readNews } from './lib/news.mjs'
+import { emptyProblems, readNews } from './lib/news.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -189,6 +189,46 @@ for (const file of served) {
   if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
+// The play or try button (George, 26 Oct 2026: "For all landing pages, when there is a play online/test online, make it
+// a fancy primary button last on the toolbar buttons."), on every page GitHub Pages serves, as the phone menu above. A
+// product whose folder has a play page (<product>/play/: Exitwise's game, Speedometer's try page) names it in its
+// page.json, site.play { label, href }; then every product header in its folder ends with that link as the button
+// (class "play", tools/lib/partials.mjs), inside the menu the phone panel opens, and has no other. A product without
+// site.play has no button.
+const playButton = (file, message) => report(file, 'play-button', message)
+const isPlay = (attrs) => /\sclass="(?:[^"]*\s)?play(?:\s[^"]*)?"/.test(attrs)
+const plays = new Map(products().map((slug) => [slug, loadProduct(slug).page.site.play]))
+for (const [slug, play] of plays) {
+  const file = join(slug, 'page.json')
+  if (existsSync(join(root, slug, 'play', 'index.html')) && !play) playButton(file, `${slug} has a play page (/${slug}/play/) but no site.play { label, href }: every header of the product ends with it, as a button`)
+  if (play && !(typeof play.label === 'string' && play.label.trim() && typeof play.href === 'string' && play.href.startsWith('/'))) playButton(file, 'site.play is not { label, href }, with the words on the button and an address on this site')
+}
+for (const file of served) {
+  const slug = file.split('/')[0]
+  if (!plays.has(slug)) continue
+  const play = plays.get(slug)
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
+    if (!(attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []).includes('top')) continue
+    const links = [...inner.matchAll(/<a\b([^>]*)>/g)].map((m) => m[1])
+    const buttons = links.filter(isPlay)
+    const menu = inner.match(/<nav\b[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? ''
+    if (!play) {
+      if (buttons.length) playButton(file, `the header has a play button, but ${slug}/page.json gives no site.play`)
+    } else if (!buttons.length) {
+      playButton(file, `the header has no "${play.label}" button (${play.href}), which every page of ${slug} ends its menu with: make the page with the template (tools/build-pages.mjs, tools/build-wiki.mjs)`)
+    } else if (buttons.length > 1) {
+      playButton(file, `the header has ${buttons.length} play buttons: one, at the end of the menu`)
+    } else if (!isPlay(links.at(-1))) {
+      playButton(file, "the header's play button is not its last item")
+    } else if (![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => isPlay(m[1]))) {
+      playButton(file, "the header's play button is outside its menu, so the phone panel leaves it out")
+    } else if (buttons[0].match(/\shref="([^"]*)"/)?.[1] !== play.href) {
+      playButton(file, `the header's play button goes to ${buttons[0].match(/\shref="([^"]*)"/)?.[1] ?? 'nowhere'}, not ${play.href} (${slug}/page.json site.play)`)
+    }
+  }
+}
+
 // The cursors (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"), on every page GitHub Pages
 // serves, whoever writes it, as the phone menu above: each links /assets/cursors.css, which shows its product's (or
 // VGraphics') pointer, hand and text cursor (tools/lib/cursors.mjs); no stylesheet or <style> sets the system's own
@@ -320,6 +360,25 @@ for (const slug of products()) {
   for (const b of sections.flatMap((s) => s.blocks ?? [])) {
     if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
     if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
+    if (b.type === 'news') for (const m of emptyProblems(b.empty)) report(file, 'faq-news', m)
+  }
+}
+
+// The questions and answers open and close with an animation, one at a time (George, 26 Oct 2026: "FAQ must open/close
+// with animation always. One open at a time."): assets/faq.js does it, which /assets/menu.js loads on a page with a faq
+// block, so every served page with one loads menu.js (or faq.js itself). Without it the answers still open, but jump,
+// and several stay open.
+const faqJs = (file, message) => report(file, 'faq-js', message)
+const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
+if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/faq.js")')) {
+  faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js, which animates the questions and answers of every page with them')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (/<div class="faq">/.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
+    faqJs(file, `has questions and answers that open with no animation and several at a time: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
   }
 }
 

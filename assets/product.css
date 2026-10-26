@@ -120,6 +120,64 @@ h1, h2, h3 {
   background: var(--nav-current-bg-scrolled, var(--nav-current-bg)); /* optional */
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink)); /* optional */
 }
+/* The play or try button, the menu's last link (George, 26 Oct 2026: "For all landing pages, when there is a play
+   online/test online, make it a fancy primary button last on the toolbar buttons."; page.json site.play,
+   tools/lib/partials.mjs): the product's main button, in its pack's --cta, --cta-ink and --cta-edge (its words 7:1 on
+   its face). The face is lit from above and stands on its edge, it glows in its own colour, a sheen crosses it now and
+   then, and it lifts under the pointer and sinks when pressed (none of it moves with reduced motion: the rule at the
+   end). A thin ring in its words' colour sets it apart where the art behind it is as dark or light as its face
+   (Exitwise's ink violet on its night sky) and melts into the frosted bar where it is not. :is(.top.scrolled, .top)
+   makes it as specific as the bar's own link rules, so it keeps its look over the art, on the bar, as the current page
+   and in the phone panel. */
+:is(.top.scrolled, .top) .subnav a.play {
+  --play-ring: 0 0 0 1.5px color-mix(in srgb, var(--cta-ink) 70%, transparent);
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+  justify-content: center;
+  gap: 8px;
+  margin-left: 6px;
+  padding: 0 18px 3px 14px;
+  border-radius: var(--radius-sm);
+  background: linear-gradient(color-mix(in srgb, var(--cta) 80%, #FFFFFF), var(--cta) 60%);
+  color: var(--cta-ink);
+  text-shadow: none;
+  box-shadow: inset 0 -3px 0 var(--cta-edge), var(--play-ring), 0 6px 20px -6px color-mix(in srgb, var(--cta) 80%, transparent);
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out, filter 160ms ease-out;
+}
+:is(.top.scrolled, .top) .subnav a.play:hover {
+  transform: translateY(-1px);
+  filter: brightness(1.08);
+  box-shadow: inset 0 -3px 0 var(--cta-edge), var(--play-ring), 0 10px 26px -6px var(--cta);
+}
+:is(.top.scrolled, .top) .subnav a.play:active {
+  transform: translateY(1px);
+  box-shadow: inset 0 -1px 0 var(--cta-edge), var(--play-ring), 0 3px 10px -6px var(--cta);
+}
+/* The sheen: a band of light under the words, out of sight to the left until it crosses, every six seconds */
+.subnav a.play::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(105deg, transparent 30%, rgb(255 255 255 / 0.45) 48%, transparent 66%);
+  transform: translateX(-110%);
+  animation: play-sheen 6s ease-in-out 1.5s infinite;
+  pointer-events: none;
+}
+@keyframes play-sheen { 72% { transform: translateX(-110%); } 100% { transform: translateX(110%); } }
+.subnav a.play svg { flex: none; width: 18px; height: 18px; }
+/* Between the phone panel and the wide screens it shows only its icon (its words stay for screen readers, its title for
+   the pointer), so the menu keeps to one row beside the logo and clear of a title painted across the top of the key
+   art (Exitwise's); its words come back past 1300px, as the wide-only links did. */
+@media (min-width: 561px) and (max-width: 1300px) {
+  :is(.top.scrolled, .top) .subnav a.play { width: 44px; padding: 0 0 3px; }
+  .subnav a.play .play-label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+/* In the phone panel it is the last row, a full-width button with its words. */
+@media (max-width: 560px) and (scripting: enabled) {
+  :is(.top.scrolled, .top) .subnav a.play { min-height: 52px; margin: 8px 0 0; }
+}
 
 /* The hero of every product page, the landing page's, its other pages' and every wiki page's (George, 23 Oct 2026:
    "Heroes of all pages must have same height as hero in overview"; tools/lib/hero.mjs builds it for all of them).
@@ -544,7 +602,8 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .part .body .more { justify-self: start; margin-top: 0; color: var(--ink); font: var(--label-weight) 1rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); text-decoration-color: var(--accent); text-underline-offset: 5px; }
 
 /* Questions and answers, on every landing page (the "faq" block, tools/lib/faq.mjs): each question a row that opens its
-   answer under it. details and summary do the opening, so it works without script. */
+   answer under it. details and summary do the opening, so it works without script; assets/faq.js animates it, one
+   open at a time. */
 .faq { display: grid; gap: 10px; max-width: 54rem; }
 .faq-item { border: var(--card-border); border-radius: var(--radius-sm); background: var(--surface); box-shadow: var(--card-shadow); }
 .faq-item > summary {
@@ -568,6 +627,11 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .faq-a { display: grid; gap: 10px; padding: 2px 18px 18px; color: var(--muted); }
 .faq-a p { max-width: 46em; margin: 0; }
 .faq-a a, .faq-a b { color: var(--ink); }
+/* While assets/faq.js moves a row, the row clips what grows or goes (faq-moving), and its chevron turns at the row's
+   pace: with it as it opens, back at once as it starts closing (faq-closing). Under reduced motion it just flips. */
+.faq-item.faq-moving { overflow: hidden; }
+.faq-item .chev { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.faq-item[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
 
 /* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
    beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and
@@ -621,7 +685,28 @@ h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
 .news-list details > ul { margin: 10px 14px 14px; }
 .news-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 800; text-decoration-color: var(--accent); text-underline-offset: 5px; }
 .news-list .news-link { margin: -8px 14px 8px; }
-.news-empty { max-width: 40em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+/* A product not out yet (George, 26 Oct 2026: "Design the empty view better please."): the newest release's card holds
+   its place, lit softly from its corner in the product's colour, with the emblem beside its title, line and link. */
+.news-soon {
+  grid-template-columns: auto minmax(0, 1fr);
+  gap: 20px;
+  align-items: start;
+  background: radial-gradient(120% 150% at 0 0, color-mix(in srgb, var(--accent) 14%, transparent), transparent 62%), var(--card-bg);
+}
+.news-emblem {
+  display: grid;
+  place-items: center;
+  width: 60px;
+  height: 60px;
+  border: 1px solid color-mix(in srgb, var(--accent) 45%, transparent);
+  border-radius: 50%;
+  background: color-mix(in srgb, var(--accent) 14%, var(--surface));
+  box-shadow: 0 0 0 6px color-mix(in srgb, var(--accent) 7%, transparent);
+  color: var(--accent);
+}
+.news-emblem svg { width: 30px; height: 30px; }
+.news-soon > div { display: grid; gap: 8px; padding-top: 4px; }
+.news-soon p { max-width: 40em; margin: 0; color: var(--muted); }
 
 /* Band: one promise in a wide panel, with a small picture, its words and a link. */
 .band { display: grid; grid-template-columns: auto 1fr auto; gap: 26px; align-items: center; padding: 30px; }
@@ -815,6 +900,10 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 @media (max-width: 1300px) {
   .subnav .wide-only:not([aria-current]) { display: none; }
 }
+/* Beside the play button with its words they wait for 1800px, where both still stay clear of that title. */
+@media (min-width: 1301px) and (max-width: 1799px) {
+  .subnav:has(> .play) .wide-only:not([aria-current]) { display: none; }
+}
 @media (max-width: 560px) {
   body { font-size: calc(var(--body-size) - 1px); }
   .subnav a { padding: 0 12px; }
@@ -833,6 +922,10 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }
   .news-latest, .news-older { padding: 18px 16px; }
+  .news-soon { gap: 14px; }
+  .news-emblem { width: 48px; height: 48px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 7%, transparent); }
+  .news-emblem svg { width: 24px; height: 24px; }
+  .news-soon > div { padding-top: 0; }
   .faq-item > summary { padding-inline: 16px; font-size: 1rem; }
   .faq-a { padding-inline: 16px; }
 }
