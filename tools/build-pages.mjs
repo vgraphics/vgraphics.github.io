@@ -17,8 +17,9 @@
 //   title, description           the search result's title and snippet
 //   social                       { title, description, image, imageAlt }: the link preview (a 1200x630 picture)
 //   structuredData               the JSON-LD block, as is
-//   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...] },
-//                                shared with the product's other pages
+//   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...],
+//                                play? }, shared with the product's other pages; play: { label, href }, the product's
+//                                play or try page ("Play online", "Try online"), the header's last item, as a button
 //   stores                       { googlePlay }: the store links the "google-play" badge points at
 //   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture

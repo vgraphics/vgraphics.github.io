@@ -7,8 +7,9 @@
 // The company header gets its button here, so its markup stays the copy tools/check-site.mjs compares on every company
 // page (the hub's pages, which the VHub repo writes, too). The product header has its own (tools/lib/partials.mjs).
 // A panel taller than a short screen scrolls, with a fading bottom edge while more lies below; and since every page
-// with a header runs this file, it loads the shared fading edges (fade-edges.js) for the page's other boxes too, and
-// the chapter stepper (stepper.js), which shows on a page with two chapters or more.
+// with a header runs this file, it loads the shared fading edges (fade-edges.js) for the page's other boxes too, the
+// chapter stepper (stepper.js), which shows on a page with two chapters or more, and, on a page with questions and
+// answers, faq.js, which opens and closes them with an animation, one at a time.
 (() => {
   const nav = document.querySelector(".site-head .site-nav");
   if (nav && !document.querySelector(".site-head .menu-toggle")) {
@@ -72,4 +73,5 @@
 
   import("/assets/fade-edges.js").catch(() => {});
   import("/assets/stepper.js").catch(() => {});
+  if (document.querySelector(".faq")) import("/assets/faq.js").catch(() => {});
 })();

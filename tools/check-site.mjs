@@ -1,7 +1,9 @@
 // Checks the site's content rules before a push: node tools/check-site.mjs
 // Prints one "path: [rule] message" line per problem and exits 1, or prints "OK: …" and exits 0.
 import { execFileSync } from 'node:child_process'
-import { existsSync, readdirSync, readFileSync, statSync } from 'node:fs'
+import { createHash } from 'node:crypto'
+import { existsSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
+import { tmpdir } from 'node:os'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
@@ -12,7 +14,7 @@ import { hotspot } from './lib/cursors.mjs'
 import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
-import { readNews } from './lib/news.mjs'
+import { emptyProblems, readNews } from './lib/news.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -187,6 +189,46 @@ for (const file of served) {
   if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
+// The play or try button (George, 26 Oct 2026: "For all landing pages, when there is a play online/test online, make it
+// a fancy primary button last on the toolbar buttons."), on every page GitHub Pages serves, as the phone menu above. A
+// product whose folder has a play page (<product>/play/: Exitwise's game, Speedometer's try page) names it in its
+// page.json, site.play { label, href }; then every product header in its folder ends with that link as the button
+// (class "play", tools/lib/partials.mjs), inside the menu the phone panel opens, and has no other. A product without
+// site.play has no button.
+const playButton = (file, message) => report(file, 'play-button', message)
+const isPlay = (attrs) => /\sclass="(?:[^"]*\s)?play(?:\s[^"]*)?"/.test(attrs)
+const plays = new Map(products().map((slug) => [slug, loadProduct(slug).page.site.play]))
+for (const [slug, play] of plays) {
+  const file = join(slug, 'page.json')
+  if (existsSync(join(root, slug, 'play', 'index.html')) && !play) playButton(file, `${slug} has a play page (/${slug}/play/) but no site.play { label, href }: every header of the product ends with it, as a button`)
+  if (play && !(typeof play.label === 'string' && play.label.trim() && typeof play.href === 'string' && play.href.startsWith('/'))) playButton(file, 'site.play is not { label, href }, with the words on the button and an address on this site')
+}
+for (const file of served) {
+  const slug = file.split('/')[0]
+  if (!plays.has(slug)) continue
+  const play = plays.get(slug)
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
+    if (!(attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []).includes('top')) continue
+    const links = [...inner.matchAll(/<a\b([^>]*)>/g)].map((m) => m[1])
+    const buttons = links.filter(isPlay)
+    const menu = inner.match(/<nav\b[^>]*>([\s\S]*?)<\/nav>/)?.[1] ?? ''
+    if (!play) {
+      if (buttons.length) playButton(file, `the header has a play button, but ${slug}/page.json gives no site.play`)
+    } else if (!buttons.length) {
+      playButton(file, `the header has no "${play.label}" button (${play.href}), which every page of ${slug} ends its menu with: make the page with the template (tools/build-pages.mjs, tools/build-wiki.mjs)`)
+    } else if (buttons.length > 1) {
+      playButton(file, `the header has ${buttons.length} play buttons: one, at the end of the menu`)
+    } else if (!isPlay(links.at(-1))) {
+      playButton(file, "the header's play button is not its last item")
+    } else if (![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => isPlay(m[1]))) {
+      playButton(file, "the header's play button is outside its menu, so the phone panel leaves it out")
+    } else if (buttons[0].match(/\shref="([^"]*)"/)?.[1] !== play.href) {
+      playButton(file, `the header's play button goes to ${buttons[0].match(/\shref="([^"]*)"/)?.[1] ?? 'nowhere'}, not ${play.href} (${slug}/page.json site.play)`)
+    }
+  }
+}
+
 // The cursors (George, 24 Oct 2026: "Can we get custom cursors on each landing page?"), on every page GitHub Pages
 // serves, whoever writes it, as the phone menu above: each links /assets/cursors.css, which shows its product's (or
 // VGraphics') pointer, hand and text cursor (tools/lib/cursors.mjs); no stylesheet or <style> sets the system's own
@@ -318,6 +360,25 @@ for (const slug of products()) {
   for (const b of sections.flatMap((s) => s.blocks ?? [])) {
     if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
     if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
+    if (b.type === 'news') for (const m of emptyProblems(b.empty)) report(file, 'faq-news', m)
+  }
+}
+
+// The questions and answers open and close with an animation, one at a time (George, 26 Oct 2026: "FAQ must open/close
+// with animation always. One open at a time."): assets/faq.js does it, which /assets/menu.js loads on a page with a faq
+// block, so every served page with one loads menu.js (or faq.js itself). Without it the answers still open, but jump,
+// and several stay open.
+const faqJs = (file, message) => report(file, 'faq-js', message)
+const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
+if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
+if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/faq.js")')) {
+  faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js, which animates the questions and answers of every page with them')
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  if (/<div class="faq">/.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
+    faqJs(file, `has questions and answers that open with no animation and several at a time: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
   }
 }
 
@@ -340,6 +401,239 @@ for (const file of served) {
       report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
     }
   }
+}
+
+// Every picture is used once (George, 26 Oct 2026, on Palermo's gallery: "Gallery has same hero as overview. Thats
+// forbidden. Each art must be used only once!! General rule!!"): on the pages GitHub Pages serves, no hero, section or
+// card shows a picture that is shown anywhere else on the site, on another page or the same one.
+// - A picture is all of its files: its sizes and formats (<name>-<width>.avif, .webp, .jpg), the cuts one <picture>
+//   holds (wide, tall, ultra), and its copies under other names, found by their content: the same bytes, or nearly the
+//   same small print (tools/art-prints.py): a copy at another size or in another format, one trimmed a little at an
+//   edge, or a cut of another shape from its middle. The prints are kept in the temp folder by each file's hash, so
+//   only new files need Python.
+// - A place is a page's hero, the section (or article) the picture is in, a product's footer, or its theme's
+//   ornaments. The footer's picture and the ornaments are on every page of a product by design (George, 23 Oct 2026:
+//   "The foother must be same on all pages."), one place each.
+// - Not counted, on purpose (keep this list short): the <head> (link previews, preloads, icons), logos, store badges,
+//   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), the start-up's welcome
+//   splash (the key art's own job, after the VGraphics intro: in a play page's markup, the WebGL template's
+//   #loader-art; the try pages' start-up builds its own by script), pictures a script shows, stylesheet
+//   backgrounds, a picture in a link to a page
+//   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles (George,
+//   26 Oct 2026: "Yes: a wiki card or gallery tile may show the same picture as the page it previews. Every page's
+//   hero and sections stay unique."). Gallery tiles are the pictures of the template's gallery block, a stage slide's
+//   screenshot (.g-screen) or a picture in its plain row (.shots.fade-edges), and an album's tiles (.album-item), whose
+//   lightbox shows them by script; never the gallery page's hero, the gallery's backdrop and pedestals, or any other
+//   section.
+// - tools/art-once-todo.json lists the reuses known when the rule came in (26 Oct 2026), each with its fix, until the
+//   fix lands. A listed picture passes while it is shown only in places its entry names: a new place fails, and so
+//   does a fixed picture until its entry is taken out, so the list only shrinks.
+const ART_TODO = join('tools', 'art-once-todo.json')
+const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
+const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr',
+  'g-screen', 'album-item'])
+const ICON = 256
+const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')
+// Where a picture is (chain: its element and the elements around it, outermost first): { free } when it isn't counted,
+// else { place, to }, to being the page its link leads to.
+function artPlace(page, chain) {
+  const has = (c) => chain.some((e) => e.cls.includes(c))
+  const both = (a, b) => chain.some((e) => e.cls.includes(a) && e.cls.includes(b))
+  if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur') || both('shots', 'fade-edges')) return { free: true }
+  if (/^\/[^/]+\/play\/$/.test(page) && chain.some((e) => e.id === 'loader-art')) return { free: true }
+  const product = page.split('/')[1]
+  if (has('foot-art')) return { place: `the footer of /${product}/` }
+  if (has('orn') || has('horizon')) return { place: `the ornaments of /${product}/` }
+  const href = chain.findLast((e) => e.tag === 'a' && e.href)?.href
+  let to
+  try {
+    const u = href && new URL(href, `https://vgraphics.gr${page}`)
+    if (u?.origin === 'https://vgraphics.gr') to = u.pathname.replace(/(^|\/)index\.html$/, '$1')
+  } catch {}
+  if (has('key-art')) return { place: `${page} hero`, to }
+  const box = chain.findLast((e) => ['section', 'article', 'aside', 'header', 'footer'].includes(e.tag))
+  return { place: box?.id ? `${page}#${box.id}` : `${page} ${box ? [box.tag, ...box.cls].join('.') : 'body'}`, to }
+}
+// A page's pictures, in its <body>: one use per <picture> (all its sources), per <img> outside one, and per element
+// whose style attribute names one (a band's or a world card's --art), each { page, files, place | free, to }.
+function pictureUses(file) {
+  const page = urlPath(file)
+  const html = readFileSync(join(root, file), 'utf8').replace(/<(script|style)\b([^>]*)>[\s\S]*?<\/\1>/gi, '<$1$2></$1>')
+  const uses = new Map()
+  const stack = []
+  const resolve = (ref) => {
+    let clean = ref.replace(/^https:\/\/vgraphics\.gr(?=\/)/, '').replace(/[?#].*$/, '')
+    if (!clean || /^(data:|[a-z]+:|\/\/)/i.test(clean)) return null
+    try {
+      clean = decodeURIComponent(clean)
+    } catch {}
+    if (!PICTURE.test(clean)) return null
+    const target = clean.startsWith('/') ? clean.slice(1) : join(dirname(file), clean)
+    return existsSync(join(root, target)) ? target.split(sep).join('/') : null
+  }
+  for (const m of html.slice(Math.max(0, html.search(/<body\b/))).matchAll(/<(\/?)([a-zA-Z][\w-]*)\b([^>]*)>/g)) {
+    const [, close, name, attrs] = m
+    const tag = name.toLowerCase()
+    if (close) {
+      const at = stack.findLastIndex((e) => e.tag === tag)
+      if (at >= 0) stack.length = at
+      continue
+    }
+    const el = { tag, at: m.index, cls: attrs.match(/\sclass="([^"]*)"/)?.[1].trim().split(/\s+/) ?? [], id: attrs.match(/\sid="([^"]*)"/)?.[1], href: attrs.match(/\shref="([^"]*)"/)?.[1] }
+    const refs = []
+    if (tag === 'img' || tag === 'source') {
+      for (const [, a, v] of attrs.matchAll(/\s(src|srcset)="([^"]*)"/g)) refs.push(...(a === 'srcset' ? v.split(',').map((s) => s.trim().split(/\s+/)[0]) : [v]))
+    }
+    for (const [, u] of (attrs.match(/\sstyle="([^"]*)"/)?.[1] ?? '').matchAll(/url\(\s*(?:&quot;|['"])?([^'")&]+)/g)) refs.push(u)
+    const files = refs.map(resolve).filter(Boolean)
+    if (files.length) {
+      const chain = [...stack, el]
+      const key = chain.findLast((e) => e.tag === 'picture')?.at ?? el.at
+      if (!uses.has(key)) uses.set(key, { page, files: new Set(), ...artPlace(page, chain) })
+      for (const f of files) uses.get(key).files.add(f)
+    }
+    if (!VOIDS.has(tag) && !attrs.endsWith('/')) stack.push(el)
+  }
+  return [...uses.values()]
+}
+{
+  const uses = served.filter((f) => !notPages.has(f) && !PARTIAL.test(f)).flatMap(pictureUses)
+  const parent = new Map()
+  const find = (a) => {
+    while (parent.get(a) !== a) a = parent.get(a)
+    return a
+  }
+  const unite = (a, b) => parent.set(find(b), find(a))
+  // Each picture's largest side, from its smallest file's shape and its widest size's name (<name>-<width>), and one
+  // file to fingerprint: about 512 px wide, WebP or JPEG before AVIF (quicker to read).
+  const files = new Map()
+  for (const u of uses) {
+    u.arts = [...new Set([...u.files].map(artOf))]
+    for (const a of u.arts) if (!parent.has(a)) parent.set(a, a)
+    for (const a of u.arts.slice(1)) unite(u.arts[0], a)
+    for (const f of u.files) files.set(artOf(f), (files.get(artOf(f)) ?? new Set()).add(f))
+  }
+  const sizes = new Map()
+  const reps = new Map()
+  for (const [a, set] of files) {
+    const list = [...set].map((f) => ({ f, w: Number(f.match(/-(\d+)\.\w+$/)?.[1]) || 0 }))
+    const size = imageSize(join(root, list.reduce((x, y) => (y.w < x.w ? y : x)).f))
+    if (!size) continue
+    const k = size.width / size.height
+    const widest = Math.max(size.width, ...list.map((x) => x.w))
+    sizes.set(a, Math.max(widest, widest / k))
+    const score = (x) => Math.abs((x.w || size.width) - 512) + (/\.avif$/i.test(x.f) ? 4096 : 0)
+    reps.set(a, { file: list.reduce((x, y) => (score(y) < score(x) ? y : x)).f, k })
+  }
+  // The prints of one version of tools/art-prints.py, so a change to it makes them anew.
+  const PRINTER = join(root, 'tools', 'art-prints.py')
+  const PRINTS = join(tmpdir(), `vgraphics-art-prints-${createHash('sha1').update(readFileSync(PRINTER)).digest('hex').slice(0, 10)}.json`)
+  let prints = {}
+  try {
+    prints = JSON.parse(readFileSync(PRINTS, 'utf8'))
+  } catch {}
+  for (const r of reps.values()) r.hash = createHash('sha1').update(readFileSync(join(root, r.file))).digest('hex')
+  const missing = [...reps.values()].filter((r) => !(r.hash in prints) && !/\.svg$/i.test(r.file))
+  if (missing.length) {
+    try {
+      const got = JSON.parse(execFileSync('python', [PRINTER], { cwd: root, input: missing.map((r) => r.file).join('\n'), encoding: 'utf8', maxBuffer: 1 << 26 }))
+      for (const r of missing) prints[r.hash] = got[r.file] ?? null
+      writeFileSync(`${PRINTS}.${process.pid}`, JSON.stringify(prints))
+      renameSync(`${PRINTS}.${process.pid}`, PRINTS)
+    } catch (e) {
+      report(join('tools', 'art-prints.py'), 'art-once', `can't fingerprint ${missing.length} picture(s), so copies under other names go unseen (it needs Python with Pillow 11.3 or later): ${e.message.split('\n')[0]}`)
+    }
+  }
+  // Copies: the same bytes, or prints that match when laid over each other. Two of nearly the same shape (within 15%)
+  // are laid whole, or one is cut to the other's shape at its start, middle or end (a copy cut a little); two of
+  // different shapes by their centre squares (a 1:1 or 4:3 cut from the middle of a wide picture; a cut from its side
+  // goes unseen). They match within 3.5 grey levels
+  // (root mean square, of 255, on a grid 32 cells wide): a copy or a re-cut measures 2 or so, two screens of one app
+  // that differ only in their readings 5 and up.
+  const byHash = new Map()
+  for (const [a, r] of reps) byHash.has(r.hash) ? unite(byHash.get(r.hash), a) : byHash.set(r.hash, a)
+  // A print's region [x0, y0, x1, y1] (in its pixels) averaged into a grid of n x m cells.
+  const grid = (t, [x0, y0, x1, y1], n, m) => {
+    const out = new Float64Array(n * m)
+    const [sx, sy] = [(x1 - x0) / n, (y1 - y0) / m]
+    for (let j = 0; j < m; j++) {
+      for (let i = 0; i < n; i++) {
+        const [ax, ay] = [x0 + i * sx, y0 + j * sy]
+        let [sum, area] = [0, 0]
+        for (let y = Math.floor(ay); y < Math.min(Math.ceil(ay + sy), t.h); y++) {
+          const wy = Math.min(ay + sy, y + 1) - Math.max(ay, y)
+          for (let x = Math.floor(ax); x < Math.min(Math.ceil(ax + sx), t.w); x++) {
+            const wx = Math.min(ax + sx, x + 1) - Math.max(ax, x)
+            sum += t.px[y * t.w + x] * wx * wy
+            area += wx * wy
+          }
+        }
+        out[j * n + i] = sum / area
+      }
+    }
+    return out
+  }
+  const rms = (x, y) => {
+    let sum = 0
+    for (let i = 0; i < x.length; i++) sum += (x[i] - y[i]) ** 2
+    return Math.sqrt(sum / x.length)
+  }
+  const thumbs = [...reps].filter(([, r]) => prints[r.hash]).map(([a, r]) => {
+    const [, w, h, hex] = prints[r.hash].match(/^(\d+)x(\d+):([0-9a-f]*)$/)
+    const t = { a, k: r.k, w: Number(w), h: Number(h), px: Buffer.from(hex, 'hex') }
+    const s = Math.min(t.w, t.h)
+    t.rows = Math.max(1, Math.round(32 / t.k))
+    t.whole = grid(t, [0, 0, t.w, t.h], 32, t.rows)
+    t.small = grid(t, [0, 0, t.w, t.h], 8, 8)
+    t.square = grid(t, [(t.w - s) / 2, (t.h - s) / 2, (t.w + s) / 2, (t.h + s) / 2], 32, 32)
+    return t
+  })
+  const copies = (a, b) => {
+    const [W, N] = a.k >= b.k ? [a, b] : [b, a]
+    const f = N.k / W.k
+    if (f < 0.85) return rms(W.square, N.square) <= 3.5
+    // A first look at 8 x 8 passes over pictures that are nothing alike.
+    if (rms(W.small, N.small) > 24) return false
+    return [0, 0.5, 1].some((at) => {
+      const [from, to] = [at * (1 - f), at * (1 - f) + f]
+      return rms(grid(W, [from * W.w, 0, to * W.w, W.h], 32, N.rows), N.whole) <= 3.5 ||
+        rms(grid(N, [0, from * N.h, N.w, to * N.h], 32, W.rows), W.whole) <= 3.5
+    })
+  }
+  for (let i = 0; i < thumbs.length; i++) {
+    for (let j = i + 1; j < thumbs.length; j++) if (copies(thumbs[i], thumbs[j])) unite(thumbs[i].a, thumbs[j].a)
+  }
+  const pictures = new Map()
+  for (const u of uses) {
+    const p = find(u.arts[0])
+    if (!pictures.has(p)) pictures.set(p, { arts: new Set(), uses: [] })
+    pictures.get(p).uses.push(u)
+    for (const a of u.arts) pictures.get(p).arts.add(a)
+  }
+  let todo = []
+  try {
+    todo = JSON.parse(readFileSync(join(root, ART_TODO), 'utf8')).reuses
+  } catch (e) {
+    report(ART_TODO, 'art-once', `can't be read: ${e.message}`)
+  }
+  const listed = new Set()
+  for (const { arts, uses: all } of pictures.values()) {
+    if (Math.max(...[...arts].map((a) => sizes.get(a) ?? 0)) <= ICON) continue
+    const counted = all.filter((u) => !u.free)
+    // The pages that show the picture themselves (in a gallery tile too), whose previews may show it.
+    const shown = new Set(all.filter((u) => !u.to || u.to === u.page).map((u) => u.page))
+    const places = [...new Set(counted.filter((u) => !(u.to && u.to !== u.page && shown.has(u.to))).map((u) => u.place))].sort()
+    if (places.length < 2) continue
+    const names = [...arts].sort()
+    const t = todo.find((x) => x.art.some((a) => arts.has(a)))
+    if (t) listed.add(t)
+    const extra = t ? places.filter((p) => !t.places.includes(p)) : places
+    if (!extra.length) continue
+    const art = `${names[0]}${names.length > 1 ? ` (with ${names.slice(1).join(', ')})` : ''}`
+    report(names[0], 'art-once', `${art} is shown in ${places.length} places: ${places.join('; ')}. Give each its own picture${t ? ` (${ART_TODO} lists it, but not in ${extra.join('; ')})` : ''}`)
+  }
+  for (const t of todo) if (!listed.has(t)) report(ART_TODO, 'art-once', `${t.art[0]} is no longer shown in two places: take its entry out`)
 }
 
 // url(...) in stylesheets and <style> blocks: self-hosted fonts and images must exist.

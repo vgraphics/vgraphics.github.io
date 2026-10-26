@@ -100,7 +100,11 @@
         "label": "Privacy policy",
         "href": "/speedometer-wallpaper/privacy.html"
       }
-    ]
+    ],
+    "play": {
+      "label": "Try online",
+      "href": "/speedometer-wallpaper/play/"
+    }
   },
   "stores": {
     "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
@@ -224,7 +228,7 @@
           ],
           "pickups": [
             {
-              "src": "pickup-dial-speed",
+              "src": "pickup-dial-classic-17kmh",
               "x": 9,
               "y": 14,
               "wide": [
@@ -236,7 +240,7 @@
               "turn": -8
             },
             {
-              "src": "pickup-dial-power",
+              "src": "pickup-dial-vintage-power",
               "x": 91,
               "y": 12,
               "wide": [
@@ -248,7 +252,7 @@
               "turn": 10
             },
             {
-              "src": "pickup-dial-cpu",
+              "src": "pickup-dial-future-49kmh",
               "x": 92,
               "y": 86,
               "wide": [
@@ -262,7 +266,7 @@
           ],
           "items": [
             {
-              "name": "shot-kmh",
+              "name": "classic-mph",
               "w": 540,
               "h": 1200,
               "world": "carbon",
@@ -271,10 +275,10 @@
               "place": "km/h or mph",
               "caption": "Your real speed on your home screen",
               "text": "The big dial reads your GPS speed in km/h or mph, and a red mark keeps the top speed of the drive.",
-              "alt": "The wallpaper on a phone: the big speed dial at 87 km/h with battery, RAM, Wi-Fi and signal gauges"
+              "alt": "The wallpaper on a phone: the big speed dial at 54 mph with battery, RAM, Wi-Fi and signal gauges"
             },
             {
-              "name": "style-amber_night",
+              "name": "amber-night-119kmh",
               "w": 540,
               "h": 1200,
               "world": "cockpit",
@@ -283,10 +287,10 @@
               "place": "Night luxury",
               "caption": "One big amber-lit dial",
               "text": "A dot-matrix display under it keeps the clock, the battery, the memory and the network.",
-              "alt": "The Amber Night style: one big amber-lit dial over a dot-matrix information display"
+              "alt": "The Amber Night style at 119 km/h: one big amber-lit dial over a dot-matrix information display"
             },
             {
-              "name": "shot-power",
+              "name": "carbon-power",
               "w": 540,
               "h": 1200,
               "world": "cockpit",
@@ -295,10 +299,10 @@
               "place": "Watts",
               "caption": "See the watts in and out",
               "text": "Watts going into the battery show to the right, and watts going out to the left, with a minus.",
-              "alt": "Power mode: the big dial at 18.5 watts going into the battery"
+              "alt": "Power mode in the Carbon style: the big red-rimmed dial at 18.5 watts going into the battery"
             },
             {
-              "name": "style-torque",
+              "name": "torque-71kmh",
               "w": 540,
               "h": 1200,
               "world": "carbon",
@@ -307,7 +311,7 @@
               "place": "Muscle car",
               "caption": "A rev arc with a red shift zone",
               "text": "A big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
-              "alt": "The Torque style: a curved rev arc over a big round dial on gunmetal"
+              "alt": "The Torque style at 71 km/h: a curved rev arc over a big round dial on gunmetal"
             },
             {
               "name": "shot-cpu",
@@ -322,7 +326,7 @@
               "alt": "CPU clock mode on the big dial"
             },
             {
-              "name": "style-vintage",
+              "name": "vintage-pair-power",
               "w": 540,
               "h": 1200,
               "world": "rally",
@@ -330,23 +334,23 @@
               "tag": "Vintage",
               "place": "1960s",
               "caption": "A cream speedometer on walnut",
-              "text": "A matching clock and a row of chrome-rimmed gauges on a walnut console.",
-              "alt": "The Vintage style: a cream speedometer and clock over a walnut console with small chrome gauges"
+              "text": "A matching clock under it, both chrome-rimmed, on a walnut console.",
+              "alt": "The Vintage style: a cream speedometer over a matching cream clock on a walnut console"
             },
             {
-              "name": "shot-wifi",
+              "name": "track-night-power",
               "w": 540,
               "h": 1200,
               "world": "rally",
               "accent": "#3FA9F5",
-              "tag": "Wi-Fi",
-              "place": "Link speed",
+              "tag": "Gauges",
+              "place": "Track Night",
               "caption": "Every gauge reads your phone",
-              "text": "Signal, Wi-Fi, RAM and battery gauges sit around the big dial, with the date and time on an LCD.",
-              "alt": "A fast Wi-Fi link on the Wi-Fi gauge"
+              "text": "Signal, RAM, Wi-Fi, battery and temperature read out around the big number, with the date and time below.",
+              "alt": "The Track Night style: signal, RAM, Wi-Fi, battery and temperature readings around 18.5 watts"
             },
             {
-              "name": "style-glass",
+              "name": "glass-49kmh",
               "w": 540,
               "h": 1200,
               "world": "glass",
@@ -355,7 +359,7 @@
               "place": "Head-up display",
               "caption": "Glowing arcs, no round gauges",
               "text": "Cyan arcs and thin digits floating in brackets, like a car's head-up display.",
-              "alt": "The Glass style: glowing cyan arcs and thin digits in brackets"
+              "alt": "The Glass style at 49 km/h: glowing cyan arcs and thin digits in brackets"
             }
           ]
         }

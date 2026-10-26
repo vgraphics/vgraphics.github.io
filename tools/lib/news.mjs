@@ -16,7 +16,10 @@
 //   items       its notes for players, plain text (the template escapes them), a line each
 //   link        { href, label }: where to see it (a new style's page, the try page), under its lines
 //   commit      the commit it was built from (the Deployer's): a web build of the same commit joins the store's entry
-// An empty list is a product not out yet: the block says so in its words (the block's empty), or in the default ones.
+// An empty list is a product not out yet (George, 26 Oct 2026: "Design the empty view better please."): the newest
+// release's card holds its place, with an emblem in the product's colour, a title, a line and, if the block gives one, a
+// link. The block's empty says it: its line (trusted HTML), or { title?, text?, link? }, the title ("Coming soon" unless
+// it says), the line (else the default one) and a link ({ href, label }: the try page, say), a soft call to action.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { esc, ICONS } from './partials.mjs'
@@ -60,6 +63,17 @@ export function readNews(b, dir) {
   return { entries: problems.length ? [] : log.entries, problems }
 }
 
+// What's wrong with the block's empty (check-site reports it): its line, or { title?, text?, link? }.
+export function emptyProblems(empty) {
+  if (empty === undefined) return []
+  if (typeof empty === 'string') return empty.trim() ? [] : ["the news block's empty has no words"]
+  if (!empty || typeof empty !== 'object' || Array.isArray(empty)) return ["the news block's empty isn't its line or { title, text, link }"]
+  const problems = Object.keys(empty).filter((k) => !['title', 'text', 'link'].includes(k)).map((k) => `the news block's empty has "${k}": it takes title, text and link`)
+  for (const k of ['title', 'text']) if (empty[k] !== undefined && (typeof empty[k] !== 'string' || !empty[k].trim())) problems.push(`the news block's empty.${k} isn't a line of text`)
+  if (empty.link !== undefined && !['href', 'label'].every((k) => typeof empty.link?.[k] === 'string' && empty.link[k].trim())) problems.push("the news block's empty.link isn't { href, label }")
+  return problems
+}
+
 const when = (e) => `<time datetime="${esc(e.date)}">${day(e.date)}</time>`
 const where = (e) => (e.platforms ?? []).map((p) => `<span class="tag">${esc(p)}</span>`).join('')
 // An entry's name: its headline, else its version. With a headline, the version stands beside the date.
@@ -67,8 +81,25 @@ const heading = (e) => esc(e.title ?? `Version ${e.version}`)
 const version = (e) => (e.title ? `<span>Version ${esc(e.version)}</span>` : '')
 const lines = (e) => `<ul>${e.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>${e.link ? `<a class="news-link" href="${esc(e.link.href)}">${esc(e.link.label)}</a>` : ''}`
 
+// The card of a product not out yet, in the newest release's place: a calendar with a spark in the product's colour.
+const SOON = { title: 'Coming soon', text: 'Nothing here yet: the first release will show here, with every one after it.' }
+const EMBLEM = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 9.5h17M8 3v4M16 3v4"/><path fill="currentColor" stroke="none" d="M12 11.5l1.1 2.4 2.4 1.1-2.4 1.1L12 18.5l-1.1-2.4L8.5 15l2.4-1.1z"/></svg>'
+function soon(empty) {
+  const { title, text, link } = { ...SOON, ...(typeof empty === 'string' ? { text: empty } : empty) }
+  return `<div class="news single">
+          <article class="news-latest news-soon">
+            <span class="news-emblem" aria-hidden="true">${EMBLEM}</span>
+            <div>
+              <h3>${esc(title)}</h3>
+              <p>${text}</p>${link ? `
+              <a class="news-link" href="${esc(link.href)}">${esc(link.label)}</a>` : ''}
+            </div>
+          </article>
+        </div>`
+}
+
 export function news(entries, { empty } = {}) {
-  if (!entries.length) return `<p class="news-empty">${empty ?? 'Nothing here yet: the first release will show here, with every one after it.'}</p>`
+  if (!entries.length) return soon(empty)
   const [latest, ...older] = entries
   return `<div class="news${older.length ? '' : ' single'}">
           <article class="news-latest">

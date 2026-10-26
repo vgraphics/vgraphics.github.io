@@ -6,19 +6,20 @@
     <title>Play Exitwise</title>
     <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
-    <link rel="icon" href="/exitwise/img/icon-512.png">
-    <link rel="apple-touch-icon" href="/exitwise/img/icon-512.png">
+    <!-- The site's own favicon (the round tower logo) and touch icon (the app icon), as every Exitwise page has them. -->
+    <link rel="icon" href="/exitwise/assets/icon-32.png">
+    <link rel="apple-touch-icon" href="/exitwise/assets/icon-180.png">
     <!-- Exitwise's cursors, as on every Exitwise page: its theme pack sets them (for mice and trackpads only, so phones
          don't wait for it) and the site's shared rules put them to use. -->
     <link rel="stylesheet" href="/exitwise/theme/theme.css" media="(hover: hover) and (pointer: fine)">
     <link rel="stylesheet" href="/assets/cursors.css">
     <!-- Exitwise's welcome art (#loader-art), asked for first so it is ready when the VGraphics intro ends: one file. -->
-    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-aspect-ratio: 6/5)"
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-aspect-ratio: 1/2)"
           imagesrcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" imagesizes="100vw">
-    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-aspect-ratio: 2/1)"
-          imagesrcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" imagesizes="241.5vh">
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-aspect-ratio: 16/9)"
+          imagesrcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" imagesizes="232vh">
     <link rel="preload" as="image" type="image/webp" fetchpriority="high"
-          media="(min-aspect-ratio: 1201/1000) and (max-aspect-ratio: 1999/1000)"
+          media="(min-aspect-ratio: 501/1000) and (max-aspect-ratio: 1777/1000)"
           imagesrcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w" imagesizes="177.78vh">
     <!-- The preview chat apps and social sites show for a link. -->
     <meta property="og:type" content="website">
@@ -57,27 +58,19 @@
         html.with-banner { --ad: 98px; }
         .exitwise_banner { width: 728px; height: 90px; }
       }
-      /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's icon,
-         its arrows nudging the way they point, the title and the download. The dots are the board's. Sized by the
-         window's height. */
+      /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's logo
+         and the download. The dots are the board's. Sized by the window's height too. */
       #loader { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); display: flex; flex-direction: column;
                 align-items: center; justify-content: center;
                 background: var(--paper) radial-gradient(circle, #DCD2C2 2.5px, transparent 3px) 0 0 / 30px 30px;
                 font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; color: var(--ink);
                 transition: opacity 0.3s; }
       #loader.done { opacity: 0; pointer-events: none; }
-      /* The logo's place, above the bar: the icon and the title (a splash could take their place). */
-      #loader-logo { display: flex; flex-direction: column; align-items: center; }
-      #loader-logo svg { width: min(30vh, 170px); height: min(30vh, 170px); overflow: visible; }
-      .arrow path { fill: none; stroke: currentColor; stroke-width: 58; stroke-linecap: round; stroke-linejoin: round; }
-      .arrow .head { fill: currentColor; stroke-width: 16; }
-      .arrow { animation: 1.8s ease-in-out infinite; }
-      .red { color: #FF6B6B; animation-name: nudge-up; }
-      .green { color: #3BB273; animation-name: nudge-up; animation-delay: 0.3s; }
-      .blue { color: #1C9FD8; animation-name: nudge-right; animation-delay: 0.6s; }
-      @keyframes nudge-up { 0%, 45%, 100% { transform: translateY(0); } 20% { transform: translateY(-26px); } }
-      @keyframes nudge-right { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(26px); } }
-      #loader-title { margin: min(2.5vh, 16px) 0 min(4vh, 28px); font-size: min(9vh, 64px); line-height: 1; letter-spacing: 0.01em; }
+      /* The logo's place, above the bar: the Exitwise logo, the round tower logo with the title to its right
+         (docs/brand/exitwise/round3, logo/ made by docs/brand/tools/web_logo.py; George, 24 Oct: the old icon of three
+         arrows "was a placeholder"). The picture carries the title. */
+      #loader-logo { margin-bottom: min(4.5vh, 32px); }
+      #loader-logo img { display: block; width: min(84vw, 600px, 80vh); height: auto; }
       /* The bar, chubby like the game's buttons: a white pill on a darker lip with a groove in it, and in the groove a fat
          green arrow, .bar-fill its body and .bar-head its head, that grows to the right. --t is the arrow's thickness and
          --lead its length at 0%, a round tail and the head; the script slides both parts along the rest of the groove. */
@@ -97,12 +90,17 @@
                   background: #3BB273; box-shadow: inset 0 calc(var(--t) * -0.16) 0 #2A8A57; }
       .bar-fill::after { content: ""; position: absolute; left: 0; right: calc(var(--t) / 2); top: 16%; height: 28%; border-radius: 999px 0 0 999px;
                          background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3)); }
-      /* Body and head move together, by transform only, which the compositor keeps smooth while the page is busy
-         starting the game. The arrowhead squashes and stretches about its back (the script's keyframes). */
-      .bar-fill, .bar-head { transform: translateX(calc(var(--lead) - 100%)); transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1); }
+      /* Body and head move together, by transform only (the script plans each glide as a transition), which the
+         compositor keeps smooth while the page is busy starting the game. The arrowhead squashes, and its face
+         stretches with the speed, about its back (the script's keyframes). */
+      .bar-fill, .bar-head { transform: translateX(calc(var(--lead) - 100%)); }
       .bar-tip { position: absolute; right: 0; top: 50%; width: var(--hl); height: calc(var(--t) * 1.5); margin-top: calc(var(--t) * -0.75);
                  transform-origin: 0 50%; }
-      .bar-tip svg { display: block; width: 100%; height: 100%; }
+      .bar-tip svg { display: block; width: 100%; height: 100%; transform-origin: 0 50%; }
+      /* The sparkles the script flings off the arrowhead, its em a bar height; it sets each one's left to the head's. */
+      .bar-spark { position: absolute; top: calc(var(--pad) + var(--t) / 2); font-size: var(--h); width: 0.5em; height: 0.5em;
+                   margin: -0.25em 0 0 -0.25em; opacity: 0; pointer-events: none; }
+      .bar-spark svg { display: block; width: 100%; height: 100%; overflow: visible; }
       /* Full, while the game starts: the arrow nudges to get out and a sheen runs along it. */
       .bar-groove::after { content: ""; position: absolute; inset: 0; opacity: 0; transform: translateX(-100%);
                            background: linear-gradient(100deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 70%); }
@@ -112,8 +110,8 @@
       @keyframes tip-nudge { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(16%); } }
       #loader-status { position: relative; margin-top: min(3.4vh, 22px); font-size: min(4.2vh, 24px); color: #8A80A3; }
       /* Exitwise's welcome art (docs/brand/exitwise-key-art), after the VGraphics intro (brand-intro/brand-intro.js) and
-         while the game loads. It carries the title, so once it can be drawn it takes the place of the icon and the title,
-         and the bar and status move down onto its meadow over a soft shade. Until then, or without it, the paper stays. */
+         while the game loads. It carries the title, so once it can be drawn it takes the place of the logo, and the bar
+         and status move down onto its meadow over a soft shade. Until then, or without it, the paper stays. */
       #loader-art { position: absolute; inset: 0; overflow: hidden; background: #0A090D; opacity: 0; transition: opacity 0.3s; }
       #loader-art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
       #loader-art::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 36%;
@@ -125,18 +123,17 @@
       /* As it comes into view, it settles from a touch larger. */
       #loader-art.settle img { animation: art-settle 1.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
       @keyframes art-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
-      /* Windows wider than even the wide picture (past 12:5, such as 32:9) see all of it, its own colours blurred beside it. */
+      /* Windows wider than even the wide picture (past 7:3, such as 32:9) see all of it, its own colours blurred beside it. */
       #loader-art .ambient { display: none; position: absolute; inset: -40px; background: center / cover no-repeat;
                              filter: blur(28px) brightness(0.75); }
-      @media (min-aspect-ratio: 12/5) {
+      @media (min-aspect-ratio: 7/3) {
         #loader-art img { object-fit: contain; }
         #loader-art .ambient { display: block; }
       }
       /* While the statistics question's card would cover them, the bar and its status wait above it (--lift). */
       #loader-bar, #loader-status { translate: 0 calc(var(--lift, 0px) * -1); transition: translate 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
       @media (prefers-reduced-motion: reduce) {
-        .arrow, #loader.starting .bar-tip, #loader.starting .bar-groove::after, #loader-art.settle img { animation: none; }
-        .bar-fill, .bar-head { transition-duration: 0.2s; }
+        #loader.starting .bar-tip, #loader.starting .bar-groove::after, #loader-art.settle img { animation: none; }
       }
       footer { position: fixed; left: 0; right: 0; bottom: 0; height: var(--bar); box-sizing: border-box; padding: 0 16px;
                display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); background: var(--card);
@@ -301,22 +298,16 @@
   <body>
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <div id="loader">
-      <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's picture: its tall version
-           on phones and narrow windows, its wide version from 2:1, the picture itself in between. -->
+      <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's tall picture: on phones
+           taller than 1:2 with more sky and meadow, from 1:2 to 16:9 in its 16:9 outpaint, and from 16:9 in its 7:3
+           outpaint. Each covers by cutting only its sides, so the tower and title stay whole. -->
       <div id="loader-art"><div class="ambient"></div><picture>
-        <source media="(max-aspect-ratio: 6/5)" type="image/webp" srcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" sizes="100vw">
-        <source media="(min-aspect-ratio: 2/1)" type="image/webp" srcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" sizes="241.5vh">
+        <source media="(max-aspect-ratio: 1/2)" type="image/webp" srcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" sizes="100vw">
+        <source media="(min-aspect-ratio: 16/9)" type="image/webp" srcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" sizes="232vh">
         <img src="art/key-art-1920.webp" srcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w"
              sizes="177.78vh" alt="" fetchpriority="high" decoding="async">
       </picture></div>
-      <div id="loader-logo">
-        <svg viewBox="0 0 512 512" aria-hidden="true">
-          <g class="arrow red"><path d="M97 418V140" /><path class="head" d="M44 142L97 84L150 142Z" /></g>
-          <g class="arrow green"><path d="M238 136V272H380V140" /><path class="head" d="M327 142L380 84L433 142Z" /></g>
-          <g class="arrow blue"><path d="M238 415H384" /><path class="head" d="M382 362L440 415L382 468Z" /></g>
-        </svg>
-        <div id="loader-title">Exitwise</div>
-      </div>
+      <div id="loader-logo"><img src="logo/exitwise-logo.webp" width="1200" height="269" alt="Exitwise"></div>
       <div id="loader-bar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="bar-shadow"></div>
         <div class="bar-hop"><div class="bar-jelly">
@@ -385,21 +376,47 @@
         });
       })();
     </script>
+    <!-- VHub, VGraphics' account service (window.VHubUnity), published with the hub: the game signs in through it, so it
+         shares the hub's VHub session in this browser (ArrowPuzzleVHub.jslib). A local build has no such file and signs in
+         to nothing. -->
+    <script src="/hub/sdk/vhub-unity-1.js"></script>
     <script src="Build/WebGLPortfolio.loader.js"></script>
     <script>
-      // The loading bar, the same in WebGLTemplates/Responsive: Unity's download in steps that ease in and never go back.
-      // Each step stretches the arrowhead as it shoots ahead, squashes it as it stops and wobbles the bar; full, the bar
-      // hops. Only transforms move, which the compositor runs while the page's own thread is busy starting the game.
-      // show(0 to 1) moves it, whenSettled(then) waits for the hop to end, stop() halts it.
+      // The loading bar, the same in WebGLTemplates/Responsive, and on phones (BootLoadingBar.cs): Unity's download, never
+      // shown ahead of it and never going back. While a pace is set it also fills no faster than the clock across the
+      // welcome art's 2 s (brand-intro.js), the curve phones use (BootFlow.Pace), so it starts empty and is full just as
+      // the game may come in. The arrow glides by CSS transitions planned ahead, its head stretching with its speed; at
+      // each quarter it gulps (a squish, the bar's wobble a beat later, two sparkles), and full it pops a burst of
+      // sparkles and the bar hops. All of that is planned ahead too, as animations of transforms and opacity, which the
+      // compositor runs while the page's own thread is busy starting the game; only the "Loading N%" count needs that
+      // thread. show(0 to 1) gives the download, pace(from, until) the clock (performance.now() ms; pace(Infinity) holds
+      // it empty), whenSettled(then) waits for the hop to end, stop() halts it.
       function loadingBar(root, onStep, onFull) {
         var part = function (name) { return root.querySelector(".bar-" + name); };
         var fill = part("fill"), head = part("head"), tip = part("tip"), jelly = part("jelly"), hop = part("hop"), shadow = part("shadow");
-        // Reduced motion keeps the steps and leaves out the squash, the wobble and the hop (the CSS drops the nudge).
+        var face = tip.querySelector("svg");
+        // Reduced motion keeps the glide and leaves out the stretch, squash, wobble, sparkles and hop (the CSS drops the
+        // nudge). Without linear() easing the arrow goes straight from stop to stop.
         var lively = typeof tip.animate === "function" &&
           !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-        var target = 0, shown = 0, last = -1e4, timer = 0, settled = 0, stopped = false;
+        var curved = !!(window.CSS && CSS.supports && CSS.supports("transition-timing-function", "linear(0, 1)"));
         var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
         var UP = "cubic-bezier(0.61, 1, 0.88, 1)", DOWN = "cubic-bezier(0.12, 0, 0.39, 0)"; // sine out, sine in
+        var easeOut = function (x) { x = Math.min(1, Math.max(0, x)); return 1 - (1 - x) * (1 - x) * (1 - x); };
+        var smooth = function (x) { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+        var download = 0, base = 0, from = -Infinity, until = -Infinity, stopped = false;
+        // The welcome's clock: half steady, half smoothstep, from base at `from` to full at `until`.
+        var paced = function (t) {
+          if (t < from) return base;
+          if (t >= until) return 1;
+          var u = (t - from) / (until - from);
+          return base + (1 - base) * (0.5 * u + 0.5 * smooth(u));
+        };
+        // The arrow's way as planned: from a at ta to b at tb, along way(0 to 1).
+        var a = 0, b = 0, ta = 0, tb = 0, way = function (u) { return u; };
+        var at = function (t) { return t >= tb ? b : t <= ta ? a : a + (b - a) * way((t - ta) / (tb - ta)); };
+        var effects = [], stretch = null, settled = Infinity, settling = [], idle = false, percent = -1, ticking = false;
+        var place = function (shown) { return "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))"; };
         // A damped wobble as 600 ms of keyframes: out to amount, back past still, smaller each time, then still.
         var wobble = function (amount, frame) {
           var frames = [];
@@ -409,18 +426,55 @@
           }
           return frames;
         };
-        // The bigger the step, the bigger the squish. The bar follows the arrowhead a beat later.
-        var squish = function (jump, wholeBar) {
-          var amount = Math.min(0.3, 0.08 + jump * 0.6);
-          tip.animate(wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), 600);
-          if (wholeBar) {
-            jelly.animate(wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }),
-              { duration: 600, delay: 40 });
+        var later = function (element, frames, timing) {
+          var effect = { at: now() + (timing.delay || 0), run: element.animate(frames, timing) };
+          effects.push(effect);
+          return effect;
+        };
+        // The sparkles: flat candy stars in the game's ink, lemon and cream in turn, flung off the arrowhead. Each is
+        // [angle from the arrow's way in degrees (up is negative), reach, size], in bar heights (the spark's em).
+        var sparks = [];
+        for (var i = 0; i < 16; i++) {
+          var spark = document.createElement("div");
+          spark.className = "bar-spark";
+          spark.setAttribute("aria-hidden", "true");
+          spark.innerHTML = "<svg viewBox=\"0 0 40 40\"><path d=\"M20 1.8Q25.1 14.9 38.2 20Q25.1 25.1 20 38.2Q14.9 25.1 1.8 20Q14.9 14.9 20 1.8Z\" fill=\"" +
+            (i % 2 ? "#FFFDF8" : "#FFD23F") + "\" stroke=\"#3B3355\" stroke-width=\"3.6\" stroke-linejoin=\"round\" /></svg>";
+          root.appendChild(spark);
+          sparks.push({ el: spark, spin: i % 2 ? -90 : 90, busy: 0 });
+        }
+        var QUARTER = [[-40, 0.9, 0.42], [-105, 0.75, 0.34]];
+        var FULL = [[-165, 1.05, 0.4], [-120, 1.3, 0.5], [-75, 1.2, 0.44], [-30, 1.25, 0.5], [5, 1.1, 0.38], [35, 0.9, 0.34]];
+        var fling = function (delay, shown, spec) {
+          // One that is neither flying nor waiting to (16 is more than a plan ever needs at once).
+          var free = sparks.filter(function (one) { return one.busy <= now(); })[0];
+          if (!free) return;
+          var el = free.el, spin = free.spin;
+          el.style.left = "calc(var(--pad) + var(--lead) + (100% - 2 * var(--pad) - var(--lead)) * " + shown.toFixed(4) + ")";
+          var angle = spec[0] * Math.PI / 180, size = spec[2] / 0.5, frames = [];
+          // Pops past its size in the first 30 %, flies out spinning a quarter turn, shrinks away and fades at the end.
+          for (var k = 0; k <= 12; k++) {
+            var u = k / 12, out = easeOut(u) * spec[1];
+            var grow = u < 0.3 ? 1.15 * easeOut(u / 0.3) : 1.15 * (1 - smooth((u - 0.3) / 0.7));
+            frames.push({
+              opacity: u < 0.75 ? 1 : (1 - u) / 0.25,
+              transform: "translate(" + (Math.cos(angle) * out).toFixed(3) + "em, " + (Math.sin(angle) * out).toFixed(3) + "em) rotate(" +
+                (spin * u).toFixed(1) + "deg) scale(" + (grow * size).toFixed(3) + ")"
+            });
           }
+          free.busy = now() + delay + 520;
+          later(el, frames, { duration: 520, delay: delay }).spark = free;
+        };
+        // A gulp `delay` ms from now with the arrow at `shown`: the arrowhead squishes, the bar wobbles a beat later
+        // (not when full: it hops then), the sparkles fly.
+        var gulp = function (delay, shown, amount, flung) {
+          later(tip, wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), { duration: 600, delay: delay });
+          if (shown < 1) later(jelly, wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }), { duration: 600, delay: delay + 40 });
+          flung.forEach(function (spec) { fling(delay, shown, spec); });
         };
         // Full: the bar crouches, hops and lands with a squash, its shadow shrinking under it while it is up.
-        var bounce = function () {
-          hop.animate([
+        var bounce = function (delay) {
+          later(hop, [
             { offset: 0, transform: "translateY(0) scale(1, 1)", easing: UP },
             { offset: 0.16, transform: "translateY(0) scale(1.04, 0.84)", easing: UP },
             { offset: 0.44, transform: "translateY(-40%) scale(0.97, 1.08)", easing: DOWN },
@@ -428,53 +482,136 @@
             { offset: 0.8, transform: "translateY(-10%) scale(0.99, 1.03)", easing: DOWN },
             { offset: 0.92, transform: "translateY(0) scale(1.01, 0.98)" },
             { offset: 1, transform: "translateY(0) scale(1, 1)" }
-          ], 620);
-          shadow.animate([
+          ], { duration: 620, delay: delay });
+          later(shadow, [
             { offset: 0, transform: "scale(1, 1)", opacity: 1, easing: UP },
             { offset: 0.16, transform: "scale(1.05, 1)", opacity: 1, easing: UP },
             { offset: 0.44, transform: "scale(0.8, 0.8)", opacity: 0.5, easing: DOWN },
             { offset: 0.64, transform: "scale(1.06, 1)", opacity: 1, easing: UP },
             { offset: 0.8, transform: "scale(0.95, 0.95)", opacity: 0.85, easing: DOWN },
             { offset: 1, transform: "scale(1, 1)", opacity: 1 }
-          ], 620);
+          ], { duration: 620, delay: delay });
         };
-        var step = function () {
-          clearTimeout(timer);
-          if (stopped || target <= shown) return;
-          // One gulp at a time: a big one after half a second, a small one after a longer beat, the last one at once.
-          var wait = (target < 1 ? (target - shown >= 0.04 ? 500 : 900) : 0) - (now() - last);
-          if (wait > 0) {
-            timer = setTimeout(step, wait);
+        // The count, on the page's thread: "Loading N%" as the arrow passes each whole percent, then "Starting".
+        var tick = function () {
+          if (stopped) {
+            ticking = false;
             return;
           }
-          var jump = target - shown;
-          shown = target;
-          last = now();
-          var at = "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))";
-          fill.style.transform = at;
-          head.style.transform = at;
-          root.setAttribute("aria-valuenow", String(Math.floor(shown * 100)));
-          onStep(shown);
-          if (lively) squish(jump, shown < 1);
-          if (shown < 1) return;
-          if (lively) setTimeout(bounce, 150);
-          settled = last + (lively ? 770 : 0);
-          setTimeout(function () { if (!stopped) onFull(); }, settled - last);
+          var t = now(), shown = at(t), whole = Math.floor(shown * 100 + 1e-6);
+          if (whole !== percent) {
+            percent = whole;
+            root.setAttribute("aria-valuenow", String(whole));
+            onStep(whole >= 100 ? 1 : shown);
+          }
+          if (t < tb) requestAnimationFrame(tick);
+          else ticking = false;
+        };
+        var settle = function () {
+          if (stopped || now() < settled - 1) return;
+          if (!idle) {
+            idle = true;
+            onFull();
+          }
+          settling.splice(0).forEach(function (then) { then(); });
+        };
+        // From where the arrow is now to where it may go (the download, and full only once the pace allows): along the
+        // pace, after a quick catch-up if the pace has run on ahead of it while it waited for the download.
+        var plan = function () {
+          if (stopped) return;
+          var t = now(), shown = at(t), goal = Math.min(download, from === Infinity ? base : 1);
+          if (goal <= shown + 1e-4) return;
+          var catchUp = paced(t) > shown + 1e-3 ? 450 : 0;
+          var go = function (t2) {
+            var w = catchUp ? easeOut((t2 - t) / catchUp) : 1;
+            return shown + (Math.max(shown, Math.min(goal, paced(t2))) - shown) * w;
+          };
+          // When the way first reaches `share` (it only ever grows), found by halving.
+          var reach = function (share, end) {
+            var lo = t, hi = end;
+            for (var n = 0; n < 32; n++) {
+              var mid = (lo + hi) / 2;
+              if (go(mid) < share) lo = mid;
+              else hi = mid;
+            }
+            return hi;
+          };
+          var end = Math.max(t + catchUp, paced(t) >= goal ? t : reach(goal, Math.max(until, t + catchUp)));
+          var ms = Math.max(1, end - t), steps = Math.max(2, Math.min(60, Math.round(ms / 40))), points = [];
+          a = shown;
+          b = goal;
+          ta = t;
+          tb = t + ms;
+          way = curved ? function (u) { return (go(t + u * ms) - shown) / (goal - shown); } : function (u) { return u; };
+          for (var n = 0; n <= steps; n++) points.push(way(n / steps).toFixed(4));
+          [fill, head].forEach(function (element) {
+            element.style.transition = "transform " + Math.round(ms) + "ms " + (curved ? "linear(" + points.join(", ") + ")" : "linear");
+            element.style.transform = place(goal);
+          });
+          // What the last plan had still to come gives way to this one's.
+          effects.forEach(function (effect) {
+            if (effect.at <= t) return;
+            effect.run.cancel();
+            if (effect.spark) effect.spark.busy = 0;
+          });
+          effects = [];
+          if (lively) {
+            // The head stretches with the speed (bars a second), and settles back as the arrow stops.
+            var frames = [];
+            for (var n = 0; n <= steps; n++) {
+              var t2 = t + ms * n / steps, speed = (at(t2 + 8) - at(t2 - 8)) / 16 * 1000, k = Math.min(0.3, 0.2 * Math.max(0, speed));
+              frames.push({ offset: (ms * n / steps) / (ms + 120), transform: "scale(" + (1 + k).toFixed(3) + ", " + (1 - 0.5 * k).toFixed(3) + ")" });
+            }
+            frames.push({ offset: 1, transform: "scale(1, 1)" });
+            if (stretch) stretch.cancel();
+            stretch = face.animate(frames, ms + 120);
+            [0.25, 0.5, 0.75].forEach(function (quarter) {
+              if (shown < quarter && goal >= quarter) gulp(reach(quarter, tb) - t, quarter, 0.12, QUARTER);
+            });
+            if (goal >= 1) {
+              gulp(ms, 1, 0.3, FULL);
+              bounce(ms + 150);
+            }
+          }
+          if (goal >= 1) {
+            settled = tb + (lively ? 770 : 0);
+            setTimeout(settle, settled - t);
+          }
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(tick);
+          }
         };
         var show = function (value) {
-          if (value <= target) return;
-          target = Math.min(1, value);
-          step();
+          if (value <= download) return;
+          download = Math.min(1, value);
+          plan();
         };
         return {
           show: show,
+          pace: function (start, full) {
+            var t = now();
+            base = at(t);
+            from = Math.max(start, t);
+            until = full;
+            plan();
+          },
           whenSettled: function (then) {
             show(1);
-            setTimeout(then, Math.max(0, settled - now()));
+            settling.push(then);
+            if (now() >= settled) settle();
           },
           stop: function () {
+            var t = now();
             stopped = true;
-            clearTimeout(timer);
+            a = b = at(t);
+            ta = tb = t;
+            [fill, head].forEach(function (element) {
+              element.style.transition = "none";
+              element.style.transform = place(b);
+            });
+            effects.forEach(function (effect) { effect.run.cancel(); });
+            if (stretch) stretch.cancel();
           }
         };
       }
@@ -482,6 +619,22 @@
       var canvas = document.querySelector("#unity-canvas");
       var loader = document.querySelector("#loader");
       var statusLine = document.querySelector("#loader-status");
+      // The loading screen's end, for the game (WelcomeSplash.cs, through ArrowPuzzlePage.jslib): as it starts to fade, how
+      // long the welcome art was on it in ms (-1 if it never came), for splash_shown. Asked late, it answers at once.
+      window.exitwiseSplash = (function () {
+        var shownMs = null, waiting = [];
+        return {
+          whenGone: function (then) {
+            if (shownMs === null) waiting.push(then);
+            else setTimeout(function () { then(shownMs); }, 0);
+          },
+          gone: function (ms) {
+            if (shownMs !== null) return;
+            shownMs = ms;
+            waiting.splice(0).forEach(function (then) { then(ms); });
+          }
+        };
+      })();
       var bar = loadingBar(document.querySelector("#loader-bar"), function (shown) {
         statusLine.textContent = shown < 1 ? "Loading " + Math.floor(shown * 100) + "%" : "Starting";
       }, function () {
@@ -495,6 +648,12 @@
         var art = document.querySelector("#loader-art");
         var img = art && art.querySelector("img");
         if (!img) return;
+        // The game has usually downloaded under the VGraphics intro, so the bar waits empty there and then fills across
+        // the art's 2 s, full just as the game may come in (George, 22 Oct: it opened at 99 %).
+        if (window.VGIntro) {
+          bar.pace(Infinity, Infinity);
+          VGIntro.welcomeWindow(bar.pace);
+        }
         var settle = function () { art.classList.add("settle"); };
         var show = function () {
           if (!loader.isConnected) return;
@@ -547,7 +706,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.6a32905f",
+        productVersion: "1.0.f4f96dbf",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
@@ -557,9 +716,10 @@
           bar.whenSettled(function () {
             loader.classList.add("done");
             setTimeout(function () { loader.remove(); }, 400);
+            window.exitwiseSplash.gone(window.VGIntro ? VGIntro.welcomeMs() : -1);
           });
         };
-        // The VGraphics intro gives way first, if it is still on, and the welcome art gets its moment
+        // The VGraphics intro gives way first, if it is still on, and the welcome art gets its 2 s at least
         // (brand-intro/brand-intro.js).
         if (window.VGIntro) VGIntro.gameReady(reveal);
         else reveal();
