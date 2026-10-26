@@ -876,7 +876,7 @@
     {
       "id": "privacy",
       "band": {
-        "art": "<span class=\"lcd\" data-ghost=\"88\">00</span>",
+        "art": "<span class=\"lcd lamp\" aria-hidden=\"true\"><svg viewBox=\"0 0 40 24\"><g class=\"off\"><path d=\"M9 8a6 6 0 0 0 0 8M5.5 5a10.5 10.5 0 0 0 0 14M31 8a6 6 0 0 1 0 8M34.5 5a10.5 10.5 0 0 1 0 14\"/></g><g class=\"on\"><rect x=\"13\" y=\"1\" width=\"14\" height=\"22\" rx=\"2.6\"/><path d=\"M17.6 12.5v-2.2a2.4 2.4 0 0 1 4.8 0v2.2\"/><rect x=\"16.4\" y=\"12.5\" width=\"7.2\" height=\"5.6\" rx=\"1\" fill=\"currentColor\" stroke-width=\"1.4\"/></g></svg></span>",
         "title": "Your readings stay on your phone",
         "text": "Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen. Future's music, calls and messages are read on the phone and stay there.",
         "link": {
