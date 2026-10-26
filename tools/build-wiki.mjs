@@ -21,7 +21,7 @@ import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
-const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Design' }
+const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
 
 // The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
 // the product › Wiki, then the entry. "<" is escaped so no text can close the script.
