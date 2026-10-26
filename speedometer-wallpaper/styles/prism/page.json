@@ -1,6 +1,6 @@
 {
   "title": "Prism Speedometer Live Wallpaper: Angular Tech Cluster",
-  "description": "Prism: an angular cluster of faceted blue and red glass. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Prism: an angular cluster of faceted blue and red glass. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Prism, a Speedometer Live Wallpaper style",
     "description": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/prism/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/prism/",
         "name": "Prism Speedometer Live Wallpaper: Angular Tech Cluster",
-        "description": "Prism: an angular cluster of faceted blue and red glass. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Prism: an angular cluster of faceted blue and red glass. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/prism.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Prism once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -171,7 +171,7 @@
                 "height": 780
               },
               "title": "Aura",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
               "href": "/speedometer-wallpaper/styles/aura/",
               "tagTone": "alt"
@@ -184,7 +184,7 @@
                 "height": 780
               },
               "title": "Pulse",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
               "href": "/speedometer-wallpaper/styles/pulse/",
               "tagTone": "alt"
@@ -197,7 +197,7 @@
                 "height": 780
               },
               "title": "Vector",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
               "href": "/speedometer-wallpaper/styles/vector/",
               "tagTone": "alt"
@@ -210,7 +210,7 @@
                 "height": 780
               },
               "title": "Horizon",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
               "href": "/speedometer-wallpaper/styles/horizon/",
               "tagTone": "alt"

@@ -1,6 +1,6 @@
 {
   "title": "Horizon Speedometer Live Wallpaper: Fighter Jet HUD",
-  "description": "Horizon: a fighter jet's head-up display, green on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Horizon: a fighter jet's head-up display, green on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Horizon, a Speedometer Live Wallpaper style",
     "description": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/horizon/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/horizon/",
         "name": "Horizon Speedometer Live Wallpaper: Fighter Jet HUD",
-        "description": "Horizon: a fighter jet's head-up display, green on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Horizon: a fighter jet's head-up display, green on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/horizon.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Horizon once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -207,7 +207,7 @@
                 "height": 780
               },
               "title": "Future",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
               "href": "/speedometer-wallpaper/styles/future/",
               "tagTone": "alt"

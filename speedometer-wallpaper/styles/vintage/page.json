@@ -1,6 +1,6 @@
 {
   "title": "Vintage Speedometer Live Wallpaper: 1960s Car Dashboard",
-  "description": "Vintage: a 1960s dashboard in walnut, chrome and cream enamel. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Vintage: a 1960s dashboard in walnut, chrome and cream enamel. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Vintage, a Speedometer Live Wallpaper style",
     "description": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/vintage/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/vintage/",
         "name": "Vintage Speedometer Live Wallpaper: 1960s Car Dashboard",
-        "description": "Vintage: a 1960s dashboard in walnut, chrome and cream enamel. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Vintage: a 1960s dashboard in walnut, chrome and cream enamel. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/vintage.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Vintage once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -171,7 +171,7 @@
                 "height": 780
               },
               "title": "Amber Night",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
               "href": "/speedometer-wallpaper/styles/amber-night/",
               "tagTone": "alt"
@@ -184,7 +184,7 @@
                 "height": 780
               },
               "title": "Rally",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
               "href": "/speedometer-wallpaper/styles/rally/",
               "tagTone": "alt"
@@ -197,7 +197,7 @@
                 "height": 780
               },
               "title": "Glass",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.",
               "href": "/speedometer-wallpaper/styles/glass/",
               "tagTone": "alt"
@@ -210,7 +210,7 @@
                 "height": 780
               },
               "title": "Cockpit",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.",
               "href": "/speedometer-wallpaper/styles/cockpit/",
               "tagTone": "alt"

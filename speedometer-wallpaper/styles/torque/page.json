@@ -1,6 +1,6 @@
 {
   "title": "Torque Speedometer Live Wallpaper: Muscle Car Dash",
-  "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Torque, a Speedometer Live Wallpaper style",
     "description": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/torque/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/torque/",
         "name": "Torque Speedometer Live Wallpaper: Muscle Car Dash",
-        "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/torque.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Torque once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -171,7 +171,7 @@
                 "height": 780
               },
               "title": "Circuit",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
               "href": "/speedometer-wallpaper/styles/circuit/",
               "tagTone": "alt"
@@ -184,7 +184,7 @@
                 "height": 780
               },
               "title": "Prism",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
               "href": "/speedometer-wallpaper/styles/prism/",
               "tagTone": "alt"
@@ -197,7 +197,7 @@
                 "height": 780
               },
               "title": "Aura",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
               "href": "/speedometer-wallpaper/styles/aura/",
               "tagTone": "alt"
@@ -210,7 +210,7 @@
                 "height": 780
               },
               "title": "Pulse",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
               "href": "/speedometer-wallpaper/styles/pulse/",
               "tagTone": "alt"

@@ -31,6 +31,7 @@
     // The two seek bars, the player's and the mini-bar's: each a waveform under a range input, kept in step.
     const bars = [...root.querySelectorAll(".ost-seek")].map((box) => ({ box, wave: box.querySelector(".ost-wave"), range: box.querySelector(".ost-range") }));
     const rows = [...root.querySelectorAll(".ost-track")];
+    const songs = [...document.querySelectorAll("[data-ost-song]")]; // a chapter's song buttons elsewhere on the page
     const list = root.querySelector(".ost-list");
     const live = root.querySelector('[data-ost="live"]');
     const mini = root.querySelector(".ost-mini");
@@ -56,6 +57,7 @@
       root.dataset.state = s;
       mini.dataset.state = s;
       both("play").forEach((b) => b.setAttribute("aria-label", s === "paused" ? "Play" : "Pause"));
+      songs.forEach((b) => b.setAttribute("aria-pressed", String(s !== "paused" && Number(b.dataset.ostSong) === at)));
       if (session) session.playbackState = s === "paused" ? "paused" : "playing";
     }
 
@@ -259,6 +261,7 @@
       } catch (e) {}
     });
     rows.forEach((row, i) => row.addEventListener("click", () => (i === at ? toggle() : (select(i), start()))));
+    songs.forEach((b) => b.addEventListener("click", () => rows[Number(b.dataset.ostSong)]?.click()));
 
     for (const bar of bars) {
       const { box, range } = bar;

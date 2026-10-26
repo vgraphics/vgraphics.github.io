@@ -58,7 +58,7 @@
           "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
           "referrer": "utm_source=vgraphics.gr&utm_medium=try_online",
           "measurementId": "G-Q9JL2TRH6Z",
-          "prices": { "premium": "€1.19", "all": "€5.99" },
+          "prices": { "premium": "€2.39", "all": "€5.99" },
           "qr": { "src": "/speedometer-wallpaper/play/img/play-qr.svg", "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play" },
           "startup": {
             "art": {
@@ -73,7 +73,7 @@
             "gps": "Use my real speed",
             "get": "Set it as your wallpaper",
             "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one.",
-            "unlock": "Each premium style is €1.19, once, or unlock them all for €5.99. Euro-area prices with VAT; Google Play shows yours."
+            "unlock": "Each premium style is €2.39, once, or unlock them all for €5.99. Prices with VAT in most of the euro area; Google Play shows yours."
           }
         }
       ]

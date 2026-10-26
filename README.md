@@ -7,7 +7,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | Path | What |
 |---|---|
 | `index.html` | Home page: the four menus as four doors, then games, apps, playing together, services and the studio |
-| `games/index.html` | Games: Exitwise, and the two party games in design (no dates) |
+| `games/index.html` | Games: Exitwise, and the two party games on the way (no dates): Palermo Noir, with its own page at `/palermo/`, and Quizfall, still in design |
 | `apps/index.html` | Apps: Speedometer Live Wallpaper |
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
@@ -36,7 +36,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, the cursors, the chapter stepper and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
@@ -44,6 +44,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
+| `tools/make-key-art.py` | Writes a product's hero pictures (`<product>/img/key-art-wide-*` and `key-art-tall-*`, AVIF, WebP and JPEG) from its key art masters and prints their page.json entries: `python tools/make-key-art.py <product> <wide master> <tall master>`, or `--cut <x>` for a 9:16 cut of the wide one. Never larger than the master. |
+| `tools/make-product-card.py` | Draws a product's link-preview card `<product>/img/card-1200x630.jpg` from its key art and approved logo, with one line set in its own font: `python tools/make-product-card.py <product> <key art> <logo PNG> "<line>" [x]` |
 | `tools/make-cursors.mjs` | Draws every product's cursors and VGraphics' (see "Cursors" below): `node tools/make-cursors.mjs`, then `node tools/build-pages.mjs` |
 | `tools/make-qr.py` | Writes a QR code as a small SVG, made once so the page loads no QR library: `python tools/make-qr.py <link> <out.svg>` (Python with segno) |
 | `tools/make-card.py` | Draws the link-preview card `assets/img/vgraphics-card-1200x630.jpg` from the site's fonts, colours and screenshots: `python tools/make-card.py` (Python with Pillow, fontTools and brotli). Run it again after the home headline, the menus or the colours change. |
@@ -53,7 +55,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 
 Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
 `/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
-and fonts on the static pages, and no phone number or street address. The site is in English: no Greek letters on its
+and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
+alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
+`tools/` and this README included. The site is in English: no Greek letters on its
 pages or in the SVGs they show (the Greek product names belong in the Greek store listings). **Run
 `node tools/check-site.mjs` before every push.**
 
@@ -84,7 +88,20 @@ Change it there too and release `vhub-hub`: until then the check reports every h
 
 On phones every header folds its menu into a button at the right that opens it as a panel (George, 23 Oct 2026: "At
 mobile the vgraphics.gr toolbar does not fit. It must be a burger menu."): the company header below 768px, the product
-header below 561px. `assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
+header below 561px and wherever its row would not fit. Menu items keep to one line (George, 26 Oct 2026: "Map rules -
+always single line menu items."): every header link is `white-space: nowrap`, the product header keeps its logo (at its
+own size) and menu on one row, and `assets/menu.js` measures that row (on load, whenever the header changes size and
+when a font arrives): every link and the play button with its words show wherever they fit, drawn closer (`.compact`,
+less padding) where only that fits, and elsewhere the menu folds into its visible button (`.folded`) instead of
+squeezing, wrapping or hiding a link. Folded, the play button moves out of the panel into the bar beside the button, the
+page's main action always in sight, with its words unless a narrow phone has room only for its icon (`.play-icon`).
+Measured in Chrome after the fonts load, Exitwise shows its full row from about 1000px, its compact row at 768 and 790,
+and folds on phones ("Play online" with its words at 390, its icon at 360); Speedometer full from 790, compact at 768.
+A nav entry's `"wide": true` no longer hides it on narrower screens. check-site fails a header rule that lets a link
+wrap or hides a product header's link or play label (`display: none`, `visibility: hidden`, a clip), a logo free to
+shrink, a bare `.play` rule anywhere (the intro's demo once used one, which made the play button 460px wide and pushed
+the menu over), a `<br>` in a header's menu, and the fold missing from menu.js.
+`assets/menu.js` opens and closes the panel; it also adds the company header's button, so that
 header's markup stays the copy above. Every company page loads it in its `<head>` with
 `<script src="/assets/menu.js" defer></script>`, and the CSS acts only on pages that do. The hub's pages carry the
 same line from the VHub repo's `hub/index.html` and policy page (since VHub 880438d). The product pages' button comes
@@ -115,10 +132,10 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
 Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
-Wallpaper `docs/speedometer-privacy-policy.html`. After you edit a policy there, copy it here unchanged, push, and
+Wallpaper `docs/speedometer-privacy-policy.html`, Palermo Noir `docs/privacy-policy.html` (repo `vgraphics/palermo`). After you edit a policy there, copy it here unchanged, push, and
 check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
 `exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
-`speedometer-wallpaper/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
+`speedometer-wallpaper/privacy/source.html`, Palermo Noir's to `palermo/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
 the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
 adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
 too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
@@ -145,6 +162,50 @@ focusing a bullet shows the chapter's name.
 - check-site holds every served page to this: a page with two chapters or more loads `/assets/menu.js`, and each
   chapter points at exactly one element (an id used twice sends the bullet, and the heading's link, to the wrong one).
 
+## No text selection, no right-click
+
+No page lets its text be selected or opens the browser's own menu (George, 26 Oct 2026: "Dont allow text selection and
+right clicking in any page. Global rule. Selected highlighted text must have color of app or game."). Pictures and
+links can't be dragged off the page, and a long press on a phone opens no menu for them.
+
+- `assets/no-select.js` keeps the menu shut (right-click, and the long press on Android) and stops native drags; it
+  links `assets/no-select.css`, which turns selecting off on the whole page, image drags in Safari and Chrome, and the
+  long-press callout on iPhones. `assets/menu.js` loads it on every page with a header, so the template's pages, the
+  hand-made ones and the hub's get it with no line of their own. A page without a header loads it itself:
+  `<script src="/assets/no-select.js" defer></script>` (the Exitwise play page, from the Games repo's
+  `WebGLTemplates/Portfolio/index.html`, and the `/speedometer/` forward).
+- Text fields people type in (`input`, `textarea`, `[contenteditable]`) are the exception: their words select, and they
+  keep their menu, so Paste works. So does an element made to be dragged (`draggable="true"`).
+- What a field selects shows in the page's own colour: `--selection`, with its words in `--selection-ink`. A product's
+  pack may set both (`selection`, `selection-ink`); otherwise they are its scrollbar's colour (`--scrollbar`, else the
+  accent) and its page's (`--page`): Exitwise's deep violet with cream, Speedometer's red with black, Palermo's gold
+  with navy. `tools/lib/theme.mjs` holds the pair to 4.5:1. The company pages and the hub (`assets/vgraphics.css`) use
+  the page's own dot and the words that go on it.
+- The script puts `no-select.css` first in the head, so a page's own rules win at equal weight: the hub, the party kit
+  and the Exitwise play page carry their own piece from their repos (the same rules, in their colours), which stays in
+  charge there.
+- check-site holds every served page to this: it loads `/assets/menu.js` or `/assets/no-select.js`, and no stylesheet,
+  `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
+  every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
+  search) is not a page and is left as it comes from its repo.
+
+## Switches, never checkboxes
+
+Every on/off choice is a switch, never a checkbox (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles.").
+A choice of a few is a segmented control or option cards (the try page's segments and swatches), never a row of
+checkboxes.
+
+- `assets/switch.css` is the one switch: `<input type="checkbox" class="switch" role="switch">`, a real checkbox drawn
+  as a track and a knob, so Space flips it, Tab reaches it and a `<label>` names it (a tap on the label's words flips it
+  too). On is the page's selection colour (the product's scrollbar colour with its page's, unless the pack sets
+  `selection`), off is in its muted colour, and a bar (on) or a ring (off) in the track says which without colour. The
+  knob slides in 160ms, and jumps with reduced motion. Windows' contrast themes get the system colours.
+- A page with a switch links it: `<link rel="stylesheet" href="/assets/switch.css">`. The template adds it to the pages
+  with the try panel, whose on/off settings `assets/try/try.js` makes as switches, each in a `<label>` row.
+- check-site holds every served page to this: each checkbox in its markup is the switch, each one the site's own
+  scripts make gets the `switch` class and role, and a page with either links `switch.css`. The hub, the Exitwise game
+  and the Speedometer engine are built in their own repos, with their own switch, held there by their tests.
+
 ## Play button
 
 A product that can be played or tried on the site ends its header with that page, drawn as a button (George, 26 Oct
@@ -155,11 +216,15 @@ toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's 
 - The product's page.json names it: `site.play`, `{ "label": "Play online", "href": "/<product>/play/" }`. The header
   (`tools/lib/partials.mjs`) adds it after the menu's links on every page of the product, the wikis too, so it is the
   phone panel's last item as well. A product without `site.play` shows no button.
-- `assets/product.css` draws it as the product's main button, from its pack's `--cta`, `--cta-ink` and `--cta-edge`:
-  lit face, edge, glow, a sheen now and then, a lift on hover and a press; nothing moves with reduced motion. From
-  561px to 1300px it shows only its icon (its title names it), so the menu keeps to one row and clear of a title
-  painted on the key art; with the button there, the wide-only links show from 1800px. In the phone panel it is a
-  full-width button with its words.
+- `assets/product.css` draws it as the product's eye-catching button in its own colour, never a grey (George, 26 Oct
+  2026, on Exitwise's: "Create a better play online button. More purple like the logo stroke."): the colour its
+  scrollbar, stepper and selected text wear (`--selection`, else `--scrollbar`, else the accent: Exitwise's deep violet
+  #32044F, Speedometer's red, Palermo's gold) with the words that read on it (`--selection-ink`, else the page's). A pill
+  lit from above on a deeper edge, a light rim, a glow in a lighter shade of it, the play sign in a disc of its words'
+  colour, a sheen now and then, a lift and brighter glow on hover and a press; nothing moves with reduced motion.
+  `tools/lib/theme.mjs` fails a pack whose pair reads under 4.5:1 or whose colour is greyish (saturation under 35%).
+  It always shows its words, in the row and, folded, in the bar beside the menu button; only a phone too narrow for
+  them shows its icon alone there.
 - check-site holds every served page to this: a product with a play page (`<product>/play/`) has `site.play`, and
   every product header in its folder ends with that one button, inside its menu, going to that address.
 
@@ -221,7 +286,7 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **sitemap.xml:** run `node tools/build-sitemap.mjs` after adding, moving or removing a page. It lists every page's
   canonical URL, except pages marked `noindex` (the 404 and room invite pages); check-site fails while it's out of
   date. `robots.txt` points to it.
-- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on gvergidis90@gmail.com, verified by the
+- **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
   `google-site-verification` meta tag on the home page. Keep the tag (check-site checks it): without it the site loses
   its verification. The sitemap is submitted there under Sitemaps.
 

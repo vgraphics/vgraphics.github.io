@@ -93,6 +93,10 @@
    the page's own colour, deepened a little to show on the light page. On the body, where the page's class sets
    --accent. */
 body { --scrollbar: color-mix(in srgb, var(--accent) 75%, var(--ink)); }
+/* What a text field selects (George, 26 Oct 2026: "Selected highlighted text must have color of app or game."; nothing
+   else can be selected: assets/no-select.css) is highlighted in the page's own dot, with the words that go on it, in
+   both themes. On the body too, for the same reason. */
+body { --selection: var(--accent); --selection-ink: var(--on-accent); }
 /* VGraphics' own cursors on the company pages and the hub (George's picks, 24 Oct 2026; tools/make-cursors.mjs): the
    ink pointer, the ink glove with the sky-blue cuff, the ink "i" with its sky-blue dot, edged in white for the dark
    theme. assets/cursors.css puts them to use; mice and trackpads only. Each number pair is the file's data-hotspot
