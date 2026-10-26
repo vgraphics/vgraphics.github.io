@@ -1,0 +1,574 @@
+{
+  "version": 1,
+  "language": "en",
+  "title": "The Tangled Tower",
+  "menuMusic": "prologue",
+  "chapters": [
+    {
+      "id": "prologue",
+      "world": 0,
+      "label": "Prologue",
+      "title": "The knot at the Dawn Door",
+      "pages": [
+        {
+          "id": "prologue",
+          "kind": "prologue",
+          "unlockLevel": 0,
+          "lockedLine": "",
+          "music": "prologue",
+          "panels": [
+            { "id": "prologue-1", "line": "Long ago, the Dawn Door at the top of the Tower of Worlds opened every morning, and light flowed down through all seventeen worlds.", "alt": "The Tower of Worlds at sunrise, light pouring from the open Dawn Door down every tier." },
+            { "id": "prologue-2", "line": "Then one night the Duskweaver sealed the door with a knot of shadow, and tangled every path below with his arrows.", "alt": "The Duskweaver, a great moth with indigo wings, ties a knot of violet thread across the Dawn Door." },
+            { "id": "prologue-3", "line": "At the tower's foot, Prince Arlo drew his bow. \"Every arrow has a way out,\" he said. \"I'll find them all.\"", "alt": "Prince Arlo, a knight archer with a golden longbow, faces a tangle of arrows at the foot of the tower." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "meadow",
+      "world": 1,
+      "label": "World 1",
+      "title": "Meadow",
+      "pages": [
+        {
+          "id": "meadow-opened",
+          "kind": "opened",
+          "unlockLevel": 0,
+          "lockedLine": "",
+          "music": "opens",
+          "panels": [
+            { "id": "meadow-opened-1", "line": "Pip the owl flew down to join him, carrying a lantern that held the last spark of dawn.", "alt": "Pip, a small sleek owl, glides down beside the prince with a glowing lantern." },
+            { "id": "meadow-opened-2", "line": "In the Meadow, Bramble the hedgehog lay curled in violet thorns, his spines bristling with cursed arrows.", "alt": "Bramble, a huge hedgehog wrapped in violet thorns, with glowing eyes and arrows stuck in his spines." }
+          ]
+        },
+        {
+          "id": "meadow-freed",
+          "kind": "freed",
+          "unlockLevel": 20,
+          "lockedLine": "Free the Meadow to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "meadow-freed-1", "line": "With the last arrow, the curse on Bramble snapped like an old thread, and flowers burst from his spines.", "alt": "The violet thorns snap away from Bramble as flowers bloom across his spines." },
+            { "id": "meadow-freed-2", "line": "One by one the stepping stones lit up, climbing toward the jungle above.", "alt": "Glowing stepping stones climb from the Meadow up toward the Jungle tier." },
+            { "id": "meadow-freed-3", "line": "\"Mossback guards the jungle,\" Bramble warned. \"And he never lowers his shield.\"", "alt": "Bramble, freed and friendly, points the prince up the path." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "jungle",
+      "world": 2,
+      "label": "World 2",
+      "title": "Jungle",
+      "pages": [
+        {
+          "id": "jungle-opened",
+          "kind": "opened",
+          "unlockLevel": 20,
+          "lockedLine": "Free the Meadow to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "jungle-opened-1", "line": "The jungle was silent under the dusk. High on a vine-wrapped rock, Mossback raised a shield of solid stone.", "alt": "Mossback, a mighty gorilla with a stone shield, on a vine-covered rock in the dusky jungle." },
+            { "id": "jungle-opened-2", "line": "\"Watch the shield,\" Pip whispered. \"It moves after every few hits. Strike where it isn't.\"", "alt": "Pip whispers to the prince behind giant leaves while Mossback looms above." }
+          ]
+        },
+        {
+          "id": "jungle-freed",
+          "kind": "freed",
+          "unlockLevel": 40,
+          "lockedLine": "Free the Jungle to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "jungle-freed-1", "line": "Arlo's arrows found every gap. The stone shield cracked, and Mossback's eyes cleared from violet to green.", "alt": "Mossback's stone shield cracks apart and his eyes turn from violet to green." },
+            { "id": "jungle-freed-2", "line": "The gorilla bowed low and lifted the prince onto the next stones, toward a red glow in the sky.", "alt": "Mossback lifts the prince onto glowing stepping stones under a red sky." },
+            { "id": "jungle-freed-3", "line": "\"The volcano burns with a cursed fire,\" Mossback rumbled. \"Only arrows of its colour will pass.\"", "alt": "Mossback points up toward the smoking volcano on the next tier." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "volcano",
+      "world": 3,
+      "label": "World 3",
+      "title": "Volcano",
+      "pages": [
+        {
+          "id": "volcano-opened",
+          "kind": "opened",
+          "unlockLevel": 40,
+          "lockedLine": "Free the Jungle to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "volcano-opened-1", "line": "Ash fell like snow on the Volcano. Cinder the lava dragon coiled around the crater, guarding it with a wall of fire.", "alt": "Cinder, a lava dragon, coils around a glowing crater behind a wall of one-coloured fire." },
+            { "id": "volcano-opened-2", "line": "The fire burned in a single colour. Arlo nocked an arrow of the same colour. \"Then I'll answer it in kind.\"", "alt": "The prince nocks a glowing arrow the same colour as the fire wall." }
+          ]
+        },
+        {
+          "id": "volcano-freed",
+          "kind": "freed",
+          "unlockLevel": 80,
+          "lockedLine": "Free the Volcano to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "volcano-freed-1", "line": "The last arrow flew through the flames in their own colour, and the curse on Cinder hissed out like steam.", "alt": "The curse leaves Cinder in a burst of steam as the fire wall fades." },
+            { "id": "volcano-freed-2", "line": "Freed, the dragon spread her wings over the lava and cooled a bridge of black stone for the prince.", "alt": "Cinder spreads her wings over a river of lava, cooling it into a stone bridge." },
+            { "id": "volcano-freed-3", "line": "Beyond it, the Desert shimmered gold, and something huge rolled across the dunes.", "alt": "Golden dunes on the next tier, with a giant shining shape rolling across them." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "desert",
+      "world": 4,
+      "label": "World 4",
+      "title": "Desert",
+      "pages": [
+        {
+          "id": "desert-opened",
+          "kind": "opened",
+          "unlockLevel": 80,
+          "lockedLine": "Free the Volcano to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "desert-opened-1", "line": "In the Desert, Rollo the sun scarab pushed a cursed sun across the sand, a shield that swept from side to side.", "alt": "Rollo, a giant golden scarab, pushes a dark cursed sun across the dunes." },
+            { "id": "desert-opened-2", "line": "\"Left, middle, right,\" Arlo counted, watching it roll. \"And then the gap opens.\"", "alt": "The prince crouches on a dune, counting as the sun shield sweeps past." }
+          ]
+        },
+        {
+          "id": "desert-freed",
+          "kind": "freed",
+          "unlockLevel": 100,
+          "lockedLine": "Free the Desert to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "desert-freed-1", "line": "The sun shield shattered into sparks, and Rollo's shell shone like polished gold again.", "alt": "The cursed sun bursts into sparks and Rollo's shell gleams gold." },
+            { "id": "desert-freed-2", "line": "The scarab rolled the stepping stones back into place, and cool spray drifted down from the Lagoon above.", "alt": "Rollo pushes glowing stones into a path that climbs toward a misty lagoon." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "lagoon",
+      "world": 5,
+      "label": "World 5",
+      "title": "Lagoon",
+      "pages": [
+        {
+          "id": "lagoon-opened",
+          "kind": "opened",
+          "unlockLevel": 100,
+          "lockedLine": "Free the Desert to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "lagoon-opened-1", "line": "The Lagoon lay frozen in the dusk. Old Shellby the sea turtle drifted beneath the ice, the curse heavy on his shell.", "alt": "Shellby, a huge sea turtle, drifts under a frozen lagoon with violet thorns on his shell." },
+            { "id": "lagoon-opened-2", "line": "When he stirred, frost spread across the water. \"His spells freeze the path,\" Pip warned. \"Keep moving.\"", "alt": "Frost spreads over the water toward the prince's boots as Pip lifts the lantern." }
+          ]
+        },
+        {
+          "id": "lagoon-freed",
+          "kind": "freed",
+          "unlockLevel": 140,
+          "lockedLine": "Free the Lagoon to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "lagoon-freed-1", "line": "The ice cracked from shore to shore as the curse let go, and Shellby rose blinking into the light.", "alt": "The ice breaks apart as Shellby surfaces into warm light." },
+            { "id": "lagoon-freed-2", "line": "The turtle carried Arlo and Pip across the water to stepping stones of glowing mushroom caps.", "alt": "The prince and Pip ride on Shellby's back toward glowing mushroom stepping stones." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "mushroomforest",
+      "world": 6,
+      "label": "World 6",
+      "title": "Mushroom forest",
+      "pages": [
+        {
+          "id": "mushroomforest-opened",
+          "kind": "opened",
+          "unlockLevel": 140,
+          "lockedLine": "Free the Lagoon to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "mushroomforest-opened-1", "line": "Spores glowed violet in the Mushroom forest. Puffcap the toad sat on the tallest cap, puffing out a cursed shield.", "alt": "Puffcap, a great toad, swells up on a giant mushroom behind a violet shield." },
+            { "id": "mushroomforest-opened-2", "line": "\"He gets quicker when he's hurt,\" Pip said. \"His shield will jump sooner. Be ready.\"", "alt": "Pip perches on the prince's bow among glowing spores." }
+          ]
+        },
+        {
+          "id": "mushroomforest-freed",
+          "kind": "freed",
+          "unlockLevel": 160,
+          "lockedLine": "Free the Mushroom forest to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "mushroomforest-freed-1", "line": "With a great croak, Puffcap's curse burst like a bubble, and the spores turned soft and golden.", "alt": "The curse pops off Puffcap like a bubble and golden spores float up." },
+            { "id": "mushroomforest-freed-2", "line": "The toad took one mighty leap and landed on the path to the Autumn woods, where the leaves had stopped falling.", "alt": "Puffcap lands on the stepping stones below a forest of frozen autumn leaves." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "autumnwoods",
+      "world": 7,
+      "label": "World 7",
+      "title": "Autumn woods",
+      "pages": [
+        {
+          "id": "autumnwoods-opened",
+          "kind": "opened",
+          "unlockLevel": 160,
+          "lockedLine": "Free the Mushroom forest to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "autumnwoods-opened-1", "line": "In the Autumn woods, Oakheart the great stag stood between the trees, a one-colour shield woven through his antlers.", "alt": "Oakheart, a great stag, with a glowing one-coloured shield woven through his antlers." },
+            { "id": "autumnwoods-opened-2", "line": "Arlo dipped his arrows in the colours of the fallen leaves. \"If the shield wants a colour, I'll paint one.\"", "alt": "The prince dips arrowheads in pools of red, orange and gold leaf colour." }
+          ]
+        },
+        {
+          "id": "autumnwoods-freed",
+          "kind": "freed",
+          "unlockLevel": 200,
+          "lockedLine": "Free the Autumn woods to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "autumnwoods-freed-1", "line": "The painted arrows slipped through, and the curse fell from Oakheart's antlers like dry leaves.", "alt": "Violet threads fall from Oakheart's antlers like dry leaves." },
+            { "id": "autumnwoods-freed-2", "line": "The stag lowered his head, and the woods blazed red and gold as the leaves began to fall again.", "alt": "Oakheart bows as red and gold leaves swirl through the woods." },
+            { "id": "autumnwoods-freed-3", "line": "\"Up there it's colder than any winter,\" Oakheart said. \"Frostbeard has not moved in a hundred dusks.\"", "alt": "Oakheart looks up at an icy glacier on the next tier." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "glacier",
+      "world": 8,
+      "label": "World 8",
+      "title": "Glacier",
+      "pages": [
+        {
+          "id": "glacier-opened",
+          "kind": "opened",
+          "unlockLevel": 200,
+          "lockedLine": "Free the Autumn woods to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "glacier-opened-1", "line": "Wind howled across the Glacier. Frostbeard the yeti rose from the snow, half his body hidden behind a wall of ice.", "alt": "Frostbeard, a towering yeti, rises from the snow behind a wall of ice." },
+            { "id": "glacier-opened-2", "line": "He roared, and frost crept over the arrows. Arlo pulled his cape tight and drew his bow.", "alt": "Frost creeps over a tangle of arrows as the prince draws his bow in the blizzard." }
+          ]
+        },
+        {
+          "id": "glacier-freed",
+          "kind": "freed",
+          "unlockLevel": 220,
+          "lockedLine": "Free the Glacier to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "glacier-freed-1", "line": "The ice wall split down the middle, and the curse melted from Frostbeard's beard in a cloud of steam.", "alt": "The ice wall splits and steam rises from Frostbeard's beard." },
+            { "id": "glacier-freed-2", "line": "The yeti laughed like thunder and kicked open a tunnel into the mountain, where crystals glittered in the dark.", "alt": "Frostbeard kicks open an icy tunnel full of glittering crystals." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "crystalcaves",
+      "world": 9,
+      "label": "World 9",
+      "title": "Crystal caves",
+      "pages": [
+        {
+          "id": "crystalcaves-opened",
+          "kind": "opened",
+          "unlockLevel": 220,
+          "lockedLine": "Free the Glacier to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "crystalcaves-opened-1", "line": "Deep in the Crystal caves, Prism the crystal golem woke with a grinding of stone and light.", "alt": "Prism, a golem of crystal and stone, wakes in a dark cave." },
+            { "id": "crystalcaves-opened-2", "line": "His shield shone in two colours, and stone shutters slammed across the tunnels. \"Two locks,\" Arlo said. \"Two keys.\"", "alt": "A two-coloured crystal shield and stone shutters slamming across cave tunnels." }
+          ]
+        },
+        {
+          "id": "crystalcaves-freed",
+          "kind": "freed",
+          "unlockLevel": 260,
+          "lockedLine": "Free the Crystal caves to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "crystalcaves-freed-1", "line": "The last arrow rang against the crystal like a bell, and the curse inside Prism shattered into rainbows.", "alt": "Rainbow light bursts out of Prism as the curse shatters." },
+            { "id": "crystalcaves-freed-2", "line": "Light poured through the caves for the first time in ages, and the path climbed out into pink blossoms.", "alt": "Light floods the caves and stepping stones lead out into cherry blossoms." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "cherryblossom",
+      "world": 10,
+      "label": "World 10",
+      "title": "Cherry blossom",
+      "pages": [
+        {
+          "id": "cherryblossom-opened",
+          "kind": "opened",
+          "unlockLevel": 260,
+          "lockedLine": "Free the Crystal caves to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "cherryblossom-opened-1", "line": "Petals hung frozen in the air of the Cherry blossom world. Petalwing the crane spread her wings across the sky.", "alt": "Petalwing, a great crane, spreads cursed wings over frozen cherry petals." },
+            { "id": "cherryblossom-opened-2", "line": "Her wings covered almost everything, leaving one narrow gap that drifted with the wind.", "alt": "A single narrow gap of sky between the crane's huge wings." }
+          ]
+        },
+        {
+          "id": "cherryblossom-freed",
+          "kind": "freed",
+          "unlockLevel": 280,
+          "lockedLine": "Free the Cherry blossom to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "cherryblossom-freed-1", "line": "Arlo threaded the gap again and again, until the curse slid from Petalwing's feathers.", "alt": "An arrow flies through the gap and the violet curse slides off the crane's feathers." },
+            { "id": "cherryblossom-freed-2", "line": "The petals fell at last, and the crane danced. Above, a town of gears had stopped ticking.", "alt": "Petalwing dances in falling petals below a silent clockwork town." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "clockworktown",
+      "world": 11,
+      "label": "World 11",
+      "title": "Clockwork town",
+      "pages": [
+        {
+          "id": "clockworktown-opened",
+          "kind": "opened",
+          "unlockLevel": 280,
+          "lockedLine": "Free the Cherry blossom to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "clockworktown-opened-1", "line": "Every clock in Clockwork town had stopped at dusk. Only Sir Sprocket still marched, his gear shield sweeping the square.", "alt": "Sir Sprocket, a clockwork knight, marches with a sweeping gear shield in a silent town square." },
+            { "id": "clockworktown-opened-2", "line": "\"Look for the switches,\" Pip said. \"Every machine has a way to open it.\"", "alt": "Pip lights up a brass switch on a wall of gears." }
+          ]
+        },
+        {
+          "id": "clockworktown-freed",
+          "kind": "freed",
+          "unlockLevel": 320,
+          "lockedLine": "Free Clockwork town to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "clockworktown-freed-1", "line": "Click. Clack. The last switch turned, the last arrow struck, and Sir Sprocket's curse wound down to silence.", "alt": "The gear shield winds down and violet threads fall from Sir Sprocket." },
+            { "id": "clockworktown-freed-2", "line": "Then every clock in town chimed at once, and the knight saluted the prince with a whirr of gears.", "alt": "Sir Sprocket salutes the prince as every clock tower chimes." },
+            { "id": "clockworktown-freed-3", "line": "Up the next stones, waves rolled over a reef, and a cloud of ink was spreading through the water.", "alt": "A coral reef on the next tier, darkened by a spreading cloud of ink." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "coralreef",
+      "world": 12,
+      "label": "World 12",
+      "title": "Coral reef",
+      "pages": [
+        {
+          "id": "coralreef-opened",
+          "kind": "opened",
+          "unlockLevel": 320,
+          "lockedLine": "Free Clockwork town to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "coralreef-opened-1", "line": "On the Coral reef, Inkwell the octopus wrapped eight cursed arms around the rocks and blotted out the light with ink.", "alt": "Inkwell, a giant octopus, wraps the reef in cursed arms and clouds of ink." },
+            { "id": "coralreef-opened-2", "line": "Clouds of ink swallowed the paths. \"They clear again,\" Pip said, lifting the lantern. \"Count your shots.\"", "alt": "Pip's lantern glows through a cloud of ink over the reef." }
+          ]
+        },
+        {
+          "id": "coralreef-freed",
+          "kind": "freed",
+          "unlockLevel": 340,
+          "lockedLine": "Free the Coral reef to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "coralreef-freed-1", "line": "The curse washed out of Inkwell like ink in the tide, and the reef glowed in every colour.", "alt": "The ink washes away and the reef glows in bright colours around Inkwell." },
+            { "id": "coralreef-freed-2", "line": "The octopus waved all eight arms in thanks as Arlo climbed toward the misty Bayou.", "alt": "Inkwell waves eight arms as the prince climbs toward a misty swamp." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "bayou",
+      "world": 13,
+      "label": "World 13",
+      "title": "Bayou",
+      "pages": [
+        {
+          "id": "bayou-opened",
+          "kind": "opened",
+          "unlockLevel": 340,
+          "lockedLine": "Free the Coral reef to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "bayou-opened-1", "line": "The fireflies had gone dark over the Bayou. Snapjaw the alligator rose from the swamp, jaws open wide.", "alt": "Snapjaw, a huge alligator, rises from a dark swamp with his jaws open." },
+            { "id": "bayou-opened-2", "line": "His two shields closed in from both sides like teeth. \"Shoot fast,\" Arlo said, \"before they bite.\"", "alt": "Two shields close in from left and right like the jaws of an alligator." }
+          ]
+        },
+        {
+          "id": "bayou-freed",
+          "kind": "freed",
+          "unlockLevel": 380,
+          "lockedLine": "Free the Bayou to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "bayou-freed-1", "line": "The jaws snapped shut on nothing, and the curse sank from Snapjaw into the black water.", "alt": "The curse sinks away from Snapjaw into the swamp water." },
+            { "id": "bayou-freed-2", "line": "The fireflies lit up one by one, and the path ahead smelled suddenly of sugar.", "alt": "Fireflies light up a path of stepping stones toward a candy-coloured tier." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "candyland",
+      "world": 14,
+      "label": "World 14",
+      "title": "Candy land",
+      "pages": [
+        {
+          "id": "candyland-opened",
+          "kind": "opened",
+          "unlockLevel": 380,
+          "lockedLine": "Free the Bayou to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "candyland-opened-1", "line": "Candy land had gone sour. Gumdrop the gummy knight stood guard, his shield changing colour every time it moved.", "alt": "Gumdrop, a gummy knight, guards a sour candy land with a colour-changing shield." },
+            { "id": "candyland-opened-2", "line": "\"Watch the colour, not the knight,\" Pip said. \"It never stays the same for long.\"", "alt": "Pip watches the shield flash from one colour to the next." }
+          ]
+        },
+        {
+          "id": "candyland-freed",
+          "kind": "freed",
+          "unlockLevel": 400,
+          "lockedLine": "Free Candy land to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "candyland-freed-1", "line": "The shield wobbled, glowed and burst, and Gumdrop's curse melted like sugar in the rain.", "alt": "Gumdrop's shield bursts and the curse melts away like sugar." },
+            { "id": "candyland-freed-2", "line": "Candy land turned sweet again, and the stones led up to ancient ruins wrapped in silence.", "alt": "Bright candy hills below silent stone temple ruins." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "templeruins",
+      "world": 15,
+      "label": "World 15",
+      "title": "Temple ruins",
+      "pages": [
+        {
+          "id": "templeruins-opened",
+          "kind": "opened",
+          "unlockLevel": 400,
+          "lockedLine": "Free Candy land to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "templeruins-opened-1", "line": "In the Temple ruins, the Stone Sentinel woke. Two great stone hands rose from the floor to guard its face.", "alt": "The Stone Sentinel, an ancient statue, raises two giant stone hands in the ruins." },
+            { "id": "templeruins-opened-2", "line": "The hands moved like a slow puzzle, one shielding as the other opened. Arlo studied them, arrow ready.", "alt": "The prince studies the two stone hands, arrow on the string." }
+          ]
+        },
+        {
+          "id": "templeruins-freed",
+          "kind": "freed",
+          "unlockLevel": 440,
+          "lockedLine": "Free the Temple ruins to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "templeruins-freed-1", "line": "The last arrow found the gap between the hands, and the curse crumbled from the Sentinel like old dust.", "alt": "The curse crumbles off the Stone Sentinel like dust." },
+            { "id": "templeruins-freed-2", "line": "The Sentinel lowered its hands and pointed to the sky, where islands floated in a sea of storm clouds.", "alt": "The Sentinel points up at islands floating among storm clouds." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "skyislands",
+      "world": 16,
+      "label": "World 16",
+      "title": "Sky islands",
+      "pages": [
+        {
+          "id": "skyislands-opened",
+          "kind": "opened",
+          "unlockLevel": 440,
+          "lockedLine": "Free the Temple ruins to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "skyislands-opened-1", "line": "Lightning cracked between the Sky islands. Stormwing the thunder griffin circled, his shield flashing from place to place.", "alt": "Stormwing, a thunder griffin, circles the sky islands in a lightning storm." },
+            { "id": "skyislands-opened-2", "line": "\"He never holds still,\" Pip shouted over the wind. \"Two hits, and he moves again!\"", "alt": "Pip clings to the prince's cape in the wind as lightning flashes." }
+          ]
+        },
+        {
+          "id": "skyislands-freed",
+          "kind": "freed",
+          "unlockLevel": 460,
+          "lockedLine": "Free the Sky islands to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "skyislands-freed-1", "line": "With a final thunderclap, the curse burst from Stormwing's feathers, and the storm rolled away.", "alt": "The curse bursts from Stormwing and the storm clouds roll away." },
+            { "id": "skyislands-freed-2", "line": "The griffin carried Arlo and Pip up through the clouds to the last world, where the stars hung close.", "alt": "The prince and Pip ride Stormwing up into a starry sky." },
+            { "id": "skyislands-freed-3", "line": "At the very top stood the Dawn Door, still knotted shut. And before it waited the Duskweaver.", "alt": "The knotted Dawn Door at the summit, with the Duskweaver's silhouette before it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "starlight",
+      "world": 17,
+      "label": "World 17",
+      "title": "Starlight",
+      "pages": [
+        {
+          "id": "starlight-opened",
+          "kind": "opened",
+          "unlockLevel": 460,
+          "lockedLine": "Free the Sky islands to unlock",
+          "music": "opens",
+          "panels": [
+            { "id": "starlight-opened-1", "line": "In Starlight, the Duskweaver spread his indigo wings across the sky, and every star dimmed.", "alt": "The Duskweaver spreads star-dusted indigo wings and the stars dim." },
+            { "id": "starlight-opened-2", "line": "\"You freed my guardians,\" he said. \"But the door is mine. Every knot I tied, I tied twice.\"", "alt": "The Duskweaver's lantern-yellow eyes glare down at the prince." }
+          ]
+        },
+        {
+          "id": "starlight-freed",
+          "kind": "freed",
+          "unlockLevel": 500,
+          "lockedLine": "Free Starlight to read on",
+          "music": "freed",
+          "panels": [
+            { "id": "starlight-freed-1", "line": "Arrow after arrow, Arlo cut through knot, shield and spell, until a single thread still held the door.", "alt": "The prince looses an arrow at the last violet thread across the Dawn Door." },
+            { "id": "starlight-freed-2", "line": "Then it broke. The Duskweaver sank to his knees as his violet threads unravelled into the night.", "alt": "The Duskweaver kneels as his violet threads unravel." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "finale",
+      "world": 0,
+      "label": "Finale",
+      "title": "Through the last door",
+      "pages": [
+        {
+          "id": "finale",
+          "kind": "finale",
+          "unlockLevel": 500,
+          "lockedLine": "Open the Dawn Door to unlock",
+          "music": "finale",
+          "panels": [
+            { "id": "finale-1", "line": "The Dawn Door swung open, and morning poured down the tower, through every world, from Starlight to the Meadow.", "alt": "The Dawn Door opens and golden light floods down every tier of the tower." },
+            { "id": "finale-2", "line": "Pip flew to the Duskweaver with a small lantern of his own. \"The night needs light too,\" Pip said.", "alt": "Pip offers the Duskweaver a small glowing lantern." },
+            { "id": "finale-3", "line": "So the Duskweaver became the tower's night-keeper, and every evening he lights the stars, one by one.", "alt": "The Duskweaver lights the stars above the tower at dusk." }
+          ]
+        },
+        {
+          "id": "epilogue",
+          "kind": "epilogue",
+          "unlockLevel": 500,
+          "lockedLine": "Open the Dawn Door to unlock",
+          "music": "prologue",
+          "panels": [
+            { "id": "epilogue-1", "line": "But curses leave echoes. Some nights, the shadows of old guardians return, and Prince Arlo takes up his bow again.", "alt": "Shadowy echoes of the guardians under a night sky as the prince raises his bow." }
+          ]
+        }
+      ]
+    }
+  ]
+}

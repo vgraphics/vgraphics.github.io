@@ -3,71 +3,6 @@
   "reuses": [
     {
       "art": [
-        "speedometer-wallpaper/img/gallery/shot-power",
-        "speedometer-wallpaper/img/gallery/shot-wifi",
-        "speedometer-wallpaper/img/shot-power",
-        "speedometer-wallpaper/img/styles/classic"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ section.page-hero",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#styles",
-        "/speedometer-wallpaper/styles/classic/#look"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/dial-power",
-        "speedometer-wallpaper/img/gallery/pickup-dial-power"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ section.page-hero",
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/big-gauge-tile/ section.w-block",
-        "/speedometer-wallpaper/wiki/power/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/shot-kmh",
-        "speedometer-wallpaper/img/shot-kmh"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#tour",
-        "/speedometer-wallpaper/wiki/classic-design/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/future-kmh"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/wiki/music-calls-messages/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-torque",
-        "speedometer-wallpaper/img/styles/torque"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/apps/ article.b.x-speedo.speedo",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#styles",
-        "/speedometer-wallpaper/styles/torque/#look"
-      ]
-    },
-    {
-      "art": [
         "exitwise/wiki/img/art/leaderboards",
         "exitwise/wiki/img/art/leaderboards-tall"
       ],
@@ -83,12 +18,10 @@
         "exitwise/img/key-art-tall",
         "exitwise/img/key-art-wide"
       ],
-      "todo": "The landing page keeps it; wiki-heroes-round2 gives the privacy page and the wiki index their own paintings. To do (Recraft): a stage of its own, wide and tall, behind the ranking's boards.",
+      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a stage of its own, wide and tall, behind the ranking's boards.",
       "places": [
         "/exitwise/ hero",
-        "/exitwise/privacy.html hero",
-        "/exitwise/ranking/#boards",
-        "/exitwise/wiki/ hero"
+        "/exitwise/ranking/#boards"
       ]
     },
     {
@@ -100,83 +33,6 @@
       "places": [
         "/exitwise/#how",
         "/exitwise/wiki/how-to-play/ hero"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/jungle"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/volcano"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/desert"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/lagoon"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/autumnwoods"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/crystalcaves"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/clockworktown"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/#twists",
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
       ]
     },
     {
@@ -203,48 +59,6 @@
     },
     {
       "art": [
-        "exitwise/wiki/img/bands/jungle"
-      ],
-      "todo": "To do (no credits): a band per wiki entry, cut from another part of the world's game map (tools/make-wiki-map-art.py), the entry's own band in tools/build-wiki.mjs.",
-      "places": [
-        "/exitwise/wiki/bomb-arrow/ section.w-block",
-        "/exitwise/wiki/how-to-play/ section.w-block",
-        "/exitwise/wiki/rock/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/v12-rocks-bombs"
-      ],
-      "todo": "To do (no credits): one of the two entries shows another level: the unused exitwise/img/5-bombs.webp or a fresh capture.",
-      "places": [
-        "/exitwise/wiki/bomb-arrow/ section.w-block",
-        "/exitwise/wiki/rock/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/bands/clockworktown"
-      ],
-      "todo": "To do (no credits): a band per wiki entry, cut from another part of the world's game map (tools/make-wiki-map-art.py), the entry's own band in tools/build-wiki.mjs.",
-      "places": [
-        "/exitwise/wiki/chain-bomb/ section.w-block",
-        "/exitwise/wiki/colour-switch/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/bands/meadow"
-      ],
-      "todo": "To do (no credits): a band per wiki entry, cut from another part of the world's game map (tools/make-wiki-map-art.py), the entry's own band in tools/build-wiki.mjs.",
-      "places": [
-        "/exitwise/wiki/coins/ section.w-block",
-        "/exitwise/wiki/daily-challenge/ section.w-block",
-        "/exitwise/wiki/hard-levels/ section.w-block"
-      ]
-    },
-    {
-      "art": [
         "exitwise/img/7-win"
       ],
       "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
@@ -266,54 +80,12 @@
     },
     {
       "art": [
-        "assets/img/exitwise-board",
-        "exitwise/img/1-board"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/exitwise/wiki/how-to-play/ section.w-block",
-        "/games/ section.page-hero"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/bands/lagoon"
-      ],
-      "todo": "To do (no credits): a band per wiki entry, cut from another part of the world's game map (tools/make-wiki-map-art.py), the entry's own band in tools/build-wiki.mjs.",
-      "places": [
-        "/exitwise/wiki/ice/ section.w-block",
-        "/exitwise/wiki/level-2-rock/ section.w-block",
-        "/exitwise/wiki/portal/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/worlds/meadow"
-      ],
-      "todo": "To do (no credits): each page its own part of the world's game map (tools/make-wiki-map-art.py): the landing page's journey, the wiki index's journey and the worlds page; or the journey's worlds link to their card on /exitwise/wiki/worlds/, whose preview they then are.",
-      "places": [
-        "/exitwise/wiki/ section.w-journey.wrap",
-        "/exitwise/wiki/worlds/ section.w-panel"
-      ]
-    },
-    {
-      "art": [
         "exitwise/img/3-mirrors"
       ],
       "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
       "places": [
         "/exitwise/wiki/mirror/ section.w-block",
         "/games/ article.b.x-game.feature"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/bands/crystalcaves"
-      ],
-      "todo": "To do (no credits): a band per wiki entry, cut from another part of the world's game map (tools/make-wiki-map-art.py), the entry's own band in tools/build-wiki.mjs.",
-      "places": [
-        "/exitwise/wiki/shutter/ section.w-block",
-        "/exitwise/wiki/two-colour-gate/ section.w-block"
       ]
     },
     {
@@ -325,20 +97,6 @@
         "/exitwise/wiki/worlds/ section.w-block",
         "/games/ section.page-hero",
         "/multiplayer/#rooms"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/dial-speed",
-        "speedometer-wallpaper/img/gallery/pickup-dial-speed"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/ article.b.x-speedo.s7.r2",
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/big-gauge/ section.w-block",
-        "/speedometer-wallpaper/wiki/gps-speed/ section.w-block"
       ]
     },
     {
@@ -357,12 +115,11 @@
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"
       ],
-      "todo": "The landing page keeps it; wiki-heroes-round2 gives the privacy page and the wiki index their own paintings. To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for /play/ and /l/, and for every style page, made before the 19-style release publishes them.",
+      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for /play/ and /l/, and for every style page, made before the 19-style release publishes them.",
       "places": [
         "/speedometer-wallpaper/ hero",
         "/speedometer-wallpaper/l/ hero",
         "/speedometer-wallpaper/play/ hero",
-        "/speedometer-wallpaper/privacy.html hero",
         "/speedometer-wallpaper/styles/amber-night/ hero",
         "/speedometer-wallpaper/styles/aura/ hero",
         "/speedometer-wallpaper/styles/carbon/ hero",
@@ -381,66 +138,7 @@
         "/speedometer-wallpaper/styles/torque/ hero",
         "/speedometer-wallpaper/styles/track-night/ hero",
         "/speedometer-wallpaper/styles/vector/ hero",
-        "/speedometer-wallpaper/styles/vintage/ hero",
-        "/speedometer-wallpaper/wiki/ hero"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/dial-cpu",
-        "speedometer-wallpaper/img/gallery/pickup-dial-cpu"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/#modes",
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/wiki/cpu-clock/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-amber_night",
-        "speedometer-wallpaper/img/styles/amber_night"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#styles",
-        "/speedometer-wallpaper/styles/amber-night/#look"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-vintage",
-        "speedometer-wallpaper/img/styles/vintage"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#styles",
-        "/speedometer-wallpaper/styles/vintage/#look"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/gallery/style-glass",
-        "speedometer-wallpaper/img/styles/glass"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/#shots",
-        "/speedometer-wallpaper/#styles",
-        "/speedometer-wallpaper/styles/glass/#look"
-      ]
-    },
-    {
-      "art": [
-        "speedometer-wallpaper/img/designs"
-      ],
-      "todo": "To do (no credits): fresh real renders (other styles, modes and readings: the app's goldens, the demo-drive frames) so the company pages, the landing page's shots, tour and modes and each wiki medal show their own.",
-      "places": [
-        "/speedometer-wallpaper/wiki/designs-screen/ section.w-block",
-        "/speedometer-wallpaper/wiki/restoring-future/ section.w-block"
+        "/speedometer-wallpaper/styles/vintage/ hero"
       ]
     }
   ]
