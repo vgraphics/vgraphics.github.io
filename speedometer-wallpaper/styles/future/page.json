@@ -1,6 +1,6 @@
 {
   "title": "Future Speedometer Live Wallpaper: Music on Your Dashboard",
-  "description": "Future: a chrome cluster with your music, calls and messages. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Future: a chrome cluster with your music, calls and messages. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Future, a Speedometer Live Wallpaper style",
     "description": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/future/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/future/",
         "name": "Future Speedometer Live Wallpaper: Music on Your Dashboard",
-        "description": "Future: a chrome cluster with your music, calls and messages. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Future: a chrome cluster with your music, calls and messages. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/future.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Future once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -171,7 +171,7 @@
                 "height": 780
               },
               "title": "Carbon",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
               "href": "/speedometer-wallpaper/styles/carbon/",
               "tagTone": "alt"
@@ -184,7 +184,7 @@
                 "height": 780
               },
               "title": "Vintage",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
               "href": "/speedometer-wallpaper/styles/vintage/",
               "tagTone": "alt"
@@ -197,7 +197,7 @@
                 "height": 780
               },
               "title": "Amber Night",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
               "href": "/speedometer-wallpaper/styles/amber-night/",
               "tagTone": "alt"
@@ -210,7 +210,7 @@
                 "height": 780
               },
               "title": "Rally",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
               "href": "/speedometer-wallpaper/styles/rally/",
               "tagTone": "alt"

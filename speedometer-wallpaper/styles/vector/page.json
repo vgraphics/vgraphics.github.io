@@ -1,6 +1,6 @@
 {
   "title": "Vector Speedometer Live Wallpaper: Violet Hexagon HUD",
-  "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+  "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
   "social": {
     "title": "Vector, a Speedometer Live Wallpaper style",
     "description": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/styles/vector/#page",
         "url": "https://vgraphics.gr/speedometer-wallpaper/styles/vector/",
         "name": "Vector Speedometer Live Wallpaper: Violet Hexagon HUD",
-        "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €1.19, once.",
+        "description": "Vector: a neon HUD of violet hexagons on black. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
         "primaryImageOfPage": "https://vgraphics.gr/speedometer-wallpaper/img/styles/cards/vector.jpg",
         "about": {
           "@id": "https://vgraphics.gr/speedometer-wallpaper/#app"
@@ -93,7 +93,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": null,
           "prices": {
-            "premium": "€1.19",
+            "premium": "€2.39",
             "all": "€5.99"
           },
           "qr": {
@@ -134,7 +134,7 @@
           "type": "features",
           "items": [
             {
-              "title": "€1.19, once",
+              "title": "€2.39, once",
               "text": "Buy Vector once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself."
             },
             {
@@ -171,7 +171,7 @@
                 "height": 780
               },
               "title": "Horizon",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
               "href": "/speedometer-wallpaper/styles/horizon/",
               "tagTone": "alt"

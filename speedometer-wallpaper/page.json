@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €1.19, or €5.99 for all of them, VAT included.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39, or €5.99 for all of them, with VAT in most of the euro area.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -431,7 +431,7 @@
       "id": "styles",
       "eyebrow": "Styles",
       "title": "19 dashboards to choose from",
-      "intro": "Classic, Steel and Graphite are free. Every other style is €1.19, once, or unlock them all for €5.99, including the styles still to come (euro-area prices with VAT; Google Play shows yours). Each style brings its own layouts. Tap one to try it live in your browser.",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once, or unlock them all for €5.99, including the styles still to come (prices with VAT in most of the euro area; Google Play shows yours). Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
@@ -481,7 +481,7 @@
                 "height": 780
               },
               "title": "Future",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.",
               "href": "/speedometer-wallpaper/styles/future/",
               "tagTone": "alt"
@@ -494,7 +494,7 @@
                 "height": 780
               },
               "title": "Carbon",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
               "href": "/speedometer-wallpaper/styles/carbon/",
               "tagTone": "alt"
@@ -507,7 +507,7 @@
                 "height": 780
               },
               "title": "Vintage",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
               "href": "/speedometer-wallpaper/styles/vintage/",
               "tagTone": "alt"
@@ -520,7 +520,7 @@
                 "height": 780
               },
               "title": "Amber Night",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
               "href": "/speedometer-wallpaper/styles/amber-night/",
               "tagTone": "alt"
@@ -533,7 +533,7 @@
                 "height": 780
               },
               "title": "Rally",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.",
               "href": "/speedometer-wallpaper/styles/rally/",
               "tagTone": "alt"
@@ -546,7 +546,7 @@
                 "height": 780
               },
               "title": "Glass",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.",
               "href": "/speedometer-wallpaper/styles/glass/",
               "tagTone": "alt"
@@ -559,7 +559,7 @@
                 "height": 780
               },
               "title": "Cockpit",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.",
               "href": "/speedometer-wallpaper/styles/cockpit/",
               "tagTone": "alt"
@@ -572,7 +572,7 @@
                 "height": 780
               },
               "title": "Harbour",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.",
               "href": "/speedometer-wallpaper/styles/harbour/",
               "tagTone": "alt"
@@ -585,7 +585,7 @@
                 "height": 780
               },
               "title": "Track Night",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
               "href": "/speedometer-wallpaper/styles/track-night/",
               "tagTone": "alt"
@@ -598,7 +598,7 @@
                 "height": 780
               },
               "title": "Torque",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
               "href": "/speedometer-wallpaper/styles/torque/",
               "tagTone": "alt"
@@ -611,7 +611,7 @@
                 "height": 780
               },
               "title": "Circuit",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.",
               "href": "/speedometer-wallpaper/styles/circuit/",
               "tagTone": "alt"
@@ -624,7 +624,7 @@
                 "height": 780
               },
               "title": "Prism",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
               "href": "/speedometer-wallpaper/styles/prism/",
               "tagTone": "alt"
@@ -637,7 +637,7 @@
                 "height": 780
               },
               "title": "Aura",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
               "href": "/speedometer-wallpaper/styles/aura/",
               "tagTone": "alt"
@@ -650,7 +650,7 @@
                 "height": 780
               },
               "title": "Pulse",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black.",
               "href": "/speedometer-wallpaper/styles/pulse/",
               "tagTone": "alt"
@@ -663,7 +663,7 @@
                 "height": 780
               },
               "title": "Vector",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.",
               "href": "/speedometer-wallpaper/styles/vector/",
               "tagTone": "alt"
@@ -676,7 +676,7 @@
                 "height": 780
               },
               "title": "Horizon",
-              "tag": "€1.19",
+              "tag": "€2.39",
               "text": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
               "href": "/speedometer-wallpaper/styles/horizon/",
               "tagTone": "alt"
