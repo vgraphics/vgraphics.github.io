@@ -1,4 +1,4 @@
-/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, privacy, 404).
+/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, privacy, terms, 404).
    Style: vibrant and block-based. The logo's four dots are the colour blocks, and each menu wears one of them:
    Games sun, Apps coral, Services sky, VHub violet. Ink and paper carry the text.
    Every company page has the same header and footer (tools/check-site.mjs compares them).
@@ -70,8 +70,10 @@
   --z-skip: 100;
   color-scheme: light dark;
 }
+/* The dark look: the device's when the reader hasn't chosen (or chose System in the hub's Settings), or Dark as chosen
+   there (assets/theme.js sets <html data-theme>). Both blocks hold the same tokens (tools/check-site.mjs checks). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #111016;
     --surface: #1B1922;
     --surface-2: #24212D;
@@ -85,6 +87,21 @@
     --shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 22px 44px -26px rgba(0, 0, 0, 0.9);
   }
 }
+:root[data-theme="dark"] {
+  --bg: #111016;
+  --surface: #1B1922;
+  --surface-2: #24212D;
+  --ink: #F4F1FA;
+  --ink-2: #B9B3C9;
+  --line: #34303F;
+  --link: #A5B8FF;
+  --focus: #A5B8FF;
+  --night: #0A090D;
+  --night-2: #1B1922;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 22px 44px -26px rgba(0, 0, 0, 0.9);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 .pg-games { --accent: var(--sun); }
 .pg-apps { --accent: var(--coral); }
 .pg-services { --accent: var(--sky); }
@@ -418,8 +435,9 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 .legal p { margin: 0; }
 .legal a { text-decoration: underline; text-underline-offset: 3px; }
 @media (prefers-color-scheme: dark) {
-  .site-foot { border-top: 1px solid var(--line); }
+  :root:not([data-theme="light"]) .site-foot { border-top: 1px solid var(--line); }
 }
+:root[data-theme="dark"] .site-foot { border-top: 1px solid var(--line); }
 
 @media (max-width: 960px) {
   .page-hero > .wrap { grid-template-columns: 1fr; }

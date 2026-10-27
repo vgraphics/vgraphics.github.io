@@ -15,6 +15,7 @@ import { documents, loadProduct, pieces, products, subpages } from './lib/produc
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
+import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -32,6 +33,30 @@ const COMPANY = [
 const GREEK = /\p{Script=Greek}/u
 const GREEK_OK = {}
 const ADMOB = 'google.com, pub-7821189101210154, DIRECT, f08c47fec0942fa0'
+// The crawlers that gather pages to train AI models, which robots.txt keeps out (the terms of use, /terms/#ai), and the
+// search engines it must never block. A training crawler that works for search too (Googlebot, Bingbot) stays in.
+const AI_CRAWLERS = ['GPTBot', 'ClaudeBot', 'CCBot', 'Google-Extended', 'Applebot-Extended', 'Bytespider', 'meta-externalagent', 'cohere-training-data-crawler', 'AI2Bot']
+const SEARCH_CRAWLERS = ['googlebot', 'bingbot', 'duckduckbot', 'applebot', 'yandexbot']
+// robots.txt's groups (RFC 9309): the user agents each names, lower-cased, and its allow and disallow rules.
+function robotsGroups(text) {
+  const groups = []
+  let group = null
+  let agentLine = false
+  for (const raw of text.split(/\r?\n/)) {
+    const m = raw.replace(/#.*/, '').trim().match(/^([A-Za-z-]+)\s*:\s*(.*)$/)
+    if (!m) continue
+    const [, key, value] = m
+    if (/^user-agent$/i.test(key)) {
+      if (!agentLine) groups.push(group = { agents: [], rules: [] })
+      group.agents.push(value.toLowerCase())
+      agentLine = true
+      continue
+    }
+    agentLine = false
+    if (group && /^(allow|disallow)$/i.test(key)) group.rules.push([key.toLowerCase(), value.trim()])
+  }
+  return groups
+}
 
 const problems = []
 const report = (file, rule, message) => problems.push(`${file}: [${rule}] ${message}`)
@@ -106,6 +131,11 @@ for (const file of pages) {
   if (!/href="\/company\/"/.test(html)) report(file, 'legal-footer', 'no link to /company/')
   // The site's privacy policy: Google's OAuth consent screen (VGraphics Deployer) and AdSense look for it.
   if (!/href="\/privacy\/"/.test(html)) report(file, 'legal-footer', 'no link to /privacy/')
+  // Our art and songs are ours (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies
+  // them?"): every page carries the copyright line and links the terms of use.
+  // (The party games' pages wrap "All rights reserved" in a span, which their kit puts in the page's language.)
+  if (!/(?:©|&copy;) \d{4} VGRAPHICS SINGLE MEMBER P\.C\.(?:\s|<span[^>]*>)+All rights reserved/.test(html)) report(file, 'legal-footer', 'no copyright line "© <year> VGRAPHICS SINGLE MEMBER P.C. All rights reserved"')
+  if (!/href="\/terms\/"/.test(html)) report(file, 'legal-footer', 'no link to /terms/')
 
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
   if (!/<meta name="viewport"/.test(html)) report(file, 'head', 'no viewport meta')
@@ -303,6 +333,42 @@ for (const [file, text] of sheets) {
     const at = hotspot(readFileSync(picture, 'utf8'))
     if (typeof at === 'string') cursor(file, `--${name}'s ${url} ${at}`)
     else if (at.join(' ') !== `${x} ${y}`) cursor(file, `--${name} clicks at ${x} ${y}, but ${url}'s data-hotspot is ${at.join(' ')}`)
+  }
+}
+
+// The reader's theme (George, 27 Oct 2026: "At settings allow me to select dark or light theme if we support it"),
+// chosen in the hub's Settings and applied by assets/theme.js:
+// - every page on /assets/vgraphics.css loads it in its head before its first stylesheet, without defer or async, so
+//   the page paints in the chosen theme from the first frame;
+// - vgraphics.css holds the same dark tokens for the device's dark theme and for Dark chosen in the hub;
+// - every dark rule (in a stylesheet, or a page's own <style>) answers the chosen theme too: inside
+//   @media (prefers-color-scheme: dark), each selector starts :root:not([data-theme="light"]), beside its twin for
+//   :root[data-theme="dark"] outside the media query.
+const THEME_JS = '<script src="/assets/theme.js"></script>'
+const theme = (file, message) => report(file, 'theme', message)
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!html.includes('href="/assets/vgraphics.css"')) continue
+  const head = html.slice(0, html.indexOf('</head>'))
+  const at = head.indexOf(THEME_JS)
+  if (at < 0) theme(file, `its head doesn't load ${THEME_JS}, which applies the theme chosen in the hub`)
+  else if (at > head.search(/<link rel="stylesheet"/)) theme(file, `loads ${THEME_JS} after a stylesheet: load it first, so the page paints in the chosen theme`)
+}
+const sharedCss = readFileSync(join(root, 'assets', 'vgraphics.css'), 'utf8')
+const darkTokens = (re) => sharedCss.match(re)?.[1].replace(/\s+/g, ' ').trim()
+const deviceDark = darkTokens(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{([^}]*)\}/)
+const chosenDark = darkTokens(/^:root\[data-theme="dark"\] \{([^}]*)\}/m)
+if (!deviceDark || deviceDark !== chosenDark) theme(join('assets', 'vgraphics.css'), "the device's dark tokens and Dark's differ: keep the two blocks the same")
+for (const [file, text] of sheets) {
+  for (const m of text.matchAll(/@media\s*\(prefers-color-scheme:\s*dark\)\s*\{/g)) {
+    const start = m.index + m[0].length
+    let end = start
+    for (let depth = 1; end < text.length && depth > 0; end++) depth += text[end] === '{' ? 1 : text[end] === '}' ? -1 : 0
+    for (const [, selectors] of text.slice(start, end - 1).matchAll(/([^{}]+)\{[^{}]*\}/g)) {
+      if (selectors.split(',').some((sel) => !/^\s*:root:not\(\[data-theme=("?)light\1\]\)/.test(sel))) {
+        theme(file, `a dark rule (${selectors.trim()}) ignores the theme chosen in the hub: start it with :root:not([data-theme="light"]) and repeat it for :root[data-theme="dark"]`)
+      }
+    }
   }
 }
 
@@ -866,7 +932,7 @@ else {
 
 // sitemap.xml lists every page search engines may index, at its canonical address, as tools/build-sitemap.mjs writes
 // it, each with the day it last changed (whose value isn't checked: it moves with every commit, and the Deployer rewrites
-// some pages without the sitemap); robots.txt points to it and blocks nothing.
+// some pages without the sitemap); robots.txt points to it and blocks nothing to search engines.
 const sitemapFile = join(root, 'sitemap.xml')
 if (!existsSync(sitemapFile)) report('sitemap.xml', 'sitemap', 'missing: run node tools/build-sitemap.mjs')
 else {
@@ -901,7 +967,28 @@ if (!existsSync(robots)) report('robots.txt', 'robots', 'missing')
 else {
   const text = readFileSync(robots, 'utf8')
   if (!/^Sitemap: https:\/\/vgraphics\.gr\/sitemap\.xml\s*$/m.test(text)) report('robots.txt', 'robots', 'no "Sitemap: https://vgraphics.gr/sitemap.xml" line')
-  if (/^Disallow:\s*\/\s*$/m.test(text)) report('robots.txt', 'robots', 'blocks the whole site')
+  const groups = robotsGroups(text)
+  const blocksAll = (g) => g.rules.some(([key, value]) => key === 'disallow' && value === '/')
+  if (groups.some((g) => g.agents.includes('*') && blocksAll(g))) report('robots.txt', 'robots', 'blocks the whole site')
+  for (const bot of SEARCH_CRAWLERS) {
+    if (groups.some((g) => g.agents.includes(bot) && blocksAll(g))) report('robots.txt', 'robots', `blocks ${bot}, a search engine`)
+  }
+  // The terms of use reserve the site from AI training and text and data mining (EU Directive 2019/790, Article 4(3)),
+  // which the law wants said in machine-readable form: robots.txt keeps the training crawlers out, and tdmrep.json
+  // (W3C TDM Reservation Protocol) states the reservation for the whole site.
+  for (const bot of AI_CRAWLERS) {
+    if (!groups.some((g) => g.agents.includes(bot.toLowerCase()) && blocksAll(g))) report('robots.txt', 'robots', `doesn't keep ${bot} out: the terms of use reserve the site from AI training (/terms/#ai)`)
+  }
+}
+const tdmrep = join(root, '.well-known', 'tdmrep.json')
+if (!existsSync(tdmrep)) report('.well-known/tdmrep.json', 'tdm', 'missing: the terms of use reserve the site from text and data mining (/terms/#ai)')
+else {
+  try {
+    const list = JSON.parse(readFileSync(tdmrep, 'utf8'))
+    if (!Array.isArray(list) || !list.some((r) => r.location === '/*' && r['tdm-reservation'] === 1)) report('.well-known/tdmrep.json', 'tdm', 'no { "location": "/*", "tdm-reservation": 1 } entry for the whole site')
+  } catch (e) {
+    report('.well-known/tdmrep.json', 'tdm', `isn't valid JSON: ${e.message}`)
+  }
 }
 
 const cname = join(root, 'CNAME')
@@ -979,6 +1066,21 @@ else {
       if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
       if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
+  }
+}
+
+// Rights in the files (README "Rights in the files"): art not on the live site yet should carry our rights mark and,
+// once VGraphics' signing certificate is in place, Content Credentials. A warning on stderr, not a problem (it never
+// fails the check, nor reads as a problem line to the Deployer): node tools/protect-art.mjs adds them.
+{
+  const s = signer()
+  const sign = !!s && !s.test
+  const bare = newArt(root).filter((rel) => {
+    const b = readArt(join(root, rel))
+    return (MARKABLE.test(rel) && !hasRightsMark(b)) || (sign && !hasCredentials(b))
+  })
+  if (bare.length) {
+    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing`)
   }
 }
 

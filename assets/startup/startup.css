@@ -2,7 +2,8 @@
    versions share (assets/startup/startup.js): a plain dark launch, the VGraphics intro, then the product's welcome art
    with the squishy loading bar for at least 2 s and until the product is ready. It fills the element it is mounted in
    (a try page's phone screen). The bar is Exitwise's web loader's, in the product's colours: a pill on a darker lip
-   with a groove, and in the groove a fat arrow that grows to the right. Each product sets the --startup-* colours. */
+   with a groove, and in the groove a fat bar that grows to the right, the product's own mark at its head (startup.js,
+   TIPS). Each product sets the --startup-* colours. */
 .vg-startup {
   --startup-bg: #0A090D;
   --startup-track: #1F1F22;
@@ -51,8 +52,8 @@
 .vg-startup-intro.gone { opacity: 0; pointer-events: none; }
 .vg-startup-intro video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
 
-/* The bar: --t is the arrow's thickness, --lead its length at 0% (a round tail and the head); the script slides the body
-   and the head together along the rest of the groove, by transform only. */
+/* The bar: --t is its thickness, --lead its length at 0% (a round tail and the head); the script slides the body and
+   the head together along the rest of the groove, by transform only. */
 .vg-startup-bar {
   --h: clamp(24px, 6cqh, 38px);
   --lip: calc(var(--h) * 0.1);
@@ -111,7 +112,19 @@
 .vg-startup .bar-tip svg { display: block; width: 100%; height: 100%; }
 .vg-startup .bar-tip .edge { fill: var(--startup-fill-edge); stroke: var(--startup-fill-edge); }
 .vg-startup .bar-tip .face { fill: var(--startup-fill); stroke: var(--startup-fill); }
-/* Full, while the product starts: the arrow nudges to get out and a sheen runs along it. */
+/* The round knob and the dial are as tall as they are wide, a little fatter than the bar, over its round end. */
+.vg-startup .bar-tip.tip-round { width: calc(var(--t) * 1.3); height: calc(var(--t) * 1.3); margin-top: calc(var(--t) * -0.65); }
+.vg-startup .bar-tip.tip-dial { width: calc(var(--t) * 1.6); height: calc(var(--t) * 1.6); margin-top: calc(var(--t) * -0.8); }
+/* The dial's needle lies at the bottom of the scale at 0% and reaches the red line full, moving as the bar does. */
+.vg-startup .bar-tip .dial-face { fill: var(--startup-groove); }
+.vg-startup .bar-tip .dial-red { stroke: var(--startup-fill); }
+.vg-startup .bar-tip .dial-needle {
+  fill: var(--startup-fill);
+  transform-origin: 50px 47px;
+  transform: rotate(calc(150deg + var(--progress, 0) * 240deg));
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* Full, while the product starts: the tip nudges to get out and a sheen runs along the bar. */
 .vg-startup .bar-groove::after {
   content: "";
   position: absolute;
@@ -129,5 +142,5 @@
 .vg-startup.failed .vg-startup-status { max-width: 80%; text-align: center; text-transform: none; letter-spacing: 0; }
 @media (prefers-reduced-motion: reduce) {
   .vg-startup.starting .bar-tip, .vg-startup.starting .bar-groove::after, .vg-startup.settle .vg-startup-art img { animation: none; }
-  .vg-startup .bar-fill, .vg-startup .bar-head { transition-duration: 0.2s; }
+  .vg-startup .bar-fill, .vg-startup .bar-head, .vg-startup .bar-tip .dial-needle { transition-duration: 0.2s; }
 }
