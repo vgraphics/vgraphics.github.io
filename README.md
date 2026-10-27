@@ -40,6 +40,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
 | `.well-known/tdmrep.json` | The same reservation for the whole site in the W3C TDM Reservation Protocol (`"tdm-reservation": 1` on `/*`), which AI and text and data mining tools read |
 | `tools/check-site.mjs` | The site's content rules (legal footer with the copyright line and the terms link, the AI-training reservation in robots.txt and tdmrep.json, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/protect-art.mjs`, `tools/lib/credentials.mjs` | Write our rights into our pictures and songs before they are published: the rights mark (XMP) and, signed as VGraphics, Content Credentials (see "Rights in the files" below) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/sync-documents.mjs` | Copies the policies (and Exitwise's map rules) in from the repos that own them, unchanged from their `main`, and rewrites their pages: `node tools/sync-documents.mjs <product>` (`--ref <branch>` for another); with no product it says which copies differ from their sources |
@@ -369,6 +370,39 @@ switch the same way Exitwise's does (the games repo's `docs/web-ads-adsense.md`,
 - that publisher's line in `ads.txt`;
 - an entry for every game whose play page (`<game>/play/`) loads the switch. An app's try page loads none and shows no
   ads.
+
+## Rights in the files
+
+Our pictures and songs carry their rights inside the files too (George, 27 Oct 2026: "How can we protect our art and
+songs so nobody else copies them?"), as well as the terms of use (`/terms/`):
+
+- **The rights mark:** an XMP packet with the IPTC rights fields: creator VGraphics, "© 2026 VGRAPHICS SINGLE MEMBER P.C.
+  All rights reserved.", the terms as the web statement of rights, VGraphics as licensor (support@vgraphics.gr), data
+  mining prohibited (PLUS `DMI-PROHIBITED`) and, where we know it, the IPTC digital source type. Google Images shows the
+  creator and copyright from it. It goes into JPEG, PNG and WebP without re-encoding a pixel (about 2 KB each), not into
+  AVIF or the songs.
+- **Content Credentials (C2PA):** a manifest signed as VGraphics with the same rights (`cawg.metadata`), no AI training
+  or data mining (`cawg.training-mining`), and for art made with Recraft or Suno, that the tool made the first draft and
+  we edited it (`c2pa.actions.v2`: created, trainedAlgorithmicMedia, then edited, humanEdits). Every format: JPEG, PNG,
+  WebP, AVIF, M4A and MP3, about 14 KB each (no thumbnail inside). `MADE_WITH` in `tools/lib/credentials.mjs` says which
+  art was made with which tool; art not listed there (screenshots, the apps' renders, cards drawn in code, voices) gets
+  no such claim.
+
+`node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since `origin/main`, or
+new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do those instead, or
+`--all` for every picture and song of ours; `--check` only lists what is missing. Run it before publishing new art, as
+check-site reminds you: it warns (on stderr, without failing) about new art without them. The mark goes in first, since
+signing seals the file. Pictures of 256 px or smaller, and what other repos' releases write (`exitwise/play/`,
+`speedometer-wallpaper/play/app/`, `hub/`), are left alone.
+
+- **The signer** stays in the Deployer's private secrets, never here: `D:/Projects/Deployer/secrets/c2pa/signer.json`
+  (`C2PA_SIGNER` for another) with the certificate chain and key it names. One marked `"test": true` signs only files
+  outside this repo. Which certificate to use is George's choice (the Deployer's `secrets/c2pa/README.md`).
+- **c2patool** comes from its GitHub release (contentauth/c2patool), checked against the release's SHA-256 pinned in
+  `protect-art.mjs`, into the Deployer's `state/tools/` (`C2PATOOL=<c2patool.exe>` for another).
+- **The existing art isn't marked or signed yet:** rewriting the 2,900 or so served pictures adds about their size
+  (some 560 MB) to this public repo's history each time, so they get one pass, mark and signature together, once George
+  has chosen the certificate (`node tools/protect-art.mjs --all --sign`).
 
 ## Every picture once
 

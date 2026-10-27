@@ -15,6 +15,7 @@ import { documents, loadProduct, pieces, products, subpages } from './lib/produc
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
+import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -1029,6 +1030,21 @@ else {
       if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
       if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
+  }
+}
+
+// Rights in the files (README "Rights in the files"): art not on the live site yet should carry our rights mark and,
+// once VGraphics' signing certificate is in place, Content Credentials. A warning on stderr, not a problem (it never
+// fails the check, nor reads as a problem line to the Deployer): node tools/protect-art.mjs adds them.
+{
+  const s = signer()
+  const sign = !!s && !s.test
+  const bare = newArt(root).filter((rel) => {
+    const b = readArt(join(root, rel))
+    return (MARKABLE.test(rel) && !hasRightsMark(b)) || (sign && !hasCredentials(b))
+  })
+  if (bare.length) {
+    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing`)
   }
 }
 
