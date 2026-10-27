@@ -10,6 +10,11 @@
 //        data-track="#0E1B2B" data-track-lip="#050B13" data-groove="#060D16" data-rim="#E8B65A"></div>
 //   <script src="../../tv/start-up/welcome.js"></script>
 //
+// A game with its art in several sizes also names them, each art with its srcset and sizes, and the browser loads only
+// the one that covers its screen (George, 27 Oct 2026: "8k for all and based on device we show different resolution"):
+// data-art-srcset="../art/wide.webp 1920w, ../art/wide-7680.webp 7680w" data-art-sizes="100vw", and data-art-tall-srcset
+// and data-art-tall-sizes the same way. data-art and data-art-tall stay the picture for browsers without srcset.
+//
 // The bar is the game's, not Exitwise's: no arrowhead (George, 26 Oct 2026: "Palermo tv loading shows a loading arrow.
 // This was from exitwise. Style the new loading properly."). Its fill runs in the accent like a lit fuse, with a spark
 // at its head that flickers, stretches as it shoots ahead and squashes as it stops.
@@ -17,7 +22,8 @@
 // The app calls PartyWelcome.progress(0 to 1) as it gets on, and PartyWelcome.ready(then) once the lobby is drawn
 // underneath: the bar fills and hops, and a timer holds the welcome until it has been up 2 s and the key art, if it
 // came, has been seen for 2 s; then it fades out over 300 ms and then(ms) gets how long it was up (the app logs
-// splash_shown). PartyWelcome.look({ art, artTall, accent, accentLip }) changes the art late; PartyWelcome.hide()
+// splash_shown). PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
+// changes the art late (a new art without its own srcset drops the old one's); PartyWelcome.hide()
 // removes it at once. Plain ES5 and CSS that 2022 TV browsers (Chromium 85) run; only transforms and opacity move.
 // The timer is tested in site/test/welcome.test.ts.
 (function () {
@@ -106,11 +112,15 @@
   var img = art.querySelector("img");
   var shownAt = -1;
   var tall = window.matchMedia ? window.matchMedia("(max-aspect-ratio: 1/1)") : null;
-  var arts = { wide: "", tall: "" };
+  var arts = { wide: "", tall: "", wideSet: "", tallSet: "", wideSizes: "", tallSizes: "" };
 
   var showArt = function () {
-    var src = tall && tall.matches && arts.tall ? arts.tall : arts.wide;
+    var useTall = tall && tall.matches && arts.tall;
+    var src = useTall ? arts.tall : arts.wide;
     if (!src || img.getAttribute("src") === src) return;
+    // The sizes before the picture, so the browser fetches only the one for this screen: a phone never loads the 8K.
+    img.sizes = (useTall ? arts.tallSizes : arts.wideSizes) || "100vw";
+    img.srcset = (useTall ? arts.tallSet : arts.wideSet) || "";
     img.src = src;
     var shown = function () {
       if (shownAt < 0) shownAt = now();
@@ -125,12 +135,23 @@
     groove: "--pw-groove", rim: "--pw-rim" };
   var look = function (options) {
     for (var key in COLOURS) if (options[key]) root.style.setProperty(COLOURS[key], options[key]);
-    arts = { wide: options.art || arts.wide, tall: options.artTall || arts.tall };
+    arts = {
+      wide: options.art || arts.wide,
+      tall: options.artTall || arts.tall,
+      wideSet: options.artSrcset || (options.art ? "" : arts.wideSet),
+      tallSet: options.artTallSrcset || (options.artTall ? "" : arts.tallSet),
+      wideSizes: options.artSizes || (options.art ? "" : arts.wideSizes),
+      tallSizes: options.artTallSizes || (options.artTall ? "" : arts.tallSizes)
+    };
     showArt();
   };
   look({
     art: root.getAttribute("data-art"),
     artTall: root.getAttribute("data-art-tall"),
+    artSrcset: root.getAttribute("data-art-srcset"),
+    artSizes: root.getAttribute("data-art-sizes"),
+    artTallSrcset: root.getAttribute("data-art-tall-srcset"),
+    artTallSizes: root.getAttribute("data-art-tall-sizes"),
     accent: root.getAttribute("data-accent"),
     accentLip: root.getAttribute("data-accent-lip"),
     track: root.getAttribute("data-track"),
