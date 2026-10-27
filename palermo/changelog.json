@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.3cc4d2fd",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Taps stay locked through narration",
+      "items": [
+        "In the demo, your taps stay locked while the narrator introduces the roles, instead of unlocking part-way through."
+      ],
+      "commit": "3cc4d2fd"
+    },
+    {
       "version": "0.1.256109f1",
       "date": "2026-10-28",
       "platforms": [
