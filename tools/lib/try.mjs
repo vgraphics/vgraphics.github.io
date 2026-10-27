@@ -13,9 +13,11 @@
 //   measurementId  the product's Google Analytics web stream ("G-…"), or null: no statistics and no question
 //   prices         { premium, all }: what a premium style and "Unlock all" cost (the engine knows only which are free)
 //   qr             { src, alt }: a QR code of the store link, for desktop visitors (tools/make-qr.py)
-//   startup        { art: { tall, wide }, minMs }: the welcome art (as src-<width>.webp) and its least time on screen;
-//                  false leaves the start-up out: the product starts only on its try page (George, 26 Oct 2026: "Try
-//                  page only"), and a page that shows it as a preview (a style's page) draws it at once
+//   startup        { art: { tall, wide }, tip, minMs }: the welcome art (as src-<width>.webp), the product's mark at the
+//                  loading bar's head (assets/startup/startup.js, TIPS: "dial", "arrow"; none, a round knob) and the
+//                  art's least time on screen; false leaves the start-up out: the product starts only on its try page
+//                  (George, 26 Oct 2026: "Try page only"), and a page that shows it as a preview (a style's page) draws
+//                  it at once
 //   style          one style's page (speedometer-wallpaper/styles/<style>/): the phone opens on that style, and the
 //                  panel has no list of styles and no previous and next; its layouts and settings stay
 //   layouts        a script that reads the product's shared layouts by code (window.VGTryLayouts.resolve, Speedometer's
@@ -112,7 +114,10 @@ export function tryBlock(b, page) {
                 ${b.qr ? `<figure class="try-qr"><img src="${esc(b.qr.src)}" alt="${esc(b.qr.alt)}" width="132" height="132" loading="lazy"><figcaption>Scan with your phone</figcaption></figure>` : ''}
               </div>
             </section>
-            ${config.measurementId ? '<button class="try-link" type="button" data-action="statistics">Statistics</button>' : ''}
+            ${config.measurementId ? `<label class="try-setting try-statistics">
+              <span>Usage statistics<small>Counted with Google Analytics</small></span>
+              <input class="switch" type="checkbox" role="switch">
+            </label>` : ''}
           </div>
           <div class="try-fallback" hidden>
             <p class="try-fallback-text"></p>

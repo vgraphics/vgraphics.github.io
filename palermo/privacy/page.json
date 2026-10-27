@@ -32,6 +32,6 @@
     }
   },
   "sections": [
-    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games/palermo", "path": "docs/privacy-policy.html" } }] }
   ]
 }

@@ -32,12 +32,14 @@
     ]
   }
   </script>
+  <!-- The theme chosen in Settings, before the first paint (vgraphics.gr assets/theme.js; src/theme.ts) -->
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin >
   <link rel="stylesheet" href="/assets/vgraphics.css" >
   <link rel="stylesheet" href="/assets/cursors.css" >
   <script src="/assets/menu.js" defer></script>
-  <script type="module" crossorigin src="/hub/assets/index-WnW3Vx6f.js"></script>
-  <link rel="stylesheet" crossorigin href="/hub/assets/index-55uW_NOZ.css">
+  <script type="module" crossorigin src="/hub/assets/index-DEUTp1g5.js"></script>
+  <link rel="stylesheet" crossorigin href="/hub/assets/index-DoViQUzh.css">
 </head>
 <body class="pg-hub">
 <a class="skip" href="#main">Skip to content</a>
@@ -63,17 +65,18 @@
 
 <main id="main">
   <div id="app">
-    <!-- fallback -->
-    <noscript>
-      <div class="wrap hub-static">
-        <p class="kicker"><span class="dot" aria-hidden="true"></span> VHub</p>
-        <h1>VHub</h1>
-        <p class="lede">One player account for every VGraphics game and app: your name and picture, a level and XP, achievements, and friends you can invite into a room.</p>
-        <p>These pages need JavaScript. Turn it on in your browser to sign in and see your profile, friends and achievements.</p>
-        <p class="hub-static-links"><a class="more" href="/hub/delete/">Delete your VHub account</a> <a class="more" href="/hub/privacy.html">VHub privacy policy</a></p>
-      </div>
-    </noscript>
-    <!-- /fallback -->
+    <div class="wrap hub-static" data-wait>
+      <p class="kicker"><span class="dot" aria-hidden="true"></span> VHub</p>
+      <h1>Games and apps</h1>
+      <p class="lede">Every VGraphics game and app on VHub. Sign in to see your own stats in each.</p>
+      <h2>Exitwise</h2>
+      <p><a href="https://vgraphics.gr/exitwise/">About Exitwise</a> · <a href="https://vgraphics.gr/exitwise/play/">Play it in your browser</a> · <a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise">Google Play</a></p>
+      <p>19 achievements, and its leaderboards: Score, Perfect, Maps, Creators. Your profile keeps your highest level, levels won, perfect clears, hard levels, daily challenges, time played, maps cleared, maps published, plays of your maps and room wins in it.</p>
+      <h2>Speedometer Live Wallpaper</h2>
+      <p><a href="https://vgraphics.gr/speedometer-wallpaper/">About Speedometer Live Wallpaper</a> · <a href="https://vgraphics.gr/speedometer-wallpaper/play/">Try it in your browser</a> · <a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Google Play</a></p>
+      <p>5 achievements. Your profile keeps your days in use, styles owned and layouts made in it.</p>
+      <p class="hub-static-links"><a class="more" href="/hub/">VHub</a> <a class="more" href="/hub/privacy.html">VHub privacy policy</a></p>
+    </div>
   </div>
 </main>
 
@@ -93,10 +96,10 @@
     <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>

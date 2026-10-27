@@ -6,6 +6,9 @@
 // Until styles.json says "published": true the pages stay out of search and the sitemap, and the landing tiles open the
 // try page; then the tiles open the pages. They go live with the Play release that has the styles. With "market": true
 // each page also shows the layout market's layouts made with its style (styles/made-with.html).
+// Published, "robots": "noindex" (in styles.json for every style, or on one style) still keeps a page out of search and
+// the sitemap, its tile opening it as before: the pages share most of their words, so each stays out until its style has
+// a write-up of its own (AdSense's "Low-value content" review, 27 Oct 2026). A style's "robots": null lets it in.
 // Usage: node tools/make-style-pages.mjs, then node tools/build-pages.mjs <product> and node tools/build-sitemap.mjs.
 // check-site fails while a page.json or the tiles differ from what this writes. Words take {name}, {others}, {price}
 // and {count}.
@@ -48,10 +51,11 @@ function stylePage(slug, data, landing, demo, i) {
   const priced = s.free ? w.free : w.paid
   const { type, startup, labels, ...given } = demo
   const { unlock, ...words } = labels ?? {}
+  const robots = data.published ? (s.robots !== undefined ? s.robots : data.robots) : 'noindex'
   return {
     title,
     description,
-    ...(data.published ? {} : { robots: 'noindex' }),
+    ...(robots ? { robots } : {}),
     social: {
       title: `${s.name}, a ${landing.site.name} style`,
       description: s.tagline,

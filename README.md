@@ -12,20 +12,22 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
-| `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
+| `company/index.html` | About VGraphics: the studio, what we make and how we work, then the legal details from the General Commercial Registry (G.E.MI.). It is the site's About page (AdSense's review, 27 Oct 2026, looks for one); the footer still calls it "Company information". |
+| `devlog/` | The devlog: notes from the studio on how the games and apps are made, one page per post at `devlog/<slug>/`. `devlog/posts.json` holds the posts; `tools/build-devlog.mjs` writes the pages with the home page's header and footer, so run it after adding a post or changing the home page's header or footer, then `build-sitemap`. Only real work goes in a post, no filler. |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
+| `terms/index.html` | The site's terms of use (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies them?"): everything on the site is VGraphics' (or licensed), what visitors may do, no copying, re-uploading, scraping or AI training, our trademarks, how to ask for a licence and how to report a copy (support@vgraphics.gr). Its "Scraping and AI training" chapter (`#ai`) holds the site's text and data mining reservation (EU Directive 2019/790, Article 4(3)), which `robots.txt` and `.well-known/tdmrep.json` state in machine-readable form. Update its "Last updated" date with any change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
 | `<product>/changelog.json`, `<product>/faq.json` | The landing page's "What's new" (every release players got, which the Deployer adds to) and "Questions and answers" (see "What's new and Questions and answers" below) |
-| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template |
+| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template. `tools/sync-documents.mjs` brings the copies in from their repos (see "Privacy policies" below) |
 | `<product>/<page>/page.json` | A product's other pages, made from the same template as its landing page by `tools/build-pages.mjs`: Exitwise's ranking, room, privacy policy and map rules, and Speedometer's privacy policy. A page's own markup sits beside its page.json (`ranking.html`, `.css`, `.js`) |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
 | `speedometer-wallpaper/play/` | Speedometer's try page: the real app's engine (Kotlin/Wasm and Skia), live in a phone with its styles and settings. The page is the template's (`play/page.json`, the "try" block); the engine's files in `play/app/` come only from the Deployer's `speedometer-web` project, never by hand. `play/img/play-qr.svg` is the store link's QR code (`tools/make-qr.py`). |
 | `speedometer/` | The short address `vgraphics.gr/speedometer/`: it forwards at once to the try page (noindex) |
 | `index.php/contact/`, `index.php/about-2/` | The old WordPress site's pages, which Google still asked for in October 2026 (Search Console, "Not found (404)"): each forwards at once (noindex, an instant meta refresh, which Google treats as a permanent redirect) to the home page's contact card and studio section. Add another the same way only for an old address people may still reach; anything else may stay 404 |
-| `speedometer-wallpaper/styles/` | A page for each of Speedometer's 19 styles at `styles/<style>/`, from the template (a page group: a folder of pages with no `page.json` of its own). `styles/styles.json` holds each style's name, price, words and picture; `tools/make-style-pages.mjs` writes every `styles/<style>/page.json` and the landing page's style tiles from it, so never edit those by hand. Each page shows the style live (the "try" block with `"style"` and `"startup": false`: no start-up, George 26 Oct 2026, "Try page only"), its look, and the next styles. `"published": false` keeps them out of search and the sitemap, and the landing tiles open the try page, until the Play release that has the 19 styles: then set it to `true` and run the generator, build-pages and build-sitemap. |
+| `speedometer-wallpaper/styles/` | A page for each of Speedometer's 19 styles at `styles/<style>/`, from the template (a page group: a folder of pages with no `page.json` of its own). `styles/styles.json` holds each style's name, price, words and picture; `tools/make-style-pages.mjs` writes every `styles/<style>/page.json` and the landing page's style tiles from it, so never edit those by hand. Each page shows the style live (the "try" block with `"style"` and `"startup": false`: no start-up, George 26 Oct 2026, "Try page only"), its look, and the next styles. `"published": false` keeps them out of search and the sitemap, and the landing tiles open the try page, until the Play release that has the 19 styles: then set it to `true` and run the generator, build-pages and build-sitemap. Published, `"robots": "noindex"` (for every style, or on one style; a style's `"robots": null` lets it in) keeps the pages out of search and the sitemap while their tiles still open them: they share most of their words, so each waits for a write-up of its own (AdSense's "Low-value content" review, 27 Oct 2026). Wiki entries take the same `"robots": "noindex"` in `wiki.json` for the same reason. |
 | `speedometer-wallpaper/l/` | A market layout's page, where the app's share link lands: `/speedometer-wallpaper/l/?c=<CODE>` (the app's `MarketCodes`; noindex), from the template with its piece beside it (`layout.html`, `.css`, `.js`). The layout drawn live by the engine in a phone, in the style it was made with and in any other at a tap; its maker, stars, uses, screens and widgets; Try it in your browser (`/play/#layout=<CODE>&style=<id>`), Google Play with `utm_content=layout_<CODE>` for the app to open the layout after the install, and on Android Open in the app (an https intent; Chrome comes back with `&app=none` without the app, and the page asks once on load); the code with Copy link; and a report form with no account (a `webReports` document that never hides a layout). `#report` opens the form. |
 | `speedometer-wallpaper/layouts/`, `creators/`, `market/` | Speedometer's layout market on the site (the web market design, Games `docs/superpowers/specs/2026-10-26-speedometer-web-market-design.md`): the market page (`layouts/`, Popular / New / Top rated, the screens, a name or code search, 20 at a time), creator pages (`creators/?u=<uid>`, noindex: their live layouts, total uses and average stars), the landing's "Layouts made by drivers" chapter (`market-chapter.*`) and the style pages' "Layouts made with" chapter (`styles/made-with.*`, with `styles.json` `"market": true`). All read the market signed out through `market/market.js` (Firestore REST on `speedometer-wallpaper`, VHub's public profiles, `assets/vhub-avatars.js`), which also gives the try page its `#layout=` links. Cards are still frames the try page's engine draws (`VGTry.stills`); without WebAssembly GC they show the style's picture, labelled. The engine's folder, Google Play, prices and the statistics id come from `play/page.json`. `?emulator=127.0.0.1` on localhost reads the emulators. |
 | `exitwise/ranking/` | Exitwise's global ranking: the game's four global boards (top 100 each), read live from VHub (`leaderboards/exitwise.*` in the `vgraphics-vhub` Firestore, pictures from its Storage) without signing in. `boards.js` holds the reads and the avatars for this page, the home and services podium (`assets/podium.js`) and the multiplayer page. VHub's `backend/firestore.rules` allow those reads; `?emulator=127.0.0.1` reads VHub's emulators (project `demo-vhub`), `?emulator=127.0.0.1:PORT` a Firestore emulator on that port, on localhost only. |
@@ -34,15 +36,19 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
 | `ads.txt` | The sellers of the ads on vgraphics.gr itself (Google AdSense, for the web games). Apps read `app-ads.txt` instead. It must stay at the root. |
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
-| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours |
+| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark) |
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
-| `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
+| `.well-known/tdmrep.json` | The same reservation for the whole site in the W3C TDM Reservation Protocol (`"tdm-reservation": 1` on `/*`), which AI and text and data mining tools read |
+| `tools/check-site.mjs` | The site's content rules (legal footer with the copyright line and the terms link, the AI-training reservation in robots.txt and tdmrep.json, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `tools/protect-art.mjs`, `tools/lib/credentials.mjs` | Write our rights into our pictures and songs before they are published: the rights mark (XMP) and, signed as VGraphics, Content Credentials (see "Rights in the files" below) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
+| `tools/sync-documents.mjs` | Copies the policies (and Exitwise's map rules) in from the repos that own them, unchanged from their `main`, and rewrites their pages: `node tools/sync-documents.mjs <product>` (`--ref <branch>` for another); with no product it says which copies differ from their sources |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
-| `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the masters in `<product>/wiki/art-src/`, whose `sources.json` records each one's making, prompt and licence: `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. |
+| `tools/art_src.py` | Where each product's wiki masters live (the big pictures the served sizes are cut from, and `sources.json`, each one's making, prompt and licence): in its own private repo, never on this public site, which holds only the published pictures. Exitwise's and Speedometer's are in the Games repo's `docs/site-art/<product>/wiki/`, Palermo Noir's in the palermo repo's (`Games/palermo`) `docs/site-art/wiki/`. The wiki tools find the repo beside the site's checkout; `ART_REPO=<a checkout or worktree of it>` uses another. Commit the masters there, the served sizes here. check-site fails any `art-src/` folder on the site. |
+| `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the product's masters (`tools/art_src.py`): `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. `--medals` copies Palermo Noir's medal masters unchanged to `palermo/wiki/img/medals/<slug>-<width>.webp`, which the gallery's lightbox shows. |
 | `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the boards' rock, bomb and portal) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
@@ -55,8 +61,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
 | `tools/make-speedometer-renders.py` | Writes `speedometer-wallpaper/img/renders/`: the app's real renders (its screenshot goldens in the Games repo and frames of the Promo demo drive) that the gallery, `/apps/`, the home page and the wiki's medals show, each place its own: `python tools/make-speedometer-renders.py`, then `python tools/make-gallery-images.py speedometer-wallpaper` (Python with Pillow) |
 
-Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
-`/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
+Rules for every page: the legal footer line (the copyright line "© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights
+reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to `/company/`, `/privacy/` and `/terms/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
 and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
 alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
 `tools/` and this README included. The site is in English: no Greek letters on its
@@ -84,10 +90,10 @@ the hub writes while a player is signed in (their name; `photo`, the approved ph
 loaded as a plain image with no referrer; or `pic`, the preset as a `data:` URL; and the frame: one of the hub's own
 `/hub/frames/*.webp` with its opening's place) and removes on sign-out. Only those addresses are accepted.
 
-The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
+The company pages (home, games, apps, services, multiplayer, hub, company, privacy, terms, 404, and the devlog) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
 sky, VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it
-into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
+into the other nine pages, then run `node tools/build-devlog.mjs`, which copies it into the devlog. The check fails while any page differs (only `aria-current="page"` on the page's own menu
 item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
 Change it there too and release `vhub-hub`: until then the check reports every hub page.
 
@@ -136,15 +142,24 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
   points that match the pictures. The hub's copy lives in the VHub repo (`hub/index.html`, its policy page and
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
-Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
-Wallpaper `docs/speedometer-privacy-policy.html`, Palermo Noir `docs/privacy-policy.html` (repo `vgraphics/palermo`). After you edit a policy there, copy it here unchanged, push, and
-check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
-`exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
-`speedometer-wallpaper/privacy/source.html`, Palermo Noir's to `palermo/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
-the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
-adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
-too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
-exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
+## Privacy policies
+
+Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html` and Speedometer Live
+Wallpaper `docs/speedometer-privacy-policy.html` in the Games repo, Palermo Noir `docs/privacy-policy.html` in its own
+(`vgraphics/palermo`, the `Games/palermo` folder). The page.json "document" block of each policy page (and of
+Exitwise's map rules, `docs/store/exitwise-map-rules.html`) names that file, `"from": { "repo", "path" }`, and the site
+holds a copy of it beside the page.json (`exitwise/privacy/source.html`, `speedometer-wallpaper/privacy/source.html`,
+`palermo/privacy/source.html`, `exitwise/map-rules/source.html`). `tools/build-pages.mjs` sets the copy into the
+product's template at the page's address (`<product>/privacy.html`), with the shared header, menu and footer.
+
+To change a policy: edit it in its repo and merge it to `main` there, then `node tools/sync-documents.mjs <product>`
+here, which copies it in unchanged and rewrites the page; run check-site, push, and check that the live page has
+updated. `node tools/sync-documents.mjs` alone says which copies differ from their sources. The Deployer's
+`exitwise-web` also copies Exitwise's policy in with every release. A source is the text alone, in one `<main>`: no
+header, menu or footer of its own (the template adds them), `<meta name="robots" content="noindex">` and a canonical
+link to its page, since GitHub Pages serves it too; check-site checks this, and that each block names its source. VHub's
+policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the exception: each `vhub-hub` release brings it to
+`hub/privacy.html` with the hub.
 
 ## Chapter stepper
 
@@ -193,6 +208,27 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
+
+## Light and dark
+
+The company pages and the hub have a light and a dark look; the reader picks System, Light or Dark in the hub's Settings
+(George, 27 Oct 2026: "At settings allow me to select dark or light theme if we support it"). System, or no choice yet,
+follows the device. Product pages have one look each and stay as they are.
+
+- `assets/theme.js` keeps the choice in the browser (localStorage `vg-theme`) and sets it on `<html data-theme>`
+  (none for System). Every page on `assets/vgraphics.css` loads it in its head before its stylesheets, without
+  `defer`, so the page paints in the right theme from the first frame: `<script src="/assets/theme.js"></script>`.
+  The hub's pages carry it from the VHub repo's `hub/index.html`.
+- A dark rule answers both: inside `@media (prefers-color-scheme: dark)` its selector starts
+  `:root:not([data-theme="light"])`, and a twin outside the media query starts `:root[data-theme="dark"]`.
+  `vgraphics.css`'s dark tokens are written so, twice.
+- The theme-color metas and a `<picture>`'s sources for one scheme (the logo's) keep their media queries: `theme.js`
+  turns them to the chosen theme as the page loads.
+- The hub calls `window.vgTheme.set("system" | "light" | "dark")`; other open tabs follow at once. It also keeps the
+  choice in the VHub account, and a browser with no choice of its own takes the account's.
+- check-site holds every served page to this: a page on `vgraphics.css` loads `theme.js` before its first
+  stylesheet, both dark token blocks match, and every dark rule in a stylesheet or a page's `<style>` is scoped as
+  above.
 
 ## Switches, never checkboxes
 
@@ -357,6 +393,39 @@ switch the same way Exitwise's does (the games repo's `docs/web-ads-adsense.md`,
 - that publisher's line in `ads.txt`;
 - an entry for every game whose play page (`<game>/play/`) loads the switch. An app's try page loads none and shows no
   ads.
+
+## Rights in the files
+
+Our pictures and songs carry their rights inside the files too (George, 27 Oct 2026: "How can we protect our art and
+songs so nobody else copies them?"), as well as the terms of use (`/terms/`):
+
+- **The rights mark:** an XMP packet with the IPTC rights fields: creator VGraphics, "© 2026 VGRAPHICS SINGLE MEMBER P.C.
+  All rights reserved.", the terms as the web statement of rights, VGraphics as licensor (support@vgraphics.gr), data
+  mining prohibited (PLUS `DMI-PROHIBITED`) and, where we know it, the IPTC digital source type. Google Images shows the
+  creator and copyright from it. It goes into JPEG, PNG and WebP without re-encoding a pixel (about 2 KB each), not into
+  AVIF or the songs.
+- **Content Credentials (C2PA):** a manifest signed as VGraphics with the same rights (`cawg.metadata`), no AI training
+  or data mining (`cawg.training-mining`), and for art made with Recraft or Suno, that the tool made the first draft and
+  we edited it (`c2pa.actions.v2`: created, trainedAlgorithmicMedia, then edited, humanEdits). Every format: JPEG, PNG,
+  WebP, AVIF, M4A and MP3, about 14 KB each (no thumbnail inside). `MADE_WITH` in `tools/lib/credentials.mjs` says which
+  art was made with which tool; art not listed there (screenshots, the apps' renders, cards drawn in code, voices) gets
+  no such claim.
+
+`node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since `origin/main`, or
+new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do those instead, or
+`--all` for every picture and song of ours; `--check` only lists what is missing. Run it before publishing new art, as
+check-site reminds you: it warns (on stderr, without failing) about new art without them. The mark goes in first, since
+signing seals the file. Pictures of 256 px or smaller, and what other repos' releases write (`exitwise/play/`,
+`speedometer-wallpaper/play/app/`, `hub/`), are left alone.
+
+- **The signer** stays in the Deployer's private secrets, never here: `D:/Projects/Deployer/secrets/c2pa/signer.json`
+  (`C2PA_SIGNER` for another) with the certificate chain and key it names. One marked `"test": true` signs only files
+  outside this repo. Which certificate to use is George's choice (the Deployer's `secrets/c2pa/README.md`).
+- **c2patool** comes from its GitHub release (contentauth/c2patool), checked against the release's SHA-256 pinned in
+  `protect-art.mjs`, into the Deployer's `state/tools/` (`C2PATOOL=<c2patool.exe>` for another).
+- **The existing art isn't marked or signed yet:** rewriting the 2,900 or so served pictures adds about their size
+  (some 560 MB) to this public repo's history each time, so they get one pass, mark and signature together, once George
+  has chosen the certificate (`node tools/protect-art.mjs --all --sign`).
 
 ## Every picture once
 

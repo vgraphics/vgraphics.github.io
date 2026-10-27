@@ -30,6 +30,6 @@
     }
   },
   "sections": [
-    { "id": "map-rules", "blocks": [{ "type": "document", "src": "source.html" }] }
+    { "id": "map-rules", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games", "path": "docs/store/exitwise-map-rules.html" } }] }
   ]
 }

@@ -118,21 +118,26 @@
     analytics.error('Unhandled rejection: ' + (reason && reason.message ? reason.message : String(reason)), reason && reason.stack);
   });
 
-  // The question, once per browser, when the demo starts; "Statistics" in the panel asks again.
+  // The question, once per browser, when the demo starts; the "Usage statistics" switch at the panel's foot shows the
+  // answer and changes it.
   var consent = $('.try-consent');
+  var statistics = $('.try-statistics input');
   var askConsent = function () {
     if (consent) consent.hidden = false;
   };
+  var decide = function (value) {
+    store(CONSENT_KEY, value);
+    consent.hidden = true;
+    statistics.checked = value === 'granted';
+    analytics.answer(value);
+  };
   if (consent) {
     Array.prototype.forEach.call(consent.querySelectorAll('button[data-answer]'), function (button) {
-      button.addEventListener('click', function () {
-        var value = button.getAttribute('data-answer');
-        store(CONSENT_KEY, value);
-        consent.hidden = true;
-        analytics.answer(value);
-      });
+      button.addEventListener('click', function () { decide(button.getAttribute('data-answer')); });
     });
+    statistics.addEventListener('change', function () { decide(statistics.checked ? 'granted' : 'denied'); });
     var answer = stored(CONSENT_KEY);
+    statistics.checked = answer === 'granted';
     if (answer === 'granted' || answer === 'denied') analytics.answer(answer);
   }
 
@@ -433,8 +438,6 @@
     } else if (action === 'fullscreen') {
       if (document.fullscreenElement) document.exitFullscreen();
       else device.requestFullscreen().catch(function () {});
-    } else if (action === 'statistics') {
-      askConsent();
     }
   });
   var full = root.querySelector('[data-action="fullscreen"]');
@@ -521,6 +524,7 @@
     setState('starting');
     startup = config.startup && window.VGStartup ? window.VGStartup.mount(screen, {
       art: config.startup.art,
+      tip: config.startup.tip,
       minMs: config.startup.minMs,
       base: config.startup.base,
       label: 'Loading ' + config.name,

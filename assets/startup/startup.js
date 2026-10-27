@@ -3,12 +3,13 @@
 // product's welcome art with the squishy loading bar, for at least 2 s and until the product is ready. The intro is the
 // one the games' web builds play (the Games repo's docs/brand/splash/INTEGRATION.md; the films are copies of
 // ArrowPuzzle/Assets/WebGLTemplates/Portfolio/brand-intro/), the bar Exitwise's web loader's (exitwise/play/), in the
-// product's colours (assets/startup/startup.css).
+// product's colours (assets/startup/startup.css) and with the product's own mark at its head.
 //
-//   var startup = VGStartup.mount(host, { art: { tall, wide }, alt, minMs, base, wait })
+//   var startup = VGStartup.mount(host, { art: { tall, wide }, tip, alt, minMs, base, wait })
 //     host    the element it fills (a try page's phone screen); it must be positioned
 //     art     the welcome art: { tall: { src, widths }, wide: { src, widths } }, as src-<width>.webp files; the tall
 //             one when the host is taller than it is wide
+//     tip     the product's mark at the bar's head: 'dial' (Speedometer), 'arrow' (Exitwise); any other, the round knob
 //     minMs   how long the welcome art stays at least (2000: George, 22 Oct 2026)
 //     base    where the intro films are (/assets/startup/)
 //     wait    true: only the dark launch until play(), so the product can load first (a try page loads its engine
@@ -37,19 +38,49 @@
     try { performance.mark('vg-startup:' + name); } catch (e) { /* no User Timing: nothing to mark */ }
   };
 
-  var BAR = '<div class="bar-shadow"></div>' +
-    '<div class="bar-hop"><div class="bar-jelly">' +
-    '<div class="bar-track"><div class="bar-groove"><div class="bar-fill"></div></div></div>' +
-    '<div class="bar-head"><div class="bar-tip"><svg viewBox="0 0 110 150" aria-hidden="true">' +
-    '<polygon class="edge" points="18,34 92,83 18,132" stroke-width="36" stroke-linejoin="round" />' +
-    '<polygon class="face" points="18,18 92,67 18,116" stroke-width="36" stroke-linejoin="round" />' +
-    '<path d="M0 41H56A14 14 0 0 1 56 69H0Z" fill="#fff" fill-opacity="0.45" />' +
-    '</svg></div></div>' +
-    '</div></div>';
+  // The bar's head is the product's own mark, never another product's (George, 27 Oct 2026: "Loading progress bar of
+  // speedometer is arrow which is from exitwise. Fix it."): its page names it (startup.tip), and a product without one
+  // gets the plain round knob. Each faces right, in the product's colours (startup.css); what turns with the progress
+  // reads --progress (0 to 1) from the bar.
+  var TIPS = {
+    // Exitwise's: the fat arrowhead its web loader's bar grows into.
+    arrow: '<svg viewBox="0 0 110 150" aria-hidden="true">' +
+      '<polygon class="edge" points="18,34 92,83 18,132" stroke-width="36" stroke-linejoin="round" />' +
+      '<polygon class="face" points="18,18 92,67 18,116" stroke-width="36" stroke-linejoin="round" />' +
+      '<path d="M0 41H56A14 14 0 0 1 56 69H0Z" fill="#fff" fill-opacity="0.45" />' +
+      '</svg>',
+    // Speedometer's: the app's dial, a chrome bezel round a black face with the red line at the top of its scale, and
+    // its needle sweeping up the scale as the product loads.
+    dial: '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle cx="50" cy="51" r="45" fill="#5E5E66" />' +
+      '<circle cx="50" cy="47" r="45" fill="#D9D9DF" />' +
+      '<circle cx="50" cy="47" r="39" fill="#8E8E96" />' +
+      '<circle class="dial-face" cx="50" cy="47" r="36" />' +
+      '<path d="M26.6 60.5L21.4 63.5M23 47L17 47M26.6 33.5L21.4 30.5M36.5 23.6L33.5 18.4M50 20L50 14M63.5 23.6L66.5 18.4M73.4 33.5L78.6 30.5" stroke="#ECECEE" stroke-width="4.5" stroke-linecap="round" />' +
+      '<path class="dial-red" d="M77 47L83 47M73.4 60.5L78.6 63.5" stroke-width="4.5" stroke-linecap="round" />' +
+      '<polygon class="dial-needle" points="40,43.5 81,47 40,50.5" />' +
+      '<circle cx="50" cy="47" r="7.5" fill="#26262A" stroke="#8E8E96" stroke-width="2" />' +
+      '<path d="M15 41A36 36 0 0 1 85 41A40 18 0 0 0 15 41Z" fill="#fff" fill-opacity="0.12" />' +
+      '</svg>',
+    // Every other product's, until it has its own: a round knob in its colour.
+    round: '<svg viewBox="0 0 100 100" aria-hidden="true">' +
+      '<circle class="edge" cx="50" cy="56" r="42" />' +
+      '<circle class="face" cx="50" cy="48" r="42" />' +
+      '<ellipse cx="44" cy="28" rx="22" ry="9" fill="#fff" fill-opacity="0.45" />' +
+      '</svg>'
+  };
+  var barParts = function (tip) {
+    var name = TIPS.hasOwnProperty(tip) ? tip : 'round';
+    return '<div class="bar-shadow"></div>' +
+      '<div class="bar-hop"><div class="bar-jelly">' +
+      '<div class="bar-track"><div class="bar-groove"><div class="bar-fill"></div></div></div>' +
+      '<div class="bar-head"><div class="bar-tip tip-' + name + '">' + TIPS[name] + '</div></div>' +
+      '</div></div>';
+  };
 
   // The loading bar, as Exitwise's web loader runs it: steps that ease in and never go back, each one stretching the
-  // arrowhead as it shoots ahead and wobbling the bar; full, the bar hops. Only transforms move, which the compositor
-  // keeps smooth while the page's own thread is busy starting the product.
+  // tip as it shoots ahead and wobbling the bar; full, the bar hops. Only transforms move, which the compositor keeps
+  // smooth while the page's own thread is busy starting the product.
   function loadingBar(root, onStep, onFull) {
     var part = function (name) { return root.querySelector('.bar-' + name); };
     var fill = part('fill'), head = part('head'), tip = part('tip'), jelly = part('jelly'), hop = part('hop'), shadow = part('shadow');
@@ -106,6 +137,7 @@
       fill.style.transform = at;
       head.style.transform = at;
       root.setAttribute('aria-valuenow', String(Math.floor(shown * 100)));
+      root.style.setProperty('--progress', shown.toFixed(4));
       onStep(shown);
       if (lively) squish(jump, shown < 1);
       if (shown < 1) return;
@@ -163,7 +195,7 @@
     barBox.setAttribute('aria-valuemin', '0');
     barBox.setAttribute('aria-valuemax', '100');
     barBox.setAttribute('aria-valuenow', '0');
-    barBox.innerHTML = BAR;
+    barBox.innerHTML = barParts(options.tip);
     layer.appendChild(barBox);
     var status = document.createElement('div');
     status.className = 'vg-startup-status';

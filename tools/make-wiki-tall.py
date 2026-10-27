@@ -6,25 +6,25 @@
 #      the master (the subject whole), 1376 px on its long side, to outpaint to 9:16 in Recraft (Nano Banana 2.1),
 #      then Crisp upscale and export.
 #   2. python tools/make-wiki-tall.py <product> <slug> <outpaint> [--screens <folder>]
-#      writes <product>/wiki/art-src/<slug>-tall.webp (1440x2560, the "tall" in sources.json) from the exported
-#      outpaint. The outpaint is one seamless picture, but it re-draws the strip at about half the master's resolution
+#      writes <slug>-tall.webp in the product's masters (tools/art_src.py; 1440x2560, the "tall" in sources.json)
+#      from the exported outpaint. The outpaint is one seamless picture, but it re-draws the strip at about half the master's resolution
 #      and changes small things in it (a swirl, a die's dots). So the crisp strip goes back where the outpaint holds it,
 #      found by matching, and fades into the outpaint's own copy just inside its top and foot; where the outpaint's new
 #      sky and ground start a shade off its strip, they are shaded to meet it (seams()).
 #   --screens <folder>: for paintings whose phones show the app (Speedometer). The strip comes from the screen-off copy
 #      in <folder> (tools/make-wiki-screens.py <product> --blank <folder>), never from a painting with an AI-drawn
-#      dial, and compose writes the tall background to art-src/painted/<slug>-tall.webp with the entry
+#      dial, and compose writes the tall background to painted/<slug>-tall.webp with the entry
 #      "<slug>-tall" in screens.json: each phone's glass (and its keep and clean polygons) mapped into the tall frame.
 #      Then python tools/make-wiki-screens.py <product> <slug>-tall lays the app's real screens in, writing
-#      art-src/<slug>-tall.webp, and "tall" in sources.json names it. A phone that runs past the wide picture's edge
+#      <slug>-tall.webp, and "tall" in sources.json names it. A phone that runs past the wide picture's edge
 #      (its glass reaches past the frame) needs its glass checked in the tall picture.
 # Then python tools/make-wiki-art.py <product> <slug> makes the served sizes.
 import json, os, sys
 import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter1d
+from art_src import art_src
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 MARGIN, BAND = 0.02, 0.08   # the fade into the outpaint: how far inside the strip it ends, and how long it is (of its height)
 FADE = 0.42   # how far into the new sky and ground (of their height) the seam's shading reaches
 STEP = 14   # the largest shade step (of 255) taken for a seam
@@ -32,12 +32,12 @@ OUT = (1440, 2560)   # the tall picture: 9:16, the largest width make-wiki-art.p
 
 
 def entries(product):
-    path = os.path.join(ROOT, product, 'wiki', 'art-src', 'sources.json')
+    path = os.path.join(art_src(product), 'sources.json')
     return path, json.load(open(path, encoding='utf-8'))
 
 
 def strip(product, slug, s, screens=None):
-    src = os.path.join(screens, f'{slug}.webp') if screens else os.path.join(ROOT, product, 'wiki', 'art-src', s['master'])
+    src = os.path.join(screens, f'{slug}.webp') if screens else os.path.join(art_src(product), s['master'])
     im = Image.open(src).convert('RGB')
     x, w = s['tallCrop']
     # The master's first and last rows carry a little of what it was upscaled on: they're left out.
@@ -124,7 +124,7 @@ def screens_entry(product, slug, size, a, bx, by):
     # The phones of the wide painting, mapped into the tall picture (tall = a * wide + b), as screens.json's
     # "<slug>-tall": the same screens and fit, every polygon moved with the picture. An entry with a crop gives its
     # polygons in the painting before the crop; the screen-off copy (size) is the crop, scaled back up.
-    path = os.path.join(ROOT, product, 'wiki', 'art-src', 'screens.json')
+    path = os.path.join(art_src(product), 'screens.json')
     spec = json.load(open(path, encoding='utf-8'))
     wide = spec['entries'][slug]
     c = wide.get('crop', [0, 0, size[0], size[1]])
@@ -167,7 +167,7 @@ def compose(product, slug, outpaint, screens=None):
     hh = min(im.height, round(w * 16 / 9))
     cx, cy = (im.width - w) // 2, (im.height - hh) // 2
     im = im.crop((cx, cy, cx + w, cy + hh)).resize(OUT, Image.LANCZOS)
-    art = os.path.join(ROOT, product, 'wiki', 'art-src')
+    art = art_src(product)
     if screens:
         # Where a point of the wide master lands in the tall picture (a * point + b), for the phones' glass.
         f2 = OUT[0] / w
