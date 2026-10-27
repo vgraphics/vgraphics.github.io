@@ -862,7 +862,7 @@ html.card-open { overflow: hidden; }
 .phone::after { content: ""; position: absolute; top: 20px; left: 50%; width: 12px; height: 12px; margin-left: -6px; border-radius: 50%; background: #050505; }
 
 /* Tour: numbered spots on a screen, each opening its part of the list beside it. Without JavaScript every part stays
-   open (assets/product.js keeps one open at a time). */
+   open (assets/faq.js keeps one open at a time, and animates them). */
 .tour { display: grid; grid-template-columns: 0.9fr 1.1fr; gap: 48px; align-items: start; }
 .tour .stage { position: sticky; top: 24px; justify-self: center; width: min(380px, 86vw); }
 .spot { position: absolute; display: grid; place-items: center; width: 44px; height: 44px; margin: -22px 0 0 -22px; padding: 0; border: 0; border-radius: 50%; background: transparent; cursor: var(--cursor-link, pointer); }
@@ -926,11 +926,13 @@ html.card-open { overflow: hidden; }
 .faq-a { display: grid; gap: 10px; padding: 2px 18px 18px; color: var(--muted); }
 .faq-a p { max-width: 46em; margin: 0; }
 .faq-a a, .faq-a b { color: var(--ink); }
-/* While assets/faq.js moves a row, the row clips what grows or goes (faq-moving), and its chevron turns at the row's
-   pace: with it as it opens, back at once as it starts closing (faq-closing). Under reduced motion it just flips. */
-.faq-item.faq-moving { overflow: hidden; }
-.faq-item .chev { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
-.faq-item[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
+/* While assets/faq.js moves a row (a question, an earlier release, a tour's part), the row clips what grows or goes
+   (faq-moving), and its chevron turns at the row's pace: with it as it opens, back at once as it starts closing
+   (faq-closing; a part's button says so at once). Under reduced motion it just flips. */
+.faq-moving { overflow: hidden; }
+.faq-item .chev, .news-list .chev, .part .chev { transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.faq-item[open].faq-closing > summary .chev, .news-list details[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
+.part > button[aria-expanded="false"] .chev { transition-duration: 200ms; }
 
 /* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
    beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and

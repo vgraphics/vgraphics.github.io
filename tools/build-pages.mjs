@@ -290,8 +290,8 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
   news: (b, { dir }) => news(readNews(b, dir).entries, b),
 
-  // Numbered spots on a phone screen, each opening its part of the list (assets/product.js; without JavaScript every
-  // part stays open).
+  // Numbered spots on a phone screen, each opening its part of the list (assets/faq.js; without JavaScript every part
+  // stays open).
   tour: (b) => `<div class="tour" data-open="${b.open}">
           <div class="stage">
             <div class="phone">

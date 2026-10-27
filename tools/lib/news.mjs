@@ -1,7 +1,8 @@
 // "What's new" on every product's landing page (George, 25 Oct 2026: "This apply as global rule. All landing pages
 // must have it."; D:\Projects\Mine\CLAUDE.md): the template's "news" block, fed by the product's changelog, which the
 // Deployer adds to on every release players get (D:\Projects\Deployer, src/projects/siteNews.ts). The newest release
-// stands open in a card; the ones before it are a list beside it, each row opening its own lines. A long list scrolls
+// stands open in a card; the ones before it are a list beside it, each row opening its own lines with an animation
+// (assets/faq.js, as every expandable: George, 27 Oct 2026, D:\Projects\Mine\CLAUDE.md). A long list scrolls
 // in its own box (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): three and a half rows show, its
 // edges fade (assets/fade-edges.js) and its scrollbar is in the product's colour (assets/product.css, .news).
 //
