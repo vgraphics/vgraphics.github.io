@@ -64,6 +64,7 @@ function page({ path, title, description, ogTitle, ld, style, main }) {
   <script type="application/ld+json">
   ${json(ld)}
   </script>
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
   <link rel="stylesheet" href="/assets/cursors.css">
