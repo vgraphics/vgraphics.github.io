@@ -67,8 +67,12 @@
     <!-- The site's cursors (every page on vgraphics.gr links it; palermo.css sets Palermo's); vite-ignore leaves the
          site's own files to the site. -->
     <link rel="stylesheet" href="/assets/cursors.css"  />
-    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
-    <script src="/assets/no-select.js" defer ></script>
+    <!-- The site's own script, as every page on vgraphics.gr with questions loads it: no text selection and no right-click
+         (text fields excepted), and the About panel's questions open and close smoothly, one at a time (/assets/faq.js).
+         No vite-ignore: Vite leaves a classic script as written, while vite-ignore leaves a stray space where the word
+         was, and the site's check-site wants this tag word for word. On the dev server it's missing, and the questions
+         open and close at once. -->
+    <script src="/assets/menu.js" defer></script>
     <style>
       html, body { margin: 0; background: #0A090D; color: #EFE7D4; }
       /* The company's legal line, the site's rule for every page: small, at the page's foot, under the About panel. Not
@@ -81,9 +85,9 @@
          covers the legal line before the app has loaded. */
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/demo-BUzijR_H.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/sound-DMOitIUo.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-DXGQqt0g.js">
+    <script type="module" crossorigin src="/palermo/game/demo-DUASHHTY.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/sound-CVVSHplB.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-D7Wjtpfo.js">
     <link rel="stylesheet" crossorigin href="/palermo/game/sound-BEE-DnvU.css">
     <link rel="stylesheet" crossorigin href="/palermo/game/demo-WApsGCzl.css">
   </head>
@@ -175,8 +179,5 @@
     </div>
     <!-- In the page's HTML, in English; the kit's LegalLine puts it in the page's language. Hidden during the game. -->
     <footer id="party-legal" class="party-legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. <span data-legal="rights">All rights reserved</span> · <span data-legal="gemi">G.E.MI. no. 181823306000</span> · <span data-legal="vat">VAT no. EL802736373</span> · <a href="/company/" data-legal="company">Company</a> · <a href="/privacy/" data-legal="privacy">Privacy</a> · <a href="/terms/" data-legal="terms">Terms</a></footer>
-    <!-- The site's questions and answers: they open and close smoothly, one at a time (the site's own file, so
-         vite-ignore; on the dev server it's missing, and they open and close at once). -->
-    <script type="module" src="/assets/faq.js" ></script>
   </body>
 </html>
