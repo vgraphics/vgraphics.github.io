@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.a1f3da04",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The final sound is in",
+      "items": [
+        "Palermo Noir now plays its final sound throughout — the real music, sound effects and background ambience, with the old placeholder sounds gone.",
+        "Voices are now the final recordings, and more moments speak than before: each role is introduced as the cards are dealt, \"Dawn is coming\" before the first night ends, a call when the town is ready to vote and when voting closes, a reminder to join while you wait in the lobby, and the host's pause and resume.",
+        "Each phase now plays a full song that loops — in the lobby, the deal, night, day, voting and the finish — instead of a short repeating clip.",
+        "Key moments now play their sound to the end before the game moves on — the sunrise, for one, stays on screen until its sound finishes — and the winners' theme plays in full at the end instead of being cut off."
+      ],
+      "commit": "a1f3da04"
+    },
+    {
       "version": "0.1.fadee32b",
       "date": "2026-10-27",
       "platforms": [
