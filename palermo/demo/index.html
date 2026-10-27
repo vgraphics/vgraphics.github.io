@@ -85,20 +85,26 @@
          covers the legal line before the app has loaded. */
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/demo-BqLVQ1jO.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/sound-CHnHajM4.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-ClJut0TF.js">
+    <script type="module" crossorigin src="/palermo/game/demo-CKqMIVuF.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/sound-VrrjMG9s.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-BnX7zlH1.js">
     <link rel="stylesheet" crossorigin href="/palermo/game/sound-dqX7C1qs.css">
     <link rel="stylesheet" crossorigin href="/palermo/game/demo-WApsGCzl.css">
   </head>
   <body>
     <!-- The start-up (D:\Projects\Mine\CLAUDE.md): the party games' shared welcome from vgraphics.gr/tv/start-up/, the
          game's key art with the squishy loading bar in Palermo's look, and over it the VGraphics intro (a tap skips it).
-         The demo's start-up.ts lets the welcome go 2 s after the intro at the earliest. Addresses relative to this page. -->
+         The demo's start-up.ts lets the welcome go 2 s after the intro at the earliest. Addresses relative to this page.
+         The key art in every size, up to 8K: each screen loads the one that covers it (docs/art.md; the same as the
+         phone's LOOK.keyArt, which key-art.test.ts checks). -->
     <div
       id="party-welcome"
       data-art="../game/art/key-wide.webp"
       data-art-tall="../game/art/key-tall.webp"
+      data-art-srcset="../game/art/key-wide.webp 1920w, ../game/art/key-wide-2560.webp 2560w, ../game/art/key-wide-3840.webp 3840w, ../game/art/key-wide-7680.webp 7680w"
+      data-art-sizes="(min-aspect-ratio: 16/9) 100vw, 177.78vh"
+      data-art-tall-srcset="../game/art/key-tall.webp 1080w, ../game/art/key-tall-1440.webp 1440w, ../game/art/key-tall-1800.webp 1800w, ../game/art/key-tall-2160.webp 2160w, ../game/art/key-tall-3072.webp 3072w, ../game/art/key-tall-4320.webp 4320w"
+      data-art-tall-sizes="(max-aspect-ratio: 1080/1935) 55.82vh, 100vw"
       data-logo="../game/art/logo.webp"
       data-accent="#E8B65A"
       data-accent-lip="#B8862E"

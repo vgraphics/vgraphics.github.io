@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.f573efbf",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Crisp welcome art on big screens",
+      "items": [
+        "The welcome screen art is now crisp and sharp, even on a big TV."
+      ],
+      "commit": "f573efbf"
+    },
+    {
       "version": "0.1.3eb91042",
       "date": "2026-10-27",
       "platforms": [
