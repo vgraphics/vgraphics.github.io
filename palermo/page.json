@@ -228,7 +228,7 @@
           "album": "Palermo Noir — Original Soundtrack",
           "cover": { "src": "img/cover", "widths": [320, 640, 1280, 2048], "width": 2048, "height": 2048, "alt": "The Palermo Noir soundtrack cover: a violinist in a fedora and a long coat plays on a Palermo rooftop against a huge full moon, the domes and bell towers below, in gold engraved lines on navy" },
           "background": { "wide": { "src": "img/ost-backdrop", "widths": [960, 1280, 1920, 2560, 3840] }, "tall": { "src": "img/ost-backdrop", "widths": [960] } },
-          "youtube": null,
+          "youtube": "https://www.youtube.com/playlist?list=PLW3ioafCedeU",
           "soundcloud": "https://soundcloud.com/vgraphics/sets/palermo-noir-original-soundtrack",
           "tracks": [
             { "title": "Main Theme", "src": "audio/01-main-theme.m4a", "duration": "1:59" },
