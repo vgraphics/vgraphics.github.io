@@ -132,7 +132,8 @@ for (const file of pages) {
   if (!/href="\/privacy\/"/.test(html)) report(file, 'legal-footer', 'no link to /privacy/')
   // Our art and songs are ours (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies
   // them?"): every page carries the copyright line and links the terms of use.
-  if (!/(?:©|&copy;) \d{4} VGRAPHICS SINGLE MEMBER P\.C\. All rights reserved/.test(html)) report(file, 'legal-footer', 'no copyright line "© <year> VGRAPHICS SINGLE MEMBER P.C. All rights reserved"')
+  // (The party games' pages wrap "All rights reserved" in a span, which their kit puts in the page's language.)
+  if (!/(?:©|&copy;) \d{4} VGRAPHICS SINGLE MEMBER P\.C\.(?:\s|<span[^>]*>)+All rights reserved/.test(html)) report(file, 'legal-footer', 'no copyright line "© <year> VGRAPHICS SINGLE MEMBER P.C. All rights reserved"')
   if (!/href="\/terms\/"/.test(html)) report(file, 'legal-footer', 'no link to /terms/')
 
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
