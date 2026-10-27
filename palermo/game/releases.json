@@ -1,0 +1,45 @@
+{
+  "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
+  "releases": [
+    {
+      "sha": "fadee32b44d22ed700e0b2fc083eae2b1719dba1",
+      "at": "2026-10-27T13:27:42.442Z",
+      "files": [
+        "app-CRmcW9UM.js",
+        "consent-banner-DJIbTtw9.js",
+        "demo-DRQGn-0-.js",
+        "demo-WApsGCzl.css",
+        "demo-screen-Dg8ofsyj.js",
+        "firebase-analytics-Cts2oGvF.js",
+        "firestore-BrMtVP9K.js",
+        "index-6kI_D-A5.js",
+        "play-CWocmW8n.js",
+        "room-screen-XdKY74Ij.js",
+        "sound-BlHWtM7G.js",
+        "sound-dqX7C1qs.css",
+        "tv-B9jOz3FN.js",
+        "vote-opens-BWDTPC5Y.js"
+      ]
+    },
+    {
+      "sha": "earlier",
+      "at": "2026-10-27T13:27:42.442Z",
+      "files": [
+        "app-CWzPlbfv.js",
+        "consent-banner-BzKOdGpk.js",
+        "demo-DI7Qdz3E.js",
+        "demo-WApsGCzl.css",
+        "demo-screen-D4njNtHK.js",
+        "firebase-analytics-DE7Y8Lc_.js",
+        "firestore-CqjvpQe4.js",
+        "index-B_Hze20c.js",
+        "play-CSCOc2iv.js",
+        "room-screen-WvPeDSGe.js",
+        "sound-B2LEQ8MD.js",
+        "sound-BEE-DnvU.css",
+        "tv-CwmLvx3X.js",
+        "vote-opens-DEo9v7_X.js"
+      ]
+    }
+  ]
+}

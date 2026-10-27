@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.fadee32b",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Lawyer's powers open smoothly",
+      "items": [
+        "The Lawyer's powers now open with a smooth animation — the form grows and fades in under the card, and closes a touch faster, instead of snapping open."
+      ],
+      "commit": "fadee32b"
+    },
+    {
       "version": "0.1.c46a8228",
       "date": "2026-10-27",
       "platforms": [
