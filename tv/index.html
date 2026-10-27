@@ -1,0 +1,47 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content="Show a VGraphics party game on this TV: type the room's code with the remote." />
+    <link rel="canonical" href="https://vgraphics.gr/tv/" />
+    <title>VGraphics on TV</title>
+    <!-- A door to a room, not a page to find in search (README, "Build and release"): kept out of search, as each game's
+         own TV page is. The link preview stays, for the TV links people share. -->
+    <meta name="robots" content="noindex" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VGraphics" />
+    <meta property="og:title" content="VGraphics on TV" />
+    <meta property="og:description" content="Show a VGraphics party game on this TV: type the room's code with the remote." />
+    <meta property="og:url" content="https://vgraphics.gr/tv/" />
+    <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- The site's cursors (every page on vgraphics.gr links it); vite-ignore leaves the site's own files to the site. -->
+    <link rel="stylesheet" href="/assets/cursors.css"  />
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
+    <script src="/assets/no-select.js" defer ></script>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
+      /* Where the VGraphics intro plays, over the whole screen; it lets clicks through once it's gone. */
+      #intro-box { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; pointer-events: none; }
+      /* The company's legal line, the site's rule for every page: fine print along the screen's foot, under the band. */
+      .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
+        color: rgba(244, 240, 232, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
+      .party-legal a { color: inherit; }
+    </style>
+    <script type="module" crossorigin src="/party-doors/tv-CJbKloXa.js"></script>
+    <link rel="modulepreload" crossorigin href="/party-doors/games--kFJdrR6.js">
+    <link rel="modulepreload" crossorigin href="/party-doors/door-CjB7imtU.js">
+    <link rel="stylesheet" crossorigin href="/party-doors/door-CJTVGNT8.css">
+  </head>
+  <body>
+    <div id="app"></div>
+    <!-- In the page's HTML, in English; the kit's LegalLine puts it in the language the door speaks. Its links stay out
+         of the remote's way: the keypad has the focus. -->
+    <footer id="party-legal" class="party-legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. <span data-legal="rights">All rights reserved</span> · <span data-legal="gemi">G.E.MI. no. 181823306000</span> · <span data-legal="vat">VAT no. EL802736373</span> · <a href="/company/" data-legal="company" tabindex="-1">Company</a> · <a href="/privacy/" data-legal="privacy" tabindex="-1">Privacy</a> · <a href="/terms/" data-legal="terms" tabindex="-1">Terms</a></footer>
+    <div id="intro-box"></div>
+    <!-- The TV's start-up (Games repo, docs/brand/splash/INTEGRATION.md): a plain dark page, then the VGraphics intro,
+         2.8 s, which any remote key skips. One file for every party game; the films sit beside it. -->
+    <script src="/tv/start-up/brand-intro.js" data-under="intro-box" data-film="1080"></script>
+  </body>
+</html>
