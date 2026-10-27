@@ -34,7 +34,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `app-ads.txt` | Shared by every game and app: the lines each ad network (AdMob, LevelPlay, …) asks for. It must stay at the root. |
 | `ads.txt` | The sellers of the ads on vgraphics.gr itself (Google AdSense, for the web games). Apps read `app-ads.txt` instead. It must stay at the root. |
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
-| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours |
+| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark) |
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
@@ -206,6 +206,27 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
+
+## Light and dark
+
+The company pages and the hub have a light and a dark look; the reader picks System, Light or Dark in the hub's Settings
+(George, 27 Oct 2026: "At settings allow me to select dark or light theme if we support it"). System, or no choice yet,
+follows the device. Product pages have one look each and stay as they are.
+
+- `assets/theme.js` keeps the choice in the browser (localStorage `vg-theme`) and sets it on `<html data-theme>`
+  (none for System). Every page on `assets/vgraphics.css` loads it in its head before its stylesheets, without
+  `defer`, so the page paints in the right theme from the first frame: `<script src="/assets/theme.js"></script>`.
+  The hub's pages carry it from the VHub repo's `hub/index.html`.
+- A dark rule answers both: inside `@media (prefers-color-scheme: dark)` its selector starts
+  `:root:not([data-theme="light"])`, and a twin outside the media query starts `:root[data-theme="dark"]`.
+  `vgraphics.css`'s dark tokens are written so, twice.
+- The theme-color metas and a `<picture>`'s sources for one scheme (the logo's) keep their media queries: `theme.js`
+  turns them to the chosen theme as the page loads.
+- The hub calls `window.vgTheme.set("system" | "light" | "dark")`; other open tabs follow at once. It also keeps the
+  choice in the VHub account, and a browser with no choice of its own takes the account's.
+- check-site holds every served page to this: a page on `vgraphics.css` loads `theme.js` before its first
+  stylesheet, both dark token blocks match, and every dark rule in a stylesheet or a page's `<style>` is scoped as
+  above.
 
 ## Switches, never checkboxes
 

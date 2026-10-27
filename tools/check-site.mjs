@@ -336,6 +336,42 @@ for (const [file, text] of sheets) {
   }
 }
 
+// The reader's theme (George, 27 Oct 2026: "At settings allow me to select dark or light theme if we support it"),
+// chosen in the hub's Settings and applied by assets/theme.js:
+// - every page on /assets/vgraphics.css loads it in its head before its first stylesheet, without defer or async, so
+//   the page paints in the chosen theme from the first frame;
+// - vgraphics.css holds the same dark tokens for the device's dark theme and for Dark chosen in the hub;
+// - every dark rule (in a stylesheet, or a page's own <style>) answers the chosen theme too: inside
+//   @media (prefers-color-scheme: dark), each selector starts :root:not([data-theme="light"]), beside its twin for
+//   :root[data-theme="dark"] outside the media query.
+const THEME_JS = '<script src="/assets/theme.js"></script>'
+const theme = (file, message) => report(file, 'theme', message)
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!html.includes('href="/assets/vgraphics.css"')) continue
+  const head = html.slice(0, html.indexOf('</head>'))
+  const at = head.indexOf(THEME_JS)
+  if (at < 0) theme(file, `its head doesn't load ${THEME_JS}, which applies the theme chosen in the hub`)
+  else if (at > head.search(/<link rel="stylesheet"/)) theme(file, `loads ${THEME_JS} after a stylesheet: load it first, so the page paints in the chosen theme`)
+}
+const sharedCss = readFileSync(join(root, 'assets', 'vgraphics.css'), 'utf8')
+const darkTokens = (re) => sharedCss.match(re)?.[1].replace(/\s+/g, ' ').trim()
+const deviceDark = darkTokens(/@media \(prefers-color-scheme: dark\) \{\s*:root:not\(\[data-theme="light"\]\) \{([^}]*)\}/)
+const chosenDark = darkTokens(/^:root\[data-theme="dark"\] \{([^}]*)\}/m)
+if (!deviceDark || deviceDark !== chosenDark) theme(join('assets', 'vgraphics.css'), "the device's dark tokens and Dark's differ: keep the two blocks the same")
+for (const [file, text] of sheets) {
+  for (const m of text.matchAll(/@media\s*\(prefers-color-scheme:\s*dark\)\s*\{/g)) {
+    const start = m.index + m[0].length
+    let end = start
+    for (let depth = 1; end < text.length && depth > 0; end++) depth += text[end] === '{' ? 1 : text[end] === '}' ? -1 : 0
+    for (const [, selectors] of text.slice(start, end - 1).matchAll(/([^{}]+)\{[^{}]*\}/g)) {
+      if (selectors.split(',').some((sel) => !/^\s*:root:not\(\[data-theme=("?)light\1\]\)/.test(sel))) {
+        theme(file, `a dark rule (${selectors.trim()}) ignores the theme chosen in the hub: start it with :root:not([data-theme="light"]) and repeat it for :root[data-theme="dark"]`)
+      }
+    }
+  }
+}
+
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
 // chapter per anchor. This is a generic rule for all games and projects so implement for all."), on every page GitHub
 // Pages serves, as the phone menu and the cursors above. assets/stepper.js builds it from the page's chapters, which
