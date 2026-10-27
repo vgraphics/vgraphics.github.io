@@ -566,8 +566,15 @@ for (const file of siteScripts) {
 // itself. That links /assets/no-select.css, which turns selecting off everywhere but in text fields and colours their
 // selection in the page's own colour, and keeps the right-click menu shut. No other stylesheet, <style> or style=""
 // turns selecting back on, but for the text fields: another repo's own piece for its pages (the hub's, the Exitwise
-// play page's) may let them be selected too.
+// play page's) may let them be selected too. The same piece is the light deterrent against copying (George, 27 Oct
+// 2026): the keys of the developer tools and of the page's source do nothing outside text fields, and the developer
+// console shows the warning with the terms of use, once a page (under the mark the other repos' pieces share).
 const noSelect = (file, message) => report(file, 'no-select', message)
+const DETERRENT = [
+  ['addEventListener("keydown"', "blocks the developer tools' keys (F12, Ctrl+Shift+I, J, C, Ctrl+U, Cmd+Option+I, J, C, U)"],
+  ['Symbol.for("vgraphics.console-warning")', 'prints its console warning once a page, under the mark the hub, the party kit and the Exitwise play page share'],
+  ['https://vgraphics.gr/terms/', 'links the terms of use from its console warning'],
+]
 const NO_SELECT_JS = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>/
 // s split wherever at(character) is true outside brackets, parentheses and quotes.
 const splitTop = (s, at) => {
@@ -611,11 +618,15 @@ for (const f of ['no-select.js', 'no-select.css']) if (!existsSync(join(root, 'a
 if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/no-select.js")')) {
   noSelect(join('assets', 'menu.js'), 'does not load /assets/no-select.js, which keeps the text of every page with a header from being selected')
 }
+if (existsSync(join(root, 'assets', 'no-select.js'))) {
+  const js = readFileSync(join(root, 'assets', 'no-select.js'), 'utf8')
+  for (const [needle, what] of DETERRENT) if (!js.includes(needle)) noSelect(join('assets', 'no-select.js'), `no longer ${what}`)
+}
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
   if (!html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
-    noSelect(file, `lets its text be selected and opens the right-click menu: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
+    noSelect(file, `lets its text be selected, opens the right-click menu and the developer tools' keys, and shows no console warning: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
   }
   for (const [, css] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) reselect(file, css)
   for (const [, kind] of [...html.matchAll(/\sstyle="([^"]*)"/g)].flatMap((m) => [...m[1].matchAll(/(?<![-\w])(?:-(?:webkit|moz|ms)-)?user-select:\s*(text|all|auto|contain)\b/g)])) {

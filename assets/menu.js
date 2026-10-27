@@ -11,7 +11,8 @@
 // A panel taller than a short screen scrolls, with a fading bottom edge while more lies below; and since every page
 // with a header runs this file, it loads the shared fading edges (fade-edges.js) for the page's other boxes too, the
 // chapter stepper (stepper.js), which shows on a page with two chapters or more, no-select.js, which keeps the page's
-// text from being selected and its right-click menu shut, and faq.js, which opens and closes every expandable on the
+// text from being selected, its right-click menu shut and the developer tools' keys off, with a warning in the console,
+// and faq.js, which opens and closes every expandable on the
 // page with an animation (questions and answers one at a time).
 (() => {
   const nav = document.querySelector(".site-head .site-nav");
