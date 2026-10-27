@@ -30,6 +30,6 @@
     }
   },
   "sections": [
-    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html" }] }
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games", "path": "docs/store/privacy-policy.html" } }] }
   ]
 }

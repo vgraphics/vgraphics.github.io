@@ -195,13 +195,15 @@ for (const file of pages) {
 // - A <nav> outside <main>, the footers and the headers is a menu of its own, without the phone menu, and fails.
 // - A document's source (a page.json "document" block: a policy another repo owns, which the template sets into its
 //   page) is the text alone: one <main>, no header, menu or footer of its own, kept out of search (noindex) and pointing
-//   to its page (canonical).
+//   to its page (canonical). Its block names the file it is copied from (from: { repo, path }), which
+//   tools/sync-documents.mjs copies in.
 // Nothing is exempt: a page another repo writes (VHub's hub/, since vhub-hub shipped VHub 880438d on 24 Oct 2026) fails
 // like any other until that repo brings the menu.
 const MENU_JS = '<script src="/assets/menu.js" defer></script>'
 const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)))
 const sources = new Map(documents().map((d) => [d.file.split(sep).join('/'), d.url]))
+for (const d of documents()) if (!d.from?.repo || !d.from?.path) report(d.file, 'source', `its page.json document block doesn't name the file it is copied from: add from: { repo, path } (tools/sync-documents.mjs)`)
 const burger = (file, message) => report(file, 'burger', message)
 for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')

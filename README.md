@@ -19,7 +19,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
 | `<product>/changelog.json`, `<product>/faq.json` | The landing page's "What's new" (every release players got, which the Deployer adds to) and "Questions and answers" (see "What's new and Questions and answers" below) |
-| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template |
+| `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template. `tools/sync-documents.mjs` brings the copies in from their repos (see "Privacy policies" below) |
 | `<product>/<page>/page.json` | A product's other pages, made from the same template as its landing page by `tools/build-pages.mjs`: Exitwise's ranking, room, privacy policy and map rules, and Speedometer's privacy policy. A page's own markup sits beside its page.json (`ranking.html`, `.css`, `.js`) |
 | `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it. |
 | `speedometer-wallpaper/play/` | Speedometer's try page: the real app's engine (Kotlin/Wasm and Skia), live in a phone with its styles and settings. The page is the template's (`play/page.json`, the "try" block); the engine's files in `play/app/` come only from the Deployer's `speedometer-web` project, never by hand. `play/img/play-qr.svg` is the store link's QR code (`tools/make-qr.py`). |
@@ -40,6 +40,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
+| `tools/sync-documents.mjs` | Copies the policies (and Exitwise's map rules) in from the repos that own them, unchanged from their `main`, and rewrites their pages: `node tools/sync-documents.mjs <product>` (`--ref <branch>` for another); with no product it says which copies differ from their sources |
 | `tools/make-wiki-map-art.py` | Writes the wiki's world tiles, and each entry's own band behind "In the game" (its world's map rows taken in turn, so no band is shown twice), from the game's Recraft level map: `python tools/make-wiki-map-art.py <Games repo>` after the map or the entries change |
 | `tools/make-wiki-art.py` | Writes each wiki painting's served sizes (wide up to 3200 px, the 9:16 phone cut; AVIF, WebP, JPEG) and `art.json` from the masters in `<product>/wiki/art-src/`, whose `sources.json` records each one's making, prompt and licence: `python tools/make-wiki-art.py <product> [slug ...]`. Never larger than the master. |
 | `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
@@ -135,15 +136,24 @@ the hub show VGraphics' own. George picked them on https://claude.ai/artifact/4V
   points that match the pictures. The hub's copy lives in the VHub repo (`hub/index.html`, its policy page and
   `hub/src/hub.css`), and the Exitwise play page's in the Games repo (`WebGLTemplates/Portfolio/index.html`).
 
-Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html`, Speedometer Live
-Wallpaper `docs/speedometer-privacy-policy.html`, Palermo Noir `docs/privacy-policy.html` (repo `vgraphics/palermo`). After you edit a policy there, copy it here unchanged, push, and
-check that the live page has updated. Exitwise's policy and map rules go to `exitwise/privacy/source.html` and
-`exitwise/map-rules/source.html` (the Deployer's `exitwise-web` copies the policy itself), Speedometer's to
-`speedometer-wallpaper/privacy/source.html`, Palermo Noir's to `palermo/privacy/source.html`; then run `node tools/build-pages.mjs`, which sets them into their pages at
-the same addresses. A source is the text alone, in one `<main>`: no header, menu or footer of its own (the template
-adds them), `<meta name="robots" content="noindex">` and a canonical link to its page, since GitHub Pages serves it
-too; check-site checks this. VHub's policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the
-exception: each `vhub-hub` release brings it to `hub/privacy.html` with the hub.
+## Privacy policies
+
+Each policy's source lives in the product's own repo: Exitwise `docs/store/privacy-policy.html` and Speedometer Live
+Wallpaper `docs/speedometer-privacy-policy.html` in the Games repo, Palermo Noir `docs/privacy-policy.html` in its own
+(`vgraphics/palermo`, the `Games/palermo` folder). The page.json "document" block of each policy page (and of
+Exitwise's map rules, `docs/store/exitwise-map-rules.html`) names that file, `"from": { "repo", "path" }`, and the site
+holds a copy of it beside the page.json (`exitwise/privacy/source.html`, `speedometer-wallpaper/privacy/source.html`,
+`palermo/privacy/source.html`, `exitwise/map-rules/source.html`). `tools/build-pages.mjs` sets the copy into the
+product's template at the page's address (`<product>/privacy.html`), with the shared header, menu and footer.
+
+To change a policy: edit it in its repo and merge it to `main` there, then `node tools/sync-documents.mjs <product>`
+here, which copies it in unchanged and rewrites the page; run check-site, push, and check that the live page has
+updated. `node tools/sync-documents.mjs` alone says which copies differ from their sources. The Deployer's
+`exitwise-web` also copies Exitwise's policy in with every release. A source is the text alone, in one `<main>`: no
+header, menu or footer of its own (the template adds them), `<meta name="robots" content="noindex">` and a canonical
+link to its page, since GitHub Pages serves it too; check-site checks this, and that each block names its source. VHub's
+policy, `docs/privacy/vhub-privacy.html` in the VHub repo, is the exception: each `vhub-hub` release brings it to
+`hub/privacy.html` with the hub.
 
 ## Chapter stepper
 
