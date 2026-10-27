@@ -188,6 +188,7 @@
   <link rel="stylesheet" href="/assets/cursors.css">
   <link rel="stylesheet" href="/assets/gallery/gallery.css">
   <link rel="stylesheet" href="demo/gauge.css">
+  <link rel="stylesheet" href="/speedometer-wallpaper/market-chapter.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -196,6 +197,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav class="subnav" id="site-menu" aria-label="Speedometer Live Wallpaper">
       <a href="/speedometer-wallpaper/" aria-current="page">Overview</a>
+      <a href="/speedometer-wallpaper/layouts/">Layouts</a>
       <a href="/speedometer-wallpaper/wiki/">Wiki</a>
       <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
       <a class="play" href="/speedometer-wallpaper/play/" title="Try online"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Try online</span></a>
@@ -356,6 +358,34 @@
       </div>
     </section>
 
+    <section class="sec" id="layouts" aria-labelledby="layouts-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">From the layout market</span>
+          <h2 id="layouts-title">Layouts made by drivers<a class="anchor" href="#layouts" aria-label="Copy the link to Layouts made by drivers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+          <p class="sec-intro">Players build their own dashboards in the app and share them in the layout market. Every layout works with every style, and each one here is drawn by the app itself.</p>
+        </div>
+        <div class="embed">
+          <div class="mk-chapter">
+            <ul class="facts-row mk-counts" aria-live="polite">
+              <li><b data-count="live">–</b><span>layouts shared</span></li>
+              <li><b data-count="newThisWeek">–</b><span>new this week</span></li>
+              <li><b data-count="uses">–</b><span>times used</span></li>
+            </ul>
+            <ul class="mk-grid mk-row" aria-label="Layout of the week and the most used layouts"></ul>
+            <p class="mk-message" data-market="failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" data-market="retry">Try again</button></p>
+            <div class="badges sec-actions mk-actions">
+              <a class="btn" href="/speedometer-wallpaper/layouts/" data-market="all">See all layouts</a>
+              <a class="pill" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-market="make"><b>Make your own in the app</b><small>On Google Play</small></a>
+            </div>
+          </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>
+        </div>
+        
+      </div>
+    </section>
+
     <section class="sec" id="good-to-know" aria-labelledby="good-to-know-title">
       <div class="wrap">
         <div class="sec-head">
@@ -498,6 +528,7 @@
     <div class="wrap">
       <a class="foot-brand" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="48" height="48"><span>Speedometer Live Wallpaper</span></a>
       <nav class="foot-links" aria-label="Speedometer Live Wallpaper and VGraphics">
+        <a href="/speedometer-wallpaper/layouts/">Layouts</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
         <a href="/apps/">More apps</a><span class="sep" aria-hidden="true">·</span>
@@ -513,5 +544,6 @@
   <script src="/assets/menu.js" defer></script>
   <script src="/assets/gallery/gallery.js" defer></script>
   <script src="demo/gauge.js" defer></script>
+  <script src="/speedometer-wallpaper/market-chapter.js" defer></script>
 </body>
 </html>

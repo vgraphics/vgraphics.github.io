@@ -1,0 +1,17 @@
+          <div class="mk-creator-page" data-state="loading">
+            <div class="mk-creator">
+              <span class="mk-avatar" id="creator-avatar"></span>
+              <h2 id="creator-name">A Speedometer creator</h2>
+            </div>
+            <ul class="facts-row mk-counts" aria-live="polite">
+              <li><b id="creator-layouts">–</b><span>layouts in the market</span></li>
+              <li><b id="creator-uses">–</b><span>total uses</span></li>
+              <li><b id="creator-stars">–</b><span>average stars</span></li>
+            </ul>
+            <ul class="mk-grid" aria-label="Their layouts, most used first"></ul>
+            <p class="mk-message" id="creator-empty" hidden>This creator has no layouts in the market right now. <a class="mk-button" href="/speedometer-wallpaper/layouts/">See the layout market</a></p>
+            <p class="mk-message" id="creator-failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" id="creator-retry">Try again</button></p>
+            <p class="mk-message" id="creator-note" hidden>To report a creator’s name or picture, open their name in the app’s layout market.</p>
+          </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>

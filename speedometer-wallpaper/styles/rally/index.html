@@ -92,6 +92,7 @@
   <link rel="stylesheet" href="/assets/startup/startup.css">
   <link rel="stylesheet" href="/assets/switch.css">
   <link rel="stylesheet" href="/assets/try/try.css">
+  <link rel="stylesheet" href="/speedometer-wallpaper/styles/rally/../made-with.css">
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
@@ -100,6 +101,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav class="subnav" id="site-menu" aria-label="Speedometer Live Wallpaper">
       <a href="/speedometer-wallpaper/">Overview</a>
+      <a href="/speedometer-wallpaper/layouts/">Layouts</a>
       <a href="/speedometer-wallpaper/wiki/">Wiki</a>
       <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
       <a class="play" href="/speedometer-wallpaper/play/" title="Try online"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Try online</span></a>
@@ -135,7 +137,7 @@
           <p class="sec-intro">Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Rally's layouts and colours.</p>
         </div>
         <div class="try" data-state="idle">
-          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39","all":"€5.99"},"gpsLabel":"Use my real speed","startup":false,"style":"rally"}</script>
+          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39","all":"€5.99"},"gpsLabel":"Use my real speed","startup":false,"style":"rally","layouts":"/speedometer-wallpaper/market/market.js"}</script>
           <div class="try-stage">
             <div class="try-device" data-orientation="portrait">
               <div class="try-screen" role="img" aria-label="Speedometer Live Wallpaper, live: tap the big gauge to switch it">
@@ -157,6 +159,7 @@
             <div class="try-now">
               <div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>
             </div>
+            <p class="try-shared" hidden></p>
             <p class="try-hint">Tap the big gauge to switch between power, CPU clock and speed, as on your phone.</p>
             <div class="try-quick">
               <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Use my real speed</span></button>
@@ -220,6 +223,29 @@
       </div>
     </section>
 
+    <section class="sec" id="layouts" aria-labelledby="layouts-title">
+      <div class="wrap">
+        <div class="sec-head">
+          <span class="eyebrow">From the layout market</span>
+          <h2 id="layouts-title">Layouts made with Rally<a class="anchor" href="#layouts" aria-label="Copy the link to Layouts made with Rally"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+          <p class="sec-intro">Drivers built these layouts in Rally and shared them in the app's layout market, most used first. Every layout works in every style.</p>
+        </div>
+        <div class="embed">
+          <div class="mk-made-with">
+            <ul class="mk-grid mk-row" aria-label="Layouts made with this style, most used first"></ul>
+            <p class="mk-message" data-market="empty" hidden>Nobody has shared a layout made with this style yet. Be the first: build one in the app.</p>
+            <p class="mk-message" data-market="failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" data-market="retry">Try again</button></p>
+            <div class="badges sec-actions mk-actions">
+              <a class="btn" href="/speedometer-wallpaper/layouts/">See the layout market</a>
+            </div>
+          </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>
+        </div>
+        
+      </div>
+    </section>
+
     <section class="sec" id="more" aria-labelledby="more-title">
       <div class="wrap">
         <div class="sec-head">
@@ -252,6 +278,7 @@
     <div class="wrap">
       <a class="foot-brand" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="48" height="48"><span>Speedometer Live Wallpaper</span></a>
       <nav class="foot-links" aria-label="Speedometer Live Wallpaper and VGraphics">
+        <a href="/speedometer-wallpaper/layouts/">Layouts</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
         <a href="/apps/">More apps</a><span class="sep" aria-hidden="true">·</span>
@@ -267,5 +294,6 @@
   <script src="/assets/menu.js" defer></script>
   <script src="/assets/startup/startup.js" defer></script>
   <script src="/assets/try/try.js" defer></script>
+  <script src="/speedometer-wallpaper/styles/rally/../made-with.js" defer></script>
 </body>
 </html>

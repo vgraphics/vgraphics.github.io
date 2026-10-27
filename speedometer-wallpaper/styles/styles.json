@@ -1,5 +1,6 @@
 {
   "published": true,
+  "market": true,
   "robots": "noindex",
   "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
   "words": {
@@ -15,7 +16,10 @@
       { "title": "Layouts, and your own", "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own." }
     ],
     "moreIntro": "Every style runs live on its own page. Or <a href=\"/speedometer-wallpaper/play/\">try them all in your browser</a>.",
-    "allStyles": "All {count} styles →"
+    "allStyles": "All {count} styles →",
+    "layoutsEyebrow": "From the layout market",
+    "layoutsTitle": "Layouts made with {name}",
+    "layoutsIntro": "Drivers built these layouts in {name} and shared them in the app's layout market, most used first. Every layout works in every style."
   },
   "styles": [
     {

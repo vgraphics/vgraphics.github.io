@@ -4,7 +4,8 @@
 // Speedometer web ideas page: "A page for every style", kept). Each page has the style live, from the product's try
 // page (<product>/play/page.json) without the start-up and kept to its style, then its look, then the next styles.
 // Until styles.json says "published": true the pages stay out of search and the sitemap, and the landing tiles open the
-// try page; then the tiles open the pages. They go live with the Play release that has the styles.
+// try page; then the tiles open the pages. They go live with the Play release that has the styles. With "market": true
+// each page also shows the layout market's layouts made with its style (styles/made-with.html).
 // Published, "robots": "noindex" (in styles.json for every style, or on one style) still keeps a page out of search and
 // the sitemap, its tile opening it as before: the pages share most of their words, so each stays out until its style has
 // a write-up of its own (AdSense's "Low-value content" review, 27 Oct 2026). A style's "robots": null lets it in.
@@ -110,6 +111,15 @@ function stylePage(slug, data, landing, demo, i) {
           { type: 'features', items: [priced, ...w.features].map((f) => ({ title: fill(f.title, values), text: fill(f.text, values) })) },
         ],
       },
+      // The layout market's most used layouts made with this style (the web market design §5.1), once styles.json says
+      // "market": true; one piece of markup, styles/made-with.html, serves every style's page.
+      ...(data.market ? [{
+        id: 'layouts',
+        eyebrow: w.layoutsEyebrow,
+        title: fill(w.layoutsTitle, values),
+        intro: fill(w.layoutsIntro, values),
+        blocks: [{ type: 'embed', src: '../made-with' }],
+      }] : []),
       {
         id: 'more',
         eyebrow: 'Styles',
