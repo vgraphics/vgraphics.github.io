@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "0.1.52c1c5e2",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo explains Table and Notebook",
+      "items": [
+        "The guided demo now walks you through the Table and your Notebook, switching the phone to each one as it explains it.",
+        "In the demo, the card you hold and secret actions now fit their contents, with the picture beside the text on small screens, so cards no longer scroll.",
+        "In the demo, a secret action that only shows you something now closes when you let go or the narrator finishes; those with buttons to tap stay open.",
+        "In the demo, when it's time to tap or hold something, the phone now switches to your own tab so you can see it.",
+        "When you skip a night or the deal, you now hear all five final countdown ticks.",
+        "Subtitles now use one consistent style."
+      ],
+      "commit": "52c1c5e2"
+    },
+    {
       "version": "0.1.c58aa53d",
       "date": "2026-10-28",
       "platforms": [
