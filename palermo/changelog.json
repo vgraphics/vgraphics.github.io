@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.4a0d50a2",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo loads with ad blockers",
+      "items": [
+        "The guided demo against bots now loads even if you use an ad blocker or a privacy browser like Brave — no more getting stuck at 5%."
+      ],
+      "commit": "4a0d50a2"
+    },
+    {
       "version": "0.1.f573efbf",
       "date": "2026-10-27",
       "platforms": [
