@@ -1,13 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
-  <url><loc>https://vgraphics.gr/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://vgraphics.gr/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/apps/</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://vgraphics.gr/company/</loc><lastmod>2026-10-26</lastmod></url>
+  <url><loc>https://vgraphics.gr/company/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://vgraphics.gr/devlog/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://vgraphics.gr/devlog/exitwise-board-shapes/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://vgraphics.gr/devlog/speedometer-in-your-browser/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/map-rules.html</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/play/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/privacy.html</loc><lastmod>2026-10-27</lastmod></url>
-  <url><loc>https://vgraphics.gr/exitwise/ranking/</loc><lastmod>2026-10-27</lastmod></url>
+  <url><loc>https://vgraphics.gr/exitwise/ranking/</loc><lastmod>2026-10-26</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/wiki/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/wiki/auto-play/</loc><lastmod>2026-10-27</lastmod></url>
   <url><loc>https://vgraphics.gr/exitwise/wiki/board-shapes/</loc><lastmod>2026-10-27</lastmod></url>

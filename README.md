@@ -12,7 +12,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
-| `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
+| `company/index.html` | About VGraphics: the studio, what we make and how we work, then the legal details from the General Commercial Registry (G.E.MI.). It is the site's About page (AdSense's review, 27 Oct 2026, looks for one); the footer still calls it "Company information". |
+| `devlog/` | The devlog: notes from the studio on how the games and apps are made, one page per post at `devlog/<slug>/`. `devlog/posts.json` holds the posts; `tools/build-devlog.mjs` writes the pages with the home page's header and footer, so run it after adding a post or changing the home page's header or footer, then `build-sitemap`. Only real work goes in a post, no filler. |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
@@ -85,10 +86,10 @@ the hub writes while a player is signed in (their name; `photo`, the approved ph
 loaded as a plain image with no referrer; or `pic`, the preset as a `data:` URL; and the frame: one of the hub's own
 `/hub/frames/*.webp` with its opening's place) and removes on sign-out. Only those addresses are accepted.
 
-The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
+The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404, and the devlog) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
 sky, VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it
-into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
+into the other eight pages, then run `node tools/build-devlog.mjs`, which copies it into the devlog. The check fails while any page differs (only `aria-current="page"` on the page's own menu
 item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
 Change it there too and release `vhub-hub`: until then the check reports every hub page.
 

@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Devlog: how our games and apps are made · VGraphics</title>
+  <meta name="description" content="Notes from VGraphics on how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.">
+  <link rel="canonical" href="https://vgraphics.gr/devlog/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="VGraphics devlog">
+  <meta property="og:description" content="Notes from VGraphics on how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.">
+  <meta property="og:url" content="https://vgraphics.gr/devlog/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "Blog",
+        "@id": "https://vgraphics.gr/devlog/#blog",
+        "name": "VGraphics devlog",
+        "description": "Notes from VGraphics on how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.",
+        "url": "https://vgraphics.gr/devlog/",
+        "inLanguage": "en",
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "blogPost": [
+          {
+            "@type": "BlogPosting",
+            "headline": "The real Speedometer, running in your browser",
+            "datePublished": "2026-10-27",
+            "url": "https://vgraphics.gr/devlog/speedometer-in-your-browser/"
+          },
+          {
+            "@type": "BlogPosting",
+            "headline": "Why Exitwise boards stopped being rectangles",
+            "datePublished": "2026-10-27",
+            "url": "https://vgraphics.gr/devlog/exitwise-board-shapes/"
+          }
+        ]
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Devlog",
+            "item": "https://vgraphics.gr/devlog/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* The devlog: a calm reading column on the company pages' paper, the post's product as its kicker. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.2rem, 5.4vw, 3.8rem); max-width: 18em; text-wrap: balance; }
+    .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; padding-bottom: var(--s7); }
+    .post-card { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 26px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+    .post-card h2 { font-size: 1.4rem; text-wrap: balance; }
+    .post-card h2 a { color: inherit; text-decoration: none; }
+    .post-card p { color: var(--ink-2); }
+    .post-card .btn { margin-top: auto; }
+    .post-meta { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Devlog</span>
+    <h1>Notes from the studio</h1>
+    <p class="lede">How our games and apps are designed and built: the problems, the fixes and the reasons behind them. A new post when there is something worth telling.</p>
+  </div>
+  <div class="posts">
+    <article class="post-card">
+      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-10-27">27 October 2026</time></span>
+      <h2><a href="/devlog/speedometer-in-your-browser/">The real Speedometer, running in your browser</a></h2>
+      <p>How the try page runs Speedometer Live Wallpaper's own drawing code in a browser, with Kotlin Multiplatform and Skia, and what a browser can read.</p>
+      <a class="btn btn-ghost" href="/devlog/speedometer-in-your-browser/" aria-label="Read: The real Speedometer, running in your browser">Read the post</a>
+    </article>
+    <article class="post-card">
+      <span class="post-meta">Exitwise · <time datetime="2026-10-27">27 October 2026</time></span>
+      <h2><a href="/devlog/exitwise-board-shapes/">Why Exitwise boards stopped being rectangles</a></h2>
+      <p>In October we found Exitwise far too easy by level 60. Part of the fix was the boards themselves: 49 shapes, no slivers and no easy lines.</p>
+      <a class="btn btn-ghost" href="/devlog/exitwise-board-shapes/" aria-label="Read: Why Exitwise boards stopped being rectangles">Read the post</a>
+    </article>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>
