@@ -201,7 +201,9 @@
 .try-qr { display: grid; justify-items: center; gap: 6px; margin: 0; }
 .try-qr img { display: block; width: 132px; height: 132px; padding: 8px; border-radius: 12px; background: #fff; }
 .try-qr figcaption { color: var(--muted); font-size: 0.85rem; }
-.try-link { justify-self: start; padding: 4px 0; border: 0; background: none; color: var(--muted); font: inherit; font-size: 0.9rem; text-decoration: underline; cursor: var(--cursor-link, pointer); }
+/* The panel's foot: the statistics answer as a settings row, its words on the left and the switch on the right. */
+.try-statistics { padding-top: 18px; border-top: 1px solid var(--line); cursor: var(--cursor-link, pointer); }
+.try-statistics small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.85rem; }
 
 /* Until the engine runs, the panel's controls wait; if it can't run (an old browser, or the engine not there), the
    phone keeps the welcome art with the reason, and only the store call stays in the panel. */
