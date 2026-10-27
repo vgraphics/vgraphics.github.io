@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.c2b2b188",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Bigger role cards",
+      "items": [
+        "The demo's role cards are now bigger, so you can clearly see the characters.",
+        "On a phone, you now see two role cards per row.",
+        "The \"Back to the demo\" button no longer shows twice."
+      ],
+      "commit": "c2b2b188"
+    },
+    {
       "version": "0.1.6678d24e",
       "date": "2026-10-27",
       "platforms": [
