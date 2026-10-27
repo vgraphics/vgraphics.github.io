@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.c58aa53d",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Role stays out while explained",
+      "items": [
+        "In the guided demo, your role card now stays out while the narrator explains it, instead of slipping back the moment you let go."
+      ],
+      "commit": "c58aa53d"
+    },
+    {
       "version": "0.1.36cb8db3",
       "date": "2026-10-28",
       "platforms": [
