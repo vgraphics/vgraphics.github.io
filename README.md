@@ -14,6 +14,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
 | `company/index.html` | Company information: the legal details from the General Commercial Registry (G.E.MI.) |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
+| `terms/index.html` | The site's terms of use (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies them?"): everything on the site is VGraphics' (or licensed), what visitors may do, no copying, re-uploading, scraping or AI training, our trademarks, how to ask for a licence and how to report a copy (support@vgraphics.gr). Its "Scraping and AI training" chapter (`#ai`) holds the site's text and data mining reservation (EU Directive 2019/790, Article 4(3)), which `robots.txt` and `.well-known/tdmrep.json` state in machine-readable form. Update its "Last updated" date with any change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
@@ -36,8 +37,9 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours |
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
-| `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. |
-| `tools/check-site.mjs` | The site's content rules (legal footer, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
+| `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
+| `.well-known/tdmrep.json` | The same reservation for the whole site in the W3C TDM Reservation Protocol (`"tdm-reservation": 1` on `/*`), which AI and text and data mining tools read |
+| `tools/check-site.mjs` | The site's content rules (legal footer with the copyright line and the terms link, the AI-training reservation in robots.txt and tdmrep.json, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, and every picture's stated size matching its file, so none is shown stretched) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
 | `tools/sync-documents.mjs` | Copies the policies (and Exitwise's map rules) in from the repos that own them, unchanged from their `main`, and rewrites their pages: `node tools/sync-documents.mjs <product>` (`--ref <branch>` for another); with no product it says which copies differ from their sources |
@@ -56,8 +58,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
 | `tools/make-speedometer-renders.py` | Writes `speedometer-wallpaper/img/renders/`: the app's real renders (its screenshot goldens in the Games repo and frames of the Promo demo drive) that the gallery, `/apps/`, the home page and the wiki's medals show, each place its own: `python tools/make-speedometer-renders.py`, then `python tools/make-gallery-images.py speedometer-wallpaper` (Python with Pillow) |
 
-Rules for every page: the legal footer line (company name, "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to
-`/company/` and `/privacy/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
+Rules for every page: the legal footer line (the copyright line "© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights
+reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to `/company/`, `/privacy/` and `/terms/`), a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
 and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
 alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
 `tools/` and this README included. The site is in English: no Greek letters on its
@@ -85,10 +87,10 @@ the hub writes while a player is signed in (their name; `photo`, the approved ph
 loaded as a plain image with no referrer; or `pic`, the preset as a `data:` URL; and the frame: one of the hub's own
 `/hub/frames/*.webp` with its opening's place) and removes on sign-out. Only those addresses are accepted.
 
-The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
+The company pages (home, games, apps, services, multiplayer, hub, company, privacy, terms, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
 sky, VHub violet. The home page's copy is the master: to change the menu or the footer, change it there and paste it
-into the other eight pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
+into the other nine pages. The check fails while any page differs (only `aria-current="page"` on the page's own menu
 item may differ). The hub's copy lives in the VHub repo, in `hub/index.html` and `docs/privacy/vhub-privacy.html`.
 Change it there too and release `vhub-hub`: until then the check reports every hub page.
 

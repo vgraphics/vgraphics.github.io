@@ -1,0 +1,281 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms of use for vgraphics.gr, our art and music · VGraphics</title>
+  <meta name="description" content="What you may and may not do with the games, art, music, videos, text and code on vgraphics.gr: no copying, scraping or AI training, our trademarks, licences.">
+  <link rel="canonical" href="https://vgraphics.gr/terms/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Terms of use · VGraphics">
+  <meta property="og:description" content="Our art, music, videos and games are ours: enjoy them here, share the links, and ask us before using them anywhere else.">
+  <meta property="og:url" content="https://vgraphics.gr/terms/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Terms of use", "item": "https://vgraphics.gr/terms/" }
+    ]
+  }
+  </script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* The site's terms of use, laid out like the privacy policy: a summary in the logo's four colours, then the terms,
+       with their contents beside them on wide screens and above them on phones. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · Games · Art · Music</span>
+    <h1>Terms of use</h1>
+    <p class="lede">The games, pictures, music, videos, words and code on vgraphics.gr are made by VGraphics. This page says what you may do with them, what needs our permission first, and how to reach us about a licence or a copy you found. In plain words.</p>
+    <p class="chip">Last updated <time datetime="2026-10-27">27 October 2026</time></p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">In short</h2>
+    <ul class="short">
+      <li><b>It's ours</b><span>Everything on this site belongs to VGraphics, or to others who let us use it.</span></li>
+      <li><b>Enjoy, share the link</b><span>Look, listen and play here, and share our pages. Don't copy, re-upload or sell our work.</span></li>
+      <li><b>No scraping, no AI training</b><span>No bots harvesting the site, and no using what's on it to train or feed AI.</span></li>
+      <li><b>Ask us first</b><span>Licences, and copies you spot elsewhere: support@vgraphics.gr.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ol>
+        <li><a href="#who">Who we are</a></li>
+        <li><a href="#ours">What belongs to us</a></li>
+        <li><a href="#may">What you may do</a></li>
+        <li><a href="#not">What needs our permission</a></li>
+        <li><a href="#ai">Scraping and AI training</a></li>
+        <li><a href="#marks">Our names and logos</a></li>
+        <li><a href="#licence">Asking for a licence</a></li>
+        <li><a href="#report">Reporting a copy</a></li>
+        <li><a href="#others">Other people's work</a></li>
+        <li><a href="#law">Responsibility and law</a></li>
+        <li><a href="#changes">Changes</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="who" aria-labelledby="who-title">
+        <h2 id="who-title"><span class="dot c-sun" aria-hidden="true"></span>Who we are</h2>
+        <p>vgraphics.gr is the website of VGraphics, an independent studio that makes games, apps and software:</p>
+        <address class="box">
+          VGRAPHICS SINGLE MEMBER P.C.<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          G.E.MI. no. 181823306000 · VAT no. EL802736373<br>
+          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+        </address>
+        <p>These terms cover every page of vgraphics.gr, the games you play and the apps you try here, and what they show and play. By using the site you agree to them. Our games and apps from Google Play also come with the store's terms, and what happens to your data is in our <a href="/privacy/">privacy policy</a> and each product's own.</p>
+      </section>
+
+      <section id="ours" aria-labelledby="ours-title">
+        <h2 id="ours-title"><span class="dot c-coral" aria-hidden="true"></span>What belongs to us</h2>
+        <p>Everything VGraphics publishes on this site is protected by copyright and the other laws on intellectual property, in Greece, the European Union and around the world. It belongs to VGRAPHICS SINGLE MEMBER P.C., or to others who let us use it (see <a href="#others">other people's work</a>). That includes:</p>
+        <ul>
+          <li><strong>Art:</strong> key art, illustrations, characters, maps, backgrounds, logos, icons, screenshots and every other picture;</li>
+          <li><strong>Music and sound:</strong> our soundtracks and songs, here and on our YouTube and SoundCloud channels, and the games' sounds;</li>
+          <li><strong>Videos:</strong> trailers, gameplay films and the soundtrack videos;</li>
+          <li><strong>Games and apps:</strong> their levels, rules, characters, stories, designs and the way they look;</li>
+          <li><strong>Words and code:</strong> the text of every page, wiki and guide, and the site's and the games' code.</li>
+        </ul>
+        <p>Being able to see, hear or download something here doesn't make it free to use. Unless a page says otherwise, all rights are reserved.</p>
+      </section>
+
+      <section id="may" aria-labelledby="may-title">
+        <h2 id="may-title"><span class="dot c-sky" aria-hidden="true"></span>What you may do</h2>
+        <p>For your own, non-commercial enjoyment, you may:</p>
+        <ul>
+          <li>look at the pages, listen to the music and play the games here, in your browser;</li>
+          <li>share links to our pages, and share our YouTube videos and SoundCloud tracks with those sites' own share and embed buttons, which keep them on our channels;</li>
+          <li>talk and write about our games and apps, by name, in reviews, news, guides and posts;</li>
+          <li>record or stream yourself playing our games and share those videos, monetised or not, as long as they show real play and you don't suggest we made or endorse them. Our music may play in them as part of the game, but not on its own.</li>
+        </ul>
+      </section>
+
+      <section id="not" aria-labelledby="not-title">
+        <h2 id="not-title"><span class="dot c-violet" aria-hidden="true"></span>What needs our permission</h2>
+        <p>Without our written permission, you may not:</p>
+        <ul>
+          <li>copy, download, reproduce, re-upload, share, sell or rent our art, music, videos, words or code, in whole or in part, on any site, app, store, channel or service, or in print;</li>
+          <li>upload our songs or soundtrack videos to YouTube, SoundCloud, TikTok, music services or anywhere else, or claim them as yours, for example in a content identification system;</li>
+          <li>make your own versions of our work: remixes, edits, covers sold as your own, re-skins, clones of our games, lookalike apps or store pages, or merchandise with our art, names or logos;</li>
+          <li>remove or change copyright notices, metadata, Content Credentials or other rights information in our files, or share files from which they were removed;</li>
+          <li>use our work in ads, or in a way that suggests we endorse you or your product;</li>
+          <li>harm the site or its games: attack, overload or break into them, or cheat on their leaderboards.</li>
+        </ul>
+      </section>
+
+      <section id="ai" aria-labelledby="ai-title">
+        <h2 id="ai-title"><span class="dot c-sun" aria-hidden="true"></span>Scraping and AI training</h2>
+        <p>Search engines may visit the site to list its pages in their results. Apart from that:</p>
+        <ul>
+          <li>no bots, crawlers, scrapers or other automated tools may collect the site's pictures, music, videos, words or code, in bulk or one by one;</li>
+          <li>nothing on the site may be used to train, fine-tune, test or prompt artificial intelligence or machine-learning models, or be put in a dataset for them;</li>
+          <li>nothing on the site may be used for text and data mining.</li>
+        </ul>
+        <p class="box statement">VGRAPHICS SINGLE MEMBER P.C. expressly reserves the use of all content on vgraphics.gr for text and data mining, including for training artificial intelligence, under Article 4(3) of Directive (EU) 2019/790 on copyright in the Digital Single Market and the laws that apply it. The reservation is also stated in machine-readable form, in the site's <a href="/robots.txt">robots.txt</a> and <a href="/.well-known/tdmrep.json">tdmrep.json</a>.</p>
+      </section>
+
+      <section id="marks" aria-labelledby="marks-title">
+        <h2 id="marks-title"><span class="dot c-coral" aria-hidden="true"></span>Our names and logos</h2>
+        <p>VGraphics, Exitwise, Palermo Noir, VHub and the names and logos of our other games and apps are trademarks of VGRAPHICS SINGLE MEMBER P.C. You may use the names in plain words to refer to our games and apps. You may not:</p>
+        <ul>
+          <li>use them, or anything that looks or sounds like them, as the name, logo or icon of your own game, app, channel, account or business;</li>
+          <li>register them, or names like them, as trademarks, domain names, app or store names, channel names or social handles;</li>
+          <li>use our logos without a licence, or change them.</li>
+        </ul>
+        <p>Other names and logos on the site belong to their owners: Google Play and the Google Play logo are trademarks of Google LLC.</p>
+      </section>
+
+      <section id="licence" aria-labelledby="licence-title">
+        <h2 id="licence-title"><span class="dot c-sky" aria-hidden="true"></span>Asking for a licence</h2>
+        <p>Would you like to use our art, a song, a video or a logo: in an article, a video, a show, a store feature, an event or a project of your own? Write to <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a> and tell us:</p>
+        <ul>
+          <li>who you are, and how to reach you;</li>
+          <li>exactly what you would like to use, with its link;</li>
+          <li>where and how it will appear, for how long, and in which countries;</li>
+          <li>whether it is commercial, and how many people will see or hear it.</li>
+        </ul>
+        <p>You have a licence only once we have said yes in writing, an email included, and only for what that message says.</p>
+      </section>
+
+      <section id="report" aria-labelledby="report-title">
+        <h2 id="report-title"><span class="dot c-violet" aria-hidden="true"></span>Reporting a copy</h2>
+        <p>If you find our art, music, videos, games or names used without our permission, for example a re-uploaded song, a lookalike app or our art on someone else's product, please tell us at <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>, with:</p>
+        <ul>
+          <li>the link to the copy, and where you came across it;</li>
+          <li>what of ours it copies, if you know;</li>
+          <li>a screenshot, if the copy may disappear.</li>
+        </ul>
+        <p>If you believe something on our site is yours and is used without your permission, write to the same address with the page's link and why you believe so. We will look into it quickly, and take it down if we were wrong.</p>
+      </section>
+
+      <section id="others" aria-labelledby="others-title">
+        <h2 id="others-title"><span class="dot c-sun" aria-hidden="true"></span>Other people's work</h2>
+        <p>A few things on the site belong to others and are used under their licences, which apply to them instead of these terms: the fonts (the SIL Open Font License), some of the games' sound effects (CC0 or the Pixabay licence), and other companies' names and badges, such as Google Play's. Links to other sites lead to pages we don't control, with terms of their own.</p>
+      </section>
+
+      <section id="law" aria-labelledby="law-title">
+        <h2 id="law-title"><span class="dot c-coral" aria-hidden="true"></span>Responsibility and law</h2>
+        <p>We make the site, its games and its apps' try pages available as they are, for free, and we may change, pause or remove any part of them. We do our best to keep them working and correct, but we can't promise they always will be. We aren't responsible for losses from using the site, except where the law doesn't let us limit our responsibility, such as for harm we cause on purpose or by gross negligence.</p>
+        <p>Greek law applies to these terms, and the courts of Thessaloniki, Greece, decide any dispute about them. If you use the site as a consumer, this doesn't take away the protection, or the right to go to your own courts, that the law of the country you live in gives you.</p>
+      </section>
+
+      <section id="changes" aria-labelledby="changes-title">
+        <h2 id="changes-title"><span class="dot c-sky" aria-hidden="true"></span>Changes</h2>
+        <p>When these terms change, we update this page and its date at the top. The terms that apply are the ones on this page when you use the site.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>
