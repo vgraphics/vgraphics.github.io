@@ -296,5 +296,5 @@
       { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
     ]
   },
-  "footerArt": { "src": "/palermo/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1738, "position": "50% 50%" }
+  "footerArt": { "src": "/palermo/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1738, "position": "55% 50%" }
 }
