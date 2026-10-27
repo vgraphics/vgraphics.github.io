@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
+    <title>Palermo Noir</title>
+    <!-- Its own address, as the site's check-site wants of every page, though search engines leave it out. -->
+    <link rel="canonical" href="https://vgraphics.gr/palermo/demo/screen.html" />
+    <link rel="icon" href="../game/art/logo.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="/assets/cursors.css"  />
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
+    <script src="/assets/no-select.js" defer ></script>
+    <style>
+      html, body { margin: 0; background: #0B1623; color: #EFE7D4; }
+      .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
+        color: rgba(239, 231, 212, 0.5); font: 12px/1.4 system-ui, sans-serif; text-align: center;
+        -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      .party-legal a { color: inherit; }
+    </style>
+    <script type="module" crossorigin src="/palermo/game/demo-screen-D4K0w-Yy.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/sound-DMOitIUo.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-B9tbk6sG.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-DXGQqt0g.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/room-screen-DNXUlGfz.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/app-Ca79aQG8.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/sound-BEE-DnvU.css">
+  </head>
+  <body>
+    <!-- The demo's frames (/palermo/demo/): the game's own TV (?as=tv) or the visitor's own phone (?as=phone), drawn
+         from the demo page's local table. Opened on its own, it goes back to the demo. -->
+    <div id="app"></div>
+    <footer id="party-legal" class="party-legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. <span data-legal="rights">All rights reserved</span> · <span data-legal="gemi">G.E.MI. no. 181823306000</span> · <span data-legal="vat">VAT no. EL802736373</span> · <a href="/company/" data-legal="company" tabindex="-1">Company</a> · <a href="/privacy/" data-legal="privacy" tabindex="-1">Privacy</a> · <a href="/terms/" data-legal="terms" tabindex="-1">Terms</a></footer>
+  </body>
+</html>
