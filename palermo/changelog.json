@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.3eb91042",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your demo guide now speaks",
+      "items": [
+        "In the guided demo against the bots, your guide now has a full voice, speaking all of its lines out loud in English and Greek.",
+        "Fixed the Detective's English introduction, which repeated \"each night\"."
+      ],
+      "commit": "3eb91042"
+    },
+    {
       "version": "0.1.a1f3da04",
       "date": "2026-10-27",
       "platforms": [
