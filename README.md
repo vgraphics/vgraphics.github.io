@@ -205,7 +205,15 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
 - The script puts `no-select.css` first in the head, so a page's own rules win at equal weight: the hub, the party kit
   and the Exitwise play page carry their own piece from their repos (the same rules, in their colours), which stays in
   charge there.
-- check-site holds every served page to this: it loads `/assets/menu.js` or `/assets/no-select.js`, and no stylesheet,
+- The same piece is a light deterrent against copying (George, 27 Oct 2026): outside text fields, the keys that open
+  the developer tools or the page's source do nothing (F12, Ctrl+Shift+I, J and C, Ctrl+U; on a Mac Cmd+Option+I, J, C
+  and U), and the developer console shows a large "Stop!" once the page has loaded: the site, its art, music and code
+  belong to VGraphics, copying is not allowed, and the terms of use (`/terms/`), in the page's language (English, or
+  Greek on a `lang="el"` page). Once a page: the hub's, the party kit's and the Exitwise play page's pieces print the
+  same warning under one mark (`Symbol.for("vgraphics.console-warning")`), and the first to run prints it. Nothing
+  watches for the tools: the page, and its error reporting, work the same with them open.
+- check-site holds every served page to this: it loads `/assets/menu.js` or `/assets/no-select.js` (which must hold the
+  keys, the warning's mark and the terms link), and no stylesheet,
   `<style>` or `style=""` sets `user-select: text`, `all`, `auto` or `contain`, except on text fields (a rule whose
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
