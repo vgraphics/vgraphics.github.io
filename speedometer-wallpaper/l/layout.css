@@ -1,36 +1,5 @@
-/* A shared layout's card (layout.html): the code in big letters, then the ways to it. Colours and type come from
-   Speedometer's theme pack. */
-.shared-layout {
-  width: min(100%, 460px);
-  margin: 0 auto;
-  padding: 28px 24px 24px;
-  border: var(--card-border);
-  border-radius: var(--radius);
-  background: var(--card-bg);
-  box-shadow: var(--card-shadow);
-  color: var(--ink);
-  text-align: center;
-}
-.shared-lead { margin: 0 0 18px; font: var(--display-weight) 1.4rem/1.15 var(--font-display); text-transform: var(--display-case); }
-.shared-caption { margin: 0; color: var(--muted); font-size: 0.95rem; }
-.shared-code { margin: 4px 0 22px; font: var(--display-weight) 3.2rem/1.05 var(--font-display); letter-spacing: 0.18em; color: var(--accent-2); }
-.shared-button {
-  display: block;
-  margin: 12px 0;
-  padding: 15px 20px;
-  border: 1px solid var(--line);
-  border-radius: 999px;
-  background: var(--surface-2);
-  color: var(--ink);
-  font: var(--display-weight) 1.15rem/1 var(--font-display);
-  text-transform: var(--display-case);
-  text-decoration: none;
-}
-.shared-button.primary { border-color: var(--cta-edge); background: var(--cta); color: var(--cta-ink); }
-.shared-button:hover { border-color: var(--accent); }
-.shared-button.primary:hover { border-color: var(--cta-ink); }
-.shared-button[hidden] { display: none; }
-/* The site's Google Play badge (.gp in assets/product.css), centred in the card. */
-.shared-play { display: flex; width: fit-content; margin: -4px auto; }
-.shared-steps { margin: 20px 0 0; padding: 0; list-style: none; color: var(--muted); font-size: 0.98rem; }
-.shared-steps li { margin: 4px 0; }
+/* A shared layout's page (layout.html): the market's own pieces. The page's text stays hidden until the layout has
+   been read, so nothing flashes from "found" to "missing". */
+@import url("/speedometer-wallpaper/market/market.css");
+
+.mk-page[data-state="loading"] .mk-info > :not(.mk-code-line) { visibility: hidden; }

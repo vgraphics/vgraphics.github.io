@@ -5,7 +5,9 @@
 // their pictures, Free or the price, their layouts, and the app's settings in the app's words. The look shown is kept
 // in this browser and can be shared as a link (#style=…). The store links carry the style shown, for the app to open
 // on it after the install. A style's own page (config.style) opens on that style and has no list of styles; a page
-// without the start-up (config.startup false) draws the wallpaper as soon as the engine is ready.
+// without the start-up (config.startup false) draws the wallpaper as soon as the engine is ready. With config.layouts
+// (a script that reads the product's shared layouts), a link #layout=<CODE> opens on that layout, and the store links
+// carry its code instead of the style.
 //
 // Statistics (Google Analytics 4, the product's web stream) only with a measurement id, and only after the visitor says
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
@@ -151,10 +153,10 @@
     p.hidden = !text;
   };
 
-  // The store link with the style shown, for the install referrer (the app opens on that style).
-  var storeUrl = function (style) {
+  // The store link with the style shown, or the market layout shown, for the install referrer (the app opens on it).
+  var storeUrl = function (style, code) {
     if (!config.referrer) return config.store;
-    var referrer = config.referrer + '&utm_content=' + encodeURIComponent('style_' + style);
+    var referrer = config.referrer + '&utm_content=' + encodeURIComponent(code ? 'layout_' + code : 'style_' + style);
     return config.store + (config.store.indexOf('?') >= 0 ? '&' : '?') + 'referrer=' + encodeURIComponent(referrer);
   };
   var whereOf = function (link) {
@@ -357,7 +359,9 @@
     gps.querySelector('span').textContent = real ? 'Back to the demo drive' : config.gpsLabel;
     if (!real) note('gps', '');
 
-    storeLinks().forEach(function (a) { a.href = storeUrl(style.id); });
+    storeLinks().forEach(function (a) { a.href = storeUrl(style.id, values.shared ? values.layout : ''); });
+    var shared = $('.try-shared');
+    if (shared) shared.hidden = !values.shared;
     store(LOOK_KEY, app.look());
 
     var mode = values.values.mode || '';
@@ -436,9 +440,9 @@
   var full = root.querySelector('[data-action="fullscreen"]');
   if (full && document.fullscreenEnabled && device.requestFullscreen) full.hidden = false;
 
-  function loadScript(src) {
+  function loadScript(src, global) {
     return new Promise(function (resolve, reject) {
-      if (window.VGTry) return resolve();
+      if (window[global || 'VGTry']) return resolve();
       var script = document.createElement('script');
       script.src = src;
       script.onload = resolve;
@@ -454,8 +458,40 @@
   };
   var sharedLook = function () {
     var hash = location.hash.replace(/^#/, '');
-    return /(^|&)style=/.test(hash) ? ofThisStyle(hash) : '';
+    return /(^|&)(style|layout)=/.test(hash) ? ofThisStyle(hash) : '';
   };
+
+  // A market layout's link (#layout=<CODE>&style=<id>, the web market design §5.2): with the block's "layouts" script,
+  // the page reads the layout before the engine starts, so it opens on it; the panel says whose it is. A code the
+  // market doesn't have any more falls back to the style. Resolves with the look and the layouts to start with.
+  var MARKET_CODE = /(^|&)layout=([CDFGHJKMNPQRTVWXY34679]{6})(?=&|$)/;
+  function marketLook(look) {
+    var match = look.match(MARKET_CODE);
+    if (!match || !config.layouts) return Promise.resolve({ look: look, layouts: [] });
+    var code = match[2];
+    var without = look.replace(MARKET_CODE, '$1').replace(/^&|&$/g, '').replace(/&&/g, '&');
+    return loadScript(config.layouts, 'VGTryLayouts').then(function () {
+      return window.VGTryLayouts.resolve(code);
+    }).then(function (found) {
+      if (!found) {
+        note('share', 'That layout isn’t in the market any more, so here is the style alone.');
+        return { look: without, layouts: [] };
+      }
+      var shared = $('.try-shared');
+      if (shared) {
+        shared.textContent = '';
+        shared.appendChild(document.createTextNode(found.name + ' by ' + found.by + ' · '));
+        var link = document.createElement('a');
+        link.href = found.href;
+        link.textContent = 'See it in the layout market';
+        shared.appendChild(link);
+      }
+      var withStyle = /(^|&)style=/.test(look) ? look : 'style=' + found.madeWith + '&' + look;
+      return { look: withStyle, layouts: [{ code: code, data: found.data }] };
+    }).catch(function () {
+      return { look: without, layouts: [] };
+    });
+  }
   var firstLook = function () {
     return sharedLook() || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
   };
@@ -499,10 +535,13 @@
     }, 400);
     loadScript(config.engine + 'vgtry.js').then(function () {
       if (!window.VGTry.isSupported()) throw { reason: 'unsupported' };
+      return marketLook(firstLook());
+    }).then(function (first) {
       return window.VGTry.start({
         host: screen,
         base: config.engine,
-        look: firstLook(),
+        look: first.look,
+        layouts: first.layouts,
         onProgress: function (progress) {
           if (startup) startup.progress(Math.max(creep, Math.min(0.95, 0.6 + progress.files * 0.03)));
         }

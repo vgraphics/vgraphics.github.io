@@ -92,6 +92,7 @@
           "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
+          "layouts": "/speedometer-wallpaper/market/market.js",
           "prices": {
             "premium": "€2.39",
             "all": "€5.99"
@@ -150,6 +151,18 @@
               "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own."
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "layouts",
+      "eyebrow": "From the layout market",
+      "title": "Layouts made with Future",
+      "intro": "Drivers built these layouts in Future and shared them in the app's layout market, most used first. Every layout works in every style.",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "../made-with"
         }
       ]
     },
