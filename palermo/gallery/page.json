@@ -317,7 +317,7 @@
     {
       "id": "around-the-site",
       "title": "Around the site",
-      "intro": "The pictures at the top of the other Palermo pages, the harbour at the foot of every page, and the soundtrack’s cover and courtyard.",
+      "intro": "The pictures at the top of the other Palermo pages, the promenade at the foot of every page, and the soundtrack’s cover and courtyard.",
       "blocks": [
         {
           "type": "album",
@@ -365,12 +365,12 @@
               "alt": "The courtyard of a Palermo palazzo at night behind the music player: arcades and a double staircase, music stands, chairs, a cello and a violin under a wall lantern, a man in a fedora watching from the balcony, drawn in gold engraved lines on navy"
             },
             {
-              "title": "The harbour",
+              "title": "The promenade",
               "src": "/palermo/img/footer-960.webp",
               "full": "/palermo/img/footer-4096.webp",
               "width": 4096,
               "height": 1738,
-              "alt": "Stone steps run down from the lamplit seafront railings to Palermo's old harbour at night: wooden fishing boats moored on calm water, a lantern glowing in one of them, the breakwater and its lighthouse, the crescent moon's path on the sea, the cathedral dome and the dark mountain far off, drawn in gold engraved lines on navy"
+              "alt": "A black cat walks along the wrought-iron railings of Palermo's seafront promenade at night, across the crescent moon's path on the sea, between glowing street lamps, palm trees and two benches, the lamplit shore curving away to the cathedral dome on the right, drawn in gold engraved lines on navy"
             }
           ]
         }
