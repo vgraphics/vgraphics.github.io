@@ -77,10 +77,11 @@ The app pages are the exceptions to "no third-party scripts":
 
 Every company page ends with `<script src="/assets/vhub-me.js" defer>` (the hub's pages too, from the VHub repo): when
 someone is signed in to VHub, it shows their little picture in the header's VHub link (George, 23 Oct 2026), in the
-frame of their rank (26 Oct), or their initial when the hub couldn't make a copy of their photo. It only reads
-`vhub.me` from this site's localStorage, which the hub writes while a player is signed in (their name, a small picture
-as a `data:` URL, and the frame: one of the hub's own `/hub/frames/*.webp` with its opening's place) and removes on
-sign-out, so the static pages still load nothing from another site.
+frame of their rank (26 Oct): their photo when they have one (27 Oct: "If I have image show it. Dont show avatar."),
+else their preset, and their initial only when neither draws. It reads `vhub.me` from this site's localStorage, which
+the hub writes while a player is signed in (their name; `photo`, the approved photo's own address in VHub's Storage,
+loaded as a plain image with no referrer; or `pic`, the preset as a `data:` URL; and the frame: one of the hub's own
+`/hub/frames/*.webp` with its opening's place) and removes on sign-out. Only those addresses are accepted.
 
 The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
