@@ -594,6 +594,15 @@ for (const file of served) {
   }
 }
 
+// The wikis' masters, the big pictures their served sizes are cut from, stay in the products' private repos
+// (tools/art_src.py): this public site holds only the published pictures (27 Oct 2026; they were <product>/wiki/art-src/).
+{
+  const masters = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', ':(glob)**/art-src/**'], { cwd: root, encoding: 'utf8' }).split('\0').filter(Boolean)
+  for (const dir of new Set(masters.map((f) => f.replace(/(\/art-src)\/.*$/, '$1')))) {
+    report(dir, 'masters', `${masters.filter((f) => f.startsWith(`${dir}/`)).length} master file(s) on the public site: they belong in the product's own repo (tools/art_src.py), with only the served sizes here`)
+  }
+}
+
 // Every picture is used once (George, 26 Oct 2026, on Palermo's gallery: "Gallery has same hero as overview. Thats
 // forbidden. Each art must be used only once!! General rule!!"): on the pages GitHub Pages serves, no hero, section or
 // card shows a picture that is shown anywhere else on the site, on another page or the same one.

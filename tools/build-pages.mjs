@@ -45,7 +45,7 @@
 //                                src-<width>.avif and .webp, the tall one on narrow screens
 //   cta                          { title, text, badges }: the closing card, half in the footer's picture
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
-import { existsSync, readFileSync, writeFileSync } from 'node:fs'
+import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament } from './lib/partials.mjs'
@@ -129,9 +129,10 @@ function wikiAlbum(slug, from) {
   if (!entries.length) throw new Error(`${slug}: the wiki has no section "${from.wiki}" for the album`)
   return entries.flatMap((e) => {
     if (from.medals) {
-      const master = `${slug}/wiki/art-src/medals/${e.slug}.webp`
-      const size = existsSync(join(root, master)) && imageSize(join(root, master))
-      return size ? [{ title: e.name, src: e.image, full: `/${master}`, ...size, alt: `The ${e.name} medal` }] : []
+      const dir = `${slug}/wiki/img/medals`
+      const width = readdirSync(join(root, dir)).reduce((w, f) => Math.max(w, +(f.match(new RegExp(`^${e.slug}-(\\d+)\\.webp$`))?.[1] ?? 0)), 0)
+      const master = `${dir}/${e.slug}-${width}.webp`
+      return width ? [{ title: e.name, src: e.image, full: `/${master}`, ...imageSize(join(root, master)), alt: `The ${e.name} medal` }] : []
     }
     const { wide } = wikiArt(slug, e.slug)
     const small = wide.widths.find((w) => w >= 640) ?? wide.widths[0]
@@ -183,8 +184,9 @@ const BLOCKS = {
   // the full picture has loaded (tools/lib/blurhash.mjs). George, 24 Oct 2026: the product's gallery.
   // Or from: { wiki: "<section id>", medals?: true } in place of items: that section of the product's wiki, in the
   // wiki's order, each entry's painting (its 640 size in the grid, its largest in the lightbox) or, with medals, its
-  // medal (the 320 in the grid, its master in wiki/art-src/medals in the lightbox; a medal without a master of its
-  // own, a crop of a card the gallery already shows, is left out). George, 27 Oct 2026: "Add all art (even from wiki
+  // medal (the 320 in the grid, its master in the lightbox: wiki/img/medals/<slug>-<width>.webp, which
+  // tools/make-wiki-art.py --medals copies from the product's masters; a medal without a master of its own, a crop of
+  // a card the gallery already shows, is left out). George, 27 Oct 2026: "Add all art (even from wiki
   // and overview) to gallery.", so the gallery follows the wiki by itself.
   album: (b, product) => {
     const items = b.from ? wikiAlbum(product.slug, b.from) : b.items
