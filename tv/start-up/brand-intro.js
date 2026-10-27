@@ -5,7 +5,7 @@
 //   <script src="/tv/start-up/brand-intro.js" data-under="intro-box" data-film="1080"></script>
 //
 // - data-under: the id of the element the intro covers ("loader" by default, Exitwise's);
-// - data-film: "1080" for TVs (the WebM, then the MP4), "720" by default.
+// - data-film: "1080" for TVs (the MP4 alone), "720" by default (the WebM, then the MP4).
 // A tap, click or key skips it to what's underneath, never past it. VGIntro.gameReady(then) works as in Exitwise's
 // copy, with the welcome art held 2 s rather than 1.2 s (George, 22 Oct 2026: "Loading screen must show for at least 2
 // seconds."). Added here: VGIntro.playing() says whether it's still on, and the document gets a "vgintro:done" event the
@@ -44,7 +44,11 @@
   video.setAttribute("playsinline", "");
   video.preload = "auto";
   video.disablePictureInPicture = true;
-  [["vgraphics-intro-" + film + ".webm", "video/webm"], ["vgraphics-intro-" + film + ".mp4", "video/mp4"]].forEach(function (file) {
+  // The 1080 film is an MP4 alone: its WebM was never encoded (the master frames are gone), and asking for it cost every
+  // page a 404 before the MP4 played (George's demo, 27 Oct 2026).
+  var films = [["vgraphics-intro-" + film + ".mp4", "video/mp4"]];
+  if (film !== "1080") films.unshift(["vgraphics-intro-" + film + ".webm", "video/webm"]);
+  films.forEach(function (file) {
     var source = document.createElement("source");
     source.src = folder + file[0];
     source.type = file[1];
