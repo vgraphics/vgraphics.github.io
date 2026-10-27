@@ -63,16 +63,22 @@ export function checkTheme(theme) {
     const c = contrast(t[fg], t[bg])
     if (c < min) problems.push(`--${fg} on --${bg} is ${c.toFixed(2)}:1, under ${min}:1`)
   }
-  // What a text field selects (assets/no-select.css) and the header's play or try button (assets/product.css): optional
-  // --selection-ink on --selection, by default the page's colour on the scrollbar's (the accent's, without one).
+  // What a text field selects (assets/no-select.css): optional --selection-ink on --selection, by default the page's
+  // colour on the scrollbar's (the accent's, without one).
   const [ink, sel] = [t['selection-ink'] ?? t.page, t.selection ?? t.scrollbar ?? t.accent]
   if (/^#[0-9a-f]{3,6}$/i.test(ink ?? '') && /^#[0-9a-f]{3,6}$/i.test(sel ?? '') && contrast(ink, sel) < 4.5) {
-    problems.push(`selected text and the play button, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
+    problems.push(`selected text, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
   }
-  // That colour is the product's own, never a grey (George, 26 Oct 2026, on Exitwise's play button: "Create a better
-  // play online button. More purple like the logo stroke.").
-  if (/^#[0-9a-f]{3,6}$/i.test(sel ?? '') && saturation(sel) < 0.35) {
-    problems.push(`the play button's colour ${sel} (--selection: by default --scrollbar or --accent) is greyish (saturation ${Math.round(saturation(sel) * 100)}%, under 35%): give the pack its own colour`)
+  // The play or try button (assets/product.css .play and .play-cta): optional --play-ink on --play, by default the
+  // page's colour on the scrollbar's (the accent's, without one). Its colour is the product's own, never a grey
+  // (George, 26 Oct 2026, on Exitwise's play button: "Create a better play online button. More purple like the logo
+  // stroke.").
+  const [playInk, play] = [t['play-ink'] ?? t.page, t.play ?? t.scrollbar ?? t.accent]
+  if (/^#[0-9a-f]{3,6}$/i.test(playInk ?? '') && /^#[0-9a-f]{3,6}$/i.test(play ?? '') && contrast(playInk, play) < 4.5) {
+    problems.push(`the play button, ${playInk} on ${play} (--play-ink on --play: by default --page on --scrollbar or --accent), is ${contrast(playInk, play).toFixed(2)}:1, under 4.5:1`)
+  }
+  if (/^#[0-9a-f]{3,6}$/i.test(play ?? '') && saturation(play) < 0.35) {
+    problems.push(`the play button's colour ${play} (--play: by default --scrollbar or --accent) is greyish (saturation ${Math.round(saturation(play) * 100)}%, under 35%): give the pack its own colour`)
   }
   if (!['light', 'dark'].includes(theme.scheme)) problems.push('scheme is not "light" or "dark"')
   if (!Array.isArray(theme.swatches) || !theme.swatches.length) problems.push('no swatches')

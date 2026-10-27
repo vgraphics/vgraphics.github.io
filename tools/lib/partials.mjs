@@ -19,13 +19,22 @@ export const ICONS = {
 // click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
 export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
 
-// Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+// Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }. A pill to
+// the product's own play or try page (site.play's href) is its play button instead, the header's (assets/product.css
+// .play-cta: George, 27 Oct 2026, "A, Clean"), with its note as a small line under the row.
 export function actions(page, list, cls = 'badges') {
-  return `<div class="${cls}">${list.map((b) => {
+  const play = page.site?.play?.href
+  const notes = []
+  const items = list.map((b) => {
     if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
     if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
+    if (play && b.href === play) {
+      if (b.note) notes.push(`<small class="play-note">${b.note}</small>`)
+      return `<a class="play-cta" href="${esc(b.href)}">${ICONS.play}<span>${b.label}</span></a>`
+    }
     return `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`
-  }).join('')}</div>`
+  })
+  return `<div class="${cls}">${items.join('')}${notes.join('')}</div>`
 }
 
 // The last call to action, the card that stands half in the footer's picture: every page of a product ends with it
