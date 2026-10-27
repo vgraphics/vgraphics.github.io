@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.c46a8228",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New seafront welcome screen",
+      "items": [
+        "The welcome screen now shows new seafront artwork, sized to look right on both your phone and a shared TV."
+      ],
+      "commit": "c46a8228"
+    },
+    {
       "version": "0.1.8b14db09",
       "date": "2026-10-27",
       "platforms": [

@@ -1,4 +1,4 @@
-import{al as v,a7 as S,h as k,ao as q,a3 as p,a4 as E,a5 as L}from"./sound-CJsGjpry.js";import{R as M}from"./room-screen-CLu9HyOe.js";import{T as R}from"./app-BeJERY8O.js";import"./vote-opens-CDKZUKIW.js";import"./consent-banner-Cg0gBEeo.js";const u="pal-demo-ring",m="pal-demo-bubble",$=`
+import{al as v,a7 as S,h as k,ao as q,a3 as p,a4 as E,a5 as L}from"./sound-B2LEQ8MD.js";import{R as M}from"./room-screen-WvPeDSGe.js";import{T as R}from"./app-CWzPlbfv.js";import"./vote-opens-DEo9v7_X.js";import"./consent-banner-BzKOdGpk.js";const u="pal-demo-ring",m="pal-demo-bubble",$=`
 .${u} { outline: 3px solid #E2B878; outline-offset: 3px; border-radius: 10px; animation: pal-demo-ring 1.6s ease-in-out infinite; }
 .pal-env-seal.${u} { border-radius: 50%; outline-offset: 5px; }
 @keyframes pal-demo-ring { 0%, 100% { box-shadow: 0 0 0 3px rgba(226, 184, 120, 0.45); } 50% { box-shadow: 0 0 0 12px rgba(226, 184, 120, 0.05); } }
