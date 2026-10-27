@@ -177,6 +177,45 @@ h1, h2, h3 {
 :is(.top.scrolled, .top).play-icon > a.play { width: 44px; gap: 0; padding: 0; }
 .top.play-icon > a.play svg { width: 16px; height: 16px; margin-left: 2px; }
 .top.play-icon > a.play .play-label { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+/* The second button, just before the main one, for a product with a demo as well (page.json site.demo, partials.mjs
+   playButtons; George, 27 Oct 2026: "Build both buttons and for play now say Coming soon."), in the main button's
+   colour and on one line like every menu item:
+   - before the game opens (site.play.soon), the game itself as a quiet chip that leads nowhere: no fill, a dashed ring,
+     its words dimmed, and its "Coming soon" in a small tag, so it reads as not yet there;
+   - once it opens, the demo as a link ringed in that colour, a step below the filled main button. */
+.subnav .play-soon, .subnav a.demo-link { --pb: var(--play, var(--sb)); margin-left: 8px; }
+.subnav .play-soon {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 9px;
+  min-height: 44px;
+  padding: 0 7px 0 15px;
+  border: 1.5px dashed color-mix(in srgb, var(--pb) 70%, transparent);
+  border-radius: 999px;
+  color: color-mix(in srgb, var(--on-art) 72%, transparent);
+  text-shadow: var(--on-art-shadow);
+  font: var(--label-weight) 1rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: var(--label-tracking);
+  white-space: nowrap;
+  transition: color 200ms ease-out, text-shadow 200ms ease-out;
+}
+.subnav .play-soon small {
+  padding: 6px 9px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pb) 24%, transparent);
+  color: inherit;
+  font: var(--label-weight) 0.7rem/1 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  text-shadow: none;
+}
+.top.scrolled .subnav .play-soon, .top.menu-open .subnav .play-soon { color: color-mix(in srgb, var(--ink) 66%, transparent); text-shadow: none; }
+:is(.top.scrolled, .top) .subnav a.demo-link { box-shadow: inset 0 0 0 1.5px var(--pb); }
+:is(.top.scrolled, .top) .subnav a.demo-link:hover { background: color-mix(in srgb, var(--pb) 18%, transparent); }
+.top.compact .subnav .play-soon { margin-left: 4px; padding: 0 6px 0 11px; }
+.top.compact .subnav a.demo-link { margin-left: 4px; }
 
 /* The hero of every product page, the landing page's, its other pages' and every wiki page's (tools/lib/hero.mjs
    builds it for all of them; the other pages' is shorter, .is-page below).
@@ -284,6 +323,46 @@ h1, h2, h3 {
 .play-cta svg { flex: none; width: 17px; height: 17px; }
 .badges .play-note { flex-basis: 100%; margin-top: -2px; text-align: center; font: var(--label-weight) 0.78rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
 .foot-left .hero-foot .badges .play-note, .intro .sec-head .badges .play-note { text-align: left; }
+/* The second button beside it (partials.mjs playButtons, the header's .play-soon and .demo-link above), as big: the
+   game while it is coming soon, a chip that leads nowhere, its tag "Coming soon"; once it opens, the demo, ringed in
+   the button's colour. */
+.soon-cta, .demo-cta {
+  --pb: var(--play, var(--sb));
+  display: inline-flex;
+  align-items: center;
+  gap: 11px;
+  min-height: 56px;
+  border-radius: 999px;
+  font: var(--label-weight) 1.12rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: var(--label-tracking);
+  white-space: nowrap;
+  text-decoration: none;
+}
+.soon-cta {
+  padding: 0 10px 0 24px;
+  border: 1.5px dashed color-mix(in srgb, var(--pb) 70%, transparent);
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  color: color-mix(in srgb, var(--ink) 66%, transparent);
+}
+.soon-cta small {
+  padding: 7px 11px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--pb) 24%, transparent);
+  color: var(--ink);
+  font: var(--label-weight) 0.74rem/1 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+.demo-cta {
+  padding: 0 28px;
+  background: color-mix(in srgb, var(--surface) 55%, transparent);
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1.5px var(--pb);
+  transition: transform 140ms ease-out, background-color 140ms ease-out;
+}
+.demo-cta:hover { background: color-mix(in srgb, var(--pb) 18%, var(--surface)); transform: translateY(-1px); }
+.demo-cta:active { transform: translateY(1px); }
 .btn {
   display: inline-flex;
   align-items: center;
@@ -1290,6 +1369,8 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 }
 .top.folded .subnav a { min-height: 52px; padding: 0 16px; font-size: 1.15rem; border-radius: var(--radius-sm); color: var(--ink); text-shadow: none; }
 .top.folded .subnav a:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
+.top.folded .subnav .play-soon { justify-content: space-between; min-height: 52px; margin: 4px 0 0; padding: 0 9px 0 16px; font-size: 1.15rem; border-radius: var(--radius-sm); }
+.top.folded .subnav a.demo-link { margin: 4px 0 0; border-radius: var(--radius-sm); }
 .top.folded .subnav a[aria-current="page"] {
   background: var(--nav-current-bg-scrolled, var(--nav-current-bg));
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink));

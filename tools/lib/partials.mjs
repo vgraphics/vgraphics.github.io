@@ -19,18 +19,39 @@ export const ICONS = {
 // click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
 export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
 
+// A product's play and try buttons: page.json site.play { label, href, soon? }, and site.demo { label, href } for one
+// that also has a guided demo (Palermo Noir, George, 27 Oct 2026: "Build the demo button. Its different from play
+// online. Build both buttons and for play now say Coming soon."). The main button (the header's last item, the landing
+// pages' .play-cta) is the one that can be played now: site.play, or the demo while site.play.soon holds the words the
+// game shows until it opens ("Coming soon"). The second sits beside it: before the game opens, the game itself as a
+// quiet chip that leads nowhere; after, the demo as a link ringed in the button's colour. Taking soon out of page.json
+// opens the game everywhere at once: it becomes the main button and the demo the second.
+export function playButtons(site = {}) {
+  const open = site.play && !site.play.soon ? site.play : undefined
+  return { main: open ?? site.demo, second: open ? site.demo : site.play }
+}
+
 // Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }. A pill to
-// the product's own play or try page (site.play's href) is its play button instead, the header's (assets/product.css
-// .play-cta: George, 27 Oct 2026, "A, Clean"), with its note as a small line under the row.
+// the product's main play or try page (playButtons) is its play button instead, the header's (assets/product.css
+// .play-cta: George, 27 Oct 2026, "A, Clean"), with its note as a small line under the row; a pill to the second is
+// the second button (.demo-cta, or the game's .soon-cta while it is coming soon, without a note), and of the two the
+// main one comes first, wherever page.json lists them.
 export function actions(page, list, cls = 'badges') {
-  const play = page.site?.play?.href
+  const { main, second } = playButtons(page.site)
+  const at = (p) => (p ? list.findIndex((b) => b.href === p.href) : -1)
+  const [m, s] = [at(main), at(second)]
+  if (s >= 0 && m > s) list = list.map((b, i) => (i === m ? list[s] : i === s ? list[m] : b))
   const notes = []
   const items = list.map((b) => {
     if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
     if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
-    if (play && b.href === play) {
+    if (main && b.href === main.href) {
       if (b.note) notes.push(`<small class="play-note">${b.note}</small>`)
       return `<a class="play-cta" href="${esc(b.href)}">${ICONS.play}<span>${b.label}</span></a>`
+    }
+    if (second && b.href === second.href) {
+      if (second.soon) return `<span class="soon-cta"><span>${b.label}</span><small>${esc(second.soon)}</small></span>`
+      return `<a class="demo-cta" href="${esc(b.href)}">${b.label}</a>`
     }
     return `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`
   })
@@ -72,11 +93,14 @@ function brand(s, height, sizes) {
 // "wide" only marks it wide-only, a secondary link). A product that can be played or tried in the browser (page.json
 // site.play: { label, href }) ends its menu with that page, drawn as its main button (George, 26 Oct 2026: "For all
 // landing pages, when there is a play online/test online, make it a fancy primary button last on the toolbar
-// buttons."), so it is the phone panel's last item too.
+// buttons."), so it is the phone panel's last item too; a product with a demo as well has the second button just
+// before it (playButtons, above), which stays in the panel when the main one moves to the folded bar.
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
-  const p = s.play
+  const { main: p, second } = playButtons(s)
+  if (second?.soon) links.push(`<span class="play-soon">${esc(second.label)}<small>${esc(second.soon)}</small></span>`)
+  else if (second) links.push(`<a class="demo-link" href="${esc(second.href)}"${second.href === current ? ' aria-current="page"' : ''}>${esc(second.label)}</a>`)
   if (p) links.push(`<a class="play" href="${esc(p.href)}" title="${esc(p.label)}"${p.href === current ? ' aria-current="page"' : ''}>${ICONS.play}<span class="play-label">${esc(p.label)}</span></a>`)
   return `<header class="top">
     <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
