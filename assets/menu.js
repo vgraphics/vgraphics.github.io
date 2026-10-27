@@ -12,7 +12,8 @@
 // with a header runs this file, it loads the shared fading edges (fade-edges.js) for the page's other boxes too, the
 // chapter stepper (stepper.js), which shows on a page with two chapters or more, no-select.js, which keeps the page's
 // text from being selected and its right-click menu shut, and faq.js, which opens and closes every expandable on the
-// page with an animation (questions and answers one at a time).
+// page with an animation (questions and answers one at a time); and, on a page with parts only testers see while they
+// are private, private.js.
 (() => {
   const nav = document.querySelector(".site-head .site-nav");
   if (nav && !document.querySelector(".site-head .menu-toggle")) {
@@ -71,13 +72,13 @@
     // it is where it fits the header, drawn closer (.compact) where only that fits, and folded on a phone or where
     // neither does. Folded, the play button leaves the panel for the bar, beside the menu button, so the page's main
     // action stays in sight: with its words where they fit, else its icon alone (.play-icon). Measured unfolded, with
-    // its transitions off, so nothing on screen moves; again whenever the header changes size and when a font arrives,
-    // which makes the links wider or narrower.
+    // its transitions off, so nothing on screen moves; again whenever the header changes size, when a font arrives,
+    // which makes the links wider or narrower, and when a tester's private button joins the row (private.js).
     if (head.classList.contains("top")) {
       const phone = matchMedia("(max-width: 560px)");
-      const play = panel.querySelector("a.play");
       const over = () => head.scrollWidth > head.clientWidth;
       const fit = () => {
+        const play = head.querySelector("a.play");
         const focused = play && document.activeElement === play;
         head.classList.add("measuring");
         head.classList.remove("folded", "compact", "play-icon");
@@ -102,6 +103,7 @@
       // The header spans the screen: its own size changes with it (the window, the page's scrollbar coming and going).
       new ResizeObserver(fit).observe(head);
       document.fonts?.addEventListener("loadingdone", fit);
+      document.addEventListener("private-shown", fit);
     }
     // The screen grows past the phone layout (the button is gone), or the page is left with the panel open.
     addEventListener("resize", () => {
@@ -114,4 +116,6 @@
   import("/assets/stepper.js").catch(() => {});
   import("/assets/no-select.js").catch(() => {});
   import("/assets/faq.js").catch(() => {});
+  // The parts only testers see while they are private (a product's demo before it opens), on a page that has them.
+  if (document.querySelector("template.private")) import("/assets/private.js").catch(() => {});
 })();

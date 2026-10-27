@@ -37,9 +37,14 @@ const day = (d) => {
   return `${n} ${MONTHS[m - 1]} ${y}`
 }
 
+// While the product's demo is private (page.json site.demo.private; partials.mjs playButtons), a release that speaks of
+// it (its headline or a line names the demo, or its link goes to it) is left out, so What's new says nothing of the
+// demo, the Deployer's entries for a demo-only release included; they come back once it is public.
+const aboutDemo = (e, demo) => e.link?.href === demo.href || /\bdemo\b/i.test([e.title ?? '', ...e.items].join(' '))
+
 // The block's entries, and what's wrong with its file (check-site reports it). A file that is missing or broken shows
-// as no releases, so the page still builds and check-site says why.
-export function readNews(b, dir) {
+// as no releases, so the page still builds and check-site says why. site: the product's page.json site, for its demo.
+export function readNews(b, dir, site) {
   const name = b.src ?? 'changelog.json'
   const file = join(root, dir, name)
   if (!existsSync(file)) return { entries: [], problems: [`no ${name} for its news block (the Deployer adds each release to it)`] }
@@ -61,7 +66,8 @@ export function readNews(b, dir) {
     if (e?.link !== undefined && !['href', 'label'].every((k) => typeof e.link?.[k] === 'string' && e.link[k].trim())) problems.push(`${at}'s link isn't { href, label }`)
     if (n && isDay(e?.date) && isDay(log.entries[n - 1]?.date) && e.date > log.entries[n - 1].date) problems.push(`${at} is newer than the one above it: newest first`)
   })
-  return { entries: problems.length ? [] : log.entries, problems }
+  const shown = site?.demo?.private ? log.entries.filter((e) => !aboutDemo(e, site.demo)) : log.entries
+  return { entries: problems.length ? [] : shown, problems }
 }
 
 // What's wrong with the block's empty (check-site reports it): its line, or { title?, text?, link? }.

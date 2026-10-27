@@ -285,10 +285,10 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
 
   // Questions that each open their answer, from page.json or the faq.json beside it (tools/lib/faq.mjs); the page's
   // head carries them as FAQPage structured data too.
-  faq: (b, { dir }) => faq(readFaq(b, dir).items),
+  faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
-  news: (b, { dir }) => news(readNews(b, dir).entries, b),
+  news: (b, { dir, page }) => news(readNews(b, dir, page.site).entries, b),
 
   // Numbered spots on a phone screen, each opening its part of the list (assets/faq.js; without JavaScript every part
   // stays open).
@@ -402,7 +402,7 @@ export function render(slug, sub) {
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
-  const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir).items)
+  const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
   const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
