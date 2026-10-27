@@ -314,18 +314,23 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   Each question opens its answer (details and summary, so it works without script), and the page's head carries them
   as FAQPage structured data.
 - **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
-  animation always. One open at a time."). `assets/faq.js`, which `assets/menu.js` loads on a page with a faq block,
-  takes over the questions' clicks (and Enter and Space): an answer grows from its question as it fades in (260 ms)
-  and closes the same way back (200 ms), both easing out, with the chevron turning along; a click mid-way turns it
-  round from where it is. Opening one closes any other open in the same list, and the question being opened stays
-  where it is on the screen while rows above it close. Under reduced motion the answer only fades, briefly. The
-  browser keeps the open state screen readers announce, find-in-page (a row it opens closes the others) and, without
-  script, the plain rows. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
+  animation always. One open at a time."), **and so does every other expandable** (27 Oct 2026: "FAQs and every kind
+  of expandable like that must always open/close with animation. Its a general rule."). `assets/faq.js`, which
+  `assets/menu.js` loads on every page, takes over the clicks (and Enter and Space) of every details on the page (the
+  questions, What's new's earlier releases, the About panels' questions on the play and try pages) and of a tour's
+  buttons and spots: a row grows from its head as what lies under it fades in (260 ms) and closes the same way back
+  (200 ms), both easing out, with the chevron turning along; a click mid-way turns it round from where it is. In a
+  list of questions and answers, and in a tour, opening one closes any other open one, and the head being opened stays
+  where it is on the screen while rows above it close. Under reduced motion it only fades, briefly. The browser keeps
+  the open state screen readers announce, find-in-page (a row it opens closes the others in its list) and, without
+  script, the plain rows. A new kind of expandable is a details, or gets driven from `faq.js`. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.
 - check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
   a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and the
-  check says why), and a news block's `empty` that is a line or `{ title, text, link }`. Every served page with
-  questions and answers loads `/assets/menu.js` (or `faq.js` itself), and menu.js loads `faq.js`.
+  check says why), and a news block's `empty` that is a line or `{ title, text, link }`. `[faq-js]`: every served
+  page with an expandable (a details, a tour, anything marked `aria-expanded`) loads `/assets/menu.js` (or `faq.js`
+  itself), menu.js loads `faq.js` on every page, whatever a page marks `aria-expanded` is a tour's button or spot or
+  the header's menu button, and no site script but `faq.js` and `menu.js` opens or closes anything by `aria-expanded`.
 
 ## Search engines
 

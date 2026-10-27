@@ -519,21 +519,44 @@ for (const slug of products()) {
   }
 }
 
-// The questions and answers open and close with an animation, one at a time (George, 26 Oct 2026: "FAQ must open/close
-// with animation always. One open at a time."): assets/faq.js does it, which /assets/menu.js loads on a page with a faq
-// block, so every served page with one loads menu.js (or faq.js itself). Without it the answers still open, but jump,
-// and several stay open.
+// Every expandable opens and closes with an animation (George, 26 Oct 2026: "FAQ must open/close with animation always.
+// One open at a time."; 27 Oct 2026: "FAQs and every kind of expandable like that must always open/close with animation.
+// Its a general rule."): assets/faq.js drives them all, every details (questions and answers one open at a time) and
+// every tour, and /assets/menu.js loads it on every page. So:
+// - every served page with an expandable (a details, a tour, or anything marked aria-expanded) loads menu.js, or
+//   faq.js itself;
+// - whatever a served page marks aria-expanded is one faq.js or menu.js drives: a tour's buttons and spots, the header's
+//   menu button. Anything else is a kind faq.js doesn't know, which would open with no animation: make it a details, or
+//   drive its kind from faq.js;
+// - none of the site's own scripts but those two opens or closes anything by aria-expanded. The scripts other repos
+//   build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer engine) animate theirs
+//   with their own shared piece, whose tests hold it; here only their markup is read.
+// Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
+const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
+const BUILT_ELSEWHERE = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
-if (!readFileSync(join(root, 'assets', 'menu.js'), 'utf8').includes('import("/assets/faq.js")')) {
-  faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js, which animates the questions and answers of every page with them')
+if (!/^\s*import\("\/assets\/faq\.js"\)/m.test(readFileSync(join(root, 'assets', 'menu.js'), 'utf8'))) {
+  faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js on every page, which opens and closes every expandable with an animation')
 }
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
-  if (/<div class="faq">/.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
-    faqJs(file, `has questions and answers that open with no animation and several at a time: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
+  if (EXPANDABLE.test(html) && !html.includes(MENU_JS) && !FAQ_JS.test(html)) {
+    faqJs(file, `has an expandable (a details, a tour or something marked aria-expanded) that opens with no animation: load /assets/menu.js (${MENU_JS}), which brings /assets/faq.js`)
+  }
+  for (const [, part, tag, attrs] of html.matchAll(/(<li class="part">)?<(\w+)\b([^>]*\saria-expanded=[^>]*)>/g)) {
+    if (part || /\sclass="(?:menu-toggle|spot)"/.test(attrs)) continue
+    faqJs(file, `a <${tag}> marked aria-expanded that assets/faq.js doesn't drive, so it opens with no animation: make it a details, or drive its kind from faq.js`)
+  }
+}
+const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
+for (const file of siteScripts) {
+  if (file === 'assets/faq.js' || file === 'assets/menu.js') continue
+  if (readFileSync(join(root, file), 'utf8').includes('aria-expanded')) {
+    faqJs(file, 'opens or closes something by aria-expanded itself, with no animation: drive its kind from assets/faq.js, which animates every expandable')
   }
 }
 
