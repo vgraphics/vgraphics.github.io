@@ -162,7 +162,7 @@
       "name": "When can we play?",
       "acceptedAnswer": {
         "@type": "Answer",
-        "text": "Rooms for your group open soon: on the web first, then on Android. Until then, the guided demo seats you at a table of bots in your browser, today. Every release shows under What's new on this page."
+        "text": "Rooms for your group open soon: on the web first, then on Android. Every release shows under What's new on this page."
       }
     },
     {
@@ -204,7 +204,7 @@
       <a href="/palermo/map/">Map</a>
       <a class="wide-only" href="/palermo/privacy.html">Privacy</a>
       <span class="play-soon">Play online<small>Coming soon</small></span>
-      <a class="play" href="/palermo/demo/" title="Try the demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Try the demo</span></a>
+      <template class="private"><a class="play" href="/palermo/demo/" title="Try the demo"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Try the demo</span></a></template>
     </nav>
   </header>
 
@@ -222,7 +222,7 @@
         <div class="wrap">
           <h1 id="title" class="sr-only">Palermo Noir: the mafia party game for phones and a TV</h1>
           <p class="lead">Hidden roles on your phones. <em>The town on your TV.</em></p>
-          <div class="badges"><a class="play-cta" href="/palermo/demo/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try the demo</span></a><span class="soon-cta"><span>Play online</span><small>Coming soon</small></span><a class="pill" href="/hub/"><b>Get your VHub name</b><small>Your name in every room</small></a><small class="play-note">A guided game against bots</small></div>
+          <div class="badges"><template class="private"><a class="play-cta" href="/palermo/demo/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try the demo</span></a></template><span class="soon-cta"><span>Play online</span><small>Coming soon</small></span><a class="pill" href="/hub/"><b>Get your VHub name</b><small>Your name in every room</small></a><template class="private"><small class="play-note">A guided game against bots</small></template></div>
         </div>
       </div>
     </section>
@@ -498,20 +498,16 @@
         </div>
         <div class="news">
           <article class="news-latest">
-            <p class="news-meta"><span class="tag alt">Latest</span><span>Version 0.1.4a0d50a2</span><time datetime="2026-10-27">27 Oct 2026</time><span class="tag">Web</span></p>
-            <h3>Demo loads with ad blockers</h3>
-            <ul><li>The guided demo against bots now loads even if you use an ad blocker or a privacy browser like Brave — no more getting stuck at 5%.</li></ul>
+            <p class="news-meta"><span class="tag alt">Latest</span><span>Version 0.1.f573efbf</span><time datetime="2026-10-27">27 Oct 2026</time><span class="tag">Web</span></p>
+            <h3>Crisp welcome art on big screens</h3>
+            <ul><li>The welcome screen art is now crisp and sharp, even on a big TV.</li></ul>
           </article>
           <div class="news-older">
             <h3>Earlier updates</h3>
             <ol class="news-list fade-edges">
-              <li><details><summary><b>Crisp welcome art on big screens</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.f573efbf</span><span class="tag">Web</span></p><ul><li>The welcome screen art is now crisp and sharp, even on a big TV.</li></ul></details></li>
-              <li><details><summary><b>Your demo guide now speaks</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.3eb91042</span><span class="tag">Web</span></p><ul><li>In the guided demo against the bots, your guide now has a full voice, speaking all of its lines out loud in English and Greek.</li><li>Fixed the Detective's English introduction, which repeated &quot;each night&quot;.</li></ul></details></li>
               <li><details><summary><b>The final sound is in</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.a1f3da04</span><span class="tag">Web</span></p><ul><li>Palermo Noir now plays its final sound throughout — the real music, sound effects and background ambience, with the old placeholder sounds gone.</li><li>Voices are now the final recordings, and more moments speak than before: each role is introduced as the cards are dealt, &quot;Dawn is coming&quot; before the first night ends, a call when the town is ready to vote and when voting closes, a reminder to join while you wait in the lobby, and the host's pause and resume.</li><li>Each phase now plays a full song that loops — in the lobby, the deal, night, day, voting and the finish — instead of a short repeating clip.</li><li>Key moments now play their sound to the end before the game moves on — the sunrise, for one, stays on screen until its sound finishes — and the winners' theme plays in full at the end instead of being cut off.</li></ul></details></li>
               <li><details><summary><b>Lawyer's powers open smoothly</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.fadee32b</span><span class="tag">Web</span></p><ul><li>The Lawyer's powers now open with a smooth animation — the form grows and fades in under the card, and closes a touch faster, instead of snapping open.</li></ul></details></li>
               <li><details><summary><b>New seafront welcome screen</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.c46a8228</span><span class="tag">Web</span></p><ul><li>The welcome screen now shows new seafront artwork, sized to look right on both your phone and a shared TV.</li></ul></details></li>
-              <li><details><summary><b>Demo loads reliably</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.8b14db09</span><span class="tag">Web</span></p><ul><li>The demo now opens as soon as it's ready, instead of getting stuck on the welcome screen.</li></ul></details></li>
-              <li><details><summary><b>The guided demo is live</b><time datetime="2026-10-27">27 Oct 2026</time><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><p class="news-meta"><span>Version 0.1.f455e8ad</span><span class="tag">Web</span></p><ul><li>Play a whole game of Palermo Noir in your browser, alone at a table of bots, with nothing to install and no account.</li><li>Pick one of the 14 roles or Surprise me, a table of 6, 8 or 10, English or Greek, and the short demo (about six minutes) or a full game (about fifteen).</li><li>A guide stops the game at each new moment to show you what to tap, and why; Chapters, Back, 2× speed and Behind the scenes help you follow it.</li></ul><a class="news-link" href="/palermo/demo/">Try the demo</a></details></li>
             </ol>
           </div>
         </div>
@@ -533,7 +529,7 @@
           <details class="faq-item"><summary>Do I need an account?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>No. Join as a guest, or with your free <a href="/hub/">VHub name</a>, which keeps your games, XP and achievements across every VGraphics game. The TV signs in as a screen, never as a person.</p></div></details>
           <details class="faq-item"><summary>Is it for kids?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>It's for ages 13 and up. Each phone gives its year of birth once and only an age group is kept, never the year.</p></div></details>
           <details class="faq-item"><summary>Which languages does it speak?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>English or Greek. The narrator, the cards and every screen follow the host's language.</p></div></details>
-          <details class="faq-item"><summary>When can we play?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Rooms for your group open soon: on the web first, then on Android. Until then, the guided demo seats you at a table of bots in your browser, today. Every release shows under What's new on this page.</p></div></details>
+          <details class="faq-item"><summary>When can we play?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Rooms for your group open soon: on the web first, then on Android. Every release shows under What's new on this page.</p></div></details>
           <details class="faq-item"><summary>What happens to our data?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>A room closes 30 minutes after its last phone goes offline, or 8 hours after it opened, and is deleted 24 hours after it closes. A short summary of each game, with no names, identifiers or votes, is kept for 12 months. Analytics runs only with your consent. The <a href="/palermo/privacy.html">privacy policy</a> has the details.</p></div></details>
           <details class="faq-item"><summary>Where can I read the rules?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>In the <a href="/palermo/wiki/">wiki</a>: every role, every card in the Lawyer's briefcase, and how a round plays, from the deal to the verdict.</p></div></details>
         </div>
@@ -555,8 +551,8 @@
       <div class="wrap">
         <div class="panel">
           <h2 id="cta-title">Gather your town</h2>
-          <p>Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV. Until then, the demo seats you at a table of bots.</p>
-          <div class="badges"><a class="play-cta" href="/palermo/demo/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try the demo</span></a><span class="soon-cta"><span>Play online</span><small>Coming soon</small></span><a class="pill" href="/hub/"><b>Get your VHub name</b><small>Your name in every room</small></a><small class="play-note">A guided game against bots</small></div>
+          <p>Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.</p>
+          <div class="badges"><template class="private"><a class="play-cta" href="/palermo/demo/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try the demo</span></a></template><span class="soon-cta"><span>Play online</span><small>Coming soon</small></span><a class="pill" href="/hub/"><b>Get your VHub name</b><small>Your name in every room</small></a><template class="private"><small class="play-note">A guided game against bots</small></template></div>
         </div>
       </div>
     </section>

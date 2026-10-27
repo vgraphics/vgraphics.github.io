@@ -5,15 +5,16 @@
 // assets/faq.js, which menu.js loads, animates the opening and closing and keeps one open at a time (George, 26 Oct
 // 2026: "FAQ must open/close with animation always. One open at a time.").
 // The questions come from the block's items in page.json, or from the file its src names beside page.json (faq.json):
-// [{ q, a }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them.
+// [{ q, a }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them. Words about the
+// product's demo in an answer, <span data-demo>…</span>, are left out while the demo is private (partials.mjs demoText).
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { esc, ICONS } from './partials.mjs'
+import { demoText, esc, ICONS } from './partials.mjs'
 import { root } from './product.mjs'
 
 // The block's questions, and what's wrong with them (check-site reports it): its items, else its src's file in the
-// page's folder.
-export function readFaq(b, dir) {
+// page's folder. site: the product's page.json site, for the words about its demo.
+export function readFaq(b, dir, site) {
   let items = b.items
   if (!items) {
     const file = join(root, dir, b.src ?? 'faq.json')
@@ -31,7 +32,8 @@ export function readFaq(b, dir) {
     else if (/<[a-z]/i.test(i.q)) problems.push(`question ${n + 1}'s q has markup: a question is plain words`)
     if (!paragraphs(i?.a).length || paragraphs(i.a).some((p) => typeof p !== 'string' || !p.trim())) problems.push(`question ${n + 1} has no answer (a)`)
   })
-  return { items: problems.length ? [] : items, problems }
+  const said = (a) => (Array.isArray(a) ? a.map((p) => demoText(site, p)) : demoText(site, a))
+  return { items: problems.length ? [] : items.map((i) => ({ ...i, a: said(i.a) })), problems }
 }
 
 const paragraphs = (a) => (Array.isArray(a) ? a : a == null ? [] : [a])

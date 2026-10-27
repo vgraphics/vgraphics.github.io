@@ -26,10 +26,24 @@ export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label
 // game shows until it opens ("Coming soon"). The second sits beside it: before the game opens, the game itself as a
 // quiet chip that leads nowhere; after, the demo as a link ringed in the button's colour. Taking soon out of page.json
 // opens the game everywhere at once: it becomes the main button and the demo the second.
-export function playButtons(site = {}) {
+// A demo can be private (site.demo.private: true; George, 27 Oct 2026, on Palermo Noir's: "palermo demo must only show
+// if i am logged in with garithos account. Else hide it."): then the pair is as if there were no demo, and only the
+// testers' (tester: true) has it. The pages carry the demo's buttons inside private templates (forTesters), which
+// assets/private.js opens for the VHub accounts it lists; nobody else gets a button, badge or link to it. Taking
+// private out of page.json makes the demo public everywhere at once.
+export function playButtons(site = {}, { tester = false } = {}) {
+  const demo = site.demo?.private && !tester ? undefined : site.demo
   const open = site.play && !site.play.soon ? site.play : undefined
-  return { main: open ?? site.demo, second: open ? site.demo : site.play }
+  return { main: open ?? demo, second: open ? demo : site.play }
 }
+
+// Markup only the testers see while the product's demo is private (assets/private.js puts it in the page for them):
+// inert in a <template>, so it shows, links and counts for nobody else, search engines included.
+const forTesters = (site, html) => (site.demo?.private ? `<template class="private">${html}</template>` : html)
+
+// Words about the demo in page.json's and faq.json's texts, <span data-demo>…</span>: left out while the demo is
+// private, shown as words once it is public.
+export const demoText = (site, html) => (site?.demo?.private ? html.replace(/\s*<span data-demo>[\s\S]*?<\/span>/g, '') : html.replace(/<span data-demo>([\s\S]*?)<\/span>/g, '$1'))
 
 // Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }. A pill to
 // the product's main play or try page (playButtons) is its play button instead, the header's (assets/product.css
@@ -37,23 +51,25 @@ export function playButtons(site = {}) {
 // the second button (.demo-cta, or the game's .soon-cta while it is coming soon, without a note), and of the two the
 // main one comes first, wherever page.json lists them.
 export function actions(page, list, cls = 'badges') {
-  const { main, second } = playButtons(page.site)
+  const { main, second } = playButtons(page.site, { tester: true })
   const at = (p) => (p ? list.findIndex((b) => b.href === p.href) : -1)
   const [m, s] = [at(main), at(second)]
   if (s >= 0 && m > s) list = list.map((b, i) => (i === m ? list[s] : i === s ? list[m] : b))
+  // A private demo's badge and its note are the testers' alone.
+  const own = (b, html) => (b.href === page.site.demo?.href ? forTesters(page.site, html) : html)
   const notes = []
   const items = list.map((b) => {
     if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
     if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
     if (main && b.href === main.href) {
-      if (b.note) notes.push(`<small class="play-note">${b.note}</small>`)
-      return `<a class="play-cta" href="${esc(b.href)}">${ICONS.play}<span>${b.label}</span></a>`
+      if (b.note) notes.push(own(b, `<small class="play-note">${b.note}</small>`))
+      return own(b, `<a class="play-cta" href="${esc(b.href)}">${ICONS.play}<span>${b.label}</span></a>`)
     }
     if (second && b.href === second.href) {
       if (second.soon) return `<span class="soon-cta"><span>${b.label}</span><small>${esc(second.soon)}</small></span>`
-      return `<a class="demo-cta" href="${esc(b.href)}">${b.label}</a>`
+      return own(b, `<a class="demo-cta" href="${esc(b.href)}">${b.label}</a>`)
     }
-    return `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`
+    return own(b, `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`)
   })
   return `<div class="${cls}">${items.join('')}${notes.join('')}</div>`
 }
@@ -66,7 +82,7 @@ export function closing(page, cta = page.cta) {
       <div class="wrap">
         <div class="panel">
           <h2 id="cta-title">${cta.title}</h2>
-          ${cta.text ? `<p>${cta.text}</p>` : ''}
+          ${cta.text ? `<p>${demoText(page.site, cta.text)}</p>` : ''}
           ${actions(page, cta.badges)}
         </div>
       </div>
@@ -98,10 +114,12 @@ function brand(s, height, sizes) {
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
-  const { main: p, second } = playButtons(s)
+  const { main: p, second } = playButtons(s, { tester: true })
+  // A private demo's button is the testers' alone (playButtons).
+  const own = (b, html) => (b === s.demo ? forTesters(s, html) : html)
   if (second?.soon) links.push(`<span class="play-soon">${esc(second.label)}<small>${esc(second.soon)}</small></span>`)
-  else if (second) links.push(`<a class="demo-link" href="${esc(second.href)}"${second.href === current ? ' aria-current="page"' : ''}>${esc(second.label)}</a>`)
-  if (p) links.push(`<a class="play" href="${esc(p.href)}" title="${esc(p.label)}"${p.href === current ? ' aria-current="page"' : ''}>${ICONS.play}<span class="play-label">${esc(p.label)}</span></a>`)
+  else if (second) links.push(own(second, `<a class="demo-link" href="${esc(second.href)}"${second.href === current ? ' aria-current="page"' : ''}>${esc(second.label)}</a>`))
+  if (p) links.push(own(p, `<a class="play" href="${esc(p.href)}" title="${esc(p.label)}"${p.href === current ? ' aria-current="page"' : ''}>${ICONS.play}<span class="play-label">${esc(p.label)}</span></a>`))
   return `<header class="top">
     <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>

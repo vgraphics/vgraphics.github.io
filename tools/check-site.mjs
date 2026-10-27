@@ -305,9 +305,15 @@ for (const file of served) {
 // buttons and for play now say Coming soon.") has two (playButtons): the main one, the game, or the demo while
 // site.play.soon says the game is coming ("Coming soon"); and just before it in the menu the second, the demo as a link
 // (class "demo-link"), or the game as a chip that leads nowhere (class "play-soon") while it is coming.
+// A private demo (site.demo.private: true; George, 27 Oct 2026, on Palermo Noir's: "palermo demo must only show if i am
+// logged in with garithos account. Else hide it.") counts as none: the header everybody sees is held to the pair
+// without it, and no page anybody else sees has a button, badge or link to it. Its buttons live only in the private
+// templates (<template class="private">) that assets/private.js opens for the testers.
 const playButton = (file, message) => report(file, 'play-button', message)
 const isPlay = (attrs) => /\sclass="(?:[^"]*\s)?play(?:\s[^"]*)?"/.test(attrs)
 const isPage = (p) => typeof p?.label === 'string' && p.label.trim() && typeof p.href === 'string' && p.href.startsWith('/')
+// A page as everybody but the testers sees it.
+const publicView = (html) => html.replace(/<template class="private">[\s\S]*?<\/template>/g, '')
 const plays = new Map(products().map((slug) => [slug, loadProduct(slug).page.site]))
 for (const [slug, { play, demo }] of plays) {
   const file = join(slug, 'page.json')
@@ -315,12 +321,23 @@ for (const [slug, { play, demo }] of plays) {
   if (play && !isPage(play)) playButton(file, 'site.play is not { label, href }, with the words on the button and an address on this site')
   if (play?.soon !== undefined && !(typeof play.soon === 'string' && play.soon.trim())) playButton(file, 'site.play.soon is not the words the game shows until it opens ("Coming soon"): take it out once the game is open')
   if (demo !== undefined && !isPage(demo)) playButton(file, 'site.demo is not { label, href }, with the words on the button and the demo\'s address on this site')
+  if (demo?.private !== undefined && demo.private !== true) playButton(file, 'site.demo.private is not true: take it out to make the demo public')
+}
+const privateDemos = [...plays.values()].map((s) => s.demo).filter((d) => d?.private === true && isPage(d))
+for (const file of served) {
+  const html = publicView(readFileSync(join(root, file), 'utf8'))
+  for (const demo of privateDemos) {
+    if (`/${file}`.startsWith(demo.href)) continue
+    if (html.includes(`href="${demo.href}"`) || html.includes(`href="https://vgraphics.gr${demo.href}"`)) {
+      report(file, 'private-demo', `links ${demo.href}, a demo only testers see (site.demo.private): only the template's private buttons may (tools/lib/partials.mjs), and the words about it go in <span data-demo>`)
+    }
+  }
 }
 for (const file of served) {
   const slug = file.split('/')[0]
   if (!plays.has(slug)) continue
   const { main: play, second } = playButtons(plays.get(slug))
-  const html = readFileSync(join(root, file), 'utf8')
+  const html = publicView(readFileSync(join(root, file), 'utf8'))
   for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
     if (!(attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []).includes('top')) continue
     const links = [...inner.matchAll(/<a\b([^>]*)>/g)].map((m) => m[1])
