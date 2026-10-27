@@ -29,11 +29,6 @@
   $("layout-code").textContent = code;
   if (isAndroid && params.get("app") !== "none") location.href = M.appIntent(code);
 
-  const tag = (words) => {
-    const li = document.createElement("li");
-    li.textContent = words;
-    return li;
-  };
   // One part of the stats line; market.css puts the " · " between the parts.
   const part = (words) => {
     const span = document.createElement("span");
@@ -126,8 +121,9 @@
     if (layout.createdAt) meta.append(part(`Shared on ${M.date(layout.createdAt)}`));
     const all = await M.styles();
     $("layout-made").textContent = `Made with ${M.styleIn(all, layout.madeWith).name} · works with all ${all.list.length} styles`;
-    $("layout-shapes").replaceChildren(...layout.shapes.filter((s) => M.SHAPES[s]).map((s) => tag(M.SHAPES[s])));
-    $("layout-widgets").replaceChildren(...layout.widgetKinds.filter((k) => M.WIDGETS[k]).map((k) => tag(M.WIDGETS[k])));
+    // The cards' own tags: the screens with their icons, the widgets as plain pills (Now Playing in its own).
+    $("layout-shapes").replaceChildren(...layout.shapes.filter((s) => M.SHAPES[s]).map((s) => M.tag(M.SHAPES[s], s)));
+    $("layout-widgets").replaceChildren(...layout.widgetKinds.filter((k) => M.WIDGETS[k]).map((k) => M.tag(M.WIDGETS[k], k)));
     $("layout-get").href = await M.playUrl(code, "layout_page");
     if (isAndroid) {
       $("layout-open").href = M.appIntent(code);

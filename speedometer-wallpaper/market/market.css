@@ -85,9 +85,32 @@
 .mk-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0; color: var(--muted); font-size: 0.88rem; }
 .mk-stars b { color: var(--accent-2); font-weight: 800; }
 .mk-made { margin: 0; color: var(--muted); font-size: 0.85rem; }
-/* The screens sit at the card's foot, on one line across a row of cards. */
-.mk-tags { display: flex; flex-wrap: wrap; gap: 6px; margin: auto 0 0; padding: 6px 0 0; list-style: none; }
-.mk-tags li { padding: 2px 9px; border-radius: 999px; background: var(--tag-bg); color: var(--tag-ink); font-size: 0.74rem; }
+/* Tags: the app's words in dark pills with a small icon in the accent; Now Playing in an accent-tinted pill (the icon
+   pills George picked, 27 Oct 2026). On a card they sit at its foot with room for two lines, screens and then Now
+   Playing, so every card's tags start at the same height across a row. */
+.mk-tags { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 5px 4px; margin: 0; padding: 0; list-style: none; }
+.mk-card .mk-tags { min-height: calc(8px + 2 * 22px + 5px); margin-top: auto; padding-top: 8px; }
+.mk-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 7px 0 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 3%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--ink);
+  font: var(--label-weight) 0.74rem/1 var(--label-font);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.mk-tag.is-plain { padding: 0 9px; }
+.mk-tag.is-feature {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent);
+  color: color-mix(in srgb, var(--ink) 85%, var(--accent));
+}
+.mk-ico { display: block; flex: none; width: 12px; height: 12px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
 
 /* Loading: card shapes with no names in them. */
 .mk-card.is-placeholder { pointer-events: none; }
