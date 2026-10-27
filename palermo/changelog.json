@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.256109f1",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Subtitles for every spoken line",
+      "items": [
+        "See subtitles for every spoken line in the demo, marked as the narrator or your guide.",
+        "On a computer, the demo now has a bigger TV, with cards that spotlight each step by dimming the rest.",
+        "Bigger role cards, now four across on a computer."
+      ],
+      "commit": "256109f1"
+    },
+    {
       "version": "0.1.f4006c98",
       "date": "2026-10-28",
       "platforms": [
