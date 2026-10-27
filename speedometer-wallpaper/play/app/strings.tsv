@@ -408,6 +408,7 @@ screen__account__free_style__note	Yours on every phone where you sign in. Styles
 screen__account__free_style__title	Pick your free style
 screen__account__gift_claimed__message	%1$s is yours.
 screen__account__level_line	VHub level %1$d · %2$s
+screen__account__loading_gifts__title	Loading your gifts and backup…
 screen__account__message_free_month_started	Your free month of Speedometer Plus has started.
 screen__account__name_saved__message	Your VHub name is %1$s.
 screen__account__no_browser__message	No browser on this phone to open your VHub profile.

@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "2.0.bc4c966a",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner gauges in every style",
+      "items": [
+        "Your clock, speed and other readings now shrink to fit instead of being cut off",
+        "In Glass Cockpit and Vintage, the frame no longer cuts across the dials",
+        "Song titles and event text no longer appear too large"
+      ],
+      "commit": "bc4c966a"
+    },
+    {
       "version": "2.0.09330327",
       "date": "2026-10-27",
       "platforms": [
