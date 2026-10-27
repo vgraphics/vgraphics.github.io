@@ -1,8 +1,9 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="demo-private">
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0B1623" />
     <title>Palermo Noir demo · Play a guided game online</title>
     <!-- Each meta on one line: the site's check-site reads them so (<meta name="…" content="…">). -->
@@ -84,12 +85,16 @@
       /* No selecting and no long-press menu (George, 26 Oct 2026): the kit's KitRoot does it for the whole page; this
          covers the legal line before the app has loaded. */
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      /* While the demo is private (src/demo/private.ts), the build marks the page demo-private, and only the door
+         (gate.ts) takes it off: until then, and for everyone it stays shut to, no About panel and no bar to it. */
+      html.demo-private #about, html.demo-private .demo-about-bar { display: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/demo-BO48W63U.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/sound-CK1gGEzq.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/part-D1vZRZgI.js">
+    <script type="module" crossorigin src="/palermo/game/demo-Bznh9-ze.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/sound-BXByzC5Z.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/part-CNiGhttP.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/private-CEVGFreG.js">
     <link rel="stylesheet" crossorigin href="/palermo/game/sound-dqX7C1qs.css">
-    <link rel="stylesheet" crossorigin href="/palermo/game/demo-WApsGCzl.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/demo-xOPPMlrS.css">
   </head>
   <body>
     <!-- The start-up (D:\Projects\Mine\CLAUDE.md): the party games' shared welcome from vgraphics.gr/tv/start-up/, the

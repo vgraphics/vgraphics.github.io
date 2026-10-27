@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.6678d24e",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo kept private for now",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "6678d24e"
+    },
+    {
       "version": "0.1.4a0d50a2",
       "date": "2026-10-27",
       "platforms": [
