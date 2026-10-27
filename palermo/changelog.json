@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "0.1.f4006c98",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "A clearer guided demo",
+      "items": [
+        "In the guided demo, your taps now wait while the narrator is speaking, and a note tells you when you can carry on",
+        "When roles are dealt in the demo, it no longer runs down the whole clock — it moves on once everyone has their card, and you hear the last few seconds tick",
+        "The demo now shows \"Step 1 of 2\" and \"Step 2 of 2\" at night, so you know why your phone taps twice",
+        "A new demo card explains the phone's tabs, including the table and the notebook, after you've seen your card",
+        "The TV no longer shows subtitles during the guided demo",
+        "TV screens now fade in each time the demo moves to a new step",
+        "Scrollbars now appear in gold"
+      ],
+      "commit": "f4006c98"
+    },
+    {
       "version": "0.1.c2b2b188",
       "date": "2026-10-27",
       "platforms": [
