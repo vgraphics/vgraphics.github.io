@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.8b14db09",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo loads reliably",
+      "items": [
+        "The demo now opens as soon as it's ready, instead of getting stuck on the welcome screen."
+      ],
+      "commit": "8b14db09"
+    },
+    {
       "version": "0.1.f455e8ad",
       "date": "2026-10-27",
       "platforms": [
