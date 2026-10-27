@@ -25,7 +25,18 @@
 // splash_shown). PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
 // changes the art late (a new art without its own srcset drops the old one's); PartyWelcome.hide()
 // removes it at once. Plain ES5 and CSS that 2022 TV browsers (Chromium 85) run; only transforms and opacity move.
-// The timer is tested in site/test/welcome.test.ts.
+//
+// It never waits for good on a page whose code can't run (George, 27 Oct 2026: "Demo still not loading. Stays at 5% of
+// loading."; a cookie-notice blocker had dropped the demo's consent-banner-*.js). Its failsafe needs nothing from the
+// page: an error that proves the page's code can't run (a module script of the HTML that didn't load, a SyntaxError
+// from a file in its folder, a dynamic import that failed) ends it at once, and so does a page that never said a word
+// (progress, ready or hide) 12 s after the intro. Then the welcome goes and a plain message in the page's language says
+// so, with a Reload button and, when a file was blocked, a word about ad blockers. A page that spoke but isn't ready
+// 30 s after the intro loses the welcome without a message: it's running, and draws its own state. Each failure is
+// kept on the device, since the page that should report it may never run; PartyWelcome.failures() hands the page this
+// load's and earlier loads' failures, once, for its error reporting. A ready() after a failure still gets its then(ms),
+// and takes the message away unless an error caused it.
+// The timer and the failsafe are tested in site/test/welcome.test.ts.
 (function () {
   var root = document.getElementById("party-welcome");
   if (!root) return;
@@ -86,7 +97,17 @@
     " animation: pw-flicker 0.9s ease-in-out infinite alternate; }",
     "@keyframes pw-flicker { from { opacity: 0.85; transform: scale(0.92); } to { opacity: 1; transform: scale(1.1); } }",
     "@media (prefers-reduced-motion: reduce) { .pw-art.pw-settle img { animation: none; } .pw-spark { animation: none; }",
-    " .pw-fill, .pw-head { transition-duration: 0.2s; } }"
+    " .pw-fill, .pw-head { transition-duration: 0.2s; } }",
+    // The failsafe's message: plain, over everything, its button in the game's accent.
+    "#party-welcome-failed { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 1001; display: flex;",
+    " flex-direction: column; align-items: center; justify-content: center; padding: 24px; background: #0A090D;",
+    " color: #F2EDE4; text-align: center; font: 18px/1.45 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;",
+    " -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }",
+    "#party-welcome-failed p { max-width: 30em; margin: 0 0 16px; }",
+    "#party-welcome-failed .pw-hint { font-size: 15px; opacity: 0.75; }",
+    "#party-welcome-failed button { margin-top: 8px; min-height: 48px; padding: 12px 32px; border: 0; border-radius: 999px;",
+    " background: var(--pw-accent, #E8B65A); color: #0A090D; font: inherit; font-weight: 700; cursor: pointer; }",
+    "#party-welcome-failed button:focus-visible { outline: 3px solid #FFFFFF; outline-offset: 3px; }"
   ].join("");
   document.head.appendChild(style);
 
@@ -133,8 +154,10 @@
   };
   var COLOURS = { accent: "--pw-accent", accentLip: "--pw-accent-lip", track: "--pw-track", trackLip: "--pw-track-lip",
     groove: "--pw-groove", rim: "--pw-rim" };
+  var accent = "";
   var look = function (options) {
     for (var key in COLOURS) if (options[key]) root.style.setProperty(COLOURS[key], options[key]);
+    if (options.accent) accent = options.accent;
     arts = {
       wide: options.art || arts.wide,
       tall: options.artTall || arts.tall,
@@ -238,12 +261,160 @@
     setTimeout(function () { root.remove(); }, FADE_MS + 100);
   };
   var readyAsked = false;
+
+  // The failsafe. The intro is over at vgintro:done, at the welcome's first frame on a page without one, and 5 s in
+  // at the latest (brand-intro.js stops itself at 4 s).
+  var SILENT_MS = 12000; // past the intro: a page that never said a word has failed
+  var SLOW_MS = 30000; // past the intro: a page that spoke but isn't ready loses the welcome anyway
+  var INTRO_MS = 5000;
+  // A rejection that means code never came: a module that didn't link, a dynamic import that didn't load.
+  var MISSING = /^SyntaxError|dynamically imported module|Importing a module script failed/i;
+  var STORE = "party-welcome-failures:" + window.location.pathname;
+  var introAt = startedAt + INTRO_MS;
+  var spoke = false; // the page called progress, ready or hide
+  var cause = null; // the first error before ready, which a later failure names
+  var blocked = false; // a script or stylesheet didn't load, or a module came without the code asked of it
+  var failure = null; // this load's, once the failsafe has fired
+  var handed = false; // failures() has handed it to the page
+  var notice = null;
+  var listed = null; // the HTML's module scripts and modulepreloads, once it's parsed
+  var watch = 0;
+  var earlier = [];
+  try {
+    earlier = JSON.parse(window.localStorage.getItem(STORE) || "[]");
+  } catch (e) {} // no storage: nothing kept
+  if (!Array.isArray(earlier)) earlier = [];
+
+  var fileOf = function (url) { return String(url || "").replace(/[?#].*$/, "").replace(/^.*\//, ""); };
+  var folderOf = function (url) { return String(url || "").replace(/[?#].*$/, "").replace(/[^/]*$/, ""); };
+  // The page's code: a file in the folder of one of its module scripts (a stray error in the site's menu.js is no reason).
+  var ours = function (url) {
+    var folder = folderOf(url);
+    var code = listed || document.querySelectorAll('script[type="module"], link[rel="modulepreload"]');
+    for (var i = 0; i < code.length; i++) if (folder && folderOf(code[i].src || code[i].href) === folder) return true;
+    return false;
+  };
+  var inHtml = function (element) {
+    var code = element.tagName === "SCRIPT" ? element.type === "module" : element.rel === "modulepreload";
+    if (!code || !listed) return code; // while the HTML is parsed, every module script is its own
+    for (var i = 0; i < listed.length; i++) if (listed[i] === element) return true;
+    return false;
+  };
+
+  var WORDS = {
+    en: ["Something stopped the game from starting. Reload, or try another browser.",
+      "An ad blocker or a privacy filter may have stopped part of it: allow this site, then reload.", "Reload"],
+    el: ["Κάτι εμπόδισε το παιχνίδι να ξεκινήσει. Φορτώστε ξανά τη σελίδα ή δοκιμάστε άλλο πρόγραμμα περιήγησης.",
+      "Ίσως το σταμάτησε ένα πρόγραμμα αποκλεισμού διαφημίσεων ή ένα φίλτρο απορρήτου: επιτρέψτε αυτόν τον ιστότοπο και φορτώστε ξανά.",
+      "Επαναφόρτωση"]
+  };
+  var say = function () {
+    var lang = String(document.documentElement.getAttribute("lang") || "").slice(0, 2).toLowerCase();
+    var words = WORDS[lang === "el" ? "el" : "en"];
+    var line = function (text, className) {
+      var p = document.createElement("p");
+      if (className) p.className = className;
+      p.textContent = text;
+      notice.appendChild(p);
+    };
+    notice = document.createElement("div");
+    notice.id = "party-welcome-failed";
+    notice.setAttribute("role", "alert");
+    if (accent) notice.style.setProperty("--pw-accent", accent);
+    line(words[0]);
+    if (blocked) line(words[1], "pw-hint");
+    var button = document.createElement("button");
+    button.type = "button";
+    button.textContent = words[2];
+    button.addEventListener("click", function () { window.location.reload(); });
+    notice.appendChild(button);
+    document.body.appendChild(notice);
+    button.focus();
+  };
+  var unsay = function () {
+    if (notice) notice.remove();
+    notice = null;
+  };
+
+  // Gives up on the page: the welcome goes, the failure is kept for the page to report, and, unless the page is
+  // running, the message says so.
+  var fail = function (reason, script, message) {
+    if (readyAsked || gone) return;
+    clearTimeout(watch);
+    failure = { reason: reason, script: script || (cause ? cause.script : ""), message: message || (cause ? cause.message : ""),
+      blocked: blocked, ms: Math.round(now() - startedAt), at: Date.now() };
+    try {
+      window.localStorage.setItem(STORE, JSON.stringify(earlier.concat([failure]).slice(-5)));
+    } catch (e) {} // no storage: only a page that recovers can report it
+    remove();
+    if (reason !== "slow") say();
+  };
+  var watchdog = function () {
+    clearTimeout(watch);
+    if (readyAsked || gone) return;
+    var wait = introAt + (spoke ? SLOW_MS : SILENT_MS) - now();
+    if (wait > 0) watch = setTimeout(watchdog, wait);
+    else fail(spoke ? "slow" : "silent");
+  };
+  document.addEventListener("vgintro:done", function () {
+    introAt = Math.min(introAt, now());
+    watchdog();
+  });
+  // Parsed: the page's module scripts have run or failed. A page with no intro counts from the first frame.
+  document.addEventListener("DOMContentLoaded", function () {
+    listed = document.querySelectorAll('script[type="module"], link[rel="modulepreload"]');
+    if (!window.VGIntro) introAt = startedAt;
+    watchdog();
+  });
+  watchdog(); // and if the page never gets parsed (a module script that never comes), 5 s + 12 s in
+  // A file that didn't load (the capture phase sees them all), or an uncaught error.
+  window.addEventListener("error", function (event) {
+    if (readyAsked || gone) return;
+    var element = event.target;
+    if (element && element.tagName) {
+      if (element.tagName !== "SCRIPT" && element.tagName !== "LINK") return; // a picture is no reason
+      blocked = true;
+      if (inHtml(element)) fail("error", fileOf(element.src || element.href), "the file didn't load");
+      return;
+    }
+    var message = String(event.message || "");
+    if (!message || message === "Script error.") return; // another site's script, with nothing to go on
+    if (!cause) cause = { script: fileOf(event.filename), message: message };
+    if (ours(event.filename) && /SyntaxError/.test(message + (event.error ? " " + event.error.name : ""))) {
+      // A module without the export asked of it: a file swapped for an empty one (a blocker) or from another release.
+      if (/import|export|binding/i.test(message)) blocked = true;
+      fail("error", fileOf(event.filename), message);
+    }
+  }, true);
+  window.addEventListener("unhandledrejection", function (event) {
+    if (readyAsked || gone) return;
+    var reason = event.reason || {};
+    var message = (reason.name ? reason.name + ": " : "") + String(reason.message || reason);
+    var url = /https?:\/\/[^\s'"]+/.exec(message);
+    if (!cause) cause = { script: url ? fileOf(url[0]) : "", message: message };
+    if (!MISSING.test(message)) return;
+    blocked = true;
+    fail("error", url ? fileOf(url[0]) : "", message);
+  });
+
   window.PartyWelcome = {
     look: look,
-    progress: progress,
+    progress: function (value) {
+      spoke = true;
+      progress(value);
+    },
     ready: function (then) {
-      if (readyAsked || gone) return;
+      if (readyAsked || (gone && !failure)) return;
       readyAsked = true;
+      spoke = true;
+      clearTimeout(watch);
+      if (failure) {
+        // The failsafe went first. A page that was only late has the screen now; after an error the message stays,
+        // since code is missing whatever the page says (its own cap may call this without it).
+        if (failure.reason !== "error") unsay();
+        if (then) then(Math.round(now() - startedAt));
+        return;
+      }
       progress(1);
       // The timer: the bar's hop ends, the welcome has been up 2 s, and the key art, if it came, has been seen for 2 s
       // (no wait for an art that isn't there). It looks again when it fires, in case the art came meanwhile.
@@ -262,7 +433,27 @@
       // The last gulp may still be waiting its turn.
       setTimeout(due, Math.max(0, last + 20 - now()));
     },
-    hide: remove
+    hide: function () {
+      spoke = true;
+      unsay();
+      remove();
+    },
+    // What stopped the start-up on this page, for its error reporting: earlier loads' failures, then this load's, each
+    // { reason: "error" | "silent" | "slow", script, message, blocked, ms, at, earlier }. Each is handed over once.
+    failures: function () {
+      var all = earlier;
+      for (var i = 0; i < all.length; i++) all[i].earlier = true;
+      if (failure && !handed) {
+        handed = true;
+        failure.earlier = false;
+        all = all.concat([failure]);
+      }
+      earlier = [];
+      try {
+        window.localStorage.removeItem(STORE);
+      } catch (e) {}
+      return all;
+    }
   };
   progress(0.05);
 })();

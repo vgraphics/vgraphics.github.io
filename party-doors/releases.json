@@ -2,6 +2,18 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "5478368a02d35328b0d8de549e6c60c252351845",
+      "at": "2026-10-27T14:29:38.687Z",
+      "files": [
+        "door-CJTVGNT8.css",
+        "door-CPq93CL3.js",
+        "games--kFJdrR6.js",
+        "join-D8uN8H86.js",
+        "join-vHG3qH2v.js",
+        "tv-BqYMmQqJ.js"
+      ]
+    },
+    {
       "sha": "9ab15ad45fd992c607d1cdc89cd8169ceb132e32",
       "at": "2026-10-27T14:17:56.794Z",
       "files": [
