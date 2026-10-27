@@ -204,6 +204,27 @@ links can't be dragged off the page, and a long press on a phone opens no menu f
   every selector ends on `input`, `textarea` or `[contenteditable]`). A policy's source (the text alone, kept out of
   search) is not a page and is left as it comes from its repo.
 
+## Light and dark
+
+The company pages and the hub have a light and a dark look; the reader picks System, Light or Dark in the hub's Settings
+(George, 27 Oct 2026: "At settings allow me to select dark or light theme if we support it"). System, or no choice yet,
+follows the device. Product pages have one look each and stay as they are.
+
+- `assets/theme.js` keeps the choice in the browser (localStorage `vg-theme`) and sets it on `<html data-theme>`
+  (none for System). Every page on `assets/vgraphics.css` loads it in its head before its stylesheets, without
+  `defer`, so the page paints in the right theme from the first frame: `<script src="/assets/theme.js"></script>`.
+  The hub's pages carry it from the VHub repo's `hub/index.html`.
+- A dark rule answers both: inside `@media (prefers-color-scheme: dark)` its selector starts
+  `:root:not([data-theme="light"])`, and a twin outside the media query starts `:root[data-theme="dark"]`.
+  `vgraphics.css`'s dark tokens are written so, twice.
+- The theme-color metas and a `<picture>`'s sources for one scheme (the logo's) keep their media queries: `theme.js`
+  turns them to the chosen theme as the page loads.
+- The hub calls `window.vgTheme.set("system" | "light" | "dark")`; other open tabs follow at once. It also keeps the
+  choice in the VHub account, and a browser with no choice of its own takes the account's.
+- check-site holds every served page to this: a page on `vgraphics.css` loads `theme.js` before its first
+  stylesheet, both dark token blocks match, and every dark rule in a stylesheet or a page's `<style>` is scoped as
+  above.
+
 ## Switches, never checkboxes
 
 Every on/off choice is a switch, never a checkbox (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles.").
