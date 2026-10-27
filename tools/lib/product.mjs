@@ -63,6 +63,15 @@ export const pieces = () => products().flatMap((slug) => [null, ...subpages(slug
     .map((f) => join(dir, f))
 }))
 
+// The intro demos a product's pages set in their stage (page.json intro.demo: exitwise/demo/board.html, with its .css and
+// .js beside it), which tools/build-pages.mjs sets into the page: pieces, not pages. Any other HTML in a product's demo/
+// folder is a page of its own (Palermo Noir's guided demo, /palermo/demo/, which the Deployer's palermo-web publishes).
+export const demoPieces = () => products().flatMap((slug) => [null, ...subpages(slug)].flatMap((sub) => {
+  const dir = sub ? join(slug, sub) : slug
+  const page = JSON.parse(readFileSync(join(root, dir, 'page.json'), 'utf8'))
+  return page.intro?.demo ? [join(dir, `${page.intro.demo}.html`)] : []
+}))
+
 // The "document" blocks' copies alone, each with the address of the page it is set into, the page (slug, sub) and
 // where the copy comes from (the block's from, { repo, path }; tools/sync-documents.mjs): { file, url, slug, sub, from }.
 export const documents = () => products().flatMap((slug) => [null, ...subpages(slug)].flatMap((sub) => {

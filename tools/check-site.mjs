@@ -11,7 +11,7 @@ import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
 import { styleSources, strayStylePages } from './make-style-pages.mjs'
 import { hotspot } from './lib/cursors.mjs'
-import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
+import { demoPieces, documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
@@ -71,9 +71,11 @@ function walk(dir) {
 }
 
 const files = walk(root)
-// A product's demo (<product>/demo/*.html), and the markup and policy copies its page.json blocks name, are pieces
-// tools/build-pages.mjs sets into its pages, not pages.
-const PARTIAL = /^[^\\/]+[\\/]demo[\\/][^\\/]+\.html$/
+// A product's intro demo (page.json intro.demo, <product>/demo/<name>.html), and the markup and policy copies its
+// page.json blocks name, are pieces tools/build-pages.mjs sets into its pages, not pages. Any other HTML in a demo/
+// folder is a page, held to every rule here (Palermo Noir's guided demo, /palermo/demo/).
+const DEMO_PIECES = new Set(demoPieces().map((f) => f.split(sep).join('/')))
+const PARTIAL = { test: (f) => DEMO_PIECES.has(f.split(sep).join('/')) }
 const PIECES = new Set(pieces())
 const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f) && !PIECES.has(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
