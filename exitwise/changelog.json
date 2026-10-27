@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.ea0fddf8",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New About section below the game",
+      "items": [
+        "Scroll below the game for a new About section — how to play, what's inside, answers to common questions and handy links. The \"About this game\" button takes you straight there, then back to the game.",
+        "The page now shows a copyright line and a link to our Terms."
+      ],
+      "commit": "ea0fddf8"
+    },
+    {
       "version": "1.0.20",
       "date": "2026-10-27",
       "platforms": [

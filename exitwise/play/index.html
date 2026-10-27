@@ -39,11 +39,17 @@
     <style>
       /* The game's font for the loading screen, from the site's Exitwise pages (a local build shows a stand-in). */
       @font-face { font-family: "Lilita One"; font-display: block; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); }
+      /* The About panel's words, in the Exitwise pages' body font. */
+      @font-face { font-family: "Comic Neue"; font-weight: 700; font-display: swap; src: url("/exitwise/fonts/comic-neue-700-latin.woff2") format("woff2"); }
       :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
               --ad: 0px; --violet: #32044F; }
       html.with-banner { --ad: 58px; }
-      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink);
+      html, body { margin: 0; padding: 0; width: 100%; background: var(--paper); color: var(--ink);
                    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      /* The page scrolls, up and down only, from the game on its first screen to the About panel under it (George, 27 Oct
+         2026: "Build the About Exitwise panel on the play page as in the mock-up"), with Exitwise's violet scrollbar. */
+      html { overflow-x: hidden; scrollbar-color: var(--violet) var(--paper); }
+      body { overflow-x: hidden; }
       /* No selecting, no long-press menu and no dragging pictures on the page: the loader, the footer, the sign-in card
          and the storybook reader (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page. Global
          rule. Selected highlighted text must have color of app or game."); the script below blocks the right-click menu.
@@ -57,12 +63,15 @@
       ::selection { background: var(--violet); color: var(--card); }
       /* The game fills the window's whole width, as in the CrazyGames build (WebGLTemplates/Responsive): it keeps its own
          buttons in a centred column on wide windows and gives the board the rest. Only the footer and the banner strip
-         are under it, and nothing beside it. */
-      #unity-canvas { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); width: 100%;
-                      height: calc(100% - var(--bar) - var(--ad)); display: block; background: var(--paper); outline: none; }
+         are under it, and nothing beside it. They make the first screen (#first, its height steady while a phone's
+         address bar comes and goes); the About panel starts below it. Scrolling, dragging and pinching over the game
+         stay with the game (touch-action here, and the wheel in the script below), so nobody scrolls it away by accident. */
+      #first { position: relative; height: calc(100vh - var(--bar)); height: calc(100svh - var(--bar)); }
+      #unity-canvas { position: absolute; left: 0; top: 0; width: 100%; height: calc(100% - var(--ad)); display: block;
+                      background: var(--paper); outline: none; touch-action: none; }
       /* The banner's strip, between the game and the footer, so the ad never covers the game. It opens with the first
          level and stays (exact sizes per screen width, as AdSense allows for a responsive unit). */
-      #ad-banner { position: fixed; left: 0; right: 0; bottom: var(--bar); height: var(--ad); box-sizing: border-box; display: none;
+      #ad-banner { position: absolute; left: 0; right: 0; bottom: 0; height: var(--ad); box-sizing: border-box; display: none;
                    align-items: center; justify-content: center; overflow: hidden; border-top: 1px solid var(--line);
                    background: var(--paper); color: var(--muted); font-size: 12px; }
       html.with-banner #ad-banner { display: flex; }
@@ -73,7 +82,7 @@
       }
       /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's logo
          and the download. The dots are the board's. Sized by the window's height too. */
-      #loader { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); display: flex; flex-direction: column;
+      #loader { position: absolute; left: 0; top: 0; right: 0; bottom: var(--ad); display: flex; flex-direction: column;
                 align-items: center; justify-content: center;
                 background: var(--paper) radial-gradient(circle, #DCD2C2 2.5px, transparent 3px) 0 0 / 30px 30px;
                 font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; color: var(--ink);
@@ -156,7 +165,78 @@
       footer a:hover, footer button:hover { text-decoration: underline; }
       footer .legal { margin-left: auto; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
       footer .legal a { color: var(--muted); font-weight: 400; }
-      @media (max-width: 640px) { footer .legal .long { display: none; } }
+      /* The About panel's button, in Exitwise's violet: down to the panel, and "Back to the game" once it's there. */
+      footer #about-go { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 999px;
+                         background: var(--violet); color: var(--card); font-weight: 700; }
+      footer #about-go:hover { text-decoration: none; filter: brightness(1.3); }
+      footer #about-go:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+      #about-go svg { width: 14px; height: 14px; transition: transform 0.25s; }
+      #about-go.up svg { transform: rotate(180deg); }
+      /* Phones: the bar keeps the way back to Exitwise and the button; Privacy, Statistics, Ad choices and the legal line
+         are at the panel's foot. */
+      @media (max-width: 640px) {
+        footer .wide-only, footer .legal { display: none; }
+        footer #about-go { margin-left: auto; }
+      }
+      /* The About panel (#about): the Exitwise pages' look, its dotted paper, its cards and its fonts, under the game. */
+      #about { padding: 56px 32px calc(var(--bar) + 64px); display: grid; gap: 40px; justify-items: center;
+               background: var(--paper) radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 15px 15px / 30px 30px;
+               font: 700 16px/1.5 "Comic Neue", "Comic Sans MS", system-ui, sans-serif; }
+      #about > * { width: 100%; max-width: 980px; box-sizing: border-box; }
+      #about h1, #about h2, #about h3 { font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; font-weight: 400;
+                                        margin: 0; line-height: 1.1; text-wrap: balance; }
+      #about h1 { font-size: clamp(30px, 4vw, 44px); }
+      #about h2 { font-size: clamp(25px, 3vw, 30px); }
+      #about h3 { font-size: 21px; }
+      #about p { margin: 0; }
+      #about a { color: var(--ink); }
+      #about .head { display: grid; gap: 14px; justify-items: start; }
+      #about .head img { width: min(260px, 60vw); height: auto; }
+      #about .lede { font-size: clamp(17px, 2vw, 19px); line-height: 1.55; max-width: 44em; }
+      #about section { display: grid; gap: 16px; }
+      #about .card { background: var(--card); border: 3px solid #E6DCCC; border-radius: 26px; box-sizing: border-box;
+                     box-shadow: inset 0 -5px 0 rgba(59, 51, 85, 0.05), 0 12px 24px -16px rgba(59, 51, 85, 0.4); }
+      #about .how { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+      #about .steps { list-style: none; margin: 0; padding: 24px; display: grid; gap: 16px; counter-reset: step; }
+      #about .steps li { counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: start; }
+      #about .steps li::before { content: counter(step); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+                                 background: var(--green); color: #fff; font: 400 22px/1 "Lilita One", sans-serif; box-shadow: inset 0 -4px 0 #2A8A57; }
+      #about .stuck { padding: 24px; display: grid; gap: 10px; background: #EAF3F9; border-color: #CFE2EE; }
+      #about .stuck h3 { font-size: 22px; color: #176A99; }
+      #about .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      #about .tile { padding: 20px 22px; display: grid; gap: 6px; align-content: start; }
+      #about .tile p { color: var(--muted); font-size: 15px; }
+      #about .phone { padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; }
+      #about .phone p { max-width: 40em; }
+      #about .phone img { display: block; height: 52px; width: auto; }
+      /* The questions open and close with the site's shared script (/assets/faq.js): one open at a time, animated. */
+      #about .faq { display: grid; gap: 10px; }
+      #about .faq-item { overflow: hidden; }
+      #about .faq-item > summary { list-style: none; cursor: var(--cursor-link, pointer); padding: 16px 22px; display: flex; align-items: center; gap: 12px;
+                                   font: 400 20px/1.2 "Lilita One", sans-serif; }
+      #about .faq-item > summary::-webkit-details-marker { display: none; }
+      #about .faq-item > summary:focus-visible { outline: 3px solid var(--violet); outline-offset: -3px; border-radius: 23px; }
+      #about .faq-item .chev { flex: none; width: 20px; height: 20px; margin-left: auto; color: var(--muted); transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+      #about .faq-item[open] > summary .chev { transform: rotate(180deg); }
+      #about .faq-item[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
+      #about .faq-a { padding: 0 22px 18px; }
+      #about .links { display: flex; flex-wrap: wrap; gap: 10px; }
+      #about .links a { display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border-radius: 999px; background: var(--card);
+                        border: 3px solid #E6DCCC; box-sizing: border-box; text-decoration: none; font-size: 15px; }
+      #about .links a:hover { border-color: var(--violet); }
+      #about .end { display: grid; justify-items: center; gap: 14px; text-align: center; }
+      #about .end .back { height: 48px; padding: 0 26px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer); background: var(--green);
+                          color: #fff; font: 400 20px/1 "Lilita One", sans-serif; box-shadow: inset 0 -5px 0 #2A8A57; }
+      #about .end small { color: var(--muted); font: 400 12px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 60em; }
+      #about .end small a, #about .end small button { color: var(--muted); font: inherit; background: none; border: 0; padding: 0;
+                                                      text-decoration: underline; cursor: var(--cursor-link, pointer); }
+      @media (max-width: 760px) {
+        #about { padding: 36px 16px calc(var(--bar) + 48px); gap: 30px; }
+        #about .how, #about .tiles { grid-template-columns: minmax(0, 1fr); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #about-go svg, #about .faq-item .chev { transition: none; }
+      }
       #consent { position: fixed; inset: 0; z-index: 900; display: none; align-items: flex-end; justify-content: center; padding: 16px;
                  padding-bottom: calc(var(--bar) + var(--ad) + 16px); background: rgba(59, 51, 85, 0.25); }
       #consent.open { display: flex; }
@@ -280,8 +360,10 @@
             window.__tcfapi("addEventListener", 2, function (data, ok) {
               if (!ok || !data) return;
               ads.gdprApplies = data.gdprApplies === true;
-              var choices = document.getElementById("ad-choices");
-              if (choices) choices.hidden = !ads.gdprApplies;
+              // In the bar and at the About panel's foot.
+              Array.prototype.forEach.call(document.querySelectorAll("[data-ad-choices]"), function (choices) {
+                choices.hidden = !ads.gdprApplies;
+              });
               messageOpen = data.eventStatus === "cmpuishown";
               // Answered, now or on an earlier visit: consent mode's values follow right after.
               if (!messageOpen) setTimeout(settle, 1000);
@@ -323,6 +405,8 @@
     </script>
   </head>
   <body>
+    <!-- The first screen: the game, its loader and, under it, the banner strip. -->
+    <div id="first">
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <div id="loader">
       <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's tall picture: on phones
@@ -353,12 +437,87 @@
     <!-- The VGraphics intro over the loader, which keeps counting underneath (docs/brand/splash/INTEGRATION.md). -->
     <script src="brand-intro/brand-intro.js"></script>
     <div id="ad-banner" aria-label="Advertisement"></div>
+    </div>
+    <!-- The About panel under the game (George, 27 Oct 2026, on the approved mock-up; D:\Projects\Mine\CLAUDE.md, "An
+         'About' panel under every play and try page"): what Exitwise is and how to play it, in words of its own that a
+         reader and a search engine find before the game loads. No ads in it. Its facts come from the game and its wiki
+         (vgraphics.gr/exitwise/wiki/); keep them true when the game changes. Its logo and store badge carry the
+         classes the site's check-site knows them by ("logo", "gp"): logos and badges may repeat, but every picture of art
+         is shown once on the site (George, 26 Oct 2026), and the loader shows this logo too. -->
+    <main id="about" aria-labelledby="about-title">
+      <header class="head">
+        <img class="logo" src="logo/exitwise-logo.webp" width="1200" height="269" alt="Exitwise" loading="lazy">
+        <h1 id="about-title">The arrow puzzle you can play right here</h1>
+        <p class="lede">Every arrow on the board points somewhere. Tap one and it slides away, but only if nothing stands in its
+          way. Find the order that sets them all free, from a gentle first board to puzzles bigger than your screen.</p>
+      </header>
+
+      <section aria-labelledby="how-title">
+        <h2 id="how-title">How to play</h2>
+        <div class="how">
+          <ol class="steps card">
+            <li><p>Look where each arrow points. Its path runs straight on to the edge of the board.</p></li>
+            <li><p>Tap an arrow whose path is clear, and off it goes. Tap a blocked one and you lose one of your 3 hearts.</p></li>
+            <li><p>Clear every arrow to win. Clearing one can only ever free others, so no level turns impossible halfway.</p></li>
+          </ol>
+          <div class="stuck card">
+            <h3>Stuck?</h3>
+            <p>A hint lights up an arrow that can leave right now. The first 3 are free, then they cost 30 coins.</p>
+            <p>On a big board, drag to move around and pinch to see all of it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="inside-title">
+        <h2 id="inside-title">What's inside</h2>
+        <div class="tiles">
+          <div class="tile card"><h3>600 levels, 17 worlds</h3><p>From Meadow to Starlight, each world with its own look, along one long map.</p></div>
+          <div class="tile card"><h3>A hard level every 10th</h3><p>Bigger, always a picture, played at night, and worth 30 coins.</p></div>
+          <div class="tile card"><h3>New obstacles as you go</h3><p>Rocks, bombs, ice, mirrors, portals, shutters and colour gates, each introduced as you reach it.</p></div>
+          <div class="tile card"><h3>A daily challenge</h3><p>One board a day, the same for every player, with rewards for each month.</p></div>
+          <div class="tile card"><h3>Rooms with friends</h3><p>Race 2 to 8 players on the same boards. Share a 6-character code and go.</p></div>
+          <div class="tile card"><h3>Your own maps</h3><p>Build levels, share them by code, and play the ones other players made.</p></div>
+        </div>
+      </section>
+
+      <div class="phone card">
+        <p>Exitwise is free on Android too. Sign in with Google here and on your phone, and your progress and your name come with you.</p>
+        <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play" loading="lazy"></a>
+      </div>
+
+      <section aria-labelledby="faq-title">
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq">
+          <details class="faq-item card"><summary>Is Exitwise free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Yes, here and on Android. You earn coins by playing: 10 for a level, 30 for a hard one, and 5 more for a perfect clear.</p></div></details>
+          <details class="faq-item card"><summary>Do I need an account?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>No, you can play straight away. Signing in with Google keeps your progress on every device and puts your name on the leaderboards.</p></div></details>
+          <details class="faq-item card"><summary>Can every level be solved?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Yes. Every level comes from a fixed seed, so everyone gets the same board, and each one is tested to be solvable before it ships.</p></div></details>
+        </div>
+      </section>
+
+      <section aria-labelledby="more-title">
+        <h2 id="more-title">More about Exitwise</h2>
+        <nav class="links" aria-labelledby="more-title">
+          <a href="/exitwise/wiki/">The wiki: every obstacle and powerup</a>
+          <a href="/exitwise/ranking/">Global ranking</a>
+          <a href="/devlog/exitwise-board-shapes/">Devlog: why the boards stopped being rectangles</a>
+          <a href="/exitwise/">All about Exitwise</a>
+        </nav>
+      </section>
+
+      <div class="end">
+        <button type="button" class="back">Back to the game</button>
+        <small>&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 ·
+          <a href="/company/">Company</a> · <a href="/terms/">Terms</a> · <a href="/exitwise/privacy.html">Privacy</a> ·
+          <button type="button" data-statistics>Statistics</button><span data-ad-choices hidden> · <button type="button" data-ad-choices-open>Ad choices</button></span></small>
+      </div>
+    </main>
     <footer>
       <a href="/exitwise/">&larr; Exitwise</a>
-      <a href="/exitwise/privacy.html">Privacy</a>
-      <button type="button" id="statistics">Statistics</button>
-      <button type="button" id="ad-choices" hidden>Ad choices</button>
-      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · G.E.MI. no. 181823306000 · VAT no. EL802736373</span> · <a href="/company/">Company</a></span>
+      <a href="/exitwise/privacy.html" class="wide-only">Privacy</a>
+      <button type="button" id="statistics" class="wide-only" data-statistics>Statistics</button>
+      <button type="button" id="ad-choices" class="wide-only" data-ad-choices data-ad-choices-open hidden>Ad choices</button>
+      <button type="button" id="about-go" aria-controls="about"><span>About this game</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373</span> · <a href="/company/">Company</a> · <a href="/terms/">Terms</a></span>
     </footer>
     <div id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title">
       <div class="card">
@@ -388,11 +547,16 @@
         Array.prototype.forEach.call(dialog.querySelectorAll("button[data-answer]"), function (button) {
           button.addEventListener("click", function () { answer(button.getAttribute("data-answer")); });
         });
-        document.getElementById("statistics").addEventListener("click", function () { dialog.classList.add("open"); });
+        // Statistics and Ad choices are in the bar and at the About panel's foot (only there on phones).
+        var each = function (selector, then) { Array.prototype.forEach.call(document.querySelectorAll(selector), then); };
+        each("[data-statistics]", function (button) {
+          button.addEventListener("click", function () { dialog.classList.add("open"); });
+        });
         var ads = window.exitwiseAds;
-        var choices = document.getElementById("ad-choices");
-        choices.hidden = !ads.privacyOptionsRequired();
-        choices.addEventListener("click", function () { ads.showPrivacyOptions(); });
+        each("[data-ad-choices]", function (choices) { choices.hidden = !ads.privacyOptionsRequired(); });
+        each("[data-ad-choices-open]", function (button) {
+          button.addEventListener("click", function () { ads.showPrivacyOptions(); });
+        });
         // With ads, Google's consent message comes first; at once without.
         ads.afterConsentMessages(function () {
           if (stored() === "granted" || stored() === "denied") return;
@@ -403,6 +567,45 @@
         });
       })();
     </script>
+    <script>
+      // The About panel: the bar's button scrolls down to it and, once the panel fills most of the window, reads "Back to
+      // the game" and scrolls back up, as does the button at the panel's end. The wheel over the game is the game's (its
+      // board zooms), never the page's.
+      (function () {
+        var about = document.getElementById("about");
+        var go = document.getElementById("about-go");
+        var label = go.querySelector("span");
+        var game = document.getElementById("unity-canvas");
+        var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var to = function (top) { window.scrollTo({ top: top, behavior: still ? "auto" : "smooth" }); };
+        var down = false;
+        var update = function () {
+          var now = window.scrollY > about.offsetTop - window.innerHeight * 0.6;
+          if (now === down) return;
+          down = now;
+          go.classList.toggle("up", down);
+          label.textContent = down ? "Back to the game" : "About this game";
+        };
+        var back = function () {
+          to(0);
+          game.focus({ preventScroll: true });
+        };
+        go.addEventListener("click", function () { if (down) back(); else to(about.offsetTop); });
+        about.querySelector(".back").addEventListener("click", back);
+        var queued = false;
+        window.addEventListener("scroll", function () {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; update(); });
+        }, { passive: true });
+        window.addEventListener("resize", update);
+        game.addEventListener("wheel", function (e) { e.preventDefault(); }, { passive: false });
+        update();
+      })();
+    </script>
+    <!-- The site's questions and answers: they open and close smoothly, one at a time (a local build has no such file,
+         and they open and close at once). -->
+    <script type="module" src="/assets/faq.js"></script>
     <!-- VHub, VGraphics' account service (window.VHubUnity), published with the hub: the game signs in through it, so it
          shares the hub's VHub session in this browser (ArrowPuzzleVHub.jslib). A local build has no such file and signs in
          to nothing. -->
@@ -733,7 +936,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.a428d155",
+        productVersion: "1.0.ea0fddf8",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
@@ -750,7 +953,8 @@
         // (brand-intro/brand-intro.js).
         if (window.VGIntro) VGIntro.gameReady(reveal);
         else reveal();
-        canvas.focus();
+        // Without scrolling: someone reading the About panel while the game loads stays there.
+        canvas.focus({ preventScroll: true });
       }).catch(function (message) {
         bar.stop();
         loader.classList.remove("starting");
