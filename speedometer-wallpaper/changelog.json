@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.09330327",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Three new Harbour looks",
+      "items": [
+        "The Harbour style has been redesigned with three new looks — Yacht, Regatta and Porthole — each in a Bridge and a Helm layout",
+        "You can now browse shared layouts on the page and open any one — or a shared link — to try it in any style"
+      ],
+      "commit": "09330327"
+    },
+    {
       "version": "2.0.4",
       "date": "2026-10-26",
       "platforms": [

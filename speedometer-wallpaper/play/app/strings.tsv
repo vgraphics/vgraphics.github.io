@@ -22,6 +22,43 @@ cluster__mode_power	PWR
 cluster__mode_speed	SPD
 cluster__temperature_cold	C
 cluster__temperature_hot	H
+component__hidden_creators_sheet__body	Their layouts don't show in the market for you.
+component__hidden_creators_sheet__button_show__label	Show again
+component__hidden_creators_sheet__empty	No hidden creators.
+component__hidden_creators_sheet__title	Hidden creators
+component__market_creator_sheet__hide__label	Hide this creator's layouts
+component__market_creator_sheet__hide__subtitle	Settings › Privacy › Hidden creators brings them back.
+component__market_creator_sheet__report__subtitle	VHub looks after names and pictures in every VGraphics app.
+component__market_creator_sheet__report_name__label	Report their name
+component__market_creator_sheet__report_picture__label	Report their picture
+component__market_offer_sheet__body	Like how it looks? Get the style, or every style with Speedometer Plus.
+component__market_offer_sheet__button_buy__label	%1$s · %2$s once
+component__market_offer_sheet__button_buy_no_price__label	Buy %1$s
+component__market_offer_sheet__close__content_description	Close the preview
+component__market_offer_sheet__pass__label	Every style with Speedometer Plus
+component__market_offer_sheet__title	%1$s with this layout
+component__market_report_sheet__body	You won't see it again. Three reports take it down until we review it.
+component__market_report_sheet__button_send__label	Send report
+component__market_report_sheet__message__count	%1$d / %2$d
+component__market_report_sheet__message__label	Tell us more (optional)
+component__market_report_sheet__reason_broken	It doesn't work
+component__market_report_sheet__reason_name	Offensive name
+component__market_report_sheet__reason_other	Something else
+component__market_report_sheet__reason_spam	Spam, or a copy of someone else's
+component__market_report_sheet__title	Report this layout
+component__pass_sheet__body	Every style, now and later, and no ads. Styles you bought stay yours.
+component__pass_sheet__button_monthly__label	%1$s a month
+component__pass_sheet__button_monthly_no_price__label	Monthly
+component__pass_sheet__button_yearly__label	%1$s a year · 2 months free
+component__pass_sheet__button_yearly_no_price__label	Yearly · 2 months free
+component__pass_sheet__fine_print	Billed by Google Play, and renews until you cancel. Cancel anytime in Google Play. Signed in to VHub, every device of your account gets it.
+component__pass_sheet__title	Speedometer Plus
+component__trial_end__body	Your wallpaper went back to your own style. Keep %1$s for good, get every style with Speedometer Plus, or watch another video for 24 more hours.
+component__trial_end__button_buy__label	Buy %1$s · %2$s
+component__trial_end__button_buy_no_price__label	Buy %1$s
+component__trial_end__button_not_now__label	Not now
+component__trial_end__button_watch_again__label	Watch again
+component__trial_end__title	Your 24 h with %1$s ended
 component__update_bar__button_restart__label	Restart
 component__update_bar__message	An update is ready to install.
 design__amber_night__name	Amber Night
@@ -103,12 +140,21 @@ design_look__option_rings__label	Rings
 design_look__option_shift_light__label	Shift light
 design_look__option_speed_panel__label	Speed panel
 design_look__option_sweep__label	Sweep
+dialog__market_unpublish__body	It leaves the market for good. Players who use it keep it.
+dialog__market_unpublish__button_cancel__label	Keep it
+dialog__market_unpublish__button_confirm__label	Unpublish
+dialog__market_unpublish__title	Unpublish this layout?
+dialog__trial_replace__button_confirm__label	Watch the video
+dialog__trial_replace__button_dismiss__label	Keep %1$s
+dialog__trial_replace__message	End the %1$s trial and start %2$s?
+dialog__trial_replace__title	One trial at a time
 editor__element__annunciator__name	Annunciator
 editor__element__battery__name	Battery
 editor__element__big__name	Main gauge
 editor__element__clock__name	Clock
 editor__element__console__name	Console
 editor__element__counts__name	Calls and messages
+editor__element__date__name	Date
 editor__element__display__name	Display
 editor__element__lamps__name	Warning lights
 editor__element__link_speed__name	Link speed
@@ -172,6 +218,164 @@ generic__app_name	Speedometer Live Wallpaper
 generic__button_back__content_description	Back
 generic__button_cancel__label	Cancel
 generic__button_ok__label	OK
+generic__market_status_hidden	Hidden
+generic__market_status_live	Live
+generic__market_status_removed	Removed
+generic__orientation_any	Any orientation
+generic__orientation_landscape	Landscape
+generic__orientation_portrait	Portrait
+generic__shape_any	Any shape
+generic__shape_foldable	Foldable
+generic__shape_phone	Phone
+generic__shape_tablet	Tablet
+generic__shape_tall	Tall / Flip
+layouts__asks__activity	Asks for physical activity.
+layouts__asks__calendar	Asks to read your calendar.
+layouts__asks__location	Asks for your location.
+layouts__asks__weather	Asks for your rough location and uses the internet.
+layouts__form__analog__name	Analog
+layouts__form__annunciator__name	Caption lights
+layouts__form__arc__name	Arc
+layouts__form__badges__name	Badges
+layouts__form__bar__name	Bar
+layouts__form__bars__name	Bars
+layouts__form__card__name	Card
+layouts__form__compass__name	Compass
+layouts__form__console__name	Console
+layouts__form__controls__name	Buttons
+layouts__form__counter__name	Counter
+layouts__form__dial__name	Dial
+layouts__form__digits__name	Digits
+layouts__form__event__name	Icon and time
+layouts__form__g_ball__name	G ball
+layouts__form__icon_row__name	Icons
+layouts__form__icon_text__name	Icon and text
+layouts__form__lamp_row__name	Row of lamps
+layouts__form__led_bar__name	LED bar
+layouts__form__level__name	Level
+layouts__form__meters__name	Bar meters
+layouts__form__moon__name	Moon
+layouts__form__none__name	None
+layouts__form__pair__name	Two lines
+layouts__form__panel__name	Panel
+layouts__form__plate__name	Plate
+layouts__form__ring__name	Ring
+layouts__form__single_lamp__name	One lamp
+layouts__form__small_dial__name	Small dial
+layouts__form__strip__name	Strip
+layouts__form__style__name	Style's own
+layouts__form__sun_arc__name	Sun arc
+layouts__form__tape__name	Tape
+layouts__form__text__name	Text
+layouts__form__text_thumbnail__name	Text with cover
+layouts__form__ticker__name	Ticker
+layouts__form__weather__name	Sky and temperature
+layouts__group__day	Your day
+layouts__group__drive	On the road
+layouts__group__gauges	Gauges
+layouts__group__phone	The phone
+layouts__group__place	Where you are
+layouts__ready__classic_trio	Classic trio
+layouts__ready__column	Column
+layouts__ready__fold_square	Fold square
+layouts__ready__minimal	Minimal
+layouts__ready__music_drive	Music drive
+layouts__ready__night_table	Night table
+layouts__ready__six_pack	Six-pack
+layouts__ready__tablet_dashboard	Tablet dashboard
+layouts__ready__twin	Twin
+layouts__shape__foldable	Foldable
+layouts__shape__foldable__plural	foldables
+layouts__shape__phone	Phone
+layouts__shape__phone__plural	phones
+layouts__shape__tablet	Tablet
+layouts__shape__tablet__plural	tablets
+layouts__shape__tall	Tall / Flip
+layouts__shape__tall__plural	tall phones and Flips
+layouts__widget__air_pressure__description	The air pressure and whether it is rising or falling. Phones without a pressure sensor show dashes.
+layouts__widget__air_pressure__name	Air pressure
+layouts__widget__altitude__description	How high you are above the sea.
+layouts__widget__altitude__name	Altitude
+layouts__widget__average_speed__description	Your average speed on this drive, stops left out.
+layouts__widget__average_speed__name	Average speed
+layouts__widget__backplate__description	What the dials sit on: a plate or a console.
+layouts__widget__backplate__name	Backplate
+layouts__widget__battery__description	Battery level, the fuel gauge.
+layouts__widget__battery__name	Battery
+layouts__widget__battery_time__description	Time to full while charging, time left otherwise.
+layouts__widget__battery_time__name	Battery time
+layouts__widget__climb_rate__description	How fast you are going up or down a hill.
+layouts__widget__climb_rate__name	Climb rate
+layouts__widget__clock__description	The time.
+layouts__widget__clock__name	Clock
+layouts__widget__counts__description	Missed calls and unread messages.
+layouts__widget__counts__name	Calls and messages
+layouts__widget__data_speed__description	What the phone is downloading and uploading right now.
+layouts__widget__data_speed__name	Data speed
+layouts__widget__date__description	The date, on its own.
+layouts__widget__date__name	Date
+layouts__widget__display__description	One panel with the time, date, Wi-Fi and readings.
+layouts__widget__display__name	Info display
+layouts__widget__drive_time__description	How long you have been driving. A new drive starts after 30 minutes standing still.
+layouts__widget__drive_time__name	Drive time
+layouts__widget__g_force__description	A dot that slides when you brake, speed up or take a corner, with your peak. Right with the phone in a mount.
+layouts__widget__g_force__name	G-force
+layouts__widget__heading__description	Which way you are going: the GPS direction while moving, the compass while still.
+layouts__widget__heading__name	Heading
+layouts__widget__lights__description	Low battery, Bluetooth, temperature and charging lights.
+layouts__widget__lights__name	Warning lights
+layouts__widget__link_speed__description	How fast the Wi-Fi link runs.
+layouts__widget__link_speed__name	Link speed
+layouts__widget__main__description	The big reading: power, CPU clock or GPS speed.
+layouts__widget__main__name	Main gauge
+layouts__widget__moon__description	Tonight's moon and its name.
+layouts__widget__moon__name	Moon
+layouts__widget__music_controls__description	Back, play or pause, and next, on the wallpaper. Your home screen must pass taps to the wallpaper.
+layouts__widget__music_controls__name	Music buttons
+layouts__widget__next_alarm__description	The next alarm you have set.
+layouts__widget__next_alarm__name	Next alarm
+layouts__widget__next_event__description	Your next calendar event: its name and time. Read on the phone, never sent anywhere.
+layouts__widget__next_event__name	Next event
+layouts__widget__now_playing__description	The song that's playing, with its cover.
+layouts__widget__now_playing__name	Now Playing
+layouts__widget__odometer__description	Every km you have driven with the wallpaper on, kept on the phone.
+layouts__widget__odometer__name	Odometer
+layouts__widget__ram__description	Memory in use, the rev counter.
+layouts__widget__ram__name	RAM
+layouts__widget__second_clock__description	The time somewhere else: UTC or a city you pick in Settings.
+layouts__widget__second_clock__name	Second clock
+layouts__widget__shift_lights__description	A row of LEDs lit by RAM, red near the top.
+layouts__widget__shift_lights__name	Shift lights
+layouts__widget__signal__description	Mobile signal strength.
+layouts__widget__signal__name	Signal
+layouts__widget__status__description	Bluetooth and Wi-Fi icons.
+layouts__widget__status__name	Status
+layouts__widget__steps__description	Steps walked today, as a ring toward your goal.
+layouts__widget__steps__name	Steps today
+layouts__widget__storage__description	How full the phone is.
+layouts__widget__storage__name	Storage
+layouts__widget__strip__description	A line with the mode and the battery.
+layouts__widget__strip__name	Info strip
+layouts__widget__sun__description	Today's times, with the sun on an arc, worked out on the phone.
+layouts__widget__sun__name	Sunrise and sunset
+layouts__widget__temperature__description	Battery temperature.
+layouts__widget__temperature__name	Temperature
+layouts__widget__tilt__description	How much the car leans, and nose up or down on hills. Set level in Settings with the phone in its mount.
+layouts__widget__tilt__name	Tilt
+layouts__widget__top_speed__description	The fastest you went on this drive.
+layouts__widget__top_speed__name	Top speed
+layouts__widget__trip__description	How far you have driven on this drive.
+layouts__widget__trip__name	Trip distance
+layouts__widget__trip_computer__description	Trip, average speed and drive time in one panel.
+layouts__widget__trip_computer__name	Trip computer
+layouts__widget__volume__description	The music volume.
+layouts__widget__volume__name	Volume
+layouts__widget__weather__description	The temperature outside and a small sky picture, from MET Norway, every 30 minutes.
+layouts__widget__weather__name	Weather
+layouts__widget__wifi__description	Wi-Fi strength and whether you're on mobile data.
+layouts__widget__wifi__name	Wi-Fi
+layouts__widget__zero_to_100__description	Times every run from a stop to 100 km/h (60 mph) and keeps your best.
+layouts__widget__zero_to_100__name	0–100 timer
 preview__future__song_artist	VGraphics
 preview__future__song_title	Night Drive
 screen__access__body	Future shows the song that's playing, with its cover and the volume, and how many calls you missed and messages you haven't read.\n\nFor that, Android has to give this app notification access. Android will warn that the app could read all your notifications: it only reads the song that's playing and counts missed calls and messages.\n\nNothing leaves your phone. You can turn the access off any time in Android's settings.
@@ -193,6 +397,52 @@ screen__access__status_on	Turned on. Future now shows your music, calls and mess
 screen__access__title	Music, calls and messages
 screen__access__top_bar__title	Notification access
 screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song and counts missed calls and messages.
+screen__account__backup_waiting__body	Your account has settings from another phone, saved %1$s. Restore them here, or keep this phone's.
+screen__account__bonus_line	Sign in and pick a premium style, free
+screen__account__button_keep_phone__label	Keep this phone's
+screen__account__button_restore__label	Restore
+screen__account__failed__message	That didn't work. Try again.
+screen__account__free_style__button	Keep %1$s
+screen__account__free_style__chip	Free for you
+screen__account__free_style__note	Yours on every phone where you sign in. Styles you already own aren't listed.
+screen__account__free_style__title	Pick your free style
+screen__account__gift_claimed__message	%1$s is yours.
+screen__account__level_line	VHub level %1$d · %2$s
+screen__account__message_free_month_started	Your free month of Speedometer Plus has started.
+screen__account__name_saved__message	Your VHub name is %1$s.
+screen__account__no_browser__message	No browser on this phone to open your VHub profile.
+screen__account__nothing_to_restore__message	Your account has no settings saved yet.
+screen__account__offer__bonus_backup	Your settings back on any phone you sign in on
+screen__account__offer__bonus_month	A free month of every layout, when layouts open
+screen__account__offer__bonus_style	A premium style of your choice, free
+screen__account__offer__bonus_xp	XP and badges on your VHub profile
+screen__account__offer__intro	Your wallpaper is on. Sign in with Google and get:
+screen__account__offer__title	Keep it with VHub
+screen__account__product_exitwise	Exitwise
+screen__account__restored__message	Your settings are back.
+screen__account__row_also_on__subtitle	%1$s · your level counts everywhere
+screen__account__row_also_on__title	Also on VHub
+screen__account__row_backup__not_yet	Saved as you change them
+screen__account__row_backup__saved	Saved %1$s
+screen__account__row_backup__title	Your settings on VHub
+screen__account__row_free_month__start__label	Start
+screen__account__row_free_month__subtitle	Every style and no ads for 30 days. Start it when you like
+screen__account__row_free_month__title	A free month of Speedometer Plus
+screen__account__row_free_month_running__subtitle	Every style and no ads until %1$s
+screen__account__row_free_month_used__subtitle	Used
+screen__account__row_free_style__subtitle	Your sign-in gift
+screen__account__row_free_style__title	Free style
+screen__account__row_name__subtitle	+50 XP · for good
+screen__account__section_account__title	Your account
+screen__account__section_backup__title	Settings backup
+screen__account__section_gifts__title	Your sign-in gifts
+screen__account__section_vhub__title	Speedometer on VHub
+screen__account__strip__text	Pick a premium style, free
+screen__account__tile_days__label	Days on
+screen__account__tile_layouts__label	Layouts
+screen__account__tile_styles__label	Styles
+screen__account__title	Account
+screen__account__title_welcome	Welcome
 screen__app_settings__ad_choices_failed__message	Couldn't open your ad choices. Please try again.
 screen__app_settings__clock__format_follow_phone	Follow the phone
 screen__app_settings__clock__format_h12	12-hour
@@ -219,6 +469,8 @@ screen__app_settings__gps_needs_precise__message	GPS speed needs precise locatio
 screen__app_settings__gps_rationale__button_continue__label	Continue
 screen__app_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It's used only to read your speed and never leaves the phone.
 screen__app_settings__gps_rationale__title	GPS speed
+screen__app_settings__level_failed__message	Couldn't set the level. Stand the phone upright in its mount and try again.
+screen__app_settings__level_set__message	Level set. The Tilt widget now reads level as the phone sits.
 screen__app_settings__licence_barlow__title	Barlow Condensed · SIL Open Font License 1.1
 screen__app_settings__licence_dseg__title	DSEG7 · SIL Open Font License 1.1
 screen__app_settings__licence_roboto__title	Roboto · Apache License 2.0
@@ -232,6 +484,8 @@ screen__app_settings__motion__smooth	Smooth
 screen__app_settings__motion__smooth_note	Your screen's full rate while a needle moves, nothing while they're still. Android's Battery saver switches to Saver.
 screen__app_settings__motion__title	Motion and battery
 screen__app_settings__no_browser__message	No app on this phone can open that page.
+screen__app_settings__pass_on__message	Speedometer Plus is on. Every style is yours.
+screen__app_settings__pass_pending__message	Payment pending. Speedometer Plus starts when it goes through.
 screen__app_settings__play_unavailable__message	Google Play isn't available right now.
 screen__app_settings__purchase_failed__message	The purchase didn't go through.
 screen__app_settings__restore_failed__message	Couldn't restore your purchases. Please try again.
@@ -250,7 +504,20 @@ screen__app_settings__row_gps__off	Precise location · off
 screen__app_settings__row_gps__title	GPS speed
 screen__app_settings__row_guide__subtitle	What every gauge and lamp shows
 screen__app_settings__row_guide__title	Guide
+screen__app_settings__row_hidden_creators__subtitle#one	%d creator
+screen__app_settings__row_hidden_creators__subtitle#other	%d creators
+screen__app_settings__row_hidden_creators__title	Hidden creators
+screen__app_settings__row_hidden_creators_none__subtitle	None
+screen__app_settings__row_level__button_set__label	Set
+screen__app_settings__row_level__subtitle	Put the phone in its mount, then tap Set. The Tilt widget reads level from there.
+screen__app_settings__row_level__title	Tilt level
 screen__app_settings__row_licences__title	Licences
+screen__app_settings__row_pass__active	Active
+screen__app_settings__row_pass__pending	Pending
+screen__app_settings__row_pass__subtitle	Every style and no ads, now and later
+screen__app_settings__row_pass__title	Speedometer Plus
+screen__app_settings__row_pass_account__subtitle	On through your VHub account
+screen__app_settings__row_pass_play__subtitle	On. Tap to manage it in Google Play
 screen__app_settings__row_previews__subtitle	Styles move in the gallery and on their pages
 screen__app_settings__row_previews__title	Live previews
 screen__app_settings__row_privacy_policy__subtitle	vgraphics.gr
@@ -258,70 +525,55 @@ screen__app_settings__row_privacy_policy__title	Privacy policy
 screen__app_settings__row_rate__title	Rate on Google Play
 screen__app_settings__row_restore__subtitle	Bring back styles bought on this Google account
 screen__app_settings__row_restore__title	Restore purchases
+screen__app_settings__row_second_clock__title	Second clock
+screen__app_settings__row_step_goal__summary	%1$s steps a day
+screen__app_settings__row_step_goal__title	Step goal
 screen__app_settings__row_style_in_use__title	Style in use
 screen__app_settings__row_tile__button_add__label	Add
 screen__app_settings__row_tile__subtitle	Switch the mode from Quick Settings
 screen__app_settings__row_tile__subtitle_manual	Edit your Quick Settings panel and drag Big gauge in
 screen__app_settings__row_tile__title	Big gauge tile
-screen__app_settings__row_unlock_all__owned	Owned
-screen__app_settings__row_unlock_all__pending	Pending
-screen__app_settings__row_unlock_all__subtitle	Every style and layout, now and later
-screen__app_settings__row_unlock_all__title	Unlock all styles
 screen__app_settings__row_vibration__subtitle	A light tick on buttons and switches
 screen__app_settings__row_vibration__title	Vibration
 screen__app_settings__row_website__title	vgraphics.gr
 screen__app_settings__save_failed__message	Couldn't save that setting. Please try again.
+screen__app_settings__second_clock_sheet__subtitle	The city whose time the Second clock widget shows.
+screen__app_settings__second_clock_sheet__title	Second clock
 screen__app_settings__section_about__title	About
+screen__app_settings__section_account__title	Account
 screen__app_settings__section_new_styles__title	New styles start with
 screen__app_settings__section_permissions__title	Permissions
 screen__app_settings__section_previews__title	Previews and feedback
 screen__app_settings__section_privacy__title	Privacy
 screen__app_settings__section_purchases__title	Purchases
 screen__app_settings__section_wallpaper__title	Wallpaper
+screen__app_settings__section_widgets__title	Widgets
 screen__app_settings__speed_unit__kmh	km/h
 screen__app_settings__speed_unit__mph	mph
 screen__app_settings__speed_unit__title	Speed unit
+screen__app_settings__step_goal_sheet__subtitle	How many steps fill the Steps widget.
+screen__app_settings__step_goal_sheet__title	Step goal
 screen__app_settings__tile_add_failed__message	Couldn't add the tile. Edit your Quick Settings panel and drag Big gauge in.
 screen__app_settings__tile_added__message	Tile added. Swipe down and tap Big gauge to switch the mode.
 screen__app_settings__tile_already_added__message	The Big gauge tile is already in your Quick Settings panel.
 screen__app_settings__title	Settings
-screen__app_settings__unlock_all_pending__message	Payment pending. Every style unlocks when it goes through.
-screen__app_settings__unlocked_all__message	Every style is yours.
 screen__designs__amber_night__description	Night luxury: one big amber-lit dial over a dot-matrix information display.
 screen__designs__aura__description	Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.
-screen__designs__button_buy__label	Buy for %1$s
-screen__designs__button_buy_no_price__label	Buy
-screen__designs__button_unlock_all__label	Unlock all designs for %1$s
-screen__designs__button_unlock_all_no_price__label	Unlock all designs
-screen__designs__button_use__label	Use this design
 screen__designs__carbon__description	A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.
 screen__designs__circuit__description	The track look: glowing blue sweeps on deep black, three small round gauges between the rev arc and the dial, and crisp thin digits.
 screen__designs__classic__description	The 2016 dashboard: five gauges, an LCD clock and warning lights.
 screen__designs__cockpit__description	An aircraft panel: caption lights, luminous drum counters and a clock on a riveted plate.
-screen__designs__free	Free
 screen__designs__future__description	The 2016 Future cluster: a chrome dial, the song that's playing, missed calls and messages.
 screen__designs__glass__description	A HUD: glowing cyan arcs and thin digits floating in brackets, no round gauges.
 screen__designs__graphite__description	Classic, flat: a satin ring around a plain graphite dial on a dark background.
-screen__designs__harbour__description	Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.
+screen__designs__harbour__description	Marine instruments in three looks: brass and navy on teak, racing steel and ocean blue on sailcloth, or bronze portholes over verdigris copper.
 screen__designs__horizon__description	A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.
-screen__designs__in_use	In use
-screen__designs__message_failed	The purchase didn't go through.
-screen__designs__message_pending	Payment pending. %1$s unlocks when it goes through.
-screen__designs__message_play_unavailable	Google Play isn't available right now.
-screen__designs__message_selected	%1$s is now your wallpaper's design.
-screen__designs__message_unlock_all_pending	Payment pending. Every design unlocks when it goes through.
-screen__designs__message_unlocked_all	Every design is yours. %1$s is now your wallpaper's design.
-screen__designs__owned	Owned
-screen__designs__pending	Payment pending
-screen__designs__preview__content_description	%1$s preview
 screen__designs__prism__description	An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.
 screen__designs__pulse__description	A neon HUD of rings: every reading a ring of light around the big number, magenta on black.
 screen__designs__rally__description	Racing: a big white tacho, a rally computer's reflective LCD and a strip of small dials.
 screen__designs__steel__description	Classic, refined: satin chrome around spun graphite and an ice-white LCD.
-screen__designs__title	Designs
 screen__designs__torque__description	A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.
 screen__designs__track_night__description	A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.
-screen__designs__unlock_all__note	Every paid design, including the ones still to come.
 screen__designs__vector__description	A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black.
 screen__designs__vintage__description	A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.
 screen__guide__battery__body	How full your battery is. LOW lights at the low battery level, and the green bolt while the phone charges.
@@ -335,12 +587,14 @@ screen__guide__chapter_lamps__title	Warning lamps
 screen__guide__chapter_music__title	Music, calls and messages
 screen__guide__chapter_small_gauges__title	Small gauges
 screen__guide__chapter_tile__title	Big gauge tile
+screen__guide__chapter_widgets__title	Widgets
 screen__guide__chip_big_gauge__label	Big gauge
 screen__guide__chip_clock__label	Clock
 screen__guide__chip_lamps__label	Lamps
 screen__guide__chip_music__label	Music
 screen__guide__chip_small_gauges__label	Small gauges
 screen__guide__chip_tile__label	Tile
+screen__guide__chip_widgets__label	Widgets
 screen__guide__clock__body	The LCD under the big gauge shows the date and time. Pick the time format, date order, separators and seconds in the style's settings.
 screen__guide__lamp_bluetooth__subtitle	While Bluetooth is on
 screen__guide__lamp_bluetooth__title	Bluetooth
@@ -370,9 +624,19 @@ screen__guide__tile__body	Add the tile in App settings, or edit your Quick Setti
 screen__guide__tile__row_subtitle	Power, CPU clock and GPS speed take turns
 screen__guide__tile__row_title	Swipe down and tap Big gauge
 screen__guide__top_bar__title	Guide
+screen__guide__widgets__body	Add widgets to any style in its layout builder: your trip, top speed and 0–100, the compass and altitude, the sun, moon and weather, your steps, the next alarm and more. Each one reads only while it's on your wallpaper.
+screen__guide__widgets__credit	Weather data from MET Norway (api.met.no), under the Norwegian Licence for Open Government Data and CC BY 4.0.
+screen__guide__widgets__settings	Pick the second clock's city, your step goal and the tilt's level in App settings, under Widgets. The music buttons work where your home screen passes taps to the wallpaper; Samsung's home screen doesn't.
+screen__guide__widgets_day__subtitle	Read on your phone and never sent anywhere
+screen__guide__widgets_day__title	Steps, alarm and calendar
+screen__guide__widgets_drive__subtitle	From GPS, like GPS speed. Nothing leaves your phone.
+screen__guide__widgets_drive__title	Trip, speed and heading
+screen__guide__widgets_weather__subtitle	Your rough location, rounded to about 10 km, goes to MET Norway for the forecast
+screen__guide__widgets_weather__title	Weather
 screen__guide__wifi__body	How strong your Wi-Fi signal is. The line under it reads CONNECTED with the link speed, NO NETWORK, MOBILE DATA or DISABLED.
 screen__guide__wifi__lamp	Its ON lamp is green on Wi-Fi and yellow on mobile data.
 screen__guide__wifi__title	Wi-Fi
+screen__home__account_button__content_description	VHub account
 screen__home__button_customize__label	Customize
 screen__home__button_designs__subtitle	Classic, Future and more
 screen__home__button_designs__title	DESIGNS
@@ -425,9 +689,41 @@ screen__info__title	Info
 screen__intro__key_art__content_description	Speedometer Live Wallpaper: the dashboard on a phone in a car at night
 screen__intro__logo__content_description	VGraphics
 screen__intro__skip__label	Skip
+screen__layout_builder__add__body	Every style draws it its own way.
+screen__layout_builder__add__body_style	Each one as %1$s draws it, on a sample drive. Every style draws them its own way.
+screen__layout_builder__add__card__action	Add
+screen__layout_builder__add__needs_access	Needs notification access.
+screen__layout_builder__add__title	Add a widget
+screen__layout_builder__button_add__label	Add widget
+screen__layout_builder__button_back__content_description	Send to back
+screen__layout_builder__button_delete__content_description	Delete layout
+screen__layout_builder__button_front__content_description	Bring to front
+screen__layout_builder__button_remove__content_description	Remove widget
+screen__layout_builder__default_name	My layout
+screen__layout_builder__delete__body	Styles that use it go back to their own layout.
+screen__layout_builder__delete__button_delete__label	Delete
+screen__layout_builder__delete__button_keep__label	Keep it
+screen__layout_builder__delete__title	Delete this layout?
+screen__layout_builder__delete_failed__message	Couldn't delete the layout. Try again.
+screen__layout_builder__deleted__message	Layout deleted.
+screen__layout_builder__full__message	This layout already holds every widget it can.
+screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it.
+screen__layout_builder__layers__back	Back
+screen__layout_builder__layers__front	Front
+screen__layout_builder__made_for_other	Made for %1$s; may look small here.
+screen__layout_builder__not_found__message	This layout isn't on this phone.
+screen__layout_builder__preview_in__label	Preview in
+screen__layout_builder__save__name__label	Name
+screen__layout_builder__save__publish__label	Save and publish to the market
+screen__layout_builder__save__shapes__label	Made for
+screen__layout_builder__save__title	Save layout
+screen__layout_builder__save__use_now	Use it for %1$s now
+screen__layout_builder__saved__message	Saved in My layouts.
+screen__layout_builder__subtitle	Shown in %1$s
+screen__layout_builder__subtitle_not_owned	Shown in %1$s · not yours yet
+screen__layout_builder__title_new	New layout
 screen__layout_editor__bigger__label	Make bigger
 screen__layout_editor__button_redo__content_description	Redo
-screen__layout_editor__button_reset__content_description	Reset the layout
 screen__layout_editor__button_save__label	Save layout
 screen__layout_editor__button_undo__content_description	Undo
 screen__layout_editor__discard__body	Your new arrangement isn't saved yet.
@@ -436,21 +732,109 @@ screen__layout_editor__discard__button_keep__label	Keep editing
 screen__layout_editor__discard__title	Discard changes?
 screen__layout_editor__element__content_description	%1$s, move
 screen__layout_editor__element__select__label	Choose
-screen__layout_editor__hint	Tap a gauge to choose it. Drag it to move it, or drag its red handle to resize it.
 screen__layout_editor__move_down__label	Move down
 screen__layout_editor__move_left__label	Move left
 screen__layout_editor__move_right__label	Move right
 screen__layout_editor__move_up__label	Move up
-screen__layout_editor__not_editable__message	This layout can't be rearranged.
 screen__layout_editor__save_failed__message	Couldn't save the layout. Try again.
 screen__layout_editor__saved__message	Layout saved. %1$s now uses it.
-screen__layout_editor__size__content_description	Size of %1$s
-screen__layout_editor__size__label	Size
-screen__layout_editor__size__value	%1$d %%
 screen__layout_editor__smaller__label	Make smaller
-screen__layout_editor__subtitle	%1$s · from %2$s
-screen__layout_editor__subtitle_custom	%1$s · %2$s
-screen__layout_editor__title	Edit layout
+screen__market__button_publish__label	Publish a layout
+screen__market__button_retry__label	Try again
+screen__market__button_sign_in__label	Sign in
+screen__market__card_made_with	Made with %1$s
+screen__market__card_meta	%1$s · %2$s
+screen__market__card_no_ratings	No ratings yet
+screen__market__card_rating	%1$s ★ · %2$s
+screen__market__card_ratings#one	%d rating
+screen__market__card_ratings#other	%d ratings
+screen__market__card_unreadable	Can't be shown
+screen__market__card_uses#one	%d use
+screen__market__card_uses#other	%d uses
+screen__market__empty__body	Try another shape, or be the first to publish one.
+screen__market__empty__title	No layouts here yet
+screen__market__empty_mine__title	You haven't published a layout yet
+screen__market__empty_search__title	Nothing by that name or code
+screen__market__filter_now_playing__label	Now Playing
+screen__market__message_creator_hidden	You won't see their layouts. Settings › Privacy brings them back.
+screen__market__message_creator_reported	Thanks. VHub will look at it.
+screen__market__message_needs_style	Get %1$s first to use it with this layout.
+screen__market__message_offline	The market can't be reached. Try again later.
+screen__market__message_rate_failed	The rating couldn't be saved. Try again later.
+screen__market__message_rate_use_first	Use it once before you rate it.
+screen__market__message_rated	Thanks for rating it.
+screen__market__message_report_failed	The report couldn't be sent. Try again later.
+screen__market__message_reported	Thanks. You won't see this layout again.
+screen__market__message_sign_in	Sign in with VHub first.
+screen__market__message_unpublish_failed	It couldn't be unpublished. Try again later.
+screen__market__message_unpublished	Your layout left the market.
+screen__market__message_unreadable	This layout can't be read. Try updating the app.
+screen__market__message_used	The layout is on your wallpaper. You can rate it now.
+screen__market__message_used_not_counted	The layout is on your wallpaper.
+screen__market__message_used_offline	The layout is on your wallpaper. It counts once you're online.
+screen__market__message_used_own	Your layout is on your wallpaper.
+screen__market__message_used_signed_out	The layout is on your wallpaper. Sign in with VHub to rate it.
+screen__market__mine_signed_out__body	Sign in with VHub to publish your layouts and find them here.
+screen__market__offline__body	Check the connection and try again.
+screen__market__offline__title	The market can't be reached
+screen__market__search__label	Search by name or code
+screen__market__search_clear__content_description	Clear the search
+screen__market__sheet_orientation__title	Orientation
+screen__market__sheet_shape__title	Device shape
+screen__market__tab_mine__label	Mine
+screen__market__tab_new__label	New
+screen__market__tab_popular__label	Popular
+screen__market__tab_top_rated__label	Top rated
+screen__market__title	Layout market
+screen__market_layout__button_creator__content_description	More about %1$s
+screen__market_layout__button_in_use__label	On your wallpaper
+screen__market_layout__button_report__label	Report
+screen__market_layout__button_share__label	Share
+screen__market_layout__button_unpublish__label	Unpublish
+screen__market_layout__button_use__label	Use with %1$s
+screen__market_layout__by	by %1$s
+screen__market_layout__code	Code %1$s
+screen__market_layout__fit_note	Made for %1$s: it may look small here.
+screen__market_layout__not_found	This layout isn't in the market any more.
+screen__market_layout__own_note	Your layout. Players see it in their own style.
+screen__market_layout__rate__title	Your rating
+screen__market_layout__rate_sign_in	Sign in with VHub to rate it.
+screen__market_layout__rate_use_first	Use it once to rate it.
+screen__market_layout__section_styles__label	Preview in style
+screen__market_layout__share__chooser	Share layout
+screen__market_layout__share__text	"%1$s", a layout for Speedometer Live Wallpaper: %2$s (code %3$s)
+screen__market_layout__star__content_description	%1$d of 5 stars
+screen__market_layout__status_hidden_note	Hidden from the market until it's reviewed.
+screen__market_layout__status_removed_note	Taken off the market.
+screen__market_layout__style_locked__content_description	%1$s, not yours yet
+screen__market_layout__title	Layout
+screen__publish_layout__allowed	%1$d of %2$d in 24 hours · %3$d of %4$d in the market
+screen__publish_layout__banned	Your account can't publish layouts.
+screen__publish_layout__button_publish__label	Publish
+screen__publish_layout__live_full	You have %1$d layouts in the market. Unpublish one first.
+screen__publish_layout__message_failed	It couldn't be published. Try again later.
+screen__publish_layout__name__count	%1$d / %2$d
+screen__publish_layout__name__hint	3 to 24 letters, digits and simple punctuation
+screen__publish_layout__name__label	Name in the market
+screen__publish_layout__none	You have no layouts of your own yet. Make one in the layout builder, then publish it here.
+screen__publish_layout__offline	The market can't be reached. Try again later.
+screen__publish_layout__pick__label	Choose one of your layouts
+screen__publish_layout__problem_empty	Add a widget to it first.
+screen__publish_layout__problem_name_characters	Letters, digits, spaces and . , ! ? ' & ( ) : - only, starting with a letter or digit.
+screen__publish_layout__problem_name_double_space	No two spaces in a row.
+screen__publish_layout__problem_name_not_allowed	That name isn't allowed.
+screen__publish_layout__problem_name_too_long	At most 24 characters.
+screen__publish_layout__problem_name_too_short	At least 3 characters.
+screen__publish_layout__problem_no_shapes	Turn on at least one shape.
+screen__publish_layout__problem_too_large	It's too big for the market. Try fewer widgets.
+screen__publish_layout__public_note	Your VHub name shows on it, and anyone can use it, rate it and report it.
+screen__publish_layout__rules__label	I've read the layout rules
+screen__publish_layout__rules_link__label	Layout rules
+screen__publish_layout__shapes__hint	Turn on every shape it looks right on. On others it's fitted, never stretched.
+screen__publish_layout__shapes__label	Made for
+screen__publish_layout__signed_out	Sign in with VHub to publish your layouts.
+screen__publish_layout__title	Publish a layout
+screen__publish_layout__window_full	You've published %1$d in 24 hours. The next one can go out at %2$s.
 screen__settings__ad_choices_failed__message	Couldn't open your ad choices. Please try again.
 screen__settings__bluetooth_led__title	Bluetooth led
 screen__settings__celsius__value	%1$d °C
@@ -520,22 +904,30 @@ screen__style__button_edit_layout__label	Edit layout
 screen__style__button_home_grid__content_description	Home screen view
 screen__style__button_in_use__label	In use
 screen__style__button_next__content_description	Next style
+screen__style__button_pass__label	Every style · %1$s a month
+screen__style__button_pass_no_price__label	Every style with Plus
 screen__style__button_pause__content_description	Pause the demo
 screen__style__button_pending__label	Payment pending
 screen__style__button_play__content_description	Play the demo
 screen__style__button_previous__content_description	Previous style
+screen__style__button_trial__label	Try for 24 h · watch a short video
+screen__style__button_trial_other__label	%1$s trial: %2$d h left
 screen__style__button_try__label	Try it
-screen__style__button_unlock_all__label	Unlock all · %1$s
-screen__style__button_unlock_all_no_price__label	Unlock all
 screen__style__button_use__label	Use this style
 screen__style__button_use_layout__label	Use this layout
 screen__style__layouts__badge_editable__content_description	You can edit it
 screen__style__layouts__badge_fixed__content_description	Fixed layout
 screen__style__layouts__card__content_description	%1$s layout, running live
+screen__style__layouts__group_market	From the market
+screen__style__layouts__group_mine	Mine
+screen__style__layouts__group_ready	Ready-made
 screen__style__layouts__make_your_own	Make your own
+screen__style__layouts__new_layout	New layout
 screen__style__layouts__note_custom	Your own arrangement, made in the layout editor.
 screen__style__layouts__note_editable	Move and resize %1$s's dials with Edit layout.
 screen__style__layouts__note_fixed	%1$s is a fixed layout: its dials stay where the style puts them.
+screen__style__layouts__note_mine	Your own layout: Edit layout changes it, in every style.
+screen__style__layouts__note_shared	Every style draws it its own way. Edit layout starts your own copy.
 screen__style__layouts__title	Layouts · %1$d
 screen__style__message_layout_used	%1$s now uses this layout.
 screen__style__mode_cpu__label	CPU
@@ -543,6 +935,7 @@ screen__style__mode_power__label	Power
 screen__style__mode_speed__label	Speed
 screen__style__position	%1$d / %2$d
 screen__style__preview__content_description	%1$s running a demo drive
+screen__style__trial_note	On trial: %1$d h left. Buy it to keep it.
 screen__style_settings__access__off	Off
 screen__style_settings__access__on	On
 screen__style_settings__access__subtitle	Lets %1$s show your music, calls and messages
@@ -631,23 +1024,30 @@ screen__styles__chip_live__label	Live
 screen__styles__chip_locked__label	Locked
 screen__styles__chip_owned__label	Owned
 screen__styles__chip_pending__label	Pending
+screen__styles__chip_trial__label	Trial · %1$d h
 screen__styles__count#one	%1$d style
 screen__styles__count#other	%1$d styles
 screen__styles__hero__kicker	On your wallpaper
+screen__styles__market__subtitle	Layouts made by players, in any style
+screen__styles__market__title	Layout market
 screen__styles__message_failed	The purchase didn't go through.
+screen__styles__message_pass_on	Speedometer Plus is on: every style is yours.
+screen__styles__message_pass_on_style	Speedometer Plus is on. %1$s is on your wallpaper.
+screen__styles__message_pass_pending	Payment pending. Speedometer Plus starts when it goes through.
 screen__styles__message_pending	Payment pending. %1$s unlocks when it goes through.
 screen__styles__message_play_unavailable	Google Play isn't available right now.
 screen__styles__message_selected	%1$s is on your wallpaper.
-screen__styles__message_unlock_all_pending	Payment pending. Every style unlocks when it goes through.
-screen__styles__message_unlocked_all	Every style is yours. %1$s is on your wallpaper.
-screen__styles__message_unlocked_all_kept	Every style is yours.
+screen__styles__message_trial_closed	The video closed early, so the trial didn't start.
+screen__styles__message_trial_failed	The trial couldn't start. Try again.
+screen__styles__message_trial_no_video	No video right now. Try again in a moment.
+screen__styles__message_trial_started	%1$s is yours for 24 h. It's on your wallpaper now.
 screen__styles__message_use_failed	Couldn't switch to %1$s. Try again.
+screen__styles__pass__button_no_price__label	See plans
+screen__styles__pass__subtitle	Every style and no ads, now and later
+screen__styles__pass__title	Speedometer Plus
 screen__styles__section_more__label	More styles
 screen__styles__section_yours__label	Your styles
 screen__styles__title	Styles
-screen__styles__unlock_all__button_no_price__label	Unlock
-screen__styles__unlock_all__subtitle	Every style and layout, now and later
-screen__styles__unlock_all__title	Unlock all styles
 tile__big_gauge__label	Big gauge
 tile__big_gauge__label_with_mode	Big gauge: %1$s
 tile__big_gauge__mode_cpu_clock	CPU clock
@@ -665,7 +1065,6 @@ variation__circuit_stack__name	Stack
 variation__circuit_wide__name	Wide
 variation__classic__name	Classic
 variation__cockpit__name	Instrument panel
-variation__cockpit_classic__name	Classic
 variation__cockpit_pair__name	Attitude pair
 variation__custom__name	Your layout
 variation__future__name	Future
@@ -675,8 +1074,12 @@ variation__glass_wide__name	Wide
 variation__graphite__name	Classic
 variation__graphite_helm__name	Helm
 variation__graphite_pair__name	Speedometer and clock
-variation__harbour_bridge__name	Bridge
-variation__harbour_helm__name	Helm
+variation__harbour_bridge__name	Yacht Bridge
+variation__harbour_helm__name	Yacht Helm
+variation__harbour_porthole_bridge__name	Porthole Bridge
+variation__harbour_porthole_helm__name	Porthole Helm
+variation__harbour_regatta_bridge__name	Regatta Bridge
+variation__harbour_regatta_helm__name	Regatta Helm
 variation__horizon_hud__name	Fighter HUD
 variation__prism_twin__name	Twin
 variation__prism_wide__name	Wide
@@ -698,3 +1101,84 @@ variation__vintage_console__name	Console
 variation__vintage_pair__name	Speedometer and clock
 variation__vintage_six__name	Six gauges
 wallpaper__speedometer__description	A car-dashboard live wallpaper: power, CPU clock or GPS speed, with battery, Wi-Fi, signal and RAM gauges.
+widgets__compass__e	E
+widgets__compass__n	N
+widgets__compass__ne	NE
+widgets__compass__nw	NW
+widgets__compass__s	S
+widgets__compass__se	SE
+widgets__compass__sw	SW
+widgets__compass__w	W
+widgets__day__1	MON
+widgets__day__2	TUE
+widgets__day__3	WED
+widgets__day__4	THU
+widgets__day__5	FRI
+widgets__day__6	SAT
+widgets__day__7	SUN
+widgets__label__alarm	ALARM
+widgets__label__all_day	ALL DAY
+widgets__label__altitude	ALTITUDE
+widgets__label__average	AVERAGE
+widgets__label__average_short	AVG
+widgets__label__battery_left	LEFT
+widgets__label__battery_to_full	TO FULL
+widgets__label__best	BEST
+widgets__label__climb	CLIMB
+widgets__label__down	DOWN
+widgets__label__drive_time	DRIVE TIME
+widgets__label__falling	FALLING
+widgets__label__lean_left	LEFT
+widgets__label__lean_right	RIGHT
+widgets__label__level	LEVEL
+widgets__label__no_alarm	NO ALARM
+widgets__label__no_events	NO EVENTS
+widgets__label__nose_down	NOSE DOWN
+widgets__label__nose_up	NOSE UP
+widgets__label__odometer	ODOMETER
+widgets__label__peak	PEAK
+widgets__label__pressure	AIR PRESSURE
+widgets__label__rising	RISING
+widgets__label__steady	STEADY
+widgets__label__steps	STEPS
+widgets__label__storage	STORAGE
+widgets__label__sunrise	SUNRISE
+widgets__label__sunset	SUNSET
+widgets__label__time_short	TIME
+widgets__label__today	TODAY
+widgets__label__tomorrow	TOMORROW
+widgets__label__top_speed	TOP SPEED
+widgets__label__trip	TRIP
+widgets__label__up	UP
+widgets__label__volume	VOLUME
+widgets__label__zero_to_100	0–100
+widgets__label__zero_to_60	0–60
+widgets__moon__first_quarter	FIRST QUARTER
+widgets__moon__full	FULL MOON
+widgets__moon__last_quarter	LAST QUARTER
+widgets__moon__new	NEW MOON
+widgets__moon__waning_crescent	WANING CRESCENT
+widgets__moon__waning_gibbous	WANING GIBBOUS
+widgets__moon__waxing_crescent	WAXING CRESCENT
+widgets__moon__waxing_gibbous	WAXING GIBBOUS
+widgets__sky__clear	CLEAR
+widgets__sky__cloudy	CLOUDY
+widgets__sky__fog	FOG
+widgets__sky__partly_cloudy	PARTLY CLOUDY
+widgets__sky__rain	RAIN
+widgets__sky__sleet	SLEET
+widgets__sky__snow	SNOW
+widgets__sky__thunder	THUNDER
+widgets__unit__ft	FT
+widgets__unit__ft_min	FT/MIN
+widgets__unit__gb	GB
+widgets__unit__hpa	HPA
+widgets__unit__kbps	kb/s
+widgets__unit__km	KM
+widgets__unit__kmh	KM/H
+widgets__unit__m	M
+widgets__unit__m_min	M/MIN
+widgets__unit__mbps	Mb/s
+widgets__unit__mi	MI
+widgets__unit__mph	MPH
+widgets__unit__seconds	S
