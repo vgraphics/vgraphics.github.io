@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
-  <title>A shared layout: Speedometer Live Wallpaper</title>
-  <meta name="description" content="Someone shared a dashboard layout from the Speedometer Live Wallpaper layout market. Open it in the app, or get the app on Google Play.">
+  <title>A Speedometer layout: Speedometer Live Wallpaper</title>
+  <meta name="description" content="A dashboard layout from the Speedometer Live Wallpaper layout market, drawn live in your browser. Try it in any style, or open it in the app.">
   <meta name="robots" content="noindex">
   <meta name="theme-color" content="#0B0B0C">
   <meta name="color-scheme" content="dark">
@@ -14,8 +14,8 @@
   <link rel="apple-touch-icon" href="/speedometer-wallpaper/img/icon.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
-  <meta property="og:title" content="A Speedometer layout, shared with you">
-  <meta property="og:description" content="A dashboard layout from the Speedometer Live Wallpaper market. Open it in the app on Android, or get the app on Google Play.">
+  <meta property="og:title" content="A Speedometer layout">
+  <meta property="og:description" content="A dashboard layout from the Speedometer Live Wallpaper market, drawn live in your browser. Open it in the app on Android, or get the app on Google Play.">
   <meta property="og:url" content="https://vgraphics.gr/speedometer-wallpaper/l/">
   <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg">
   <meta property="og:image:width" content="1200">
@@ -39,6 +39,7 @@
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav class="subnav" id="site-menu" aria-label="Speedometer Live Wallpaper">
       <a href="/speedometer-wallpaper/">Overview</a>
+      <a href="/speedometer-wallpaper/layouts/">Layouts</a>
       <a href="/speedometer-wallpaper/wiki/">Wiki</a>
       <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
       <a class="play" href="/speedometer-wallpaper/play/" title="Try online"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Try online</span></a>
@@ -59,7 +60,7 @@
       </picture>
       <div class="hero-foot">
         <div class="wrap">
-          <h1 id="title" class="sr-only">A shared Speedometer layout</h1>
+          <h1 id="title" class="sr-only">A Speedometer layout</h1>
           <p class="lead">A dashboard layout, <em>shared with you.</em></p>
           
         </div>
@@ -69,25 +70,75 @@
     <section class="sec" id="layout">
       <div class="wrap">
         <div class="embed">
-          <div class="shared-layout">
-            <div id="layout-found">
-              <p class="shared-lead">Someone shared a dashboard layout from the Speedometer Live Wallpaper layout market.</p>
-              <p class="shared-caption">Layout code</p>
-              <p class="shared-code" id="layout-code">······</p>
-              <a class="shared-button primary" id="layout-open" href="/speedometer-wallpaper/" hidden>Open in the app</a>
-              <a class="gp shared-play" id="layout-get" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
-              <a class="shared-button" href="/speedometer-wallpaper/play/">Try Speedometer in your browser</a>
-              <ol class="shared-steps">
-                <li>In the app, open <strong>Styles</strong>, then <strong>Layout market</strong>.</li>
-                <li>Type the code in the search box.</li>
-              </ol>
+          <div class="mk-page" data-state="loading">
+            <div class="mk-layout" id="layout-found">
+              <div class="mk-stage">
+                <div class="mk-phone mk-preview" id="layout-phone" data-orientation="portrait">
+                  <div class="mk-screen" id="layout-screen" role="img" aria-label="The layout, drawn live"></div>
+                  <span class="mk-note"></span>
+                </div>
+              </div>
+              <div class="mk-info">
+                <p class="mk-code-line"><span>Layout code</span> <b class="mk-code" id="layout-code">······</b> <button class="mk-button" type="button" id="layout-copy">Copy link</button> <span id="layout-copied" aria-live="polite"></span></p>
+                <h2 id="layout-name">A shared layout</h2>
+                <div id="layout-by"></div>
+                <p class="mk-meta" id="layout-meta"></p>
+                <p class="mk-made" id="layout-made"></p>
+                <div class="mk-segments mk-styles" id="layout-styles" role="group" aria-label="Draw it in a style"></div>
+                <h3>Screens</h3>
+                <ul class="mk-tags" id="layout-shapes"></ul>
+                <h3>Widgets</h3>
+                <ul class="mk-tags" id="layout-widgets"></ul>
+                <div class="mk-get">
+                  <a class="mk-button primary" id="layout-try" href="/speedometer-wallpaper/play/">Try it in your browser</a>
+                  <a class="mk-button" id="layout-open" href="/speedometer-wallpaper/" hidden>Open in the app</a>
+                </div>
+                <div class="mk-get">
+                  <a class="gp" id="layout-get" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+                  <small>The app opens this layout after install.</small>
+                </div>
+                <p><button class="mk-button" type="button" id="layout-report-open">Report this layout</button></p>
+                <form class="mk-report" id="layout-report" hidden>
+                  <fieldset>
+                    <legend>What’s wrong with it?</legend>
+                    <div class="mk-reasons" role="radiogroup">
+                      <label><input type="radio" name="reason" value="name" required> Rude name</label>
+                      <label><input type="radio" name="reason" value="spam"> Spam or a copy</label>
+                      <label><input type="radio" name="reason" value="broken"> Broken</label>
+                      <label><input type="radio" name="reason" value="other"> Something else</label>
+                    </div>
+                  </fieldset>
+                  <label for="layout-message">Anything to add? (optional)</label>
+                  <textarea id="layout-message" name="message" maxlength="500" rows="3"></textarea>
+                  <span class="mk-counter" id="layout-counter">0 / 500</span>
+                  <div class="mk-report-buttons">
+                    <button class="mk-button primary" type="submit">Send report</button>
+                    <button class="mk-button" type="button" id="layout-report-cancel">Cancel</button>
+                  </div>
+                  <p class="mk-message" id="layout-report-failed" hidden>The report didn’t reach us. Try again in a minute.</p>
+                </form>
+                <p class="mk-thanks" id="layout-thanks" hidden>Thanks. We’ll look at it.</p>
+              </div>
             </div>
-            <div id="layout-missing" hidden>
-              <p class="shared-lead">This link has no layout code.</p>
-              <p class="shared-caption">Ask for the link again, or find the layout in the app: open <strong>Styles</strong>, then <strong>Layout market</strong>.</p>
-              <a class="shared-button primary" href="/speedometer-wallpaper/">About Speedometer Live Wallpaper</a>
+            <div class="mk-missing" id="layout-missing" hidden>
+              <h2>This layout isn’t in the market any more.</h2>
+              <p>Its maker may have taken it down, or we did. There are plenty more.</p>
+              <div class="mk-get">
+                <a class="mk-button primary" href="/speedometer-wallpaper/layouts/">See the layout market</a>
+                <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+              </div>
             </div>
+            <div class="mk-missing" id="layout-nocode" hidden>
+              <h2>This link has no layout code.</h2>
+              <p>Ask for the link again, or find the layout in the market: a layout’s code is 6 letters and digits.</p>
+              <div class="mk-get">
+                <a class="mk-button primary" href="/speedometer-wallpaper/layouts/">See the layout market</a>
+              </div>
+            </div>
+            <p class="mk-message" id="layout-failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" id="layout-retry">Try again</button></p>
           </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>
         </div>
         
       </div>
@@ -108,6 +159,7 @@
     <div class="wrap">
       <a class="foot-brand" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="48" height="48"><span>Speedometer Live Wallpaper</span></a>
       <nav class="foot-links" aria-label="Speedometer Live Wallpaper and VGraphics">
+        <a href="/speedometer-wallpaper/layouts/">Layouts</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
         <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
         <a href="/apps/">More apps</a><span class="sep" aria-hidden="true">·</span>

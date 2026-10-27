@@ -1,0 +1,182 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="theme-color" content="#0B1623" />
+    <title>Palermo Noir demo · Play a guided game online</title>
+    <!-- Each meta on one line: the site's check-site reads them so (<meta name="…" content="…">). -->
+    <meta name="description" content="Try Palermo Noir, the hidden-role party game, alone and online: pick a role, play a whole game against bots, and a guide explains every night, dawn, talk, vote and verdict." />
+    <link rel="canonical" href="https://vgraphics.gr/palermo/demo/" />
+    <link rel="icon" href="../game/art/logo.svg" type="image/svg+xml" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="VGraphics" />
+    <meta property="og:title" content="Palermo Noir demo · Play a guided game online" />
+    <meta property="og:description" content="Pick a role and play a whole game of Palermo Noir against bots, with a guide that explains every moment." />
+    <meta property="og:url" content="https://vgraphics.gr/palermo/demo/" />
+    <meta property="og:image" content="https://vgraphics.gr/palermo/game/art/key-wide.webp" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <!-- Search results (the site's check-site, "seo"): the page, where it sits, and the About panel's questions, word for
+         word as the panel has them in English (about.test.ts). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@graph": [
+          {
+            "@type": "WebPage",
+            "@id": "https://vgraphics.gr/palermo/demo/#page",
+            "url": "https://vgraphics.gr/palermo/demo/",
+            "name": "Palermo Noir demo · Play a guided game online",
+            "description": "Try Palermo Noir, the hidden-role party game, alone and online: pick a role, play a whole game against bots, and a guide explains every night, dawn, talk, vote and verdict.",
+            "inLanguage": "en",
+            "about": { "@id": "https://vgraphics.gr/palermo/#game" },
+            "publisher": { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+            "breadcrumb": {
+              "@type": "BreadcrumbList",
+              "itemListElement": [
+                { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+                { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+                { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" },
+                { "@type": "ListItem", "position": 4, "name": "Demo", "item": "https://vgraphics.gr/palermo/demo/" }
+              ]
+            }
+          },
+          {
+            "@type": "FAQPage",
+            "mainEntity": [
+              {
+                "@type": "Question",
+                "name": "Do I need friends or an account to try it?",
+                "acceptedAnswer": { "@type": "Answer", "text": "No. The whole demo runs in this page, with a bot in every other seat. There's nothing to install and nothing to sign in to." }
+              },
+              {
+                "@type": "Question",
+                "name": "Is this the real game?",
+                "acceptedAnswer": { "@type": "Answer", "text": "The screens, the rules and the narrator are the real game's. Only the other players are bots, and the clock waits while the guide explains." }
+              },
+              {
+                "@type": "Question",
+                "name": "How do we play it together?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Each player needs a phone, and the room needs one screen everyone can see, such as a smart TV's browser or a laptop. The host opens a room, and the others join with its code." }
+              }
+            ]
+          }
+        ]
+      }
+    </script>
+    <!-- The site's cursors (every page on vgraphics.gr links it; palermo.css sets Palermo's); vite-ignore leaves the
+         site's own files to the site. -->
+    <link rel="stylesheet" href="/assets/cursors.css"  />
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
+    <script src="/assets/no-select.js" defer ></script>
+    <style>
+      html, body { margin: 0; background: #0A090D; color: #EFE7D4; }
+      /* The company's legal line, the site's rule for every page: small, at the page's foot, under the About panel. Not
+         fixed to the screen: on a phone the setup is longer than the screen, and a fixed line sat over the role grid
+         (George's S25+, 27 Oct 2026). */
+      .party-legal { padding: 1em 1em calc(1em + env(safe-area-inset-bottom)); background: #0B1623; color: rgba(239, 231, 212, 0.55);
+        font: 12px/1.5 system-ui, sans-serif; text-align: center; }
+      .party-legal a { color: inherit; }
+      /* No selecting and no long-press menu (George, 26 Oct 2026): the kit's KitRoot does it for the whole page; this
+         covers the legal line before the app has loaded. */
+      .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+    </style>
+    <script type="module" crossorigin src="/palermo/game/demo-BUzijR_H.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/sound-DMOitIUo.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/consent-banner-DXGQqt0g.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/sound-BEE-DnvU.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/demo-WApsGCzl.css">
+  </head>
+  <body>
+    <!-- The start-up (D:\Projects\Mine\CLAUDE.md): the party games' shared welcome from vgraphics.gr/tv/start-up/, the
+         game's key art with the squishy loading bar in Palermo's look, and over it the VGraphics intro (a tap skips it).
+         The demo's start-up.ts lets the welcome go 2 s after the intro at the earliest. Addresses relative to this page. -->
+    <div
+      id="party-welcome"
+      data-art="../game/art/key-wide.webp"
+      data-art-tall="../game/art/key-tall.webp"
+      data-logo="../game/art/logo.webp"
+      data-accent="#E8B65A"
+      data-accent-lip="#B8862E"
+      data-track="#13243A"
+      data-track-lip="#060D16"
+      data-groove="#08111C"
+      data-rim="#B8862E"
+    ></div>
+    <script src="../../tv/start-up/welcome.js"></script>
+    <script src="../../tv/start-up/brand-intro.js" data-under="party-welcome" data-film="1080"></script>
+    <div id="app"></div>
+    <!-- The About panel under the demo (D:\Projects\Mine\CLAUDE.md, "An 'About' panel under every play and try page"):
+         what Palermo Noir is and how the demo goes, in words found nowhere else on the site, here in the page so they
+         read before the demo loads. No ads in it. In English; about.ts puts every data-about part in the page's language
+         (the words are the messages pal.demo.about.*, and about.test.ts holds the two together). Keep its facts true
+         when the demo changes. -->
+    <section id="about" class="demo-about" aria-labelledby="about-title">
+      <header class="demo-about-head">
+        <img class="logo" src="../game/art/logo.webp" width="720" height="349" alt="Palermo Noir" loading="lazy" />
+        <h1 id="about-title" data-about="pal.demo.about.title">A guided game of Palermo Noir, right here in your browser</h1>
+        <p class="demo-about-lede" data-about="pal.demo.about.lede">Palermo Noir is a hidden-role party game for 6 to 14 friends in one room: every phone hides a secret card, and the TV runs the town. This demo lets you learn it on your own first. You sit at a table of bots, and a guide stops the game at each new moment to show you what to tap, and why it matters.</p>
+      </header>
+
+      <section aria-labelledby="about-how">
+        <h2 id="about-how" data-about="pal.demo.about.how.title">How the demo works</h2>
+        <div class="demo-about-how">
+          <ol class="demo-about-steps demo-about-card">
+            <li><p data-about="pal.demo.about.how.1">Choose your seat: one of the 14 roles, or Surprise me for a random deal. Then a table of 6, 8 or 10 players, in English or Greek.</p></li>
+            <li><p data-about="pal.demo.about.how.2">Choose how long. The short demo takes about six minutes, through the deal, two nights and a day. The full one plays a whole game to its end in about fifteen.</p></li>
+            <li><p data-about="pal.demo.about.how.3">Play your part. You see the game's own screens, with the guide beside them. On your turn it rings the spot to tap, and the bots answer as real players would.</p></li>
+          </ol>
+          <div class="demo-about-lost demo-about-card">
+            <h3 data-about="pal.demo.about.lost.title">Lost the thread?</h3>
+            <p data-about="pal.demo.about.lost.1">Chapters take you back to any moment, and Back replays the last one. 2× speed hurries the waiting.</p>
+            <p data-about="pal.demo.about.lost.2">Behind the scenes shows what every role did in the dark: whom the killers chose, whom the Doctor guarded.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="about-see">
+        <h2 id="about-see" data-about="pal.demo.about.see.title">What you'll see</h2>
+        <div class="demo-about-tiles">
+          <div class="demo-about-card"><h3 data-about="pal.demo.about.see.night">The night</h3><p data-about="pal.demo.about.see.nightText">The killers pick a victim in secret, while the Doctor guards someone and the Police Officer checks a suspect.</p></div>
+          <div class="demo-about-card"><h3 data-about="pal.demo.about.see.dawn">Dawn</h3><p data-about="pal.demo.about.see.dawnText">The narrator tells the town who died in the night, or who was saved, and the day begins.</p></div>
+          <div class="demo-about-card"><h3 data-about="pal.demo.about.see.talk">Talk and vote</h3><p data-about="pal.demo.about.see.talkText">The bots accuse, deny and defend each other in Table talk. You point at your suspect, then cast your vote.</p></div>
+          <div class="demo-about-card"><h3 data-about="pal.demo.about.see.verdict">The verdict</h3><p data-about="pal.demo.about.see.verdictText">A tie sends the town to a second vote. Whoever goes out turns their card over, and night falls again.</p></div>
+        </div>
+      </section>
+
+      <section aria-labelledby="about-faq">
+        <h2 id="about-faq" data-about="pal.demo.about.faq.title">Questions</h2>
+        <div class="faq">
+          <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.alone">Do I need friends or an account to try it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.aloneText">No. The whole demo runs in this page, with a bot in every other seat. There's nothing to install and nothing to sign in to.</p></div></details>
+          <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.real">Is this the real game?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.realText">The screens, the rules and the narrator are the real game's. Only the other players are bots, and the clock waits while the guide explains.</p></div></details>
+          <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.friends">How do we play it together?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.friendsText">Each player needs a phone, and the room needs one screen everyone can see, such as a smart TV's browser or a laptop. The host opens a room, and the others join with its code.</p></div></details>
+        </div>
+      </section>
+
+      <section aria-labelledby="about-more">
+        <h2 id="about-more" data-about="pal.demo.about.more.title">More about Palermo Noir</h2>
+        <div class="demo-about-links">
+          <a href="/palermo/wiki/" data-about="pal.demo.about.more.wiki">Every role, in the wiki</a>
+          <a href="/palermo/wiki/host-rules/" data-about="pal.demo.about.more.host">The host's rules</a>
+          <a href="/palermo/gallery/" data-about="pal.demo.about.more.gallery">The gallery</a>
+          <a href="/hub/" data-about="pal.demo.about.more.hub">Your VHub name for every room</a>
+          <a href="/palermo/" data-about="pal.demo.about.more.home">All about Palermo Noir</a>
+        </div>
+      </section>
+
+      <div class="demo-about-end">
+        <button type="button" class="demo-about-back" data-about="pal.demo.about.back">Back to the demo</button>
+      </div>
+    </section>
+    <!-- The bar under the setup: its one button goes down to the panel and, there, back up (about.ts). Gone while the
+         game plays. -->
+    <div class="demo-about-bar">
+      <button type="button" id="about-go" aria-controls="about"><span>About this game</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+    </div>
+    <!-- In the page's HTML, in English; the kit's LegalLine puts it in the page's language. Hidden during the game. -->
+    <footer id="party-legal" class="party-legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. <span data-legal="rights">All rights reserved</span> · <span data-legal="gemi">G.E.MI. no. 181823306000</span> · <span data-legal="vat">VAT no. EL802736373</span> · <a href="/company/" data-legal="company">Company</a> · <a href="/privacy/" data-legal="privacy">Privacy</a> · <a href="/terms/" data-legal="terms">Terms</a></footer>
+    <!-- The site's questions and answers: they open and close smoothly, one at a time (the site's own file, so
+         vite-ignore; on the dev server it's missing, and they open and close at once). -->
+    <script type="module" src="/assets/faq.js" ></script>
+  </body>
+</html>

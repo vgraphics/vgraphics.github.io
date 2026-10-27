@@ -1,6 +1,7 @@
 {
   "title": "Torque Speedometer Live Wallpaper: Muscle Car Dash",
   "description": "Torque: a muscle-car dash with a big round dial on gunmetal. A car dashboard live wallpaper for Android: power, CPU clock or GPS speed. €2.39, once.",
+  "robots": "noindex",
   "social": {
     "title": "Torque, a Speedometer Live Wallpaper style",
     "description": "A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs.",
@@ -92,6 +93,7 @@
           "store": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper",
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
+          "layouts": "/speedometer-wallpaper/market/market.js",
           "prices": {
             "premium": "€2.39",
             "all": "€5.99"
@@ -150,6 +152,18 @@
               "text": "Most styles come in several layouts. You can also drag and resize the gauges and save your own."
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "layouts",
+      "eyebrow": "From the layout market",
+      "title": "Layouts made with Torque",
+      "intro": "Drivers built these layouts in Torque and shared them in the app's layout market, most used first. Every layout works in every style.",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "../made-with"
         }
       ]
     },

@@ -1,0 +1,29 @@
+          <div class="mk-browse">
+            <div class="mk-controls">
+              <form class="mk-search" role="search" data-market="search">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-4-4"/></svg>
+                <label class="sr-only" for="mk-search">Search by name or code</label>
+                <input id="mk-search" type="search" name="q" placeholder="Search by name or code" autocomplete="off" spellcheck="false" maxlength="60" enterkeyhint="search">
+              </form>
+              <div class="mk-segments mk-tabs" role="group" aria-label="Order">
+                <button type="button" data-tab="popular" aria-pressed="true">Popular</button>
+                <button type="button" data-tab="new" aria-pressed="false">New</button>
+                <button type="button" data-tab="top" aria-pressed="false">Top rated</button>
+              </div>
+              <div class="mk-segments" role="group" aria-label="Screens">
+                <button type="button" data-shape="" aria-pressed="true">All screens</button>
+                <button type="button" data-shape="phone" aria-pressed="false">Phone</button>
+                <button type="button" data-shape="tall" aria-pressed="false">Tall / Flip</button>
+                <button type="button" data-shape="foldable" aria-pressed="false">Foldable</button>
+                <button type="button" data-shape="tablet" aria-pressed="false">Tablet</button>
+                <button type="button" data-now-playing aria-pressed="false">With Now Playing</button>
+              </div>
+            </div>
+            <p class="mk-message" data-market="status" aria-live="polite" hidden></p>
+            <ul class="mk-grid" aria-label="Layouts"></ul>
+            <p class="mk-message" data-market="failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" data-market="retry">Try again</button></p>
+            <p class="mk-message" data-market="empty" hidden>No layout fits these filters yet. <button class="mk-button" type="button" data-market="all-screens">All screens</button></p>
+            <div class="mk-more"><button class="mk-button" type="button" data-market="more" hidden>Show 20 more</button></div>
+          </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>

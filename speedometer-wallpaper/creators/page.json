@@ -1,0 +1,22 @@
+{
+  "title": "A Speedometer layout creator: Speedometer Live Wallpaper",
+  "description": "The dashboard layouts a Speedometer Live Wallpaper player shared in the layout market, with how often they were used and how they were rated.",
+  "robots": "noindex",
+  "social": {
+    "title": "A Speedometer layout creator",
+    "description": "Dashboard layouts a Speedometer Live Wallpaper player built and shared, drawn by the app itself.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "hero": {
+    "title": "A Speedometer layout creator",
+    "lead": "Layouts from one driver's <em>garage.</em>",
+    "align": "center"
+  },
+  "sections": [
+    {
+      "id": "creator",
+      "blocks": [{ "type": "embed", "src": "creator" }]
+    }
+  ]
+}

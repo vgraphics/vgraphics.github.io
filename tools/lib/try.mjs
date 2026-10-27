@@ -20,6 +20,9 @@
 //                  it at once
 //   style          one style's page (speedometer-wallpaper/styles/<style>/): the phone opens on that style, and the
 //                  panel has no list of styles and no previous and next; its layouts and settings stay
+//   layouts        a script that reads the product's shared layouts by code (window.VGTryLayouts.resolve, Speedometer's
+//                  market/market.js): a link #layout=<CODE>&style=<id> opens on that market layout, the panel says
+//                  whose it is, and the store links carry the code (the web market design §5.2)
 //   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
 import { esc } from './partials.mjs'
 
@@ -55,6 +58,7 @@ export function tryBlock(b, page) {
     gpsLabel: l.gps ?? 'Use my real speed',
     startup: b.startup === false ? false : { base: '/assets/startup/', minMs: 2000, ...b.startup },
     ...(b.style ? { style: b.style } : {}),
+    ...(b.layouts ? { layouts: b.layouts } : {}),
   }
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
@@ -90,7 +94,7 @@ export function tryBlock(b, page) {
             <div class="try-now">
               ${[step('prev', 'The style before', 'prev'), '<div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>', step('next', 'The next style', 'next')].filter(Boolean).join('\n              ')}
             </div>
-            <p class="try-hint">${l.gauge ?? 'Tap the big gauge to switch what it shows, as on your phone.'}</p>
+            ${config.layouts ? '<p class="try-shared" hidden></p>\n            ' : ''}<p class="try-hint">${l.gauge ?? 'Tap the big gauge to switch what it shows, as on your phone.'}</p>
             <div class="try-quick">
               <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
               <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>

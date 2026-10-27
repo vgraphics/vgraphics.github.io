@@ -87,6 +87,10 @@
         "href": "/speedometer-wallpaper/"
       },
       {
+        "label": "Layouts",
+        "href": "/speedometer-wallpaper/layouts/"
+      },
+      {
         "label": "Wiki",
         "href": "/speedometer-wallpaper/wiki/"
       },
@@ -704,6 +708,18 @@
               "text": "On a new phone with the same Google account, the styles you bought come back by themselves."
             }
           ]
+        }
+      ]
+    },
+    {
+      "id": "layouts",
+      "eyebrow": "From the layout market",
+      "title": "Layouts made by drivers",
+      "intro": "Players build their own dashboards in the app and share them in the layout market. Every layout works with every style, and each one here is drawn by the app itself.",
+      "blocks": [
+        {
+          "type": "embed",
+          "src": "market-chapter"
         }
       ]
     },
