@@ -2,6 +2,8 @@
 //   <product>/wiki/index.html and <product>/wiki/<slug>/index.html
 // Usage: node tools/build-wiki.mjs [product ...]   (default: every product with a wiki/wiki.json)
 // The JSON is the single source; never edit the generated pages by hand. Its text is trusted HTML from this repo.
+// An entry with "robots": "noindex" stays on the wiki but out of search and the sitemap: one with too little text of
+// its own (AdSense's "Low-value content" review, 27 Oct 2026). Take it out once the entry has a real write-up.
 //
 // One layout for every product's wiki (George, 22 Oct 2026, direction "A+B"): each entry opens on its own Recraft
 // painting, then a calm reading column with the game's or app's own pieces in it: level bubbles and world chips, a
@@ -144,7 +146,8 @@ function shell(w, product, { title, description, path, body, entry, image, prelo
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}">
+  <meta name="description" content="${esc(description)}">${entry?.robots ? `
+  <meta name="robots" content="${esc(entry.robots)}">` : ''}
   <link rel="canonical" href="https://vgraphics.gr${path}">
   ${iconLinks(product.page)}
   <meta property="og:title" content="${esc(title)}">
