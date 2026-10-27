@@ -76,9 +76,11 @@ The app pages are the exceptions to "no third-party scripts":
   no `page.json`. Each release also runs `tools/build-sitemap.mjs`, so `sitemap.xml` lists the hub's pages.
 
 Every company page ends with `<script src="/assets/vhub-me.js" defer>` (the hub's pages too, from the VHub repo): when
-someone is signed in to VHub, it shows their little picture in the header's VHub link (George, 23 Oct 2026). It only
-reads `vhub.me` from this site's localStorage, which the hub writes while a player is signed in (their name and a
-small picture as a `data:` URL) and removes on sign-out, so the static pages still load nothing from another site.
+someone is signed in to VHub, it shows their little picture in the header's VHub link (George, 23 Oct 2026), in the
+frame of their rank (26 Oct), or their initial when the hub couldn't make a copy of their photo. It only reads
+`vhub.me` from this site's localStorage, which the hub writes while a player is signed in (their name, a small picture
+as a `data:` URL, and the frame: one of the hub's own `/hub/frames/*.webp` with its opening's place) and removes on
+sign-out, so the static pages still load nothing from another site.
 
 The company pages (home, games, apps, services, multiplayer, hub, company, privacy, 404) share one header (Games,
 Apps, Services, VHub, Contact) and one footer. Each menu wears one of the logo's dots: Games sun, Apps coral, Services
