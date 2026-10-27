@@ -3,16 +3,16 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Company information: VGRAPHICS SINGLE MEMBER P.C. · VGraphics</title>
-  <meta name="description" content="Legal details of VGRAPHICS SINGLE MEMBER P.C., the company behind VGraphics: G.E.MI. number, VAT number and registered office in Kalamaria, Thessaloniki.">
+  <title>About VGraphics: the studio and company information · VGraphics</title>
+  <meta name="description" content="VGraphics is a one-person game and app studio in Thessaloniki, Greece: what we make, how we work, and the legal details of VGRAPHICS SINGLE MEMBER P.C.">
   <link rel="canonical" href="https://vgraphics.gr/company/">
   <link rel="icon" href="/img/vgraphics-logo.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
-  <meta property="og:title" content="Company information · VGraphics">
-  <meta property="og:description" content="The legal details of VGRAPHICS SINGLE MEMBER P.C., the company behind VGraphics, from the Greek General Commercial Registry.">
+  <meta property="og:title" content="About VGraphics">
+  <meta property="og:description" content="A one-person game and app studio in Thessaloniki, Greece: what we make, how we work, and the company behind it.">
   <meta property="og:url" content="https://vgraphics.gr/company/">
   <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
   <meta property="og:image:width" content="1200">
@@ -26,8 +26,28 @@
     "@type": "BreadcrumbList",
     "itemListElement": [
       { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
-      { "@type": "ListItem", "position": 2, "name": "Company information", "item": "https://vgraphics.gr/company/" }
+      { "@type": "ListItem", "position": 2, "name": "About VGraphics", "item": "https://vgraphics.gr/company/" }
     ]
+  }
+  </script>
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    "url": "https://vgraphics.gr/company/",
+    "name": "About VGraphics",
+    "mainEntity": {
+      "@type": "Organization",
+      "@id": "https://vgraphics.gr/#organization",
+      "name": "VGraphics",
+      "legalName": "VGRAPHICS SINGLE MEMBER P.C.",
+      "url": "https://vgraphics.gr/",
+      "logo": "https://vgraphics.gr/img/vgraphics-logo.png",
+      "email": "support@vgraphics.gr",
+      "foundingDate": "2025-01-22",
+      "vatID": "EL802736373",
+      "address": { "@type": "PostalAddress", "addressLocality": "Kalamaria, Thessaloniki", "addressCountry": "GR" }
+    }
   }
   </script>
   <script src="/assets/theme.js"></script>
@@ -55,6 +75,17 @@
     .sheet dt { color: var(--ink-2); font-size: 0.92rem; font-weight: 600; padding-top: 1px; }
     .sheet dd { margin: 0; font-weight: 600; overflow-wrap: anywhere; font-variant-numeric: tabular-nums; }
     .sheet dd small { display: block; font-weight: 400; color: var(--ink-2); }
+
+    /* About the studio: a reading column, then what we make as cards whose links line up at their foot */
+    .about { display: grid; gap: var(--s3); max-width: 46em; margin-bottom: var(--s6); }
+    .about h2 { font-size: clamp(1.5rem, 2.8vw, 2rem); }
+    .about p { font-size: 1.06rem; line-height: 1.7; }
+    .makes { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 250px), 1fr)); gap: 14px; margin-bottom: var(--s6); }
+    .make { display: flex; flex-direction: column; gap: 8px; padding: 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); }
+    .make h3 { font-size: 1.15rem; }
+    .make p { color: var(--ink-2); }
+    .make a { margin-top: auto; padding-top: 6px; font-weight: 600; }
+    .legal-title { font-size: clamp(1.5rem, 2.8vw, 2rem); margin-bottom: var(--s3); }
 
     .source { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 16px; margin-top: var(--s4); padding: 22px 26px; border-radius: var(--r-md); background: var(--surface-2); }
     .source p { color: var(--ink-2); max-width: 44em; }
@@ -92,11 +123,34 @@
 
 <main id="main" class="wrap">
   <div class="intro">
-    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Legal notice</span>
-    <h1>Company information</h1>
-    <p class="lede">This website and the games and apps on it are published by VGRAPHICS SINGLE MEMBER P.C., a company registered in Greece.</p>
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> About · Legal notice</span>
+    <h1>About VGraphics</h1>
+    <p class="lede">VGraphics is an independent game and app studio in Thessaloniki, Greece. This website and the games and apps on it are published by VGRAPHICS SINGLE MEMBER P.C., a company registered in Greece.</p>
   </div>
 
+  <section class="about" aria-labelledby="studio-title">
+    <h2 id="studio-title">The studio</h2>
+    <p>VGraphics is one person. The games, the apps, the servers behind them, the release tooling and this website are designed, built and shipped here, so when you write to us, the person who answers is the person who made the thing you're writing about.</p>
+    <p>The company was founded in January 2025. Today it makes a puzzle game, a live wallpaper for Android and a party game for the living room, with one account, VHub, that ties them together.</p>
+  </section>
+
+  <section aria-labelledby="makes-title">
+    <h2 class="legal-title" id="makes-title">What we make</h2>
+    <div class="makes">
+      <article class="make"><h3>Exitwise</h3><p>An arrow puzzle: an arrow slides off the board only when nothing blocks its path, so the order is everything. 600 levels in 17 worlds, rooms to race friends and a global ranking. On Android, and playable in your browser.</p><a href="/exitwise/">About Exitwise</a></article>
+      <article class="make"><h3>Speedometer Live Wallpaper</h3><p>A car dashboard for your Android home screen: battery power, processor clock or GPS speed on a big gauge, in 19 styles. Its real engine runs on this site, so you can try every style first.</p><a href="/speedometer-wallpaper/">About Speedometer</a></article>
+      <article class="make"><h3>Palermo Noir</h3><p>A party game of killers and townsfolk for 6 to 14 players, each with a phone, around one TV. In the works, and coming to the web first.</p><a href="/palermo/">About Palermo Noir</a></article>
+      <article class="make"><h3>VHub</h3><p>One account for every VGraphics game and app: a name and picture, a level, achievements and friends.</p><a href="/hub/">Open VHub</a></article>
+    </div>
+  </section>
+
+  <section class="about" aria-labelledby="how-title">
+    <h2 id="how-title">How we work</h2>
+    <p>Puzzle levels come from fixed seeds, so every player gets the same board, and each one is tested to be solvable before it ships. The web versions run the same code as the apps rather than a copy made for the web. Privacy policies are short enough to read, most pages on this site collect nothing at all, and the web games ask before counting statistics and, in Europe, before showing personalised ads.</p>
+    <p>We write about how the games and apps are made in the <a href="/devlog/">devlog</a>. For work for clients, from Android apps to multiplayer backends, see <a href="/services/">what we build</a>. And for anything else, email <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>: every email gets read.</p>
+  </section>
+
+  <h2 class="legal-title">Company information</h2>
   <div class="keys">
     <div class="key"><span>G.E.MI. no.</span><b>181823306000</b></div>
     <div class="key"><span>VAT no.</span><b>EL802736373</b></div>

@@ -106,6 +106,7 @@
    "slug": "hidden-killer",
    "section": "roles",
    "name": "Hidden Killer",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/hidden-killer.webp",
    "summary": "A killer the Police Officer doesn't know, and the Detective sees as innocent.",
    "what": [
@@ -243,6 +244,7 @@
    "slug": "detective",
    "section": "roles",
    "name": "Detective",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/detective.webp",
    "summary": "Each night, checks one player: killer or not.",
    "what": [
@@ -305,6 +307,7 @@
    "slug": "bulletproof",
    "section": "roles",
    "name": "Bulletproof",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/bulletproof.webp",
    "summary": "Survives the killers' first attack on him.",
    "what": [
@@ -336,6 +339,7 @@
    "slug": "henchman",
    "section": "roles",
    "name": "Henchman",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/henchman.webp",
    "summary": "Knows the killers, unknown to them, and wins with them.",
    "what": [
@@ -469,6 +473,7 @@
    "slug": "kamikaze",
    "section": "roles",
    "name": "Kamikaze",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/kamikaze.webp",
    "summary": "With the killers. Once, during a day, he blows himself up and takes one player with him.",
    "what": [
@@ -501,6 +506,7 @@
    "slug": "madman",
    "section": "roles",
    "name": "Madman",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/madman.webp",
    "summary": "Wins alone if the town votes him out, and that ends the game.",
    "what": [
@@ -559,6 +565,7 @@
    "slug": "objection",
    "section": "powers",
    "name": "Objection!",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/objection.webp",
    "summary": "After the count, cancels the verdict: nobody goes out today.",
    "what": [
@@ -593,6 +600,7 @@
    "slug": "client",
    "section": "powers",
    "name": "Client",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/client.webp",
    "summary": "Picks a client: if the town votes them out, the vote fails, once.",
    "what": [
@@ -628,6 +636,7 @@
    "slug": "appeal",
    "section": "powers",
    "name": "Appeal",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/appeal.webp",
    "summary": "At a verdict: the condemned defends for 20 seconds, then a majority must confirm.",
    "what": [
@@ -662,6 +671,7 @@
    "slug": "retrial",
    "section": "powers",
    "name": "Retrial",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/retrial.webp",
    "summary": "At a verdict: the vote is thrown out, and the town revotes between the top two.",
    "what": [
@@ -696,6 +706,7 @@
    "slug": "hung-jury",
    "section": "powers",
    "name": "Hung jury",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/hung-jury.webp",
    "summary": "Today someone goes out only with a majority of the living.",
    "what": [
@@ -730,6 +741,7 @@
    "slug": "alibi",
    "section": "powers",
    "name": "Alibi",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/alibi.webp",
    "summary": "At night: gives a player an alibi, so they can't be voted out the next day.",
    "what": [
@@ -764,6 +776,7 @@
    "slug": "cross-examination",
    "section": "powers",
    "name": "Cross-examination",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/cross-examination.webp",
    "summary": "During the talk: puts a player on the stand with a set question, for 30 seconds.",
    "what": [
@@ -798,6 +811,7 @@
    "slug": "case-file",
    "section": "powers",
    "name": "Case file",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/case-file.webp",
    "summary": "At night: learns whether a player did anything that night.",
    "what": [
@@ -832,6 +846,7 @@
    "slug": "plea-bargain",
    "section": "powers",
    "name": "Plea bargain",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/plea-bargain.webp",
    "summary": "If the Lawyer is voted out, he survives, but his card is shown.",
    "what": [
@@ -866,6 +881,7 @@
    "slug": "last-will",
    "section": "powers",
    "name": "Last will",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/last-will.webp",
    "summary": "When the Lawyer dies, he names a player, and their team is read out.",
    "what": [
@@ -900,6 +916,7 @@
    "slug": "gag-order",
    "section": "powers",
    "name": "Gag order",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/gag-order.webp",
    "summary": "One player's vote doesn't count today.",
    "what": [
@@ -934,6 +951,7 @@
    "slug": "safe-house",
    "section": "powers",
    "name": "Safe house",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/safe-house.webp",
    "summary": "At night: one player is safe from tonight's killers and the next day's vote.",
    "what": [
@@ -968,6 +986,7 @@
    "slug": "bail",
    "section": "powers",
    "name": "Bail",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/bail.webp",
    "summary": "At night: yesterday's condemned comes back at dawn, without a vote.",
    "what": [
@@ -1002,6 +1021,7 @@
    "slug": "change-of-venue",
    "section": "powers",
    "name": "Change of venue",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/change-of-venue.webp",
    "summary": "Today's vote becomes secret, or open if the room votes in secret.",
    "what": [
@@ -1036,6 +1056,7 @@
    "slug": "injunction",
    "section": "powers",
    "name": "Injunction",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/injunction.webp",
    "summary": "For today, the Mayor's vote counts once and the Kamikaze can't blow up.",
    "what": [
@@ -1070,6 +1091,7 @@
    "slug": "power-of-attorney",
    "section": "powers",
    "name": "Power of attorney",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/power-of-attorney.webp",
    "summary": "At the vote, a dead player casts one last vote through the Lawyer.",
    "what": [
@@ -1104,6 +1126,7 @@
    "slug": "sealed-evidence",
    "section": "powers",
    "name": "Sealed evidence",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/sealed-evidence.webp",
    "summary": "At a verdict: shows the condemned's team, then the town confirms or cancels.",
    "what": [
@@ -1251,6 +1274,7 @@
    "slug": "ties",
    "section": "rules",
    "name": "Ties",
+   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/ties.webp",
    "summary": "A revote among the tied, a short talk, a last revote, then nobody goes out, or fate decides.",
    "what": [
