@@ -96,6 +96,75 @@
           ]
         }
       ]
+    },
+    {
+      "id": "about",
+      "eyebrow": "About the app",
+      "title": "About Speedometer Live Wallpaper",
+      "intro": "Speedometer Live Wallpaper turns an Android home screen into a working car dashboard. It isn't a picture: the needles follow what your phone is really doing, from the power flowing into or out of its battery to the processor's clock speed or, on the road, your GPS speed. It runs on Android 8.0 or newer, on phones, foldables and tablets.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "One dial, three readings", "text": "Battery power in watts, the processor's clock or GPS speed in km/h or mph. A tap on the home screen moves the dial to the next one." },
+            { "title": "Gauges all around it", "text": "Battery level and temperature, memory in use, mobile signal, Wi-Fi and its link speed, a clock and a date, and warning lights for Bluetooth, charging and heat." },
+            { "title": "Layouts of your own", "text": "Drag and resize any style's gauges and keep the arrangement, or open the layout market and use one that another driver built." },
+            { "title": "Free to start", "text": "Classic, Steel and Graphite cost nothing. Each other style is a one-time purchase, and it follows your Google account to a new phone." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "how-to",
+      "eyebrow": "How to use it",
+      "title": "Getting the most from the demo",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Wait a few seconds while the engine loads: it is the app's own drawing code, running in your browser instead of on a phone.",
+            "Tap the big gauge to cycle through power, CPU clock and speed, exactly as you would on your home screen.",
+            "Flip through the styles in the panel, try each one's layouts, and change its colours, units and lights under Settings.",
+            "Rotate the phone, lay home-screen icons over it or go full screen, then copy a link to the look you made and send it on."
+          ]
+        }
+      ]
+    },
+    {
+      "id": "questions",
+      "eyebrow": "Before you install",
+      "title": "A few questions",
+      "blocks": [
+        {
+          "type": "faq",
+          "items": [
+            { "q": "Will the app look exactly like this?", "a": "Yes. This page runs the same drawing code as the app, checked picture by picture against the app's own screenshots, so a style you like here looks the same behind your icons." },
+            { "q": "Does the demo use my location?", "a": "Only after you tap Use my real speed and allow it when your browser asks. Your speed is worked out on this page and never sent anywhere, and Back to the demo drive stops it." },
+            { "q": "Do I need an account?", "a": "No. The app works without one. Signing in with a free VHub account is optional: it keeps a backup of your settings and lets you share your own layouts in the market." },
+            { "q": "What does a premium style cost?", "a": "Its price shows beside its name in the panel above. You pay once on Google Play, and the style stays yours on every phone signed in to the same Google account." },
+            { "q": "Is there an iPhone version?", "a": "No. iPhones don't let apps draw a live wallpaper, so Speedometer is for Android only: phones, tall Flip screens, foldables and tablets." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "explore",
+      "eyebrow": "Keep exploring",
+      "title": "More about Speedometer",
+      "intro": "Every gauge has its own page in the wiki, the layout market shows what other drivers built, and What's new lists each release.",
+      "blocks": [
+        {
+          "type": "actions",
+          "items": [
+            { "href": "/speedometer-wallpaper/", "label": "The overview", "note": "Every style" },
+            { "href": "/speedometer-wallpaper/wiki/", "label": "The wiki", "note": "Each gauge explained" },
+            { "href": "/speedometer-wallpaper/layouts/", "label": "The layout market", "note": "Drivers' layouts" },
+            { "href": "/speedometer-wallpaper/#whats-new", "label": "What's new", "note": "Each release" },
+            { "href": "/speedometer-wallpaper/privacy.html", "label": "Privacy policy", "note": "What the app keeps" },
+            "google-play"
+          ]
+        }
+      ]
     }
   ],
   "cta": {
