@@ -1,6 +1,6 @@
 # Real words and numbers over the ones the AI drew in a wiki painting (the house rule, George, 26 Oct 2026: readable
 # numbers and text in art are never AI-drawn). tools/make-wiki-art.py runs it on an entry with "text" in sources.json
-# before it writes the served sizes, so the masters in art-src stay as Recraft made them. Each item paints the
+# before it writes the served sizes, so the masters stay as Recraft made them. Each item paints the
 # painting's own letters out of its box and sets the real ones in the game's fonts (<product>/fonts); the tall picture
 # gets the same patch, scaled, where its copy of the master's strip ("tallCrop") holds the box.
 #   "text": { "tallTop": <the strip's top in the tall picture>, "items": [ item, ... ] }
@@ -27,6 +27,7 @@ import cv2
 import numpy as np
 from fontTools.ttLib import TTFont
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
+from art_src import art_src
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 FONTS = {'nunito': 'nunito-latin.woff2', 'lilita': 'lilita-one-latin.woff2'}
@@ -206,7 +207,7 @@ def real_text(product, s, wide, tall):
 
 if __name__ == '__main__':
     product, slug, folder = sys.argv[1:4]
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     s = json.load(open(os.path.join(src, 'sources.json'), encoding='utf-8'))['entries'][slug]
     wide = Image.open(os.path.join(src, s['master'])).convert('RGB')
     tall = Image.open(os.path.join(src, s['tall'])).convert('RGB') if s.get('tall') else None

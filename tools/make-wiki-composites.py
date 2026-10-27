@@ -6,9 +6,10 @@
 #           at about two thirds across; two figures for a pair
 #   power   the same backdrop with a power card's picture in a rounded card, a fine gold edge and a soft gold glow
 #   scene   a scene as it is, scaled to the master's size
-# Each master goes to <product>/wiki/art-src/<slug>.webp with its record in sources.json (tools/make-wiki-art.py then
-# makes the served sizes), and each entry's small square picture to <product>/wiki/img/medals/<slug>.webp.
-# Usage: python tools/make-wiki-composites.py <product>    (reads <product>/wiki/art-src/compose.json:
+# Each master goes to <slug>.webp in the product's masters (tools/art_src.py) with its record in sources.json
+# (tools/make-wiki-art.py then makes the served sizes), and each entry's small square picture to
+# <product>/wiki/img/medals/<slug>.webp.
+# Usage: python tools/make-wiki-composites.py <product>    (reads compose.json in the product's masters:
 #   { "about": "...", "licence": "...", "sizes": [1920, 1080],
 #     "scenes": { "<name>": "<picture>" },
 #     "entries": { "<slug>": { "kind": "role" | "power" | "scene", "scene": "<name>", "figures": ["<picture>", ...],
@@ -17,6 +18,7 @@
 import json, os, sys
 import numpy as np
 from PIL import Image, ImageDraw, ImageEnhance, ImageFilter
+from art_src import art_src
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 GOLD = (201, 164, 110)
@@ -113,7 +115,7 @@ def medal(path, top):
 
 
 def main(product):
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     medals = os.path.join(ROOT, product, 'wiki', 'img', 'medals')
     os.makedirs(medals, exist_ok=True)
     spec = json.load(open(os.path.join(src, 'compose.json'), encoding='utf-8'))

@@ -2,22 +2,25 @@
 #   <product>/wiki/img/art/<slug>-<width>.avif/.webp(/.jpg)        the wide picture (heroes on landscape screens, cards)
 #   <product>/wiki/img/art/<slug>-tall-<width>.avif/.webp(/.jpg)   the 9:16 cut for portrait screens, the hero's shape
 #   <product>/wiki/img/art/art.json                                the sizes, which the builders read
-# from the masters in <product>/wiki/art-src/ (sources.json there says where each came from, its prompt and licence).
+# from the product's masters, kept in its own private repo (tools/art_src.py; sources.json there says where each came
+# from, its prompt and licence).
 # Never larger than the master: a small picture is never upscaled, only served at the sizes it has.
 # Usage: python tools/make-wiki-art.py <product> [slug ...]   (default: every entry in the product's sources.json)
-#   sources.json: { "about", "entries": { "<slug>": { "master": "<file in art-src>", "tall": "<file>"?, "focus": 0.5?,
+#        python tools/make-wiki-art.py <product> --medals     the medals' masters, for the gallery's lightbox (medals())
+#   sources.json: { "about", "entries": { "<slug>": { "master": "<file in the masters>", "tall": "<file>"?, "focus": 0.5?,
 #   and the record: how it was made, its prompt, the Recraft project, the upscale } } }
 #   tall: a picture of its own for portrait screens (made for them), else a 9:16 cut of the master, centred on focus
 #   (0 is the left edge, 1 the right), so the entry's subject stays in the frame.
 #   text: real words and numbers over the ones the AI drew, set on the master and the tall picture before they are
 #   written (tools/wiki_text.py; it needs OpenCV and fontTools, only for the entries that have it).
 # Needs Pillow with AVIF support (Pillow 11.3 or later).
-import json, os, re, sys
+import json, os, re, shutil, sys
 from PIL import Image
+from art_src import art_src
 
 ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 # Heroes fill the screen's width (up to ultra-wide); phones get the tall cut. The largest size covers a 3440 px wide
-# screen at 93%; larger masters stay in art-src.
+# screen at 93%; larger masters stay with the masters.
 WIDE, WIDE_JPEG, WIDE_MAX = [640, 1280, 1920, 2560, 3200], [1280, 1920], 3200
 TALL, TALL_JPEG = [540, 810, 1080, 1440], [1080]
 
@@ -47,7 +50,7 @@ def cut(im, focus):
 
 
 def main(product, only):
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     out = os.path.join(ROOT, product, 'wiki', 'img', 'art')
     os.makedirs(out, exist_ok=True)
     sources = json.load(open(os.path.join(src, 'sources.json'), encoding='utf-8'))['entries']
@@ -78,5 +81,23 @@ def main(product, only):
     json.dump(dict(sorted(manifest.items())), open(manifest_file, 'w', encoding='utf-8', newline='\n'), indent=1)
 
 
+def medals(product):
+    # The gallery's lightbox shows each medal's master as it is (tools/build-pages.mjs, the album block's medals): a copy
+    # of medals/<slug>.webp in the masters at <product>/wiki/img/medals/<slug>-<width>.webp, beside the 320 px medal.
+    src = os.path.join(art_src(product), 'medals')
+    out = os.path.join(ROOT, product, 'wiki', 'img', 'medals')
+    for f in sorted(n for n in os.listdir(src) if n.endswith('.webp')):
+        slug = f[:-len('.webp')]
+        for old in os.listdir(out):
+            if re.match(rf'^{re.escape(slug)}-\d+\.webp$', old):
+                os.remove(os.path.join(out, old))
+        width = Image.open(os.path.join(src, f)).width
+        shutil.copyfile(os.path.join(src, f), os.path.join(out, f'{slug}-{width}.webp'))
+        print(product, 'medal', slug, width)
+
+
 if __name__ == '__main__':
-    main(sys.argv[1], sys.argv[2:])
+    if sys.argv[2:] == ['--medals']:
+        medals(sys.argv[1])
+    else:
+        main(sys.argv[1], sys.argv[2:])

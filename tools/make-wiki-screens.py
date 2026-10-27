@@ -4,11 +4,12 @@
 # Here every readable dial, number and screen comes from the app: its render-test goldens, or the frames its demo
 # drive renders (Games repo, SpeedometerWallpaper; see screens.json for which).
 #
-#   <product>/wiki/art-src/painted/<slug>.webp   the Recraft painting, as upscaled (never changed here; three were
-#                                                painted again on 24 Oct with a blank screen, see sources.json)
-#   <product>/wiki/art-src/screens/<name>.webp   the app's screens, as the phones show them (made by --screens)
-#   <product>/wiki/art-src/screens.json          which screen goes into which phone, and where the phone is
-#   <product>/wiki/art-src/<slug>.webp           the master this writes, which tools/make-wiki-art.py serves
+# In the product's masters, kept in its own private repo (tools/art_src.py):
+#   painted/<slug>.webp   the Recraft painting, as upscaled (never changed here; three were painted again on 24 Oct
+#                         with a blank screen, see sources.json)
+#   screens/<name>.webp   the app's screens, as the phones show them (made by --screens)
+#   screens.json          which screen goes into which phone, and where the phone is
+#   <slug>.webp           the master this writes, which tools/make-wiki-art.py serves
 #
 # Each phone gets a new front: black glass with round corners, the display inset by the bezel, the screen fitted to
 # the display (stretched a little at most, past that padded with its own background, never squeezed), Android's status
@@ -25,7 +26,7 @@
 #   python tools/make-wiki-screens.py <product> --blank <folder> [slug ...] the same pictures with every screen
 #                                                                           switched off (black glass), into <folder>:
 #                                                                           dial-free sources to outpaint from
-# An entry need not be a wiki entry: painted/<name>.webp plus screens.json entries.<name> gives art-src/<name>.webp
+# An entry need not be a wiki entry: painted/<name>.webp plus screens.json entries.<name> gives <name>.webp
 # (a tall version, an index or privacy hero), and sources.json's "tall" can then name it.
 # Then: python tools/make-wiki-art.py <product>, node tools/build-wiki.mjs <product>.
 # Needs Pillow with WebP, numpy and opencv-python-headless.
@@ -38,7 +39,8 @@ import cv2
 import numpy as np
 from PIL import Image, ImageDraw, ImageFilter, ImageFont
 
-ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
+from art_src import art_src
+
 SS = 2           # the new front is drawn at twice the size it takes in the painting, then scaled down
 STATUS_FONT = os.path.join(os.environ.get('LOCALAPPDATA', ''), 'Android', 'Sdk', 'platforms', 'android-29', 'data',
                            'fonts', 'Roboto-Medium.ttf')
@@ -110,7 +112,7 @@ def home_screen(games):
 
 
 def make_screens(product, games, frames):
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     out = os.path.join(src, 'screens')
     os.makedirs(out, exist_ok=True)
@@ -293,7 +295,7 @@ def clean(img, areas):
 
 
 def compose(product, slug, entry, screens, overlays):
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     painting = np.asarray(Image.open(os.path.join(src, 'painted', slug + '.webp')).convert('RGB'))
     base = clean(painting.copy(), entry.get('clean', []))
     img = base.copy()
@@ -312,7 +314,7 @@ def compose(product, slug, entry, screens, overlays):
 
 def check(product, slug, entry, out, folder):
     """Before and after crops around the phones, at full size, for a review (into [folder], outside the site)."""
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     os.makedirs(folder, exist_ok=True)
     painted = Image.open(os.path.join(src, 'painted', slug + '.webp')).convert('RGB')
     q = np.concatenate([np.asarray(p['glass']) for p in entry['phones']])
@@ -333,7 +335,7 @@ def main(argv):
     folder = rest[rest.index('--check') + 1] if '--check' in rest else None
     blank = rest[rest.index('--blank') + 1] if '--blank' in rest else None
     only = [a for a in rest if not a.startswith('--') and a not in (folder, blank)]
-    src = os.path.join(ROOT, product, 'wiki', 'art-src')
+    src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in spec['screens']}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')

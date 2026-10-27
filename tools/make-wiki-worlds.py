@@ -1,5 +1,6 @@
-# Makes the master of the Worlds entry's wide hero (exitwise/wiki/art-src/worlds.webp) from George's bird's-eye island
-# and its Recraft outpaint (George, 23 Oct 2026: "the hero image is blurry. Need to content generate it for width."):
+# Makes the master of the Worlds entry's wide hero (worlds.webp in Exitwise's masters, tools/art_src.py) from George's
+# bird's-eye island and its Recraft outpaint (George, 23 Oct 2026: "the hero image is blurry. Need to content generate
+# it for width."):
 #   worlds-island.webp     his 1:2 picture, Crisp upscaled to 2048x4096 (also the tall picture for phones)
 #   worlds-outpaint.webp   the same picture outpainted to 16:9 (Nano Banana 2.1 in Recraft), Crisp upscaled
 # The outpaint keeps his picture in its middle at a quarter of the resolution, and its new sea doesn't quite take up
@@ -12,8 +13,9 @@ import os
 import numpy as np
 from PIL import Image
 from scipy.ndimage import gaussian_filter1d
+from art_src import art_src
 
-SRC = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..', 'exitwise', 'wiki', 'art-src')
+SRC = art_src('exitwise')
 FADE = 0.42   # how far into each side (of its width) the shading correction reaches
 BLEND = 0.02   # the join's blend band, of the island's width
 
