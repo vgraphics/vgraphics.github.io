@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.05b092fe",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "No changes you'll notice",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "05b092fe"
+    },
+    {
       "version": "1.0.ea0fddf8",
       "date": "2026-10-27",
       "platforms": [

@@ -255,6 +255,12 @@
       // No right-click menu (nor Android's long-press one) outside the fields people type in, from the first frame, and
       // no dragging pictures in Firefox, which ignores -webkit-user-drag (George, 26 Oct 2026: "Dont allow text
       // selection and right clicking in any page.").
+      // A light deterrent against copying too (George, 27 Oct 2026), as vgraphics.gr's /assets/no-select.js: outside the
+      // fields, the keys that open the developer tools or the page's source do nothing (F12, Ctrl+Shift+I, J and C,
+      // Ctrl+U; on a Mac Cmd+Option+I, J, C and U), by the key's place (code), since Option and a Greek layout change its
+      // letter, and the game still gets every key. The console shows the warning once a page, under the mark the site's
+      // piece shares (it waits for the page to load, so this one prints). Nothing watches for the tools: the game and its
+      // error reports work the same with them open.
       (function () {
         var FIELDS = 'input, textarea, [contenteditable]:not([contenteditable="false"])';
         document.addEventListener("contextmenu", function (e) {
@@ -263,6 +269,22 @@
         document.addEventListener("dragstart", function (e) {
           if (e.target.tagName === "IMG") e.preventDefault();
         });
+        document.addEventListener("keydown", function (e) {
+          var devKey = e.key === "F12" ||
+            (e.ctrlKey && !e.altKey && !e.metaKey && (e.shiftKey ? /^Key[IJC]$/ : /^KeyU$/).test(e.code)) ||
+            (e.metaKey && e.altKey && !e.ctrlKey && /^Key[IJCU]$/.test(e.code));
+          if (devKey && !(e.target.closest && e.target.closest(FIELDS))) e.preventDefault();
+        }, true);
+        var WARNED = Symbol.for("vgraphics.console-warning");
+        var WARNING = {
+          en: ["Stop!", "This site, with its art, music and code, belongs to VGraphics. Copying any of it is not allowed.\nTerms of use: https://vgraphics.gr/terms/"],
+          el: ["Σταματήστε!", "Αυτός ο ιστότοπος, με την τέχνη, τη μουσική και τον κώδικά του, ανήκει στη VGraphics. Δεν επιτρέπεται η αντιγραφή κανενός μέρους του.\nΌροι χρήσης: https://vgraphics.gr/terms/"]
+        };
+        if (!window[WARNED]) {
+          window[WARNED] = true;
+          var warning = WARNING[document.documentElement.lang.indexOf("el") === 0 ? "el" : "en"];
+          console.log("%c" + warning[0] + "%c\n" + warning[1], "color:#E5322D;font-size:52px;font-weight:bold;-webkit-text-stroke:1px #000", "font-size:16px;line-height:1.5");
+        }
       })();
     </script>
     <!-- The ad switch of every VGraphics web game: the site's /assets/web-ads.js (window.VGRAPHICS_WEB_ADS), read before
@@ -936,7 +958,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.ea0fddf8",
+        productVersion: "1.0.05b092fe",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
