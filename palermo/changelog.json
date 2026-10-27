@@ -1,1 +1,22 @@
-{ "entries": [] }
+{
+  "entries": [
+    {
+      "version": "0.1.f455e8ad",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The guided demo is live",
+      "items": [
+        "Play a whole game of Palermo Noir in your browser, alone at a table of bots, with nothing to install and no account.",
+        "Pick one of the 14 roles or Surprise me, a table of 6, 8 or 10, English or Greek, and the short demo (about six minutes) or a full game (about fifteen).",
+        "A guide stops the game at each new moment to show you what to tap, and why; Chapters, Back, 2× speed and Behind the scenes help you follow it."
+      ],
+      "link": {
+        "href": "/palermo/demo/",
+        "label": "Try the demo"
+      },
+      "commit": "f455e8ad"
+    }
+  ]
+}
