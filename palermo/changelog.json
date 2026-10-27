@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "0.1.36cb8db3",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "See what each character does",
+      "items": [
+        "The character cards are back to their normal size, and the one you point at or pick now shows large beside them, with its team, what it does, how it wins and a quick tip. On smaller screens you'll see this in the line below.",
+        "We removed the confusing \"Behind the scenes\" view from the demo.",
+        "The talk and vote screens now make clear that the arrows are only accusations and that only the vote decides.",
+        "Subtitles now sit over the content at the very bottom and never take more than two lines; longer lines are split to fit.",
+        "There's now a short pause between spoken lines that would otherwise run together.",
+        "The guide's card no longer has a Back button."
+      ],
+      "commit": "36cb8db3"
+    },
+    {
       "version": "0.1.3cc4d2fd",
       "date": "2026-10-28",
       "platforms": [
