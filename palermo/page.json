@@ -55,14 +55,17 @@
     ],
     "footer": [
       { "label": "Privacy policy", "href": "/palermo/privacy.html" }
-    ]
+    ],
+    "play": { "label": "Play online", "href": "/palermo/play/", "soon": "Coming soon" },
+    "demo": { "label": "Try the demo", "href": "/palermo/demo/" }
   },
   "hero": {
     "title": "Palermo Noir: the mafia party game for phones and a TV",
     "lead": "Hidden roles on your phones. <em>The town on your TV.</em>",
     "align": "center",
     "badges": [
-      { "href": "#deal", "label": "Coming soon", "note": "On the web first, then Android" },
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" },
       { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
     ],
     "art": {
@@ -286,9 +289,10 @@
   ],
   "cta": {
     "title": "Gather your town",
-    "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.",
+    "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV. Until then, the demo seats you at a table of bots.",
     "badges": [
-      { "href": "/palermo/#deal", "label": "Coming soon", "note": "On the web first, then Android" },
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" },
       { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
     ]
   }

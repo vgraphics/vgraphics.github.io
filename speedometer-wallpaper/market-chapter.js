@@ -7,6 +7,8 @@
   if (!root || !window.SpeedoMarket) return;
   const M = window.SpeedoMarket;
   const ROW = 6;
+  // The counts' words for a count of one ("new this week" stays as it is).
+  const ONE = { live: "layout shared", uses: "time used" };
   const list = root.querySelector(".mk-grid");
   const failed = root.querySelector('[data-market="failed"]');
 
@@ -16,8 +18,15 @@
     try {
       const [stats, featured, popular] = await Promise.all([M.stats(), M.featured(), M.list({ tab: "popular", limit: ROW })]);
       if (stats) {
-        root.querySelectorAll("[data-count]").forEach((b) => { b.textContent = M.format(stats[b.getAttribute("data-count")] || 0); });
-        if (stats.live) root.querySelector('[data-market="all"]').textContent = `See all ${M.format(stats.live)} layouts`;
+        root.querySelectorAll("[data-count]").forEach((b) => {
+          const key = b.getAttribute("data-count");
+          const n = stats[key] || 0;
+          const words = b.nextElementSibling;
+          b.textContent = M.format(n);
+          words.dataset.many = words.dataset.many || words.textContent;
+          words.textContent = n === 1 && ONE[key] ? ONE[key] : words.dataset.many;
+        });
+        if (stats.live > 1) root.querySelector('[data-market="all"]').textContent = `See all ${M.format(stats.live)} layouts`;
       }
       const row = (featured ? [featured] : []).concat(popular.layouts.filter((l) => !featured || l.id !== featured.id)).slice(0, ROW);
       list.replaceChildren(...await M.cards(row, featured && featured.id));

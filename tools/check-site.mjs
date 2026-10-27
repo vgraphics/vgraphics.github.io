@@ -11,7 +11,8 @@ import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
 import { styleSources, strayStylePages } from './make-style-pages.mjs'
 import { hotspot } from './lib/cursors.mjs'
-import { documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
+import { esc, playButtons } from './lib/partials.mjs'
+import { demoPieces, documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
@@ -71,9 +72,11 @@ function walk(dir) {
 }
 
 const files = walk(root)
-// A product's demo (<product>/demo/*.html), and the markup and policy copies its page.json blocks name, are pieces
-// tools/build-pages.mjs sets into its pages, not pages.
-const PARTIAL = /^[^\\/]+[\\/]demo[\\/][^\\/]+\.html$/
+// A product's intro demo (page.json intro.demo, <product>/demo/<name>.html), and the markup and policy copies its
+// page.json blocks name, are pieces tools/build-pages.mjs sets into its pages, not pages. Any other HTML in a demo/
+// folder is a page, held to every rule here (Palermo Noir's guided demo, /palermo/demo/).
+const DEMO_PIECES = new Set(demoPieces().map((f) => f.split(sep).join('/')))
+const PARTIAL = { test: (f) => DEMO_PIECES.has(f.split(sep).join('/')) }
 const PIECES = new Set(pieces())
 const pages = files.filter((f) => f.endsWith('.html') && !PARTIAL.test(f) && !PIECES.has(f))
 const urlPath = (f) => '/' + f.split(sep).join('/').replace(/(^|\/)index\.html$/, '$1')
@@ -298,18 +301,25 @@ for (const file of served) {
 // page.json, site.play { label, href }; then every product header in its folder ends with that link as the button
 // (class "play", tools/lib/partials.mjs), inside the menu the phone panel opens, and has no other. A product without
 // site.play has no button.
+// A product with a guided demo as well (site.demo { label, href }; Palermo Noir, George, 27 Oct 2026: "Build both
+// buttons and for play now say Coming soon.") has two (playButtons): the main one, the game, or the demo while
+// site.play.soon says the game is coming ("Coming soon"); and just before it in the menu the second, the demo as a link
+// (class "demo-link"), or the game as a chip that leads nowhere (class "play-soon") while it is coming.
 const playButton = (file, message) => report(file, 'play-button', message)
 const isPlay = (attrs) => /\sclass="(?:[^"]*\s)?play(?:\s[^"]*)?"/.test(attrs)
-const plays = new Map(products().map((slug) => [slug, loadProduct(slug).page.site.play]))
-for (const [slug, play] of plays) {
+const isPage = (p) => typeof p?.label === 'string' && p.label.trim() && typeof p.href === 'string' && p.href.startsWith('/')
+const plays = new Map(products().map((slug) => [slug, loadProduct(slug).page.site]))
+for (const [slug, { play, demo }] of plays) {
   const file = join(slug, 'page.json')
   if (existsSync(join(root, slug, 'play', 'index.html')) && !play) playButton(file, `${slug} has a play page (/${slug}/play/) but no site.play { label, href }: every header of the product ends with it, as a button`)
-  if (play && !(typeof play.label === 'string' && play.label.trim() && typeof play.href === 'string' && play.href.startsWith('/'))) playButton(file, 'site.play is not { label, href }, with the words on the button and an address on this site')
+  if (play && !isPage(play)) playButton(file, 'site.play is not { label, href }, with the words on the button and an address on this site')
+  if (play?.soon !== undefined && !(typeof play.soon === 'string' && play.soon.trim())) playButton(file, 'site.play.soon is not the words the game shows until it opens ("Coming soon"): take it out once the game is open')
+  if (demo !== undefined && !isPage(demo)) playButton(file, 'site.demo is not { label, href }, with the words on the button and the demo\'s address on this site')
 }
 for (const file of served) {
   const slug = file.split('/')[0]
   if (!plays.has(slug)) continue
-  const play = plays.get(slug)
+  const { main: play, second } = playButtons(plays.get(slug))
   const html = readFileSync(join(root, file), 'utf8')
   for (const [, attrs, inner] of html.matchAll(/<header\b([^>]*)>([\s\S]*?)<\/header>/g)) {
     if (!(attrs.match(/\bclass="([^"]*)"/)?.[1].split(/\s+/) ?? []).includes('top')) continue
@@ -327,7 +337,13 @@ for (const file of served) {
     } else if (![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => isPlay(m[1]))) {
       playButton(file, "the header's play button is outside its menu, so the phone panel leaves it out")
     } else if (buttons[0].match(/\shref="([^"]*)"/)?.[1] !== play.href) {
-      playButton(file, `the header's play button goes to ${buttons[0].match(/\shref="([^"]*)"/)?.[1] ?? 'nowhere'}, not ${play.href} (${slug}/page.json site.play)`)
+      playButton(file, `the header's play button goes to ${buttons[0].match(/\shref="([^"]*)"/)?.[1] ?? 'nowhere'}, not ${play.href} (${slug}/page.json site.play${play === plays.get(slug).demo ? '.soon, so site.demo' : ''})`)
+    }
+    if (second?.soon) {
+      if (!menu.includes(`<span class="play-soon">${esc(second.label)}<small>`)) playButton(file, `the menu has no "${second.label}" chip saying "${second.soon}" before its play button (${slug}/page.json site.play.soon): make the page with the template`)
+      if (links.some((a) => a.match(/\shref="([^"]*)"/)?.[1] === second.href)) playButton(file, `the header links ${second.href}, which ${slug}/page.json says is ${second.soon.toLowerCase()} (site.play.soon)`)
+    } else if (second && ![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => /\sclass="demo-link"/.test(m[1]) && m[1].match(/\shref="([^"]*)"/)?.[1] === second.href)) {
+      playButton(file, `the menu has no "${second.label}" link (${second.href}) before its play button (${slug}/page.json site.demo): make the page with the template`)
     }
   }
 }

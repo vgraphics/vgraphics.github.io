@@ -27,7 +27,9 @@
       const ratings = layouts.reduce((sum, l) => sum + l.ratingCount, 0);
       const starsGiven = layouts.reduce((sum, l) => sum + l.average * l.ratingCount, 0);
       $("creator-layouts").textContent = M.format(layouts.length);
+      $("creator-layouts").nextElementSibling.textContent = layouts.length === 1 ? "layout in the market" : "layouts in the market";
       $("creator-uses").textContent = M.format(uses);
+      $("creator-uses").nextElementSibling.textContent = uses === 1 ? "total use" : "total uses";
       $("creator-stars").textContent = ratings ? (starsGiven / ratings).toFixed(1) : "–";
       const made = await M.cards(layouts);
       made.forEach((item, i) => {

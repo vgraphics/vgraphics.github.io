@@ -523,10 +523,39 @@ window.SpeedoMarket = (() => {
     return link;
   }
 
+  // The tags' icons (George picked the icon pills, 27 Oct 2026): the four screens (DeviceShape) and Now Playing,
+  // drawn in the tags' accent.
+  const ICONS = {
+    phone: '<rect x="6.5" y="2.5" width="11" height="19" rx="2.5"/><path d="M10.5 18.5h3"/>',
+    tall: '<rect x="7.5" y="1.5" width="9" height="21" rx="2.5"/><path d="M7.5 12h9"/>',
+    foldable: '<rect x="2.5" y="4.5" width="19" height="15" rx="2"/><path d="M12 4.5v15"/>',
+    tablet: '<rect x="3.5" y="3" width="17" height="18" rx="2.5"/><path d="M10.5 18h3"/>',
+    now_playing: '<path d="M9 18V5l11-2v13"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>',
+  };
+  const icon = kind => {
+    const svg = document.createElementNS("http://www.w3.org/2000/svg", "svg");
+    svg.setAttribute("class", "mk-ico");
+    svg.setAttribute("viewBox", "0 0 24 24");
+    svg.setAttribute("aria-hidden", "true");
+    svg.innerHTML = ICONS[kind];
+    return svg;
+  };
+
+  // One tag: the app's words in a pill, with its icon when it has one (a screen, Now Playing); Now Playing has the
+  // accent's own pill. `kind` is a screen (SHAPES) or a widget (WIDGETS). Cards and a layout's page both use it.
+  function tag(words, kind = null) {
+    const item = el("li", "mk-tag");
+    if (kind && ICONS[kind]) item.append(icon(kind));
+    else item.classList.add("is-plain");
+    if (kind === "now_playing") item.classList.add("is-feature");
+    item.append(words);
+    return item;
+  }
+
   const shapeTags = layout => {
     const tags = el("ul", "mk-tags");
-    layout.shapes.filter(s => SHAPES[s]).forEach(s => tags.append(el("li", null, SHAPES[s])));
-    if (layout.nowPlaying) tags.append(el("li", null, "Now Playing"));
+    layout.shapes.filter(s => SHAPES[s]).forEach(s => tags.append(tag(SHAPES[s], s)));
+    if (layout.nowPlaying) tags.append(tag(WIDGETS.now_playing, "now_playing"));
     return tags;
   };
 
@@ -617,7 +646,7 @@ window.SpeedoMarket = (() => {
   return {
     SHAPES, REASONS, WIDGETS, CODE,
     list, search, codeIn, byCode, byCreator, byStyle, stats, featured, profiles, config, styles, styleIn,
-    preview, fallback, card, cards, placeholders, stars, byline, shapeTags, starsText, usesText,
+    preview, fallback, card, cards, placeholders, stars, byline, tag, shapeTags, starsText, usesText,
     layoutUrl, creatorUrl, playUrl, appIntent, report, wasReported, event, error,
     format: n => numbers.format(n),
     date: d => (d ? dates.format(d) : ""),
