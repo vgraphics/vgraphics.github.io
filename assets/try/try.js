@@ -466,34 +466,80 @@
 
   // A market layout's link (#layout=<CODE>&style=<id>, the web market design §5.2): with the block's "layouts" script,
   // the page reads the layout before the engine starts, so it opens on it; the panel says whose it is. A code the
-  // market doesn't have any more falls back to the style. Resolves with the look and the layouts to start with.
+  // market doesn't have any more falls back to the style. A layout the page couldn't read or the engine didn't show is
+  // said on the page and reported, never passed over in silence (George, 27 Oct 2026: "Try it in your browser from
+  // market layout is not working. It goes to live but default designs and layouts not the market one.").
   var MARKET_CODE = /(^|&)layout=([CDFGHJKMNPQRTVWXY34679]{6})(?=&|$)/;
-  function marketLook(look) {
+  var styleIn = function (look) { return (look.match(/(^|&)style=([a-z0-9_]+)(?=&|$)/) || [])[2] || ''; };
+  var withoutCode = function (look) { return look.replace(MARKET_CODE, '$1').replace(/^&|&$/g, '').replace(/&&/g, '&'); };
+  var whyOf = function (failure) { return failure && failure.message ? failure.message : String(failure); };
+
+  // The market layout a look names, read through the block's script: { code, data, madeWith, name, by, href }, or null.
+  function marketLayout(look) {
     var match = look.match(MARKET_CODE);
-    if (!match || !config.layouts) return Promise.resolve({ look: look, layouts: [] });
+    if (!match || !config.layouts) return Promise.resolve(null);
     var code = match[2];
-    var without = look.replace(MARKET_CODE, '$1').replace(/^&|&$/g, '').replace(/&&/g, '&');
     return loadScript(config.layouts, 'VGTryLayouts').then(function () {
       return window.VGTryLayouts.resolve(code);
     }).then(function (found) {
       if (!found) {
         note('share', 'That layout isn’t in the market any more, so here is the style alone.');
-        return { look: without, layouts: [] };
+        return null;
       }
-      var shared = $('.try-shared');
-      if (shared) {
-        shared.textContent = '';
-        shared.appendChild(document.createTextNode(found.name + ' by ' + found.by + ' · '));
-        var link = document.createElement('a');
-        link.href = found.href;
-        link.textContent = 'See it in the layout market';
-        shared.appendChild(link);
-      }
-      var withStyle = /(^|&)style=/.test(look) ? look : 'style=' + found.madeWith + '&' + look;
-      return { look: withStyle, layouts: [{ code: code, data: found.data }] };
-    }).catch(function () {
-      return { look: without, layouts: [] };
+      return {
+        code: code,
+        data: found.data,
+        madeWith: found.madeWith,
+        name: found.name,
+        by: found.by,
+        href: found.href
+      };
+    }, function (failure) {
+      analytics.error('market layout ' + code + ': ' + whyOf(failure), failure && failure.stack);
+      note('share', 'That layout couldn’t be read just now, so here is the style alone. Please reload the page.');
+      return null;
     });
+  }
+
+  // The panel's line under the style's name: whose layout it is, and its page.
+  function sharedLine(layout) {
+    var shared = $('.try-shared');
+    if (!shared) return;
+    shared.textContent = '';
+    shared.appendChild(document.createTextNode(layout.name + ' by ' + layout.by + ' · '));
+    var link = document.createElement('a');
+    link.href = layout.href;
+    link.textContent = 'See it in the layout market';
+    shared.appendChild(link);
+  }
+
+  // The look to start with and the market layout it names: { look, layouts, layout }.
+  function marketLook(look) {
+    return marketLayout(look).then(function (layout) {
+      if (!layout) return { look: withoutCode(look), layouts: [], layout: null };
+      sharedLine(layout);
+      var withStyle = styleIn(look) ? look : 'style=' + layout.madeWith + '&' + look;
+      return { look: withStyle, layouts: [{ code: layout.code, data: layout.data }], layout: layout };
+    });
+  }
+
+  // Shows [layout] in [style] on the running engine. The engine was given it at its start; if it isn't showing it, it
+  // is given it again here, and if it still can't, the page says so and the reason is reported.
+  function showMarketLayout(layout, style) {
+    var values = app.values();
+    if (values.shared && values.layout === layout.code && (!style || values.style === style)) return;
+    if (typeof app.addLayout !== 'function') {
+      analytics.error('market layout ' + layout.code + ': this engine has no addLayout (VGTry ' + window.VGTry.version + ')');
+      note('share', 'This page needs a newer copy of the demo to draw that layout. Please reload the page.');
+      return;
+    }
+    if (!app.addLayout(layout.code, layout.data)) {
+      analytics.error('market layout ' + layout.code + ': the engine could not read it');
+      note('share', 'That layout couldn’t be drawn here, so here is the style alone.');
+      return;
+    }
+    app.show(style || layout.madeWith, layout.code);
+    if (!app.values().shared) analytics.error('market layout ' + layout.code + ': added, yet not shown');
   }
   var firstLook = function () {
     return sharedLook() || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
@@ -537,10 +583,12 @@
       creep += (0.6 - creep) * 0.08;
       if (startup) startup.progress(creep);
     }, 400);
+    var first = null;
     loadScript(config.engine + 'vgtry.js').then(function () {
       if (!window.VGTry.isSupported()) throw { reason: 'unsupported' };
       return marketLook(firstLook());
-    }).then(function (first) {
+    }).then(function (look) {
+      first = look;
       return window.VGTry.start({
         host: screen,
         base: config.engine,
@@ -555,6 +603,7 @@
       mark('ready');
       app = engineApp;
       readyAt = now();
+      if (first.layout) showMarketLayout(first.layout, styleIn(first.look));
       wire();
       setState('running');
       analytics.event('web_ready', { ms: app.info.ms, bytes: app.info.bytes, files: app.info.files, style: last.style });
@@ -578,6 +627,19 @@
       timeline();
     });
   }
+
+  // A market layout's link opened on a try page that is already showing (a pasted link changes only the address's
+  // hash, so the page doesn't load again): the layout is read and shown then.
+  window.addEventListener('hashchange', function () {
+    if (!app) return;
+    var look = ofThisStyle(location.hash.replace(/^#/, ''));
+    if (!MARKET_CODE.test(look)) return;
+    marketLayout(look).then(function (layout) {
+      if (!layout) return;
+      sharedLine(layout);
+      showMarketLayout(layout, styleIn(look));
+    });
+  });
 
   var started = false;
   function begin() {

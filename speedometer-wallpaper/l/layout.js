@@ -27,6 +27,8 @@
     return;
   }
   $("layout-code").textContent = code;
+  // The try page opens on the layout from the code alone, in the style it was made with; a style chip adds its own.
+  $("layout-try").href = `/speedometer-wallpaper/play/#layout=${code}`;
   if (isAndroid && params.get("app") !== "none") location.href = M.appIntent(code);
 
   const tag = (words) => {

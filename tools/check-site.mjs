@@ -267,6 +267,31 @@ for (const file of served) {
   if (/<nav\b/.test(rest)) burger(file, 'has a <nav> outside <main>, the footer and the company or product header: a menu with no phone menu')
 }
 
+// A try page that opens shared layouts (the "try" block's "layouts", tools/lib/try.mjs: Speedometer's #layout=<CODE>
+// links, the web market design §5.2) needs both halves: its script, which defines window.VGTryLayouts.resolve, and an
+// engine whose vgtry.js hands start's layouts to the engine (addLayout). Without either the page shows the style's own
+// layout instead, saying nothing (George, 27 Oct 2026: "It goes to live but default designs and layouts not the market
+// one.").
+const tryLayouts = (file, message) => report(file, 'try-layouts', message)
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  const json = html.match(/<script type="application\/json" class="try-config">([\s\S]*?)<\/script>/)?.[1]
+  if (!json) continue
+  let config
+  try {
+    config = JSON.parse(json)
+  } catch (e) {
+    tryLayouts(file, `the try block's config isn't valid JSON: ${e.message}`)
+    continue
+  }
+  if (!config.layouts) continue
+  const script = join(root, config.layouts.replace(/^\//, ''))
+  if (!existsSync(script)) tryLayouts(file, `its try block's layouts script ${config.layouts} is missing`)
+  else if (!/window\.VGTryLayouts\s*=\s*\{[\s\S]*?\bresolve\b/.test(readFileSync(script, 'utf8'))) tryLayouts(file, `${config.layouts} doesn't define window.VGTryLayouts.resolve, which the try page reads #layout=<CODE> links with`)
+  const engine = join(root, config.engine.replace(/^\//, ''), 'vgtry.js')
+  if (existsSync(engine) && !/options\.layouts[\s\S]{0,200}addLayout/.test(readFileSync(engine, 'utf8'))) tryLayouts(file, `${config.engine}vgtry.js doesn't hand start's layouts to addLayout (VGTry API 2): release the engine with the Deployer's speedometer-web`)
+}
+
 // The play or try button (George, 26 Oct 2026: "For all landing pages, when there is a play online/test online, make it
 // a fancy primary button last on the toolbar buttons."), on every page GitHub Pages serves, as the phone menu above. A
 // product whose folder has a play page (<product>/play/: Exitwise's game, Speedometer's try page) names it in its
