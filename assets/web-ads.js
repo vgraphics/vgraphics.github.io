@@ -14,10 +14,12 @@ window.VGRAPHICS_WEB_ADS = {
   // approved the account for H5 Games Ads, a separate application made after the site's approval.
   gameAds: false,
   // One entry per web game, under the name its play page asks for. bannerSlot is the data-ad-slot of the game's AdSense
-  // display unit (digits, in quotes), or null for no banner in that game.
+  // display unit (digits, in quotes), or null for no banner in that game. A party game also has betweenGames, its short
+  // video on the TV when the host taps Play again: true lets gameAds turn it on, false keeps that game's video off
+  // whatever gameAds says (Exitwise's in-game ads don't change).
   games: {
     exitwise: { bannerSlot: "6387474555" }, // "Exitwise play banner"
-    palermo: { bannerSlot: null }, // Palermo Noir
-    quizfall: { bannerSlot: null } // Quizfall
+    palermo: { bannerSlot: null, betweenGames: true }, // Palermo Noir
+    quizfall: { bannerSlot: null, betweenGames: true } // Quizfall
   }
 };

@@ -9,7 +9,7 @@
   },
   {
     "q": "What do we need to play?",
-    "a": "A phone each and one screen the whole room can see: a smart TV's browser, or a laptop on the TV. Open <b>vgraphics.gr/tv</b> on the screen and type the room code; friends scan the QR code to join. Nothing to install."
+    "a": "A phone each and one screen the whole room can see: a smart TV's browser, or a laptop on the TV. The host taps Show on TV: open <b>vgraphics.gr/tv</b> on the screen and type the TV code it gives, or open its link; friends scan the QR code on the screen to join. Nothing to install."
   },
   {
     "q": "Is it free?",
@@ -17,7 +17,7 @@
   },
   {
     "q": "Do I need an account?",
-    "a": "No. Join as a guest, or with your free <a href=\"/hub/\">VHub name</a>, which keeps your games, XP and achievements across every VGraphics game. The TV signs in as a screen, never as a person."
+    "a": "No. Join as a guest, or with your free <a href=\"/hub/\">VHub name</a>, which keeps your games, XP and achievements across every VGraphics game. Signed in with a VHub photo, it shows for your seat on the TV and on every phone, the guided demo too, unless you turn on <b>Use my character's picture instead</b> in the phone's menu; without a photo, your character's portrait shows. The VHub button at the top right of the start screen signs you in or opens your profile. The TV signs in as a screen, never as a person."
   },
   {
     "q": "Is it for kids?",
@@ -28,12 +28,20 @@
     "a": "English or Greek. The narrator, the cards and every screen follow the host's language."
   },
   {
+    "q": "Can we share how the night went?",
+    "a": "Yes. At the end of the guided demo, <b>Share the night</b> draws a picture of your own secret card to post or send, without naming who the killers were. When rooms open, every phone at the table gets it too: the town paper, a film poster, your secret card, the newsreel or the whole table, each with a QR code back to Palermo, and the TV shows a QR code so friends who only watched can share it as well. The phone draws the picture itself; nothing is uploaded."
+  },
+  {
     "q": "When can we play?",
     "a": "Rooms for your group open soon: on the web first, then on Android.<span data-demo> Until then, the guided demo seats you at a table of bots in your browser, today.</span> Every release shows under What's new on this page."
   },
   {
     "q": "What happens to our data?",
     "a": "A room closes 30 minutes after its last phone goes offline, or 8 hours after it opened, and is deleted 24 hours after it closes. A short summary of each game, with no names, identifiers or votes, is kept for 12 months. Analytics runs only with your consent. The <a href=\"/palermo/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "What does the TV show when a killer is caught?",
+    "a": "The first time a killer is caught in a game, after the card turns, the TV plays the town's 1947 newsreel: a short film of the arrest on a Palermo street, in the gold frame of the role cards, with the officer's words in the room's language. Each newsreel plays once a game, and more of the game's outcomes will get their own."
   },
   {
     "q": "Where can I read the rules?",

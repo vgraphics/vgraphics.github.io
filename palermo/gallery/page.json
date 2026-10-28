@@ -315,6 +315,27 @@
       ]
     },
     {
+      "id": "newsreels",
+      "title": "The newsreels",
+      "intro": "The first time an outcome happens in a game, the TV plays it as the town's 1947 newsreel. These are their first pictures, each drawn at its own place on the town map.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "wide",
+          "items": [
+            {
+              "title": "The arrest",
+              "src": "/palermo/img/newsreel-arrest-960.webp",
+              "full": "/palermo/img/newsreel-arrest-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A Palermo street at night: a police officer handcuffs a man in a dark overcoat while the Inspector, pipe in hand, watches under a street lamp"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "around-the-site",
       "title": "Around the site",
       "intro": "The pictures at the top of the other Palermo pages, the harbour at the foot of every page, and the soundtrack’s cover and courtyard.",

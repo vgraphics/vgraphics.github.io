@@ -16,7 +16,7 @@
         "name": "Exitwise: Arrow Escape Puzzle",
         "alternateName": "Exitwise",
         "url": "https://vgraphics.gr/exitwise/",
-        "description": "Tap an arrow and it slides off the board, but only if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds, with bombs, mirrors, portals and more.",
+        "description": "Tap an arrow and it slides off the board, but only if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds, with bombs, mirrors, portals and more, a guardian to free at the top of every world and a painted storybook, The Tangled Tower.",
         "image": "https://vgraphics.gr/exitwise/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/exitwise/img/1-board.webp",
@@ -65,10 +65,12 @@
       { "label": "Overview", "href": "/exitwise/" },
       { "label": "Wiki", "href": "/exitwise/wiki/" },
       { "label": "Ranking", "href": "/exitwise/ranking/" },
+      { "label": "Storybook", "href": "/exitwise/storybook/", "wide": true },
       { "label": "Privacy", "href": "/exitwise/privacy.html", "wide": true },
       { "label": "Map rules", "href": "/exitwise/map-rules.html", "wide": true }
     ],
     "footer": [
+      { "label": "Storybook", "href": "/exitwise/storybook/" },
       { "label": "Global ranking", "href": "/exitwise/ranking/" },
       { "label": "Privacy policy", "href": "/exitwise/privacy.html" },
       { "label": "Map rules", "href": "/exitwise/map-rules.html" }
@@ -127,6 +129,31 @@
             {"name":"6-chain","w":1080,"h":2088,"world":"clockworktown","accent":"#C9822B","tag":"Level 281","place":"Clockwork town","caption":"Chain bombs blast whole walls","text":"Rocks side by side make a wall, and one chain bomb clears all of it. Free the bomb's path first.","alt":"Level 281 in Clockwork town: a wall of five rocks and its chain bomb","link":{"href":"/exitwise/wiki/chain-bomb/","label":"Chain bombs in the wiki"}},
             {"name":"7-paint","w":1080,"h":2088,"world":"autumnwoods","accent":"#E8590C","tag":"Level 191","place":"Autumn woods","caption":"Paint tiles recolor arrows","text":"An arrow that flies over a paint tile takes its color, ready for the color gate further along.","alt":"Level 191 in the Autumn woods: paint tiles on a ring-shaped board","link":{"href":"/exitwise/wiki/paint-tile/","label":"Paint tiles in the wiki"}},
             {"name":"8-switches","w":1080,"h":2088,"world":"clockworktown","accent":"#F2B705","tag":"Level 311","place":"Clockwork town","caption":"Keys open color doors","text":"The first arrow that flies over a key turns it, and every door of its color swings open at once.","alt":"Level 311 in Clockwork town: a yellow key and the locked door it opens on a heart-shaped board","link":{"href":"/exitwise/wiki/colour-switch/","label":"Keys and doors in the wiki"}}
+          ]
+        }
+      ]
+    },
+    {
+      "id": "story",
+      "eyebrow": "The story",
+      "title": "Free the Tangled Tower",
+      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Prince Arlo, a young knight archer, and Pip the owl climb the Tower of Worlds to set it right. At the top of every world a cursed guardian waits above the board: send your arrows out of the top to free it, and a new chapter of the painted storybook opens.",
+      "art": { "src": "img/story/arlo", "widths": [960, 1280, 1920, 2560, 3200], "width": 3200, "height": 2358, "position": "50% 38%",
+        "alt": "Prince Arlo kneels with his golden bow drawn in a meadow, Pip the owl on his shoulder with a lantern, a bundle of cursed violet arrows at his feet and a castle on the hill behind" },
+      "blocks": [
+        {
+          "type": "facts",
+          "items": [
+            { "value": "17", "label": "guardians to free" },
+            { "value": "81", "label": "painted story pages" },
+            { "value": "7", "label": "songs for the story" }
+          ]
+        },
+        {
+          "type": "actions",
+          "items": [
+            { "href": "/exitwise/storybook/", "label": "Read the storybook", "button": true },
+            { "href": "/exitwise/wiki/guardians/", "label": "Meet the guardians", "note": "How guardian fights work" }
           ]
         }
       ]
@@ -212,20 +239,11 @@
       "title": "Why you'll love it",
       "blocks": [
         {
-          "type": "features",
+          "type": "reasons",
           "items": [
-            { "title": "Easy to learn", "text": "One tap, one rule." },
-            { "title": "600 levels", "text": "Harder all the way, with a hard level every 10th, from small warm-ups to giant 100&times;100 brain-teasers." },
-            { "title": "Always solvable", "text": "No luck, just logic. Every player gets the same levels." },
-            { "title": "Play at your own pace", "text": "Think first, then tap." },
-            { "title": "Hints when you're stuck", "text": "Light up an arrow that's free to go." },
-            { "title": "Plays offline", "text": "On the commute, on a break, anywhere." },
-            { "title": "17 worlds, 49 shapes", "text": "From Meadow to Starlight on one level map, on boards shaped like hexagons, spirals, rockets and castles." },
-            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards." },
-            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code." },
-            { "title": "Custom maps", "text": "Build your own levels, share them, and play everyone else's." },
-            { "title": "Leaderboards", "text": "A board for every level, plus global ranks for score, perfect clears and maps. <a href=\"/exitwise/ranking/\">See the global ranking</a>" },
-            { "title": "Powerups", "text": "Auto-play, grid lines, remove arrow and the magic wand, for the toughest boards." }
+            { "title": "600 levels, 17 worlds", "text": "Harder all the way, with a hard level every 10th, from Meadow to Starlight on one level map.", "wiki": "worlds", "more": "The level map" },
+            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code.", "wiki": "rooms", "more": "How rooms work" },
+            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards.", "wiki": "daily-challenge", "more": "The daily challenge" }
           ]
         }
       ]

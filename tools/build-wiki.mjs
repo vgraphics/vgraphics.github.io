@@ -10,6 +10,11 @@
 // board that plays the rule and can be played, the tip card, a world map, a live gauge. The look comes from the
 // product's theme pack (<product>/theme/theme.css) and the shared assets/wiki.css; the header and footer are the
 // product pages' own (tools/lib/partials.mjs), so a wiki page looks and links like its landing page.
+// An entry's "quotes" ([{ text, by, audio, listen }], audio from the site's root) are the landing page's quote block,
+// each a line it says with a button to hear it, one under the other after the entry's lede: Palermo Noir's roles each
+// say their own lines in their own voice (George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with
+// play button to hear his voice. Same way we do in overview page."; 29 Oct, on the Officer's, Inspector's and Mayor's
+// second picked lines: "Yes, add them").
 //
 // Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp/.jpg (wide) and
 // <slug>-tall-<width>.avif/.webp/.jpg (the 9:16 cut for portrait screens) with art.json, the sizes this script reads.
@@ -17,13 +22,13 @@
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
-import { anchor, closing, header, footer, iconLinks } from './lib/partials.mjs'
+import { anchor, closing, header, footer, iconLinks, quote } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
-const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
+const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', story: 'The story',big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
 
 // The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
 // the product › Wiki, then the entry. "<" is escaped so no text can close the script.
@@ -314,7 +319,8 @@ function entryPage(w, product, e, i) {
     </div>` })}
   <article class="w-body wrap">
     <p class="w-lede">${e.summary}</p>${facts.length ? `
-    <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}
+    <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}${(e.quotes || []).map((q) => `
+    ${quote(q)}`).join('')}
     ${stepsBlock(w, e)}
     ${whatBlock(w, e)}
     ${tipBlock(w, e)}

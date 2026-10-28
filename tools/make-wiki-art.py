@@ -22,7 +22,9 @@ ROOT = os.path.join(os.path.dirname(os.path.abspath(__file__)), '..')
 # Heroes fill the screen's width (up to ultra-wide); phones get the tall cut. The largest size covers a 3440 px wide
 # screen at 93%; larger masters stay with the masters.
 WIDE, WIDE_JPEG, WIDE_MAX = [640, 1280, 1920, 2560, 3200], [1280, 1920], 3200
-TALL, TALL_JPEG = [540, 810, 1080, 1440], [1080]
+# The tall cut stops at TALL_MAX wide (a 4K portrait screen at 107%), so a big tall master (the storybook's 4864 px
+# takes) isn't served whole.
+TALL, TALL_JPEG, TALL_MAX = [540, 810, 1080, 1440], [1080], 2304
 
 
 def widths(limit, choices):
@@ -72,7 +74,7 @@ def main(product, only):
         wj = [w for w in WIDE_JPEG if w in ws] or ws[:1]
         size = save(wide, os.path.join(out, slug), ws, wj)
         tall = cut(own if own is not None else wide, s.get('focus', 0.5))
-        ts = widths(tall.width, TALL)
+        ts = widths(min(tall.width, TALL_MAX), TALL)
         tj = [w for w in TALL_JPEG if w in ts] or ts[-1:]
         tsize = save(tall, os.path.join(out, slug + '-tall'), ts, tj)
         manifest[slug] = {'widths': ws, 'jpeg': wj, 'width': size[0], 'height': size[1],

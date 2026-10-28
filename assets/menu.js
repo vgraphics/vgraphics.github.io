@@ -121,4 +121,7 @@
   if (document.querySelector("template.private")) import("/assets/private.js").catch(() => {});
   // The VHub entry, which shows a signed-in player's own name and picture, on a page that has one.
   if (document.querySelector("[data-vhub]")) import("/assets/vhub.js").catch(() => {});
+  // The VHub avatar, every header's last item, and the menu it opens (account.js). Folded, it stays in the bar after the
+  // menu's button: fit() moves only the play button.
+  if (document.querySelector(".vhub-avatar")) import("/assets/account.js").catch(() => {});
 })();

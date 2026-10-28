@@ -1,7 +1,8 @@
 // VHub players' pictures on the static pages, read signed out: an approved photo from VHub's Storage, or the player's
-// preset avatar, drawn as VHub draws it (VHub sdk/ts/src/pictures.ts). The Speedometer layout market uses it for its
-// creators, and assets/vhub.js for a signed-in player's VHub entry; exitwise/ranking/boards.js still has its own copy of
-// the same drawing.
+// preset avatar, drawn as VHub draws it (VHub sdk/ts/src/pictures.ts), in the rank frame the player wears, as the hub's
+// lists draw it (George, 26 Oct 2026: "do we see this badge anywhere else? If not we should"). Exitwise's boards
+// (exitwise/ranking/boards.js: the ranking page, the home and services podium, the multiplayer page) and the Speedometer
+// layout market's creators use it, and assets/vhub.js for a signed-in player's VHub entry.
 window.VHubAvatars = (() => {
   let storage = "https://firebasestorage.googleapis.com";
   let bucket = "vgraphics-vhub.firebasestorage.app";
@@ -49,10 +50,92 @@ window.VHubAvatars = (() => {
   // A player without a name, as the hub shows one: "Player" and the start of the id.
   const anonymous = uid => "Player " + uid.slice(0, 4).toUpperCase();
 
-  // Fills `el` with the player's approved photo (96 or 256 px), or their preset when there's none or it won't load.
-  // `p` is { uid, avatar, photo }: photo the approved picture's version, or null.
+  // VHub's rank frames, wood to mythic (George, 26 Oct 2026: slimmer frames, "add 7 more ranks"): the level that unlocks
+  // each (VHub catalog/vhub.json rewards), its drawing's size and its round opening's centre (fractions of the width and
+  // the height) and radius (of the width), as VHub's hub/src/frame-geometry.ts. The drawings are the hub's own
+  // /hub/frames/<id>.webp. A copy: change it with VHub's.
+  const FRAMES = {
+    wood: [5, 441, 480, 0.4968, 0.4621, 0.3624],
+    stone: [10, 480, 427, 0.5014, 0.5044, 0.2827],
+    iron: [20, 414, 480, 0.5, 0.3973, 0.3712],
+    bronze: [30, 362, 480, 0.5, 0.5137, 0.2824],
+    silver: [45, 362, 480, 0.4999, 0.5077, 0.2804],
+    gold: [60, 322, 480, 0.5002, 0.511, 0.3065],
+    platinum: [80, 324, 480, 0.4995, 0.5117, 0.3053],
+    emerald: [100, 329, 480, 0.4988, 0.5098, 0.301],
+    sapphire: [125, 324, 480, 0.5, 0.5163, 0.3073],
+    ruby: [150, 325, 480, 0.5001, 0.5104, 0.3061],
+    amethyst: [180, 480, 449, 0.5, 0.5181, 0.1914],
+    diamond: [220, 480, 448, 0.5, 0.5188, 0.1914],
+    mythic: [275, 478, 480, 0.4993, 0.502, 0.1865],
+  };
+  // How far a frame may reach, in pictures, before the picture shrinks to keep it in (the wings of the top ranks): a
+  // quarter of the picture past each side at most, as the hub's lists (VHub hub/src/components/picture.tsx, sm and md).
+  const REACH = 1.5;
+
+  // The frame a player's picture wears, as the hub's shownFrame (VHub hub/src/logic.ts): the one they chose while their
+  // level reaches it; chosen before the ladder asked more of it, the best one their level does reach (none below wood).
+  // With no level known, the one chosen. Null for none, or an id the ladder doesn't know.
+  function shownFrame(frame, level) {
+    if (typeof frame !== "string" || !Object.hasOwn(FRAMES, frame)) return null;
+    if (!(level > 0) || level >= FRAMES[frame][0]) return frame;
+    let best = null;
+    for (const [id, f] of Object.entries(FRAMES)) if (f[0] <= level) best = id;
+    return best;
+  }
+
+  // Draws the frame `p` wears around the picture in `el`, as the hub's lists do: `el` keeps its size, so rows still line
+  // up (George: "Avatars are not aligned. Borders makes some wider."); the picture tucks a little under the ring (smaller
+  // only for a frame that would reach past REACH), and the drawing lies over it, its opening on the centre, reaching into
+  // the room around `el`. The page's own disc and ring around the picture give way to the frame. `el` gets
+  // data-framed, for a page that keeps room above or below it. A drawing that won't load leaves the picture as it was.
+  function wear(el, p) {
+    const id = shownFrame(p.frame, p.level);
+    const pic = el.firstElementChild;
+    if (!id || !pic) return;
+    const [, width, height, cx, cy, r] = FRAMES[id];
+    const across = 1 / (2 * r), down = across * height / width;
+    const fit = Math.min(1, REACH / Math.max(across, down));
+    const fw = fit * across * 100, fh = fit * down * 100;
+    const art = document.createElement("img");
+    art.alt = "";
+    art.width = width;
+    art.height = height;
+    art.decoding = "async";
+    art.dataset.frameArt = "";
+    Object.assign(art.style, {
+      position: "absolute", left: `${(50 - cx * fw).toFixed(3)}%`, top: `${(50 - cy * fh).toFixed(3)}%`,
+      width: `${fw.toFixed(3)}%`, height: `${fh.toFixed(3)}%`,
+      maxWidth: "none", pointerEvents: "none",
+    });
+    art.onerror = () => { if (el.dataset.framed === id) plain(el); };
+    if (getComputedStyle(el).position === "static") el.style.position = "relative";
+    Object.assign(el.style, { overflow: "visible", background: "transparent", boxShadow: "none" });
+    Object.assign(pic.style, { transform: `scale(${(fit * 1.04).toFixed(4)})`, borderRadius: "50%" });
+    el.dataset.framed = id;
+    art.src = `/hub/frames/${id}.webp`;
+    el.append(art);
+  }
+
+  // Takes a frame off `el`: the picture as the page draws it.
+  function plain(el) {
+    if (!el.dataset.framed) return;
+    delete el.dataset.framed;
+    for (const k of ["position", "overflow", "background", "boxShadow"]) el.style[k] = "";
+    el.querySelectorAll(":scope > img[data-frame-art]").forEach(art => art.remove());
+    if (el.firstElementChild) Object.assign(el.firstElementChild.style, { transform: "", borderRadius: "" });
+  }
+
+  // Fills `el` with the player's approved photo (96 or 256 px), or their preset when there's none or it won't load, in
+  // the rank frame they wear. `p` is { uid, avatar, photo, level?, frame? }: photo the approved picture's version, or
+  // null; frame the id they chose on VHub, or none.
   function draw(el, p, size = 96) {
-    const preset = () => { el.innerHTML = svg(typeof p.avatar === "number" ? p.avatar : avatarFor(p.uid)); };
+    plain(el);
+    const preset = () => {
+      plain(el);
+      el.innerHTML = svg(typeof p.avatar === "number" ? p.avatar : avatarFor(p.uid));
+      wear(el, p);
+    };
     if (!p.photo) return preset();
     const img = document.createElement("img");
     img.alt = "";
@@ -62,7 +145,8 @@ window.VHubAvatars = (() => {
     img.onerror = preset;
     img.src = `${storage}/v0/b/${bucket}/o/${encodeURIComponent(`photos/${p.uid}/${p.photo}/${size}.jpg`)}?alt=media`;
     el.replaceChildren(img);
+    wear(el, p);
   }
 
-  return { svg, avatarFor, anonymous, draw };
+  return { svg, avatarFor, anonymous, draw, shownFrame };
 })();

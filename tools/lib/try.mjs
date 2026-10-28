@@ -11,7 +11,7 @@
 //   engine         the folder of the engine's files, ending in "/" (vgtry.js, the wasm, art/, fonts/, styles/)
 //   store          the Google Play link; referrer, the install referrer it carries (step 6: the app opens on the style)
 //   measurementId  the product's Google Analytics web stream ("G-…"), or null: no statistics and no question
-//   prices         { premium, all }: what a premium style and "Unlock all" cost (the engine knows only which are free)
+//   prices         { premium }: what a premium style costs (the engine knows only which are free)
 //   qr             { src, alt }: a QR code of the store link, for desktop visitors (tools/make-qr.py)
 //   startup        { art: { tall, wide }, tip, minMs }: the welcome art (as src-<width>.webp), the product's mark at the
 //                  loading bar's head (assets/startup/startup.js, TIPS: "dial", "arrow"; none, a round knob) and the

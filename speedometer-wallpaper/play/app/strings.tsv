@@ -181,6 +181,7 @@ gauge__captions__bluetooth	BLUETOOTH
 gauge__captions__high_temperature	HIGH TEMP
 gauge__captions__low_battery	LOW BATT
 gauge__captions__low_temperature	LOW TEMP
+gauge__counts__off	CALLS AND MESSAGES ARE OFF
 gauge__future__calls#one	CALL
 gauge__future__calls#other	CALLS
 gauge__future__cold	C
@@ -397,10 +398,7 @@ screen__access__status_on	Turned on. Future now shows your music, calls and mess
 screen__access__title	Music, calls and messages
 screen__access__top_bar__title	Notification access
 screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song and counts missed calls and messages.
-screen__account__backup_waiting__body	Your account has settings from another phone, saved %1$s. Restore them here, or keep this phone's.
 screen__account__bonus_line	Sign in and pick a premium style, free
-screen__account__button_keep_phone__label	Keep this phone's
-screen__account__button_restore__label	Restore
 screen__account__failed__message	That didn't work. Try again.
 screen__account__free_style__button	Keep %1$s
 screen__account__free_style__chip	Free for you
@@ -408,24 +406,19 @@ screen__account__free_style__note	Yours on every phone where you sign in. Styles
 screen__account__free_style__title	Pick your free style
 screen__account__gift_claimed__message	%1$s is yours.
 screen__account__level_line	VHub level %1$d · %2$s
-screen__account__loading_gifts__title	Loading your gifts and backup…
+screen__account__loading_gifts__title	Loading your gifts…
 screen__account__message_free_month_started	Your free month of Speedometer Plus has started.
 screen__account__name_saved__message	Your VHub name is %1$s.
 screen__account__no_browser__message	No browser on this phone to open your VHub profile.
-screen__account__nothing_to_restore__message	Your account has no settings saved yet.
-screen__account__offer__bonus_backup	Your settings back on any phone you sign in on
 screen__account__offer__bonus_month	A free month of every layout, when layouts open
+screen__account__offer__bonus_settings	Your settings on every phone you sign in on
 screen__account__offer__bonus_style	A premium style of your choice, free
 screen__account__offer__bonus_xp	XP and badges on your VHub profile
 screen__account__offer__intro	Your wallpaper is on. Sign in with Google and get:
 screen__account__offer__title	Keep it with VHub
 screen__account__product_exitwise	Exitwise
-screen__account__restored__message	Your settings are back.
 screen__account__row_also_on__subtitle	%1$s · your level counts everywhere
 screen__account__row_also_on__title	Also on VHub
-screen__account__row_backup__not_yet	Saved as you change them
-screen__account__row_backup__saved	Saved %1$s
-screen__account__row_backup__title	Your settings on VHub
 screen__account__row_free_month__start__label	Start
 screen__account__row_free_month__subtitle	Every style and no ads for 30 days. Start it when you like
 screen__account__row_free_month__title	A free month of Speedometer Plus
@@ -434,9 +427,11 @@ screen__account__row_free_month_used__subtitle	Used
 screen__account__row_free_style__subtitle	Your sign-in gift
 screen__account__row_free_style__title	Free style
 screen__account__row_name__subtitle	+50 XP · for good
+screen__account__row_settings_sync__subtitle	On every phone you sign in on, and in your VHub menu on vgraphics.gr
+screen__account__row_settings_sync__title	Your settings follow you
 screen__account__section_account__title	Your account
-screen__account__section_backup__title	Settings backup
 screen__account__section_gifts__title	Your sign-in gifts
+screen__account__section_settings__title	Settings
 screen__account__section_vhub__title	Speedometer on VHub
 screen__account__strip__text	Pick a premium style, free
 screen__account__tile_days__label	Days on
@@ -542,7 +537,7 @@ screen__app_settings__second_clock_sheet__subtitle	The city whose time the Secon
 screen__app_settings__second_clock_sheet__title	Second clock
 screen__app_settings__section_about__title	About
 screen__app_settings__section_account__title	Account
-screen__app_settings__section_new_styles__title	New styles start with
+screen__app_settings__section_every_style__title	Every style
 screen__app_settings__section_permissions__title	Permissions
 screen__app_settings__section_previews__title	Previews and feedback
 screen__app_settings__section_privacy__title	Privacy
@@ -700,6 +695,9 @@ screen__layout_builder__button_back__content_description	Send to back
 screen__layout_builder__button_delete__content_description	Delete layout
 screen__layout_builder__button_front__content_description	Bring to front
 screen__layout_builder__button_remove__content_description	Remove widget
+screen__layout_builder__button_zoom_fit__content_description	Show the whole layout
+screen__layout_builder__button_zoom_in__content_description	Zoom in
+screen__layout_builder__button_zoom_out__content_description	Zoom out
 screen__layout_builder__default_name	My layout
 screen__layout_builder__delete__body	Styles that use it go back to their own layout.
 screen__layout_builder__delete__button_delete__label	Delete
@@ -708,12 +706,14 @@ screen__layout_builder__delete__title	Delete this layout?
 screen__layout_builder__delete_failed__message	Couldn't delete the layout. Try again.
 screen__layout_builder__deleted__message	Layout deleted.
 screen__layout_builder__full__message	This layout already holds every widget it can.
-screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it.
+screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it. Pinch to zoom.
 screen__layout_builder__layers__back	Back
 screen__layout_builder__layers__front	Front
+screen__layout_builder__lock__content_description	Lock in place
 screen__layout_builder__made_for_other	Made for %1$s; may look small here.
 screen__layout_builder__not_found__message	This layout isn't on this phone.
 screen__layout_builder__preview_in__label	Preview in
+screen__layout_builder__preview_in__locked__content_description	%1$s, not yours yet
 screen__layout_builder__save__name__label	Name
 screen__layout_builder__save__publish__label	Save and publish to the market
 screen__layout_builder__save__shapes__label	Made for
@@ -732,6 +732,7 @@ screen__layout_editor__discard__button_discard__label	Discard
 screen__layout_editor__discard__button_keep__label	Keep editing
 screen__layout_editor__discard__title	Discard changes?
 screen__layout_editor__element__content_description	%1$s, move
+screen__layout_editor__element__locked__content_description	%1$s, locked
 screen__layout_editor__element__select__label	Choose
 screen__layout_editor__move_down__label	Move down
 screen__layout_editor__move_left__label	Move left
@@ -1013,9 +1014,9 @@ screen__style_settings__time_format__h24	24 h
 screen__style_settings__time_format__phone	Phone
 screen__style_settings__top_speed_mark__subtitle	A red mark at the drive's top speed
 screen__style_settings__top_speed_mark__title	Top-speed mark
-screen__style_settings__unit__app	App (%1$s)
 screen__style_settings__unit__kmh	km/h
 screen__style_settings__unit__mph	mph
+screen__style_settings__units__every_style	Speed, 12 or 24 hours and seconds are the same in every style.
 screen__styles__button_customize__label	Customize
 screen__styles__chip_free__label	Free
 screen__styles__chip_in_use__label	In use

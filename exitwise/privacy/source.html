@@ -15,7 +15,7 @@
   <div class="head">
     <p class="kicker">Exitwise</p>
     <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 26 October 2026</span>
+    <span class="updated">Last updated: 28 October 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -30,17 +30,20 @@
     <li>Your progress and settings are saved on your device. If you sign in with Google Play Games or a Google account
       (Android), with Google on our website, or with your CrazyGames account (CrazyGames), they are also saved to that
       account so you can continue on another device.</li>
+    <li>Your account, username and picture are your VGraphics account, kept by VHub, our account service for every
+      VGraphics game, which has <a href="/hub/privacy.html">its own privacy policy</a>.</li>
     <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
-      players, with a username and picture you choose, or "Player" and a short code if you don't choose one. The
-      global ranking (top 100 players by level, perfect clears and custom maps) is also public on our website.</li>
-    <li>On Android you can use your own photo as your picture. It is checked automatically before anyone else can
-      see it, and other players can report pictures and names.</li>
+      players, with your username and picture, or "Player" and a short code if you don't choose a name. VHub keeps the
+      game's four global boards (score, perfect clears, custom maps cleared and plays of your maps), and their top 100
+      are also public on our website.</li>
+    <li>If you sign in with Google, you can use your own photo as your picture. It is checked automatically before
+      anyone else can see it, and other players can report pictures and names.</li>
     <li>When you play with friends in a room, the others in the room see your username, preset picture and results.
       Rooms are deleted automatically a day after they were made.</li>
     <li>If you publish a custom map, every player can see and play it, with your username as its creator. Reports about
       maps, and any message you add to them, are read only by us.</li>
-    <li>You can delete your cloud save, your username, your picture and your leaderboard results in the game at any
-      time.</li>
+    <li>You can delete your Exitwise data, or your whole VGraphics account, in the game or at
+      <a href="/hub/delete/">vgraphics.gr/hub/delete</a> at any time.</li>
     <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
     <li>We use Firebase (by Google) to see how the game is played and to receive crash reports. This data doesn't
       include your name or contact details.</li>
@@ -51,7 +54,7 @@
       <p>On this page</p>
       <ol>
         <li><a href="#device">Stored on your device</a></li>
-        <li><a href="#account">Your game account</a></li>
+        <li><a href="#account">Your account</a></li>
         <li><a href="#cloud">Cloud save</a></li>
         <li><a href="#leaderboards">Leaderboards &amp; profile</a></li>
         <li><a href="#rooms">Playing with friends</a></li>
@@ -76,29 +79,35 @@
           The game saves your current level, your coins and hints, your best time on each level, your sound and vibration
           settings, and what you have bought (such as "Remove Ads"). This is kept in the app's local storage on your phone
           or tablet, or in your browser's storage on the web. Uninstalling the app, or clearing the site's data in your
-          browser, deletes it.
+          browser, deletes it. While you are signed in, your game settings (music, sounds, vibration, "Tap twice to
+          launch" and story pages) are also kept with your VGraphics account (see below), so they are the same wherever
+          you play.
         </p>
       </section>
 
       <section id="account">
-        <h2>Your game account</h2>
+        <h2>Your account</h2>
         <p>
-          So that leaderboards know which results are yours, the game gives every player an account with Google Firebase
-          Authentication. It is a random identifier with no name or email attached. If you sign in with Google Play Games
-          on Android, that account is linked to your Play Games player ID, and your Play Games name may be offered as a
-          username suggestion. On the web (CrazyGames), the game keeps this identifier in your CrazyGames save data, so it
-          follows your CrazyGames account to other browsers; CrazyGames handles its own login under the
+          Your account is a VGraphics account, kept by VHub, VGraphics' account service for all its games and apps. It
+          holds your username, picture, player stats, place on the global boards, blocks and reports, your game settings,
+          and VHub's own level, achievements and friends; the <a href="/hub/privacy.html">VHub privacy policy</a> describes it in full.
+          The first time you play, the game makes you a guest account there: a random identifier with no name or email
+          attached. The game's own server (Google Firebase, in our Exitwise project) gets a sign-in for the same
+          identifier, so that your cloud save, level leaderboards, rooms and maps know which results are yours. If you
+          sign in with Google Play Games on Android, your account is linked to your Play Games player ID. On the web
+          (CrazyGames), you play with your CrazyGames account: CrazyGames handles its own login under the
           <a href="https://www.crazygames.com/privacy-policy">CrazyGames Privacy Policy</a>, and we receive your
-          CrazyGames username only to suggest it as your name.
+          CrazyGames username and picture, which the game shows as your username and picture.
         </p>
         <p>
-          You can also sign in with a Google account: on Android in Settings → "Link Google account", and on our website
-          (vgraphics.gr) with "Sign in". This lets you play with the same progress on your phone and on the website.
-          Google then shares your Google account's email address, name and profile picture link with Firebase
-          Authentication, which keeps them with your game account. We use them only to sign you in and to show which Google
-          account is linked; they are never shown to other players, shared or used for ads. If your Google account
-          already belongs to another game account, the game joins the two into one: it asks which progress to keep, and
-          deletes the other game account with its username and leaderboard results.
+          You can also sign in with a Google account, on Android in Settings and on our website (vgraphics.gr) with "Sign
+          in". This lets you play with the same progress on your phone and on the website, and use the same account in
+          other VGraphics games.
+          Google then shares your Google account's email address, name and profile picture link with VHub's sign-in
+          (Google Firebase Authentication), which keeps them with your account. We use them only to sign you in and to
+          show which Google account is linked; they are never shown to other players, shared or used for ads. If your
+          Google account already belongs to another VGraphics account, the game asks which progress to keep, and joins the
+          two accounts into one.
         </p>
       </section>
 
@@ -125,20 +134,26 @@
           Leaderboards are visible to everyone who plays the game. They show your username and picture if you set a
           profile, or "Player" and the first characters of your account identifier if you didn't. The first time you open
           a leaderboard, the game asks whether you want to choose a username (3 to 16 letters, digits or underscores) and
-          one of the game's preset pictures, or on Android a photo of your own (see below). A username can't be changed
-          once it's set, so choose carefully; your picture can be changed in Settings → Profile. Please don't use your
-          real name or anything that identifies you. Names that are rude or pretend to be us are refused, and names that
-          other players report are taken away (see "Reports and blocking").
+          one of the preset pictures, or a photo of your own (see below). Your username and picture are your VGraphics
+          account's profile: VHub keeps them, and every VGraphics game shows them. A username can't be changed once it's
+          set, so choose carefully; your picture can be changed in Settings → Profile. Please don't use your real name or
+          anything that identifies you. Names that are rude or pretend to be us are refused, and names that other players
+          report are taken away (see "Reports and blocking").
         </p>
         <p>
-          The game also keeps your player stats under your game account, such as your highest level, perfect clears and
-          the custom maps you have cleared, from your first win. The Global tab ranks players by them. The same global
-          ranking is published on our website at
-          <a href="https://vgraphics.gr/exitwise/ranking/">vgraphics.gr/exitwise/ranking</a>, where anyone can see it
-          without playing or signing in: the top 100 players on each global board, with their username and picture (or
-          "Player" and a short code) and the numbers that board counts. Nothing else about you is shown there. A name or
-          picture taken away after reports isn't shown, and deleting your leaderboard data also takes you off the
-          ranking.
+          The game also counts your player stats, such as your score, highest level, perfect clears and the custom maps
+          you have cleared, from your first win, and sends them to VHub, which keeps them with your account and ranks
+          players on four global boards: the game's Global tab. The same boards are published on our website, at
+          <a href="https://vgraphics.gr/exitwise/ranking/">vgraphics.gr/exitwise/ranking</a> and on
+          <a href="https://vgraphics.gr/hub/boards/">VHub's boards</a>, where anyone can see them without playing or
+          signing in: the top 100 players on each global board, with their username and picture (or "Player" and a short
+          code), their VHub level and the numbers that board counts. Nothing else about you is shown there. A name or
+          picture taken away after reports isn't shown, and deleting your Exitwise data also takes you off these boards.
+        </p>
+        <p>
+          The Weekend Tower works like a level's leaderboard: when you climb one of its floors, your best time on each
+          floor, the floors you climbed and your total time are stored on that weekend's board in Google Firebase Cloud
+          Firestore with your account identifier, and other players see them with your username.
         </p>
       </section>
 
@@ -157,19 +172,25 @@
           CrazyGames which room you are in so that your CrazyGames friends can join you there, or on our website
           (vgraphics.gr). In the app it leads to a page on our website that opens the game in that room.
         </p>
+        <p>
+          After a win you can also challenge a friend: the game shares a link the same way, holding the level, your time,
+          the hearts you lost and your username. Anyone with the link can see them. The challenge isn't stored on our
+          servers.
+        </p>
       </section>
 
       <section id="pictures">
         <h2>Profile pictures</h2>
         <p>
-          On Android, if you sign in with Google Play Games, you can use a photo from your phone as your picture instead
-          of a preset one. You choose it with Android's photo picker, so the game only ever sees the photo you pick. The
-          game cuts it to a square and sends it to our server (Google Cloud Functions). The server makes a small copy
-          (192 × 192 pixels) without the photo's hidden details, such as where and with which camera it was taken. It then
-          checks that copy with Google Cloud Vision SafeSearch for nudity, violence and similar content, before anyone else
-          can see it. Google processes the picture on our behalf only to check it. Pictures that pass are stored in Google
-          Firebase Cloud Firestore and shown to every player next to your name. Pictures that don't pass aren't kept. You
-          can remove your picture at any time in Settings → Profile.
+          If you sign in with Google, you can use a photo of your own as your picture instead of a preset one: in the
+          Android app, or on VHub at <a href="/hub/">vgraphics.gr/hub</a>. In the app you choose it with Android's photo
+          picker, so the game only ever sees the photo you pick. The game cuts it to a square and sends it to VHub's
+          server (Google Cloud Functions). The server makes small copies (256 × 256 and 96 × 96 pixels) without the
+          photo's hidden details, such as where and with which camera it was taken. It then checks the larger copy with
+          Google Cloud Vision SafeSearch for nudity, violence and similar content, before anyone else can see it. Google processes
+          the picture on our behalf only to check it. Pictures that pass are stored in VHub's Google Cloud Storage and
+          shown to every player next to your name, in every VGraphics game and on our website. Pictures that don't pass
+          aren't kept. You can remove your picture at any time in Settings → Profile.
         </p>
         <p>
           Don't use pictures with nudity or sexual content, violence or gore, hate symbols, someone else's photo without
@@ -212,14 +233,15 @@
         <h2>Reports and blocking</h2>
         <p>
           Tap another player on a leaderboard to report their picture or name, or to block them. Blocking hides their
-          picture and name on your device only. A report hides them for you too, and is stored with your game account
-          identifier and the reported player's. When three different players who are signed in (with Google Play Games or
-          Google, or with CrazyGames) report the same picture, it is removed automatically. A player who loses two
-          pictures this way can't upload pictures any more. When three report the same username, it is taken away and
-          stays reserved so that nobody can use it again, and its owner chooses a new one. So that a removed picture or
-          name can't come straight back, we keep these moderation records even after you delete your data: the counts,
-          the game account identifiers of the reporters and of the uploader (linked to their Google Play Games player ID,
-          Google account or CrazyGames user ID), and a username that is being reported or was removed.
+          picture and name for you, wherever you are signed in to your account: VHub keeps your blocks with it. A report
+          hides them for you too, and VHub stores it with your account identifier and the reported player's. When three
+          different players who are signed in (with Google Play Games or Google, or with CrazyGames) report the same
+          picture, it is removed automatically. A player who loses two pictures this way can't upload pictures any more.
+          When three report the same username, it is taken away and stays reserved so that nobody can use it again, and
+          its owner chooses a new one. So that a removed picture or name can't come straight back, we keep these
+          moderation records even after you delete your data: the counts, the account identifiers of the reporters and of
+          the uploader (linked to their Google Play Games player ID, Google account or CrazyGames user ID), and a
+          username that is being reported or was removed.
         </p>
         <p>
           You can also report a custom map, from its page or after playing it. You choose a reason (an offensive drawing or
@@ -241,16 +263,24 @@
       <section id="delete" class="delete">
         <h2>Deleting your data</h2>
         <ul>
-          <li><strong>Username, picture and leaderboard results:</strong> Settings → Profile → "Delete my leaderboard
-            data" deletes your profile and picture, frees your username and removes all your results from every
-            leaderboard. You can then choose a new username.</li>
-          <li><strong>Cloud save and account (Android, and our website):</strong> Settings → "Delete cloud save" deletes
-            your cloud save, your profile, picture and leaderboard results, and your game account with the Google account
-            details linked to it. It also deletes your map drafts, your plays and ratings of maps and your player stats, and
-            takes all your published maps down, so nobody can see or play them any more. The progress on your device or in
-            your browser stays.</li>
+          <li><strong>Your Exitwise data:</strong> Settings → Profile → "Delete my Exitwise data" deletes what Exitwise
+            keeps for you: your cloud save, your results on every leaderboard, your map drafts, your plays and ratings of
+            maps and your player stats, and takes all your published maps down, so nobody can see or play them any more.
+            VHub also deletes the stats, achievements, global board places and XP you earned in Exitwise. Your VGraphics
+            account, username and picture stay, and so does the progress on your device, which is saved to your account
+            again as you play.</li>
+          <li><strong>Your whole VGraphics account:</strong> Settings → "Delete my VGraphics account", or
+            <a href="/hub/delete/">vgraphics.gr/hub/delete</a>, deletes your account in every VGraphics game: your
+            username (freed for others), your picture, stats, achievements, friends and board places, the Google account
+            details linked to it, and everything Exitwise keeps for you as above. The game then signs you out. The
+            progress on your device or in your browser stays.</li>
+          <li><strong>Older versions of the game</strong> have "Delete my leaderboard data" (your username, picture,
+            leaderboard results and stats) and "Delete cloud save" (also your cloud save, drafts, map plays and ratings,
+            published maps and game account) instead. Both reach your VGraphics account too: VHub deletes what you earned
+            in Exitwise, and after "Delete cloud save" the whole account when Exitwise was all it held.</li>
           <li><strong>One published map:</strong> open it in the Mine tab of Custom maps and unpublish it.</li>
-          <li><strong>On CrazyGames:</strong> your save is managed by CrazyGames (see their privacy policy).</li>
+          <li><strong>On CrazyGames:</strong> your save is managed by CrazyGames (see their privacy policy). "Delete my
+            Exitwise data" works there too; to delete your whole account, email us.</li>
           <li>You can also email us at the address below and we will delete it for you.</li>
         </ul>
         <p>
@@ -355,8 +385,9 @@
         <h2>Your rights</h2>
         <p>
           We don't hold your real name or contact details, and analytics data isn't tied to them. You can see your
-          username, picture and results in the game, change your picture, and delete all of them as described under
-          "Deleting your data". If
+          username, picture and results in the game and on <a href="/hub/">VHub</a>, change your picture, download a copy
+          of your VGraphics account's data at <a href="/hub/delete/">vgraphics.gr/hub/delete</a>, and delete them as
+          described under "Deleting your data". If
           you'd like anything else deleted or have a question about your data, email us and we'll help as far as we can.
           For data collected by our advertising partners, use the links above or your device's ad settings. Firebase
           services are provided by Google; see <a href="https://firebase.google.com/support/privacy">Privacy and

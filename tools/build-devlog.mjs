@@ -86,7 +86,6 @@ ${main}
 </main>
 
 ${footer}
-<script src="/assets/vhub-me.js" defer></script>
 </body>
 </html>
 `

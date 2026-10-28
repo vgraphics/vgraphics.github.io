@@ -1,0 +1,67 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="robots" content="noindex" />
+    <title>Palermo Noir · TV</title>
+    <link rel="canonical" href="https://vgraphics.gr/palermo/tv/" />
+    <link rel="icon" href="../game/art/logo.svg" type="image/svg+xml" />
+    <!-- The site's cursors (every page on vgraphics.gr links it; palermo.css sets Palermo's); vite-ignore leaves the
+         site's own files to the site. -->
+    <link rel="stylesheet" href="/assets/cursors.css"  />
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
+    <script src="/assets/no-select.js" defer ></script>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
+      /* The company's legal line, the site's rule for every page: fine print in the stage's safe margin at the foot. */
+      .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
+        color: rgba(239, 231, 212, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
+      .party-legal a { color: inherit; }
+      /* No selecting and no long-press menu (George, 26 Oct 2026: "Dont allow text selection and right clicking in any
+         page."): the kit's KitRoot does it for the whole page, with the right-click menu and the fields, and the shared
+         welcome for its art; this covers the legal line before the app has loaded. */
+      .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+    </style>
+    <script type="module" crossorigin src="/palermo/game/tv-DGoWlL_6.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-Cw0Y2oMN.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-DD9SUJt2.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-DOP-g1Gs.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/app-DUYt75Rl.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-D2UQBGSt.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/newsreel-sE5nnSXv.css">
+  </head>
+  <body>
+    <!-- The party games' shared welcome, from vgraphics.gr/tv/start-up/ (one file for every party game): this game's key
+         art, logo and the squishy loading bar from the first frame, while the TV app loads and joins the room, in
+         Palermo's look: a gold fuse with a spark in a night-navy pill. The VGraphics intro already played on
+         vgraphics.gr/tv. The addresses are relative to this page. The key art in every size, up to 8K: each screen loads
+         the one that covers it, so a 1080p TV gets the 1920 file and an 8K one the 7680 (docs/art.md; key-art.test.ts
+         checks them against the phone's LOOK.keyArt). -->
+    <div
+      id="party-welcome"
+      data-art="../game/art/key-wide.webp"
+      data-art-tall="../game/art/key-tall.webp"
+      data-art-srcset="../game/art/key-wide.webp 1920w, ../game/art/key-wide-2560.webp 2560w, ../game/art/key-wide-3840.webp 3840w, ../game/art/key-wide-7680.webp 7680w"
+      data-art-sizes="(min-aspect-ratio: 16/9) 100vw, 177.78vh"
+      data-art-tall-srcset="../game/art/key-tall.webp 1080w, ../game/art/key-tall-1440.webp 1440w, ../game/art/key-tall-1800.webp 1800w, ../game/art/key-tall-2160.webp 2160w, ../game/art/key-tall-3072.webp 3072w, ../game/art/key-tall-4320.webp 4320w"
+      data-art-tall-sizes="(max-aspect-ratio: 1080/1935) 55.82vh, 100vw"
+      data-logo="../game/art/logo.webp"
+      data-accent="#E8B65A"
+      data-accent-lip="#B8862E"
+      data-track="#13243A"
+      data-track-lip="#060D16"
+      data-groove="#08111C"
+      data-rim="#B8862E"
+    ></div>
+    <script src="../../tv/start-up/welcome.js"></script>
+    <div id="app"></div>
+    <!-- In the page's HTML, in English; the kit's LegalLine puts it in the room's language. Hidden while a game plays;
+         its links stay out of the remote's way. -->
+    <footer id="party-legal" class="party-legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. <span data-legal="rights">All rights reserved</span> · <span data-legal="gemi">G.E.MI. no. 181823306000</span> · <span data-legal="vat">VAT no. EL802736373</span> · <a href="/company/" data-legal="company" tabindex="-1">Company</a> · <a href="/privacy/" data-legal="privacy" tabindex="-1">Privacy</a> · <a href="/terms/" data-legal="terms" tabindex="-1">Terms</a></footer>
+    <!-- vgraphics.gr's one ad switch, read before the app starts the kit's ads: the video between games on the primary
+         display (off unless it says on). The site's own file, so vite-ignore; on the dev server it's missing, and there
+         are no ads (&adtest=mock on the display link shows the kit's stand-in). -->
+    <script src="/assets/web-ads.js" ></script>
+  </body>
+</html>
