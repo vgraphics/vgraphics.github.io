@@ -24,8 +24,8 @@ export const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="
 
 // A line said in the product, set large across the content's width, with a small play button after its last word
 // when the page has the recording (assets/product.js plays it, one recording at a time; listen is the button's name
-// for screen readers): { text, by?, audio?, listen? }. A landing page's quote block and a wiki entry's quote (a role's
-// own line in its own voice, George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with play button to
+// for screen readers): { text, by?, audio?, listen? }. A landing page's quote block and a wiki entry's quotes (a role's
+// own lines in its own voice, George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with play button to
 // hear his voice. Same way we do in overview page.") are this one piece. George, 24 Oct 2026: "a small play/pause next
 // to quotes".
 export function quote(b) {

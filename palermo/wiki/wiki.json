@@ -70,12 +70,14 @@
    "name": "Known Killer",
    "image": "/palermo/wiki/img/medals/known-killer.webp",
    "summary": "Picks a victim with the other killers each night. The Police Officer knows his face.",
-   "quote": {
-    "text": "Tonight… someone won't wake up.",
-    "by": "The Known Killer",
-    "audio": "/palermo/audio/voices/known-killer.mp3",
-    "listen": "Hear the Known Killer"
-   },
+   "quotes": [
+    {
+     "text": "Tonight… someone won't wake up.",
+     "by": "The Known Killer",
+     "audio": "/palermo/audio/voices/known-killer.mp3",
+     "listen": "Hear the Known Killer"
+    }
+   ],
    "what": [
     "Every night from the second, you and the other killers choose a victim together on your phones. Your partners see your pick, and the most picked player is the victim.",
     "On the first night there is no kill: the killers only see each other, and the Police Officer learns who you are, though not the other killers.",
@@ -115,12 +117,14 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/hidden-killer.webp",
    "summary": "A killer the Police Officer doesn't know, and the Detective sees as innocent.",
-   "quote": {
-    "text": "You'll never see me coming.",
-    "by": "The Hidden Killer",
-    "audio": "/palermo/audio/voices/hidden-killer.mp3",
-    "listen": "Hear the Hidden Killer"
-   },
+   "quotes": [
+    {
+     "text": "You'll never see me coming.",
+     "by": "The Hidden Killer",
+     "audio": "/palermo/audio/voices/hidden-killer.mp3",
+     "listen": "Hear the Hidden Killer"
+    }
+   ],
    "what": [
     "You kill with the Known Killer every night from the second, but on the first night the Police Officer learns only the Known Killer's face, not yours.",
     "By default the Detective sees you as not a killer, a host rule. With 12 players or more there are two Hidden Killers, three killers in all."
@@ -152,12 +156,20 @@
    "name": "Police Officer",
    "image": "/palermo/wiki/img/medals/police-officer.webp",
    "summary": "Learns the Known Killer's face on the first night, then steers the town without giving himself away.",
-   "quote": {
-    "text": "You're under arrest!",
-    "by": "The Police Officer",
-    "audio": "/palermo/audio/voices/police-officer.mp3",
-    "listen": "Hear the Police Officer"
-   },
+   "quotes": [
+    {
+     "text": "You're under arrest!",
+     "by": "The Police Officer",
+     "audio": "/palermo/audio/voices/police-officer.mp3",
+     "listen": "Hear the Police Officer"
+    },
+    {
+     "text": "Another one…",
+     "by": "The Police Officer",
+     "audio": "/palermo/audio/voices/police-officer-another.mp3",
+     "listen": "Hear the Police Officer: Another one"
+    }
+   ],
    "what": [
     "On the first night your phone names the Known Killer: you know one killer from the start.",
     "You have no other power. Lead the town towards the Known Killer without showing what you know, or the killers will make you their next victim.",
@@ -194,12 +206,14 @@
    "name": "Doctor",
    "image": "/palermo/wiki/img/medals/doctor.webp",
    "summary": "Protects one player each night from the second, never the same one two nights running.",
-   "quote": {
-    "text": "Not tonight. Not on my watch.",
-    "by": "The Doctor",
-    "audio": "/palermo/audio/voices/doctor.mp3",
-    "listen": "Hear the Doctor"
-   },
+   "quotes": [
+    {
+     "text": "Not tonight. Not on my watch.",
+     "by": "The Doctor",
+     "audio": "/palermo/audio/voices/doctor.mp3",
+     "listen": "Hear the Doctor"
+    }
+   ],
    "what": [
     "From the second night, you choose one player to protect. If the killers pick them, the night passes without a murder, and only the dawn says so.",
     "You can't protect the same player two nights running, and you can save yourself once a game. Both are host rules."
@@ -235,12 +249,14 @@
    "name": "Citizen",
    "image": "/palermo/wiki/img/medals/citizen.webp",
    "summary": "No power: listen, accuse and vote the killers out.",
-   "quote": {
-    "text": "I only bake the bread… but I see everything.",
-    "by": "The Citizen",
-    "audio": "/palermo/audio/voices/citizen.mp3",
-    "listen": "Hear the Citizen"
-   },
+   "quotes": [
+    {
+     "text": "I only bake the bread… but I see everything.",
+     "by": "The Citizen",
+     "audio": "/palermo/audio/voices/citizen.mp3",
+     "listen": "Hear the Citizen"
+    }
+   ],
    "what": [
     "Most of the town are citizens. At night your phone asks who you trust and who you suspect, so it looks exactly like everyone else's, and the most suspected name is told at dawn.",
     "Citizens come with four faces on their cards: the baker, the fisherman, the seamstress and the kiosk owner. Each citizen gets one at the deal."
@@ -277,12 +293,20 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/detective.webp",
    "summary": "Each night, checks one player: killer or not.",
-   "quote": {
-    "text": "Just as I suspected.",
-    "by": "The Detective",
-    "audio": "/palermo/audio/voices/detective.mp3",
-    "listen": "Hear the Detective"
-   },
+   "quotes": [
+    {
+     "text": "Just as I suspected.",
+     "by": "The Detective",
+     "audio": "/palermo/audio/voices/detective.mp3",
+     "listen": "Hear the Detective"
+    },
+    {
+     "text": "Somebody knew too much.",
+     "by": "The Detective",
+     "audio": "/palermo/audio/voices/detective-knew.mp3",
+     "listen": "Hear the Detective: Somebody knew too much"
+    }
+   ],
    "what": [
     "Each night from the second, you pick one player and your phone tells you at once whether they're a killer.",
     "The Henchman and the Kamikaze show as not a killer, and so does the Hidden Killer unless the host turns that rule off."
@@ -314,12 +338,14 @@
    "name": "Seer",
    "image": "/palermo/wiki/img/medals/seer.webp",
    "summary": "Once a game, at night, learns one player's exact role.",
-   "quote": {
-    "text": "The cards never lie.",
-    "by": "The Seer",
-    "audio": "/palermo/audio/voices/seer.mp3",
-    "listen": "Hear the Seer"
-   },
+   "quotes": [
+    {
+     "text": "The cards never lie.",
+     "by": "The Seer",
+     "audio": "/palermo/audio/voices/seer.mp3",
+     "listen": "Hear the Seer"
+    }
+   ],
    "what": [
     "One night of your choice, you look at a player and learn their role, not just their side. Any other night, tap Not tonight.",
     "One look is all you get, so choose well, and keep it to yourself: the killers will want to know who has it."
@@ -352,12 +378,14 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/bulletproof.webp",
    "summary": "Survives the killers' first attack on him.",
-   "quote": {
-    "text": "Ha! Missed me!",
-    "by": "The Bulletproof",
-    "audio": "/palermo/audio/voices/bulletproof.mp3",
-    "listen": "Hear the Bulletproof"
-   },
+   "quotes": [
+    {
+     "text": "Ha! Missed me!",
+     "by": "The Bulletproof",
+     "audio": "/palermo/audio/voices/bulletproof.mp3",
+     "listen": "Hear the Bulletproof"
+    }
+   ],
    "what": [
     "The first time the killers pick you, you live, and the dawn tells the town only that the night passed without a murder, as if the Doctor had saved you.",
     "The second attack kills you as it would anyone."
@@ -390,12 +418,14 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/henchman.webp",
    "summary": "Knows the killers, unknown to them, and wins with them.",
-   "quote": {
-    "text": "The car's ready, boss.",
-    "by": "The Henchman",
-    "audio": "/palermo/audio/voices/henchman.mp3",
-    "listen": "Hear the Henchman"
-   },
+   "quotes": [
+    {
+     "text": "The car's ready, boss.",
+     "by": "The Henchman",
+     "audio": "/palermo/audio/voices/henchman.mp3",
+     "listen": "Hear the Henchman"
+    }
+   ],
    "what": [
     "Your card names the killers, but they don't know you. You don't kill: you help from the shadows, steering the votes away from them and onto the town.",
     "You win when the killers win, but in their head count you count with everyone else, and the Detective sees you as not a killer."
@@ -427,12 +457,20 @@
    "name": "Mayor",
    "image": "/palermo/wiki/img/medals/mayor.webp",
    "summary": "Reveals himself during a day; from then on his vote counts twice.",
-   "quote": {
-    "text": "Citizens! I am your mayor!",
-    "by": "The Mayor",
-    "audio": "/palermo/audio/voices/mayor.mp3",
-    "listen": "Hear the Mayor"
-   },
+   "quotes": [
+    {
+     "text": "Citizens! I am your mayor!",
+     "by": "The Mayor",
+     "audio": "/palermo/audio/voices/mayor.mp3",
+     "listen": "Hear the Mayor"
+    },
+    {
+     "text": "The town hall cannot decide!",
+     "by": "The Mayor",
+     "audio": "/palermo/audio/voices/mayor-tie.mp3",
+     "listen": "Hear the Mayor: The town hall cannot decide"
+    }
+   ],
    "what": [
     "You start as a secret. During any day's talk, use Reveal in your Secret actions: a gold badge appears on your tile, everyone knows who you are, and your vote counts twice from then on.",
     "Revealing makes you a target at night, so choose your moment."
@@ -464,12 +502,14 @@
    "name": "Hunter",
    "image": "/palermo/wiki/img/medals/hunter.webp",
    "summary": "When he's out, by vote, by night or by a bomb, he takes one player with him.",
-   "quote": {
-    "text": "If I go down, you're coming with me.",
-    "by": "The Hunter",
-    "audio": "/palermo/audio/voices/hunter.mp3",
-    "listen": "Hear the Hunter"
-   },
+   "quotes": [
+    {
+     "text": "If I go down, you're coming with me.",
+     "by": "The Hunter",
+     "audio": "/palermo/audio/voices/hunter.mp3",
+     "listen": "Hear the Hunter"
+    }
+   ],
    "what": [
     "Whenever you go out, you get 20 seconds to choose one player to take with you.",
     "A good shot can win the game for the town; a bad one hands it to the killers."
@@ -504,12 +544,14 @@
    "name": "Lawyer",
    "image": "/palermo/wiki/img/medals/lawyer.webp",
    "summary": "Dealt 5 power cards at the deal, keeps 2, and each works once.",
-   "quote": {
-    "text": "Objection!",
-    "by": "The Lawyer",
-    "audio": "/palermo/audio/voices/lawyer.mp3",
-    "listen": "Hear the Lawyer"
-   },
+   "quotes": [
+    {
+     "text": "Objection!",
+     "by": "The Lawyer",
+     "audio": "/palermo/audio/voices/lawyer.mp3",
+     "listen": "Hear the Lawyer"
+    }
+   ],
    "what": [
     "While everyone reads their card, your phone deals you 5 of the 17 power cards at random, and you keep 2. Every phone shows a card screen for the same time, so nobody can tell.",
     "Each kept card works once, at its own moment: a verdict, a vote, a night or your death. Your Secret actions drawer offers a card only when it can be used, at most one a day or a night.",
@@ -548,12 +590,14 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/kamikaze.webp",
    "summary": "With the killers. Once, during a day, he blows himself up and takes one player with him.",
-   "quote": {
-    "text": "Say goodbye, Palermo!",
-    "by": "The Kamikaze",
-    "audio": "/palermo/audio/voices/kamikaze.mp3",
-    "listen": "Hear the Kamikaze"
-   },
+   "quotes": [
+    {
+     "text": "Say goodbye, Palermo!",
+     "by": "The Kamikaze",
+     "audio": "/palermo/audio/voices/kamikaze.mp3",
+     "listen": "Hear the Kamikaze"
+    }
+   ],
    "what": [
     "You know the killers, and they know you. You don't kill at night.",
     "Once in the game, during a day's talk, use Explode in your Secret actions and pick a player: you both fall at once, in front of the whole town.",
@@ -587,12 +631,14 @@
    "robots": "noindex",
    "image": "/palermo/wiki/img/medals/madman.webp",
    "summary": "Wins alone if the town votes him out, and that ends the game.",
-   "quote": {
-    "text": "I wanted this all along!",
-    "by": "The Madman",
-    "audio": "/palermo/audio/voices/madman.mp3",
-    "listen": "Hear the Madman"
-   },
+   "quotes": [
+    {
+     "text": "I wanted this all along!",
+     "by": "The Madman",
+     "audio": "/palermo/audio/voices/madman.mp3",
+     "listen": "Hear the Madman"
+    }
+   ],
    "what": [
     "Make the town vote you out and you win alone, on the spot: the game ends there.",
     "Killed at night, you just die. You're on no one's side."
