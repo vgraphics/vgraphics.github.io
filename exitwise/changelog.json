@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.e7eb7e01",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Sharper story pictures on big screens",
+      "items": [
+        "Story pictures now look sharp on big screens instead of pixelated",
+        "Boss shields that move now wait for your arrow, then drop neatly into place"
+      ],
+      "commit": "e7eb7e01"
+    },
+    {
       "version": "1.0.21",
       "date": "2026-10-28",
       "platforms": [
