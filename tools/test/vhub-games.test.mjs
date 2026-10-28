@@ -53,12 +53,27 @@ test('Speedometer has its name now, the short one its settings use', () => {
   assert.equal(text(gameRow(el, speedometer, () => {}).children[1]), 'Speedometer')
 })
 
-test('a product the catalog gives no icon keeps an empty tile of the same size, and its name', () => {
-  const [tile, name] = gameRow(el, { id: 'palermo', name: 'Palermo Noir', kind: 'game' }, () => {}).children
+test('a product with no icon yet gets a plain tile in its colour, the same size, and its name', () => {
+  // Palermo Noir's icon waits for George's pick; its catalog colour is sky.
+  const [tile, name] = gameRow(el, { id: 'palermo', name: 'Palermo Noir', kind: 'game', color: 'sky' }, () => {}).children
   assert.equal(tile.tag, 'span')
-  assert.equal(tile.attrs.class, 'vm-game-icon')
+  assert.equal(tile.attrs.class, 'vm-game-icon vm-tile-sky')
   assert.equal(tile.attrs['aria-hidden'], 'true')
+  assert.equal(tile.children.length, 0)
   assert.equal(text(name), 'Palermo Noir')
+})
+
+test("the tile's colour is one of the catalog's four, VHub's violet otherwise", () => {
+  const tile = (color) => gameRow(el, { id: 'x', name: 'X', kind: 'app', color }, () => {}).children[0].attrs.class
+  for (const c of ['sun', 'coral', 'sky', 'violet']) assert.equal(tile(c), `vm-game-icon vm-tile-${c}`)
+  assert.equal(tile(undefined), 'vm-game-icon vm-tile-violet')
+  assert.equal(tile('red x'), 'vm-game-icon vm-tile-violet')
+})
+
+test('account.css fills each colour tile', () => {
+  for (const [c, hex] of [['sun', '#F4C430'], ['coral', '#EC7472'], ['sky', '#74A2FF'], ['violet', '#4B4CD6']]) {
+    assert.match(rule(`.vm-game-icon.vm-tile-${c}`), new RegExp(`background:\\s*var\\(--${c},\\s*${hex}\\)`), c)
+  }
 })
 
 test('a tap chooses the product', () => {

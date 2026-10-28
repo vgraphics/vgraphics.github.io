@@ -187,7 +187,8 @@
 /* The games and apps, in both lists: each one's store icon clipped to a rounded tile, the same size for all, then its
    name on one line, then the chevron (George, 28 Oct 2026: "Use logo only (icon not letters) and then app name. Use
    rounded clip for aps icons and same size for all."; vhub-games.js draws the rows). The tile's rounding is the hub's
-   icon tiles' (26%); its faint edge keeps a dark icon's shape on a dark menu. */
+   icon tiles' (26%); its faint edge keeps a dark icon's shape on a dark menu. A product without an icon yet gets a
+   plain tile in its catalog colour (the site's sun, coral, sky and violet, vgraphics.css). */
 .vm-games { display: grid; gap: 2px; }
 .vm-games .vm-section { margin-bottom: 4px; }
 .vm-game {
@@ -200,6 +201,10 @@
   flex: none; display: block; width: 40px; height: 40px; border-radius: 26%; object-fit: cover; background: var(--vm-surface-2);
   outline: 1px solid color-mix(in srgb, var(--vm-ink) 14%, transparent); outline-offset: -1px;
 }
+.vm-game-icon.vm-tile-sun { background: var(--sun, #F4C430); }
+.vm-game-icon.vm-tile-coral { background: var(--coral, #EC7472); }
+.vm-game-icon.vm-tile-sky { background: var(--sky, #74A2FF); }
+.vm-game-icon.vm-tile-violet { background: var(--violet, #4B4CD6); }
 .vm-game-name { flex: 1; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 700; }
 .vm-game::after { content: "›"; flex: none; font-size: 1.5rem; line-height: 1; color: var(--vm-muted); }
 
