@@ -18,7 +18,7 @@
     {"id":"gauges","title":"Small gauges","kind":"gauge","intro":"The four dials around it, and the little temperature dial."},
     {"id":"lights","title":"Warning lights","intro":"Lights on the big gauge and the small gauges. Each warning light can be switched off in Customize → Warning lamps."},
     {"id":"setup","title":"Clock, settings & help","intro":"The digital clock, every setting, and answers to common questions."},
-    {"id":"designs","title":"Styles","intro":"19 styles. Classic, Steel and Graphite are free; every other style is a one-time purchase, or unlock them all at once. Pick one on the Styles screen."}
+    {"id":"designs","title":"Styles","intro":"19 styles. Classic, Steel and Graphite are free; every other style is a one-time purchase, or comes with the Speedometer Plus subscription. Pick one on the Styles screen."}
   ],
   "entries": [
     {
@@ -219,7 +219,7 @@
       "image": "/speedometer-wallpaper/wiki/img/settings.webp",
       "summary": "The app's settings, and each style's own in Customize.",
       "what": ["Tap the gear at the top of the home screen for the app's settings. Each style's own settings are in Customize, on the home screen and on the Styles screen."],
-      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","New styles start with: the speed unit and the clock every style follows until you change its own, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Purchases: Unlock all styles and Restore purchases.","Privacy: Ad choices (where your region requires it) and the privacy policy. About: the Guide, Rate on Google Play and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
+      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","New styles start with: the speed unit and the clock every style follows until you change its own, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Widgets: the second clock's city, your daily step goal, and Tilt level, which sets level for the Tilt widget with the phone in its mount.","Purchases: Speedometer Plus (every style and no ads) and Restore purchases.","Privacy: Ad choices (where your region requires it) and the privacy policy. About: the Guide, Rate on Google Play and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
       "related": ["big-gauge","designs-screen","date-and-time","low-battery-light"]
     },
     {
@@ -238,11 +238,11 @@
       "section": "designs",
       "name": "The Styles screen",
       "image": "/speedometer-wallpaper/img/designs.webp",
-      "summary": "All 19 styles, drawn live: use one, buy one, or pick its layout.",
+      "summary": "All 19 styles, drawn live: use one, buy one, pick its layout, or build your own with 42 widgets.",
       "what": ["Open the app and tap Styles. Your styles come first, then the rest, each drawn live by the wallpaper itself with its name and its state: In use, Free, Owned or Locked. Tap one for its page: a live demo you can pause, Power, CPU and Speed buttons, its description and its layouts."],
-      "how": ["Tap Use this style to switch: the wallpaper changes at once.","Tap Buy to buy a style through Google Play, or Unlock all for every style and layout, including the styles still to come. Google Play shows the price for your country.","Under Layouts, pick a layout and tap Use this layout. Edit layout moves and resizes the gauges of a layout you can edit, and Make your own saves your arrangement as the style's own layout."],
-      "notes": ["If a payment is still pending, or Google Play isn't available, the screen tells you."],
-      "related": ["classic-design","future-design","restoring-future"]
+      "how": ["Tap Use this style to switch: the wallpaper changes at once.","Tap Buy to buy a style once through Google Play, or Every style for Speedometer Plus, a monthly or yearly subscription: every style, including the styles still to come, and no ads. Google Play shows the price for your country.","Under Layouts, pick one of the style's own, a ready-made one, one of yours (Mine) or one from the market, and tap Use this layout. Edit layout opens it in the layout builder: one of yours changes in every style, any other becomes your own copy and the original stays as it is. New layout starts one from scratch.","In the layout builder, Add widget brings in a widget, a drag moves it and its red handle resizes it, and Bring to front and Send to back stack widgets that overlap. The padlock toggle beside a chosen widget's name locks it in place while you arrange the rest. Pinch the layout, or use the buttons in its corner, to zoom in on the details. Preview in shows it in any style, even one you don't own yet. Save layout keeps it under Mine; Save and publish to the market shares it.","Add widget lists the 42 widgets by section, each with a live preview of how the style draws it: Gauges (the main gauge, battery, RAM, signal, Wi-Fi, lights, an info display, a backplate and more), On the road (trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer, climb rate), Where you are (heading, altitude, tilt, sunrise and sunset, the moon, weather, air pressure), The phone (battery time, data speed, storage, steps today) and Your day (the clock, date and a second clock, next alarm and event, Now Playing, music buttons, volume, calls and messages). Every style shows every widget, each in its own look, and a widget reads only while it's on your wallpaper.","A widget that needs your location, your steps or your calendar asks Android for it when you add it; the weather asks only for your approximate location. Pick the second clock's city, your step goal and the tilt's level in Settings, under Widgets.","Now Playing, the music buttons and Calls and messages need notification access: the app takes you there when you add one. In the previews they show a sample song and counts; on your wallpaper, until the access is on, Now Playing reads MUSIC AND CALLS ARE OFF and Calls and messages reads CALLS AND MESSAGES ARE OFF."],
+      "notes": ["If a payment is still pending, or Google Play isn't available, the screen tells you.","Only the weather sends anything: your rough location, rounded to about 10 km, goes to MET Norway (api.met.no) for the forecast. Weather data from MET Norway, under the Norwegian Licence for Open Government Data and CC BY 4.0.","The music buttons work where your home screen passes taps to the wallpaper; Samsung's home screen doesn't."],
+      "related": ["settings","future-design","restoring-future"]
     },
     {
       "slug": "classic-design",
@@ -261,7 +261,7 @@
       "image": "/speedometer-wallpaper/img/future-power.webp",
       "summary": "The 2016 chrome cluster, rebuilt, as a one-time purchase.",
       "what": ["Future is one big chrome dial that follows the same three modes as Classic (power, CPU clock or GPS speed), with the value in its blue glass hub and battery and RAM arcs at the bottom.","Above it, the clock and date. Below it, the music area, the Bluetooth and Wi-Fi status, and how many calls you missed and messages you haven't read.","In landscape, on tablets and unfolded foldables, it becomes the 2016 two-dial cluster: the big gauge on the left, mobile signal and battery temperature on the right, music in the middle."],
-      "how": ["Buy it once on the Styles screen, or get it with Unlock all. It's a one-time purchase, not a subscription.","Tap the dial, or use the Big gauge tile, to switch its mode.","The music and the call and message counts need notification access."],
+      "how": ["Buy it once on the Styles screen: a one-time purchase that stays yours. Or get it with every other style through Speedometer Plus, a subscription.","Tap the dial, or use the Big gauge tile, to switch its mode.","The music and the call and message counts need notification access."],
       "related": ["music-calls-messages","restoring-future","big-gauge-tile"]
     },
     {
@@ -281,7 +281,7 @@
       "name": "Restoring your styles on a new phone",
       "image": "/speedometer-wallpaper/img/renders/settings-owned.webp",
       "summary": "Bought once, back by themselves on any phone with the same Google account.",
-      "what": ["Every style you buy, and Unlock all, is a one-time purchase tied to your Google account. The app checks your purchases with Google Play every time you open it, so on a new phone signed in with the same account, they come back by themselves."],
+      "what": ["Every style you buy is a one-time purchase tied to your Google account. The app checks your purchases with Google Play every time you open it, so on a new phone signed in with the same account, they come back by themselves.","Speedometer Plus is a subscription on your Google account, and signed in to VHub, every device of your VHub account gets it too."],
       "how": ["Install the app on the new phone, open it once, then pick your style on the Styles screen. If one is missing, tap Settings → Restore purchases.","Your purchases are also remembered on the phone, so the wallpaper never waits for Google Play."],
       "notes": ["A refunded purchase is removed the next time the app checks."],
       "related": ["future-design","designs-screen"]
