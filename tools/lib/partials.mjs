@@ -19,6 +19,24 @@ export const ICONS = {
 // click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
 export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
 
+// The quote's play button (a pause while it speaks)
+export const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+
+// A line said in the product, set large across the content's width, with a small play button after its last word
+// when the page has the recording (assets/product.js plays it, one recording at a time; listen is the button's name
+// for screen readers): { text, by?, audio?, listen? }. A landing page's quote block and a wiki entry's quote (a role's
+// own line in its own voice, George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with play button to
+// hear his voice. Same way we do in overview page.") are this one piece. George, 24 Oct 2026: "a small play/pause next
+// to quotes".
+export function quote(b) {
+  const cut = b.text.lastIndexOf(' ') + 1
+  const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
+  return `<figure class="sec-quote">
+          <blockquote><p>${text}</p></blockquote>${b.by ? `
+          <figcaption>${b.by}</figcaption>` : ''}
+        </figure>`
+}
+
 // A product's play and try buttons: page.json site.play { label, href, soon? }, and site.demo { label, href } for one
 // that also has a guided demo (Palermo Noir, George, 27 Oct 2026: "Build the demo button. Its different from play
 // online. Build both buttons and for play now say Coming soon."). The main button (the header's last item, the landing
