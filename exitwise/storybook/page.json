@@ -1,11 +1,11 @@
 {
   "title": "The Exitwise Storybook: The Tangled Tower, an Arrow Puzzle Fairy Tale",
-  "description": "Read the Exitwise storybook: Prince Arlo climbs the Tower of Worlds to break the Duskweaver's curse, one arrow at a time. Chapters unlock as you free each world in the arrow puzzle game.",
+  "description": "Read The Tangled Tower, the Exitwise storybook: Prince Arlo climbs the Tower of Worlds and frees 17 guardians to break the Duskweaver's curse. Chapters unlock as you play the arrow puzzle.",
   "social": {
     "title": "The Tangled Tower: the Exitwise storybook",
-    "description": "A painted fairy tale in 17 worlds. Free each world in the arrow puzzle game to unlock its chapter.",
-    "image": "/exitwise/img/card-1200x630.jpg",
-    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+    "description": "A painted fairy tale in 17 worlds, with a guardian in each. Free them in the arrow puzzle game to unlock every chapter.",
+    "image": "/exitwise/storybook/img/card-1200x630.jpg",
+    "imageAlt": "The Duskweaver, a giant moth sorcerer, spreads his starry wings over the Tower of Worlds while Prince Arlo and Pip the owl watch from below"
   },
   "structuredData": {
     "@context": "https://schema.org",
@@ -16,25 +16,75 @@
         "name": "The Tangled Tower",
         "alternateName": "The Exitwise storybook",
         "url": "https://vgraphics.gr/exitwise/storybook/",
-        "description": "Prince Arlo, a knight archer, climbs the Tower of Worlds to open the Dawn Door and break the Duskweaver's curse, freeing a guardian in every world. The storybook of Exitwise, the arrow escape puzzle game.",
+        "description": "Prince Arlo, a knight archer, and Pip the owl climb the Tower of Worlds to open the Dawn Door and break the Duskweaver's curse, freeing a guardian in every world. The storybook of Exitwise, the arrow escape puzzle game.",
         "genre": "Fairy tale",
         "inLanguage": "en",
         "bookFormat": "https://schema.org/EBook",
         "isAccessibleForFree": true,
-        "image": "https://vgraphics.gr/exitwise/img/card-1200x630.jpg",
-        "isPartOf": { "@id": "https://vgraphics.gr/exitwise/#game" },
-        "author": { "@id": "https://vgraphics.gr/#organization" },
-        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+        "image": "https://vgraphics.gr/exitwise/storybook/img/card-1200x630.jpg",
+        "character": [
+          {
+            "@type": "Person",
+            "name": "Prince Arlo"
+          },
+          {
+            "@type": "Person",
+            "name": "Pip the owl"
+          },
+          {
+            "@type": "Person",
+            "name": "The Duskweaver"
+          }
+        ],
+        "isPartOf": {
+          "@id": "https://vgraphics.gr/exitwise/#game"
+        },
+        "author": {
+          "@id": "https://vgraphics.gr/#organization"
+        },
+        "publisher": {
+          "@id": "https://vgraphics.gr/#organization"
+        }
       },
-      { "@type": "VideoGame", "@id": "https://vgraphics.gr/exitwise/#game", "name": "Exitwise: Arrow Escape Puzzle", "url": "https://vgraphics.gr/exitwise/" },
-      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "VideoGame",
+        "@id": "https://vgraphics.gr/exitwise/#game",
+        "name": "Exitwise: Arrow Escape Puzzle",
+        "url": "https://vgraphics.gr/exitwise/"
+      },
+      {
+        "@type": "Organization",
+        "@id": "https://vgraphics.gr/#organization",
+        "name": "VGraphics",
+        "url": "https://vgraphics.gr/"
+      },
       {
         "@type": "BreadcrumbList",
         "itemListElement": [
-          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
-          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
-          { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
-          { "@type": "ListItem", "position": 4, "name": "Storybook", "item": "https://vgraphics.gr/exitwise/storybook/" }
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Games",
+            "item": "https://vgraphics.gr/games/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Exitwise",
+            "item": "https://vgraphics.gr/exitwise/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 4,
+            "name": "Storybook",
+            "item": "https://vgraphics.gr/exitwise/storybook/"
+          }
         ]
       }
     ]
@@ -44,16 +94,31 @@
     "lead": "The Tangled Tower",
     "align": "center",
     "badges": [
-      { "href": "#book", "label": "Read the story", "icon": "down", "button": true },
-      { "href": "/exitwise/play/", "label": "Play to unlock chapters", "note": "Free in your browser" }
-    ]
+      {
+        "href": "#book",
+        "label": "Read the story",
+        "icon": "down",
+        "button": true
+      },
+      {
+        "href": "/exitwise/play/",
+        "label": "Play to unlock chapters",
+        "note": "Free in your browser"
+      }
+    ],
+    "art": {
+      "wiki": "storybook-hero",
+      "alt": "The Duskweaver, a giant moth sorcerer with glowing eyes, spreads his starry wings over the Tower of Worlds and knots its door with violet thread, while Prince Arlo and Pip the owl watch from the foot of the tower",
+      "position": "50% 10%",
+      "placeholder": "linear-gradient(#4B3F8F, #E9A7C0)"
+    }
   },
   "sections": [
     {
       "id": "book",
       "eyebrow": "The storybook",
       "title": "A fairy tale in 17 worlds",
-      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Read how Prince Arlo and Pip the owl climb the tower. The prologue is open to everyone; each world's chapter unlocks as you free it in the arrow puzzle game, in your browser or on Android.",
+      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Read how Prince Arlo and Pip the owl climb the tower, one painted page at a time. The prologue is open to everyone; each world's chapter opens as you reach it in the arrow puzzle game, in your browser or on Android, and its last pages once you free its guardian.",
       "blocks": [
         {
           "type": "storybook",
@@ -63,11 +128,634 @@
           "audio": "/exitwise/play/StreamingAssets/Music/Story"
         }
       ]
+    },
+    {
+      "id": "guardians",
+      "eyebrow": "The guardians",
+      "title": "Seventeen guardians under a curse",
+      "intro": "At the top of every world, on its last level, a guardian waits above the board, cursed by the Duskweaver. Arrows that fly out of the top hit it; the last hit breaks the curse and frees it. Each one fights in its own way. Tap a card to turn it over.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "dense": true,
+          "deck": true,
+          "items": [
+            {
+              "image": {
+                "src": "img/guardians/bramble",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Bramble, the Meadow guardian: a cursed hedgehog wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 20",
+              "title": "Bramble",
+              "text": "The hedgehog of the Meadow. The first guardian, curled in violet thorns. No shield at all: learn how hits, the health bar and the curse clock work.",
+              "facts": [
+                [
+                  "World",
+                  "Meadow"
+                ],
+                [
+                  "Level",
+                  "20"
+                ],
+                [
+                  "Twist",
+                  "No ward"
+                ]
+              ],
+              "back": "<p>Every arrow that flies out of the top of the board hits him. Land enough hits before the curse clock runs out and the thorns fall away. His clock is the most patient of all, so take your time.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/mossback",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Mossback, the Jungle guardian: a cursed gorilla wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 40",
+              "title": "Mossback",
+              "text": "The gorilla of the Jungle. He holds up a shield of solid stone that covers half of the top edge.",
+              "facts": [
+                [
+                  "World",
+                  "Jungle"
+                ],
+                [
+                  "Level",
+                  "40"
+                ],
+                [
+                  "Twist",
+                  "Half shield"
+                ]
+              ],
+              "back": "<p>The shield covers one half of the top. After every 4 hits it swings to the other half. An arrow that flies into it bumps and costs a heart, so strike where it isn't.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/cinder",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Cinder, the Volcano guardian: a cursed lava dragon wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 80",
+              "title": "Cinder",
+              "text": "The lava dragon of the Volcano. She guards the crater with a wall of fire that burns in a single colour.",
+              "facts": [
+                [
+                  "World",
+                  "Volcano"
+                ],
+                [
+                  "Level",
+                  "80"
+                ],
+                [
+                  "Twist",
+                  "Fire of one colour"
+                ]
+              ],
+              "back": "<p>Her half shield is fire of one colour: arrows of that colour fly straight through it and hit her, any other colour bumps. It changes sides every 4 hits.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/rollo",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Rollo, the Desert guardian: a cursed sun scarab wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 100",
+              "title": "Rollo",
+              "text": "The sun scarab of the Desert. He rolls a cursed sun across the sand, from side to side.",
+              "facts": [
+                [
+                  "World",
+                  "Desert"
+                ],
+                [
+                  "Level",
+                  "100"
+                ],
+                [
+                  "Twist",
+                  "Sweeping sun"
+                ]
+              ],
+              "back": "<p>The sun covers a third of the top and rolls on every 4 hits: left, middle, right, and back. Count the hits and aim at the open thirds.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/shellby",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Old Shellby, the Lagoon guardian: a cursed sea turtle wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 140",
+              "title": "Old Shellby",
+              "text": "The sea turtle of the Lagoon. He drifts under the frozen lagoon, and his spells freeze the path.",
+              "facts": [
+                [
+                  "World",
+                  "Lagoon"
+                ],
+                [
+                  "Level",
+                  "140"
+                ],
+                [
+                  "Twist",
+                  "Frost"
+                ]
+              ],
+              "back": "<p>No shield, but twice in the fight, as his health drops, he casts frost: ice blocks fall in your arrows' way. Ice melts as you clear other arrows, so keep moving.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/puffcap",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Puffcap, the Mushroom forest guardian: a cursed toad wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 160",
+              "title": "Puffcap",
+              "text": "The toad of the Mushroom forest. He puffs out a cursed shield, and gets quicker when he's hurt.",
+              "facts": [
+                [
+                  "World",
+                  "Mushroom forest"
+                ],
+                [
+                  "Level",
+                  "160"
+                ],
+                [
+                  "Twist",
+                  "Rage"
+                ]
+              ],
+              "back": "<p>His half shield swaps every 4 hits, then every 3 once he is below half health. He also has rage: every tap that doesn't hit him counts down, and at zero he strikes and takes a heart. A hit calms him.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/oakheart",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Oakheart, the Autumn woods guardian: a cursed great stag wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 200",
+              "title": "Oakheart",
+              "text": "The great stag of the Autumn woods. A shield of one colour is woven through his antlers.",
+              "facts": [
+                [
+                  "World",
+                  "Autumn woods"
+                ],
+                [
+                  "Level",
+                  "200"
+                ],
+                [
+                  "Twist",
+                  "Shield of one colour"
+                ]
+              ],
+              "back": "<p>Only arrows of the shield's colour get through it. Paint tiles in the Autumn woods can recolour an arrow on its way out, so plan which colour reaches the top.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/frostbeard",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Frostbeard, the Glacier guardian: a cursed yeti wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 220",
+              "title": "Frostbeard",
+              "text": "The yeti of the Glacier. Half of him hides behind a wall of ice, and his roar freezes the board.",
+              "facts": [
+                [
+                  "World",
+                  "Glacier"
+                ],
+                [
+                  "Level",
+                  "220"
+                ],
+                [
+                  "Twist",
+                  "Ice wall and frost"
+                ]
+              ],
+              "back": "<p>His ice wall covers half of the top and moves every 4 hits, and twice in the fight he casts frost that drops ice blocks in your arrows' way.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/prism",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Prism, the Crystal caves guardian: a cursed crystal golem wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 260",
+              "title": "Prism",
+              "text": "The crystal golem of the Crystal caves. His shield shines in two colours, one after the other.",
+              "facts": [
+                [
+                  "World",
+                  "Crystal caves"
+                ],
+                [
+                  "Level",
+                  "260"
+                ],
+                [
+                  "Twist",
+                  "Two colours"
+                ]
+              ],
+              "back": "<p>Each time his half shield moves, it changes between two colours. Only arrows of the colour it shows pass through, so the right colour and the right side both matter.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/petalwing",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Petalwing, the Cherry blossom guardian: a cursed crane wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 280",
+              "title": "Petalwing",
+              "text": "The crane of the Cherry blossom. Her wings cover almost the whole sky, leaving one narrow gap.",
+              "facts": [
+                [
+                  "World",
+                  "Cherry blossom"
+                ],
+                [
+                  "Level",
+                  "280"
+                ],
+                [
+                  "Twist",
+                  "Moving gap"
+                ]
+              ],
+              "back": "<p>Her wings ward almost all of the top, leaving one gap that drifts on every 4 hits. Thread your arrows through it. She has rage too, so don't tap at random.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/sir_sprocket",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Sir Sprocket, the Clockwork town guardian: a cursed clockwork knight wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 320",
+              "title": "Sir Sprocket",
+              "text": "The clockwork knight of the Clockwork town. Only he still marches when every clock in town has stopped.",
+              "facts": [
+                [
+                  "World",
+                  "Clockwork town"
+                ],
+                [
+                  "Level",
+                  "320"
+                ],
+                [
+                  "Twist",
+                  "Gear shield"
+                ]
+              ],
+              "back": "<p>His gear shield sweeps across the top a third at a time, every 3 hits. Look for the switches: every machine in Clockwork town has a way to open it.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/inkwell",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Inkwell, the Coral reef guardian: a cursed octopus wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 340",
+              "title": "Inkwell",
+              "text": "The octopus of the Coral reef. Eight cursed arms, and clouds of ink that swallow the paths.",
+              "facts": [
+                [
+                  "World",
+                  "Coral reef"
+                ],
+                [
+                  "Level",
+                  "340"
+                ],
+                [
+                  "Twist",
+                  "Ink"
+                ]
+              ],
+              "back": "<p>Twice in the fight he squirts ink: a cloud covers some arrows, and they have to wait until it clears after a few more arrows leave. Count your shots.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/snapjaw",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Snapjaw, the Bayou guardian: a cursed alligator wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 380",
+              "title": "Snapjaw",
+              "text": "The alligator of the Bayou. His two shields close in from both sides like jaws.",
+              "facts": [
+                [
+                  "World",
+                  "Bayou"
+                ],
+                [
+                  "Level",
+                  "380"
+                ],
+                [
+                  "Twist",
+                  "Closing jaws"
+                ]
+              ],
+              "back": "<p>The shields start at both ends of the top and close in every 4 hits, so the gap gets smaller as the fight goes on. He has rage as well: shoot fast, before they bite.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/gumdrop",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Gumdrop, the Candy land guardian: a cursed gummy knight wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 400",
+              "title": "Gumdrop",
+              "text": "The gummy knight of the Candy land. His shield changes colour every time it moves.",
+              "facts": [
+                [
+                  "World",
+                  "Candy land"
+                ],
+                [
+                  "Level",
+                  "400"
+                ],
+                [
+                  "Twist",
+                  "Changing colour"
+                ]
+              ],
+              "back": "<p>Watch the colour, not the knight: his half shield moves every 4 hits and takes on a new colour each time, and only arrows of that colour slip through.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/stone_sentinel",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Stone Sentinel, the Temple ruins guardian: a cursed stone sentinel wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 440",
+              "title": "The Stone Sentinel",
+              "text": "The stone sentinel of the Temple ruins. Two great stone hands rise from the floor to guard its face.",
+              "facts": [
+                [
+                  "World",
+                  "Temple ruins"
+                ],
+                [
+                  "Level",
+                  "440"
+                ],
+                [
+                  "Twist",
+                  "Two stone hands"
+                ]
+              ],
+              "back": "<p>The hands move like a slow puzzle, one shielding while the other opens, and change every 4 hits. Twice in the fight it casts frost as well.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/stormwing",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Stormwing, the Sky islands guardian: a cursed thunder griffin wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 460",
+              "title": "Stormwing",
+              "text": "The thunder griffin of the Sky islands. He circles between the islands, his shield flashing from place to place.",
+              "facts": [
+                [
+                  "World",
+                  "Sky islands"
+                ],
+                [
+                  "Level",
+                  "460"
+                ],
+                [
+                  "Twist",
+                  "Never still"
+                ]
+              ],
+              "back": "<p>His half shield moves after every 2 hits, the quickest of all. He casts frost twice and ink once on the way down.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            },
+            {
+              "image": {
+                "src": "img/guardians/duskweaver",
+                "widths": [
+                  256,
+                  512
+                ],
+                "width": 512,
+                "height": 512,
+                "sizes": "(max-width: 560px) 60vw, 240px",
+                "alt": "Duskweaver, the Starlight guardian: a cursed moth sorcerer wrapped in violet thorns and arrows"
+              },
+              "tag": "Level 500",
+              "title": "The Duskweaver",
+              "text": "The moth sorcerer of the Starlight. He sealed the Dawn Door. Every knot he tied, he tied twice.",
+              "facts": [
+                [
+                  "World",
+                  "Starlight"
+                ],
+                [
+                  "Level",
+                  "500"
+                ],
+                [
+                  "Twist",
+                  "Every trick"
+                ]
+              ],
+              "back": "<p>The last fight, on level 500, uses everything: a moving gap that shifts every 3 hits, then every 2, rage from a third of the way in, frost and ink. Free him and the Dawn Door opens.</p>",
+              "href": "/exitwise/wiki/guardians/",
+              "more": "How guardian fights work"
+            }
+          ]
+        }
+      ],
+      "more": {
+        "href": "/exitwise/wiki/guardians/",
+        "label": "How guardian fights work →"
+      }
+    },
+    {
+      "id": "questions",
+      "title": "Questions about the storybook",
+      "blocks": [
+        {
+          "type": "faq",
+          "items": [
+            {
+              "q": "How do I unlock the chapters?",
+              "a": "Play Exitwise. The prologue and the Meadow's opening are open from the start. Each world's chapter opens when you reach that world, and its last pages when you free its guardian on the world's last level. The finale waits at level 500."
+            },
+            {
+              "q": "Why are my chapters locked on this page?",
+              "a": "This page reads your progress from <a href=\"/exitwise/play/\">Exitwise in your browser</a> on this site, in the same browser. Play a few levels there and come back: the chapters you have reached open here too. Progress from the Android app shows in the app's own Storybook, the Story button on the map."
+            },
+            {
+              "q": "Can I read the story in the game?",
+              "a": "Yes. A world's pages play over the map when you reach it and when you free its guardian, and you can skip them at any time. Tap Story on the map to read any chapter again. If you'd rather not see them, turn off \"Show story pages\" in Settings; the Storybook still fills up."
+            },
+            {
+              "q": "Who are Prince Arlo and Pip?",
+              "a": "Arlo is a young knight archer with a golden sun bow; he believes every arrow has a way out. Pip is a little owl who carries a lantern holding the last spark of dawn. Together they climb the Tower of Worlds to open the Dawn Door."
+            },
+            {
+              "q": "Does the story have music?",
+              "a": "Seven songs, from the prologue's music box to the guardians' march and the Dawn Door. Press the music button in the book to hear them as you read, or listen to the whole <a href=\"/exitwise/#soundtrack\">Exitwise soundtrack</a>."
+            },
+            {
+              "q": "What happens after level 500?",
+              "a": "The finale and the epilogue open. The story ends, but the game goes on: the shadows of old guardians come back as echoes on later levels, and Prince Arlo takes up his bow again."
+            }
+          ]
+        }
+      ]
     }
   ],
   "cta": {
     "title": "Free the next world",
     "text": "Every arrow puzzle you clear brings Prince Arlo closer to the Dawn Door. Free on Android and in your browser.",
-    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+    "badges": [
+      "google-play",
+      {
+        "href": "/exitwise/play/",
+        "label": "Play in your browser",
+        "note": "Play now, free"
+      }
+    ]
   }
 }
