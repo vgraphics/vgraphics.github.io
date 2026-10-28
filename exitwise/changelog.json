@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.e6ac5ebc",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Account button on the home screen",
+      "items": [
+        "A new account button sits at the top right of the home screen — tap it to sign in, or, once you're signed in, see your picture and open your profile."
+      ],
+      "commit": "e6ac5ebc"
+    },
+    {
       "version": "1.0.e7eb7e01",
       "date": "2026-10-28",
       "platforms": [
