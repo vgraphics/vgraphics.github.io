@@ -10,10 +10,12 @@
 //   - Signed out, or a guest: the sign-in invite, with Google's button. A sign-in VHub can't finish here (the account is
 //     another one's, or it owes the setup's answers) goes on in the hub.
 //   - Signed in: the account (picture, name, level, Profile, Account settings), the page's product's settings (a switch
-//     for an on/off, a segmented control for a choice), the other games and apps as their logos, Sign out and the hub.
+//     for an on/off, a segmented control for a choice), the other games and apps (each its icon and name, vhub-games.js),
+//     Sign out and the hub.
 //   Every change is VHub's at once (it queues and sends it); a change made elsewhere shows as it comes.
 // Its words follow the page's language; the settings' own come from VHub's catalog in both.
 import { vhubProfile, vhubSession } from "/assets/vhub-session.js";
+import { gameRow, shortName } from "/assets/vhub-games.js";
 
 const button = document.querySelector(".vhub-avatar");
 const face = button && button.querySelector(".vhub-avatar-face");
@@ -405,25 +407,17 @@ function games(list, title, again) {
     { class: "vm-games", "aria-label": title },
     el("h3", { class: "vm-section" }, title),
     list.map((m) =>
-      el(
-        "button",
-        {
-          type: "button",
-          class: "vm-game",
-          click: () => {
-            view = m.product.id;
-            again();
-          },
-        },
-        m.product.logo ? el("img", { src: m.product.logo, alt: m.product.name, height: "36" }) : el("span", { class: "vm-game-name" }, m.product.name),
-      ),
+      gameRow(el, m.product, () => {
+        view = m.product.id;
+        again();
+      }),
     ),
   );
 }
 
 /** The shown product's settings, and the function that stops following VHub's changes to them. */
 async function settings(site, shown, here, again) {
-  const name = shown.product.id === "speedometer" ? "Speedometer" : shown.product.name;
+  const name = shortName(shown.product);
   const section = el("section", { class: "vm-settings", "aria-label": t.settingsOf(name) });
   if (shown !== here) {
     section.append(
@@ -437,7 +431,7 @@ async function settings(site, shown, here, again) {
             again();
           },
         },
-        here ? (here.product.id === "speedometer" ? "Speedometer" : here.product.name) : t.all,
+        here ? shortName(here.product) : t.all,
       ),
     );
   }
