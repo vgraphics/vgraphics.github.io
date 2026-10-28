@@ -935,7 +935,8 @@
         "href": "/speedometer-wallpaper/play/",
         "label": "Try it in your browser",
         "note": "Live demo, no install"
-      }
+      },
+      "vhub"
     ]
   }
 }

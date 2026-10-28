@@ -1,6 +1,7 @@
 // VHub players' pictures on the static pages, read signed out: an approved photo from VHub's Storage, or the player's
 // preset avatar, drawn as VHub draws it (VHub sdk/ts/src/pictures.ts). The Speedometer layout market uses it for its
-// creators; exitwise/ranking/boards.js still has its own copy of the same drawing.
+// creators, and assets/vhub.js for a signed-in player's VHub entry; exitwise/ranking/boards.js still has its own copy of
+// the same drawing.
 window.VHubAvatars = (() => {
   let storage = "https://firebasestorage.googleapis.com";
   let bucket = "vgraphics-vhub.firebasestorage.app";

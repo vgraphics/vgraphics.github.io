@@ -51,7 +51,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament } from './lib/partials.mjs'
+import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
@@ -156,7 +156,6 @@ const LINK_ICONS = {
   book: line('<path d="M2.5 5h6a3.5 3.5 0 0 1 3.5 3.5V20a2.5 2.5 0 0 0-2.5-2.5h-7zM21.5 5h-6A3.5 3.5 0 0 0 12 8.5V20a2.5 2.5 0 0 1 2.5-2.5h7z"/>'),
   rules: line('<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2H9zM8.5 10h7M8.5 13.5h7M8.5 17h4"/>'),
   music: line('<path d="M9 18V5.5l11-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>'),
-  person: line('<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>'),
 }
 
 const BLOCKS = {
@@ -169,8 +168,9 @@ const BLOCKS = {
         </ul>`,
 
   // The product's other places as a row of chips, each with its icon (LINK_ICONS): { type: "links", label (the row's
-  // name for screen readers), items: [{ href, label, icon }] }. George, 28 Oct 2026: "D", the links as icon chips.
-  links: (b) => `<nav class="sec-links" aria-label="${esc(b.label)}">${b.items.map((l) => `<a href="${esc(l.href)}">${LINK_ICONS[l.icon] ?? ''}<span>${l.label}</span></a>`).join('')}</nav>`,
+  // name for screen readers), items: [{ href, label, icon } or "vhub", the VHub entry] }. George, 28 Oct 2026: "D",
+  // the links as icon chips.
+  links: (b) => `<nav class="sec-links" aria-label="${esc(b.label)}">${b.items.map((l) => (l === 'vhub' ? vhubEntry(true) : `<a href="${esc(l.href)}">${LINK_ICONS[l.icon] ?? ''}<span>${l.label}</span></a>`)).join('')}</nav>`,
 
   // A "why" section's few strong points, each a card opening with the painting of the wiki page it links to (the card
   // is that page's preview, so check-site.mjs lets the painting show on both): { type: "reasons", items: [{ title,
