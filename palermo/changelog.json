@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "0.1.fda55940",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo guides your Notebook pins",
+      "items": [
+        "In the demo, after you use your power, the guide now takes you to your Notebook to pin that player — a red pin for a killer, a gold pin for someone cleared",
+        "On the shared TV, players voted out now get an OUT stamp on their card at the final reveal, instead of a crossed-out name",
+        "In the demo, when you're voted out your own card reveal is now skipped, and if you're the Madman you're told that you won",
+        "In the demo, when the guide skips through a night, you now hear its final five-second ticks and the time-up sound",
+        "In the Greek demo, the red-pin step now shows the player's name, matching the English"
+      ],
+      "commit": "fda55940"
+    },
+    {
       "version": "0.1.294ddfa1",
       "date": "2026-10-28",
       "platforms": [
