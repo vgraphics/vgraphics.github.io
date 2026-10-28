@@ -15,7 +15,7 @@
   <div class="head">
     <p class="kicker">Exitwise</p>
     <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 28 October 2026</span>
+    <span class="updated">Last updated: 29 October 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -36,8 +36,9 @@
       players, with your username and picture, or "Player" and a short code if you don't choose a name. VHub keeps the
       game's four global boards (score, perfect clears, custom maps cleared and plays of your maps), and their top 100
       are also public on our website.</li>
-    <li>If you sign in with Google, you can use your own photo as your picture. It is checked automatically before
-      anyone else can see it, and other players can report pictures and names.</li>
+    <li>You can use your own photo as your picture by choosing it on VHub, signed in with Google. It is checked
+      automatically before anyone else can see it, and other players can report pictures and names. The game itself
+      never picks or uploads photos.</li>
     <li>When you play with friends in a room, the others in the room see your username, preset picture and results.
       Rooms are deleted automatically a day after they were made.</li>
     <li>If you publish a custom map, every player can see and play it, with your username as its creator. Reports about
@@ -134,9 +135,10 @@
           Leaderboards are visible to everyone who plays the game. They show your username and picture if you set a
           profile, or "Player" and the first characters of your account identifier if you didn't. The first time you open
           a leaderboard, the game asks whether you want to choose a username (3 to 16 letters, digits or underscores) and
-          one of the preset pictures, or a photo of your own (see below). Your username and picture are your VGraphics
-          account's profile: VHub keeps them, and every VGraphics game shows them. A username can't be changed once it's
-          set, so choose carefully; your picture can be changed in Settings → Profile. Please don't use your real name or
+          one of the preset pictures; a photo of your own is chosen on VHub (see below). Your username and picture are
+          your VGraphics account's profile: VHub keeps them, and every VGraphics game shows them. A username can't be
+          changed once it's set, so choose carefully; your preset can be changed, and your photo removed, in Settings →
+          Profile. Please don't use your real name or
           anything that identifies you. Names that are rude or pretend to be us are refused, and names that other players
           report are taken away (see "Reports and blocking").
         </p>
@@ -182,20 +184,24 @@
       <section id="pictures">
         <h2>Profile pictures</h2>
         <p>
-          If you sign in with Google, you can use a photo of your own as your picture instead of a preset one: in the
-          Android app, or on VHub at <a href="/hub/">vgraphics.gr/hub</a>. In the app you choose it with Android's photo
-          picker, so the game only ever sees the photo you pick. The game cuts it to a square and sends it to VHub's
-          server (Google Cloud Functions). The server makes small copies (256 × 256 and 96 × 96 pixels) without the
-          photo's hidden details, such as where and with which camera it was taken. It then checks the larger copy with
-          Google Cloud Vision SafeSearch for nudity, violence and similar content, before anyone else can see it. Google processes
-          the picture on our behalf only to check it. Pictures that pass are stored in VHub's Google Cloud Storage and
-          shown to every player next to your name, in every VGraphics game and on our website. Pictures that don't pass
-          aren't kept. You can remove your picture at any time in Settings → Profile.
+          If you sign in with Google, you can use a photo of your own as your picture instead of a preset one. You choose
+          it on VHub at <a href="/hub/profile/">vgraphics.gr/hub</a> (Settings → Profile → "Choose a photo in VHub" opens
+          it); the game itself never picks or uploads photos and never reads the photos on your device. VHub's server
+          (Google Cloud Functions) makes small copies (256 × 256 and 96 × 96 pixels) without the photo's hidden details,
+          such as where and with which camera it was taken. It then checks the larger copy with Google Cloud Vision
+          SafeSearch for nudity, violence and similar content, before anyone else can see it. Google processes the
+          picture on our behalf only to check it. Pictures that pass are stored in VHub's Google Cloud Storage and shown
+          to every player next to your name, in every VGraphics game and on our website. Pictures that don't pass aren't
+          kept. You can remove your picture at any time in Settings → Profile, or on VHub.
+        </p>
+        <p>
+          Older versions of the Android app let you choose the photo in the game, with Android's photo picker, so the
+          game only saw the photo you picked; it cut it to a square and sent it to the same checks.
         </p>
         <p>
           Don't use pictures with nudity or sexual content, violence or gore, hate symbols, someone else's photo without
-          their permission, or personal details such as a phone number or address. The game shows these rules before your
-          first picture.
+          their permission, or personal details such as a phone number or address. VHub shows these rules where you
+          choose your photo.
         </p>
       </section>
 

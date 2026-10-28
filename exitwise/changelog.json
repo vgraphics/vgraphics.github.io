@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.234907c1",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Rank frames on your picture",
+      "items": [
+        "Each player's picture now has a frame that shows their rank — you'll see it on leaderboards, player cards, rooms, match history and more. Pick your own on your VHub profile."
+      ],
+      "commit": "234907c1"
+    },
+    {
       "version": "1.0.25",
       "date": "2026-10-28",
       "platforms": [
