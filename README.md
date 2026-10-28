@@ -416,6 +416,7 @@ game without an entry means no ads in that game.
 | `banners` | The banner under each game (AdSense display ads). `true` once Google has approved vgraphics.gr (AdSense → Sites: "Ready"). |
 | `gameAds` | The in-game ads: an interstitial between levels and rewarded videos (H5 Games Ads). `true` only once Google has approved H5 Games Ads, a separate application made after the site's approval. |
 | `games.<game>.bannerSlot` | The `data-ad-slot` of that game's AdSense display unit (digits, in quotes), or `null` for no banner in that game |
+| `games.<game>.betweenGames` | Party games only (Palermo Noir, Quizfall): the short video on the TV when the host taps Play again. `true` lets `gameAds` turn it on; `false` keeps that game's video off while `gameAds` is on. Exitwise's in-game ads don't change. Missing counts as `true`. |
 
 Today both switches are off, because Google is still reviewing vgraphics.gr. To see where the review stands, run
 `npm --prefix D:/Projects/Deployer run cli -- ads-status`, or open the Deployer's Exitwise → Revenue tab.
@@ -430,7 +431,9 @@ Today both switches are off, because Google is still reviewing vgraphics.gr. To 
 
 **The day Google approves H5 Games Ads:** set `gameAds: true`, check, push, and look at a live page again.
 
-To switch ads off, set the switch back to `false` and push. Players get the change within about 10 minutes.
+To switch ads off, set the switch back to `false` and push. Players get the change within about 10 minutes. To stop
+only Palermo Noir's video between games, set `games.palermo.betweenGames: false` instead: Exitwise keeps its in-game
+ads, and Palermo's phones keep their banners.
 
 Keep the file plain, as it is: quoted strings, `true`/`false`, `null` and `{ }`. The Deployer reads its text without
 running it and refuses anything else (an expression, a function call, a second statement).
@@ -440,7 +443,7 @@ switch the same way Exitwise's does (the games repo's `docs/web-ads-adsense.md`,
 
 `check-site.mjs` holds the file to these rules:
 
-- the four settings and no others, each well formed;
+- the four settings and no others, each well formed (a game's: `bannerSlot` and, if there, `betweenGames`);
 - nothing switched on without a publisher id;
 - that publisher's line in `ads.txt`;
 - an entry for every game whose play page (`<game>/play/`) loads the switch. An app's try page loads none and shows no

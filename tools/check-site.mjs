@@ -1145,10 +1145,14 @@ else {
         report(WEB_ADS, 'web-ads', `games.${id} is not { bannerSlot }`)
         continue
       }
-      for (const k of Object.keys(game)) if (k !== 'bannerSlot') report(WEB_ADS, 'web-ads', `games.${id}: unknown setting "${k}" (a game has only bannerSlot)`)
+      for (const k of Object.keys(game)) {
+        if (!['bannerSlot', 'betweenGames'].includes(k)) report(WEB_ADS, 'web-ads', `games.${id}: unknown setting "${k}" (a game has bannerSlot and, for a party game, betweenGames)`)
+      }
       if (game.bannerSlot !== null && !(typeof game.bannerSlot === 'string' && /^\d{6,}$/.test(game.bannerSlot))) {
         report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
       }
+      // A party game's own switch for its video between games: missing is on (gameAds decides).
+      if (game.betweenGames !== undefined && typeof game.betweenGames !== 'boolean') report(WEB_ADS, 'web-ads', `games.${id}.betweenGames is not true or false`)
     }
     // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
     // and loads no switch, so it needs no entry.
