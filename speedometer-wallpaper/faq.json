@@ -38,5 +38,9 @@
   {
     "q": "What data does the app collect?",
     "a": "Very little. What the gauges read stays on your phone, and your location is used only for GPS speed. The app sends anonymous usage statistics and crash reports, and the banner's ads follow the consent choice you make. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "Do my settings follow me to my other devices?",
+    "a": "Yes, once you sign in to VHub, the free VGraphics account. Your speed unit, clock, seconds, vibration and every style you tweaked follow you to your next phone, and you can change the speed unit, the clock, the seconds and vibration from your VHub picture at the top right of this site too. Without an account they stay on the phone."
   }
 ]
