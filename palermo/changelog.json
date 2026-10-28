@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.8b05427d",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo timer counts down to zero",
+      "items": [
+        "In the guided demo, once everyone has opened their envelope, the countdown now runs smoothly down to zero before the next screen appears."
+      ],
+      "commit": "8b05427d"
+    },
+    {
       "version": "0.1.ff175f3c",
       "date": "2026-10-28",
       "platforms": [
