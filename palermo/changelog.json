@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.e7f22815",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Behind-the-scenes demo fix",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "e7f22815"
+    },
+    {
       "version": "0.1.36345a80",
       "date": "2026-10-28",
       "platforms": [
