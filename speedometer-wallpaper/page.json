@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39, or €5.99 for all of them, with VAT in most of the euro area.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -436,7 +436,7 @@
       "id": "styles",
       "eyebrow": "Styles",
       "title": "19 dashboards to choose from",
-      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once, or unlock them all for €5.99, including the styles still to come (prices with VAT in most of the euro area; Google Play shows yours). Each style brings its own layouts. Tap one to try it live in your browser.",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus, a monthly or yearly subscription for every style, including the styles still to come, and no ads. Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
@@ -706,6 +706,35 @@
             {
               "title": "Buy once, keep it",
               "text": "On a new phone with the same Google account, the styles you bought come back by themselves."
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "widgets",
+      "eyebrow": "Widgets",
+      "title": "42 widgets for any style",
+      "intro": "Every style shows every widget, each in its own look. Add the ones you want in the <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">layout builder</a>: each one reads only while it's on your wallpaper, and only the weather sends anything, your rough location, rounded to about 10 km, to MET Norway for the forecast.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "Gauges",
+              "text": "The main gauge, battery, RAM, signal, Wi-Fi and link speed, temperature, the warning and shift lights, Bluetooth and Wi-Fi icons, an info display or strip, and a backplate for the dials to sit on."
+            },
+            {
+              "title": "On the road",
+              "text": "Trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer and climb rate, from GPS and the phone's own sensors. Nothing leaves your phone."
+            },
+            {
+              "title": "Where you are",
+              "text": "Heading, altitude and tilt, sunrise and sunset, the moon, the weather and the air pressure."
+            },
+            {
+              "title": "Your day and your phone",
+              "text": "The clock, the date and a second clock, your next alarm and event, Now Playing with music buttons and volume, calls and messages, steps today, battery time, data speed and storage."
             }
           ]
         }
