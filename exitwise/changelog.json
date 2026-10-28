@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.234907c1",
+      "version": "1.0.26",
       "date": "2026-10-29",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Rank frames on your picture",
