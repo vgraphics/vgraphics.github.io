@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.12afcb4a",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Sharper Watch the TV scene",
+      "items": [
+        "On your phone, the scene behind \"Watch the TV\" now looks sharp instead of breaking up."
+      ],
+      "commit": "12afcb4a"
+    },
+    {
       "version": "0.1.8feef974",
       "date": "2026-10-28",
       "platforms": [
