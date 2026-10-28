@@ -181,6 +181,7 @@ gauge__captions__bluetooth	BLUETOOTH
 gauge__captions__high_temperature	HIGH TEMP
 gauge__captions__low_battery	LOW BATT
 gauge__captions__low_temperature	LOW TEMP
+gauge__counts__off	CALLS AND MESSAGES ARE OFF
 gauge__future__calls#one	CALL
 gauge__future__calls#other	CALLS
 gauge__future__cold	C
@@ -694,6 +695,9 @@ screen__layout_builder__button_back__content_description	Send to back
 screen__layout_builder__button_delete__content_description	Delete layout
 screen__layout_builder__button_front__content_description	Bring to front
 screen__layout_builder__button_remove__content_description	Remove widget
+screen__layout_builder__button_zoom_fit__content_description	Show the whole layout
+screen__layout_builder__button_zoom_in__content_description	Zoom in
+screen__layout_builder__button_zoom_out__content_description	Zoom out
 screen__layout_builder__default_name	My layout
 screen__layout_builder__delete__body	Styles that use it go back to their own layout.
 screen__layout_builder__delete__button_delete__label	Delete
@@ -702,12 +706,14 @@ screen__layout_builder__delete__title	Delete this layout?
 screen__layout_builder__delete_failed__message	Couldn't delete the layout. Try again.
 screen__layout_builder__deleted__message	Layout deleted.
 screen__layout_builder__full__message	This layout already holds every widget it can.
-screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it.
+screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it. Pinch to zoom.
 screen__layout_builder__layers__back	Back
 screen__layout_builder__layers__front	Front
+screen__layout_builder__lock__content_description	Lock in place
 screen__layout_builder__made_for_other	Made for %1$s; may look small here.
 screen__layout_builder__not_found__message	This layout isn't on this phone.
 screen__layout_builder__preview_in__label	Preview in
+screen__layout_builder__preview_in__locked__content_description	%1$s, not yours yet
 screen__layout_builder__save__name__label	Name
 screen__layout_builder__save__publish__label	Save and publish to the market
 screen__layout_builder__save__shapes__label	Made for
@@ -726,6 +732,7 @@ screen__layout_editor__discard__button_discard__label	Discard
 screen__layout_editor__discard__button_keep__label	Keep editing
 screen__layout_editor__discard__title	Discard changes?
 screen__layout_editor__element__content_description	%1$s, move
+screen__layout_editor__element__locked__content_description	%1$s, locked
 screen__layout_editor__element__select__label	Choose
 screen__layout_editor__move_down__label	Move down
 screen__layout_editor__move_left__label	Move left
