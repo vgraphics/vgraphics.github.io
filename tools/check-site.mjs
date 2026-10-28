@@ -17,6 +17,7 @@ import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
+import { blockedBy, readRules } from './lib/blockers.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -1180,6 +1181,22 @@ else {
       if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
       if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
+  }
+}
+
+// No file a blocker would drop (George, 27 Oct 2026: "Demo still not loading. Stays at 5% of loading."): Palermo's
+// demo shipped consent-banner-<hash>.js, Fanboy's cookie-notice list blocks "/consent-banner-", and the demo never
+// started for players with Brave, AdGuard or uBlock's annoyance filters on. Every file a page loads (scripts, styles,
+// pictures, sounds, fonts and data, the built games' too) is tried against the lists' rules that could reach our own
+// addresses (tools/blocker-rules.txt, tools/lib/blockers.mjs; node tools/update-blocker-rules.mjs refreshes them). A
+// hit gets another name: a built piece is named after its module, so rename the module or the build's chunk names.
+{
+  const rules = readRules(readFileSync(join(root, 'tools', 'blocker-rules.txt'), 'utf8'))
+  const shipped = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: root, encoding: 'utf8' })
+    .split('\0').filter((f) => f && !f.startsWith('tools/') && existsSync(join(root, f)))
+  for (const file of shipped) {
+    const rule = blockedBy(file, rules)
+    if (rule) report(file, 'blockers', `${rule.list} drops it (${rule.text}): give it a name no blocker list matches`)
   }
 }
 
