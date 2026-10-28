@@ -1243,7 +1243,7 @@
    "summary": "Dawn, the talk and the vote: the town argues and sends someone out.",
    "what": [
     "At dawn the narrator says who the killers found, or that the night passed without a murder; by default the victim's card stays hidden. The TV also shows the town's rumour, the most suspected name of the night.",
-    "During the talk, each player can point at one suspect from their phone, and the accusation board shows the arrows live on the TV. Everyone has the same Secret actions drawer: for most it says there's nothing to do today, the Mayor can reveal and the Kamikaze can explode.",
+    "During the talk, each player can point at one suspect from their phone, and the accusation board shows the arrows live on the TV. When the talk ends, whoever drew the most arrows, two at least, gets 30 seconds to answer the town before the vote; players tied at the top answer in turn. Everyone has the same Secret actions drawer: for most it says there's nothing to do today, the Mayor can reveal and the Kamikaze can explode.",
     "Then the vote: open, with each vote shown as an arrow as it arrives, or secret, with only the count. Most votes goes out, and a revealed Mayor's vote counts twice. The one who goes out may say a few last words before their card is shown."
    ],
    "related": [
@@ -1313,7 +1313,7 @@
    "summary": "Presets, timers, voting, ties and reveals: everything the host can change before the deal.",
    "what": [
     "Start from a preset: Classic (the killers, the Police Officer, the Doctor and citizens), Quick (shorter timers), Full house (with the suggested extras) or Random (extras drawn in balance, the roles kept hidden). A balance meter shows whether the setup favours the town or the killers.",
-    "Then change any rule: the discussion, vote and night times; open or secret voting; ties; last words; what a voted-out player's or a night victim's card shows; kills on the first night; the Doctor's self-saves; the Lovers; the Lawyer's variant; the accusation board and the town's rumour; and whether the host plays or moderates."
+    "Then change any rule: the discussion, vote and night times; open or secret voting; ties; last words; what a voted-out player's or a night victim's card shows; kills on the first night; the Doctor's self-saves; the Lovers; the Lawyer's variant; the accusation board (with the most accused's 30 seconds before the vote) and the town's rumour; and whether the host plays or moderates."
    ],
    "facts": [
     [
