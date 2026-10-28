@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.c2c659a2",
+      "version": "1.0.24",
       "date": "2026-10-28",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "One curse clock on guardian levels",
