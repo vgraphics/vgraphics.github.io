@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.2a7c475a",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Dress your character at the Tailor",
+      "items": [
+        "Visit the Tailor, a new shop where you buy and wear new looks for your character, paying with coins or euros.",
+        "Get the Host Pass and the rooms you host play with no ads at all, while the TV thanks you by name.",
+        "To put the game on a TV or computer, you can now open vgraphics.gr/tv and type your code, or go straight to vgraphics.gr/palermo/tv."
+      ],
+      "commit": "2a7c475a"
+    },
+    {
       "version": "0.1.b6ce4a5f",
       "date": "2026-10-28",
       "platforms": [
