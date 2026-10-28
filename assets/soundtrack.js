@@ -4,7 +4,14 @@
 // reach while the player is out of view, until the visitor closes it, which stops the music. Nothing loads before the first press of play: the <audio> has
 // preload="none" and no source until then. Media keys and a phone's lock screen work through the Media Session API,
 // where the browser has it.
+// Every song fades, never cuts (George, 28 Oct 2026: "Music must always start and end with fading"; assets/audio-fade.js,
+// which fades the voices too): in over 0.8 s when it starts or comes back, out over 0.5 s at a pause or a stop, 0.35 s
+// before a skip to another track, and over its last 1.5 s; a voice speaking (assets/product.js) sinks it to a quarter
+// until it is done. Until the fades have loaded the songs play as they are.
 (() => {
+  const IN = 0.8, OUT = 0.5, SKIP = 0.35, TAIL = 1.5;
+  let fades = null;
+  import("/assets/audio-fade.js").then((m) => (fades = m)).catch(() => {});
   const reduce = matchMedia("(prefers-reduced-motion: reduce)");
   const session = "mediaSession" in navigator ? navigator.mediaSession : null;
   const LOOP = { off: "Loop: off", all: "Loop: all tracks", one: "Loop: this track" };
@@ -44,6 +51,8 @@
     let loop = "off";
     let volume = 1; // the level, which a mute keeps for when the sound comes back
     let muted = false;
+    let fader = null; // the song's fades, from its first play
+    let halting = false; // a pause on its way down
 
     // Last in the page: fixed to the screen whatever its ancestors do, and last in the tab order.
     document.body.append(mini);
@@ -141,6 +150,22 @@
     }
 
     function start() {
+      halting = false;
+      if (!fader && fades) {
+        fader = fades.fader(audio, { tail: TAIL, music: true });
+        fader.volume = volume;
+      }
+      fades?.resume();
+      // Another track picked while one plays: that one fades out first
+      if (fader && !audio.paused && !loaded()) {
+        state("loading");
+        fader.to(0, SKIP).then((done) => done && begin());
+        return;
+      }
+      begin();
+    }
+
+    function begin() {
       if (!loaded() || audio.error) {
         const from = Number(bars[0].range.value); // a place picked on the waveform before the track loaded
         audio.src = track().dataset.src;
@@ -149,18 +174,33 @@
       }
       main("label").textContent = "Track " + (at + 1) + " of " + rows.length;
       started = true;
-      state("loading");
       describe();
       place();
+      // Played again while a pause was taking it down: it comes back up from where it is
+      if (!audio.paused) {
+        state("playing");
+        fader?.to(1, IN);
+        return;
+      }
+      state("loading");
+      fader?.to(0); // silent until it plays, then up (the "playing" listener)
       audio.play().catch(() => {
         if (audio.paused) state("paused");
       });
     }
 
-    const toggle = () => (audio.paused ? start() : audio.pause());
+    // A pause that fades out first; the buttons show it at once
+    function halt() {
+      if (!fader || audio.paused) return audio.pause();
+      halting = true;
+      state("paused");
+      fader.to(0, OUT).then((done) => done && audio.pause());
+    }
+
+    const toggle = () => (audio.paused || halting ? start() : halt());
 
     function skip(by) {
-      const playing = !audio.paused;
+      const playing = !audio.paused && !halting;
       select(at + by);
       if (playing) start();
     }
@@ -175,14 +215,14 @@
     }
 
     function stop() {
-      audio.pause();
+      halt();
       started = false;
       place();
     }
 
+    // "One" plays the track again once it has ended (the "ended" listener), so it fades out and back in as any track does
     function setLoop(mode) {
       loop = LOOP[mode] ? mode : "off";
-      audio.loop = loop === "one";
       const b = main("loop");
       b.dataset.loop = loop;
       b.setAttribute("aria-label", LOOP[loop]);
@@ -194,7 +234,8 @@
     function setVolume(v, mute, save) {
       if (v > 0) volume = Math.min(1, v);
       muted = mute || v <= 0;
-      audio.volume = volume;
+      if (fader) fader.volume = volume;
+      else audio.volume = volume;
       audio.muted = muted;
       const level = muted ? 0 : volume;
       both("mute").forEach((b) => {
@@ -225,8 +266,12 @@
       mini.classList.toggle("on", on);
     }
 
-    audio.addEventListener("playing", () => state("playing"));
-    audio.addEventListener("waiting", () => state("loading"));
+    audio.addEventListener("playing", () => {
+      if (halting) return;
+      state("playing");
+      fader?.to(1, IN);
+    });
+    audio.addEventListener("waiting", () => halting || state("loading"));
     audio.addEventListener("pause", () => state("paused"));
     audio.addEventListener("timeupdate", () => dragging || show(audio.currentTime));
     audio.addEventListener("loadedmetadata", () => {
@@ -236,7 +281,8 @@
     });
     audio.addEventListener("seeked", position);
     audio.addEventListener("ended", () => {
-      if (at < rows.length - 1 || loop === "all") {
+      if (loop === "one") start();
+      else if (at < rows.length - 1 || loop === "all") {
         select(at + 1);
         start();
       } else {
@@ -333,7 +379,7 @@
         } catch (e) {}
       };
       on("play", start);
-      on("pause", () => audio.pause());
+      on("pause", halt);
       on("stop", stop);
       on("previoustrack", back);
       on("nexttrack", () => skip(1));
