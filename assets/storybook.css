@@ -1,0 +1,39 @@
+/* The storybook block of the product pages, before its reader comes (markup: tools/build-pages.mjs; reader: the
+   game's storybook.css and .js): the first chapter's lines and the chapter list as text, in the product's theme tokens,
+   for search engines and readers without JavaScript. storybook.js replaces it with the book itself. */
+.storybook { min-height: 320px; }
+
+.storybook-text {
+  display: grid;
+  gap: 14px;
+  max-width: 68ch;
+  margin: 0 auto;
+  padding: clamp(20px, 4vw, 36px);
+  background: var(--surface);
+  border: var(--card-border);
+  border-radius: var(--radius);
+  box-shadow: var(--card-shadow);
+}
+
+.storybook-text h3 { margin: 0; font: var(--display-weight) 1.7rem/1.1 var(--font-display); color: var(--ink); }
+.storybook-text p { margin: 0; }
+
+.storybook-chapters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin: 8px 0;
+  padding: 0;
+  list-style: none;
+}
+
+.storybook-chapters li {
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-2);
+  color: var(--muted);
+}
+
+.storybook-chapters b { color: var(--ink); font-weight: var(--label-weight); }
+
+.storybook-text .btn { justify-self: start; }

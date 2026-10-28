@@ -172,9 +172,16 @@
       "platforms": [
         "Web"
       ],
+      "title": "The Tangled Tower: a story and 17 guardians",
       "items": [
-        "Improvements and fixes."
+        "A story in 81 painted pages: Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse. Read it from the new Story button on the map.",
+        "A guardian waits at the top of every world, from level 20: send arrows out of the top to free it before the curse clock runs out.",
+        "Earn up to three stars on every level, keep a daily streak and level up the prince's skills."
       ],
+      "link": {
+        "href": "/exitwise/storybook/",
+        "label": "Read the storybook"
+      },
       "commit": "f4f96dbf"
     },
     {
@@ -183,9 +190,16 @@
       "platforms": [
         "Android"
       ],
+      "title": "The Tangled Tower: a story and 17 guardians",
       "items": [
-        "Improvements and fixes."
+        "A story in 81 painted pages: Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse. Read it from the new Story button on the map.",
+        "A guardian waits at the top of every world, from level 20: send arrows out of the top to free it before the curse clock runs out.",
+        "Earn up to three stars on every level, keep a daily streak and level up the prince's skills."
       ],
+      "link": {
+        "href": "/exitwise/storybook/",
+        "label": "Read the storybook"
+      },
       "commit": "cd2af9f2"
     },
     {

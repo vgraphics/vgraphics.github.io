@@ -39,7 +39,8 @@
 //                                label, their key figures, become tabs), facts, actions, quote, chips, song, album, tour,
 //                                soundtrack, journey, embed, document, links (icon chips to the product's other places),
 //                                reasons (a "why" section's points, each a card with its wiki page's painting),
-//                                try (the product's web version, tools/lib/try.mjs),
+//                                try (the product's web version, tools/lib/try.mjs), storybook (the game's own book,
+//                                exitwise/storybook),
 //                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
@@ -319,6 +320,29 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
   news: (b, { dir, page }) => news(readNews(b, dir, page.site), b, page.site.name),
 
+  // The game's own storybook (b.book: the folder of its storybook.json and HTML reader, the web game's
+  // StreamingAssets/Storybook), read where it stands: the page holds the first chapter's lines and the chapter list as
+  // text, for search engines and readers without JavaScript, and assets/storybook.js swaps in the reader, opened with
+  // the visitor's progress from the web game on this site (localStorage b.progressKey). b.play is where a locked
+  // chapter's "Play to unlock" goes; b.audio, the folder of the music cues.
+  storybook: (b) => {
+    const file = join(root, b.book.replace(/^\//, ''), 'storybook.json')
+    if (!existsSync(file)) throw new Error(`${b.book}/storybook.json is missing: release the web game, which carries the book, before building this page`)
+    const book = JSON.parse(readFileSync(file, 'utf8'))
+    const [first, ...rest] = book.chapters
+    const lines = first.pages.flatMap((page) => page.panels).map((panel) => `<p>${esc(panel.line)}</p>`)
+    return `<div class="storybook" data-book="${esc(b.book)}" data-progress="${esc(b.progressKey)}" data-play="${esc(b.play)}"${b.audio ? ` data-audio="${esc(b.audio)}"` : ''}>
+          <div class="storybook-text">
+            <h3>${esc(first.title)}</h3>
+            ${lines.join('\n            ')}
+            <ol class="storybook-chapters">
+              ${rest.map((c) => `<li><b>${esc(c.label)}</b> ${esc(c.title)}</li>`).join('\n              ')}
+            </ol>
+            <a class="btn" href="${esc(b.play)}">Play to unlock the chapters</a>
+          </div>
+        </div>`
+  },
+
   // Numbered spots on a phone screen, each opening its part of the list (assets/faq.js; without JavaScript every part
   // stays open).
   tour: (b) => `<div class="tour" data-open="${b.open}">
@@ -431,6 +455,7 @@ export function render(slug, sub) {
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
+  const book = blocks.find((b) => b.type === 'storybook')
   const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
@@ -474,7 +499,9 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${trial ? `
   <link rel="stylesheet" href="/assets/startup/startup.css">
   <link rel="stylesheet" href="/assets/switch.css">
-  <link rel="stylesheet" href="/assets/try/try.css">` : ''}${demoCss ? `
+  <link rel="stylesheet" href="/assets/try/try.css">` : ''}${book ? `
+  <link rel="stylesheet" href="/assets/storybook.css">
+  <link rel="stylesheet" href="${esc(book.book)}/reader/storybook.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
@@ -496,7 +523,9 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${trial ? `
   <script src="/assets/startup/startup.js" defer></script>
-  <script src="/assets/try/try.js" defer></script>` : ''}${beside('js').map((e) => `
+  <script src="/assets/try/try.js" defer></script>` : ''}${book ? `
+  <script src="${esc(book.book)}/reader/storybook.js" defer></script>
+  <script src="/assets/storybook.js" defer></script>` : ''}${beside('js').map((e) => `
   <script src="${e}.js" defer></script>`).join('')}
 </body>
 </html>

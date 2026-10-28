@@ -16,6 +16,14 @@
     "a": "600, in 17 worlds from the Meadow to Starlight, harder all the way, with a <a href=\"/exitwise/wiki/hard-levels/\">hard level</a> every 10th. A new obstacle arrives every 20 to 30 levels, each on an easy level built to teach it. Boards come in 49 shapes and grow up to 100 cells a side."
   },
   {
+    "q": "Does Exitwise have a story?",
+    "a": "Yes: The Tangled Tower. Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse, told in 81 painted pages with their own music. A world's pages play over the map when you reach it and when you free its guardian, and you can read the whole <a href=\"/exitwise/storybook/\">storybook</a> here too, chapter by chapter as you unlock them."
+  },
+  {
+    "q": "What are guardians?",
+    "a": "The boss of each world, on its last level, from Bramble the hedgehog on level 20 to the Duskweaver on level 500. Arrows that fly out of the top of the board hit the guardian, and the last hit frees it, before the curse clock runs out. Most guardians hold a shield that moves every few hits. The <a href=\"/exitwise/wiki/guardians/\">wiki</a> explains every trick."
+  },
+  {
     "q": "Can I play without installing it?",
     "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. There is no App Store version yet."
   },
