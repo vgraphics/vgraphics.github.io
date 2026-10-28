@@ -23,6 +23,36 @@
     update();
   }
 
+  // Features with key figures (tools/build-pages.mjs, features items with "value"; Palermo's day and verdict): a click
+  // on a figure shows its words in place of the last (assets/product.css fades them); the arrow keys, Home and End move
+  // along the figures. Without JavaScript the first figure's words show.
+  for (const list of document.querySelectorAll(".feat-tablist")) {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const select = (tab) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        const panel = document.getElementById(t.getAttribute("aria-controls"));
+        t.setAttribute("aria-selected", on);
+        t.tabIndex = on ? 0 : -1;
+        panel.classList.toggle("is-on", on);
+        panel.inert = !on;
+      }
+    };
+    list.addEventListener("click", (e) => {
+      const tab = e.target.closest('[role="tab"]');
+      if (tab) select(tab);
+    });
+    list.addEventListener("keydown", (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (i < 0 || to === undefined) return;
+      e.preventDefault();
+      const tab = tabs[(to + tabs.length) % tabs.length];
+      select(tab);
+      tab.focus();
+    });
+  }
+
   // One recording at a time, for the quotes' buttons and the role cards' voices: a button plays its recording and stops
   // it again, the soundtrack stops while it speaks and stops it in turn, and the button's --played (0 to 1) follows it
   // for a ring. Nothing loads until a button is pressed.

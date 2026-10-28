@@ -81,13 +81,6 @@
     "lead": "Arrow Escape Puzzle",
     "align": "center",
     "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
-    "facts": [
-      { "value": "600", "label": "levels" },
-      { "value": "17", "label": "worlds" },
-      { "value": "49", "label": "board shapes" },
-      { "value": "2–8", "label": "players in a room" },
-      { "value": "Free", "label": "online and on Android" }
-    ],
     "art": {
       "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, a volcano and ice to purple crystals, with a glowing door at the top under the title, balloons in a starry sky and a river winding past forests",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
