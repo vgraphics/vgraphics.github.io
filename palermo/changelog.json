@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.64f4cd44",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Settings follow you everywhere",
+      "items": [
+        "Your settings for this game now follow you to every device — change the music, sound or narrator on one and they're the same everywhere.",
+        "Your phone now has switches for Music, Sound effects, Narrator voice and Vibration — and in Table mode the host can set each sound's volume.",
+        "The character picture you choose on the website now appears on your phone, and everyone in the room sees it right away.",
+        "The Google sign-in button now shows in the page's language, and tells you if your browser blocked the sign-in window."
+      ],
+      "commit": "64f4cd44"
+    },
+    {
       "version": "0.1.6f2f6422",
       "date": "2026-10-28",
       "platforms": [
