@@ -2,6 +2,42 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "48b9f6676a5fb25b5cedb9f46c10e567e4ebd8db",
+      "at": "2026-10-28T02:19:06.028Z",
+      "files": [
+        "achievement-card-DZpY9bEq.js",
+        "achievements-a93wSguF.js",
+        "add-BziiKyhc.js",
+        "board-table-Cicj02tu.js",
+        "boards-CE-b2VgC.js",
+        "delete-C8jCN6UP.js",
+        "demo-C9zqrhga.js",
+        "empty-state-B5rI-rhu.js",
+        "firestore-BiIscpIh.js",
+        "found-player-C7Gx34oX.js",
+        "friend-code-B4HjHU1F.js",
+        "friend-row-RKLyhAlC.js",
+        "friends-DP_cP4mP.js",
+        "games-CT3f8UcG.js",
+        "history-C1IMa_wM.js",
+        "home-BnLCs2dn.js",
+        "hooks-C4u0BDfa.js",
+        "index-1eZ6bCXm.css",
+        "index-CP3jJ5PJ.js",
+        "join-Bs6vGj2e.js",
+        "level-D4YQjMBY.js",
+        "level-ring-CAcQHrQG.js",
+        "match-list-BCHE8hvW.js",
+        "messages-DzvATLYL.js",
+        "picture-B17bFnVM.js",
+        "player-B-OqsBae.js",
+        "product-look-DE5x4wc2.js",
+        "product-tile-1Iv3Us8M.js",
+        "profile-F52jEret.js",
+        "settings-C32SlFuQ.js"
+      ]
+    },
+    {
       "sha": "9ab15ad45fd992c607d1cdc89cd8169ceb132e32",
       "at": "2026-10-27T14:20:23.040Z",
       "files": [
