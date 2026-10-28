@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.36345a80",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "TV redraws when you resize",
+      "items": [
+        "In the guided demo, the shared TV now redraws when you resize your browser between phone and wide view, instead of staying a blank dark frame."
+      ],
+      "commit": "36345a80"
+    },
+    {
       "version": "0.1.64f4cd44",
       "date": "2026-10-28",
       "platforms": [
