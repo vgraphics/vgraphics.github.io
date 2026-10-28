@@ -1,18 +1,23 @@
 // "What's new" on every product's landing page (George, 25 Oct 2026: "This apply as global rule. All landing pages
 // must have it."; D:\Projects\Mine\CLAUDE.md): the template's "news" block, fed by the product's changelog, which the
-// Deployer adds to on every release players get (D:\Projects\Deployer, src/projects/siteNews.ts). The newest release
-// stands open in a card; the ones before it are a list beside it, each row opening its own lines with an animation
-// (assets/faq.js, as every expandable: George, 27 Oct 2026, D:\Projects\Mine\CLAUDE.md). A long list scrolls
-// in its own box (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): three and a half rows show, its
-// edges fade (assets/fade-edges.js) and its scrollbar is in the product's colour (assets/product.css, .news).
+// Deployer adds to on every release players get (D:\Projects\Deployer, src/projects/siteNews.ts). The update card
+// (George, 28 Oct 2026, picking design A of four on a review page: "Maybe whats new open a new card like characters to
+// see whats need there?"): the newest update's date, headline and first line on one compact card, on a small stack of
+// cards, with how many there are. A click grows it into a card holding every update, flying from its place as the role
+// cards do (assets/product.js); the newest stands open there, and each of the others opens its lines, one at a time,
+// with an animation (assets/faq.js, as every expandable: George, 27 Oct 2026, D:\Projects\Mine\CLAUDE.md). The big
+// card's inside scrolls as one box, its edges fading (assets/fade-edges.js), its scrollbar in the product's colour
+// (assets/product.css, .news). Players read dates and headlines; the version (a web build's "0.1.66bcb235") is small
+// print under each update's lines, "Build …", for support questions (George's pick: "Small, inside the notes").
 //
 // The changelog is <product>/changelog.json (the block's src names another file in the page's folder):
 //   { "entries": [{ version, date, platforms?, title?, items, link?, commit? }] }, newest first
 //   version     what the release calls itself: "1.0.17", or a web build's "1.0.4f5d9766"
 //   date        the day it reached players, YYYY-MM-DD
 //   platforms   where it shipped: "Android", "Web"
-//   title       its headline in one line ("17 new styles"), shown in place of "Version 1.0.17", which then joins the
-//               date; written by hand (Speedometer's reading, Games docs/superpowers/specs/2026-10-26-speedometer-web-
+//   title       its headline in one line ("17 new styles"); without one, its first line stands in (cut near 60
+//               characters), and its lines then start at the second; the Deployer's notes give every VGraphics
+//               release one, and Speedometer's are by hand (Games docs/superpowers/specs/2026-10-26-speedometer-web-
 //               market-design.md §7: a headline and at most three short lines)
 //   items       its notes for players, plain text (the template escapes them), a line each
 //   link        { href, label }: where to see it (a new style's page, the try page), under its lines
@@ -38,23 +43,31 @@ const day = (d) => {
 }
 
 // While the product's demo is private (page.json site.demo.private; partials.mjs playButtons), a release that speaks of
-// it (its headline or a line names the demo, or its link goes to it) is left out, so What's new says nothing of the
-// demo, the Deployer's entries for a demo-only release included; they come back once it is public.
+// it (its headline or a line names the demo, or its link goes to it) is the testers' alone (George, 28 Oct 2026, on the
+// review page: "Testers see them"). The block everybody sees leaves it out, so it says nothing of the demo; the
+// testers' own block, with every release, waits in a private template, which assets/private.js opens for them in its
+// place (assets/product.css hides the first of two blocks). Once the demo is public, everybody gets every release.
 const aboutDemo = (e, demo) => e.link?.href === demo.href || /\bdemo\b/i.test([e.title ?? '', ...e.items].join(' '))
 
-// The block's entries, and what's wrong with its file (check-site reports it). A file that is missing or broken shows
-// as no releases, so the page still builds and check-site says why. site: the product's page.json site, for its demo.
+// A release with nothing for players: its one line is the one the Deployer writes when its notes weren't for players
+// (NEWS_FALLBACK, D:\Projects\Deployer src/projects/siteNews.ts). It shows nowhere and stays in the changelog, so
+// "No changes you'll notice" never tops the card.
+const quiet = (e) => e.items.length === 1 && e.items[0].trim() === 'Improvements and fixes.'
+
+// The block's entries (testers: every release, when the demo's are kept from everybody else), and what's wrong with
+// its file (check-site reports it). A file that is missing or broken shows as no releases, so the page still builds
+// and check-site says why. site: the product's page.json site, for its demo.
 export function readNews(b, dir, site) {
   const name = b.src ?? 'changelog.json'
   const file = join(root, dir, name)
-  if (!existsSync(file)) return { entries: [], problems: [`no ${name} for its news block (the Deployer adds each release to it)`] }
+  if (!existsSync(file)) return { entries: [], testers: null, problems: [`no ${name} for its news block (the Deployer adds each release to it)`] }
   let log
   try {
     log = JSON.parse(readFileSync(file, 'utf8'))
   } catch (e) {
-    return { entries: [], problems: [`${name} isn't valid JSON: ${e.message}`] }
+    return { entries: [], testers: null, problems: [`${name} isn't valid JSON: ${e.message}`] }
   }
-  if (!Array.isArray(log?.entries)) return { entries: [], problems: [`${name} has no entries list: { "entries": [...] }`] }
+  if (!Array.isArray(log?.entries)) return { entries: [], testers: null, problems: [`${name} has no entries list: { "entries": [...] }`] }
   const problems = []
   log.entries.forEach((e, n) => {
     const at = `${name} entry ${n + 1}${typeof e?.version === 'string' ? ` (${e.version})` : ''}`
@@ -66,8 +79,10 @@ export function readNews(b, dir, site) {
     if (e?.link !== undefined && !['href', 'label'].every((k) => typeof e.link?.[k] === 'string' && e.link[k].trim())) problems.push(`${at}'s link isn't { href, label }`)
     if (n && isDay(e?.date) && isDay(log.entries[n - 1]?.date) && e.date > log.entries[n - 1].date) problems.push(`${at} is newer than the one above it: newest first`)
   })
-  const shown = site?.demo?.private ? log.entries.filter((e) => !aboutDemo(e, site.demo)) : log.entries
-  return { entries: problems.length ? [] : shown, problems }
+  if (problems.length) return { entries: [], testers: null, problems }
+  const all = log.entries.filter((e) => !quiet(e))
+  const shown = site?.demo?.private ? all.filter((e) => !aboutDemo(e, site.demo)) : all
+  return { entries: shown, testers: shown.length < all.length ? all : null, problems }
 }
 
 // What's wrong with the block's empty (check-site reports it): its line, or { title?, text?, link? }.
@@ -83,10 +98,69 @@ export function emptyProblems(empty) {
 
 const when = (e) => `<time datetime="${esc(e.date)}">${day(e.date)}</time>`
 const where = (e) => (e.platforms ?? []).map((p) => `<span class="tag">${esc(p)}</span>`).join('')
-// An entry's name: its headline, else its version. With a headline, the version stands beside the date.
-const heading = (e) => esc(e.title ?? `Version ${e.version}`)
-const version = (e) => (e.title ? `<span>Version ${esc(e.version)}</span>` : '')
-const lines = (e) => `<ul>${e.items.map((i) => `<li>${esc(i)}</li>`).join('')}</ul>${e.link ? `<a class="news-link" href="${esc(e.link.href)}">${esc(e.link.label)}</a>` : ''}`
+const count = (n) => `${n} update${n === 1 ? '' : 's'}`
+// An entry's headline: its own, else its first line, cut at a word near 60 characters. Its lines then start at the
+// second, unless the first was cut or is all it has. lead: the line under the headline on the card.
+function headline(e) {
+  if (e.title) return e.title
+  const first = e.items[0].replace(/\.$/, '')
+  return first.length <= 64 ? first : `${first.slice(0, first.lastIndexOf(' ', 60))}…`
+}
+const lines = (e) => (e.title || e.items.length < 2 || headline(e).endsWith('…') ? e.items : e.items.slice(1))
+const lead = (e) => (e.title ? e.items[0] : (e.items[1] ?? ''))
+const CLOSE = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>'
+
+// The compact card on the page: the newest update, on a stack of cards. It opens the big card by its id: the script
+// flies it out (assets/product.js), and without the script the browser's own command (commandfor) opens it at once.
+function card(entries, id) {
+  const [e] = entries
+  const [, month, n] = e.date.split('-').map(Number)
+  return `<button class="news-card" type="button" aria-haspopup="dialog" aria-controls="${id}" commandfor="${id}" command="show-modal">
+            <span class="news-stack" aria-hidden="true"></span>
+            <span class="news-face">
+              <span class="news-stamp" aria-hidden="true"><b>${n}</b>${MONTHS[month - 1]}</span>
+              <span class="news-text">
+                <span class="news-eyebrow">Latest update · ${when(e)}</span>
+                <span class="news-title">${esc(headline(e))}</span>${lead(e) ? `
+                <span class="news-lead">${esc(lead(e))}</span>` : ''}
+              </span>
+              <span class="news-go"><span class="btn">See what's new</span><small>${count(entries.length)}</small></span>
+            </span>
+          </button>`
+}
+
+// An update in the big card: its date, headline and the newest's tag, opening its lines, its link and the small print
+// (where it shipped, its version). The newest stands open. The rows are the list's own children, so assets/faq.js
+// keeps one open at a time.
+const row = (e, i) => `<details class="news-row"${i ? '' : ' open'}><summary>${when(e)}<b>${esc(headline(e))}</b>${i ? '' : '<span class="tag alt">Latest</span>'}${ICONS.chevron}</summary><ul>${lines(e).map((l) => `<li>${esc(l)}</li>`).join('')}</ul>${e.link ? `<a class="news-link" href="${esc(e.link.href)}">${esc(e.link.label)}</a>` : ''}<p class="news-meta">${where(e)}<span class="news-build">Build ${esc(e.version)}</span></p></details>`
+
+// The big card with every update, a modal dialog over the dimmed page (its shade); the close button, Escape or a click
+// on the shade closes it.
+function sheet(entries, id, name) {
+  return `<dialog class="news-dialog" id="${id}" aria-labelledby="${id}-title">
+            <div class="news-shade"></div>
+            <div class="news-sheet" tabindex="-1">
+              <header class="news-head">
+                <div>
+                  <p class="news-eyebrow">What's new</p>
+                  <h3 id="${id}-title">Every update to ${esc(name)}</h3>
+                  <p>${count(entries.length)}, newest first</p>
+                </div>
+                <button class="news-close" type="button" aria-label="Close" commandfor="${id}" command="close">${CLOSE}</button>
+              </header>
+              <div class="news-body fade-edges">
+                <div class="news-list">
+                  ${entries.map(row).join('\n                  ')}
+                </div>
+              </div>
+            </div>
+          </dialog>`
+}
+
+const block = (entries, id, name) => `<div class="news">
+          ${card(entries, id)}
+          ${sheet(entries, id, name)}
+        </div>`
 
 // The card of a product not out yet, in the newest release's place: a calendar with a spark in the product's colour.
 const SOON = { title: 'Coming soon', text: 'Nothing here yet: the first release will show here, with every one after it.' }
@@ -105,20 +179,10 @@ function soon(empty) {
         </div>`
 }
 
-export function news(entries, { empty } = {}) {
-  if (!entries.length) return soon(empty)
-  const [latest, ...older] = entries
-  return `<div class="news${older.length ? '' : ' single'}">
-          <article class="news-latest">
-            <p class="news-meta"><span class="tag alt">Latest</span>${version(latest)}${when(latest)}${where(latest)}</p>
-            <h3>${heading(latest)}</h3>
-            ${lines(latest)}
-          </article>${older.length ? `
-          <div class="news-older">
-            <h3>Earlier updates</h3>
-            <ol class="news-list fade-edges">
-              ${older.map((e) => `<li><details><summary><b>${heading(e)}</b>${when(e)}${ICONS.chevron}</summary>${e.title || e.platforms?.length ? `<p class="news-meta">${version(e)}${where(e)}</p>` : ''}${lines(e)}</details></li>`).join('\n              ')}
-            </ol>
-          </div>` : ''}
-        </div>`
+// The block: readNews' { entries, testers }, the page.json block (its empty) and the product's name (page.json
+// site.name). The testers' block follows everybody's, in a private template.
+export function news({ entries, testers }, { empty } = {}, name) {
+  const everybody = entries.length ? block(entries, 'news-all', name) : soon(empty)
+  return testers ? `${everybody}
+        <template class="private">${block(testers, 'news-all-testers', name)}</template>` : everybody
 }

@@ -295,7 +295,8 @@ toolbar buttons."): Exitwise's "Play online" (`/exitwise/play/`), Speedometer's 
     garithos account. Else hide it."): `site.demo.private: true`. For everybody else the product has no demo: no
     button, badge or link (the pair is as without `site.demo`, so Palermo shows "Play online · Coming soon" alone),
     What's new leaves out the releases that name the demo or link it (`tools/lib/news.mjs`, the Deployer's entries
-    too), and the words about it in page.json's and faq.json's texts, written `<span data-demo>…</span>`, are left out
+    too; the testers get their own What's new with every release, in a private template, George, 28 Oct 2026:
+    "Testers see them"), and the words about it in page.json's and faq.json's texts, written `<span data-demo>…</span>`, are left out
     (`demoText`). The template writes the demo's buttons inside `<template class="private">` (`forTesters`), inert for
     everybody, search engines included; `assets/menu.js` loads `assets/private.js` on such a page, which opens them
     for the VHub accounts it lists (George's, Garithos) when that account is signed in to the hub on this site: it
@@ -316,13 +317,21 @@ with a `faq` block (Exitwise's and Speedometer's sit after the features, just be
 with titles, each is a chapter with its heading's link and a bullet on the stepper.
 
 - **What's new** (`tools/lib/news.mjs`) reads `<product>/changelog.json`: `{ "entries": [...] }`, newest first, each
-  `{ version, date (YYYY-MM-DD), platforms (["Android", "Web"]), items (plain lines for players), commit }`, and, written
-  by hand, `title` (a one-line headline, shown in place of "Version …") and `link` (`{ href, label }`, under the lines).
-  Speedometer's entries read as its web market design asks (Games `docs/superpowers/specs/2026-10-26-speedometer-web-
-  market-design.md` §7): a headline and at most three short lines, one entry per production release, a web-only one
-  only when it changes what visitors can do. The newest stands open in a card; the ones before it are rows beside it
-  that each open their lines, at most three and a half showing, the rest scrolling in the list's own box with fading
-  edges and the product's scrollbar. A product not out yet has `"entries": []`, and until its first release the newest
+  `{ version, date (YYYY-MM-DD), platforms (["Android", "Web"]), items (plain lines for players), commit }`, `title` (a
+  one-line headline; the Deployer's notes give one, and an entry without one uses its first line) and, written by
+  hand, `link` (`{ href, label }`, under the lines). Speedometer's entries read as its web market design asks (Games
+  `docs/superpowers/specs/2026-10-26-speedometer-web-market-design.md` §7): a headline and at most three short lines,
+  one entry per production release, a web-only one only when it changes what visitors can do.
+  **The update card** (George, 28 Oct 2026, design A of four on a review page: "Maybe whats new open a new card like
+  characters to see whats need there?"): on the page, one compact card with the newest update's date, headline and
+  first line, the "See what's new" button and how many updates there are, on a small stack of cards. A click grows it
+  into the big card (a modal dialog, `assets/product.js`), flying from its place as the role cards do: every update as
+  a row, the newest open, each opening its lines one at a time (`assets/faq.js`), its inside scrolling as one box with
+  fading edges and the product's scrollbar. The close button, Escape or a click outside flies it home. Players read
+  dates and headlines; the version is small print under an update's lines ("Build 0.1.66bcb235"). An entry whose only
+  line is the Deployer's "Improvements and fixes." shows nowhere (it stays in the changelog). Without script the
+  browser's own commands (`commandfor`) still open and close the big card. A product not out yet has
+  `"entries": []`, and until its first release the newest
   release's card holds its place (George, 26 Oct 2026: "Design the empty view better please."): a calendar emblem in
   the product's colour, a title, a line and an optional link. The block's `empty` is that line, or
   `{ "title": "Coming soon", "text": "…", "link": { "href": "/palermo/play/", "label": "Try it online" } }` (each
@@ -340,11 +349,11 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   animation always. One open at a time."), **and so does every other expandable** (27 Oct 2026: "FAQs and every kind
   of expandable like that must always open/close with animation. Its a general rule."). `assets/faq.js`, which
   `assets/menu.js` loads on every page, takes over the clicks (and Enter and Space) of every details on the page (the
-  questions, What's new's earlier releases, the About panels' questions on the play and try pages) and of a tour's
-  buttons and spots: a row grows from its head as what lies under it fades in (260 ms) and closes the same way back
-  (200 ms), both easing out, with the chevron turning along; a click mid-way turns it round from where it is. In a
-  list of questions and answers, and in a tour, opening one closes any other open one, and the head being opened stays
-  where it is on the screen while rows above it close. Under reduced motion it only fades, briefly. The browser keeps
+  questions, the updates in What's new's big card, the About panels' questions on the play and try pages) and of a
+  tour's buttons and spots: a row grows from its head as what lies under it fades in (260 ms) and closes the same way
+  back (200 ms), both easing out, with the chevron turning along; a click mid-way turns it round from where it is. In a
+  list of questions and answers, in What's new's list of updates and in a tour, opening one closes any other open one,
+  and the head being opened stays where it is on the screen (or in the box it scrolls in) while rows above it close. Under reduced motion it only fades, briefly. The browser keeps
   the open state screen readers announce, find-in-page (a row it opens closes the others in its list) and, without
   script, the plain rows. A new kind of expandable is a details, or gets driven from `faq.js`. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.

@@ -2,9 +2,10 @@
 // animation always. One open at a time."; 27 Oct 2026: "FAQs and every kind of expandable like that must always
 // open/close with animation. Its a general rule."; D:\Projects\Mine\CLAUDE.md). This file drives two kinds:
 // - every details on a page: the questions of a faq block (tools/lib/faq.mjs) and of the About panels under the play and
-//   try pages (which other repos write too), What's new's earlier releases (tools/lib/news.mjs), and any other. details
-//   and summary open and close on their own without script; this file takes over the summary's clicks (Enter and Space
-//   on a focused summary are clicks too). In a list of questions and answers (.faq) one is open at a time.
+//   try pages (which other repos write too), the updates in What's new's big card (tools/lib/news.mjs), and any other.
+//   details and summary open and close on their own without script; this file takes over the summary's clicks (Enter
+//   and Space on a focused summary are clicks too). In a list of questions and answers (.faq), and in What's new's list
+//   of updates (.news-list), one is open at a time.
 // - a tour's parts (the "tour" block, tools/build-pages.mjs): numbered spots on a screen, each opening its part of the
 //   list beside it, one part open at a time. A part's button or spot opens it; without script every part stays open.
 // Either way:
@@ -117,30 +118,43 @@ function close(item) {
   return from - to;
 }
 
-// The head just clicked stays where it is on the screen while rows above it close: each frame the page scrolls by as
-// much as they moved it in the page (so a visitor's own scrolling is left alone). The browser's scroll anchoring would
-// move it as well, so it is off meanwhile.
+// The head just clicked stays where it is on the screen while rows above it close: each frame what it scrolls in (the
+// page, or a box that scrolls on its own, as What's new's big card does) scrolls by as much as they moved it there (so
+// a visitor's own scrolling is left alone). The browser's scroll anchoring would move it as well, so it is off
+// meanwhile.
 let held = null;
+let box = null;
 let heldTop = 0;
 let owed = 0;
-const pageTop = (el) => el.getBoundingClientRect().top + scrollY;
+const topIn = (el) => el.getBoundingClientRect().top + (box ? box.scrollTop : scrollY);
+
+// The nearest box around an element that scrolls on its own, or null for the page.
+function scrollerOf(el) {
+  for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+    const y = getComputedStyle(p).overflowY;
+    if ((y === "auto" || y === "scroll") && p.scrollHeight > p.clientHeight) return p;
+  }
+  return null;
+}
 
 function hold(head) {
+  if (box) box.style.overflowAnchor = "";
   held = head;
-  heldTop = pageTop(head);
+  box = scrollerOf(head);
+  heldTop = topIn(head);
   owed = 0;
-  document.body.style.overflowAnchor = "none";
+  (box ?? document.body).style.overflowAnchor = "none";
 }
 
 function keep() {
   if (!held) return;
-  const top = pageTop(held);
+  const top = topIn(held);
   owed += top - heldTop;
   heldTop = top;
   if (Math.abs(owed) >= 0.5) {
-    const y = scrollY;
-    scrollBy({ top: owed, behavior: "instant" });
-    owed -= scrollY - y;
+    const y = box ? box.scrollTop : scrollY;
+    (box ?? window).scrollBy({ top: owed, behavior: "instant" });
+    owed -= (box ? box.scrollTop : scrollY) - y;
   }
 }
 
@@ -157,13 +171,14 @@ function tick() {
     }
     ticking = false;
     held = null;
-    document.body.style.overflowAnchor = "";
+    (box ?? document.body).style.overflowAnchor = "";
+    box = null;
   };
   requestAnimationFrame(frame);
 }
 
-// The details in a list of questions and answers, where one is open at a time; null for any other.
-const listOf = (item) => (item.parentElement?.matches(".faq") ? [...item.parentElement.children].filter((el) => el.matches("details")) : null);
+// The details in a list where one is open at a time (questions and answers, What's new's updates); null for any other.
+const listOf = (item) => (item.parentElement?.matches(".faq, .news-list") ? [...item.parentElement.children].filter((el) => el.matches("details")) : null);
 
 // A details' summary clicked, unless on a link or a control inside it.
 document.addEventListener("click", (e) => {
