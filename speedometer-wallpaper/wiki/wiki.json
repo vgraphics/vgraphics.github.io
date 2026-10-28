@@ -72,7 +72,7 @@
       "image": "/speedometer-wallpaper/img/renders/dial-classic-31kmh.webp",
       "summary": "Your speed in km/h or mph, with a red mark at your top speed.",
       "what": ["In GPS speed mode the needle shows your speed. A red mark shows the top speed of the current drive.","GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone."],
-      "how": ["Choose GPS speed in Customize → Big gauge; the app explains why it needs location, then Android asks. Pick \"Precise\" when it does.","Switch between km/h and mph in Customize → Units. Settings → Speed unit is the unit every style follows until you change its own.","If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
+      "how": ["Choose GPS speed in Customize → Big gauge; the app explains why it needs location, then Android asks. Pick \"Precise\" when it does.","Switch between km/h and mph in Customize → Units or in Settings → Speed unit: the unit is the same in every style, so changing it changes them all.","If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
       "related": ["big-gauge","settings"]
     },
     {
@@ -209,7 +209,7 @@
       "image": "/speedometer-wallpaper/wiki/img/cpu2.webp",
       "summary": "The LCD under the big gauge.",
       "what": ["The LCD under the big gauge shows the date and the time."],
-      "how": ["In Customize → Clock you can set the time format (12 h, 24 h or the phone's), whether seconds show, the date order, and the time and date separators."],
+      "how": ["In Customize → Clock you can set the time format (12 h, 24 h or the phone's), whether seconds show, the date order, and the time and date separators. The time format and the seconds are the same in every style, so changing them changes every style; the date order and the separators are each style's own."],
       "related": ["settings","big-gauge"]
     },
     {
@@ -219,7 +219,7 @@
       "image": "/speedometer-wallpaper/wiki/img/settings.webp",
       "summary": "The app's settings, and each style's own in Customize.",
       "what": ["Tap the gear at the top of the home screen for the app's settings. Each style's own settings are in Customize, on the home screen and on the Styles screen."],
-      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","New styles start with: the speed unit and the clock every style follows until you change its own, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Purchases: Unlock all styles and Restore purchases.","Privacy: Ad choices (where your region requires it) and the privacy policy. About: the Guide, Rate on Google Play and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
+      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","Every style: the speed unit and the clock (12 or 24 hours, and seconds), the same in every style, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Purchases: Unlock all styles and Restore purchases.","Signed in to VHub, your settings follow you: on every phone you sign in on, and in the VHub menu at the top right of vgraphics.gr. Without signing in, they stay on this phone.","Privacy: Ad choices (where your region requires it) and the privacy policy. About: the Guide, Rate on Google Play and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
       "related": ["big-gauge","designs-screen","date-and-time","low-battery-light"]
     },
     {
