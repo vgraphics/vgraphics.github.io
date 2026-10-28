@@ -45,7 +45,7 @@
   },
   {
     "q": "How do I delete my data?",
-    "a": "In Settings, Profile, \"Delete my leaderboard data\" removes your name, picture and results, and \"Delete cloud save\" removes your cloud save and your game account. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
+    "a": "In Settings, Profile, \"Delete my Exitwise data\" takes you off the boards and removes your results, stats, cloud save and published maps; your VGraphics name and picture stay. In Settings, \"Delete my VGraphics account\" removes your account in every VGraphics game. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
   },
   {
     "q": "Do my settings follow me to my other devices?",
