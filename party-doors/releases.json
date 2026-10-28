@@ -2,6 +2,18 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "190b2d0f663f761b2e53f69d4de665cddbbc081f",
+      "at": "2026-10-28T22:29:56.705Z",
+      "files": [
+        "door-CIPrxz14.css",
+        "door-D5fvT6po.js",
+        "games-DGOGcB6S.js",
+        "join-CJu22hK_.js",
+        "join-DEOqOKaR.js",
+        "tv-tXkV2AIv.js"
+      ]
+    },
+    {
       "sha": "525a32c5fdb07765ec488479bda1793f0dff62ef",
       "at": "2026-10-28T19:32:12.636Z",
       "files": [
@@ -16,18 +28,6 @@
     {
       "sha": "5478368a02d35328b0d8de549e6c60c252351845",
       "at": "2026-10-27T14:29:38.687Z",
-      "files": [
-        "door-CJTVGNT8.css",
-        "door-CPq93CL3.js",
-        "games--kFJdrR6.js",
-        "join-D8uN8H86.js",
-        "join-vHG3qH2v.js",
-        "tv-BqYMmQqJ.js"
-      ]
-    },
-    {
-      "sha": "9ab15ad45fd992c607d1cdc89cd8169ceb132e32",
-      "at": "2026-10-27T14:17:56.794Z",
       "files": [
         "door-CJTVGNT8.css",
         "door-CPq93CL3.js",

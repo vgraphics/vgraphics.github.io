@@ -24,13 +24,14 @@
     <style>
       /* The VGraphics look, as the TV's door has it (the kit's "vgraphics" theme), from the first paint. */
       html, body { margin: 0; background: #0B0C12; color: #F4F0E8; }
-      /* The company's legal line, the site's rule for every page: small, over the foot of the hero. */
+      /* The company's legal line, the site's rule for every page: small, at the foot until the door draws, which then gives
+         it a row of its own under the form (door.tsx, DoorLegal), so it never covers the button. */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.5em 1.1em calc(0.5em + env(safe-area-inset-bottom));
         color: rgba(244, 240, 232, 0.55); font: 12px/1.5 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
     </style>
-    <script type="module" crossorigin src="/party-doors/join-aDYHze3J.js"></script>
-    <link rel="modulepreload" crossorigin href="/party-doors/games-D5-J92jz.js">
+    <script type="module" crossorigin src="/party-doors/join-CJu22hK_.js"></script>
+    <link rel="modulepreload" crossorigin href="/party-doors/games-DGOGcB6S.js">
   </head>
   <body>
     <!-- A phone with a code in the address goes straight on to its game; the door only draws without one. -->
