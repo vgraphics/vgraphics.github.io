@@ -56,34 +56,81 @@
   // One recording at a time, for the quotes' buttons and the role cards' voices: a button plays its recording and stops
   // it again, the soundtrack stops while it speaks and stops it in turn, and the button's --played (0 to 1) follows it
   // for a ring. Nothing loads until a button is pressed.
-  let voice = null, on = null, tick = 0;
+  // Every recording fades in and out, never cuts (George, 28 Oct 2026: "Music must always start and end with fading"):
+  // a gain on the one player rises over its first 40 ms, falls over its last 150 ms, and a stop falls over 120 ms
+  // before it pauses, the next recording starting once it is silent. A gain, not the element's volume, which iOS
+  // ignores; without Web Audio a recording plays as it is.
+  const FADE_IN = 0.04, FADE_OUT = 0.15, STOP = 0.12;
+  let voice = null, on = null, tick = 0, ctx = null, gain = null, turn = 0;
+  // The gain's course from now: up to full over FADE_IN, then down to silence over the recording's last FADE_OUT. Set
+  // again whenever it plays on (after loading or a stall), so the fall always ends with the recording.
+  const shape = () => {
+    if (!gain) return;
+    const g = gain.gain, now = ctx.currentTime, left = voice.duration - voice.currentTime;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    g.linearRampToValueAtTime(1, now + FADE_IN);
+    if (left > FADE_IN + FADE_OUT) {
+      g.setValueAtTime(1, now + left - FADE_OUT);
+      g.linearRampToValueAtTime(0, now + left);
+    }
+  };
+  // Frees the button and fades out what still speaks; returns the seconds until it is silent
   const hush = () => {
-    voice?.pause();
     cancelAnimationFrame(tick);
     on?.setAttribute("aria-pressed", "false");
     on?.style.removeProperty("--played");
     on = null;
+    const t = ++turn;
+    if (!voice || voice.paused || voice.ended) return 0;
+    if (!gain) {
+      voice.pause();
+      return 0;
+    }
+    const g = gain.gain, now = ctx.currentTime;
+    g.cancelScheduledValues(now);
+    g.setValueAtTime(g.value, now);
+    g.linearRampToValueAtTime(0, now + STOP);
+    setTimeout(() => t === turn && voice.pause(), STOP * 1000);
+    return STOP;
   };
   const speak = (b, src) => {
     if (on === b) return hush();
-    hush();
+    const wait = hush(), t = turn;
     if (!voice) {
       voice = new Audio();
       voice.preload = "none";
       voice.addEventListener("ended", hush);
       voice.addEventListener("error", hush);
+      voice.addEventListener("playing", shape);
       document.addEventListener("play", (e) => e.target !== voice && hush(), true);
+      const Context = window.AudioContext || window.webkitAudioContext;
+      try {
+        ctx = new Context();
+        gain = ctx.createGain();
+        ctx.createMediaElementSource(voice).connect(gain).connect(ctx.destination);
+      } catch {
+        ctx = gain = null;
+      }
     }
+    if (ctx?.state === "suspended") ctx.resume();
     document.querySelectorAll(".ost audio").forEach((a) => a.pause());
-    voice.src = src;
-    voice.play().catch(() => on === b && hush()); // a play cut short by the next one leaves the next one alone
     on = b;
     b.setAttribute("aria-pressed", "true");
-    const follow = () => {
-      if (voice.duration) b.style.setProperty("--played", (voice.currentTime / voice.duration).toFixed(3));
-      tick = requestAnimationFrame(follow);
+    const start = () => {
+      if (t !== turn) return; // stopped, or another button pressed, while the last one fell silent
+      turn++;
+      gain?.gain.setValueAtTime(0, ctx.currentTime);
+      voice.src = src;
+      voice.play().catch(() => on === b && hush()); // a play cut short by the next one leaves the next one alone
+      const follow = () => {
+        if (voice.duration) b.style.setProperty("--played", (voice.currentTime / voice.duration).toFixed(3));
+        tick = requestAnimationFrame(follow);
+      };
+      follow();
     };
-    follow();
+    if (wait) setTimeout(start, wait * 1000);
+    else start();
   };
 
   // A card with a back (cards item "back"; Palermo's role cards): a click grows it to a full-screen view, flying from
