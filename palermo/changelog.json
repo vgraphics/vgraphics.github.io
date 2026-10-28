@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.80f7dbc5",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Watch the night unfold",
+      "items": [
+        "When the night ends, the TV now reveals what happened — who was taken and who slipped away — one step at a time.",
+        "In the demo, the TV tip now gives you a direct link to the game's own TV page, so you don't have to open vgraphics.gr/tv and type a code — and that shared page no longer opens Palermo games.",
+        "When you press and hold on your phone, it now finishes on the game's own clock, so a brief connection blip won't cut it short — and if one table runs into trouble, the others carry on."
+      ],
+      "commit": "80f7dbc5"
+    },
+    {
       "version": "0.1.fda55940",
       "date": "2026-10-28",
       "platforms": [

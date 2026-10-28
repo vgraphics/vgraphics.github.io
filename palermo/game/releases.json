@@ -2,6 +2,29 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "80f7dbc5d46314c468c6cb875b9bd4ef5cf36084",
+      "at": "2026-10-28T15:07:39.217Z",
+      "files": [
+        "app-BFczWhVs.js",
+        "demo-Ct7StUD2.css",
+        "demo-DAzcbs2A.js",
+        "demo-screen-B-JRVzuL.js",
+        "demo-screen-BMPF69YY.css",
+        "firestore-DXgEkMS4.js",
+        "index-D_Rr58Rx.js",
+        "layout-CiiNcQzC.js",
+        "newsreel-DJo8GoNX.css",
+        "newsreel-SrkBreFX.js",
+        "part-BSNnNcMg.js",
+        "pins-Ce3l37nK.js",
+        "play-CVYuA0mD.js",
+        "private-C_M8x-8t.js",
+        "room-screen-FfF0mnTb.js",
+        "tv-ekbRLex2.js",
+        "vote-opens-SYHkzBbK.js"
+      ]
+    },
+    {
       "sha": "fda559408410a6ac2f01b47ed7aa5d071c1af950",
       "at": "2026-10-28T13:54:26.047Z",
       "files": [
@@ -533,66 +556,6 @@
         "sound-dqX7C1qs.css",
         "tv-CgWTTTdr.js",
         "vote-opens-z6WJB0OU.js"
-      ]
-    },
-    {
-      "sha": "4a0d50a27ada19db3e52feb9a920ad5172619c18",
-      "at": "2026-10-27T14:34:50.851Z",
-      "files": [
-        "app-BLX8mnBF.js",
-        "demo-BO48W63U.js",
-        "demo-WApsGCzl.css",
-        "demo-screen-klBwvl9p.js",
-        "firestore-CAdgkfYg.js",
-        "index-Ly9NiBD5.js",
-        "part-D1vZRZgI.js",
-        "part-D8d57ZGO.js",
-        "play-DfSQ0FMQ.js",
-        "room-screen-Cs_UyYez.js",
-        "sound-CK1gGEzq.js",
-        "sound-dqX7C1qs.css",
-        "tv-hCACjNLj.js",
-        "vote-opens-BHGcGZXG.js"
-      ]
-    },
-    {
-      "sha": "f573efbf20088f56b3f1069809bc04956f612b40",
-      "at": "2026-10-27T14:25:04.573Z",
-      "files": [
-        "app-m9R-Jqcy.js",
-        "consent-banner-BnX7zlH1.js",
-        "demo-CKqMIVuF.js",
-        "demo-WApsGCzl.css",
-        "demo-screen-B4mZegpT.js",
-        "firebase-analytics-BjdX_5DP.js",
-        "firestore-D_LkIOi7.js",
-        "index-9RLFm76G.js",
-        "play-C341aexz.js",
-        "room-screen-BKGJRuiz.js",
-        "sound-VrrjMG9s.js",
-        "sound-dqX7C1qs.css",
-        "tv-rUxDio2W.js",
-        "vote-opens-BPXYQO6u.js"
-      ]
-    },
-    {
-      "sha": "3eb910423ca7740c03499767b6b8730d134db1e4",
-      "at": "2026-10-27T13:47:42.691Z",
-      "files": [
-        "app-RfYyMUYu.js",
-        "consent-banner-ClJut0TF.js",
-        "demo-BqLVQ1jO.js",
-        "demo-WApsGCzl.css",
-        "demo-screen-BYkOb7zF.js",
-        "firebase-analytics-CIC_gZ8X.js",
-        "firestore-Dt-qrNfp.js",
-        "index-DeYE4Mkm.js",
-        "play-gdu8XTMu.js",
-        "room-screen-KLC3o9L2.js",
-        "sound-CHnHajM4.js",
-        "sound-dqX7C1qs.css",
-        "tv-_NRFndED.js",
-        "vote-opens-CiXxyiVL.js"
       ]
     }
   ]
