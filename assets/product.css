@@ -102,6 +102,9 @@ h1, h2, h3 {
    before its own look (assets/account.css) arrives. */
 .vhub-avatar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; }
 .vhub-avatar svg { width: 26px; height: 26px; }
+/* Folded, the bar holds the logo, the play button, the menu button and the avatar: closer, so a 320px phone keeps them
+   all in one row. */
+.top.folded { column-gap: 8px; }
 .product-name img.logo { height: 42px; }
 .foot-brand img.logo { height: 64px; }
 .subnav { display: flex; flex: none; gap: 4px; }

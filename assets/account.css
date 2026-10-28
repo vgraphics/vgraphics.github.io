@@ -8,9 +8,17 @@
      avatar and fades in, and closes the same way a little faster; under reduced motion, a short fade only. Its body
      scrolls inside it on a short screen, with faded edges (assets/fade-edges.js). The switches are the site's
      (assets/switch.css), on in the product's colour. */
+/* VHub's violet on the company pages: a lighter one where the page is dark, so the ring, the switches and the chosen
+   segment keep 3:1 against it and their words 4.5:1 (a product's page has its own colour, --play or --sb, first). */
+:root { --vm-violet: #4B4CD6; --vm-violet-ink: #FFFFFF; }
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) { --vm-violet: #9A9BF7; --vm-violet-ink: #16151B; }
+}
+:root[data-theme="dark"] { --vm-violet: #9A9BF7; --vm-violet-ink: #16151B; }
+
 .vhub-avatar {
-  --va-ring: var(--play, var(--sb, var(--violet, var(--accent, #4B4CD6))));
-  --va-ink: var(--play-ink, var(--page, var(--on-violet, #FFFFFF)));
+  --va-ring: var(--play, var(--sb, var(--vm-violet)));
+  --va-ink: var(--play-ink, var(--page, var(--vm-violet-ink)));
   --va-gap: var(--page, var(--bg, #000000));
   position: relative;
   flex: none;
@@ -49,8 +57,8 @@
   --vm-ink: var(--ink, #16151B);
   --vm-muted: var(--muted, var(--ink-2, #4A4658));
   --vm-line: var(--line, #DDD4C3);
-  --vm-on: var(--play, var(--sb, var(--violet, var(--accent, #4B4CD6))));
-  --vm-on-ink: var(--play-ink, var(--page, var(--on-violet, #FFFFFF)));
+  --vm-on: var(--play, var(--sb, var(--vm-violet)));
+  --vm-on-ink: var(--play-ink, var(--page, var(--vm-violet-ink)));
   --selection: var(--vm-on);
   --selection-ink: var(--vm-on-ink);
   position: fixed;
@@ -135,7 +143,7 @@
   font: var(--label-weight, 700) 0.78rem/1.2 var(--label-font, inherit);
   text-transform: var(--label-case, uppercase);
   letter-spacing: var(--label-tracking, 0.1em);
-  color: var(--vm-on);
+  color: var(--vm-ink);
 }
 .vm-note { margin-top: 3px !important; font-size: 0.8rem; color: var(--vm-muted); }
 .vm-back {
@@ -161,7 +169,7 @@
 .vm-seg-sizes button { padding: 0 8px; line-height: 1; }
 .vm-seg button[aria-checked="true"] { background: var(--vm-on); color: var(--vm-on-ink) !important; }
 .vm-seg button:focus-visible, .vm-games .vm-game:focus-visible, .vm-links a:focus-visible { outline: 2px solid var(--vm-on); outline-offset: 2px; }
-.vhub-menu :disabled { opacity: 0.55; cursor: default; }
+.vhub-menu :disabled { opacity: 0.55; cursor: var(--cursor, default); }
 
 /* The other games and apps: their logos only (George, 28 Oct 2026) */
 .vm-games { display: grid; gap: 2px; }

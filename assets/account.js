@@ -95,12 +95,18 @@ const wait = (ms) => new Promise((resolve) => setTimeout(resolve, ms));
 
 let session = null;
 let profile = null;
+/** The latest drawing: an older one still on its way stops when it lands. */
+let drawing = 0;
 
 const signedIn = () => Boolean(session && !session.guest && profile);
 
 async function drawAvatar() {
-  session = await vhubSession();
-  profile = session && !session.guest ? await vhubProfile(session.uid) : null;
+  const mine = ++drawing;
+  const nextSession = await vhubSession();
+  const nextProfile = nextSession && !nextSession.guest ? await vhubProfile(nextSession.uid) : null;
+  if (mine !== drawing) return;
+  session = nextSession;
+  profile = nextProfile;
   button.querySelector(".vhub-avatar-level")?.remove();
   if (!signedIn()) {
     face.innerHTML = MARK;
@@ -113,6 +119,7 @@ async function drawAvatar() {
   } catch (e) {
     // the mark stays
   }
+  if (mine !== drawing) return;
   if (window.VHubAvatars) window.VHubAvatars.draw(face, { uid: session.uid, avatar: profile.avatar, photo: profile.photo });
   button.classList.add("signed-in");
   button.append(el("span", { class: "vhub-avatar-level", "aria-hidden": "true" }, String(profile.level)));
@@ -144,8 +151,11 @@ let closing = null;
 /** The product whose settings show, or null for the list (company pages). */
 let view = null;
 let stopWatch = null;
+/** The latest drawing of the menu's contents: an older one, still waiting on VHub, gives way (and stops its watch). */
+let rendering = 0;
 
 const isOpen = () => menu !== null && closing === null;
+const current = (mine) => mine === rendering && isOpen();
 
 function place() {
   if (!menu) return;
@@ -158,7 +168,8 @@ function place() {
   const b = button.getBoundingClientRect();
   const top = Math.round((head ? head.bottom : b.bottom) + 8);
   menu.style.top = `${top}px`;
-  menu.style.right = `${Math.max(16, Math.round(innerWidth - b.right))}px`;
+  // The page's own width, its scrollbar left out, so the menu's right edge meets the avatar's.
+  menu.style.right = `${Math.max(16, Math.round(document.documentElement.clientWidth - b.right))}px`;
   menu.style.maxHeight = `${innerHeight - top - 16}px`;
 }
 
@@ -192,20 +203,24 @@ function openMenu() {
 function closeMenu(refocus) {
   if (!menu || closing) return;
   const leaving = menu;
+  rendering++;
   stopWatch?.();
   stopWatch = null;
   button.setAttribute("aria-expanded", "false");
+  button.removeAttribute("aria-controls");
   leaving.classList.add("vm-leave");
   let done = false;
-  closing = () => {
+  const finish = () => {
     if (done) return;
     done = true;
     leaving.remove();
     if (menu === leaving) menu = body = null;
-    closing = null;
+    if (closing === finish) closing = null;
   };
-  leaving.addEventListener("transitionend", closing, { once: true });
-  setTimeout(() => closing?.(), 300);
+  closing = finish;
+  // The menu's own fade, not a switch's or a segment's inside it.
+  leaving.addEventListener("transitionend", (e) => e.target === leaving && finish());
+  setTimeout(finish, 300);
   if (refocus) button.focus();
 }
 
@@ -242,16 +257,19 @@ function offline() {
 }
 
 async function render() {
+  const mine = ++rendering;
   show(el("p", { class: "vm-loading" }, t.loading));
   let site;
   try {
     site = await loadBridge();
   } catch (e) {
-    return offline();
+    if (current(mine)) offline();
+    return;
   }
   const player = await site.ready().catch(() => null);
+  if (!current(mine)) return;
   if (!player || player.kind === "guest") return renderSignedOut(site, Boolean(player));
-  return renderSignedIn(site);
+  return renderSignedIn(site, player);
 }
 
 // ---------- Signed out ----------
@@ -302,30 +320,44 @@ const pathOf = (url) => {
   }
 };
 
-async function renderSignedIn(site) {
+async function renderSignedIn(site, player) {
+  const mine = ++rendering;
   const [me, menus] = await Promise.all([site.profile().catch(() => null), site.menus().catch(() => [])]);
-  if (!isOpen()) return;
+  if (!current(mine)) return;
   const here = menus.find((m) => {
     const path = pathOf(m.product.links?.page);
     return path && path !== "/" && location.pathname.startsWith(path);
   });
-  const played = new Set(profile?.products || me?.products || []);
+  const played = new Set(me?.products ?? profile?.products ?? []);
   const ordered = [...menus].sort((a, b) => Number(played.has(b.product.id)) - Number(played.has(a.product.id)));
   const shown = view ? menus.find((m) => m.product.id === view) : here;
+  const again = () => void renderSignedIn(site, player);
 
-  const parts = [await account(site, me), links()];
-  if (shown) parts.push(await settings(site, shown, here));
+  const parts = [await account(site, me, player.uid), links()];
+  let watching = null;
+  if (shown) {
+    const part = await settings(site, shown, here, again);
+    parts.push(part.section);
+    watching = part.unwatch;
+  }
+  if (!current(mine)) {
+    // A newer drawing (or the menu's closing) took over: this one's watch goes with it.
+    watching?.();
+    return;
+  }
+  stopWatch?.();
+  stopWatch = watching;
   const rest = ordered.filter((m) => m !== shown);
   if (!shown || rest.length) {
-    if (!(view && !here)) parts.push(games(rest, here ? t.others : t.yours, site));
+    if (!(view && !here)) parts.push(games(rest, here ? t.others : t.yours, again));
   }
   parts.push(foot(site));
-  if (isOpen()) show(parts);
+  show(parts);
 }
 
-async function account(site, me) {
+async function account(site, me, uid) {
   const pic = el("span", { class: "vm-pic", "aria-hidden": "true" });
-  if (window.VHubAvatars && session) window.VHubAvatars.draw(pic, { uid: session.uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256);
+  if (window.VHubAvatars) window.VHubAvatars.draw(pic, { uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256);
   const level = me?.level ?? profile?.level ?? 1;
   let next = null;
   if (typeof site.level === "function" && typeof me?.xp === "number") next = await site.level(me.xp).catch(() => null);
@@ -337,7 +369,7 @@ async function account(site, me) {
     el(
       "div",
       { class: "vm-who" },
-      el("b", { class: "vm-name" }, me?.name || profile?.name || window.VHubAvatars?.anonymous(session.uid) || ""),
+      el("b", { class: "vm-name" }, me?.name || profile?.name || window.VHubAvatars?.anonymous(uid) || ""),
       el("span", { class: "vm-level" }, next ? `${t.level(level)} · ${t.toNext(next.needed - next.into, next.next)}` : t.level(level)),
       bar === null ? null : el("span", { class: "vm-bar" }, el("span", { style: `width: ${Math.round(bar * 100)}%` })),
     ),
@@ -347,7 +379,7 @@ async function account(site, me) {
 const links = () =>
   el("div", { class: "vm-links" }, el("a", { href: "/hub/profile/" }, t.profile), el("a", { href: "/hub/settings/" }, t.accountSettings));
 
-function games(list, title, site) {
+function games(list, title, again) {
   if (!list.length) return null;
   return el(
     "section",
@@ -361,7 +393,7 @@ function games(list, title, site) {
           class: "vm-game",
           click: () => {
             view = m.product.id;
-            void renderSignedIn(site);
+            again();
           },
         },
         m.product.logo ? el("img", { src: m.product.logo, alt: m.product.name, height: "36" }) : el("span", { class: "vm-game-name" }, m.product.name),
@@ -370,9 +402,8 @@ function games(list, title, site) {
   );
 }
 
-async function settings(site, shown, here) {
-  stopWatch?.();
-  stopWatch = null;
+/** The shown product's settings, and the function that stops following VHub's changes to them. */
+async function settings(site, shown, here, again) {
   const name = shown.product.id === "speedometer" ? "Speedometer" : shown.product.name;
   const section = el("section", { class: "vm-settings", "aria-label": t.settingsOf(name) });
   if (shown !== here) {
@@ -384,7 +415,7 @@ async function settings(site, shown, here) {
           class: "vm-back",
           click: () => {
             view = null;
-            void renderSignedIn(site);
+            again();
           },
         },
         here ? (here.product.id === "speedometer" ? "Speedometer" : here.product.name) : t.all,
@@ -401,13 +432,13 @@ async function settings(site, shown, here) {
   }
   const rows = shown.settings.map((spec, i) => row(spec, i, store));
   section.append(el("div", { class: "vm-rows" }, rows.map((r) => r.node)));
-  if (store) {
-    stopWatch = store.watch((values, changed, from) => {
-      if (from !== "vhub") return;
-      for (const r of rows) if (changed.includes(r.key)) r.set(values[r.key] ?? r.fallback);
-    });
-  }
-  return section;
+  const unwatch = store
+    ? store.watch((values, changed, from) => {
+        if (from !== "vhub") return;
+        for (const r of rows) if (changed.includes(r.key)) r.set(values[r.key] ?? r.fallback);
+      })
+    : null;
+  return { section, unwatch };
 }
 
 /** One setting's row: a switch for an on/off, a segmented control for a choice. */
@@ -492,5 +523,14 @@ function foot(site) {
 
 if (button && face) {
   sheet("/assets/account.css");
+  sheet("/assets/switch.css");
+  // Set here: check-site lets no page's markup carry aria-expanded on anything but the menus' own buttons.
+  button.setAttribute("aria-expanded", "false");
   void drawAvatar();
+  // A sign-in or sign-out elsewhere: the hub's pages (VHub hub/src/me-marker.ts fires "vhub-me" and keeps the
+  // "vhub.me" marker in this site's storage) and other tabs.
+  addEventListener("vhub-me", () => void drawAvatar());
+  addEventListener("storage", (e) => {
+    if (e.key === "vhub.me" || (e.key && e.key.startsWith("firebase:authUser:"))) void drawAvatar();
+  });
 }

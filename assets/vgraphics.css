@@ -204,36 +204,10 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .site-nav .n-games { --c: var(--sun); }
 .site-nav .n-apps { --c: var(--coral); }
 .site-nav .n-services { --c: var(--sky); }
-.site-nav .n-hub { --c: var(--violet); }
 .site-nav a:hover { background: var(--surface-2); }
 .site-nav a:hover::before { transform: scale(1.4); }
 .site-nav a[aria-current="page"] { background: var(--ink); color: var(--bg); }
 .site-nav a[aria-current="page"]::before { box-shadow: 0 0 0 2px var(--bg); }
-/* The signed-in player's picture (assets/vhub-me.js): their photo or preset, else their initial, in the frame of their
-   rank. The picture is --d across (a little smaller, --fs, when a winged frame would reach too far); the frame's art is
-   drawn around it with room kept at its sides, its opening's centre (--fx, --fy) on the picture's, and it reaches --fa
-   picture diameters across and --fd down. */
-.site-nav .n-me {
-  --d: 28px; --fs: 1; --pw: calc(var(--d) * var(--fs));
-  position: relative; display: inline-block; flex: none; width: var(--d); height: var(--d);
-}
-.site-nav .n-me-pic, .site-nav .n-me-initial {
-  position: absolute; left: 50%; top: 50%; width: var(--pw); height: var(--pw); transform: translate(-50%, -50%);
-  border-radius: 50%; box-shadow: 0 0 0 2px var(--violet);
-}
-.site-nav .n-me-pic { object-fit: cover; }
-.site-nav .n-me-initial {
-  display: grid; place-items: center; background: var(--violet); color: var(--on-violet); font: 800 calc(var(--pw) * 0.5)/1 var(--display);
-}
-.site-nav a[aria-current="page"] .n-me-pic, .site-nav a[aria-current="page"] .n-me-initial { box-shadow: 0 0 0 2px var(--bg); }
-.site-nav .n-me.has-frame {
-  --fw: calc(var(--pw) * var(--fa)); --fh: calc(var(--pw) * var(--fd)); margin-inline: max(0px, calc((var(--fw) - var(--d)) / 2));
-}
-.site-nav .n-me.has-frame .n-me-pic, .site-nav .n-me.has-frame .n-me-initial { width: calc(var(--pw) * 1.04); height: calc(var(--pw) * 1.04); box-shadow: none; }
-.site-nav .n-me-frame {
-  position: absolute; width: var(--fw); height: var(--fh); max-width: none; pointer-events: none;
-  left: calc(50% - var(--fx) * var(--fw)); top: calc(50% - var(--fy) * var(--fh));
-}
 .site-nav .cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
 .site-nav .cta::before { content: none; }
 .site-nav .cta:hover { background: var(--violet); color: var(--on-violet); }
@@ -477,7 +451,6 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 }
 @media (max-width: 400px) {
   .site-nav a { padding: 0 8px; font-size: 0.95rem; }
-  .site-nav .n-me { --d: 24px; }
 }
 @media (max-width: 350px) {
   .site-head .wrap { flex-wrap: wrap; justify-content: center; padding-block: 6px; }
@@ -485,8 +458,8 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 }
 
 /* The header on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger
-   menu."). Below 768px, where the full row no longer fits (the wordmark, the four menus and Contact take about 706px,
-   736 with the VHub picture), the menu folds into a button at the right that opens it as a panel under the header,
+   menu."). Below 768px, where the full row no longer fits (the wordmark, the three menus, Contact and the VHub
+   avatar take about 690px), the menu folds into a button at the right that opens it as a panel under the header,
    with every link, the page's own one marked as in the row. assets/menu.js adds the button and opens and closes the
    panel. These rules hold on the pages that load it (the html:has(script) test), from the first paint, so nothing
    moves when it arrives; a page without it (the hub's, until the VHub repo adds it), a browser without JavaScript or
