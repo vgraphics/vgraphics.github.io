@@ -50,7 +50,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, vhubEntry } from './lib/partials.mjs'
+import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
@@ -144,8 +144,7 @@ function wikiAlbum(slug, from) {
 }
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
-// The quote's play button (a pause while it speaks) and the song button's note
-const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+// The song button's note
 const NOTE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.2l10-2.2v11.3h-2V7.1L11 8.4v9.1H9z"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.3" r="2.5"/></svg>'
 // The links block's icons, drawn in one line weight: a link's "icon" names one
 const line = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`
@@ -180,17 +179,9 @@ const BLOCKS = {
   }).join('\n          ')}
         </ul>`,
 
-  // A line said in the product, set large across the content's width, with a small play button after its last word
-  // when the page has the recording (assets/product.js plays it; listen is the button's name for screen readers):
-  // { type: "quote", text, by?, audio?, listen? }. George, 24 Oct 2026: "a small play/pause next to quotes".
-  quote: (b) => {
-    const cut = b.text.lastIndexOf(' ') + 1
-    const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
-    return `<figure class="sec-quote">
-          <blockquote><p>${text}</p></blockquote>${b.by ? `
-          <figcaption>${b.by}</figcaption>` : ''}
-        </figure>`
-  },
+  // A line said in the product with a button to hear it, the piece a wiki entry's quote is too (tools/lib/partials.mjs):
+  // { type: "quote", text, by?, audio?, listen? }
+  quote: (b) => quote(b),
 
   // Small cards in a row under their label, each linking to its page (Palermo Noir's roles who act in a chapter):
   // { type: "chips", label, items: [{ title, image: { src, width, height }, href }] }
