@@ -277,8 +277,9 @@ window.SpeedoMarket = (() => {
   }
 
   const profileCache = new Map();
-  // Each creator's { uid, name, avatar, photo }, read in batches and kept for the visit; a deleted or nameless player
-  // is "Player XXXX" with their preset avatar, as the hub shows them.
+  // Each creator's { uid, name, avatar, photo, level, frame }, read in batches and kept for the visit; a deleted or
+  // nameless player is "Player XXXX" with their preset avatar, as the hub shows them. The picture wears the rank frame
+  // the creator chose on VHub (assets/vhub-avatars.js).
   async function profiles(uids) {
     await avatars();
     const wanted = [...new Set(uids)].filter(uid => uid && !profileCache.has(uid));
@@ -288,7 +289,7 @@ window.SpeedoMarket = (() => {
       try {
         answer = await call(`${vhubBase}${VHUB}:batchGet?key=${VHUB_KEY}`, {
           documents: chunk.map(uid => `${VHUB}/profiles/${uid}`),
-          mask: { fieldPaths: ["name", "avatar", "photo"] },
+          mask: { fieldPaths: ["name", "avatar", "photo", "level", "frame"] },
         });
       } catch (e) {
         answer = null;
@@ -302,6 +303,8 @@ window.SpeedoMarket = (() => {
           name: f.name || window.VHubAvatars.anonymous(uid),
           avatar: typeof f.avatar === "number" ? f.avatar : window.VHubAvatars.avatarFor(uid),
           photo: /^[1-9]\d{0,17}$/.test(photo) ? photo : null,
+          level: typeof f.level === "number" ? f.level : undefined,
+          frame: typeof f.frame === "string" ? f.frame : null,
         });
       });
     }
