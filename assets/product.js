@@ -139,6 +139,71 @@
     });
   }
 
+  // What's new's update card (tools/lib/news.mjs; George, 28 Oct 2026, design A of four on a review page: "Maybe whats
+  // new open a new card like characters to see whats need there?"): a click grows it into the big card holding every
+  // update, flying from its place over the dimmed page as the role cards do; the close button, Escape or a click on the
+  // shade flies it home (only a fade with reduced motion). The big card is a modal dialog, so the keyboard stays in it.
+  // Clicks are taken where they land: a tester's own What's new joins the page later (assets/private.js).
+  {
+    const calm = matchMedia("(prefers-reduced-motion: reduce)");
+    // The transform that puts the big card exactly over the small one
+    const flight = (face, sheet) => {
+      const a = face.getBoundingClientRect(), b = sheet.getBoundingClientRect();
+      return `translate(${a.left + a.width / 2 - (b.left + b.width / 2)}px, ${a.top + a.height / 2 - (b.top + b.height / 2)}px) scale(${a.width / b.width}, ${a.height / b.height})`;
+    };
+    const partsOf = (box) => ({ sheet: box.querySelector(".news-sheet"), shade: box.querySelector(".news-shade"), face: document.querySelector(`.news-card[aria-controls="${box.id}"] .news-face`) });
+    const open = (box) => {
+      if (box.open) return;
+      const { sheet, shade, face } = partsOf(box);
+      box.showModal();
+      document.documentElement.classList.add("card-open");
+      sheet.focus({ preventScroll: true });
+      if (calm.matches || !face) return void box.animate({ opacity: [0, 1] }, { duration: 150 });
+      sheet.animate({ transform: [flight(face, sheet), "none"], opacity: [0.5, 1] }, { duration: 460, easing: "cubic-bezier(.2,.8,.2,1)" });
+      for (const part of sheet.children) part.animate({ opacity: [0, 0, 1], offset: [0, 0.35, 1] }, { duration: 460, easing: "ease-out" });
+      shade.animate({ opacity: [0, 1] }, { duration: 460, easing: "ease-out" });
+    };
+    const close = async (box) => {
+      if (!box.open || box.classList.contains("news-closing")) return;
+      box.classList.add("news-closing");
+      const { sheet, shade, face } = partsOf(box);
+      sheet.getAnimations().forEach((a) => a.finish());
+      if (calm.matches || !face) await box.animate({ opacity: [1, 0] }, { duration: 100, fill: "forwards" }).finished.catch(() => {});
+      else {
+        for (const part of sheet.children) part.animate({ opacity: [1, 0] }, { duration: 140, fill: "forwards" });
+        shade.animate({ opacity: [1, 0] }, { duration: 340, easing: "ease-in", fill: "forwards" });
+        await sheet.animate({ transform: ["none", flight(face, sheet)], opacity: [1, 0.4] }, { duration: 340, easing: "cubic-bezier(.4,0,.7,.2)", fill: "forwards" }).finished.catch(() => {});
+      }
+      box.close();
+      face?.closest(".news-card").focus({ preventScroll: true });
+    };
+    document.addEventListener("click", (e) => {
+      const card = e.target.closest?.(".news-card");
+      const box = card ? document.getElementById(card.getAttribute("aria-controls")) : e.target.closest?.(".news-dialog");
+      if (!box) return;
+      if (card) {
+        e.preventDefault(); // the browser's own command (commandfor) would open it at once
+        open(box);
+      } else if (e.target === box || e.target.matches(".news-shade") || e.target.closest(".news-close")) {
+        e.preventDefault();
+        close(box);
+      }
+    });
+    // Escape, which would shut it at once; and however it shuts, the page scrolls again and the card's moves end
+    document.addEventListener("cancel", (e) => {
+      if (!e.target.matches?.(".news-dialog")) return;
+      e.preventDefault();
+      close(e.target);
+    }, true);
+    document.addEventListener("close", (e) => {
+      if (!e.target.matches?.(".news-dialog")) return;
+      const box = e.target, { sheet, shade } = partsOf(box);
+      document.documentElement.classList.remove("card-open");
+      box.classList.remove("news-closing");
+      for (const el of [box, sheet, shade, ...sheet.children]) el.getAnimations().forEach((a) => a.cancel());
+    }, true);
+  }
+
   // An album's pictures open large (build-pages.mjs, album): the arrows, the buttons or a swipe move through the
   // album; a click on the picture (or Enter) zooms in where it was clicked, and dragging moves it; Escape, the close
   // button or a click outside closes. The pictures load only when opened. The preview flies out of its tile and back

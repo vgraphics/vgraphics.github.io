@@ -288,7 +288,7 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
-  news: (b, { dir, page }) => news(readNews(b, dir, page.site).entries, b),
+  news: (b, { dir, page }) => news(readNews(b, dir, page.site), b, page.site.name),
 
   // Numbered spots on a phone screen, each opening its part of the list (assets/faq.js; without JavaScript every part
   // stays open).

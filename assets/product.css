@@ -934,58 +934,91 @@ html.card-open { overflow: hidden; }
 .faq-item[open].faq-closing > summary .chev, .news-list details[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
 .part > button[aria-expanded="false"] .chev { transition-duration: 200ms; }
 
-/* What's new, on every landing page (the "news" block, tools/lib/news.mjs): the newest release open in a card, and
-   beside it the ones before, as rows that each open their lines. That list shows three and a half rows at most and
-   scrolls in its own box (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"): the half row says there
-   is more, its edges fade (assets/fade-edges.js, through its class fade-edges; --fade-size is the half row) and its
-   scrollbar is in the product's colour (--sb). A closed row is always --news-row high: its line never wraps. */
-.news { --news-row: 56px; --news-gap: 6px; --news-rows: 3.5; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr); gap: 18px; align-items: start; }
-.news.single { grid-template-columns: minmax(0, 46rem); }
-.news-latest, .news-older { padding: 22px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); }
-.news-latest { display: grid; gap: 12px; align-content: start; }
+/* What's new, on every landing page (the "news" block, tools/lib/news.mjs; George, 28 Oct 2026, design A of four:
+   the update card). On the page, one compact card: the newest update's date stamped in the product's colour, its
+   headline and first line, the button and how many updates there are, on a small stack of cards that says there are
+   more. It grows into the big card (assets/product.js), a modal dialog over the page dimmed as for the role cards:
+   every update as a row, the newest open, each opening its lines one at a time (assets/faq.js). The big card's inside
+   scrolls as one box, its edges fading (assets/fade-edges.js) and its scrollbar in the product's colour (--sb).
+   A tester's own block (every release while the demo is private) comes after everybody's once assets/private.js opens
+   it, and takes its place. */
+.news:has(+ .news) { display: none; }
+.news.single { display: grid; grid-template-columns: minmax(0, 46rem); }
+.news-latest { display: grid; gap: 12px; align-content: start; padding: 22px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); }
 .news h3 { font-size: 1.5rem; }
-.news-older h3 { margin-bottom: 12px; font-size: 1.2rem; }
-.news-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px; margin: 0; color: var(--muted); font: var(--label-weight) 0.92rem/1.3 var(--label-font); }
-.news ul { margin: 0; padding-left: 1.15em; display: grid; gap: 8px; color: var(--muted); }
-.news-list {
-  --fade-size: calc(var(--news-row) / 2);
-  display: grid;
-  gap: var(--news-gap);
-  max-height: calc(var(--news-rows) * var(--news-row) + (var(--news-rows) - 0.5) * var(--news-gap));
-  overflow-y: auto;
-  overscroll-behavior: contain;
-  margin: 0;
-  padding: 0;
-  list-style: none;
+.news-eyebrow { margin: 0; color: var(--accent); font: var(--label-weight) 0.8rem/1.3 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.news-card { position: relative; display: block; width: 100%; padding: 0 0 18px; border: 0; border-radius: var(--radius); background: none; color: var(--ink); font: inherit; text-align: left; cursor: var(--cursor-link, pointer); }
+.news-card:focus-visible { outline: 3px solid var(--accent); outline-offset: 6px; }
+.news-stack::before, .news-stack::after {
+  content: ""; position: absolute; bottom: 9px; left: 22px; right: 22px; height: 40px;
+  border: var(--card-border); border-radius: var(--radius); background: var(--surface); opacity: 0.8;
+  transition: transform 260ms cubic-bezier(.2, .8, .2, 1);
 }
-.news-list::-webkit-scrollbar { width: 12px; }
-.news-list::-webkit-scrollbar-track { background: transparent; }
-.news-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; background-clip: padding-box; }
+.news-stack::after { bottom: 0; left: 46px; right: 46px; opacity: 0.5; }
+.news-face {
+  position: relative; display: grid; grid-template-columns: auto minmax(0, 1fr) auto; gap: 28px; align-items: center; padding: 24px 28px;
+  border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow);
+  transition: transform 220ms ease-out, box-shadow 220ms ease-out;
+}
+.news-card:hover .news-face { transform: translateY(-3px); box-shadow: var(--card-lift); }
+.news-card:hover .news-stack::before { transform: translateY(3px); }
+.news-card:hover .news-stack::after { transform: translateY(6px); }
+.news-card:hover .btn { filter: brightness(1.08); }
+.news-stamp {
+  display: grid; place-items: center; align-content: center; width: 94px; height: 94px;
+  border: 1.5px solid color-mix(in srgb, var(--accent) 50%, transparent); border-radius: var(--radius-sm); background: color-mix(in srgb, var(--accent) 9%, transparent);
+  color: var(--accent); font: var(--label-weight) 0.78rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.14em;
+}
+.news-stamp b { font: var(--display-weight) 2.7rem/0.95 var(--font-display); letter-spacing: 0; }
+.news-text { display: grid; gap: 6px; min-width: 0; }
+.news-title { font: var(--display-weight) 1.95rem/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); text-wrap: balance; }
+.news-lead { display: -webkit-box; overflow: hidden; color: var(--muted); -webkit-line-clamp: 2; -webkit-box-orient: vertical; }
+.news-go { display: grid; justify-items: center; gap: 8px; }
+.news-go .btn { min-height: 50px; font-size: 1rem; white-space: nowrap; }
+.news-go small { color: var(--muted); font-size: 0.88rem; }
+.news-dialog {
+  width: 100%; max-width: none; height: 100%; max-height: none; margin: 0; overflow: hidden;
+  padding: calc(24px + env(safe-area-inset-top, 0px)) calc(24px + env(safe-area-inset-right, 0px)) calc(24px + env(safe-area-inset-bottom, 0px)) calc(24px + env(safe-area-inset-left, 0px));
+  border: 0; background: none; color: var(--ink);
+}
+.news-dialog[open] { display: grid; place-items: center; }
+.news-dialog::backdrop { background: transparent; }
+.news-shade { position: absolute; inset: 0; background: color-mix(in srgb, var(--page) 86%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.news-sheet {
+  position: relative; display: flex; flex-direction: column; width: min(780px, 100%); max-height: 100%; overflow: hidden;
+  border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: 0 40px 80px -30px #000; outline: none;
+}
+.news-head { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 16px; align-items: start; padding: 26px 28px 18px; border-bottom: 1px solid var(--line); }
+.news-head h3 { margin: 6px 0 4px; font-size: 2.1rem; text-wrap: balance; }
+.news-head p:last-child { margin: 0; color: var(--muted); font-size: 0.95rem; }
+.news-close { display: grid; place-items: center; width: 48px; height: 48px; padding: 0; border: 1px solid var(--accent); border-radius: 50%; background: var(--surface); color: var(--accent); cursor: var(--cursor-link, pointer); }
+.news-close svg { width: 22px; height: 22px; }
+.news-body { --fade-size: 28px; min-height: 0; padding: 18px 28px 26px; overflow-y: auto; overscroll-behavior: contain; }
+.news-body::-webkit-scrollbar { width: 12px; }
+.news-body::-webkit-scrollbar-track { background: transparent; }
+.news-body::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; background-clip: padding-box; }
 @supports not selector(::-webkit-scrollbar) {
-  .news-list { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
+  .news-body { scrollbar-width: thin; scrollbar-color: var(--sb) transparent; }
 }
-.news-list summary {
-  display: flex;
-  align-items: center;
-  gap: 12px;
-  min-height: var(--news-row);
-  padding: 0 14px;
-  border-radius: var(--radius-sm);
-  background: var(--surface-2);
-  white-space: nowrap;
-  list-style: none;
-  cursor: var(--cursor-link, pointer);
-  transition: background-color 150ms ease-out;
+.news-list { display: grid; gap: 6px; }
+.news-row { border-radius: var(--radius-sm); background: var(--surface-2); }
+.news-row > summary {
+  display: flex; align-items: center; gap: 14px; min-height: 56px; padding: 0 16px; border-radius: var(--radius-sm);
+  list-style: none; cursor: var(--cursor-link, pointer); transition: background-color 150ms ease-out;
 }
-.news-list summary::-webkit-details-marker { display: none; }
-.news-list summary:hover { background: color-mix(in srgb, var(--ink) 10%, var(--surface-2)); }
-.news-list summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
-.news-list summary b { min-width: 0; overflow: hidden; text-overflow: ellipsis; }
-.news-list summary time { color: var(--muted); font-size: 0.9rem; }
-.news-list details > .news-meta { margin: 12px 14px 0; }
-.news-list details > ul { margin: 10px 14px 14px; }
+.news-row > summary::-webkit-details-marker { display: none; }
+.news-row > summary:hover { background: color-mix(in srgb, var(--ink) 8%, var(--surface-2)); }
+.news-row > summary:focus-visible { outline: 3px solid var(--accent); outline-offset: -3px; }
+.news-row > summary time { flex: none; width: 6.6rem; color: var(--muted); font-size: 0.88rem; font-variant-numeric: tabular-nums; }
+.news-row > summary b { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.news-row > summary .tag { flex: none; }
+.news-row > :not(summary) { margin-inline: calc(30px + 6.6rem) 16px; }
+.news-row > ul { margin-block: 4px 0; padding-left: 1.15em; display: grid; gap: 8px; color: color-mix(in srgb, var(--ink) 80%, var(--muted)); }
+.news-meta { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 12px; margin-block: 12px 16px; color: var(--muted); font-size: 0.8rem; }
+.news-build { font-variant-numeric: tabular-nums; letter-spacing: 0.02em; opacity: 0.8; }
 .news-link { justify-self: start; display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); font-weight: 800; text-decoration-color: var(--accent); text-underline-offset: 5px; }
-.news-list .news-link { margin: -8px 14px 8px; }
+.news-row > .news-link { margin-block: 4px -4px; }
+@media (prefers-reduced-motion: reduce) { .news-face, .news-stack::before, .news-stack::after { transition: none; } }
 /* A product not out yet (George, 26 Oct 2026: "Design the empty view better please."): the newest release's card holds
    its place, lit softly from its corner in the product's colour, with the emblem beside its title, line and link. */
 .news-soon {
@@ -1278,7 +1311,6 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .features, .features.n4 { grid-template-columns: 1fr 1fr; }
   .cards.media .card > img { width: 60%; }
   .band { grid-template-columns: 1fr; }
-  .news { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 560px) {
   body { font-size: calc(var(--body-size) - 1px); }
@@ -1297,7 +1329,23 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .cards.side .card { grid-template-columns: 1fr; }
   .cards.side .card > img { width: 62%; margin-inline: auto; }
   .part .body { padding-left: 18px; }
-  .news-latest, .news-older { padding: 18px 16px; }
+  .news-latest { padding: 18px 16px; }
+  .news-face { grid-template-columns: auto minmax(0, 1fr); gap: 14px 16px; padding: 18px; }
+  .news-stamp { width: 64px; height: 64px; }
+  .news-stamp b { font-size: 1.85rem; }
+  .news-title { font-size: 1.45rem; }
+  .news-go { grid-column: 1 / -1; grid-template-columns: minmax(0, 1fr) auto; align-items: center; justify-items: stretch; gap: 12px; }
+  .news-go .btn { justify-content: center; }
+  .news-dialog { padding: calc(12px + env(safe-area-inset-top, 0px)) calc(12px + env(safe-area-inset-right, 0px)) calc(12px + env(safe-area-inset-bottom, 0px)) calc(12px + env(safe-area-inset-left, 0px)); }
+  .news-head { padding: 20px 18px 14px; }
+  .news-head h3 { font-size: 1.6rem; }
+  .news-body { padding: 14px 12px 18px; }
+  .news-row > summary { display: grid; grid-template-columns: minmax(0, 1fr) auto 20px; grid-template-areas: "when tag chev" "title title chev"; gap: 2px 10px; padding: 10px 14px; }
+  .news-row > summary time { grid-area: when; width: auto; }
+  .news-row > summary b { grid-area: title; white-space: normal; }
+  .news-row > summary .tag { grid-area: tag; }
+  .news-row > summary .chev { grid-area: chev; margin-left: 0; }
+  .news-row > :not(summary) { margin-inline: 14px; }
   .news-soon { gap: 14px; }
   .news-emblem { width: 48px; height: 48px; box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 7%, transparent); }
   .news-emblem svg { width: 24px; height: 24px; }
