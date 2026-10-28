@@ -1,0 +1,282 @@
+{
+  "title": "Palermo Noir: Mafia Party Game for Phones and Your TV",
+  "description": "A hidden-role mafia party game for 6 to 14 friends: your phone holds your secret card, the TV shows the town, and a noir narrator runs every night. Free.",
+  "social": {
+    "title": "Palermo Noir: the mafia party game for your TV",
+    "description": "Hidden roles on your phones, the town on your TV, and a narrator who runs the night, so everyone plays. For 6 to 14 friends.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "VideoGame",
+        "@id": "https://vgraphics.gr/palermo/#game",
+        "name": "Palermo Noir",
+        "url": "https://vgraphics.gr/palermo/",
+        "description": "A hidden-role mafia party game for 6 to 14 players in one room: each phone holds its player's secret role card, the TV shows the town, and a narrator runs every night and day, so everyone plays. In English and Greek.",
+        "image": "https://vgraphics.gr/palermo/img/card-1200x630.jpg",
+        "genre": ["Party game", "Social deduction", "Hidden role"],
+        "gamePlatform": ["Web browser"],
+        "operatingSystem": "Web browser",
+        "applicationCategory": "GameApplication",
+        "playMode": "MultiPlayer",
+        "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 6, "maxValue": 14 },
+        "inLanguage": ["en", "el"],
+        "audience": { "@type": "PeopleAudience", "suggestedMinAge": 13 },
+        "author": { "@id": "https://vgraphics.gr/#organization" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" }
+        ]
+      }
+    ]
+  },
+  "site": {
+    "name": "Palermo Noir",
+    "icon": "/palermo/assets/icon-192.png",
+    "favicon": "/palermo/assets/icon-32.png",
+    "touchIcon": "/palermo/assets/icon-180.png",
+    "logo": { "src": "/palermo/assets/logo", "widths": [300, 600], "width": 3017, "height": 1462 },
+    "parent": { "name": "Games", "href": "/games/" },
+    "nav": [
+      { "label": "Overview", "href": "/palermo/" },
+      { "label": "Wiki", "href": "/palermo/wiki/" },
+      { "label": "Gallery", "href": "/palermo/gallery/" },
+      { "label": "Map", "href": "/palermo/map/" },
+      { "label": "Privacy", "href": "/palermo/privacy.html", "wide": true }
+    ],
+    "footer": [
+      { "label": "Privacy policy", "href": "/palermo/privacy.html" }
+    ],
+    "play": { "label": "Play online", "href": "/palermo/play/", "soon": "Coming soon" },
+    "demo": { "label": "Try the demo", "href": "/palermo/demo/", "private": true }
+  },
+  "hero": {
+    "title": "Palermo Noir: the mafia party game for phones and a TV",
+    "lead": "Hidden roles on your phones. <em>The town on your TV.</em>",
+    "align": "center",
+    "badges": [
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" }
+    ],
+    "art": {
+      "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
+      "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440, 2160], "jpeg": [1080], "width": 2160, "height": 3870 },
+      "wide": { "src": "img/key-art-wide", "widths": [960, 1280, 1920, 2560, 3840], "jpeg": [960, 1920], "width": 3840, "height": 1629, "sizes": "max(100vw, min(147vw, 236vh))" },
+      "position": "25% 30%",
+      "fade": { "wide": "74%", "tall": "70%" },
+      "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+    }
+  },
+  "sections": [
+    {
+      "id": "game",
+      "eyebrow": "A party game for phones and a TV",
+      "title": "Everybody plays, even the narrator",
+      "intro": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek.",
+      "figure": { "src": "img/cast/doctor", "widths": [260, 520, 1040], "width": 1040, "height": 2758 },
+      "blocks": [
+        { "type": "links", "label": "More about Palermo Noir", "items": [
+          { "href": "/palermo/wiki/", "label": "Wiki", "icon": "book" },
+          { "href": "/palermo/wiki/host-rules/", "label": "Host's rules", "icon": "rules" },
+          { "href": "#soundtrack", "label": "Soundtrack", "icon": "music" },
+          "vhub"
+        ] }
+      ]
+    },
+    {
+      "id": "deal",
+      "eyebrow": "Chapter 1 · The deal",
+      "title": "One phone each, one TV for the room",
+      "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
+      "art": { "src": "img/scene-deal", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
+        "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy" },
+      "figure": { "src": "img/cast/officer", "widths": [260, 520, 1040], "width": 1040, "height": 2711, "side": "right" },
+      "blocks": [
+        { "type": "quote", "text": "Each of you has a role. Press and hold your card to see it… and show it to no one.", "by": "The narrator", "audio": "audio/narrator-deal.m4a", "listen": "Hear the narrator" },
+        {
+          "type": "steps",
+          "items": [
+            "<b>Open a room.</b> The host opens Palermo Noir on their phone and taps Create a room.",
+            "<b>Put the town on the TV.</b> Open vgraphics.gr/tv in the TV's browser and type the room code. Friends scan the QR code on the screen to join.",
+            "<b>Choose the rules.</b> Classic, Quick or Full house, or your own: the host picks the roles and the timers, and the TV shows the roles in play.",
+            "<b>Hold to see your card.</b> Everyone gets a secret role. Your card shows only while you hold it, and every card has the same frame."
+          ]
+        },
+        { "type": "song", "track": 2, "label": "Play “The Deal”", "note": "The chapter's music" }
+      ]
+    },
+    {
+      "id": "night",
+      "eyebrow": "Chapter 2 · The night",
+      "title": "The town sleeps, two taps each",
+      "intro": "The TV goes dark and the narrator sends the town to sleep. Every phone asks for two taps: your role's move, or who you trust, then who you suspect. So every phone looks the same, and nobody can tell who did what. On the first night the killers only meet each other and the Police Officer learns the Known Killer's face; from the second night the killers choose a victim.",
+      "art": { "src": "img/scene-night", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
+        "alt": "A man in a fedora lights a match on a rooftop terrace above the sleeping city of Palermo: domes, bell towers and a thousand windows down to the harbour, the moon behind thin clouds, a cat on a chimney, in gold engraved lines on navy" },
+      "figure": { "src": "img/cast/known-killer", "widths": [260, 520, 1040], "width": 1040, "height": 2790 },
+      "blocks": [
+        { "type": "quote", "text": "The town is whispering. Which name do you hear?", "by": "The narrator", "audio": "audio/narrator-night.m4a", "listen": "Hear the narrator" },
+        { "type": "facts", "items": [{ "value": "2 taps", "label": "on every phone" }, { "value": "45 s", "label": "night timer by default" }, { "value": "Silent", "label": "phones never make a sound" }, { "value": "1 victim", "label": "from the second night" }] },
+        { "type": "chips", "label": "Who acts at night", "items": [{ "title": "Known Killer", "image": { "src": "/palermo/wiki/img/medals/known-killer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/known-killer/" }, { "title": "Hidden Killer", "image": { "src": "/palermo/wiki/img/medals/hidden-killer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/hidden-killer/" }, { "title": "Police Officer", "image": { "src": "/palermo/wiki/img/medals/police-officer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/police-officer/" }, { "title": "Doctor", "image": { "src": "/palermo/wiki/img/medals/doctor.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/doctor/" }, { "title": "Detective", "image": { "src": "/palermo/wiki/img/medals/detective.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/detective/" }, { "title": "Seer", "image": { "src": "/palermo/wiki/img/medals/seer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/seer/" }, { "title": "Bulletproof", "image": { "src": "/palermo/wiki/img/medals/bulletproof.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/bulletproof/" }] },
+        { "type": "song", "track": 3, "label": "Play “The Town Sleeps”", "note": "The chapter's music" }
+      ]
+    },
+    {
+      "id": "day",
+      "eyebrow": "Chapter 3 · The day",
+      "title": "Accuse, argue, vote",
+      "intro": "At dawn the narrator tells the town who the killers found, or that the night passed without a murder, and the TV shows the town's rumour: the most suspected name. Then the room argues, and votes someone out of town.",
+      "art": { "src": "img/scene-suspects", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
+        "alt": "Six suspects stand apart around a lit street lamp in a Palermo piazza at midnight, eyeing each other: the man lighting a match, the doctor, the police officer, the madman on the fountain, the mayor and the lawyer, a black rose on a playing card on the cobbles" },
+      "figure": { "src": "img/cast/madman", "widths": [260, 520, 1040], "width": 1040, "height": 2607, "side": "right" },
+      "blocks": [
+        { "type": "quote", "text": "Talk. The killer is among you… and listening.", "by": "The narrator", "audio": "audio/narrator-day.m4a", "listen": "Hear the narrator" },
+        {
+          "type": "features",
+          "items": [
+            { "value": "No clock", "label": "talk till all are ready", "title": "The accusation board", "text": "Point at a suspect from your phone; the arrows show live on the TV, and the most accused gets 30 seconds to answer before the vote." },
+            { "value": "45 s", "label": "to vote by default", "title": "Open or secret votes", "text": "Watch every vote arrive as an arrow, or keep the ballots secret until the end." },
+            { "value": "20 s", "label": "to defend a tie", "title": "Ties and last words", "text": "Tied players defend themselves and the town votes again. Whoever goes out may say a few last words." },
+            { "value": "1st out", "label": "sees every role", "title": "The night announcer", "text": "From then on they tell the dawns, as Greek groups always did." }
+          ]
+        },
+        { "type": "chips", "label": "Who acts by day", "items": [{ "title": "Citizen", "image": { "src": "/palermo/wiki/img/medals/citizen.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/citizen/" }, { "title": "Mayor", "image": { "src": "/palermo/wiki/img/medals/mayor.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/mayor/" }, { "title": "Kamikaze", "image": { "src": "/palermo/wiki/img/medals/kamikaze.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/kamikaze/" }, { "title": "Lawyer", "image": { "src": "/palermo/wiki/img/medals/lawyer.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/lawyer/" }] },
+        { "type": "song", "track": 4, "label": "Play “Piazza at Noon”", "note": "The chapter's music" }
+      ]
+    },
+    {
+      "id": "verdict",
+      "eyebrow": "Chapter 4 · The verdict",
+      "title": "The truth comes out",
+      "intro": "The game ends the moment one side has won: the town when every killer is out, the killers when they match everyone else, the Madman alone if the town votes him out. Then the TV tells the whole story, and everyone stays in the room to play again.",
+      "art": { "src": "img/scene-verdict", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
+        "alt": "A shaft of light falls on an empty chair with a black rose on its seat in the middle of a Palermo piazza at night, the six characters standing around it between two lit street lamps, the cathedral behind like a stage set" },
+      "figure": { "src": "img/cast/mayor", "widths": [260, 520, 1040], "width": 1040, "height": 2367 },
+      "blocks": [
+        { "type": "quote", "text": "The last killer has fallen. Palermo can finally sleep in peace. The town wins!", "by": "The narrator", "audio": "audio/narrator-verdict.m4a", "listen": "Hear the narrator" },
+        {
+          "type": "features",
+          "items": [
+            { "value": "1 by 1", "label": "killers last", "title": "Every card turned", "text": "Every role is shown, then the winners' banner goes up." },
+            { "value": "Every vote", "label": "secret ones too", "title": "The story of every night", "text": "Who the killers chose, who the Doctor saved, and who voted whom." },
+            { "value": "4", "label": "awards", "title": "Awards", "text": "The sharpest eye, the best liar, the lifesaver and the survivor." },
+            { "value": "XP", "label": "for every game", "title": "XP and achievements", "text": "Every game counts on your VHub profile, in every VGraphics game." }
+          ]
+        },
+        { "type": "chips", "label": "Who can change the ending", "items": [{ "title": "Madman", "image": { "src": "/palermo/wiki/img/medals/madman.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/madman/" }, { "title": "Hunter", "image": { "src": "/palermo/wiki/img/medals/hunter.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/hunter/" }, { "title": "Henchman", "image": { "src": "/palermo/wiki/img/medals/henchman.webp", "width": 320, "height": 320 }, "href": "/palermo/wiki/henchman/" }] },
+        { "type": "song", "track": 6, "label": "Play “The Town Wins”", "note": "The chapter's music" }
+      ]
+    },
+    {
+      "id": "cast",
+      "eyebrow": "The cast",
+      "title": "Every role in the deck",
+      "intro": "The classic roles are in every game: the Known and the Hidden Killer, the Police Officer, the Doctor and the citizens. The extras unlock as a host plays, or all at once for groups who know Palermo. Scroll the deck.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "dense": true,
+          "deck": true,
+          "items": [
+            { "image": { "src": "img/roles/known-killer", "widths": [480, 720, 1080, 1440, 2020], "width": 2020, "height": 2827, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Known Killer's card: a man in a dark overcoat and a fedora lights a match, a rose pinned to his lapel" }, "tag": "Killers", "tagTone": "alt", "title": "Known Killer", "text": "Every night you and your partners choose a victim. The Police Officer knows who you are.", "facts": [["Team", "Killers"], ["Acts", "Every night from the second"], ["In the game", "Always"]], "back": "<p>You and your partners meet on the first night. From the second night you choose a victim together: the player most of you pick is found at dawn, unless the Doctor protected them.</p><p>The Police Officer learns your face on the first night, so stay calm when the town looks your way. The killers win when they equal or outnumber everyone else.</p>", "voice": { "src": "audio/voices/known-killer.mp3", "line": "Tonight… someone won't wake up.", "by": "The Known Killer", "label": "Play the Known Killer's voice" }, "href": "/palermo/wiki/known-killer/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/hidden-killer", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3026, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Hidden Killer's card: a slim figure in a long coat, a fedora pulled low over the face, a rose on the lapel" }, "tag": "Killers", "tagTone": "alt", "title": "Hidden Killer", "text": "Every night you and your partners choose a victim. The Police Officer doesn't know you.", "facts": [["Team", "Killers"], ["Acts", "Every night from the second"], ["In the game", "Always"]], "back": "<p>You meet your partners on the first night, but the Police Officer never learns who you are, and by default the Detective sees you as not a killer.</p><p>Choose the victim with your partners every night from the second, and win with them when the killers equal or outnumber the rest.</p>", "voice": { "src": "audio/voices/hidden-killer.mp3", "line": "You'll never see me coming.", "by": "The Hidden Killer", "label": "Play the Hidden Killer's voice" }, "href": "/palermo/wiki/hidden-killer/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/officer", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3024, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Police Officer's card: an officer in a peaked cap and a buttoned uniform, writing in a notebook" }, "tag": "Town", "title": "Police Officer", "text": "On the first night you learn who the Known Killer is. Steer the town without giving yourself away.", "facts": [["Team", "Town"], ["Acts", "The first night"], ["In the game", "Always"]], "back": "<p>On the first night, while the Known Killer raises a hand, you see him. That's your only power.</p><p>Steer the town's votes toward him without giving yourself away: the killers will hunt for you. In some groups the host makes your death a win for the killers.</p>", "voice": { "src": "audio/voices/police-officer.mp3", "line": "You're under arrest!", "by": "The Police Officer", "label": "Play the Police Officer's voice" }, "href": "/palermo/wiki/police-officer/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/doctor", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3023, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Doctor's card: a woman in a long coat with a stethoscope and a leather doctor's bag" }, "tag": "Town", "title": "Doctor", "text": "From the second night, protect one player from the killers, never the same one two nights running.", "facts": [["Team", "Town"], ["Acts", "Every night from the second"], ["In the game", "Always"]], "back": "<p>Each night from the second, protect one player. If the killers choose them, the night passes without a murder.</p><p>You can't protect the same player two nights running, and by default you may save yourself once a game.</p>", "voice": { "src": "audio/voices/doctor.mp3", "line": "Not tonight. Not on my watch.", "by": "The Doctor", "label": "Play the Doctor's voice" }, "href": "/palermo/wiki/doctor/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/baker", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3025, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "A Citizen's card: a smiling baker in an apron with a basket of bread" }, "tag": "Town", "title": "Citizen", "text": "No power: listen, accuse, and vote the killers out. Citizens come as a baker, a fisherman, a seamstress and a kiosk owner.", "facts": [["Team", "Town"], ["Acts", "Every vote"], ["In the game", "Always"]], "back": "<p>No night power. At night you answer who you trust and who you suspect, like everyone else, so your phone looks the same as the rest.</p><p>By day you listen, accuse and vote the killers out. Citizens come as a baker, a fisherman, a seamstress and a kiosk owner.</p>", "voice": { "src": "audio/voices/citizen.mp3", "line": "I only bake the bread… but I see everything.", "by": "The Citizen", "label": "Play the Citizen's voice" }, "href": "/palermo/wiki/citizen/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/inspector", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3022, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Detective's card: a tall detective in a trench coat and fedora with a pipe and a magnifying glass" }, "tag": "Town · extra", "title": "Detective", "text": "Each night, check one player: killer or not.", "facts": [["Team", "Town"], ["Acts", "Every night"], ["In the game", "After a host's first game"]], "back": "<p>Each night, check one player: your phone answers \"killer\" or \"not a killer\" at once.</p><p>The Henchman and the Kamikaze show as not a killer, and so does the Hidden Killer unless the host turns that off.</p>", "voice": { "src": "audio/voices/detective.mp3", "line": "Just as I suspected.", "by": "The Detective", "label": "Play the Detective's voice" }, "href": "/palermo/wiki/detective/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/seer", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3024, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Seer's card: a fortune teller in a patterned headscarf holding a fan of tarot cards" }, "tag": "Town · extra", "title": "Seer", "text": "Once a game, at night, learn one player's exact role.", "facts": [["Team", "Town"], ["Acts", "One night a game"], ["In the game", "After five games"]], "back": "<p>Once a game, at night, learn one player's exact role. Pick your night well, or answer \"not tonight\".</p><p>What you learn is yours alone: share it by day, or keep it until it matters.</p>", "voice": { "src": "audio/voices/seer.mp3", "line": "The cards never lie.", "by": "The Seer", "label": "Play the Seer's voice" }, "href": "/palermo/wiki/seer/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/bulletproof", "widths": [480, 720, 1080, 1440, 2114], "width": 2114, "height": 2960, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Bulletproof card: a relieved man in a waistcoat holding up a dented pocket watch" }, "tag": "Town · extra", "title": "Bulletproof", "text": "You survive the killers' first attack on you, and only you are told.", "facts": [["Team", "Town"], ["Acts", "When attacked"], ["In the game", "After five games"]], "back": "<p>The first time the killers choose you, you survive. Only you are told; the dawn simply says the night passed without a murder.</p><p>After that you're as mortal as anyone, so use what you've learned.</p>", "voice": { "src": "audio/voices/bulletproof.mp3", "line": "Ha! Missed me!", "by": "The Bulletproof", "label": "Play the Bulletproof's voice" }, "href": "/palermo/wiki/bulletproof/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/henchman", "widths": [480, 720, 1080, 1440, 2149], "width": 2149, "height": 3009, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Henchman's card: a young man in braces and a cap, a matchstick in his mouth, twirling a car key" }, "tag": "Killers · extra", "tagTone": "alt", "title": "Henchman", "text": "You know the killers, but they don't know you. You win with them.", "facts": [["Team", "Killers"], ["Acts", "No night action"], ["In the game", "After five games"]], "back": "<p>You know who the killers are, but they don't know you. You don't kill, yet you win with them.</p><p>The Detective sees you as not a killer, and in the killers' head count you count as a townsperson.</p>", "voice": { "src": "audio/voices/henchman.mp3", "line": "The car's ready, boss.", "by": "The Henchman", "label": "Play the Henchman's voice" }, "href": "/palermo/wiki/henchman/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/mayor", "widths": [480, 720, 1080, 1440, 2080], "width": 2080, "height": 2912, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Mayor's card: a stout mayor with a curled moustache, a sash and a ceremonial key" }, "tag": "Town · extra", "title": "Mayor", "text": "Reveal yourself during a day: from then on your vote counts twice.", "facts": [["Team", "Town"], ["Acts", "During a day"], ["In the game", "After a host's first game"]], "back": "<p>Keep your role secret until the right moment, then tap Reveal during a day.</p><p>From then on a gold badge shows on your tile, everyone knows who you are, and your vote counts twice.</p>", "voice": { "src": "audio/voices/mayor.mp3", "line": "Citizens! I am your mayor!", "by": "The Mayor", "label": "Play the Mayor's voice" }, "href": "/palermo/wiki/mayor/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/hunter", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3025, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Hunter's card: a countryman in a flat cap and tweed with a hunting horn, his hound at his feet" }, "tag": "Town · extra", "title": "Hunter", "text": "When you're out, by vote or by night, you take one player with you.", "facts": [["Team", "Town"], ["Acts", "When you go out"], ["In the game", "After a host's first game"]], "back": "<p>When you go out, by the vote, by night or by a bomb, you have 20 seconds to take one player with you.</p><p>Take a killer and the town cheers; take a friend and you'll hear about it.</p>", "voice": { "src": "audio/voices/hunter.mp3", "line": "If I go down, you're coming with me.", "by": "The Hunter", "label": "Play the Hunter's voice" }, "href": "/palermo/wiki/hunter/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/lawyer", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3024, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Lawyer's card: a lawyer in a pinstriped suit and round spectacles, a briefcase in one hand, one finger raised" }, "tag": "Town · extra", "title": "Lawyer", "text": "You're dealt 5 of 17 power cards, such as Objection!, Alibi and Appeal, and keep 2. Each one works once.", "facts": [["Team", "Town"], ["Acts", "At its own moment"], ["In the game", "After five games"]], "back": "<p>At the start you're dealt 5 of the 17 power cards in the briefcase and keep 2, such as Objection!, Alibi or Appeal.</p><p>Each card works once, at its own moment: at night, in the talk, at the vote or at a verdict. The TV shows when the Lawyer steps in, never who.</p>", "voice": { "src": "audio/voices/lawyer.mp3", "line": "Objection!", "by": "The Lawyer", "label": "Play the Lawyer's voice" }, "href": "/palermo/wiki/lawyer/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/kamikaze", "widths": [480, 720, 1080, 1440, 2068], "width": 2068, "height": 2895, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Kamikaze's card: a grinning man in a striped shirt holding up a round cartoon bomb with a sparkling fuse" }, "tag": "Killers · extra", "tagTone": "alt", "title": "Kamikaze", "text": "You're with the killers. Once, during a day, you can take one player down with you.", "facts": [["Team", "Killers"], ["Acts", "Once, during a day"], ["In the game", "After five games"]], "back": "<p>You're with the killers, and they know you.</p><p>Once, during a day's discussion, hold Explode and pick a player: both of you fall at once, with a bang on the TV.</p>", "voice": { "src": "audio/voices/kamikaze.mp3", "line": "Say goodbye, Palermo!", "by": "The Kamikaze", "label": "Play the Kamikaze's voice" }, "href": "/palermo/wiki/kamikaze/", "more": "More in the wiki" },
+            { "image": { "src": "img/roles/madman", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3025, "sizes": "(max-width: 560px) 90vw, 480px", "alt": "The Madman's card: a man in a rumpled suit with wild hair, holding a cracked harlequin mask" }, "tag": "Solo · extra", "title": "Madman", "text": "You win alone if the town votes you out, and that ends the game.", "facts": [["Team", "Solo"], ["Acts", "When voted out"], ["In the game", "After a host's first game"]], "back": "<p>You win alone if the town votes you out, and that ends the game on the spot, to your tarantella.</p><p>Killed at night, you just die. So act suspicious, but not too suspicious.</p>", "voice": { "src": "audio/voices/madman.mp3", "line": "I wanted this all along!", "by": "The Madman", "label": "Play the Madman's voice" }, "href": "/palermo/wiki/madman/", "more": "More in the wiki" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "soundtrack",
+      "eyebrow": "The music",
+      "title": "Listen to the soundtrack",
+      "intro": "The music of an evening in Palermo, in the order you hear it: a 1950s Sicilian noir chamber orchestra with staccato strings, clarinet, mandolin and accordion. Hushed for the night, sunny but suspicious at noon, relentless for the vote, and a theme for whoever wins. Press play and keep reading; a small player stays with you down the page.",
+      "blocks": [
+        {
+          "type": "soundtrack",
+          "album": "Palermo Noir — Original Soundtrack",
+          "cover": { "src": "img/cover", "widths": [320, 640, 1280, 2048], "width": 2048, "height": 2048, "alt": "The Palermo Noir soundtrack cover: a violinist in a fedora and a long coat plays on a Palermo rooftop against a huge full moon, the domes and bell towers below, in gold engraved lines on navy" },
+          "background": { "wide": { "src": "img/ost-backdrop", "widths": [960, 1280, 1920, 2560, 3840] }, "tall": { "src": "img/ost-backdrop", "widths": [960] } },
+          "youtube": "https://www.youtube.com/playlist?list=PLW3ioafCedeU",
+          "soundcloud": "https://soundcloud.com/vgraphics/sets/palermo-noir-original-soundtrack",
+          "tracks": [
+            { "title": "Main Theme", "src": "audio/01-main-theme.m4a", "duration": "1:59" },
+            { "title": "The Deal", "src": "audio/02-the-deal.m4a", "duration": "2:00" },
+            { "title": "The Town Sleeps", "src": "audio/03-the-town-sleeps.m4a", "duration": "2:00" },
+            { "title": "Piazza at Noon", "src": "audio/04-piazza-at-noon.m4a", "duration": "2:05" },
+            { "title": "The Vote", "src": "audio/05-the-vote.m4a", "duration": "2:00" },
+            { "title": "The Town Wins", "src": "audio/06-the-town-wins.m4a", "duration": "0:42" },
+            { "title": "Palermo Belongs to Them", "src": "audio/07-palermo-belongs-to-them.m4a", "duration": "0:50" },
+            { "title": "The Madman's Tarantella", "src": "audio/08-the-madmans-tarantella.m4a", "duration": "0:42" },
+            { "title": "Another Night in Palermo", "src": "audio/09-another-night-in-palermo.m4a", "duration": "2:00" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "love",
+      "eyebrow": "Why your group will love it",
+      "title": "A night out, without leaving the sofa",
+      "blocks": [
+        {
+          "type": "reasons",
+          "items": [
+            { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same two taps at night, and your card shows only while you hold it.", "wiki": "the-night", "more": "How the night plays" },
+            { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen.", "wiki": "a-round", "more": "How a round plays" },
+            { "title": "Nothing to install", "text": "A smart TV's browser or a laptop on the TV, and the phones you already have.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "whats-new",
+      "title": "What's new",
+      "intro": "Every update to the game, newest first.",
+      "blocks": [{ "type": "news", "empty": "Palermo Noir isn't out yet: its first release will show here, with every update after it." }]
+    },
+    {
+      "id": "faq",
+      "title": "Questions and answers",
+      "intro": "Quick answers about playing, rooms and your data.",
+      "blocks": [{ "type": "faq", "src": "faq.json" }]
+    },
+    {
+      "id": "privacy",
+      "band": {
+        "art": "<img src=\"/palermo/assets/icon-192.png\" alt=\"\" width=\"72\" height=\"72\" loading=\"lazy\">",
+        "title": "For ages 13 and up",
+        "text": "Each phone gives its year of birth once, and only an age group is kept, never the year. Players join as a guest or with their VHub name, and the TV signs in as a screen, never as a person.",
+        "link": { "href": "/palermo/privacy.html", "label": "Privacy policy →" }
+      }
+    }
+  ],
+  "cta": {
+    "title": "Gather your town",
+    "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.<span data-demo> Until then, the demo seats you at a table of bots.</span>",
+    "badges": [
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" },
+      "vhub"
+    ]
+  },
+  "footerArt": { "src": "/palermo/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1738, "position": "55% 50%" }
+}

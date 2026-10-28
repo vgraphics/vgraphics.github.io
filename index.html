@@ -6,7 +6,7 @@
   <title>VGraphics: game and app studio in Thessaloniki, Greece</title>
   <meta name="description" content="Independent studio in Thessaloniki, Greece. Play Exitwise, a free arrow puzzle game, get Speedometer Live Wallpaper, or hire us to build your app or game.">
   <link rel="canonical" href="https://vgraphics.gr/">
-  <!-- Google Search Console's proof that vgraphics.gr is ours (gvergidis90@gmail.com): removing it unverifies the site. -->
+  <!-- Google Search Console's proof that vgraphics.gr is ours (the VGraphics Google account): removing it unverifies the site. -->
   <meta name="google-site-verification" content="-sQwk3xL_AEEVhA0qsYaTa9T5nXcFD8jWeYePQcoXGw">
   <link rel="icon" href="/img/vgraphics-logo.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
@@ -34,7 +34,7 @@
         "url": "https://vgraphics.gr/",
         "logo": "https://vgraphics.gr/img/vgraphics-logo.png",
         "description": "An independent studio in Thessaloniki, Greece, that makes its own games and apps and builds apps, games, backends and multiplayer for clients.",
-        "email": "gvergidis90@gmail.com",
+        "email": "support@vgraphics.gr",
         "foundingDate": "2025-01-22",
         "vatID": "EL802736373",
         "identifier": { "@type": "PropertyValue", "propertyID": "G.E.MI.", "value": "181823306000" },
@@ -55,8 +55,11 @@
     ]
   }
   </script>
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
   <style>
     /* Hero: the headline on the left; on the right the four menus as four doors, each in its dot's colour */
     .hero { position: relative; padding-block: var(--s5) var(--s7); isolation: isolate; }
@@ -121,6 +124,8 @@
     .x-party img { width: 100%; margin-right: -26px; transition: transform 300ms var(--ease); }
     a.x-party:hover img { transform: translateY(-4px) rotate(-1.5deg); }
     .x-palermo { background: #24205A; }
+    /* Palermo Noir's key art (its own page's hero, so this card is that page's preview), cut to the card's 640:420 */
+    .x-party img.key { aspect-ratio: 640 / 420; object-fit: cover; object-position: 15% 50%; border-radius: 14px; }
     .x-quiz { background: var(--sun); color: var(--on-block); }
     .x-quiz .soon { background: #16151B; color: #fff; }
 
@@ -185,9 +190,9 @@
       <a class="n-games" href="/games/">Games</a>
       <a class="n-apps" href="/apps/">Apps</a>
       <a class="n-services" href="/services/">Services</a>
-      <a class="n-hub" href="/hub/">VHub</a>
       <a class="cta" href="#contact">Contact</a>
     </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </div>
 </header>
 
@@ -209,12 +214,12 @@
         <a class="door d-games" href="/games/">
           <span class="label">Games <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           <span class="sr-only">: Exitwise, and two party games in design</span>
-          <span class="phone bare"><img src="/assets/img/exitwise-board.webp" alt="" width="480" height="853"></span>
+          <span class="phone bare"><img src="/exitwise/img/3-shapes.webp" alt="" width="720" height="1280"></span>
         </a>
         <a class="door d-apps" href="/apps/">
           <span class="label">Apps <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
           <span class="sr-only">: Speedometer Live Wallpaper</span>
-          <span class="phone"><img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="" width="540" height="1200"></span>
+          <span class="phone"><img src="/speedometer-wallpaper/img/renders/glass-119kmh.webp" alt="" width="540" height="1200"></span>
         </a>
         <a class="door d-services" href="/services/">
           <span class="label">Services <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></span>
@@ -231,7 +236,7 @@
             <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#1F9F52"/><g fill="#fff"><path d="M50 74C33 62 22 50 24 39C26 27 43 24 50 36C57 24 74 27 76 39C78 50 67 62 50 74Z"/></g></svg>
             <svg viewBox="0 0 100 100"><circle cx="50" cy="50" r="50" fill="#D9580E"/><g fill="#fff"><polygon points="26,68 24,36 38,50 50,30 62,50 76,36 74,68"/></g></svg>
           </span>
-          <span class="soon">Coming soon</span>
+          <span class="soon">Open now</span>
         </a>
       </div>
     </div>
@@ -241,13 +246,13 @@
     <div class="wrap">
       <div class="section-head split">
         <h2 id="games-title"><span class="dot c-sun" aria-hidden="true"></span>Games</h2>
-        <p class="lede">A puzzle game you can play today on Android and in your browser, and two party games for phones and the TV in design.</p>
+        <p class="lede">A puzzle game you can play today on Android and in your browser, and two party games for phones and the TV on the way.</p>
         <a class="more c-sun" href="/games/">All games <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="grid">
         <article class="b x-game s7 r2" aria-labelledby="exitwise-title">
           <div class="copy">
-            <img class="icon" src="/exitwise/img/icon-512.png" alt="" width="64" height="64">
+            <img class="icon" src="/exitwise/assets/icon-192.png" alt="" width="64" height="64">
             <span class="kicker">Puzzle game · Android &amp; web</span>
             <h3 id="exitwise-title">Exitwise</h3>
             <p>Tap an arrow and it slides off the board, but only if nothing is in its way. One tap, one rule, 600 levels in 17 worlds, with bombs, mirrors, portals and more along the way.</p>
@@ -261,13 +266,13 @@
           <div class="shots"><img src="/assets/img/exitwise-giant.webp" alt="A giant Exitwise board packed with long, colourful arrows" width="480" height="853" loading="lazy"><img src="/assets/img/exitwise-key-art.webp" alt="Exitwise's welcome screen: a tower of colourful worlds under the Exitwise title, with a glowing door at the top" width="480" height="853" loading="lazy"></div>
         </article>
 
-        <a class="b x-party x-palermo s5" href="/games/#palermo">
+        <a class="b x-party x-palermo s5" href="/palermo/">
           <div class="copy">
-            <span class="soon">In design</span>
+            <span class="soon">Coming soon</span>
             <h3>Palermo Noir</h3>
             <p>A hidden-role party game. Phones are the controllers, the TV is the town, and a narrator runs every night.</p>
           </div>
-          <img src="/assets/img/palermo.svg" alt="" width="640" height="420" loading="lazy">
+          <img class="key" src="/palermo/img/key-art-wide-960.webp" alt="" width="960" height="407" loading="lazy">
         </a>
         <a class="b x-party x-quiz s5" href="/games/#quizfall">
           <div class="copy">
@@ -295,14 +300,14 @@
             <span class="kicker">Live wallpaper · Android</span>
             <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
             <h3 id="speedo-title" class="sr-only">Speedometer Live Wallpaper</h3>
-            <p>Your home screen as a car dashboard. Power, CPU clock or GPS speed on the big dial; battery, RAM, signal and Wi-Fi around it. Free Classic design, or the chrome Future cluster with your music.</p>
+            <p>Your home screen as a car dashboard. Power, CPU clock or GPS speed on the big dial; battery, RAM, signal and Wi-Fi around it. 19 dashboard styles, three of them free, from a 1960s walnut console to a fighter jet's head-up display.</p>
             <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get Speedometer Live Wallpaper on Google Play" width="646" height="250" loading="lazy"></a>
             <div class="pill-row">
               <a class="pill" href="/speedometer-wallpaper/">Visit Speedometer</a>
-              <a class="pill alt" href="/speedometer-wallpaper/#tour">Tour the dashboard</a>
+              <a class="pill alt" href="/speedometer-wallpaper/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Try it in your browser</a>
             </div>
           </div>
-          <img class="dial" src="/speedometer-wallpaper/img/dial-speed.webp" alt="" width="480" height="480" loading="lazy">
+          <img class="dial" src="/speedometer-wallpaper/img/renders/dial-classic-71kmh.webp" alt="" width="480" height="480" loading="lazy">
         </article>
 
         <a class="b x-gauges s5" href="/speedometer-wallpaper/wiki/">
@@ -324,7 +329,7 @@
     <div class="wrap">
       <div class="section-head split">
         <h2 id="play-title"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span>Play together</h2>
-        <p class="lede">Rooms to race your friends, live leaderboards, profiles, and the moderation that keeps them friendly. All of it runs in Exitwise today.</p>
+        <p class="lede">Rooms to race your friends, live leaderboards, profiles, and the moderation that keeps them friendly. It runs in Exitwise today, with the profiles and global boards kept on VHub.</p>
         <a class="more c-coral" href="/multiplayer/">How it all works <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg></a>
       </div>
       <div class="grid">
@@ -366,7 +371,7 @@
           <p>Name filters, picture checks, reports and blocking. Three reports take a picture or a name down, or hide a map until it's reviewed.</p>
         </a>
         <a class="b x-violet s4" href="/hub/">
-          <span class="kicker">Coming soon</span>
+          <span class="kicker">Open now</span>
           <h3>VHub</h3>
           <p>One account for every VGraphics game and app, with a level, achievements and friends.</p>
         </a>
@@ -401,14 +406,14 @@
     <div class="wrap">
       <h2 class="sr-only" id="studio-title">The studio</h2>
       <div class="grid">
-        <div class="b x-stat x-coral s4"><span class="kicker">The studio</span><b>One person</b><p>An independent company in Thessaloniki, Greece, since 2025. You talk to the person who builds it.</p></div>
+        <div class="b x-stat x-coral s4"><span class="kicker">The studio</span><b>One person</b><p>An independent company in Thessaloniki, Greece, since 2025. You talk to the person who builds it.</p><p style="font-weight:700"><a href="/company/" style="color:inherit">About the studio</a> · <a href="/devlog/" style="color:inherit">Read the devlog</a></p></div>
         <div class="b x-principle s4">
           <span class="icon" style="background:var(--sun)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3l7 3v6c0 4.5-3 7.6-7 9-4-1.4-7-4.5-7-9V6z"/><path d="M9 12l2 2 4-4"/></svg></span>
           <h3>Fair by design</h3><p>Levels come from fixed seeds, so everyone plays the same puzzle, and every one is tested to be solvable.</p>
         </div>
         <div class="b x-principle s4">
           <span class="icon" style="background:var(--sky)"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg></span>
-          <h3>Privacy in plain words</h3><p>Short privacy policies you can actually read. Nothing on our pages tracks you without asking first.</p>
+          <h3>Privacy in plain words</h3><p>Short privacy policies you can actually read. Most pages collect nothing. The web games ask before statistics, and in Europe before personalised ads.</p>
         </div>
       </div>
     </div>
@@ -421,20 +426,20 @@
       <h2>Let's talk</h2>
       <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
     </div>
-    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>

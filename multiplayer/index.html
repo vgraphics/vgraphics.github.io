@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Multiplayer and community features in our games · VGraphics</title>
-  <meta name="description" content="Rooms to race friends by code, live leaderboards, profiles, moderation and custom maps in Exitwise, and the real-time multiplayer we can build for your game.">
+  <meta name="description" content="Rooms to race friends by code, custom maps and moderation in Exitwise, live leaderboards and profiles on VHub, and real-time multiplayer we can build for you.">
   <link rel="canonical" href="https://vgraphics.gr/multiplayer/">
   <link rel="icon" href="/img/vgraphics-logo.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
@@ -12,7 +12,7 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="Multiplayer &amp; community · VGraphics">
-  <meta property="og:description" content="Rooms to race friends on the same board, live leaderboards, profiles and moderation, all running in Exitwise today.">
+  <meta property="og:description" content="Rooms to race friends on the same board, moderation and custom maps in Exitwise, with live leaderboards and player profiles on VHub.">
   <meta property="og:url" content="https://vgraphics.gr/multiplayer/">
   <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
   <meta property="og:image:width" content="1200">
@@ -30,8 +30,11 @@
     ]
   }
   </script>
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
   <style>
     .pg-multi { --accent: var(--coral); }
 
@@ -79,7 +82,7 @@
     .live i { width: 9px; height: 9px; border-radius: 50%; background: #4BD66B; animation: pulse 2s ease-out infinite; }
     @keyframes pulse { from { box-shadow: 0 0 0 0 rgba(75, 214, 107, 0.6); } to { box-shadow: 0 0 0 9px rgba(75, 214, 107, 0); } }
     .tabs { display: flex; flex-wrap: wrap; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(255, 255, 255, 0.06); }
-    .tabs button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--night-text); font: 700 0.9rem/1 var(--body); cursor: pointer; transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
+    .tabs button { min-height: 40px; padding: 0 14px; border: 0; border-radius: 999px; background: none; color: var(--night-text); font: 700 0.9rem/1 var(--body); cursor: var(--cursor-link, pointer); transition: background-color var(--fast) var(--ease), color var(--fast) var(--ease); }
     .tabs button:hover { color: #fff; background: rgba(255, 255, 255, 0.08); }
     .tabs button[aria-selected="true"] { background: var(--sun); color: #16151B; }
     .lb-caption { color: var(--night-text); font-size: 0.95rem; }
@@ -181,9 +184,9 @@
       <a class="n-games" href="/games/">Games</a>
       <a class="n-apps" href="/apps/">Apps</a>
       <a class="n-services" href="/services/">Services</a>
-      <a class="n-hub" href="/hub/">VHub</a>
       <a class="cta" href="#contact">Contact</a>
     </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </div>
 </header>
 
@@ -193,7 +196,7 @@
       <div class="copy">
         <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Multiplayer &amp; community</span>
         <h1 id="page-title">Play <span class="marker">together</span></h1>
-        <p class="sub">Rooms where friends race on the same board, live leaderboards, profiles, and the rules that keep it all friendly. It all runs in Exitwise today.</p>
+        <p class="sub">Rooms where friends race on the same board, live leaderboards, profiles, and the rules that keep it all friendly. It runs in Exitwise today, with the profiles and global boards kept on VHub.</p>
         <div class="actions">
           <a class="btn btn-accent" href="#leaderboards">See the live boards</a>
           <a class="btn btn-ghost" href="/exitwise/play/">Play Exitwise in your browser</a>
@@ -245,7 +248,7 @@
       <div class="lb-copy">
         <h2 id="lb-title"><span class="dot c-sun" aria-hidden="true"></span>Leaderboards</h2>
         <p class="lede">Every level has its own board, ranked by the fewest hearts lost and then the fastest time. Only clean runs count: no continues and no powerups.</p>
-        <p class="lede">Four global boards rank everyone in the game. This page reads them live from the game's database, with no sign-in.</p>
+        <p class="lede">Four global boards rank everyone in the game. VHub, the account every VGraphics game will share, keeps them with each player's name and picture, and this page reads them live, with no sign-in.</p>
         <a class="more c-sun" href="/exitwise/ranking/">The top 100 on every board</a>
       </div>
       <div class="lb" id="lb">
@@ -272,7 +275,7 @@
     <div class="wrap profiles">
       <div>
         <h2 id="profiles-title"><span class="dot c-violet" aria-hidden="true"></span>Profiles</h2>
-        <p class="lede" style="margin-top:var(--s2)">Pick a name and one of 12 avatars the first time you open a leaderboard. Tap anyone's row to see their stats and the maps they've published.</p>
+        <p class="lede" style="margin-top:var(--s2)">Pick a name and one of 12 avatars the first time you open a leaderboard. They're your VHub profile, the one every VGraphics game will share. Tap anyone's row to see their stats and the maps they've published.</p>
         <ul class="plist">
           <li><b>Names that stay put</b><span>3 to 16 letters, digits or _, unique, and yours for good once saved.</span></li>
           <li><b>Your own picture</b><span>On Android, players signed in with Play Games can use a photo. Each one is re-encoded and checked by Google Cloud Vision before anyone sees it.</span></li>
@@ -336,13 +339,13 @@
   <section class="section" id="next" aria-labelledby="next-title" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="next-title">Coming next</h2>
-        <p class="lede">The same rooms and profiles, shared by every VGraphics game, and games built around the TV.</p>
+        <h2 id="next-title">VHub, and what's next</h2>
+        <p class="lede">VHub is open: one name, picture and level for every VGraphics game. Next come games built around the TV.</p>
       </div>
       <div class="grid">
         <a class="b x-violet next-hub s6" href="/hub/">
           <div class="copy">
-            <span class="soon">Coming soon</span>
+            <span class="soon">Open now</span>
             <h3>VHub</h3>
             <p>One account for every VGraphics game and app: one name and picture, a level and XP earned in every game, achievements, friends, and invites to rooms.</p>
           </div>
@@ -382,31 +385,31 @@
       <h2>Let's talk</h2>
       <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
     </div>
-    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>
 <script src="/exitwise/ranking/boards.js"></script>
 <script>
-  // The live boards: the top 5 of Exitwise's four global boards, read from the game's Firestore without signing in
-  // (boards.js, shared with the ranking page). Each board loads the first time its tab opens.
+  // The live boards: the top 5 of Exitwise's four global boards, read from VHub without signing in (boards.js, shared
+  // with the ranking page). Each board loads the first time its tab opens.
   (() => {
     const root = document.getElementById("lb");
     if (!root || !window.ExitwiseBoards) return;
-    const { BOARDS, loadBoard, loadPhotos, avatarSvg, anonymous } = window.ExitwiseBoards;
+    const { BOARDS, loadBoard, drawAvatar, anonymous } = window.ExitwiseBoards;
     const TOP = 5;
     const tabs = [...root.querySelectorAll('[role="tab"]')];
     const panel = document.getElementById("lb-panel");
@@ -436,14 +439,7 @@
         rank.textContent = p.rank;
         const av = document.createElement("span");
         av.className = "av";
-        if (p.picture) {
-          const img = document.createElement("img");
-          img.alt = "";
-          img.src = "data:image/jpeg;base64," + p.picture;
-          av.append(img);
-        } else {
-          av.innerHTML = avatarSvg(p.avatar);
-        }
+        drawAvatar(av, p);
         const name = document.createElement("span");
         name.className = "nm";
         name.textContent = p.name || anonymous(p.uid);
@@ -471,10 +467,7 @@
       caption.textContent = BOARDS[id].caption + ".";
       if (!cache[id]) {
         list.replaceChildren(...Array.from({ length: TOP }, () => item("ghost")));
-        cache[id] = loadBoard(id, TOP).then(async data => {
-          await loadPhotos(data.players).catch(() => false);
-          return data;
-        });
+        cache[id] = loadBoard(id, TOP);
       }
       panel.setAttribute("aria-busy", "true");
       try {

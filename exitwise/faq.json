@@ -1,0 +1,46 @@
+[
+  {
+    "q": "Is Exitwise free?",
+    "a": "Yes, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
+  },
+  {
+    "q": "How do I play?",
+    "a": "Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. Each arrow you clear can only free others, so a level never becomes impossible. Start with arrows whose path to the edge is already empty. <a href=\"/exitwise/wiki/how-to-play/\">How to play</a> has the rest."
+  },
+  {
+    "q": "What happens when I run out of hearts?",
+    "a": "You start every level with three hearts, and tapping a blocked arrow costs one. Out of hearts, you can continue once with 100 coins for three hearts, or on Android watch a video for full hearts. Or tap Retry and start the level again. A run with a continue doesn't go on the leaderboard."
+  },
+  {
+    "q": "How many levels are there?",
+    "a": "600, in 17 worlds from the Meadow to Starlight, harder all the way, with a <a href=\"/exitwise/wiki/hard-levels/\">hard level</a> every 10th. A new obstacle arrives every 20 to 30 levels, each on an easy level built to teach it. Boards come in 49 shapes and grow up to 100 cells a side."
+  },
+  {
+    "q": "Can I play without installing it?",
+    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. There is no App Store version yet."
+  },
+  {
+    "q": "Does it work offline?",
+    "a": "On Android, yes: the levels are on your phone, so you can play on the commute or on a plane. Your results wait on the phone and reach the leaderboards the next time you're online. Rooms, other players' maps and the global ranking need a connection."
+  },
+  {
+    "q": "How do I keep my progress on a new phone, or in the browser?",
+    "a": "Sign in with Google: tap the VHub button at the top right of the map, or Sign in in Settings, on Android and on vgraphics.gr. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
+  },
+  {
+    "q": "How do coins and hints work?",
+    "a": "Every level pays 10 coins, a hard level 30, and a perfect clear 5 more. The <a href=\"/exitwise/wiki/daily-challenge/\">daily challenge</a> and other players' maps pay too. Spend coins on hints, a continue or powerups. You get 3 free hints; after that a hint costs 30 coins, or on Android a short video."
+  },
+  {
+    "q": "How do I play with friends?",
+    "a": "Open Play with friends and create a room: you get a 6-character code. 2 to 8 players join by typing it, scanning the invite's QR code or opening its link, in the app or in the browser. Everyone races on the same boards, and the fastest clear scores the most. <a href=\"/exitwise/wiki/rooms/\">More about rooms</a>."
+  },
+  {
+    "q": "How do I delete my data?",
+    "a": "In Settings, Profile, \"Delete my leaderboard data\" removes your name, picture and results, and \"Delete cloud save\" removes your cloud save and your game account. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "Do my settings follow me to my other devices?",
+    "a": "Yes, once you sign in to VHub, the free VGraphics account. Music, sounds, vibration, tap twice to launch and the story pages follow you to every phone and PC you play on, and you can change them from your VHub picture at the top right of this site too. Without an account they stay on the device. How loud the game plays stays with each device."
+  }
+]

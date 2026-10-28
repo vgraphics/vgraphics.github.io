@@ -25,12 +25,25 @@
   gap: 22px;
   padding: 24px 18px 14px;
   text-align: center;
-  background: var(--dark);
+  background: var(--ost-bg, var(--dark));
   color: var(--on-art);
+  border: var(--ost-border, 0);
   border-radius: var(--radius);
   box-shadow: var(--card-shadow);
+  outline: var(--ost-ring, 0);
+  outline-offset: -8px;
 }
-.ost-backdrop { position: absolute; inset: 0; z-index: -1; }
+/* --ost-bg, --ost-border, --ost-ring (a second line inside the border), --ost-corner (a mark at two corners),
+   --ost-backdrop-alpha and --ost-shade: optional, for a pack whose page is as dark as the blurred cover and wants its
+   own panel instead (Palermo Noir: the colour of its 13+ band, framed like its role cards, its night scene faint
+   behind; George, 24 Oct 2026: "Same border that characters card use please. For music play big and small.") */
+.ost-player::before, .ost-player::after, .ost-mini::before, .ost-mini::after { content: ""; position: absolute; z-index: 1; width: 14px; height: 14px; border: var(--ost-corner, 0); pointer-events: none; }
+.ost-player::before { top: 12px; left: 12px; border-right: 0; border-bottom: 0; }
+.ost-player::after { right: 12px; bottom: 12px; border-left: 0; border-top: 0; }
+.ost-mini::before, .ost-mini::after { width: 9px; height: 9px; }
+.ost-mini::before { top: 4px; left: 4px; border-right: 0; border-bottom: 0; }
+.ost-mini::after { right: 4px; bottom: 4px; border-left: 0; border-top: 0; }
+.ost-backdrop { position: absolute; inset: 0; z-index: -1; opacity: var(--ost-backdrop-alpha, 1); }
 .ost-backdrop img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 /* Its own cover: the top of it, the night sky, blurred */
 .ost-backdrop.blur img { inset: -12% -15% auto; width: 130%; height: 190%; object-position: 50% 0; filter: blur(36px) saturate(1.4); }
@@ -39,7 +52,7 @@
   content: "";
   position: absolute;
   inset: 0;
-  background: linear-gradient(transparent 35%, var(--art-shade)), linear-gradient(var(--art-shade), var(--art-shade)), linear-gradient(var(--art-shade), var(--art-shade));
+  background: var(--ost-shade, linear-gradient(transparent 35%, var(--art-shade)), linear-gradient(var(--art-shade), var(--art-shade)), linear-gradient(var(--art-shade), var(--art-shade)));
 }
 
 /* The cover, and the record behind it: a little of it shows from the start; once played it slides out far enough to
@@ -137,8 +150,8 @@
    .waved): played in the fill colour, the stretch under the pointer half-way, the rest in the track colour. The range
    input lies on top of it, see-through, for the mouse, the finger, the keyboard and screen readers. Without a waveform
    it is a plain bar of the same height. */
-.ost-seek { position: relative; display: grid; }
-.ost-wave { position: relative; display: none; height: 48px; }
+.ost-seek { --wave-h: 48px; position: relative; display: grid; }
+.ost-wave { position: relative; display: none; height: var(--wave-h); }
 .ost-wave svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
 .ost-wave path { fill: none; stroke: var(--track); stroke-width: var(--bar, 2.4px); stroke-linecap: round; }
 .ost-wave-hover path { stroke: var(--hover); }
@@ -147,10 +160,10 @@
 .ost-wave-played { clip-path: inset(0 calc(100% - var(--p, 0%)) 0 0); }
 .ost-range {
   width: 100%;
-  height: 48px;
+  height: var(--wave-h);
   margin: 0;
   background: none;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   -webkit-appearance: none;
   appearance: none;
 }
@@ -186,10 +199,10 @@
 .ost-range:focus-visible { outline-offset: 2px; border-radius: 8px; }
 .waved .ost-wave { display: block; }
 .waved .ost-range { position: absolute; inset: 0 0 auto; }
-.waved .ost-range::-webkit-slider-runnable-track { height: 48px; background: none; }
-.waved .ost-range::-moz-range-track { height: 48px; background: none; }
-.waved .ost-range::-webkit-slider-thumb { width: 4px; height: 48px; margin-top: 0; border: 0; background: none; box-shadow: none; }
-.waved .ost-range::-moz-range-thumb { width: 4px; height: 48px; border: 0; background: none; box-shadow: none; }
+.waved .ost-range::-webkit-slider-runnable-track { height: var(--wave-h); background: none; }
+.waved .ost-range::-moz-range-track { height: var(--wave-h); background: none; }
+.waved .ost-range::-webkit-slider-thumb { width: 4px; height: var(--wave-h); margin-top: 0; border: 0; background: none; box-shadow: none; }
+.waved .ost-range::-moz-range-thumb { width: 4px; height: var(--wave-h); border: 0; background: none; box-shadow: none; }
 .ost-times {
   display: flex;
   justify-content: space-between;
@@ -198,7 +211,7 @@
   font: var(--label-weight) 0.85rem/1 var(--label-font);
   font-variant-numeric: tabular-nums;
 }
-.ost-controls { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
+.ost-controls { container: ost-controls / inline-size; display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 10px; margin-top: 4px; }
 .ost-transport { grid-column: 2; display: flex; align-items: center; gap: 18px; }
 .ost-btn {
   display: grid;
@@ -211,7 +224,7 @@
   background: color-mix(in srgb, var(--on-art) 16%, transparent);
   color: var(--on-art);
   box-shadow: inset 0 -3px 0 rgba(0, 0, 0, 0.22);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   touch-action: manipulation;
   transition: transform 120ms ease-out, filter 160ms ease-out, color 160ms ease-out, background-color 160ms ease-out;
 }
@@ -250,17 +263,69 @@
   font: 800 10px/15px var(--label-font);
 }
 .ost-loop[data-loop="one"] .ost-one { display: block; }
+/* Volume, across from the loop: the speaker mutes and unmutes (one wave when low, two when high, a cross when muted),
+   and beside it, where the row has room, a slider drawn like the waveform, its bars rising with the level and played
+   up to it. Phones get the speaker alone (the row is too narrow, and phones have their own volume keys), and so does
+   iOS, which ignores a page's volume (soundtrack.js sets data-volume="fixed"). */
+.ost-volume { grid-column: 1; justify-self: start; display: flex; align-items: center; gap: 4px; }
+.ost-mute { width: 44px; height: 44px; background: none; box-shadow: none; color: var(--soft); }
+.ost-mute[aria-pressed="true"] { background: color-mix(in srgb, var(--on-art) 18%, transparent); color: var(--on-art); }
+.ost-mute .v-low, .ost-mute .v-high, .ost-mute .v-off { display: none; }
+.ost-mute[data-level="low"] .v-low, .ost-mute[data-level="high"] :is(.v-low, .v-high), .ost-mute[data-level="off"] .v-off { display: inline; }
+.ost-vol { --wave-h: 44px; position: relative; display: none; width: clamp(56px, (100cqi - 216px) / 2 - 48px, 96px); }
+.ost-vol path { vector-effect: non-scaling-stroke; }
+@container ost-controls (min-width: 430px) {
+  .ost-vol { display: block; }
+}
+/* A row too narrow for the speaker, the transport and the loop side by side (small phones, and the wide player at its
+   narrowest): the transport's buttons close up, and narrower still it keeps the row to itself, with the speaker and the
+   loop under it. */
+@container ost-controls (max-width: 303px) {
+  .ost-transport { gap: 8px; }
+}
+@container ost-controls (max-width: 283px) {
+  .ost-transport { grid-column: 1 / -1; justify-self: center; }
+  .ost-volume, .ost-loop { grid-row: 2; }
+}
 
-/* The track list: the current track lit up, its coloured number turned into dancing bars while it plays */
+/* The track list: the current track lit up, its coloured number turned into dancing bars while it plays. At most
+   three and a half rows show (George, 24 Oct 2026: "Show max 3.5 songs. Its ugly current way."): the half row says
+   there is more, and the rest scroll in the list's own box, on a slim scrollbar in the product's colour (--sb, as on
+   the page), lightened to read on the dark stage. soundtrack.js scrolls the current track into the box. A row is
+   always --ost-row high: its title stays on one line.
+   Its edges fade, never cut (George, 24 Oct: "No hard cut on list. Use fading edges."): the shared fading edges
+   (assets/fade-edges.js, through the list's class fade-edges) fade the bottom while more rows lie below and the top
+   once it is scrolled down, and keep the scrollbar out of the fade. --fade-size is the half row's height, so that row
+   shows, fading, and the full rows above it don't. */
+.ost { --ost-row: 54px; --ost-row-gap: 6px; --ost-rows: 3.5; }
 .ost-tracks { display: grid; gap: 6px; width: 100%; }
-.ost-list { display: grid; gap: 6px; margin: 0; padding: 0; list-style: none; }
+.ost-list {
+  --ost-thumb: color-mix(in srgb, var(--sb) 60%, var(--on-art));
+  --fade-size: 30px;
+  position: relative;
+  display: grid;
+  gap: var(--ost-row-gap);
+  max-height: calc(var(--ost-rows) * var(--ost-row) + (var(--ost-rows) - 0.5) * var(--ost-row-gap));
+  overflow-y: auto;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+.ost-list::-webkit-scrollbar { width: 12px; }
+.ost-list::-webkit-scrollbar-track { border: 3px solid transparent; border-radius: 999px; background: color-mix(in srgb, var(--on-art) 10%, transparent); background-clip: padding-box; }
+.ost-list::-webkit-scrollbar-thumb { min-height: 40px; border: 3px solid transparent; border-radius: 999px; background: var(--ost-thumb); background-clip: padding-box; }
+.ost-list::-webkit-scrollbar-thumb:hover { background-color: color-mix(in srgb, var(--ost-thumb) 80%, #FFFFFF); }
+.ost-list::-webkit-scrollbar-thumb:active { background-color: color-mix(in srgb, var(--ost-thumb) 64%, #FFFFFF); }
+@supports not selector(::-webkit-scrollbar) {
+  .ost-list { scrollbar-width: thin; scrollbar-color: var(--ost-thumb) color-mix(in srgb, var(--on-art) 10%, transparent); }
+}
 .ost-track {
   display: grid;
   grid-template-columns: auto minmax(0, 1fr) auto;
   align-items: center;
   gap: 14px;
   width: 100%;
-  min-height: 54px;
+  min-height: var(--ost-row);
   padding: 8px 16px 8px 9px;
   border: 0;
   border-radius: var(--radius-sm);
@@ -270,11 +335,14 @@
   font-weight: 700;
   line-height: 1.3;
   text-align: left;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: background-color 160ms ease-out;
 }
 .ost-track:hover { background: color-mix(in srgb, var(--on-art) 14%, transparent); }
 .ost-track[aria-current="true"] { background: var(--on-art); color: var(--dark); }
+/* Inside the row, so the list's box doesn't cut the ring off; dark on the lit row */
+.ost-track:focus-visible { outline-offset: -3px; }
+.ost-track[aria-current="true"]:focus-visible { outline-color: var(--dark); }
 .ost-n {
   position: relative;
   display: grid;
@@ -283,7 +351,7 @@
   height: 36px;
   border-radius: 50%;
   background: var(--c);
-  color: var(--step-ink);
+  color: var(--ost-n-ink, var(--step-ink)); /* --ost-n-ink: optional, for a pack whose step ink matches its swatches */
   font: 400 1.1rem/1 var(--step-font);
   text-shadow: var(--step-shadow, none);
   box-shadow: inset 0 -3px 0 color-mix(in srgb, var(--ink) 22%, transparent);
@@ -294,7 +362,7 @@
   width: 4px;
   height: 100%;
   border-radius: 2px;
-  background: var(--step-ink);
+  background: var(--ost-n-ink, var(--step-ink));
   box-shadow: 0 0 0 1.5px color-mix(in srgb, var(--ink) 75%, transparent);
   transform-origin: bottom;
   scale: 1 0.5;
@@ -305,15 +373,47 @@
 .ost[data-state] [aria-current="true"] .ost-eq { display: flex; }
 .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: ost-eq 0.9s ease-in-out infinite alternate; }
 @keyframes ost-eq { from { scale: 1 0.25; } to { scale: 1 1; } }
+/* A title stays on one line (George, 23 Oct: "Single line and if it does not fit, use ... at end"). One that doesn't
+   fit scrolls slowly to its end and back, resting at each end (soundtrack.js adds .long, unless the visitor asks for
+   less motion, and sets how far, --shift, and for how long, --dur). While it moves, its ends fade out over 8px of
+   padding, outside the words at rest. */
+.ost-t { overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.ost-t.long {
+  margin-inline: -8px;
+  padding-inline: 8px;
+  text-overflow: clip;
+  -webkit-mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+  mask-image: linear-gradient(to right, transparent, #000 8px calc(100% - 8px), transparent);
+}
+.ost-t.long > span { display: inline-block; animation: ost-marquee var(--dur, 8s) ease-in-out infinite; }
+@keyframes ost-marquee {
+  0%, 20% { translate: 0; }
+  45%, 70% { translate: calc(-1 * var(--shift, 0px)); }
+  95%, 100% { translate: 0; }
+}
 .ost-d { color: var(--soft); font-variant-numeric: tabular-nums; }
 .ost-track[aria-current="true"] .ost-d { color: color-mix(in srgb, var(--dark) 72%, transparent); }
 
-/* The album on YouTube and Spotify: small one-colour icons */
-.ost-links { display: flex; align-items: center; justify-content: center; gap: 2px; margin: 0; color: var(--soft); font: var(--label-weight) 0.85rem/1 var(--label-font); }
-.ost-links > span { margin-right: 6px; }
-.ost-link { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; color: var(--soft); transition: color 160ms ease-out, background-color 160ms ease-out; }
-.ost-link svg { width: 22px; height: 22px; fill: currentColor; }
-.ost-link:hover { color: var(--on-art); background: color-mix(in srgb, var(--on-art) 14%, transparent); }
+/* The product's collection on YouTube and SoundCloud: a round-ended button for each, its one-colour icon and the
+   network's name (George, 22 Oct 2026: "Add social icon button to project landing page") */
+.ost-links { display: flex; flex-wrap: wrap; align-items: center; justify-content: center; gap: 8px; margin: 4px 0 0; color: var(--soft); font: var(--label-weight) 0.85rem/1 var(--label-font); }
+.ost-links > span { margin-right: 2px; }
+.ost-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px 0 13px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--on-art) 12%, transparent);
+  color: var(--on-art);
+  font-weight: 700;
+  text-decoration: none;
+  transition: background-color 160ms ease-out, transform 160ms ease-out;
+}
+.ost-link svg { flex: none; width: 22px; height: 22px; fill: currentColor; }
+.ost-link:hover { background: color-mix(in srgb, var(--on-art) 22%, transparent); transform: translateY(-1px); }
+@media (prefers-reduced-motion: reduce) { .ost-link:hover { transform: none; } }
 
 /* Wide: the cover and its record on the left, the player and the list beside them */
 @container (min-width: 620px) {
@@ -331,19 +431,29 @@
 }
 
 /* The mini-bar: fixed to the bottom of the screen while the player is out of view (soundtrack.js moves it to the end
-   of the page and turns .on on and off). It slides in from below; the page gets room for it at its foot. */
+   of the page and turns .on on and off). It slides in from below and, at the end of the page, lies in the footer's
+   foot, which keeps room for it (below). It has its own waveform to seek on (George: "Make that player wider and show
+   the [SoundCloud] style progress so I can seek too"): on a phone on a row of its own under the track and the buttons,
+   on wider screens between them. --ost-mini-h is its height: the 48px row, the 40px waveform row under it on phones,
+   and its padding. */
+:root { --ost-mini-h: 102px; --ost-mini-gap: max(12px, env(safe-area-inset-bottom)); }
+@media (min-width: 760px) { :root { --ost-mini-h: 64px; } }
 .ost-mini {
   position: fixed;
   z-index: 50;
   left: 50%;
-  bottom: max(12px, env(safe-area-inset-bottom));
+  bottom: var(--ost-mini-gap);
   display: grid;
-  grid-template-columns: minmax(0, 1fr) auto auto auto;
+  grid-template-columns: minmax(0, 1fr) auto auto auto auto;
+  grid-template-areas: "show play next vol close" "seek seek seek seek seek";
   align-items: center;
-  gap: 4px;
-  width: min(560px, 100% - 24px);
-  padding: 8px;
+  gap: 2px 4px;
+  width: min(1040px, 100% - 24px);
+  padding: 8px 8px 4px;
+  border: var(--ost-border, 0); /* the player's frame, when the pack gives it one */
   border-radius: var(--radius-sm);
+  outline: var(--ost-ring, 0);
+  outline-offset: -5px;
   background: color-mix(in srgb, var(--dark) 88%, transparent);
   color: var(--on-art);
   box-shadow: 0 18px 40px -12px color-mix(in srgb, var(--ink) 55%, transparent);
@@ -355,6 +465,7 @@
 }
 .ost-mini.on { translate: -50% 0; visibility: visible; transition: translate 320ms cubic-bezier(.2, .8, .2, 1); }
 .ost-mini-show {
+  grid-area: show;
   display: flex;
   align-items: center;
   gap: 12px;
@@ -367,7 +478,7 @@
   color: inherit;
   font: inherit;
   text-align: left;
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
 }
 .ost-mini-show img { flex: none; width: 48px; height: 48px; border-radius: calc(var(--radius-sm) - 6px); }
 .ost-mini-show > span { display: grid; min-width: 0; }
@@ -375,24 +486,47 @@
 .ost-mini-show b { font: var(--display-weight) 1.05rem/1.25 var(--font-display); text-transform: var(--display-case); }
 .ost-mini-show small { color: color-mix(in srgb, var(--on-art) 72%, transparent); font: var(--label-weight) 0.8rem/1.3 var(--label-font); }
 .ost-mini .ost-btn { width: 44px; height: 44px; background: none; box-shadow: none; }
-.ost-mini .ost-play { width: 48px; height: 48px; background: var(--on-art); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); }
+.ost-mini .ost-play { grid-area: play; width: 48px; height: 48px; background: var(--on-art); box-shadow: inset 0 -4px 0 rgba(0, 0, 0, 0.2); }
 .ost-mini .ost-play svg { width: 24px; height: 24px; }
-.ost-mini-p {
-  position: absolute;
-  left: 16px;
-  right: 16px;
-  bottom: -3px;
-  height: 3px;
-  border-radius: 3px;
-  background: var(--on-art);
-  transform-origin: left;
-  scale: var(--p, 0) 1;
-  transition: scale 250ms linear;
+.ost-mini .ost-next { grid-area: next; }
+.ost-mini .ost-close { grid-area: close; }
+/* Its volume: the speaker, and from 760px a short slider beside it */
+.ost-mini .ost-volume { grid-area: vol; gap: 0; }
+.ost-mini .ost-mute { color: inherit; }
+/* Its waveform, between the time played and the track's length */
+.ost-mini .ost-seek {
+  --wave-h: 40px;
+  grid-area: seek;
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  gap: 10px;
+  padding: 0 6px;
+  color: var(--soft);
+  font: var(--label-weight) 0.8rem/1 var(--label-font);
+  font-variant-numeric: tabular-nums;
 }
-html.ost-room body { padding-bottom: 96px; }
+.ost-mini .ost-seek > span { min-width: 2.6em; }
+.ost-mini .ost-seek > span:last-child { text-align: right; }
+.ost-scrub { position: relative; }
+@media (min-width: 760px) {
+  .ost-mini {
+    grid-template-columns: minmax(170px, 15rem) minmax(0, 1fr) auto auto auto auto;
+    grid-template-areas: "show seek play next vol close";
+    gap: 4px 12px;
+    width: min(1040px, 100% - 32px);
+    padding: 8px 10px 8px 8px;
+  }
+  .ost-mini .ost-seek { padding: 0; }
+  .ost-mini .ost-vol { display: block; width: 72px; }
+}
+.ost[data-volume="fixed"] .ost-vol, .ost-mini[data-volume="fixed"] .ost-vol { display: none; }
+/* The footer keeps the bar's room under its legal line whether the bar is up or not, so the bar only ever covers the
+   footer's empty foot: the page never grows, shrinks or shifts for it, and the footer's picture and its fade run to
+   the bottom of the page under it (George, 22 and 23 Oct: "Player still adds a space below footer"). */
+.foot .wrap { padding-bottom: calc(var(--ost-mini-h) + var(--ost-mini-gap) + 16px); }
 
 @media (prefers-reduced-motion: reduce) {
   .ost-disc, .ost[data-state="playing"] [aria-current="true"] .ost-eq i { animation: none; }
-  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on, .ost-mini-p { transition: none; }
+  .ost-vinyl, .ost-btn, .ost-mini, .ost-mini.on { transition: none; }
   [data-state="loading"] .ost-play::after { animation-duration: 2.4s; }
 }

@@ -1,6 +1,6 @@
 {
-  "title": "Exitwise: Arrow Escape Puzzle Game, Free on Android and Web",
-  "description": "Tap an arrow and it slides off the board, if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds. Play on Android or online.",
+  "title": "Exitwise: Free Arrow Puzzle Game, Online and on Android",
+  "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online or on Android.",
   "social": {
     "title": "Exitwise: Arrow Escape Puzzle",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
@@ -56,7 +56,10 @@
   },
   "site": {
     "name": "Exitwise",
-    "icon": "/exitwise/img/icon-512.png",
+    "icon": "/exitwise/assets/icon-192.png",
+    "favicon": "/exitwise/assets/icon-32.png",
+    "touchIcon": "/exitwise/assets/icon-180.png",
+    "logo": { "src": "/exitwise/assets/logo", "widths": [300, 600], "width": 2605, "height": 642 },
     "parent": { "name": "Games", "href": "/games/" },
     "nav": [
       { "label": "Overview", "href": "/exitwise/" },
@@ -71,10 +74,12 @@
       { "label": "Global ranking", "href": "/exitwise/ranking/" },
       { "label": "Privacy policy", "href": "/exitwise/privacy.html" },
       { "label": "Map rules", "href": "/exitwise/map-rules.html" }
-    ]
+    ],
+    "play": { "label": "Play online", "href": "/exitwise/play/" }
   },
   "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
   "hero": {
+    "title": "Exitwise: the arrow escape puzzle game",
     "lead": "Arrow Escape Puzzle",
     "align": "center",
     "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
@@ -88,8 +93,16 @@
     }
   },
   "intro": {
-    "lede": "Tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 levels in 17 worlds.",
-    "demo": "demo/board"
+    "id": "try",
+    "title": "Try the arrow puzzle right here",
+    "lede": "A free arrow puzzle game: tap an arrow and it slides off the board, but only if nothing is in its way. Clear every arrow to win. One tap, one rule, 600 logic puzzles in 17 worlds.",
+    "demo": "demo/board",
+    "caption": "Tap an arrow whose path to the edge is clear.",
+    "stage": {
+      "tall": { "src": "img/demo/stage-tall", "widths": [640, 1024], "width": 1024, "height": 1536 },
+      "wide": { "src": "img/demo/stage-wide", "widths": [960, 1600, 2400], "width": 2400, "height": 1560 },
+      "position": "50% 50%"
+    }
   },
   "sections": [
     {
@@ -123,7 +136,7 @@
     {
       "id": "soundtrack",
       "title": "Listen to the soundtrack",
-      "intro": "The music from the game: flute, clarinet, harp and pizzicato strings for the worlds, and a tenser theme for the hard levels. Press play and keep reading; a small player stays with you down the page.",
+      "intro": "The music from the game: flute, clarinet, harp and pizzicato strings for the worlds, a tenser theme for the hard levels, and the storybook's songs, from the prologue's music box to the guardians' march and the Dawn Door. Press play and keep reading; a small player stays with you down the page.",
       "blocks": [
         {
           "type": "soundtrack",
@@ -131,11 +144,18 @@
           "cover": { "src": "img/cover", "widths": [320, 640], "width": 640, "height": 640, "alt": "The Exitwise soundtrack cover: the tower of worlds under a starry sky, with the glowing door at its top" },
           "background": null,
           "youtube": "https://www.youtube.com/playlist?list=PLBZDGjNepH9I",
-          "spotify": null,
+          "soundcloud": "https://soundcloud.com/vgraphics/sets/exitwise-original-soundtrack",
           "tracks": [
             { "title": "Stepping Stones", "src": "audio/01-stepping-stones.m4a", "duration": "1:48" },
             { "title": "Meadow Morning", "src": "audio/02-meadow-morning.m4a", "duration": "1:49" },
-            { "title": "No Easy Exit", "src": "audio/03-no-easy-exit.m4a", "duration": "1:57" }
+            { "title": "No Easy Exit", "src": "audio/03-no-easy-exit.m4a", "duration": "1:57" },
+            { "title": "Once Upon a Tower", "src": "audio/04-once-upon-a-tower.m4a", "duration": "2:28" },
+            { "title": "A New World Opens", "src": "audio/05-a-new-world-opens.m4a", "duration": "1:17" },
+            { "title": "The Guardian's March", "src": "audio/06-the-guardians-march.m4a", "duration": "1:47" },
+            { "title": "The Guardian's Last Stand", "src": "audio/07-the-guardians-last-stand.m4a", "duration": "1:46" },
+            { "title": "The Guardian Falls", "src": "audio/08-the-guardian-falls.m4a", "duration": "0:36" },
+            { "title": "Colour Returns", "src": "audio/09-colour-returns.m4a", "duration": "1:48" },
+            { "title": "The Dawn Door", "src": "audio/10-the-dawn-door.m4a", "duration": "2:57" }
           ]
         }
       ]
@@ -143,42 +163,49 @@
     {
       "id": "how",
       "title": "How to play",
+      "stage": {
+        "wiki": "how-to-play",
+        "position": "50% 60%"
+      },
       "blocks": [
         {
           "type": "steps",
           "items": [
-            "Find an arrow whose path to the edge is clear.",
-            "Tap it, and it snakes off the board.",
-            "Every arrow you clear can free others. Keep going until the board is empty.",
-            "Mind your hearts: tapping a blocked arrow costs one of three."
+            { "title": "Spot a free arrow", "text": "Find an arrow whose path to the edge is clear.", "boardAlt": "A small board: the blue arrow's way to the edge is clear, the others are blocked",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4, "state": "free" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Tap it", "text": "Tap it, and it snakes off the board.", "boardAlt": "The blue arrow, tapped, slides off the board's edge",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4, "state": "leave" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Clear the board", "text": "Every arrow you clear can free others. Keep going until the board is empty.", "boardAlt": "With the blue arrow gone, the red and purple arrows below it are free",
+              "board": { "cols": 4, "rows": 3, "hearts": [3, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "state": "gone" },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0, "state": "free" },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5, "state": "free" },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "colour": 3 } ] } },
+            { "title": "Mind your hearts", "text": "Tapping a blocked arrow costs one of your three hearts.", "boardAlt": "The green arrow bumps into the purple one and turns red; one of three hearts is lost",
+              "board": { "cols": 4, "rows": 3, "hearts": [2, 3], "arrows": [
+                { "cells": [[0,2],[1,2]], "dir": "R", "colour": 4 },
+                { "cells": [[0,0],[0,1]], "dir": "D", "colour": 0 },
+                { "cells": [[1,0],[1,1]], "dir": "D", "colour": 5 },
+                { "cells": [[3,0],[3,1],[2,1]], "dir": "L", "state": "bad" } ] } }
           ]
         }
-      ]
+      ],
+      "more": { "href": "/exitwise/wiki/how-to-play/", "label": "How to play, step by step, in the wiki →" }
     },
     {
       "id": "twists",
       "title": "A new twist every few worlds",
       "intro": "From level 21 a new obstacle arrives every 20 to 30 levels and then stays, mixed in with the ones before it. Each one starts on an easy level built to teach it, with a hand that shows you the move.",
       "blocks": [
-        {
-          "type": "cards",
-          "layout": "icon",
-          "ordered": true,
-          "items": [
-            { "href": "/exitwise/wiki/bomb-arrow/", "icon": "img/twists/bomb-arrow.svg", "tag": "Level 21", "title": "Rocks &amp; bombs", "text": "Clear the arrow guarding a bomb's path, then blast its rock." },
-            { "href": "/exitwise/wiki/colour-gate/", "icon": "img/twists/colour-gate.svg", "tag": "Level 41", "title": "Colour gates", "text": "Only their own colour gets through, then they open." },
-            { "href": "/exitwise/wiki/mirror/", "icon": "img/twists/mirror.svg", "tag": "Level 61", "title": "Mirrors", "text": "Turn an arrow's path by 90 degrees." },
-            { "href": "/exitwise/wiki/level-2-rock/", "icon": "img/twists/level-2-rock.svg", "tag": "Level 81", "title": "Level-2 rocks", "text": "Two bombs, usually from two sides." },
-            { "href": "/exitwise/wiki/portal/", "icon": "img/twists/portal.svg", "tag": "Level 101", "title": "Portals", "text": "In one, out of its pair, across the board." },
-            { "href": "/exitwise/wiki/ice/", "icon": "img/twists/ice.svg", "tag": "Level 131", "title": "Ice", "text": "Melts as arrows leave. Its number is just enough." },
-            { "href": "/exitwise/wiki/level-3-rock/", "icon": "img/twists/level-3-rock.svg", "tag": "Level 161", "title": "Level-3 rocks", "text": "The toughest stone: three bomb hits." },
-            { "href": "/exitwise/wiki/paint-tile/", "icon": "img/twists/paint-tile.svg", "tag": "Level 191", "title": "Paint tiles", "text": "Fly over one and take its colour." },
-            { "href": "/exitwise/wiki/shutter/", "icon": "img/twists/shutter.svg", "tag": "Level 221", "title": "Shutters", "text": "Hide the arrows under them, even from powerups, until they roll up." },
-            { "href": "/exitwise/wiki/two-colour-gate/", "icon": "img/twists/two-colour-gate.svg", "tag": "Level 251", "title": "Two-colour gates", "text": "Two colours, and the big symbol goes first." },
-            { "href": "/exitwise/wiki/chain-bomb/", "icon": "img/twists/chain-bomb.svg", "tag": "Level 281", "title": "Chain bombs &amp; rock walls", "text": "One blast runs along a whole wall." },
-            { "href": "/exitwise/wiki/colour-switch/", "icon": "img/twists/colour-switch.svg", "tag": "Level 311", "title": "Colour switches", "text": "Press one to open every gate of its colour, except two-colour gates." }
-          ]
-        }
+        { "type": "journey", "sections": ["traps"], "detail": true }
       ],
       "more": { "href": "/exitwise/wiki/", "label": "Every obstacle and powerup in the wiki →" }
     },
@@ -187,29 +214,32 @@
       "title": "Why you'll love it",
       "blocks": [
         {
-          "type": "features",
+          "type": "reasons",
           "items": [
-            { "title": "Easy to learn", "text": "One tap, one rule." },
-            { "title": "600 levels", "text": "Harder all the way, with a hard level every 10th, from small warm-ups to giant 100&times;100 brain-teasers." },
-            { "title": "Always solvable", "text": "No luck, just logic. Every player gets the same levels." },
-            { "title": "Play at your own pace", "text": "Think first, then tap." },
-            { "title": "Hints when you're stuck", "text": "Light up an arrow that's free to go." },
-            { "title": "Plays offline", "text": "On the commute, on a break, anywhere." },
-            { "title": "17 worlds, 49 shapes", "text": "From Meadow to Starlight on one level map, on boards shaped like hexagons, spirals, rockets and castles." },
-            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards." },
-            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code." },
-            { "title": "Custom maps", "text": "Build your own levels, share them, and play everyone else's." },
-            { "title": "Leaderboards", "text": "A board for every level, plus global ranks for score, perfect clears and maps. <a href=\"/exitwise/ranking/\">See the global ranking</a>" },
-            { "title": "Powerups", "text": "Auto-play, grid lines, remove arrow and the magic wand, for the toughest boards." }
+            { "title": "600 levels, 17 worlds", "text": "Harder all the way, with a hard level every 10th, from Meadow to Starlight on one level map.", "wiki": "worlds", "more": "The level map" },
+            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code.", "wiki": "rooms", "more": "How rooms work" },
+            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards.", "wiki": "daily-challenge", "more": "The daily challenge" }
           ]
         }
       ]
+    },
+    {
+      "id": "whats-new",
+      "title": "What's new",
+      "intro": "Every update to the game, newest first, on Android and in your browser.",
+      "blocks": [{ "type": "news" }]
+    },
+    {
+      "id": "faq",
+      "title": "Questions and answers",
+      "intro": "Quick answers about playing, saving and staying free. The <a href=\"/exitwise/wiki/\">wiki</a> has every obstacle and powerup.",
+      "blocks": [{ "type": "faq", "src": "faq.json" }]
     }
   ],
   "cta": {
     "title": "Your first board is waiting",
     "text": "Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.",
-    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }, "vhub"]
   },
   "footerArt": { "src": "/exitwise/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1311, "position": "50% 50%" }
 }

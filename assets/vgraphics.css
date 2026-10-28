@@ -1,4 +1,4 @@
-/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, privacy, 404).
+/* VGraphics design system: the company pages (home, games, apps, services, multiplayer, VHub, company, privacy, terms, 404).
    Style: vibrant and block-based. The logo's four dots are the colour blocks, and each menu wears one of them:
    Games sun, Apps coral, Services sky, VHub violet. Ink and paper carry the text.
    Every company page has the same header and footer (tools/check-site.mjs compares them).
@@ -70,8 +70,10 @@
   --z-skip: 100;
   color-scheme: light dark;
 }
+/* The dark look: the device's when the reader hasn't chosen (or chose System in the hub's Settings), or Dark as chosen
+   there (assets/theme.js sets <html data-theme>). Both blocks hold the same tokens (tools/check-site.mjs checks). */
 @media (prefers-color-scheme: dark) {
-  :root {
+  :root:not([data-theme="light"]) {
     --bg: #111016;
     --surface: #1B1922;
     --surface-2: #24212D;
@@ -85,10 +87,44 @@
     --shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 22px 44px -26px rgba(0, 0, 0, 0.9);
   }
 }
+:root[data-theme="dark"] {
+  --bg: #111016;
+  --surface: #1B1922;
+  --surface-2: #24212D;
+  --ink: #F4F1FA;
+  --ink-2: #B9B3C9;
+  --line: #34303F;
+  --link: #A5B8FF;
+  --focus: #A5B8FF;
+  --night: #0A090D;
+  --night-2: #1B1922;
+  --shadow: 0 1px 0 rgba(0, 0, 0, 0.4), 0 22px 44px -26px rgba(0, 0, 0, 0.9);
+}
+:root[data-theme="light"] { color-scheme: light; }
+:root[data-theme="dark"] { color-scheme: dark; }
 .pg-games { --accent: var(--sun); }
 .pg-apps { --accent: var(--coral); }
 .pg-services { --accent: var(--sky); }
 .pg-hub { --accent: var(--violet); --on-accent: var(--on-violet); }
+/* Scrollbars of boxes that scroll on their own (the phone menu; the hub's tabs and tables, in its own hub.css) in
+   the page's own colour, deepened a little to show on the light page. On the body, where the page's class sets
+   --accent. */
+body { --scrollbar: color-mix(in srgb, var(--accent) 75%, var(--ink)); }
+/* What a text field selects (George, 26 Oct 2026: "Selected highlighted text must have color of app or game."; nothing
+   else can be selected: assets/no-select.css) is highlighted in the page's own dot, with the words that go on it, in
+   both themes. On the body too, for the same reason. */
+body { --selection: var(--accent); --selection-ink: var(--on-accent); }
+/* VGraphics' own cursors on the company pages and the hub (George's picks, 24 Oct 2026; tools/make-cursors.mjs): the
+   ink pointer, the ink glove with the sky-blue cuff, the ink "i" with its sky-blue dot, edged in white for the dark
+   theme. assets/cursors.css puts them to use; mice and trackpads only. Each number pair is the file's data-hotspot
+   (tools/check-site.mjs checks). */
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/assets/img/cursor.svg") 3 2, auto;
+    --cursor-link: url("/assets/img/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/assets/img/cursor-text.svg") 16 18, text;
+  }
+}
 
 /* Moving between the company pages: the header stays, the page crossfades (browsers that support it). */
 @media (prefers-reduced-motion: no-preference) {
@@ -168,7 +204,6 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .site-nav .n-games { --c: var(--sun); }
 .site-nav .n-apps { --c: var(--coral); }
 .site-nav .n-services { --c: var(--sky); }
-.site-nav .n-hub { --c: var(--violet); }
 .site-nav a:hover { background: var(--surface-2); }
 .site-nav a:hover::before { transform: scale(1.4); }
 .site-nav a[aria-current="page"] { background: var(--ink); color: var(--bg); }
@@ -176,12 +211,17 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .site-nav .cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
 .site-nav .cta::before { content: none; }
 .site-nav .cta:hover { background: var(--violet); color: var(--on-violet); }
+/* The VHub avatar, the header's last item after the menu (and after the phone menu's button): its size here, so the row
+   doesn't move before its own look (assets/account.css) arrives. The menu and the button keep to the right. */
+.site-head .site-nav, .site-head .menu-toggle { margin-left: auto; }
+.vhub-avatar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; }
+.vhub-avatar svg { width: 26px; height: 26px; }
 
 /* Buttons and links */
 .btn {
   display: inline-flex; align-items: center; justify-content: center; gap: 10px;
   min-height: 52px; padding: 0 24px; border-radius: 999px;
-  font: 700 1rem/1 var(--body); text-decoration: none; cursor: pointer; border: 2px solid transparent;
+  font: 700 1rem/1 var(--body); text-decoration: none; cursor: var(--cursor-link, pointer); border: 2px solid transparent;
   transition: transform var(--fast) var(--ease), background-color var(--fast) var(--ease), color var(--fast) var(--ease);
 }
 .btn svg { width: 20px; height: 20px; flex: none; }
@@ -374,8 +414,9 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 .legal p { margin: 0; }
 .legal a { text-decoration: underline; text-underline-offset: 3px; }
 @media (prefers-color-scheme: dark) {
-  .site-foot { border-top: 1px solid var(--line); }
+  :root:not([data-theme="light"]) .site-foot { border-top: 1px solid var(--line); }
 }
+:root[data-theme="dark"] .site-foot { border-top: 1px solid var(--line); }
 
 @media (max-width: 960px) {
   .page-hero > .wrap { grid-template-columns: 1fr; }
@@ -415,6 +456,85 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
   .site-head .wrap { flex-wrap: wrap; justify-content: center; padding-block: 6px; }
   .site-nav { width: 100%; justify-content: space-between; }
 }
+
+/* The header on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger
+   menu."). Below 768px, where the full row no longer fits (the wordmark, the three menus, Contact and the VHub
+   avatar take about 690px), the menu folds into a button at the right that opens it as a panel under the header,
+   with every link, the page's own one marked as in the row. assets/menu.js adds the button and opens and closes the
+   panel. These rules hold on the pages that load it (the html:has(script) test), from the first paint, so nothing
+   moves when it arrives; a page without it (the hub's, until the VHub repo adds it), a browser without JavaScript or
+   one too old for these rules keeps the row. */
+.menu-toggle { display: none; }
+@media (max-width: 767px) and (scripting: enabled) {
+  html:has(script[src="/assets/menu.js"]) {
+    & .site-head .wrap { flex-wrap: nowrap; justify-content: space-between; gap: var(--s2); padding-block: 0; }
+    & .brand span { display: inline; }
+    & .site-head.menu-open { background: var(--bg); }
+
+    & .menu-toggle {
+      display: inline-flex; align-items: center; justify-content: center; flex: none;
+      width: 44px; height: 44px; margin-right: -10px; padding: 0; border: 0; border-radius: 50%;
+      background: transparent; color: var(--ink); cursor: var(--cursor-link, pointer);
+      transition: background-color var(--fast) var(--ease);
+    }
+    & .menu-toggle:hover { background: var(--surface-2); }
+    /* Three bars, which turn into a cross while the panel is open */
+    & .menu-toggle .bars { position: relative; }
+    & .menu-toggle .bars, & .menu-toggle .bars::before, & .menu-toggle .bars::after {
+      display: block; width: 20px; height: 2px; border-radius: 2px; background: currentColor;
+      transition: transform var(--fast) var(--ease), background-color var(--fast) var(--ease);
+    }
+    & .menu-toggle .bars::before, & .menu-toggle .bars::after { content: ""; position: absolute; left: 0; }
+    & .menu-toggle .bars::before { top: -6px; }
+    & .menu-toggle .bars::after { top: 6px; }
+    & .menu-open .menu-toggle .bars { background: transparent; }
+    & .menu-open .menu-toggle .bars::before { transform: translateY(6px) rotate(45deg); }
+    & .menu-open .menu-toggle .bars::after { transform: translateY(-6px) rotate(-45deg); }
+
+    /* The panel drops in under the header; it leaves a little faster than it comes */
+    & .site-nav {
+      position: absolute; top: 100%; left: 0; right: 0; z-index: 1;
+      display: grid; gap: 4px; justify-content: normal; max-height: calc(100dvh - 100%); overflow-y: auto; overscroll-behavior: contain;
+      padding: 8px 20px 20px; background: var(--bg); border-bottom: 1px solid var(--line);
+      border-radius: 0 0 var(--r-lg) var(--r-lg); box-shadow: var(--shadow);
+      visibility: hidden; opacity: 0; transform: translateY(-8px);
+      transition: opacity 140ms ease-in, transform 140ms ease-in, visibility 0s linear 140ms;
+    }
+    & .menu-open .site-nav {
+      visibility: visible; opacity: 1; transform: none;
+      transition: opacity 200ms var(--ease), transform 200ms var(--ease);
+    }
+    /* Taller than a short screen, the panel scrolls (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own
+       box"): a thin scrollbar in the company's colour, and its bottom edge fades into the panel while more lies below.
+       fade-edges.js keeps --fade-end current; the fade is drawn here in the panel's colour (--fade-mode: overlay),
+       since a mask would fade the panel's own background too. It sticks to the visible bottom, over the padding. */
+    & .site-nav { --fade-mode: overlay; scrollbar-width: thin; scrollbar-color: var(--scrollbar) transparent; }
+    & .site-nav::after {
+      content: ""; position: sticky; bottom: 0; z-index: 1; pointer-events: none;
+      height: var(--fade-end, 0px); margin-top: calc(-4px - var(--fade-end, 0px));
+      background: linear-gradient(transparent, var(--bg));
+    }
+    & .site-nav a { min-height: 52px; padding: 0 16px; gap: 12px; border-radius: var(--r-sm); font: 700 1.2rem/1 var(--display); letter-spacing: -0.01em; }
+    & .site-nav a::before { display: block; width: 10px; height: 10px; }
+    /* Contact closes the list as an outlined button, so it doesn't read as the current page */
+    & .site-nav .cta { display: flex; justify-content: center; margin: 8px 0 0; border-radius: 999px; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
+    & .site-nav .cta:hover { background: var(--ink); color: var(--bg); }
+    /* The page under the panel, dimmed; a tap on it closes the panel */
+    & .site-head.menu-open::after {
+      content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 100dvh;
+      background: color-mix(in srgb, var(--night) 55%, transparent);
+      animation: menu-dim 200ms var(--ease);
+    }
+  }
+}
+/* Phones on their side: the links in two columns, so the panel fits the short screen */
+@media (max-width: 767px) and (max-height: 520px) and (scripting: enabled) {
+  html:has(script[src="/assets/menu.js"]) {
+    & .site-nav { grid-template-columns: 1fr 1fr; }
+    & .site-nav .cta { grid-column: 1 / -1; }
+  }
+}
+@keyframes menu-dim { from { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }

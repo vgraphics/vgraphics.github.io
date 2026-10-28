@@ -3,15 +3,15 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>VHub: one account for every VGraphics game · Coming soon</title>
-  <meta name="description" content="VHub is VGraphics' coming player network: one account for every VGraphics game and app, with a level and XP, achievements, friends and invites to rooms.">
+  <title>VHub: one player account for every VGraphics game and app</title>
+  <meta name="description" content="VHub is the one player account for every VGraphics game and app: your name and picture, a level and XP, achievements, friends and invites to rooms.">
   <link rel="canonical" href="https://vgraphics.gr/hub/">
-  <link rel="icon" href="/img/vgraphics-logo.png">
+  <link rel="icon" href="/img/vgraphics-logo.png" >
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
-  <meta property="og:title" content="VHub · Coming soon">
+  <meta property="og:title" content="VHub: one player account for every VGraphics game and app">
   <meta property="og:description" content="One account for every VGraphics game and app, with a level, achievements and friends.">
   <meta property="og:url" content="https://vgraphics.gr/hub/">
   <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
@@ -20,6 +20,7 @@
   <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
   <meta name="twitter:card" content="summary_large_image">
   <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <!-- scripts/route-pages.mjs adds each route page's own place to this breadcrumb. -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -30,30 +31,14 @@
     ]
   }
   </script>
-  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="/assets/vgraphics.css">
-  <style>
-    /* A short "coming soon" page; the VHub web app replaces it at this address. */
-    .card-art { display: grid; place-items: center; padding: clamp(26px, 5vw, 52px); border-radius: var(--r-lg); background: var(--violet); animation: rise 700ms 120ms var(--ease) both; }
-    .card-art img { width: min(100%, 420px); rotate: -3deg; filter: drop-shadow(0 30px 40px rgba(0, 0, 0, 0.35)); transition: rotate 320ms var(--ease); }
-    .card-art:hover img { rotate: 0deg; }
-    .page-hero .lede { max-width: 32em; }
-
-    .hub-points { margin: 0; padding: 0; list-style: none; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: var(--s4); }
-    .hub-points li { display: grid; gap: 8px; align-content: start; padding-top: 18px; border-top: 3px solid var(--c); }
-    .hub-points b { font: 700 1.2rem/1.25 var(--display); }
-    .hub-points span { color: var(--ink-2); }
-    .today { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s2) var(--s4); margin-top: var(--s5); padding: 22px 26px; border-radius: var(--r-md); background: var(--surface-2); }
-    .today p { color: var(--ink-2); max-width: 46em; }
-    .today .links { display: flex; flex-wrap: wrap; gap: 4px 22px; }
-
-    @media (max-width: 960px) {
-      .hub-points { grid-template-columns: 1fr 1fr; }
-    }
-    @media (max-width: 560px) {
-      .hub-points { grid-template-columns: 1fr; gap: var(--s3); }
-    }
-  </style>
+  <!-- The theme chosen in Settings, before the first paint (vgraphics.gr assets/theme.js; src/theme.ts) -->
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin >
+  <link rel="stylesheet" href="/assets/vgraphics.css" >
+  <link rel="stylesheet" href="/assets/cursors.css" >
+  <script src="/assets/menu.js" defer></script>
+  <script type="module" crossorigin src="/hub/assets/index-CwJrxCeH.js"></script>
+  <link rel="stylesheet" crossorigin href="/hub/assets/index-v2Rtr85F.css">
 </head>
 <body class="pg-hub">
 <a class="skip" href="#main">Skip to content</a>
@@ -71,47 +56,36 @@
       <a class="n-games" href="/games/">Games</a>
       <a class="n-apps" href="/apps/">Apps</a>
       <a class="n-services" href="/services/">Services</a>
-      <a class="n-hub" aria-current="page" href="/hub/">VHub</a>
       <a class="cta" href="#contact">Contact</a>
     </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </div>
 </header>
 
 <main id="main">
-  <section class="page-hero" aria-labelledby="page-title">
-    <div class="wrap">
-      <div class="copy">
-        <span class="kicker"><span class="dot" aria-hidden="true"></span> Coming soon</span>
-        <h1 id="page-title"><span class="marker">VHub</span></h1>
-        <p class="sub">One player account for every VGraphics game and app.</p>
-        <p class="lede">Sign in once and bring your name, your picture and your friends to every game. Earn XP and level up wherever you play, collect achievements, and invite friends straight into a room.</p>
-        <div class="actions">
-          <a class="btn btn-accent" href="/multiplayer/">See what's live today</a>
-          <a class="btn btn-ghost" href="/exitwise/ranking/">Exitwise global ranking</a>
-        </div>
-      </div>
-      <div class="card-art" aria-hidden="true"><img src="/assets/img/vhub.svg" alt="" width="520" height="460"></div>
-    </div>
-  </section>
-
-  <section class="section" aria-labelledby="what-title" style="padding-top:0">
-    <div class="wrap">
-      <h2 id="what-title" class="sr-only">What VHub brings</h2>
-      <ul class="hub-points">
-        <li class="c-sun"><b>One account</b><span>One sign-in, one name and one picture, in every VGraphics game and app.</span></li>
-        <li class="c-coral"><b>A level and XP</b><span>Every game you play adds to the same level.</span></li>
-        <li class="c-sky"><b>Achievements</b><span>Goals in every game, collected on one profile.</span></li>
-        <li class="c-violet"><b>Friends and invites</b><span>Add friends, and invite them into a room in any game.</span></li>
+  <div id="app">
+    <div class="wrap hub-static" data-wait>
+      <p class="kicker"><span class="dot" aria-hidden="true"></span> VHub</p>
+      <h1>VHub</h1>
+      <p class="lede">One player account for every VGraphics game and app: your name and picture, a level and XP, achievements, and friends you can invite into a room.</p>
+      <h2>What one account gives you</h2>
+      <ul>
+        <li><strong>One name and picture</strong> in every game and app, chosen once.</li>
+        <li><strong>A level and XP</strong> from everything you play, wherever you play it.</li>
+        <li><strong>38 achievements</strong> across VHub and its games and apps, on one profile.</li>
+        <li><strong>Friends</strong> you add by name or friend code, and invite into a room to play together.</li>
+        <li><strong>Leaderboards</strong>: every player by XP, you and your friends by level, and each game's own boards.</li>
       </ul>
-      <div class="today">
-        <p>VHub is still in development, and there's no date yet. Until it opens, Exitwise has its own profiles, leaderboards and rooms.</p>
-        <div class="links">
-          <a class="more" href="/multiplayer/">Multiplayer &amp; community</a>
-          <a class="more" href="/games/#party">The party games built on it</a>
-        </div>
-      </div>
+      <h2>On VHub today</h2>
+      <ul>
+        <li><strong>Exitwise</strong>: <a href="https://vgraphics.gr/exitwise/">About Exitwise</a> · <a href="https://vgraphics.gr/exitwise/play/">Play it in your browser</a> · <a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise">Google Play</a></li>
+        <li><strong>Speedometer Live Wallpaper</strong>: <a href="https://vgraphics.gr/speedometer-wallpaper/">About Speedometer Live Wallpaper</a> · <a href="https://vgraphics.gr/speedometer-wallpaper/play/">Try it in your browser</a> · <a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Google Play</a></li>
+      </ul>
+      <h2>Your account</h2>
+      <p>Signing in is optional: every game and app plays without it. Your data and how to delete it are in the <a href="/hub/privacy.html">VHub privacy policy</a> and on the <a href="/hub/delete/">deletion page</a>.</p>
+      <p class="hub-static-links"><a class="more" href="/hub/">VHub</a> <a class="more" href="/hub/privacy.html">VHub privacy policy</a></p>
     </div>
-  </section>
+  </div>
 </main>
 
 <footer class="site-foot">
@@ -120,22 +94,22 @@
       <h2>Let's talk</h2>
       <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
     </div>
-    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
-</footer>
+</footer>
 </body>
 </html>

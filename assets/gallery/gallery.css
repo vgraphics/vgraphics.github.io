@@ -168,7 +168,7 @@
   background: var(--g-btn, #fff);
   color: var(--g-btn-ink, var(--g-ink));
   box-shadow: 0 4px 0 rgb(0 0 0 / 0.16), 0 10px 18px -10px rgb(0 0 0 / 0.5);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: translate 120ms var(--g-ease), box-shadow 120ms var(--g-ease);
 }
 .g-btn:hover { translate: 0 -1px; }
@@ -189,7 +189,7 @@
   background: color-mix(in srgb, var(--accent) 55%, transparent);
   color: #fff;
   font: var(--g-display-weight, 400) 0.9rem/1 var(--g-display);
-  cursor: pointer;
+  cursor: var(--cursor-link, pointer);
   transition: transform 220ms var(--g-pop), background-color 200ms;
 }
 .g-dot[aria-current="true"] {
@@ -232,14 +232,8 @@
 /* Stage: phones standing on the product's world, the middle one in front                               */
 /* ============================================================ */
 
-/* The stage runs edge to edge out of the page's column (up to 1720 px wide). */
-.gallery[data-gallery="stage"] {
-  margin-inline: calc(50% - 50vw);
-  padding-inline: max(10px, env(safe-area-inset-left, 0px)) max(10px, env(safe-area-inset-right, 0px));
-}
+/* The stage keeps to the page's content column, like the other sections (George, 22 Oct). */
 .gallery[data-gallery="stage"] .g-panel {
-  max-width: 1700px;
-  margin-inline: auto;
   position: relative;
   overflow: hidden;
   isolation: isolate;
@@ -314,6 +308,7 @@
   list-style: none;
   perspective: 1500px;
   touch-action: pan-y;
+  isolation: isolate;
   user-select: none;
   -webkit-user-select: none;
 }
@@ -335,7 +330,7 @@
 /* Room under the phones for their pedestals' roots. */
 .gallery[data-gallery="stage"]:has(.g-ped) .g-track { --room: 0.64; }
 .gallery[data-gallery="stage"] .g-fig { position: relative; margin: 0; }
-.gallery[data-gallery="stage"] .g-slide:not(.is-current) .g-phone { cursor: pointer; }
+.gallery[data-gallery="stage"] .g-slide:not(.is-current) .g-phone { cursor: var(--cursor-link, pointer); }
 /* The pedestal: the product's art if it has one, otherwise a soft glow on the ground. */
 .gallery[data-gallery="stage"] .g-fig::after {
   content: "";
@@ -363,22 +358,29 @@
 .gallery[data-gallery="stage"] .g-fig:has(.g-ped)::after { display: none; }
 .gallery[data-gallery="stage"] .g-slide .g-cap { display: none; }
 
-/* The caption of the phone in front, under the stage. Its height is kept, so changing phones never moves the
-   buttons under it. */
+/* The caption of the phone in front, under the stage. Every caption sits in the same grid cell and only the
+   current one shows, so the box is always as tall as the longest at this width: the buttons under it never move
+   and never cover it (George, 22 Oct). */
 .g-now {
   display: grid;
-  align-content: start;
-  justify-items: center;
-  gap: 8px;
-  height: 11.6em;
-  margin-top: 4px;
+  margin: 4px 0 36px;
   padding-inline: 20px;
   text-align: center;
   font-size: 1rem;
 }
-.g-now > * { animation: g-rise 420ms var(--g-ease) both; }
-.g-now > :nth-child(2) { animation-delay: 50ms; }
-.g-now > :nth-child(3) { animation-delay: 100ms; }
+.g-now-item {
+  grid-area: 1 / 1;
+  display: grid;
+  align-content: start;
+  justify-items: center;
+  gap: 8px;
+  min-width: 0;
+  visibility: hidden;
+}
+.g-now-item.is-on { visibility: visible; }
+.g-now-item.is-on > * { animation: g-rise 420ms var(--g-ease) both; }
+.g-now-item.is-on > :nth-child(2) { animation-delay: 50ms; }
+.g-now-item.is-on > :nth-child(3) { animation-delay: 100ms; }
 @keyframes g-rise { from { opacity: 0; transform: translateY(10px); } }
 .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.5rem, 2.8vw, 2.1rem); }
 .gallery[data-gallery="stage"] .g-now .g-text { color: var(--g-on-sky-muted); font-weight: 600; text-shadow: 0 1px 8px rgb(10 6 30 / 0.6); }
@@ -389,18 +391,18 @@
 @media (min-width: 1180px) {
   .gallery[data-gallery="stage"] .g-panel {
     display: grid;
-    grid-template-columns: minmax(340px, 0.78fr) minmax(0, 1.5fr);
+    grid-template-columns: minmax(0, 400px) minmax(0, 1fr);
     grid-template-rows: auto auto 1fr;
     grid-template-areas: "head track" "now track" "ctrl track";
     column-gap: 24px;
     align-items: start;
-    padding: clamp(36px, 4vw, 56px) 0 clamp(36px, 4vw, 56px) clamp(40px, 5vw, 88px);
+    padding: clamp(36px, 4vw, 56px) 0 clamp(36px, 4vw, 56px) clamp(32px, 3.5vw, 48px);
   }
   .gallery[data-gallery="stage"] .g-pickup { left: calc(var(--wx, var(--x)) * 1%); top: calc(var(--wy, var(--y)) * 1%); }
   .gallery[data-gallery="stage"] .g-head { grid-area: head; text-align: left; padding: 0; }
   .gallery[data-gallery="stage"] .g-track {
     grid-area: track;
-    --pw: clamp(220px, (100svh - 190px) / 2.18, 300px);
+    --pw: clamp(210px, (100svh - 190px) / 2.18, 250px);
     --reach: 2;
     align-self: center;
     margin: 0;
@@ -411,9 +413,13 @@
       linear-gradient(90deg, color-mix(in srgb, var(--g-veil) 62%, transparent), color-mix(in srgb, var(--g-veil) 25%, transparent) 38%, transparent 52%),
       linear-gradient(transparent 60%, color-mix(in srgb, var(--g-veil) 45%, transparent));
   }
-  .g-now { grid-area: now; justify-items: start; text-align: left; padding: 0; margin-top: 28px; height: 12.5em; font-size: 1.05rem; }
+  .g-now { grid-area: now; text-align: left; padding: 0; margin: 28px 0 40px; font-size: 1.05rem; }
+  .g-now-item { justify-items: start; }
   .gallery[data-gallery="stage"] .g-now .g-line { font-size: clamp(1.9rem, 2.6vw, 2.5rem); }
-  .g-controls { grid-area: ctrl; justify-content: flex-start; padding: 0; }
+  /* The buttons fit the words' column and stay above the phones beside it. */
+  .g-controls { grid-area: ctrl; justify-content: flex-start; gap: 10px; padding: 0; position: relative; z-index: 200; }
+  .g-dots { gap: 5px; }
+  .g-dot { width: 26px; height: 26px; font-size: 0.8rem; }
 }
 
 @media (max-width: 560px) {
@@ -421,7 +427,6 @@
   .g-dots { gap: 5px; }
   .g-dot { width: 24px; height: 24px; font-size: 0.75rem; }
   .g-btn { width: 44px; height: 44px; border-radius: 14px; }
-  .g-now { min-height: 10.5em; }
 }
 
 /* ============================================================ */
@@ -451,12 +456,15 @@
   touch-action: none;
   padding: max(56px, env(safe-area-inset-top, 0px)) 16px 8px;
 }
+/* The picture's box, sized by gallery.js to the whole screenshot: the screenshot's blurhash shows in it until the
+   screenshot has loaded */
+.g-box-stage > picture { display: block; border-radius: 18px; background: center / 100% 100% no-repeat; }
 .g-box-img {
   display: block;
   max-width: 100%;
   max-height: 100%;
-  width: auto;
-  height: auto;
+  width: 100%;
+  height: 100%;
   border-radius: 18px;
   box-shadow: 0 30px 80px -20px rgb(0 0 0 / 0.7);
   transform-origin: 0 0;

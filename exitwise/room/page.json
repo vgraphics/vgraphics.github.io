@@ -1,0 +1,28 @@
+{
+  "title": "Join a room: Exitwise",
+  "description": "A friend invited you to race them in Exitwise.",
+  "robots": "noindex",
+  "social": {
+    "title": "Join my Exitwise room",
+    "description": "Race me on the same board: who clears it first? Opens in the app on Android, or right in your browser.",
+    "image": "/exitwise/img/room-invite-1200x630.jpg",
+    "imageAlt": "Exitwise: race me in a room! A level 33 board in the forest world."
+  },
+  "hero": {
+    "title": "Join a room in Exitwise",
+    "lead": "Join the race",
+    "align": "center",
+    "art": {
+      "alt": "Friends racing on arrow puzzle boards in a sunny meadow",
+      "wiki": "rooms",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
+    }
+  },
+  "sections": [
+    {
+      "id": "join",
+      "blocks": [{ "type": "embed", "src": "room" }]
+    }
+  ]
+}

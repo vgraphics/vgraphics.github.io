@@ -1,0 +1,35 @@
+{
+  "path": "/speedometer-wallpaper/privacy.html",
+  "title": "Speedometer Live Wallpaper privacy policy: your phone data",
+  "description": "What Speedometer Live Wallpaper for Android reads from your phone (battery, CPU, GPS speed, calls), what stays on it, and its analytics, ads and purchases.",
+  "social": {
+    "title": "Privacy policy · Speedometer Live Wallpaper",
+    "description": "How the Speedometer Live Wallpaper app handles your data.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Apps", "item": "https://vgraphics.gr/apps/" },
+      { "@type": "ListItem", "position": 3, "name": "Speedometer Live Wallpaper", "item": "https://vgraphics.gr/speedometer-wallpaper/" },
+      { "@type": "ListItem", "position": 4, "name": "Privacy policy", "item": "https://vgraphics.gr/speedometer-wallpaper/privacy.html" }
+    ]
+  },
+  "hero": {
+    "title": "Speedometer Live Wallpaper privacy policy",
+    "lead": "Privacy policy",
+    "align": "center",
+    "art": {
+      "alt": "A phone in a dashboard mount at night showing the Classic gauges at 53 km/h, with rain and city lights on the windscreen",
+      "wiki": "privacy",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#0B1117, #030406)"
+    }
+  },
+  "sections": [
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games", "path": "docs/speedometer-privacy-policy.html" } }] }
+  ]
+}

@@ -46,7 +46,8 @@
   --body-weight: 700;
   --h2-size: clamp(2rem, 5vw, 2.8rem);
   --section-pad: 56px;
-  --intro-bg: none;
+  --intro-bg: linear-gradient(#9FCF66, #83BD57);
+  --stage-shade: linear-gradient(rgba(26, 18, 48, 0.28), transparent 20%, transparent 80%, rgba(26, 18, 48, 0.2));
   --shot-frame: 0 solid transparent;
   --step-font: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
   --step-ink: #FFFFFF;
@@ -56,10 +57,13 @@
   --nav-current-bg: #FFFFFF;
   --nav-current-ink: #3B3355;
   --nav-current-line: none;
+  --nav-current-bg-scrolled: #3B3355;
+  --nav-current-ink-scrolled: #FFFDF8;
   --foot-rule: 2px dashed #DED4C4;
   --band-bg: linear-gradient(180deg, #FFFDF8, #F7F0E4);
   --dot: #D2C6B2;
   --heart: #FF5A6E;
+  --scrollbar: #32044F;
   --mistake: #E03131;
   --swatch-1: #1C9FD8;
   --swatch-2: #3BB273;
@@ -68,4 +72,11 @@
   --swatch-5: #F2B705;
   --swatch-6: #8C5CF0;
   color-scheme: light;
+}
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/exitwise/theme/cursor.svg") 3 2, auto;
+    --cursor-link: url("/exitwise/theme/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/exitwise/theme/cursor-text.svg") 16 16, text;
+  }
 }

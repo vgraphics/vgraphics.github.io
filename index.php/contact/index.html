@@ -1,0 +1,38 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <!-- The old WordPress site's contact page (vgraphics.gr/index.php/contact/, still in Google on 27 Oct 2026): it
+       forwards at once to the home page's contact card, and search engines keep that address. -->
+  <title>Contact VGraphics</title>
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/index.php/contact/">
+  <meta http-equiv="refresh" content="0; url=/#contact">
+  <meta name="color-scheme" content="light">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <!-- No text selection and no right-click, as on every page on vgraphics.gr. -->
+  <script src="/assets/no-select.js" defer></script>
+  <style>
+    /* VGraphics' cursors, as on every company page (assets/vgraphics.css; mice and trackpads only). */
+    @media (hover: hover) and (pointer: fine) {
+      :root {
+        --cursor: url("/assets/img/cursor.svg") 3 2, auto;
+        --cursor-link: url("/assets/img/cursor-link.svg") 13 2, pointer;
+        --cursor-text: url("/assets/img/cursor-text.svg") 16 18, text;
+      }
+    }
+    html { background: #F6F2EA; color: #16151B; font: 17px/1.5 system-ui, -apple-system, "Segoe UI", sans-serif; }
+    body { margin: 0; min-height: 100vh; display: grid; place-content: center; gap: 24px; padding: 24px; text-align: center; background: #F6F2EA; }
+    a { color: inherit; }
+    footer { color: #5B5866; font-size: 13px; }
+  </style>
+</head>
+<body>
+  <main>
+    <p>Taking you to <a href="/#contact">VGraphics' contact details</a>.</p>
+  </main>
+  <footer>&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></footer>
+  <script>location.replace('/#contact');</script>
+</body>
+</html>

@@ -1,0 +1,261 @@
+{
+  "entries": [
+    {
+      "version": "1.0.23",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Share your Daily as a picture",
+      "items": [
+        "Share your finished Daily as a picture of your solved board, with every arrow bursting out — post it anywhere or send it straight to your story.",
+        "Your profile picture now shows in place of the preset avatars — to pick a preset instead, remove your picture.",
+        "The preset avatars now slide smoothly in and out of view."
+      ],
+      "commit": "d8826043"
+    },
+    {
+      "version": "1.0.484b3072",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your settings follow you everywhere",
+      "items": [
+        "When you're signed in, your settings — Music, Sounds, Vibration, Tap twice to launch and Show story pages — follow you across your devices, and changes you make in your avatar menu on the site show up in the game right away.",
+        "The \"Sign in with Google\" button now appears in your language, and the sign-in window opens and closes more smoothly.",
+        "The About panel now notes that your settings travel with you."
+      ],
+      "commit": "484b3072"
+    },
+    {
+      "version": "1.0.22c17aeb",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your profile photo now shows",
+      "items": [
+        "Your profile picture now shows across the game — on your account button, your profile, and in boards and rooms.",
+        "On your profile, your name now sits next to your picture, with a small note beneath it that it can't be changed."
+      ],
+      "commit": "22c17aeb"
+    },
+    {
+      "version": "1.0.27ca1c68",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Stories play again",
+      "items": [
+        "Fixed a glitch so stories play again in your browser — before, no story could load."
+      ],
+      "commit": "27ca1c68"
+    },
+    {
+      "version": "1.0.22",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Neater top row on wide windows",
+      "items": [
+        "On a wide browser window, the top row of buttons and the coin counter now line up neatly with the buttons along the sides of the board, instead of floating over the map."
+      ],
+      "commit": "1967529e"
+    },
+    {
+      "version": "1.0.e6ac5ebc",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Account button on the home screen",
+      "items": [
+        "A new account button sits at the top right of the home screen — tap it to sign in, or, once you're signed in, see your picture and open your profile."
+      ],
+      "commit": "e6ac5ebc"
+    },
+    {
+      "version": "1.0.e7eb7e01",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Sharper story pictures on big screens",
+      "items": [
+        "Story pictures now look sharp on big screens instead of pixelated",
+        "Boss shields that move now wait for your arrow, then drop neatly into place"
+      ],
+      "commit": "e7eb7e01"
+    },
+    {
+      "version": "1.0.21",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Clearer, fairer guardian fights",
+      "items": [
+        "The guardian's health bar is now a slim strip that covers far less of the board, and the board no longer shifts when a status icon appears or disappears mid-fight.",
+        "In a guardian fight, a magic wand or Double-Shot's extra arrow now counts as a single move against rage, so it can strike you at most once and won't cost you extra hearts.",
+        "On a PC, the leaderboard, the win-screen ranking and your profile are now shown larger and easier to read.",
+        "On levels with more than one ice block or shutter, their countdown numbers are now spaced further apart instead of being nearly identical.",
+        "In your profile, choosing a preset avatar now keeps your picture, and a 'Remove picture' option appears wherever your picture shows, including on the web.",
+        "The 'How to play' guide now explains that touching a guardian's ward costs you a heart."
+      ],
+      "commit": "31b6903b"
+    },
+    {
+      "version": "1.0.05b092fe",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "No changes you'll notice",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "05b092fe"
+    },
+    {
+      "version": "1.0.ea0fddf8",
+      "date": "2026-10-27",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New About section below the game",
+      "items": [
+        "Scroll below the game for a new About section — how to play, what's inside, answers to common questions and handy links. The \"About this game\" button takes you straight there, then back to the game.",
+        "The page now shows a copyright line and a link to our Terms."
+      ],
+      "commit": "ea0fddf8"
+    },
+    {
+      "version": "1.0.20",
+      "date": "2026-10-27",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "On/off switches replace checkboxes",
+      "items": [
+        "On/off options now use a switch that slides across and turns green when on, in place of the old tick boxes and On/Off labels.",
+        "In the browser, the page's text no longer gets selected and the right-click and long-press menus stay closed while you play; typing in text fields still works as normal."
+      ],
+      "commit": "a428d155"
+    },
+    {
+      "version": "1.0.f4f96dbf",
+      "date": "2026-10-26",
+      "platforms": [
+        "Web"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "f4f96dbf"
+    },
+    {
+      "version": "1.0.18",
+      "date": "2026-10-26",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "cd2af9f2"
+    },
+    {
+      "version": "1.0.6a32905f",
+      "date": "2026-10-22",
+      "platforms": [
+        "Web"
+      ],
+      "items": [
+        "A new start: the VGraphics intro, then Exitwise's own key art while the game loads, over a squishy new loading bar.",
+        "The level map is painted in a new style for all 17 worlds, and fills wide windows edge to edge.",
+        "The dots of the board's grid are easier to see.",
+        "Settings fits wide windows: two groups side by side, with nothing to scroll."
+      ],
+      "commit": "6a32905f"
+    },
+    {
+      "version": "1.0.17",
+      "date": "2026-10-21",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "items": [
+        "All 17 world backgrounds and all 12 animal avatars are redrawn with brand-new art.",
+        "Fresh icons for the powerups, the coin, the tutorial hand and the map editor's bomb tool."
+      ],
+      "commit": "4f5d9766"
+    },
+    {
+      "version": "1.0.16",
+      "date": "2026-10-21",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "items": [
+        "New background music for the menu and the levels.",
+        "Eleven new sound effects, including bombs, clicks, losing a heart and completing a level.",
+        "Lighter audio files, for a smaller download."
+      ],
+      "commit": "48fea01d"
+    },
+    {
+      "version": "1.0.14",
+      "date": "2026-10-21",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "Real sound effects across the whole game, in place of the old beeps.",
+        "Sign in with Google or Play Games and get a one-time thank-you of 100 coins for linking your account.",
+        "The level map opens on your current level, scrolls smoothly, and celebrates when a new world unlocks.",
+        "On landscape and other wide screens, everything is about 30% bigger and the board fills the window.",
+        "Your privacy choices now control ads and analytics."
+      ],
+      "commit": "973d5cb1"
+    },
+    {
+      "version": "1.0.13",
+      "date": "2026-10-19",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "Play with friends keeps a history of your last 50 matches, and you can share any match's results as a picture.",
+        "The host picks the world and the lives for a match, and each game scores points for speed, hearts left and your place.",
+        "Your profile photo now shows everywhere: in rooms, on the leaderboards, on profiles and on map cards.",
+        "Switches are now keys and their gates locked doors, and portals have coloured rims and numbers, so matching ends are easy to spot.",
+        "How to play lets you watch each move play out before you go on to the next lesson."
+      ],
+      "commit": "3b1ffea1"
+    },
+    {
+      "version": "0.1.0",
+      "date": "2026-10-18",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "items": [
+        "Exitwise is out, on Google Play and in your browser.",
+        "New How to play: short lessons that bring in each obstacle one at a time, with a hand that shows every tap.",
+        "Daily, Ranking, Friends and Maps are round buttons near the top of the home screen, leaving more room for the map.",
+        "In rooms everyone plays exactly the same board, from Easy to a much bigger Expert that uses every obstacle."
+      ],
+      "commit": "b837763d"
+    }
+  ]
+}

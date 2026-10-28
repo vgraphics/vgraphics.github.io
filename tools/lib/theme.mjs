@@ -6,6 +6,9 @@
 // theme.json: { "scheme": "light" | "dark", "fonts": [{ family, src, weight, preload? }], "tokens": { name: css value },
 //   "swatches": [colours the layout hands out in turn: steps, feature marks], "mark": "<svg>" | null (the feature
 //   lists' glyph, drawn in currentColor), "ornaments": { "edges": [...], "horizon": {...} | null } }
+// Beside it, the pack's cursors (theme/cursor.svg, cursor-link.svg, cursor-text.svg; tools/lib/cursors.mjs) become
+// theme.css's --cursor, --cursor-link and --cursor-text.
+import { cursorCss } from './cursors.mjs'
 
 // The tokens every pack sets, as assets/product.css reads them without a fallback. A pack may add its own (a game's
 // heart red, say) for its demo or pictures; product.css also reads a few optional ones (marked there) with fallbacks.
@@ -20,8 +23,8 @@ export const TOKENS = [
   // Type: the display face (headings, lead, logo) and the label face (menu, eyebrows, tags, buttons)
   'font-display', 'font-body', 'display-weight', 'display-case', 'display-tracking', 'display-leading',
   'label-font', 'label-weight', 'label-case', 'label-tracking', 'body-size', 'body-weight', 'h2-size',
-  // Pieces: section spacing, the intro's backdrop, screenshot frames, step numbers, tags, the menu's current page,
-  // and the footer's rule
+  // Pieces: section spacing, the demo stage's colour under its picture, screenshot frames, step numbers, tags, the
+  // menu's current page, and the footer's rule
   'section-pad', 'intro-bg', 'shot-frame', 'step-font', 'step-ink', 'tag-bg', 'tag-ink',
   'nav-current-bg', 'nav-current-ink', 'nav-current-line', 'foot-rule',
 ]
@@ -41,6 +44,15 @@ export const contrast = (a, b) => {
   const [x, y] = [luminance(a), luminance(b)].sort((p, q) => q - p)
   return (x + 0.05) / (y + 0.05)
 }
+// A colour's saturation (HSL, 0 to 1): a grey's is near 0.
+function saturation(hex) {
+  const n = hex.replace('#', '')
+  const full = n.length === 3 ? [...n].map((c) => c + c).join('') : n
+  const c = [0, 2, 4].map((i) => parseInt(full.slice(i, i + 2), 16) / 255)
+  const [max, min] = [Math.max(...c), Math.min(...c)]
+  const l = (max + min) / 2
+  return max === min ? 0 : (max - min) / (1 - Math.abs(2 * l - 1))
+}
 
 // What's wrong with a pack, as messages (none means it's fine).
 export function checkTheme(theme) {
@@ -51,6 +63,23 @@ export function checkTheme(theme) {
     const c = contrast(t[fg], t[bg])
     if (c < min) problems.push(`--${fg} on --${bg} is ${c.toFixed(2)}:1, under ${min}:1`)
   }
+  // What a text field selects (assets/no-select.css): optional --selection-ink on --selection, by default the page's
+  // colour on the scrollbar's (the accent's, without one).
+  const [ink, sel] = [t['selection-ink'] ?? t.page, t.selection ?? t.scrollbar ?? t.accent]
+  if (/^#[0-9a-f]{3,6}$/i.test(ink ?? '') && /^#[0-9a-f]{3,6}$/i.test(sel ?? '') && contrast(ink, sel) < 4.5) {
+    problems.push(`selected text, ${ink} on ${sel} (--selection-ink on --selection: by default --page on --scrollbar or --accent), is ${contrast(ink, sel).toFixed(2)}:1, under 4.5:1`)
+  }
+  // The play or try button (assets/product.css .play and .play-cta): optional --play-ink on --play, by default the
+  // page's colour on the scrollbar's (the accent's, without one). Its colour is the product's own, never a grey
+  // (George, 26 Oct 2026, on Exitwise's play button: "Create a better play online button. More purple like the logo
+  // stroke.").
+  const [playInk, play] = [t['play-ink'] ?? t.page, t.play ?? t.scrollbar ?? t.accent]
+  if (/^#[0-9a-f]{3,6}$/i.test(playInk ?? '') && /^#[0-9a-f]{3,6}$/i.test(play ?? '') && contrast(playInk, play) < 4.5) {
+    problems.push(`the play button, ${playInk} on ${play} (--play-ink on --play: by default --page on --scrollbar or --accent), is ${contrast(playInk, play).toFixed(2)}:1, under 4.5:1`)
+  }
+  if (/^#[0-9a-f]{3,6}$/i.test(play ?? '') && saturation(play) < 0.35) {
+    problems.push(`the play button's colour ${play} (--play: by default --scrollbar or --accent) is greyish (saturation ${Math.round(saturation(play) * 100)}%, under 35%): give the pack its own colour`)
+  }
   if (!['light', 'dark'].includes(theme.scheme)) problems.push('scheme is not "light" or "dark"')
   if (!Array.isArray(theme.swatches) || !theme.swatches.length) problems.push('no swatches')
   return problems
@@ -58,7 +87,8 @@ export function checkTheme(theme) {
 
 const FORMAT = { woff2: 'woff2', woff: 'woff', ttf: 'truetype', otf: 'opentype' }
 
-export function themeCss(slug, theme) {
+// cursors: the pack's cursor tokens, [[name, css value]] (tools/lib/cursors.mjs readCursors).
+export function themeCss(slug, theme, cursors = []) {
   const fonts = (theme.fonts || []).map((f) => `@font-face { font-family: "${f.family}"; src: url("${f.src}") format("${FORMAT[f.src.split('.').pop()]}"); font-weight: ${f.weight}; font-display: swap; }`)
   const vars = [
     ...Object.entries(theme.tokens).map(([k, v]) => `  --${k}: ${v};`),
@@ -70,5 +100,5 @@ ${fonts.join('\n')}
 :root {
 ${vars.join('\n')}
 }
-`
+${cursorCss(cursors)}`
 }

@@ -1,0 +1,309 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>VHub privacy policy · VGraphics</title>
+  <meta name="description" content="How VHub, the one player account for every VGraphics game and app, handles your data: what it keeps and why, who sees it, for how long, and how to delete it.">
+  <link rel="canonical" href="https://vgraphics.gr/hub/privacy.html">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="VHub privacy policy">
+  <meta property="og:description" content="What VHub, the one player account for every VGraphics game and app, keeps about you, and how to get a copy or delete it.">
+  <meta property="og:url" content="https://vgraphics.gr/hub/privacy.html">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "VHub", "item": "https://vgraphics.gr/hub/" },
+      { "@type": "ListItem", "position": 3, "name": "VHub privacy policy", "item": "https://vgraphics.gr/hub/privacy.html" }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    .pp-intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .pp-intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+    .pp-intro .lede { max-width: 40em; }
+    .pp-date { display: inline-flex; align-items: center; min-height: 30px; padding: 0 12px; border-radius: 999px; background: var(--ink); color: var(--bg); font-weight: 700; font-size: 0.85rem; }
+
+    .pp-short { margin: 0 0 var(--s5); padding: clamp(20px, 4vw, 32px); border-radius: var(--r-lg); background: var(--violet); color: var(--on-violet); display: grid; gap: var(--s2); }
+    .pp-short h2 { font-size: clamp(1.4rem, 3vw, 2rem); }
+    .pp-short ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; max-width: 52em; }
+    .pp-short a { color: inherit; }
+    .pp-short :focus-visible { outline-color: var(--on-violet); }
+
+    .pp-layout { display: grid; grid-template-columns: 15rem minmax(0, 1fr); gap: var(--s5); align-items: start; padding-bottom: var(--s6); }
+    .pp-toc { position: sticky; top: 96px; display: grid; gap: 8px; }
+    .pp-toc p { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); }
+    .pp-toc ol { margin: 0; padding: 0; list-style: none; display: grid; }
+    .pp-toc a { display: flex; align-items: center; min-height: 40px; color: var(--ink); text-decoration: none; font-weight: 600; }
+    .pp-toc a:hover { text-decoration: underline; }
+
+    .pp-doc { display: grid; gap: var(--s5); max-width: 46em; }
+    .pp-doc section { display: grid; gap: 14px; }
+    .pp-doc h2 { font-size: clamp(1.5rem, 3vw, 2rem); }
+    .pp-doc h3 { font-size: 1.15rem; margin-top: 6px; }
+    .pp-doc ul { margin: 0; padding-left: 1.2em; display: grid; gap: 8px; }
+    .pp-doc p, .pp-doc li { color: var(--ink); }
+    .pp-table { width: 100%; border-collapse: collapse; font-size: 0.95rem; }
+    .pp-table th, .pp-table td { text-align: left; vertical-align: top; padding: 10px 8px; border-bottom: 1px solid var(--line); }
+    .pp-table th { font-weight: 700; width: 34%; }
+    .pp-contact { font-style: normal; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface-2); line-height: 1.7; }
+
+    @media (max-width: 900px) {
+      .pp-layout { grid-template-columns: 1fr; }
+      .pp-toc { position: static; }
+      .pp-toc ol { grid-template-columns: 1fr 1fr; column-gap: 16px; }
+    }
+    @media (max-width: 480px) {
+      .pp-toc ol { grid-template-columns: 1fr; }
+      .pp-table th { width: auto; }
+      .pp-table, .pp-table tbody, .pp-table tr, .pp-table th, .pp-table td { display: block; }
+      .pp-table th { border-bottom: 0; padding-bottom: 0; }
+    }
+  </style>
+</head>
+<body class="pg-hub">
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="pp-intro">
+    <span class="kicker"><span class="dot" aria-hidden="true"></span> VHub</span>
+    <h1>VHub privacy policy</h1>
+    <span class="pp-date">Last updated: 27 October 2026</span>
+    <p class="lede">VHub is one player account for every VGraphics game and app: your name and picture, a level and XP, achievements, friends and invites to rooms, and the VHub pages at <a href="/hub/">vgraphics.gr/hub</a>. This policy explains what VHub keeps about you, why, where, who sees it and for how long. Each game's own privacy policy covers what that game does besides VHub, such as its ads.</p>
+  </div>
+
+  <section class="pp-short" aria-labelledby="pp-short-title">
+    <h2 id="pp-short-title">The short version</h2>
+    <ul>
+      <li>You can play as a guest with no personal details. If you sign in with Google or Apple, they tell our sign-in service your account's id, email address and name (Apple can hide your email). Other players never see them.</li>
+      <li>Your VHub name, picture, level, XP, achievements, stats and leaderboard places are public. Choose a name that isn't your real name.</li>
+      <li>What you're playing, and a room you're in, is shown to your friends only, and you can turn that off.</li>
+      <li>Photos are checked automatically before anyone sees them. Players can report names and pictures, and block each other.</li>
+      <li>VHub shows no ads, sells nothing about you, and runs no analytics or tracking of its own.</li>
+      <li>The data is kept with Google Firebase. The database and pictures are in the EU (Belgium).</li>
+      <li>You can download a copy of your data and delete your account at any time: <a href="/hub/delete/">vgraphics.gr/hub/delete</a>.</li>
+      <li>VHub is for players aged 13 and over.</li>
+    </ul>
+  </section>
+
+  <div class="pp-layout">
+    <nav class="pp-toc" aria-label="On this page">
+      <p>On this page</p>
+      <ol>
+        <li><a href="#who">Who we are</a></li>
+        <li><a href="#what">What VHub keeps</a></li>
+        <li><a href="#why">Why</a></li>
+        <li><a href="#where">Where it is kept</a></li>
+        <li><a href="#seen">Who sees what</a></li>
+        <li><a href="#safety">Names, pictures and safety</a></li>
+        <li><a href="#tracking">Ads, analytics and cookies</a></li>
+        <li><a href="#how-long">How long</a></li>
+        <li><a href="#delete">Deleting and a copy</a></li>
+        <li><a href="#rights">Your rights</a></li>
+        <li><a href="#age">Age</a></li>
+        <li><a href="#changes">Changes</a></li>
+        <li><a href="#write">Contact</a></li>
+      </ol>
+    </nav>
+
+    <div class="pp-doc">
+      <section id="who">
+        <h2>Who we are</h2>
+        <p>VHub is run by VGRAPHICS SINGLE MEMBER P.C., a company registered in Greece, which also makes the games and apps that use it ("VGraphics", "we", "us"). We decide what happens to your VHub data and are responsible for it. Our details are at the end of this page and on the <a href="/company/">company information</a> page.</p>
+      </section>
+
+      <section id="what">
+        <h2>What VHub keeps</h2>
+        <h3>Your account</h3>
+        <ul>
+          <li><strong>Your VHub id:</strong> a random identifier that Google Firebase Authentication makes for your account.</li>
+          <li><strong>A guest account</strong> has nothing else: no name, email or other details. It lives in the browser or app that made it.</li>
+          <li><strong>If you sign in with Google:</strong> your Google account's id, email address, name and profile picture link, which Google shares with Firebase Authentication when you sign in. We use them only to sign you in and to show which account is linked.</li>
+          <li><strong>If you sign in with Apple:</strong> your Apple ID's user id, the email address Apple shares (your own, or a private relay address if you choose Hide My Email) and the name you share, which Apple gives Firebase Authentication when you sign in. We use them only to sign you in and to show which account is linked. When you delete your account, we also ask Apple to end VHub's access to your Apple ID.</li>
+          <li><strong>In games on CrazyGames:</strong> your CrazyGames user id, username and profile picture. VHub keeps a copy of that picture so every platform shows it the same way.</li>
+          <li><strong>Your age group</strong>, if a game asks your birth year: only "under 13", "13 to 15" or "16 and over" is kept, never the year.</li>
+          <li><strong>Your settings:</strong> what friends may see, who may invite you, and which notifications you want.</li>
+        </ul>
+        <h3>Your profile and progress</h3>
+        <ul>
+          <li>Your VHub name, your picture (one of the preset pictures, or a photo you upload), and the title, badges and picture frame you choose to show.</li>
+          <li>What the games report about your play: counts such as levels won, matches played and won, time played and maps cleared, and the XP, level and achievements they earn you.</li>
+          <li>Your entries on leaderboards, which games and apps you have played, and when you first and last played each.</li>
+          <li>Your match history: for each room match, the game, mode, when it ended, the number of players, your place, points and time, whether you won, and the names of the top three.</li>
+        </ul>
+        <h3>Friends, rooms and notifications</h3>
+        <ul>
+          <li>Your friends, friend requests you sent and received, the players you blocked, and your friend code.</li>
+          <li>Your online status: whether you're online, away or offline, which game you're in and what you're doing there (such as "in a room"), the room you're in, and the type of device.</li>
+          <li>Rooms you open in a game, while they are open, and invites into rooms you send and receive.</li>
+          <li>Your inbox: invites, friend requests, achievements and notes from us.</li>
+          <li>For notifications on your phone: each device's notification token, with the app, the platform, the app's version and when it was last used.</li>
+        </ul>
+        <h3>Safety and running the service</h3>
+        <ul>
+          <li>Reports you make about names and pictures, reports about yours, and the results: removed names and pictures, and upload strikes.</li>
+          <li>Signs of cheating, such as results that can't be true, which can keep an account off the leaderboards.</li>
+          <li>Server logs: the requests our servers answer, with the time, your VHub id, your IP address and any error. They help us find faults and abuse.</li>
+        </ul>
+      </section>
+
+      <section id="why">
+        <h2>Why</h2>
+        <p>We use this information to give you what you asked for when you use VHub: an account that works in every VGraphics game and app, your profile, XP, level and achievements, leaderboards, friends, rooms, invites and notifications. That is the legal basis for most of it (article 6(1)(b) of the GDPR).</p>
+        <p>We also use it to keep VHub safe and fair: to check pictures, act on reports, enforce blocks, keep cheated results off the leaderboards, and find faults and abuse. That is our legitimate interest, and yours as a player (article 6(1)(f)).</p>
+        <p>We don't use your information for advertising, we don't sell it, and we don't make automated decisions about you beyond the checks described here.</p>
+      </section>
+
+      <section id="where">
+        <h2>Where it is kept</h2>
+        <p>VHub runs on Google Firebase and Google Cloud, which process the data on our behalf under Google's data processing terms. Those terms also cover any transfer of data outside the European Union.</p>
+        <ul>
+          <li>The database (Cloud Firestore), the pictures (Cloud Storage) and the servers (Cloud Functions) are in Google's Belgium region (europe-west1) in the EU.</li>
+          <li>Sign-in data is kept by Firebase Authentication, whose location can't be chosen; Google may process it outside the EU, such as in the United States.</li>
+          <li>Pictures are checked by Google Cloud Vision before they are stored.</li>
+          <li>Notifications to phones are delivered by Firebase Cloud Messaging.</li>
+        </ul>
+        <p>See <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a> for how Google handles this data.</p>
+      </section>
+
+      <section id="seen">
+        <h2>Who sees what</h2>
+        <table class="pp-table">
+          <tbody>
+            <tr><th scope="row">Everyone, even without signing in</th><td>Your VHub name (or "Player" and the first 4 characters of your VHub id if you have none), your picture, level, XP, title, badges and frame, the games you have played, your stats, achievements and leaderboard places. Your VHub id is part of your profile's address. Our websites, such as the Exitwise ranking, show the same.</td></tr>
+            <tr><th scope="row">Your friends</th><td>What you're playing and a room they can join, unless you turn off "Show friends what I'm playing" or choose "Appear offline".</td></tr>
+            <tr><th scope="row">Players you invite</th><td>Your name and picture, the game and the room's code.</td></tr>
+            <tr><th scope="row">Only you</th><td>Your sign-in details, age group, settings, friend code, friend requests, inbox, devices and match history.</td></tr>
+            <tr><th scope="row">VGraphics games and apps</th><td>Each one uses your VHub id and profile, and what it needs of the rest to run, such as your friends and invites. What a game keeps for itself (such as its saved games) is in that game's own policy.</td></tr>
+            <tr><th scope="row">Us</th><td>All of it, to run VHub, help you when you write to us, and handle reports.</td></tr>
+          </tbody>
+        </table>
+        <p>Blocking a player shows them to you as "Player" with a preset picture in every game, ends your friendship, stops requests and invites both ways, and keeps you out of their searches.</p>
+      </section>
+
+      <section id="safety">
+        <h2>Names, pictures and safety</h2>
+        <ul>
+          <li>Names are checked against a list of rude and reserved words when you choose them. A name is for good once saved; if there is a real problem with yours, write to us.</li>
+          <li>Photos can be uploaded only from accounts that can be held to account: Google and Apple accounts, and while Exitwise moves to VHub, its Google Play Games accounts. The picture is cut to a square, copied without its hidden details (such as where and with which camera it was taken) at two small sizes, and checked by Google Cloud Vision SafeSearch for nudity, violence and similar content. Only pictures that pass are stored and shown. You can remove yours at any time.</li>
+          <li>Other players can report a name or a picture. When enough players with established accounts report the same one (three today), it is removed. An uploader who loses two pictures this way can't upload any more.</li>
+          <li>Names and pictures from CrazyGames are moderated by CrazyGames.</li>
+          <li>There is no free text between players anywhere in VHub: no chat and no messages.</li>
+        </ul>
+      </section>
+
+      <section id="tracking">
+        <h2>Ads, analytics and cookies</h2>
+        <p>VHub shows no ads and sends nothing to advertising networks. It has no analytics or tracking of its own, and the VHub pages set no cookies of their own: your sign-in is kept in your browser's storage by Firebase Authentication. While you're signed in, the VHub pages also keep your VHub name, your picture (your preset, or the address of your approved photo) and which frame your rank shows in this browser, so the vgraphics.gr menu can show your picture in its frame next to VHub; if you have a photo, those pages load it from VHub's storage at Google Firebase, as the VHub pages do. Signing out removes them. Google's sign-in script is loaded only when you press "Sign in with Google", and Google's own <a href="https://policies.google.com/privacy">privacy policy</a> covers it. "Sign in with Apple" opens Apple's own sign-in page in a window, which <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> covers. Each game asks for its own ad and analytics choices, as its own policy explains.</p>
+      </section>
+
+      <section id="how-long">
+        <h2>How long</h2>
+        <ul>
+          <li>Your account, profile, progress and friends: until you delete your account. Guest accounts are kept too; we don't clear them out.</li>
+          <li>Invites: 24 hours, or until the room closes. Rooms: at most 24 hours. Other inbox items: 30 days.</li>
+          <li>Match history: 12 months.</li>
+          <li>Daily and monthly leaderboards: 60 days.</li>
+          <li>Server logs: up to 30 days.</li>
+          <li>Moderation records stay after an account is deleted (see below).</li>
+        </ul>
+      </section>
+
+      <section id="delete">
+        <h2>Deleting your account, and a copy of your data</h2>
+        <p>You can delete your VHub account in any VGraphics game or app (Settings, "Delete VHub account"), on <a href="/hub/delete/">vgraphics.gr/hub/delete</a>, or by emailing us. Deleting removes at once your profile, name (it becomes free for others), pictures, stats, achievements, XP, leaderboard entries, match history, friends (on both sides), requests, inbox, devices, online status and sign-in links. Then each game deletes what it keeps about your account, within 30 days, and last the account itself is deleted. In a game you can also delete only that game's part.</p>
+        <p>What we keep after a deletion: upload strikes, stored under a one-way code made from your Google or Apple account id, so that a blocked uploader stays blocked; a name that was removed after reports stays reserved, linked to no one; and reports you made about other players' names or pictures stay counted on theirs. None of it holds your name or picture.</p>
+        <p>To get a copy of your data, sign in on the VHub pages and choose Settings, "Download my data". You get one file with your account, profile, settings, stats, achievements, match history, friends, requests, inbox and devices (without notification tokens), and each game's part.</p>
+      </section>
+
+      <section id="rights">
+        <h2>Your rights</h2>
+        <p>You can ask us for a copy of your data, to correct it, to delete it, or to restrict or object to how we use it. Most of this you can do yourself as described above; for anything else, email us. You can change your picture and what you show at any time. If you think we handle your data wrongly, you can complain to the Hellenic Data Protection Authority (<a href="https://www.dpa.gr">www.dpa.gr</a>) or the authority where you live.</p>
+      </section>
+
+      <section id="age">
+        <h2>Age</h2>
+        <p>VHub is for players aged 13 and over. When a game asks your birth year, we keep only your age group. Players under 13 can't have a name, a picture, friends, an online status or invites; their progress in the games still counts, as a guest. If you believe a child under 13 has given us personal information, email us and we will remove it.</p>
+      </section>
+
+      <section id="changes">
+        <h2>Changes</h2>
+        <p>If VHub starts handling information differently, we will update this page and the date at the top.</p>
+      </section>
+
+      <section id="write">
+        <h2>Contact</h2>
+        <p>VHub is run by, and your data is controlled by:</p>
+        <address class="pp-contact">
+          VGRAPHICS SINGLE MEMBER P.C.<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          G.E.MI. no. 181823306000 · VAT no. EL802736373<br>
+          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+        </address>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+</body>
+</html>

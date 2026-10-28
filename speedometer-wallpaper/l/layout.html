@@ -1,0 +1,69 @@
+          <div class="mk-page" data-state="loading">
+            <div class="mk-layout" id="layout-found">
+              <div class="mk-stage">
+                <div class="mk-phone mk-preview" id="layout-phone" data-orientation="portrait">
+                  <div class="mk-screen" id="layout-screen" role="img" aria-label="The layout, drawn live"></div>
+                  <span class="mk-note"></span>
+                </div>
+              </div>
+              <div class="mk-info">
+                <p class="mk-code-line"><span>Layout code</span> <b class="mk-code" id="layout-code">······</b> <button class="mk-button" type="button" id="layout-copy">Copy link</button> <span id="layout-copied" aria-live="polite"></span></p>
+                <h2 id="layout-name">A shared layout</h2>
+                <div id="layout-by"></div>
+                <p class="mk-meta" id="layout-meta"></p>
+                <p class="mk-made" id="layout-made"></p>
+                <div class="mk-segments mk-styles" id="layout-styles" role="group" aria-label="Draw it in a style"></div>
+                <h3>Screens</h3>
+                <ul class="mk-tags" id="layout-shapes"></ul>
+                <h3>Widgets</h3>
+                <ul class="mk-tags" id="layout-widgets"></ul>
+                <div class="mk-get">
+                  <a class="mk-button primary" id="layout-try" href="/speedometer-wallpaper/play/">Try it in your browser</a>
+                  <a class="mk-button" id="layout-open" href="/speedometer-wallpaper/" hidden>Open in the app</a>
+                </div>
+                <div class="mk-get">
+                  <a class="gp" id="layout-get" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+                  <small>The app opens this layout after install.</small>
+                </div>
+                <p><button class="mk-button" type="button" id="layout-report-open">Report this layout</button></p>
+                <form class="mk-report" id="layout-report" hidden>
+                  <fieldset>
+                    <legend>What’s wrong with it?</legend>
+                    <div class="mk-reasons" role="radiogroup">
+                      <label><input type="radio" name="reason" value="name" required> Rude name</label>
+                      <label><input type="radio" name="reason" value="spam"> Spam or a copy</label>
+                      <label><input type="radio" name="reason" value="broken"> Broken</label>
+                      <label><input type="radio" name="reason" value="other"> Something else</label>
+                    </div>
+                  </fieldset>
+                  <label for="layout-message">Anything to add? (optional)</label>
+                  <textarea id="layout-message" name="message" maxlength="500" rows="3"></textarea>
+                  <span class="mk-counter" id="layout-counter">0 / 500</span>
+                  <div class="mk-report-buttons">
+                    <button class="mk-button primary" type="submit">Send report</button>
+                    <button class="mk-button" type="button" id="layout-report-cancel">Cancel</button>
+                  </div>
+                  <p class="mk-message" id="layout-report-failed" hidden>The report didn’t reach us. Try again in a minute.</p>
+                </form>
+                <p class="mk-thanks" id="layout-thanks" hidden>Thanks. We’ll look at it.</p>
+              </div>
+            </div>
+            <div class="mk-missing" id="layout-missing" hidden>
+              <h2>This layout isn’t in the market any more.</h2>
+              <p>Its maker may have taken it down, or we did. There are plenty more.</p>
+              <div class="mk-get">
+                <a class="mk-button primary" href="/speedometer-wallpaper/layouts/">See the layout market</a>
+                <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>
+              </div>
+            </div>
+            <div class="mk-missing" id="layout-nocode" hidden>
+              <h2>This link has no layout code.</h2>
+              <p>Ask for the link again, or find the layout in the market: a layout’s code is 6 letters and digits.</p>
+              <div class="mk-get">
+                <a class="mk-button primary" href="/speedometer-wallpaper/layouts/">See the layout market</a>
+              </div>
+            </div>
+            <p class="mk-message" id="layout-failed" hidden>The market didn’t answer. Try again in a minute. <button class="mk-button" type="button" id="layout-retry">Try again</button></p>
+          </div>
+          <script src="/assets/vhub-avatars.js" defer></script>
+          <script src="/speedometer-wallpaper/market/market.js" defer></script>

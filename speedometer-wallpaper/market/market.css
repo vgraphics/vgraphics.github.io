@@ -1,0 +1,253 @@
+/* Speedometer's layout market on the site (market.js): cards, the controls above them, a layout's own page and the
+   report form. Every colour, radius and font comes from Speedometer's theme pack; each page's own stylesheet imports
+   this one. Long lists grow with the page ("Show 20 more"): nothing here scrolls inside a box. */
+
+/* ---------- Cards ---------- */
+.mk-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, 168px), 1fr));
+  gap: 18px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+/* The landing's row of six: two to a row on phones, three on tablets, six on wide screens. */
+.mk-grid.mk-row { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+@media (min-width: 700px) { .mk-grid.mk-row { grid-template-columns: repeat(3, minmax(0, 1fr)); } }
+@media (min-width: 1100px) { .mk-grid.mk-row { grid-template-columns: repeat(6, minmax(0, 1fr)); } }
+
+.mk-card {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  border: var(--card-border);
+  border-radius: var(--radius);
+  background: var(--card-bg);
+  box-shadow: var(--card-shadow);
+  overflow: hidden;
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+.mk-card:hover { transform: translateY(-2px); box-shadow: var(--card-lift); }
+.mk-pic {
+  position: relative;
+  display: grid;
+  place-items: center;
+  aspect-ratio: 9 / 18;
+  padding: 10px;
+  background: radial-gradient(120% 80% at 50% 20%, var(--surface-2), var(--page));
+  color: inherit;
+}
+.mk-pic img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  border-radius: calc(var(--radius-sm) * 0.8);
+  opacity: 0;
+  transition: opacity 260ms ease-out;
+}
+.is-drawn .mk-pic img,
+.is-fallback .mk-pic img { opacity: 1; }
+.mk-ribbon {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font: var(--label-weight) 0.7rem/1.2 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  box-shadow: var(--card-shadow);
+}
+/* Said on the picture when it isn't the layout's own drawing: the style's picture, or nothing. */
+.mk-note {
+  position: absolute;
+  inset: auto 10px 10px;
+  padding: 4px 8px;
+  border-radius: var(--radius-sm);
+  background: color-mix(in srgb, var(--page) 82%, transparent);
+  color: var(--muted);
+  font-size: 0.78rem;
+  line-height: 1.25;
+  text-align: center;
+}
+.mk-note:empty { display: none; }
+.mk-body { display: flex; flex: 1; flex-direction: column; gap: 6px; padding: 12px 14px 14px; }
+.mk-name { margin: 0; font: var(--display-weight) 1.08rem/1.15 var(--font-display); text-transform: var(--display-case); }
+.mk-name a { color: var(--ink); text-decoration: none; }
+.mk-name a:hover { color: var(--accent); }
+.mk-by { display: inline-flex; align-items: center; gap: 8px; min-width: 0; color: var(--muted); font-size: 0.9rem; text-decoration: none; }
+.mk-by:hover { color: var(--ink); }
+.mk-by-name { overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.mk-avatar { flex: none; display: block; width: 24px; height: 24px; border-radius: 50%; overflow: hidden; background: var(--surface-2); }
+.mk-avatar svg, .mk-avatar img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.mk-meta { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 0; color: var(--muted); font-size: 0.88rem; }
+.mk-stars b { color: var(--accent-2); font-weight: 800; }
+.mk-made { margin: 0; color: var(--muted); font-size: 0.85rem; }
+/* Tags: the app's words in dark pills with a small icon in the accent; Now Playing in an accent-tinted pill (the icon
+   pills George picked, 27 Oct 2026). On a card they sit at its foot with room for two lines, screens and then Now
+   Playing, so every card's tags start at the same height across a row. */
+.mk-tags { display: flex; flex-wrap: wrap; align-content: flex-start; gap: 5px 4px; margin: 0; padding: 0; list-style: none; }
+.mk-card .mk-tags { min-height: calc(8px + 2 * 22px + 5px); margin-top: auto; padding-top: 8px; }
+.mk-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  height: 22px;
+  padding: 0 7px 0 5px;
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--ink) 3%, var(--surface-2));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--ink) 7%, transparent);
+  color: var(--ink);
+  font: var(--label-weight) 0.74rem/1 var(--label-font);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+}
+.mk-tag.is-plain { padding: 0 9px; }
+.mk-tag.is-feature {
+  background: color-mix(in srgb, var(--accent) 15%, transparent);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 50%, transparent);
+  color: color-mix(in srgb, var(--ink) 85%, var(--accent));
+}
+.mk-ico { display: block; flex: none; width: 12px; height: 12px; fill: none; stroke: var(--accent); stroke-width: 2; stroke-linecap: round; stroke-linejoin: round; }
+
+/* Loading: card shapes with no names in them. */
+.mk-card.is-placeholder { pointer-events: none; }
+.mk-card.is-placeholder .mk-body { min-height: 120px; }
+.mk-card.is-placeholder .mk-pic,
+.mk-card.is-placeholder .mk-body {
+  background: linear-gradient(100deg, var(--surface) 30%, var(--surface-2) 50%, var(--surface) 70%) 0 0 / 300% 100%;
+  animation: mk-shimmer 1.4s linear infinite;
+}
+@keyframes mk-shimmer { to { background-position: -150% 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .mk-card.is-placeholder .mk-pic, .mk-card.is-placeholder .mk-body { animation: none; }
+  .mk-card, .mk-pic img { transition: none; }
+}
+
+/* ---------- Messages, counts and buttons ---------- */
+.mk-message { display: flex; flex-wrap: wrap; align-items: center; gap: 12px; margin: 18px 0; color: var(--muted); }
+.mk-message[hidden] { display: none; }
+.mk-button {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 18px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface-2);
+  color: var(--ink);
+  font: var(--label-weight) 0.95rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: var(--label-tracking);
+  text-decoration: none;
+  white-space: nowrap;
+  cursor: var(--cursor-link, pointer);
+}
+.mk-button:hover { border-color: var(--accent); }
+.mk-button.primary { border-color: var(--cta-edge); background: var(--cta); color: var(--cta-ink); }
+.mk-button[hidden] { display: none; }
+.mk-more { display: flex; justify-content: center; margin-top: 26px; }
+.mk-counts { margin-top: 4px; }
+.mk-actions { margin-top: 26px; }
+
+/* ---------- The market page's controls ---------- */
+.mk-controls { display: grid; gap: 14px; margin-bottom: 24px; }
+.mk-search { position: relative; max-width: 560px; }
+.mk-search input {
+  width: 100%;
+  min-height: 52px;
+  padding: 0 18px 0 46px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  box-shadow: inset 0 2px 6px rgb(0 0 0 / 0.25);
+}
+.mk-search input:focus { outline: none; border: 2px solid var(--accent); box-shadow: 0 0 0 4px color-mix(in srgb, var(--accent) 22%, transparent); }
+.mk-search svg { position: absolute; top: 50%; left: 16px; width: 20px; height: 20px; transform: translateY(-50%); color: var(--muted); pointer-events: none; }
+/* Segmented controls: one choice of a few (tabs, the screen), never checkboxes. */
+.mk-segments { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; }
+.mk-segments button {
+  min-height: 40px;
+  padding: 0 16px;
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  background: var(--surface);
+  color: var(--muted);
+  font: var(--label-weight) 0.88rem/1 var(--label-font);
+  letter-spacing: 0.02em;
+  white-space: nowrap;
+  cursor: var(--cursor-link, pointer);
+}
+.mk-segments button:hover { color: var(--ink); border-color: var(--accent); }
+.mk-segments button[aria-pressed="true"] { border-color: var(--accent); background: var(--accent); color: var(--page); }
+.mk-tabs button { min-height: 44px; font-size: 0.95rem; }
+
+/* ---------- A layout's page ---------- */
+.mk-layout { display: grid; gap: 32px; align-items: start; }
+@media (min-width: 900px) { .mk-layout { grid-template-columns: minmax(260px, 380px) 1fr; gap: 48px; } }
+.mk-stage { display: grid; justify-items: center; }
+.mk-phone {
+  position: relative;
+  width: min(100%, 340px);
+  padding: 12px;
+  border-radius: 38px;
+  background: linear-gradient(160deg, #2a2733, #0a090d);
+  box-shadow: var(--card-shadow), inset 0 0 0 1px rgb(255 255 255 / 0.08);
+}
+.mk-phone[data-orientation="landscape"] { width: min(100%, 560px); }
+.mk-screen { position: relative; aspect-ratio: var(--frame, 1 / 2.1); overflow: hidden; border-radius: 28px; background: #0a090d; }
+.mk-screen img { display: block; width: 100%; height: 100%; object-fit: contain; }
+.mk-preview .mk-note { inset: auto 14px 14px; }
+.mk-info { display: grid; gap: 14px; min-width: 0; }
+.mk-info h2 { margin: 0; font: var(--display-weight) clamp(1.8rem, 3.4vw, 2.6rem)/1.05 var(--font-display); text-transform: var(--display-case); }
+.mk-info h3 { margin: 10px 0 0; font: var(--label-weight) 0.82rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+/* The stats run as one line of text, "★ 4.3 (12) · 5 uses · Shared on 27 October 2026": a dot before every part
+   after the first one shown, kept with the word before it, so a line breaks after a dot, never before one. */
+.mk-info .mk-meta { display: block; }
+.mk-info .mk-meta > :not([hidden]) ~ :not([hidden])::before { content: "\00a0· "; }
+.mk-info .mk-by { font-size: 1rem; }
+.mk-info .mk-avatar { width: 32px; height: 32px; }
+.mk-code-line { display: flex; flex-wrap: wrap; align-items: center; gap: 10px 14px; margin: 0; color: var(--muted); }
+.mk-code { font: var(--display-weight) 1.5rem/1 var(--font-display); letter-spacing: 0.16em; color: var(--accent-2); }
+.mk-styles button small { margin-left: 6px; color: inherit; opacity: 0.8; font-weight: 600; }
+.mk-get { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; }
+.mk-get small { color: var(--muted); }
+.mk-missing { max-width: 560px; }
+
+/* ---------- The report form ---------- */
+.mk-report { display: grid; gap: 14px; max-width: 560px; padding: 18px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); }
+.mk-report[hidden] { display: none; }
+.mk-report legend { margin-bottom: 8px; font-weight: 800; }
+.mk-report fieldset { margin: 0; padding: 0; border: 0; }
+/* The reasons as option cards: one of four, like the app's sheet. */
+.mk-reasons { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 200px), 1fr)); gap: 8px; }
+.mk-reasons label { position: relative; display: block; padding: 12px 14px; border: 1px solid var(--line); border-radius: var(--radius-sm); background: var(--surface); cursor: var(--cursor-link, pointer); }
+.mk-reasons input { position: absolute; opacity: 0; pointer-events: none; }
+.mk-reasons label:has(input:checked) { border-color: var(--accent); box-shadow: inset 0 0 0 1px var(--accent); }
+.mk-reasons label:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+.mk-report textarea {
+  width: 100%;
+  min-height: 96px;
+  padding: 12px 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+  resize: vertical;
+}
+.mk-report textarea:focus { outline: none; border: 2px solid var(--accent); }
+.mk-counter { justify-self: end; color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }
+.mk-report-buttons { display: flex; flex-wrap: wrap; gap: 10px; }
+.mk-thanks { margin: 0; color: var(--ink); }
+
+/* ---------- A creator's page ---------- */
+.mk-creator { display: flex; align-items: center; gap: 18px; margin-bottom: 24px; }
+.mk-creator .mk-avatar { width: 84px; height: 84px; }
+.mk-creator h2 { margin: 0; font: var(--display-weight) clamp(1.8rem, 3.4vw, 2.6rem)/1.05 var(--font-display); text-transform: var(--display-case); overflow-wrap: anywhere; }

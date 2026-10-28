@@ -14,8 +14,12 @@
   <meta property="og:title" content="Android apps by VGraphics">
   <meta property="og:description" content="Speedometer Live Wallpaper: your Android home screen as a car dashboard. On Google Play.">
   <meta property="og:url" content="https://vgraphics.gr/apps/">
-  <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card.jpg">
+  <meta property="og:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -26,8 +30,11 @@
     ]
   }
   </script>
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
   <style>
     /* Hero: the dashboard on the Apps colour, the dial turning slowly over the phone */
     .stage { position: relative; height: 470px; border-radius: var(--r-lg); background: var(--coral); overflow: hidden; animation: rise 700ms 120ms var(--ease) both; }
@@ -92,9 +99,9 @@
       <a class="n-games" href="/games/">Games</a>
       <a class="n-apps" aria-current="page" href="/apps/">Apps</a>
       <a class="n-services" href="/services/">Services</a>
-      <a class="n-hub" href="/hub/">VHub</a>
       <a class="cta" href="#contact">Contact</a>
     </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </div>
 </header>
 
@@ -107,12 +114,13 @@
         <p class="sub">Your Android home screen as a car dashboard, with real readings from your phone.</p>
         <div class="actions">
           <a class="btn btn-primary" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Get it on Google Play</a>
+          <a class="btn btn-ghost" href="/speedometer-wallpaper/play/">Try it in your browser</a>
           <a class="btn btn-ghost" href="/speedometer-wallpaper/#tour">Tour the dashboard</a>
         </div>
       </div>
       <div class="stage">
-        <span class="phone"><img src="/speedometer-wallpaper/img/shot-power.webp" alt="Speedometer Live Wallpaper on a phone, its big dial in power mode" width="540" height="1200"></span>
-        <img class="dial" src="/speedometer-wallpaper/img/dial-power.webp" alt="The big dial in power mode, showing the watts going into the battery" width="480" height="480">
+        <span class="phone"><img src="/speedometer-wallpaper/img/renders/prism-twin-kmh.webp" alt="Speedometer Live Wallpaper on a phone: the Prism style's two faceted glass panels, blue for the speed at 87 km/h and red for the memory in use" width="540" height="1200"></span>
+        <img class="dial" src="/speedometer-wallpaper/img/renders/dial-aura-tower-kmh.webp" alt="The Aura style's big dial at 87 km/h: chrome ring, a warm red glow and white numerals" width="480" height="480">
       </div>
     </div>
   </section>
@@ -124,24 +132,25 @@
           <span class="kicker">Live wallpaper · Android</span>
           <img class="logo" src="/speedometer-wallpaper/img/logo.webp" alt="" width="820" height="219" loading="lazy">
           <h2 id="speedo-title">Speedometer Live Wallpaper</h2>
-          <p>The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock. Pick the free Classic dashboard, or the chrome Future cluster with the song that's playing.</p>
+          <p>The big dial shows power, CPU clock or your GPS speed. Around it: battery, memory, signal and Wi-Fi, with warning lights and a digital clock. Pick from 19 dashboard styles: Classic, Steel and Graphite are free, and the others, from a 1960s walnut console to a fighter jet's head-up display, are €2.39 each.</p>
           <div class="row">
             <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get Speedometer Live Wallpaper on Google Play" width="646" height="250" loading="lazy"></a>
-            <a class="pill" href="/speedometer-wallpaper/">Visit Speedometer</a>
+            <a class="pill" href="/speedometer-wallpaper/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Try it in your browser</a>
+            <a class="pill alt" href="/speedometer-wallpaper/">Visit Speedometer</a>
             <a class="pill alt" href="/speedometer-wallpaper/wiki/">Wiki</a>
           </div>
         </div>
         <div class="screens">
-          <img src="/speedometer-wallpaper/img/shot-kmh.webp" alt="The Classic design: the big speed dial with signal, RAM, Wi-Fi and battery gauges around it" width="540" height="1200" loading="lazy">
-          <img src="/speedometer-wallpaper/img/future-kmh.webp" alt="The Future design: a chrome dial with the song that's playing, missed calls and messages" width="540" height="1200" loading="lazy">
-          <img src="/speedometer-wallpaper/img/designs.webp" alt="The Designs screen, with Future and its Buy for €0.99 button" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/renders/aura-tower-power.webp" alt="The Aura style in its tower layout: the big dial in power mode over the clock, a memory dial and four small gauges" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/renders/vintage-speedo-clock-power.webp" alt="The Vintage style: a cream speedometer and a matching clock over four chrome-rimmed gauges on a 1960s walnut console" width="540" height="1200" loading="lazy">
+          <img src="/speedometer-wallpaper/img/renders/glass-column-power.webp" alt="The Glass style: a glowing cyan arc over bars for signal, memory, Wi-Fi and battery" width="540" height="1200" loading="lazy">
         </div>
       </article>
 
       <ul class="points">
         <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 15a8 8 0 1 1 16 0"/><path d="M12 15l4-5"/></svg></span><b>One dial, three jobs</b><span>Power in watts, CPU clock or GPS speed. Tap the gauge or use the Quick Settings tile to switch.</span></li>
-        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 12h16M12 4v16"/></svg></span><b>Classic is free, Future is €0.99</b><span>Future is a one-time purchase that comes back by itself on a new phone with the same Google account.</span></li>
-        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2"/><path d="M7 10v4"/></svg></span><b>Easy on the battery</b><span>Nothing redraws unless something changed, and everything stops while the wallpaper is hidden.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="3"/><path d="M4 12h16M12 4v16"/></svg></span><b>Three styles free, the rest €2.39</b><span>Each style is a one-time purchase, or €5.99 unlocks them all, the ones still to come too (prices with VAT in most of the euro area). They come back by themselves on a new phone with the same Google account.</span></li>
+        <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="16" height="10" rx="2"/><path d="M21 11v2"/><path d="M7 10v4"/></svg></span><b>Easy on the battery</b><span>The gauges redraw only while a needle moves, and nothing runs while the wallpaper is hidden.</span></li>
         <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="3"/><path d="M9 18h6"/></svg></span><b>No ads on your wallpaper</b><span>A small banner shows inside the app only, never on your home screen.</span></li>
         <li><span class="ic" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="11" width="16" height="10" rx="2"/><path d="M8 11V7a4 4 0 0 1 8 0v4"/></svg></span><b>Your readings stay on your phone</b><span>Nothing the gauges read is sent anywhere. Location is used only for the speed, and only while the wallpaper is on screen. <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a></span></li>
       </ul>
@@ -167,20 +176,20 @@
       <h2>Let's talk</h2>
       <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
     </div>
-    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>

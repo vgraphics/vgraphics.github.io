@@ -1,0 +1,35 @@
+{
+  "path": "/exitwise/map-rules.html",
+  "title": "Exitwise map rules: publishing custom arrow puzzle maps",
+  "description": "The rules for publishing custom maps in Exitwise, the free arrow puzzle game: what a map may not hold, how reports work, what we can do, and the limits.",
+  "social": {
+    "title": "Map rules · Exitwise",
+    "description": "The rules for publishing custom maps in Exitwise, and how reports work.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+      { "@type": "ListItem", "position": 4, "name": "Map rules", "item": "https://vgraphics.gr/exitwise/map-rules.html" }
+    ]
+  },
+  "hero": {
+    "title": "Exitwise map rules",
+    "lead": "Map rules",
+    "align": "center",
+    "art": {
+      "alt": "A player building an arrow puzzle board of their own on a hilltop",
+      "wiki": "custom-maps",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
+    }
+  },
+  "sections": [
+    { "id": "map-rules", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games", "path": "docs/store/exitwise-map-rules.html" } }] }
+  ]
+}

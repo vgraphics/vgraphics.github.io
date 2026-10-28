@@ -1,0 +1,22 @@
+{
+  "title": "A Speedometer layout: Speedometer Live Wallpaper",
+  "description": "A dashboard layout from the Speedometer Live Wallpaper layout market, drawn live in your browser. Try it in any style, or open it in the app.",
+  "robots": "noindex",
+  "social": {
+    "title": "A Speedometer layout",
+    "description": "A dashboard layout from the Speedometer Live Wallpaper market, drawn live in your browser. Open it in the app on Android, or get the app on Google Play.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "hero": {
+    "title": "A Speedometer layout",
+    "lead": "A dashboard layout, <em>shared with you.</em>",
+    "align": "center"
+  },
+  "sections": [
+    {
+      "id": "layout",
+      "blocks": [{ "type": "embed", "src": "layout" }]
+    }
+  ]
+}

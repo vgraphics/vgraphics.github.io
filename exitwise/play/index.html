@@ -6,15 +6,22 @@
     <title>Play Exitwise</title>
     <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
-    <link rel="icon" href="/exitwise/img/icon-512.png">
-    <link rel="apple-touch-icon" href="/exitwise/img/icon-512.png">
+    <!-- The site's own favicon (the round tower logo) and touch icon (the app icon), as every Exitwise page has them. -->
+    <link rel="icon" href="/exitwise/assets/icon-32.png">
+    <link rel="apple-touch-icon" href="/exitwise/assets/icon-180.png">
+    <!-- Exitwise's cursors, as on every Exitwise page: its theme pack sets them (for mice and trackpads only, so phones
+         don't wait for it) and the site's shared rules put them to use. -->
+    <link rel="stylesheet" href="/exitwise/theme/theme.css" media="(hover: hover) and (pointer: fine)">
+    <link rel="stylesheet" href="/assets/cursors.css">
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted). -->
+    <script src="/assets/no-select.js" defer></script>
     <!-- Exitwise's welcome art (#loader-art), asked for first so it is ready when the VGraphics intro ends: one file. -->
-    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-aspect-ratio: 6/5)"
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(max-aspect-ratio: 1/2)"
           imagesrcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" imagesizes="100vw">
-    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-aspect-ratio: 2/1)"
-          imagesrcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" imagesizes="241.5vh">
+    <link rel="preload" as="image" type="image/webp" fetchpriority="high" media="(min-aspect-ratio: 16/9)"
+          imagesrcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" imagesizes="232vh">
     <link rel="preload" as="image" type="image/webp" fetchpriority="high"
-          media="(min-aspect-ratio: 1201/1000) and (max-aspect-ratio: 1999/1000)"
+          media="(min-aspect-ratio: 501/1000) and (max-aspect-ratio: 1777/1000)"
           imagesrcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w" imagesizes="177.78vh">
     <!-- The preview chat apps and social sites show for a link. -->
     <meta property="og:type" content="website">
@@ -32,19 +39,39 @@
     <style>
       /* The game's font for the loading screen, from the site's Exitwise pages (a local build shows a stand-in). */
       @font-face { font-family: "Lilita One"; font-display: block; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); }
+      /* The About panel's words, in the Exitwise pages' body font. */
+      @font-face { font-family: "Comic Neue"; font-weight: 700; font-display: swap; src: url("/exitwise/fonts/comic-neue-700-latin.woff2") format("woff2"); }
       :root { --paper: #F4EFE6; --card: #FFFDF8; --line: #DED4C4; --ink: #3B3355; --muted: #6B6385; --green: #3BB273; --bar: 44px;
-              --ad: 0px; }
+              --ad: 0px; --violet: #32044F; }
       html.with-banner { --ad: 58px; }
-      html, body { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; background: var(--paper); color: var(--ink);
+      html, body { margin: 0; padding: 0; width: 100%; background: var(--paper); color: var(--ink);
                    font-family: system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; }
+      /* The page scrolls, up and down only, from the game on its first screen to the About panel under it (George, 27 Oct
+         2026: "Build the About Exitwise panel on the play page as in the mock-up"), with Exitwise's violet scrollbar. */
+      html { overflow-x: hidden; scrollbar-color: var(--violet) var(--paper); }
+      body { overflow-x: hidden; }
+      /* No selecting, no long-press menu and no dragging pictures on the page: the loader, the footer, the sign-in card
+         and the storybook reader (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page. Global
+         rule. Selected highlighted text must have color of app or game."); the script below blocks the right-click menu.
+         The fields people type in, and the copy buttons' hidden text box, keep both, so paste and copying work; what's
+         selected there shows in Exitwise's deep violet (the logo's stroke, the site's --scrollbar for Exitwise). */
+      html { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      img { -webkit-user-drag: none; }
+      input, textarea, [contenteditable]:not([contenteditable="false"]) {
+        -webkit-user-select: text; user-select: text; -webkit-touch-callout: default;
+      }
+      ::selection { background: var(--violet); color: var(--card); }
       /* The game fills the window's whole width, as in the CrazyGames build (WebGLTemplates/Responsive): it keeps its own
          buttons in a centred column on wide windows and gives the board the rest. Only the footer and the banner strip
-         are under it, and nothing beside it. */
-      #unity-canvas { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); width: 100%;
-                      height: calc(100% - var(--bar) - var(--ad)); display: block; background: var(--paper); outline: none; }
+         are under it, and nothing beside it. They make the first screen (#first, its height steady while a phone's
+         address bar comes and goes); the About panel starts below it. Scrolling, dragging and pinching over the game
+         stay with the game (touch-action here, and the wheel in the script below), so nobody scrolls it away by accident. */
+      #first { position: relative; height: calc(100vh - var(--bar)); height: calc(100svh - var(--bar)); }
+      #unity-canvas { position: absolute; left: 0; top: 0; width: 100%; height: calc(100% - var(--ad)); display: block;
+                      background: var(--paper); outline: none; touch-action: none; }
       /* The banner's strip, between the game and the footer, so the ad never covers the game. It opens with the first
          level and stays (exact sizes per screen width, as AdSense allows for a responsive unit). */
-      #ad-banner { position: fixed; left: 0; right: 0; bottom: var(--bar); height: var(--ad); box-sizing: border-box; display: none;
+      #ad-banner { position: absolute; left: 0; right: 0; bottom: 0; height: var(--ad); box-sizing: border-box; display: none;
                    align-items: center; justify-content: center; overflow: hidden; border-top: 1px solid var(--line);
                    background: var(--paper); color: var(--muted); font-size: 12px; }
       html.with-banner #ad-banner { display: flex; }
@@ -53,27 +80,19 @@
         html.with-banner { --ad: 98px; }
         .exitwise_banner { width: 728px; height: 90px; }
       }
-      /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's icon,
-         its arrows nudging the way they point, the title and the download. The dots are the board's. Sized by the
-         window's height. */
-      #loader { position: fixed; left: 0; top: 0; right: 0; bottom: calc(var(--bar) + var(--ad)); display: flex; flex-direction: column;
+      /* The loading screen over the game's place, as in the CrazyGames build (WebGLTemplates/Responsive): the game's logo
+         and the download. The dots are the board's. Sized by the window's height too. */
+      #loader { position: absolute; left: 0; top: 0; right: 0; bottom: var(--ad); display: flex; flex-direction: column;
                 align-items: center; justify-content: center;
                 background: var(--paper) radial-gradient(circle, #DCD2C2 2.5px, transparent 3px) 0 0 / 30px 30px;
                 font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; color: var(--ink);
                 transition: opacity 0.3s; }
       #loader.done { opacity: 0; pointer-events: none; }
-      /* The logo's place, above the bar: the icon and the title (a splash could take their place). */
-      #loader-logo { display: flex; flex-direction: column; align-items: center; }
-      #loader-logo svg { width: min(30vh, 170px); height: min(30vh, 170px); overflow: visible; }
-      .arrow path { fill: none; stroke: currentColor; stroke-width: 58; stroke-linecap: round; stroke-linejoin: round; }
-      .arrow .head { fill: currentColor; stroke-width: 16; }
-      .arrow { animation: 1.8s ease-in-out infinite; }
-      .red { color: #FF6B6B; animation-name: nudge-up; }
-      .green { color: #3BB273; animation-name: nudge-up; animation-delay: 0.3s; }
-      .blue { color: #1C9FD8; animation-name: nudge-right; animation-delay: 0.6s; }
-      @keyframes nudge-up { 0%, 45%, 100% { transform: translateY(0); } 20% { transform: translateY(-26px); } }
-      @keyframes nudge-right { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(26px); } }
-      #loader-title { margin: min(2.5vh, 16px) 0 min(4vh, 28px); font-size: min(9vh, 64px); line-height: 1; letter-spacing: 0.01em; }
+      /* The logo's place, above the bar: the Exitwise logo, the round tower logo with the title to its right
+         (docs/brand/exitwise/round3, logo/ made by docs/brand/tools/web_logo.py; George, 24 Oct: the old icon of three
+         arrows "was a placeholder"). The picture carries the title. */
+      #loader-logo { margin-bottom: min(4.5vh, 32px); }
+      #loader-logo img { display: block; width: min(84vw, 600px, 80vh); height: auto; }
       /* The bar, chubby like the game's buttons: a white pill on a darker lip with a groove in it, and in the groove a fat
          green arrow, .bar-fill its body and .bar-head its head, that grows to the right. --t is the arrow's thickness and
          --lead its length at 0%, a round tail and the head; the script slides both parts along the rest of the groove. */
@@ -93,12 +112,17 @@
                   background: #3BB273; box-shadow: inset 0 calc(var(--t) * -0.16) 0 #2A8A57; }
       .bar-fill::after { content: ""; position: absolute; left: 0; right: calc(var(--t) / 2); top: 16%; height: 28%; border-radius: 999px 0 0 999px;
                          background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3)); }
-      /* Body and head move together, by transform only, which the compositor keeps smooth while the page is busy
-         starting the game. The arrowhead squashes and stretches about its back (the script's keyframes). */
-      .bar-fill, .bar-head { transform: translateX(calc(var(--lead) - 100%)); transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1); }
+      /* Body and head move together, by transform only (the script plans each glide as a transition), which the
+         compositor keeps smooth while the page is busy starting the game. The arrowhead squashes, and its face
+         stretches with the speed, about its back (the script's keyframes). */
+      .bar-fill, .bar-head { transform: translateX(calc(var(--lead) - 100%)); }
       .bar-tip { position: absolute; right: 0; top: 50%; width: var(--hl); height: calc(var(--t) * 1.5); margin-top: calc(var(--t) * -0.75);
                  transform-origin: 0 50%; }
-      .bar-tip svg { display: block; width: 100%; height: 100%; }
+      .bar-tip svg { display: block; width: 100%; height: 100%; transform-origin: 0 50%; }
+      /* The sparkles the script flings off the arrowhead, its em a bar height; it sets each one's left to the head's. */
+      .bar-spark { position: absolute; top: calc(var(--pad) + var(--t) / 2); font-size: var(--h); width: 0.5em; height: 0.5em;
+                   margin: -0.25em 0 0 -0.25em; opacity: 0; pointer-events: none; }
+      .bar-spark svg { display: block; width: 100%; height: 100%; overflow: visible; }
       /* Full, while the game starts: the arrow nudges to get out and a sheen runs along it. */
       .bar-groove::after { content: ""; position: absolute; inset: 0; opacity: 0; transform: translateX(-100%);
                            background: linear-gradient(100deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.5) 50%, rgba(255, 255, 255, 0) 70%); }
@@ -108,8 +132,8 @@
       @keyframes tip-nudge { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(16%); } }
       #loader-status { position: relative; margin-top: min(3.4vh, 22px); font-size: min(4.2vh, 24px); color: #8A80A3; }
       /* Exitwise's welcome art (docs/brand/exitwise-key-art), after the VGraphics intro (brand-intro/brand-intro.js) and
-         while the game loads. It carries the title, so once it can be drawn it takes the place of the icon and the title,
-         and the bar and status move down onto its meadow over a soft shade. Until then, or without it, the paper stays. */
+         while the game loads. It carries the title, so once it can be drawn it takes the place of the logo, and the bar
+         and status move down onto its meadow over a soft shade. Until then, or without it, the paper stays. */
       #loader-art { position: absolute; inset: 0; overflow: hidden; background: #0A090D; opacity: 0; transition: opacity 0.3s; }
       #loader-art img { position: absolute; left: 0; top: 0; width: 100%; height: 100%; object-fit: cover; }
       #loader-art::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 36%;
@@ -121,28 +145,98 @@
       /* As it comes into view, it settles from a touch larger. */
       #loader-art.settle img { animation: art-settle 1.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
       @keyframes art-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
-      /* Windows wider than even the wide picture (past 12:5, such as 32:9) see all of it, its own colours blurred beside it. */
+      /* Windows wider than even the wide picture (past 7:3, such as 32:9) see all of it, its own colours blurred beside it. */
       #loader-art .ambient { display: none; position: absolute; inset: -40px; background: center / cover no-repeat;
                              filter: blur(28px) brightness(0.75); }
-      @media (min-aspect-ratio: 12/5) {
+      @media (min-aspect-ratio: 7/3) {
         #loader-art img { object-fit: contain; }
         #loader-art .ambient { display: block; }
       }
       /* While the statistics question's card would cover them, the bar and its status wait above it (--lift). */
       #loader-bar, #loader-status { translate: 0 calc(var(--lift, 0px) * -1); transition: translate 0.3s cubic-bezier(0.23, 1, 0.32, 1); }
       @media (prefers-reduced-motion: reduce) {
-        .arrow, #loader.starting .bar-tip, #loader.starting .bar-groove::after, #loader-art.settle img { animation: none; }
-        .bar-fill, .bar-head { transition-duration: 0.2s; }
+        #loader.starting .bar-tip, #loader.starting .bar-groove::after, #loader-art.settle img { animation: none; }
       }
       footer { position: fixed; left: 0; right: 0; bottom: 0; height: var(--bar); box-sizing: border-box; padding: 0 16px;
                display: flex; align-items: center; gap: 16px; border-top: 1px solid var(--line); background: var(--card);
                font-size: 13px; white-space: nowrap; overflow: hidden; }
       footer a, footer button { color: var(--ink); font: inherit; font-weight: 600; text-decoration: none; background: none; border: 0;
-                                padding: 6px 0; cursor: pointer; }
+                                padding: 6px 0; cursor: var(--cursor-link, pointer); }
       footer a:hover, footer button:hover { text-decoration: underline; }
       footer .legal { margin-left: auto; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
       footer .legal a { color: var(--muted); font-weight: 400; }
-      @media (max-width: 640px) { footer .legal .long { display: none; } }
+      /* The About panel's button, in Exitwise's violet: down to the panel, and "Back to the game" once it's there. */
+      footer #about-go { display: inline-flex; align-items: center; gap: 6px; height: 30px; padding: 0 14px; border-radius: 999px;
+                         background: var(--violet); color: var(--card); font-weight: 700; }
+      footer #about-go:hover { text-decoration: none; filter: brightness(1.3); }
+      footer #about-go:focus-visible { outline: 2px solid var(--violet); outline-offset: 2px; }
+      #about-go svg { width: 14px; height: 14px; transition: transform 0.25s; }
+      #about-go.up svg { transform: rotate(180deg); }
+      /* Phones: the bar keeps the way back to Exitwise and the button; Privacy, Statistics, Ad choices and the legal line
+         are at the panel's foot. */
+      @media (max-width: 640px) {
+        footer .wide-only, footer .legal { display: none; }
+        footer #about-go { margin-left: auto; }
+      }
+      /* The About panel (#about): the Exitwise pages' look, its dotted paper, its cards and its fonts, under the game. */
+      #about { padding: 56px 32px calc(var(--bar) + 64px); display: grid; gap: 40px; justify-items: center;
+               background: var(--paper) radial-gradient(#D2C6B2 1.6px, transparent 1.9px) 15px 15px / 30px 30px;
+               font: 700 16px/1.5 "Comic Neue", "Comic Sans MS", system-ui, sans-serif; }
+      #about > * { width: 100%; max-width: 980px; box-sizing: border-box; }
+      #about h1, #about h2, #about h3 { font-family: "Lilita One", "Arial Rounded MT Bold", "Trebuchet MS", sans-serif; font-weight: 400;
+                                        margin: 0; line-height: 1.1; text-wrap: balance; }
+      #about h1 { font-size: clamp(30px, 4vw, 44px); }
+      #about h2 { font-size: clamp(25px, 3vw, 30px); }
+      #about h3 { font-size: 21px; }
+      #about p { margin: 0; }
+      #about a { color: var(--ink); }
+      #about .head { display: grid; gap: 14px; justify-items: start; }
+      #about .head img { width: min(260px, 60vw); height: auto; }
+      #about .lede { font-size: clamp(17px, 2vw, 19px); line-height: 1.55; max-width: 44em; }
+      #about section { display: grid; gap: 16px; }
+      #about .card { background: var(--card); border: 3px solid #E6DCCC; border-radius: 26px; box-sizing: border-box;
+                     box-shadow: inset 0 -5px 0 rgba(59, 51, 85, 0.05), 0 12px 24px -16px rgba(59, 51, 85, 0.4); }
+      #about .how { display: grid; grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); gap: 18px; align-items: start; }
+      #about .steps { list-style: none; margin: 0; padding: 24px; display: grid; gap: 16px; counter-reset: step; }
+      #about .steps li { counter-increment: step; display: grid; grid-template-columns: 40px minmax(0, 1fr); gap: 14px; align-items: start; }
+      #about .steps li::before { content: counter(step); display: grid; place-items: center; width: 40px; height: 40px; border-radius: 50%;
+                                 background: var(--green); color: #fff; font: 400 22px/1 "Lilita One", sans-serif; box-shadow: inset 0 -4px 0 #2A8A57; }
+      #about .stuck { padding: 24px; display: grid; gap: 10px; background: #EAF3F9; border-color: #CFE2EE; }
+      #about .stuck h3 { font-size: 22px; color: #176A99; }
+      #about .tiles { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 14px; }
+      #about .tile { padding: 20px 22px; display: grid; gap: 6px; align-content: start; }
+      #about .tile p { color: var(--muted); font-size: 15px; }
+      #about .phone { padding: 22px 24px; display: flex; flex-wrap: wrap; gap: 16px 24px; align-items: center; justify-content: space-between; }
+      #about .phone p { max-width: 40em; }
+      #about .phone img { display: block; height: 52px; width: auto; }
+      /* The questions open and close with the site's shared script (/assets/faq.js): one open at a time, animated. */
+      #about .faq { display: grid; gap: 10px; }
+      #about .faq-item { overflow: hidden; }
+      #about .faq-item > summary { list-style: none; cursor: var(--cursor-link, pointer); padding: 16px 22px; display: flex; align-items: center; gap: 12px;
+                                   font: 400 20px/1.2 "Lilita One", sans-serif; }
+      #about .faq-item > summary::-webkit-details-marker { display: none; }
+      #about .faq-item > summary:focus-visible { outline: 3px solid var(--violet); outline-offset: -3px; border-radius: 23px; }
+      #about .faq-item .chev { flex: none; width: 20px; height: 20px; margin-left: auto; color: var(--muted); transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+      #about .faq-item[open] > summary .chev { transform: rotate(180deg); }
+      #about .faq-item[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
+      #about .faq-a { padding: 0 22px 18px; }
+      #about .links { display: flex; flex-wrap: wrap; gap: 10px; }
+      #about .links a { display: inline-flex; align-items: center; min-height: 42px; padding: 0 18px; border-radius: 999px; background: var(--card);
+                        border: 3px solid #E6DCCC; box-sizing: border-box; text-decoration: none; font-size: 15px; }
+      #about .links a:hover { border-color: var(--violet); }
+      #about .end { display: grid; justify-items: center; gap: 14px; text-align: center; }
+      #about .end .back { height: 48px; padding: 0 26px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer); background: var(--green);
+                          color: #fff; font: 400 20px/1 "Lilita One", sans-serif; box-shadow: inset 0 -5px 0 #2A8A57; }
+      #about .end small { color: var(--muted); font: 400 12px/1.7 system-ui, -apple-system, "Segoe UI", sans-serif; max-width: 60em; }
+      #about .end small a, #about .end small button { color: var(--muted); font: inherit; background: none; border: 0; padding: 0;
+                                                      text-decoration: underline; cursor: var(--cursor-link, pointer); }
+      @media (max-width: 760px) {
+        #about { padding: 36px 16px calc(var(--bar) + 48px); gap: 30px; }
+        #about .how, #about .tiles { grid-template-columns: minmax(0, 1fr); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        #about-go svg, #about .faq-item .chev { transition: none; }
+      }
       #consent { position: fixed; inset: 0; z-index: 900; display: none; align-items: flex-end; justify-content: center; padding: 16px;
                  padding-bottom: calc(var(--bar) + var(--ad) + 16px); background: rgba(59, 51, 85, 0.25); }
       #consent.open { display: flex; }
@@ -151,12 +245,48 @@
       #consent h2 { margin: 0 0 6px; font-size: 18px; }
       #consent p { margin: 0 0 16px; font-size: 14px; line-height: 1.45; color: var(--muted); }
       #consent .buttons { display: flex; gap: 10px; justify-content: flex-end; }
-      #consent button { font: inherit; font-weight: 700; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: pointer;
+      #consent button { font: inherit; font-weight: 700; font-size: 15px; border-radius: 999px; padding: 10px 18px; cursor: var(--cursor-link, pointer);
                         border: 2px solid var(--line); background: var(--card); color: var(--ink); }
       #consent button.allow { background: var(--green); border-color: var(--green); color: #fff; }
       /* Wide windows: the card waits in the bottom right corner, beside the loading bar rather than over it. */
       @media (min-width: 900px) { #consent { justify-content: flex-end; } }
     </style>
+    <script>
+      // No right-click menu (nor Android's long-press one) outside the fields people type in, from the first frame, and
+      // no dragging pictures in Firefox, which ignores -webkit-user-drag (George, 26 Oct 2026: "Dont allow text
+      // selection and right clicking in any page.").
+      // A light deterrent against copying too (George, 27 Oct 2026), as vgraphics.gr's /assets/no-select.js: outside the
+      // fields, the keys that open the developer tools or the page's source do nothing (F12, Ctrl+Shift+I, J and C,
+      // Ctrl+U; on a Mac Cmd+Option+I, J, C and U), by the key's place (code), since Option and a Greek layout change its
+      // letter, and the game still gets every key. The console shows the warning once a page, under the mark the site's
+      // piece shares (it waits for the page to load, so this one prints). Nothing watches for the tools: the game and its
+      // error reports work the same with them open.
+      (function () {
+        var FIELDS = 'input, textarea, [contenteditable]:not([contenteditable="false"])';
+        document.addEventListener("contextmenu", function (e) {
+          if (!(e.target.closest && e.target.closest(FIELDS))) e.preventDefault();
+        });
+        document.addEventListener("dragstart", function (e) {
+          if (e.target.tagName === "IMG") e.preventDefault();
+        });
+        document.addEventListener("keydown", function (e) {
+          var devKey = e.key === "F12" ||
+            (e.ctrlKey && !e.altKey && !e.metaKey && (e.shiftKey ? /^Key[IJC]$/ : /^KeyU$/).test(e.code)) ||
+            (e.metaKey && e.altKey && !e.ctrlKey && /^Key[IJCU]$/.test(e.code));
+          if (devKey && !(e.target.closest && e.target.closest(FIELDS))) e.preventDefault();
+        }, true);
+        var WARNED = Symbol.for("vgraphics.console-warning");
+        var WARNING = {
+          en: ["Stop!", "This site, with its art, music and code, belongs to VGraphics. Copying any of it is not allowed.\nTerms of use: https://vgraphics.gr/terms/"],
+          el: ["Σταματήστε!", "Αυτός ο ιστότοπος, με την τέχνη, τη μουσική και τον κώδικά του, ανήκει στη VGraphics. Δεν επιτρέπεται η αντιγραφή κανενός μέρους του.\nΌροι χρήσης: https://vgraphics.gr/terms/"]
+        };
+        if (!window[WARNED]) {
+          window[WARNED] = true;
+          var warning = WARNING[document.documentElement.lang.indexOf("el") === 0 ? "el" : "en"];
+          console.log("%c" + warning[0] + "%c\n" + warning[1], "color:#E5322D;font-size:52px;font-weight:bold;-webkit-text-stroke:1px #000", "font-size:16px;line-height:1.5");
+        }
+      })();
+    </script>
     <!-- The ad switch of every VGraphics web game: the site's /assets/web-ads.js (window.VGRAPHICS_WEB_ADS), read before
          the page decides about ads. A local build has no such file, so it shows no ads, as before. -->
     <script src="/assets/web-ads.js"></script>
@@ -252,8 +382,10 @@
             window.__tcfapi("addEventListener", 2, function (data, ok) {
               if (!ok || !data) return;
               ads.gdprApplies = data.gdprApplies === true;
-              var choices = document.getElementById("ad-choices");
-              if (choices) choices.hidden = !ads.gdprApplies;
+              // In the bar and at the About panel's foot.
+              Array.prototype.forEach.call(document.querySelectorAll("[data-ad-choices]"), function (choices) {
+                choices.hidden = !ads.gdprApplies;
+              });
               messageOpen = data.eventStatus === "cmpuishown";
               // Answered, now or on an earlier visit: consent mode's values follow right after.
               if (!messageOpen) setTimeout(settle, 1000);
@@ -295,24 +427,20 @@
     </script>
   </head>
   <body>
+    <!-- The first screen: the game, its loader and, under it, the banner strip. -->
+    <div id="first">
     <canvas id="unity-canvas" tabindex="-1"></canvas>
     <div id="loader">
-      <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's picture: its tall version
-           on phones and narrow windows, its wide version from 2:1, the picture itself in between. -->
+      <!-- Exitwise's welcome art with the game's title (docs/brand/exitwise-key-art), George's tall picture: on phones
+           taller than 1:2 with more sky and meadow, from 1:2 to 16:9 in its 16:9 outpaint, and from 16:9 in its 7:3
+           outpaint. Each covers by cutting only its sides, so the tower and title stay whole. -->
       <div id="loader-art"><div class="ambient"></div><picture>
-        <source media="(max-aspect-ratio: 6/5)" type="image/webp" srcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" sizes="100vw">
-        <source media="(min-aspect-ratio: 2/1)" type="image/webp" srcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" sizes="241.5vh">
+        <source media="(max-aspect-ratio: 1/2)" type="image/webp" srcset="art/key-art-portrait-720.webp 720w, art/key-art-portrait-1080.webp 1080w" sizes="100vw">
+        <source media="(min-aspect-ratio: 16/9)" type="image/webp" srcset="art/key-art-wide-2600.webp 2600w, art/key-art-wide-3440.webp 3440w" sizes="232vh">
         <img src="art/key-art-1920.webp" srcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w"
              sizes="177.78vh" alt="" fetchpriority="high" decoding="async">
       </picture></div>
-      <div id="loader-logo">
-        <svg viewBox="0 0 512 512" aria-hidden="true">
-          <g class="arrow red"><path d="M97 418V140" /><path class="head" d="M44 142L97 84L150 142Z" /></g>
-          <g class="arrow green"><path d="M238 136V272H380V140" /><path class="head" d="M327 142L380 84L433 142Z" /></g>
-          <g class="arrow blue"><path d="M238 415H384" /><path class="head" d="M382 362L440 415L382 468Z" /></g>
-        </svg>
-        <div id="loader-title">Exitwise</div>
-      </div>
+      <div id="loader-logo"><img src="logo/exitwise-logo.webp" width="1200" height="269" alt="Exitwise"></div>
       <div id="loader-bar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">
         <div class="bar-shadow"></div>
         <div class="bar-hop"><div class="bar-jelly">
@@ -331,12 +459,87 @@
     <!-- The VGraphics intro over the loader, which keeps counting underneath (docs/brand/splash/INTEGRATION.md). -->
     <script src="brand-intro/brand-intro.js"></script>
     <div id="ad-banner" aria-label="Advertisement"></div>
+    </div>
+    <!-- The About panel under the game (George, 27 Oct 2026, on the approved mock-up; D:\Projects\Mine\CLAUDE.md, "An
+         'About' panel under every play and try page"): what Exitwise is and how to play it, in words of its own that a
+         reader and a search engine find before the game loads. No ads in it. Its facts come from the game and its wiki
+         (vgraphics.gr/exitwise/wiki/); keep them true when the game changes. Its logo and store badge carry the
+         classes the site's check-site knows them by ("logo", "gp"): logos and badges may repeat, but every picture of art
+         is shown once on the site (George, 26 Oct 2026), and the loader shows this logo too. -->
+    <main id="about" aria-labelledby="about-title">
+      <header class="head">
+        <img class="logo" src="logo/exitwise-logo.webp" width="1200" height="269" alt="Exitwise" loading="lazy">
+        <h1 id="about-title">The arrow puzzle you can play right here</h1>
+        <p class="lede">Every arrow on the board points somewhere. Tap one and it slides away, but only if nothing stands in its
+          way. Find the order that sets them all free, from a gentle first board to puzzles bigger than your screen.</p>
+      </header>
+
+      <section aria-labelledby="how-title">
+        <h2 id="how-title">How to play</h2>
+        <div class="how">
+          <ol class="steps card">
+            <li><p>Look where each arrow points. Its path runs straight on to the edge of the board.</p></li>
+            <li><p>Tap an arrow whose path is clear, and off it goes. Tap a blocked one and you lose one of your 3 hearts.</p></li>
+            <li><p>Clear every arrow to win. Clearing one can only ever free others, so no level turns impossible halfway.</p></li>
+          </ol>
+          <div class="stuck card">
+            <h3>Stuck?</h3>
+            <p>A hint lights up an arrow that can leave right now. The first 3 are free, then they cost 30 coins.</p>
+            <p>On a big board, drag to move around and pinch to see all of it.</p>
+          </div>
+        </div>
+      </section>
+
+      <section aria-labelledby="inside-title">
+        <h2 id="inside-title">What's inside</h2>
+        <div class="tiles">
+          <div class="tile card"><h3>600 levels, 17 worlds</h3><p>From Meadow to Starlight, each world with its own look, along one long map.</p></div>
+          <div class="tile card"><h3>A hard level every 10th</h3><p>Bigger, always a picture, played at night, and worth 30 coins.</p></div>
+          <div class="tile card"><h3>New obstacles as you go</h3><p>Rocks, bombs, ice, mirrors, portals, shutters and colour gates, each introduced as you reach it.</p></div>
+          <div class="tile card"><h3>A daily challenge</h3><p>One board a day, the same for every player, with rewards for each month.</p></div>
+          <div class="tile card"><h3>Rooms with friends</h3><p>Race 2 to 8 players on the same boards. Share a 6-character code and go.</p></div>
+          <div class="tile card"><h3>Your own maps</h3><p>Build levels, share them by code, and play the ones other players made.</p></div>
+        </div>
+      </section>
+
+      <div class="phone card">
+        <p>Exitwise is free on Android too. Sign in with Google here and on your phone, and your progress, your name and your settings come with you.</p>
+        <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play" loading="lazy"></a>
+      </div>
+
+      <section aria-labelledby="faq-title">
+        <h2 id="faq-title">Questions</h2>
+        <div class="faq">
+          <details class="faq-item card"><summary>Is Exitwise free?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Yes, here and on Android. You earn coins by playing: 10 for a level, 30 for a hard one, and 5 more for a perfect clear.</p></div></details>
+          <details class="faq-item card"><summary>Do I need an account?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>No, you can play straight away. Signing in with Google keeps your progress and your settings on every device and puts your name on the leaderboards.</p></div></details>
+          <details class="faq-item card"><summary>Can every level be solved?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Yes. Every level comes from a fixed seed, so everyone gets the same board, and each one is tested to be solvable before it ships.</p></div></details>
+        </div>
+      </section>
+
+      <section aria-labelledby="more-title">
+        <h2 id="more-title">More about Exitwise</h2>
+        <nav class="links" aria-labelledby="more-title">
+          <a href="/exitwise/wiki/">The wiki: every obstacle and powerup</a>
+          <a href="/exitwise/ranking/">Global ranking</a>
+          <a href="/devlog/exitwise-board-shapes/">Devlog: why the boards stopped being rectangles</a>
+          <a href="/exitwise/">All about Exitwise</a>
+        </nav>
+      </section>
+
+      <div class="end">
+        <button type="button" class="back">Back to the game</button>
+        <small>&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 ·
+          <a href="/company/">Company</a> · <a href="/terms/">Terms</a> · <a href="/exitwise/privacy.html">Privacy</a> ·
+          <button type="button" data-statistics>Statistics</button><span data-ad-choices hidden> · <button type="button" data-ad-choices-open>Ad choices</button></span></small>
+      </div>
+    </main>
     <footer>
       <a href="/exitwise/">&larr; Exitwise</a>
-      <a href="/exitwise/privacy.html">Privacy</a>
-      <button type="button" id="statistics">Statistics</button>
-      <button type="button" id="ad-choices" hidden>Ad choices</button>
-      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> · G.E.MI. no. 181823306000 · VAT no. EL802736373</span> · <a href="/company/">Company</a></span>
+      <a href="/exitwise/privacy.html" class="wide-only">Privacy</a>
+      <button type="button" id="statistics" class="wide-only" data-statistics>Statistics</button>
+      <button type="button" id="ad-choices" class="wide-only" data-ad-choices data-ad-choices-open hidden>Ad choices</button>
+      <button type="button" id="about-go" aria-controls="about"><span>About this game</span><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></button>
+      <span class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C.<span class="long"> All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373</span> · <a href="/company/">Company</a> · <a href="/terms/">Terms</a></span>
     </footer>
     <div id="consent" role="dialog" aria-modal="true" aria-labelledby="consent-title">
       <div class="card">
@@ -366,11 +569,16 @@
         Array.prototype.forEach.call(dialog.querySelectorAll("button[data-answer]"), function (button) {
           button.addEventListener("click", function () { answer(button.getAttribute("data-answer")); });
         });
-        document.getElementById("statistics").addEventListener("click", function () { dialog.classList.add("open"); });
+        // Statistics and Ad choices are in the bar and at the About panel's foot (only there on phones).
+        var each = function (selector, then) { Array.prototype.forEach.call(document.querySelectorAll(selector), then); };
+        each("[data-statistics]", function (button) {
+          button.addEventListener("click", function () { dialog.classList.add("open"); });
+        });
         var ads = window.exitwiseAds;
-        var choices = document.getElementById("ad-choices");
-        choices.hidden = !ads.privacyOptionsRequired();
-        choices.addEventListener("click", function () { ads.showPrivacyOptions(); });
+        each("[data-ad-choices]", function (choices) { choices.hidden = !ads.privacyOptionsRequired(); });
+        each("[data-ad-choices-open]", function (button) {
+          button.addEventListener("click", function () { ads.showPrivacyOptions(); });
+        });
         // With ads, Google's consent message comes first; at once without.
         ads.afterConsentMessages(function () {
           if (stored() === "granted" || stored() === "denied") return;
@@ -381,21 +589,86 @@
         });
       })();
     </script>
+    <script>
+      // The About panel: the bar's button scrolls down to it and, once the panel fills most of the window, reads "Back to
+      // the game" and scrolls back up, as does the button at the panel's end. The wheel over the game is the game's (its
+      // board zooms), never the page's.
+      (function () {
+        var about = document.getElementById("about");
+        var go = document.getElementById("about-go");
+        var label = go.querySelector("span");
+        var game = document.getElementById("unity-canvas");
+        var still = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+        var to = function (top) { window.scrollTo({ top: top, behavior: still ? "auto" : "smooth" }); };
+        var down = false;
+        var update = function () {
+          var now = window.scrollY > about.offsetTop - window.innerHeight * 0.6;
+          if (now === down) return;
+          down = now;
+          go.classList.toggle("up", down);
+          label.textContent = down ? "Back to the game" : "About this game";
+        };
+        var back = function () {
+          to(0);
+          game.focus({ preventScroll: true });
+        };
+        go.addEventListener("click", function () { if (down) back(); else to(about.offsetTop); });
+        about.querySelector(".back").addEventListener("click", back);
+        var queued = false;
+        window.addEventListener("scroll", function () {
+          if (queued) return;
+          queued = true;
+          requestAnimationFrame(function () { queued = false; update(); });
+        }, { passive: true });
+        window.addEventListener("resize", update);
+        game.addEventListener("wheel", function (e) { e.preventDefault(); }, { passive: false });
+        update();
+      })();
+    </script>
+    <!-- The site's questions and answers: they open and close smoothly, one at a time (a local build has no such file,
+         and they open and close at once). -->
+    <script type="module" src="/assets/faq.js"></script>
+    <!-- VHub, VGraphics' account service (window.VHubUnity), published with the hub: the game signs in through it, so it
+         shares the hub's VHub session in this browser (ArrowPuzzleVHub.jslib). A local build has no such file and signs in
+         to nothing. -->
+    <script src="/hub/sdk/vhub-unity-1.js"></script>
     <script src="Build/WebGLPortfolio.loader.js"></script>
     <script>
-      // The loading bar, the same in WebGLTemplates/Responsive: Unity's download in steps that ease in and never go back.
-      // Each step stretches the arrowhead as it shoots ahead, squashes it as it stops and wobbles the bar; full, the bar
-      // hops. Only transforms move, which the compositor runs while the page's own thread is busy starting the game.
-      // show(0 to 1) moves it, whenSettled(then) waits for the hop to end, stop() halts it.
+      // The loading bar, the same in WebGLTemplates/Responsive, and on phones (BootLoadingBar.cs): Unity's download, never
+      // shown ahead of it and never going back. While a pace is set it also fills no faster than the clock across the
+      // welcome art's 2 s (brand-intro.js), the curve phones use (BootFlow.Pace), so it starts empty and is full just as
+      // the game may come in. The arrow glides by CSS transitions planned ahead, its head stretching with its speed; at
+      // each quarter it gulps (a squish, the bar's wobble a beat later, two sparkles), and full it pops a burst of
+      // sparkles and the bar hops. All of that is planned ahead too, as animations of transforms and opacity, which the
+      // compositor runs while the page's own thread is busy starting the game; only the "Loading N%" count needs that
+      // thread. show(0 to 1) gives the download, pace(from, until) the clock (performance.now() ms; pace(Infinity) holds
+      // it empty), whenSettled(then) waits for the hop to end, stop() halts it.
       function loadingBar(root, onStep, onFull) {
         var part = function (name) { return root.querySelector(".bar-" + name); };
         var fill = part("fill"), head = part("head"), tip = part("tip"), jelly = part("jelly"), hop = part("hop"), shadow = part("shadow");
-        // Reduced motion keeps the steps and leaves out the squash, the wobble and the hop (the CSS drops the nudge).
+        var face = tip.querySelector("svg");
+        // Reduced motion keeps the glide and leaves out the stretch, squash, wobble, sparkles and hop (the CSS drops the
+        // nudge). Without linear() easing the arrow goes straight from stop to stop.
         var lively = typeof tip.animate === "function" &&
           !(window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches);
-        var target = 0, shown = 0, last = -1e4, timer = 0, settled = 0, stopped = false;
+        var curved = !!(window.CSS && CSS.supports && CSS.supports("transition-timing-function", "linear(0, 1)"));
         var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
         var UP = "cubic-bezier(0.61, 1, 0.88, 1)", DOWN = "cubic-bezier(0.12, 0, 0.39, 0)"; // sine out, sine in
+        var easeOut = function (x) { x = Math.min(1, Math.max(0, x)); return 1 - (1 - x) * (1 - x) * (1 - x); };
+        var smooth = function (x) { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+        var download = 0, base = 0, from = -Infinity, until = -Infinity, stopped = false;
+        // The welcome's clock: half steady, half smoothstep, from base at `from` to full at `until`.
+        var paced = function (t) {
+          if (t < from) return base;
+          if (t >= until) return 1;
+          var u = (t - from) / (until - from);
+          return base + (1 - base) * (0.5 * u + 0.5 * smooth(u));
+        };
+        // The arrow's way as planned: from a at ta to b at tb, along way(0 to 1).
+        var a = 0, b = 0, ta = 0, tb = 0, way = function (u) { return u; };
+        var at = function (t) { return t >= tb ? b : t <= ta ? a : a + (b - a) * way((t - ta) / (tb - ta)); };
+        var effects = [], stretch = null, settled = Infinity, settling = [], idle = false, percent = -1, ticking = false;
+        var place = function (shown) { return "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))"; };
         // A damped wobble as 600 ms of keyframes: out to amount, back past still, smaller each time, then still.
         var wobble = function (amount, frame) {
           var frames = [];
@@ -405,18 +678,55 @@
           }
           return frames;
         };
-        // The bigger the step, the bigger the squish. The bar follows the arrowhead a beat later.
-        var squish = function (jump, wholeBar) {
-          var amount = Math.min(0.3, 0.08 + jump * 0.6);
-          tip.animate(wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), 600);
-          if (wholeBar) {
-            jelly.animate(wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }),
-              { duration: 600, delay: 40 });
+        var later = function (element, frames, timing) {
+          var effect = { at: now() + (timing.delay || 0), run: element.animate(frames, timing) };
+          effects.push(effect);
+          return effect;
+        };
+        // The sparkles: flat candy stars in the game's ink, lemon and cream in turn, flung off the arrowhead. Each is
+        // [angle from the arrow's way in degrees (up is negative), reach, size], in bar heights (the spark's em).
+        var sparks = [];
+        for (var i = 0; i < 16; i++) {
+          var spark = document.createElement("div");
+          spark.className = "bar-spark";
+          spark.setAttribute("aria-hidden", "true");
+          spark.innerHTML = "<svg viewBox=\"0 0 40 40\"><path d=\"M20 1.8Q25.1 14.9 38.2 20Q25.1 25.1 20 38.2Q14.9 25.1 1.8 20Q14.9 14.9 20 1.8Z\" fill=\"" +
+            (i % 2 ? "#FFFDF8" : "#FFD23F") + "\" stroke=\"#3B3355\" stroke-width=\"3.6\" stroke-linejoin=\"round\" /></svg>";
+          root.appendChild(spark);
+          sparks.push({ el: spark, spin: i % 2 ? -90 : 90, busy: 0 });
+        }
+        var QUARTER = [[-40, 0.9, 0.42], [-105, 0.75, 0.34]];
+        var FULL = [[-165, 1.05, 0.4], [-120, 1.3, 0.5], [-75, 1.2, 0.44], [-30, 1.25, 0.5], [5, 1.1, 0.38], [35, 0.9, 0.34]];
+        var fling = function (delay, shown, spec) {
+          // One that is neither flying nor waiting to (16 is more than a plan ever needs at once).
+          var free = sparks.filter(function (one) { return one.busy <= now(); })[0];
+          if (!free) return;
+          var el = free.el, spin = free.spin;
+          el.style.left = "calc(var(--pad) + var(--lead) + (100% - 2 * var(--pad) - var(--lead)) * " + shown.toFixed(4) + ")";
+          var angle = spec[0] * Math.PI / 180, size = spec[2] / 0.5, frames = [];
+          // Pops past its size in the first 30 %, flies out spinning a quarter turn, shrinks away and fades at the end.
+          for (var k = 0; k <= 12; k++) {
+            var u = k / 12, out = easeOut(u) * spec[1];
+            var grow = u < 0.3 ? 1.15 * easeOut(u / 0.3) : 1.15 * (1 - smooth((u - 0.3) / 0.7));
+            frames.push({
+              opacity: u < 0.75 ? 1 : (1 - u) / 0.25,
+              transform: "translate(" + (Math.cos(angle) * out).toFixed(3) + "em, " + (Math.sin(angle) * out).toFixed(3) + "em) rotate(" +
+                (spin * u).toFixed(1) + "deg) scale(" + (grow * size).toFixed(3) + ")"
+            });
           }
+          free.busy = now() + delay + 520;
+          later(el, frames, { duration: 520, delay: delay }).spark = free;
+        };
+        // A gulp `delay` ms from now with the arrow at `shown`: the arrowhead squishes, the bar wobbles a beat later
+        // (not when full: it hops then), the sparkles fly.
+        var gulp = function (delay, shown, amount, flung) {
+          later(tip, wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), { duration: 600, delay: delay });
+          if (shown < 1) later(jelly, wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }), { duration: 600, delay: delay + 40 });
+          flung.forEach(function (spec) { fling(delay, shown, spec); });
         };
         // Full: the bar crouches, hops and lands with a squash, its shadow shrinking under it while it is up.
-        var bounce = function () {
-          hop.animate([
+        var bounce = function (delay) {
+          later(hop, [
             { offset: 0, transform: "translateY(0) scale(1, 1)", easing: UP },
             { offset: 0.16, transform: "translateY(0) scale(1.04, 0.84)", easing: UP },
             { offset: 0.44, transform: "translateY(-40%) scale(0.97, 1.08)", easing: DOWN },
@@ -424,53 +734,136 @@
             { offset: 0.8, transform: "translateY(-10%) scale(0.99, 1.03)", easing: DOWN },
             { offset: 0.92, transform: "translateY(0) scale(1.01, 0.98)" },
             { offset: 1, transform: "translateY(0) scale(1, 1)" }
-          ], 620);
-          shadow.animate([
+          ], { duration: 620, delay: delay });
+          later(shadow, [
             { offset: 0, transform: "scale(1, 1)", opacity: 1, easing: UP },
             { offset: 0.16, transform: "scale(1.05, 1)", opacity: 1, easing: UP },
             { offset: 0.44, transform: "scale(0.8, 0.8)", opacity: 0.5, easing: DOWN },
             { offset: 0.64, transform: "scale(1.06, 1)", opacity: 1, easing: UP },
             { offset: 0.8, transform: "scale(0.95, 0.95)", opacity: 0.85, easing: DOWN },
             { offset: 1, transform: "scale(1, 1)", opacity: 1 }
-          ], 620);
+          ], { duration: 620, delay: delay });
         };
-        var step = function () {
-          clearTimeout(timer);
-          if (stopped || target <= shown) return;
-          // One gulp at a time: a big one after half a second, a small one after a longer beat, the last one at once.
-          var wait = (target < 1 ? (target - shown >= 0.04 ? 500 : 900) : 0) - (now() - last);
-          if (wait > 0) {
-            timer = setTimeout(step, wait);
+        // The count, on the page's thread: "Loading N%" as the arrow passes each whole percent, then "Starting".
+        var tick = function () {
+          if (stopped) {
+            ticking = false;
             return;
           }
-          var jump = target - shown;
-          shown = target;
-          last = now();
-          var at = "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))";
-          fill.style.transform = at;
-          head.style.transform = at;
-          root.setAttribute("aria-valuenow", String(Math.floor(shown * 100)));
-          onStep(shown);
-          if (lively) squish(jump, shown < 1);
-          if (shown < 1) return;
-          if (lively) setTimeout(bounce, 150);
-          settled = last + (lively ? 770 : 0);
-          setTimeout(function () { if (!stopped) onFull(); }, settled - last);
+          var t = now(), shown = at(t), whole = Math.floor(shown * 100 + 1e-6);
+          if (whole !== percent) {
+            percent = whole;
+            root.setAttribute("aria-valuenow", String(whole));
+            onStep(whole >= 100 ? 1 : shown);
+          }
+          if (t < tb) requestAnimationFrame(tick);
+          else ticking = false;
+        };
+        var settle = function () {
+          if (stopped || now() < settled - 1) return;
+          if (!idle) {
+            idle = true;
+            onFull();
+          }
+          settling.splice(0).forEach(function (then) { then(); });
+        };
+        // From where the arrow is now to where it may go (the download, and full only once the pace allows): along the
+        // pace, after a quick catch-up if the pace has run on ahead of it while it waited for the download.
+        var plan = function () {
+          if (stopped) return;
+          var t = now(), shown = at(t), goal = Math.min(download, from === Infinity ? base : 1);
+          if (goal <= shown + 1e-4) return;
+          var catchUp = paced(t) > shown + 1e-3 ? 450 : 0;
+          var go = function (t2) {
+            var w = catchUp ? easeOut((t2 - t) / catchUp) : 1;
+            return shown + (Math.max(shown, Math.min(goal, paced(t2))) - shown) * w;
+          };
+          // When the way first reaches `share` (it only ever grows), found by halving.
+          var reach = function (share, end) {
+            var lo = t, hi = end;
+            for (var n = 0; n < 32; n++) {
+              var mid = (lo + hi) / 2;
+              if (go(mid) < share) lo = mid;
+              else hi = mid;
+            }
+            return hi;
+          };
+          var end = Math.max(t + catchUp, paced(t) >= goal ? t : reach(goal, Math.max(until, t + catchUp)));
+          var ms = Math.max(1, end - t), steps = Math.max(2, Math.min(60, Math.round(ms / 40))), points = [];
+          a = shown;
+          b = goal;
+          ta = t;
+          tb = t + ms;
+          way = curved ? function (u) { return (go(t + u * ms) - shown) / (goal - shown); } : function (u) { return u; };
+          for (var n = 0; n <= steps; n++) points.push(way(n / steps).toFixed(4));
+          [fill, head].forEach(function (element) {
+            element.style.transition = "transform " + Math.round(ms) + "ms " + (curved ? "linear(" + points.join(", ") + ")" : "linear");
+            element.style.transform = place(goal);
+          });
+          // What the last plan had still to come gives way to this one's.
+          effects.forEach(function (effect) {
+            if (effect.at <= t) return;
+            effect.run.cancel();
+            if (effect.spark) effect.spark.busy = 0;
+          });
+          effects = [];
+          if (lively) {
+            // The head stretches with the speed (bars a second), and settles back as the arrow stops.
+            var frames = [];
+            for (var n = 0; n <= steps; n++) {
+              var t2 = t + ms * n / steps, speed = (at(t2 + 8) - at(t2 - 8)) / 16 * 1000, k = Math.min(0.3, 0.2 * Math.max(0, speed));
+              frames.push({ offset: (ms * n / steps) / (ms + 120), transform: "scale(" + (1 + k).toFixed(3) + ", " + (1 - 0.5 * k).toFixed(3) + ")" });
+            }
+            frames.push({ offset: 1, transform: "scale(1, 1)" });
+            if (stretch) stretch.cancel();
+            stretch = face.animate(frames, ms + 120);
+            [0.25, 0.5, 0.75].forEach(function (quarter) {
+              if (shown < quarter && goal >= quarter) gulp(reach(quarter, tb) - t, quarter, 0.12, QUARTER);
+            });
+            if (goal >= 1) {
+              gulp(ms, 1, 0.3, FULL);
+              bounce(ms + 150);
+            }
+          }
+          if (goal >= 1) {
+            settled = tb + (lively ? 770 : 0);
+            setTimeout(settle, settled - t);
+          }
+          if (!ticking) {
+            ticking = true;
+            requestAnimationFrame(tick);
+          }
         };
         var show = function (value) {
-          if (value <= target) return;
-          target = Math.min(1, value);
-          step();
+          if (value <= download) return;
+          download = Math.min(1, value);
+          plan();
         };
         return {
           show: show,
+          pace: function (start, full) {
+            var t = now();
+            base = at(t);
+            from = Math.max(start, t);
+            until = full;
+            plan();
+          },
           whenSettled: function (then) {
             show(1);
-            setTimeout(then, Math.max(0, settled - now()));
+            settling.push(then);
+            if (now() >= settled) settle();
           },
           stop: function () {
+            var t = now();
             stopped = true;
-            clearTimeout(timer);
+            a = b = at(t);
+            ta = tb = t;
+            [fill, head].forEach(function (element) {
+              element.style.transition = "none";
+              element.style.transform = place(b);
+            });
+            effects.forEach(function (effect) { effect.run.cancel(); });
+            if (stretch) stretch.cancel();
           }
         };
       }
@@ -478,6 +871,22 @@
       var canvas = document.querySelector("#unity-canvas");
       var loader = document.querySelector("#loader");
       var statusLine = document.querySelector("#loader-status");
+      // The loading screen's end, for the game (WelcomeSplash.cs, through ArrowPuzzlePage.jslib): as it starts to fade, how
+      // long the welcome art was on it in ms (-1 if it never came), for splash_shown. Asked late, it answers at once.
+      window.exitwiseSplash = (function () {
+        var shownMs = null, waiting = [];
+        return {
+          whenGone: function (then) {
+            if (shownMs === null) waiting.push(then);
+            else setTimeout(function () { then(shownMs); }, 0);
+          },
+          gone: function (ms) {
+            if (shownMs !== null) return;
+            shownMs = ms;
+            waiting.splice(0).forEach(function (then) { then(ms); });
+          }
+        };
+      })();
       var bar = loadingBar(document.querySelector("#loader-bar"), function (shown) {
         statusLine.textContent = shown < 1 ? "Loading " + Math.floor(shown * 100) + "%" : "Starting";
       }, function () {
@@ -491,6 +900,12 @@
         var art = document.querySelector("#loader-art");
         var img = art && art.querySelector("img");
         if (!img) return;
+        // The game has usually downloaded under the VGraphics intro, so the bar waits empty there and then fills across
+        // the art's 2 s, full just as the game may come in (George, 22 Oct: it opened at 99 %).
+        if (window.VGIntro) {
+          bar.pace(Infinity, Infinity);
+          VGIntro.welcomeWindow(bar.pace);
+        }
         var settle = function () { art.classList.add("settle"); };
         var show = function () {
           if (!loader.isConnected) return;
@@ -543,7 +958,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.6a32905f",
+        productVersion: "1.0.d8826043",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
@@ -553,13 +968,15 @@
           bar.whenSettled(function () {
             loader.classList.add("done");
             setTimeout(function () { loader.remove(); }, 400);
+            window.exitwiseSplash.gone(window.VGIntro ? VGIntro.welcomeMs() : -1);
           });
         };
-        // The VGraphics intro gives way first, if it is still on, and the welcome art gets its moment
+        // The VGraphics intro gives way first, if it is still on, and the welcome art gets its 2 s at least
         // (brand-intro/brand-intro.js).
         if (window.VGIntro) VGIntro.gameReady(reveal);
         else reveal();
-        canvas.focus();
+        // Without scrolling: someone reading the About panel while the game loads stays there.
+        canvas.focus({ preventScroll: true });
       }).catch(function (message) {
         bar.stop();
         loader.classList.remove("starting");

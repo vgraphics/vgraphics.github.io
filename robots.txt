@@ -1,4 +1,17 @@
 User-agent: *
 Allow: /
 
+# No AI training or text and data mining on vgraphics.gr: VGRAPHICS SINGLE MEMBER P.C. reserves these uses under
+# Article 4(3) of Directive (EU) 2019/790 (https://vgraphics.gr/terms/#ai). Search engines may still list every page.
+User-agent: GPTBot
+User-agent: ClaudeBot
+User-agent: CCBot
+User-agent: Google-Extended
+User-agent: Applebot-Extended
+User-agent: Bytespider
+User-agent: meta-externalagent
+User-agent: cohere-training-data-crawler
+User-agent: AI2Bot
+Disallow: /
+
 Sitemap: https://vgraphics.gr/sitemap.xml

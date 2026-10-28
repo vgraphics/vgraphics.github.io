@@ -1,0 +1,5 @@
+/* A creator's page (creator.html): the market's own pieces, and a Report link under each card. */
+@import url("/speedometer-wallpaper/market/market.css");
+
+.mk-report-link { align-self: flex-start; margin-top: 4px; color: var(--muted); font-size: 0.82rem; }
+.mk-report-link:hover { color: var(--ink); }

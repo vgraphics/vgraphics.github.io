@@ -1,0 +1,13 @@
+/* A friend's challenge (challenge.html): the room invite's card (room.css), with the run to beat where the room code
+   goes. Colours and type come from the theme pack. */
+@import url("/exitwise/room/room.css");
+
+.challenge-run {
+  display: flex;
+  justify-content: center;
+  gap: 40px;
+  margin: 10px 0 22px;
+}
+.challenge-stat { display: flex; flex-direction: column; align-items: center; margin: 0; }
+.challenge-value { font: var(--display-weight) 3rem/1.1 var(--font-display); }
+.challenge-run.hidden { display: none; }

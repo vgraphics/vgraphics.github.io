@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>Games by VGraphics: Exitwise arrow puzzle and party games</title>
-  <meta name="description" content="Play Exitwise, a free arrow puzzle game with 600 levels, on Android or in your browser, and meet Palermo Noir and Quizfall, party games for phones and the TV.">
+  <meta name="description" content="Play Exitwise, a free arrow puzzle game, on Android or in your browser, and meet our party games for phones and a TV: Palermo Noir, a mafia game, and Quizfall.">
   <link rel="canonical" href="https://vgraphics.gr/games/">
   <link rel="icon" href="/img/vgraphics-logo.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
@@ -12,10 +12,14 @@
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="Games by VGraphics">
-  <meta property="og:description" content="Exitwise, out now on Google Play and in your browser, and two party games for phones and the TV in design: Palermo Noir and Quizfall.">
+  <meta property="og:description" content="Exitwise, out now on Google Play and in your browser, and two party games for phones and the TV on the way: Palermo Noir and Quizfall.">
   <meta property="og:url" content="https://vgraphics.gr/games/">
   <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+  <meta property="og:image:width" content="1024">
+  <meta property="og:image:height" content="500">
+  <meta property="og:image:alt" content="Exitwise: the logo over a tower of colourful worlds rising from green hills, from a candy land and a desert up to a volcano and a glowing door">
   <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -26,8 +30,11 @@
     ]
   }
   </script>
+  <script src="/assets/theme.js"></script>
   <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
   <style>
     /* Hero: three real Exitwise screens fanned on the Games colour */
     .fan { position: relative; height: 470px; border-radius: var(--r-lg); background: var(--sun); overflow: hidden; animation: rise 700ms 120ms var(--ease) both; }
@@ -70,6 +77,9 @@
     .party article { border-radius: var(--r-lg); overflow: hidden; display: grid; grid-template-rows: auto 1fr; }
     .party .art { padding: 28px 28px 0; display: grid; place-items: end center; min-height: 300px; }
     .party .art img { width: min(100%, 520px); margin-bottom: -18px; }
+    /* Palermo Noir's key art, linked to its page (whose hero it is, so this is that page's preview), cut to 640:420 */
+    .party .art a { display: contents; }
+    .party .art img.key { aspect-ratio: 640 / 420; object-fit: cover; object-position: 15% 50%; border-radius: 14px 14px 0 0; }
     .party .words { display: grid; gap: 12px; align-content: start; justify-items: start; padding: 30px 30px 34px; background: var(--surface); border-top: 1px solid var(--line); }
     .party h3 { font-size: clamp(1.6rem, 3vw, 2.2rem); line-height: 1.1; }
     .party .gloss { margin-top: -6px; color: var(--ink-2); font-weight: 600; }
@@ -120,9 +130,9 @@
       <a class="n-games" aria-current="page" href="/games/">Games</a>
       <a class="n-apps" href="/apps/">Apps</a>
       <a class="n-services" href="/services/">Services</a>
-      <a class="n-hub" href="/hub/">VHub</a>
       <a class="cta" href="#contact">Contact</a>
     </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </div>
 </header>
 
@@ -132,14 +142,14 @@
       <div class="copy">
         <span class="kicker"><span class="dot" aria-hidden="true"></span> VGraphics games</span>
         <h1 id="page-title"><span class="marker">Games</span></h1>
-        <p class="sub">A puzzle for your phone and your browser, and party games for the TV on the way.</p>
+        <p class="sub">A free arrow puzzle game for your phone and your browser, and party games for the TV on the way.</p>
         <div class="actions">
           <a class="btn btn-primary" href="/exitwise/play/"><svg viewBox="0 0 16 16" aria-hidden="true"><path d="M4 2.5v11l9-5.5z" fill="currentColor"/></svg>Play Exitwise now</a>
-          <a class="btn btn-ghost" href="#party">See what's in design</a>
+          <a class="btn btn-ghost" href="#party">See what's coming</a>
         </div>
       </div>
       <div class="fan">
-        <img src="/exitwise/img/1-board.webp" alt="An Exitwise level: a board packed with bendy, colourful arrows" width="720" height="1280">
+        <img src="/exitwise/img/3-shapes.webp" alt="An Exitwise level: a heart-shaped board of colourful arrows over the Volcano world's lava" width="720" height="1280">
         <img src="/exitwise/img/2-map.webp" alt="The Exitwise level map, with its worlds" width="720" height="1280">
         <img src="/exitwise/img/7-win.webp" alt="The Exitwise Level complete card, with the time, hearts and coins" width="720" height="1280">
       </div>
@@ -150,7 +160,7 @@
     <div class="wrap">
       <article class="b x-game feature">
         <div class="copy">
-          <img class="icon" src="/exitwise/img/icon-512.png" alt="" width="72" height="72">
+          <img class="icon" src="/exitwise/assets/icon-192.png" alt="" width="72" height="72">
           <span class="kicker">Out now · Android and web</span>
           <h2 id="exitwise-title">Exitwise</h2>
           <p class="tagline">Arrow Escape Puzzle</p>
@@ -186,17 +196,18 @@
   <section class="section" id="party" aria-labelledby="party-title" style="padding-top:0">
     <div class="wrap">
       <div class="section-head">
-        <h2 id="party-title"><span class="dot" aria-hidden="true"></span>Party games, in design</h2>
-        <p class="lede">One phone each, one TV for the room. The game deals, keeps score and runs the show, so nobody has to sit out to host. Both will play in Greek and English, and both are still being designed, so there are no dates yet.</p>
+        <h2 id="party-title"><span class="dot" aria-hidden="true"></span>Party games, on the way</h2>
+        <p class="lede">One phone each, one TV for the room. The game deals, keeps score and runs the show, so nobody has to sit out to host. Both will play in Greek and English. Palermo Noir is being built now and Quizfall is still in design, so there are no dates yet.</p>
       </div>
       <div class="party">
         <article class="p-palermo" id="palermo" aria-labelledby="palermo-title">
-          <div class="art"><img src="/assets/img/palermo.svg" alt="Palermo Noir: the town at night and the narrator on the TV, with a phone hiding each player's role" width="640" height="420" loading="lazy"></div>
+          <div class="art"><a href="/palermo/" tabindex="-1" aria-hidden="true"><img class="key" src="/palermo/img/key-art-wide-960.webp" alt="" width="960" height="407" loading="lazy"></a></div>
           <div class="words">
-            <span class="soon">In design</span>
+            <span class="soon">Coming soon</span>
             <h3 id="palermo-title">Palermo Noir</h3>
-            <p>A hidden-role party game in the style of the classic house game. A host opens a room, friends join from their phones, and the game deals everyone a secret role. The TV shows the town, and an automatic narrator runs every night and day, so all of you get to play.</p>
+            <p>A hidden-role mafia party game in the style of the classic house game. A host opens a room, friends join from their phones, and the game deals everyone a secret role. The TV shows the town, and an automatic narrator runs every night and day, so all of you get to play.</p>
             <ul class="tags"><li>Phones as controllers</li><li>The TV as the main screen</li><li>An automatic narrator</li></ul>
+            <a class="more" href="/palermo/">Visit Palermo Noir</a>
           </div>
         </article>
         <article class="p-quiz" id="quizfall" aria-labelledby="quizfall-title">
@@ -222,7 +233,7 @@
       <div class="together">
         <div>
           <h2 id="together-title">Better with friends</h2>
-          <p>Rooms, live leaderboards, profiles and moderation: see how playing together works in Exitwise today, and what VHub adds next.</p>
+          <p>Rooms and moderation in Exitwise, live leaderboards and profiles on VHub: see how playing together works today, and what VHub adds next.</p>
         </div>
         <a class="btn" href="/multiplayer/">Multiplayer &amp; community</a>
       </div>
@@ -236,20 +247,20 @@
       <h2>Let's talk</h2>
       <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
     </div>
-    <a class="btn" href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
-    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li></ul></nav>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>

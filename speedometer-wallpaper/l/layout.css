@@ -1,0 +1,5 @@
+/* A shared layout's page (layout.html): the market's own pieces. The page's text stays hidden until the layout has
+   been read, so nothing flashes from "found" to "missing". */
+@import url("/speedometer-wallpaper/market/market.css");
+
+.mk-page[data-state="loading"] .mk-info > :not(.mk-code-line) { visibility: hidden; }

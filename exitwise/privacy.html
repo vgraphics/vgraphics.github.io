@@ -3,120 +3,104 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Privacy policy · Exitwise</title>
-  <meta name="description" content="Privacy policy for the Exitwise arrow puzzle game.">
+  <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
+  <title>Exitwise privacy policy: the arrow puzzle game and your data</title>
+  <meta name="description" content="What Exitwise, the free arrow puzzle game for Android and the web, keeps: your account, cloud save, rooms, custom maps, analytics and ads, and how to delete it.">
   <meta name="theme-color" content="#F4EFE6">
   <meta name="color-scheme" content="light">
   <link rel="canonical" href="https://vgraphics.gr/exitwise/privacy.html">
-  <!-- The preview chat apps and social sites show for a link. -->
+  <link rel="icon" href="/exitwise/assets/icon-32.png">
+  <link rel="apple-touch-icon" href="/exitwise/assets/icon-180.png">
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
   <meta property="og:title" content="Privacy policy · Exitwise">
   <meta property="og:description" content="How the Exitwise arrow puzzle handles your data.">
   <meta property="og:url" content="https://vgraphics.gr/exitwise/privacy.html">
-  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+  <meta property="og:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door">
   <meta name="twitter:card" content="summary_large_image">
-  <link rel="icon" href="/exitwise/img/icon-512.png">
-  <style>
-    /* Exitwise's own look; fonts self-hosted (OFL) next to the Exitwise page. */
-    @font-face { font-family: "Lilita One"; src: url("/exitwise/fonts/lilita-one-latin.woff2") format("woff2"); font-weight: 400; font-display: swap; }
-    @font-face { font-family: "Nunito"; src: url("/exitwise/fonts/nunito-latin.woff2") format("woff2"); font-weight: 500 800; font-display: swap; }
-    @font-face { font-family: "Commissioner"; src: url("/assets/fonts/commissioner-greek.woff2") format("woff2"); font-weight: 400 700; font-display: swap; unicode-range: U+0370-03FF; }
-
-    :root {
-      --paper: #F4EFE6; --card: #FFFDF8; --board: #E9E1D3; --dot: #D2C6B2; --line: #DED4C4;
-      --ink: #3B3355; --muted: #5E5675; --blue: #1C9FD8; --green: #3BB273; --yellow: #F2B705; --orange: #FF922B; --red: #FF6B6B; --purple: #8C5CF0;
-      --display: "Lilita One", "Arial Rounded MT Bold", system-ui, sans-serif;
-      --body: "Nunito", "Commissioner", system-ui, sans-serif;
+  <meta name="twitter:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
+  <script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BreadcrumbList",
+  "itemListElement": [
+    {
+      "@type": "ListItem",
+      "position": 1,
+      "name": "VGraphics",
+      "item": "https://vgraphics.gr/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 2,
+      "name": "Games",
+      "item": "https://vgraphics.gr/games/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 3,
+      "name": "Exitwise",
+      "item": "https://vgraphics.gr/exitwise/"
+    },
+    {
+      "@type": "ListItem",
+      "position": 4,
+      "name": "Privacy policy",
+      "item": "https://vgraphics.gr/exitwise/privacy.html"
     }
-    * { box-sizing: border-box; }
-    html { -webkit-text-size-adjust: 100%; scroll-behavior: smooth; }
-    body { margin: 0; color: var(--ink); font: 500 17px/1.7 var(--body); background: var(--paper) radial-gradient(var(--dot) 1.6px, transparent 1.9px) 15px 15px / 30px 30px; }
-    a { color: var(--blue); text-underline-offset: 3px; }
-    :focus-visible { outline: 3px solid var(--blue); outline-offset: 3px; border-radius: 8px; }
-    .skip { position: absolute; left: 16px; top: -60px; padding: 10px 16px; border-radius: 12px; background: var(--ink); color: var(--paper); font-weight: 800; z-index: 10; text-decoration: none; }
-    .skip:focus { top: 12px; }
-    [id] { scroll-margin-top: 20px; }
-
-    .bar { max-width: 1120px; margin: 0 auto; padding: 16px 20px; display: flex; align-items: center; gap: 16px; flex-wrap: wrap; }
-    .bar .product { display: inline-flex; align-items: center; gap: 10px; font: 400 1.35rem/1 var(--display); color: var(--ink); text-decoration: none; margin-right: auto; }
-    .bar .product img { width: 36px; height: 36px; border-radius: 10px; }
-    .subnav { display: flex; gap: 6px; }
-    .subnav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 16px; border-radius: 999px; color: var(--ink); font-weight: 800; text-decoration: none; }
-    .subnav a:hover { background: var(--board); }
-    .subnav a[aria-current] { background: var(--ink); color: var(--paper); }
-
-    .wrap { max-width: 1120px; margin: 0 auto; padding: 0 20px; }
-    h1, h2 { font-family: var(--display); font-weight: 400; line-height: 1.05; margin: 0; }
-    .head { padding: 26px 0 22px; display: grid; gap: 10px; justify-items: start; }
-    .kicker { margin: 0; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .8rem; color: var(--muted); }
-    .head h1 { font-size: clamp(2.6rem, 6vw, 4.2rem); }
-    .updated { display: inline-block; padding: 4px 12px; border-radius: 999px; background: var(--ink); color: var(--paper); font-weight: 800; font-size: .85rem; }
-    .intro { max-width: 46em; margin: 4px 0 0; color: var(--muted); font-size: 1.1rem; }
-
-    /* The short version: one card per point, each with an arrow colour from the game */
-    .short-title { font-size: 1.8rem; margin: 6px 0 14px; }
-    .short { list-style: none; margin: 0 0 34px; padding: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; }
-    .short li { --c: var(--blue); background: var(--card); border: 1px solid var(--line); border-radius: 20px; padding: 16px 16px 16px 58px; position: relative; box-shadow: 0 10px 22px -18px rgba(59,51,85,.45); }
-    .short li::before { content: ""; position: absolute; left: 16px; top: 18px; width: 28px; height: 10px; border-radius: 6px; background: var(--c); }
-    .short li::after { content: ""; position: absolute; left: 38px; top: 14px; border: 9px solid transparent; border-left: 11px solid var(--c); }
-    .short li:nth-child(2) { --c: var(--green); } .short li:nth-child(3) { --c: var(--yellow); } .short li:nth-child(4) { --c: var(--orange); }
-    .short li:nth-child(5) { --c: var(--red); } .short li:nth-child(6) { --c: var(--purple); } .short li:nth-child(7) { --c: var(--ink); }
-
-    .layout { display: grid; grid-template-columns: 250px 1fr; gap: 36px; align-items: start; }
-    .toc { position: sticky; top: 16px; background: var(--card); border: 1px solid var(--line); border-radius: 22px; padding: 18px; }
-    .toc p { margin: 0 0 8px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; font-size: .78rem; color: var(--muted); }
-    .toc ol { margin: 0; padding: 0; list-style: none; display: grid; gap: 2px; }
-    .toc a { display: flex; align-items: center; gap: 10px; min-height: 36px; padding: 0 10px; border-radius: 12px; color: var(--ink); font-weight: 700; font-size: .95rem; text-decoration: none; }
-    .toc a::before { content: ""; width: 9px; height: 9px; border-radius: 50%; background: var(--blue); flex: none; }
-    .toc li:nth-child(6n+2) a::before { background: var(--green); } .toc li:nth-child(6n+3) a::before { background: var(--yellow); }
-    .toc li:nth-child(6n+4) a::before { background: var(--orange); } .toc li:nth-child(6n+5) a::before { background: var(--red); } .toc li:nth-child(6n) a::before { background: var(--purple); }
-    .toc a:hover { background: var(--board); }
-
-    .doc { background: var(--card); border: 1px solid var(--line); border-radius: 30px; padding: clamp(22px, 4vw, 44px); box-shadow: 0 30px 50px -40px rgba(59,51,85,.5); }
-    .doc section + section { border-top: 2px dashed var(--line); margin-top: 26px; padding-top: 26px; }
-    .doc h2 { font-size: 1.75rem; margin-bottom: 10px; }
-    .doc p { margin: 0 0 12px; max-width: 46em; }
-    .doc ul { margin: 0 0 12px; padding-left: 1.2em; display: grid; gap: 8px; max-width: 46em; }
-    .doc .delete { background: #EAF6FC; border-radius: 22px; padding: 20px 22px; border-top: 0; }
-    .doc .delete + section { border-top: 0; }
-    .doc .contact { font-style: normal; padding: 18px 20px; border-radius: 18px; background: var(--board); line-height: 1.6; }
-
-    footer { max-width: 1120px; margin: 40px auto 0; padding: 28px 20px 48px; border-top: 2px dashed var(--line); display: flex; flex-wrap: wrap; gap: 8px 24px; color: var(--muted); font-weight: 700; }
-    footer a { color: var(--ink); display: inline-flex; min-height: 44px; align-items: center; }
-    footer .legal { flex-basis: 100%; margin: 6px 0 0; font-weight: 500; font-size: .9rem; }
-    footer .legal a { color: var(--muted); display: inline; min-height: 0; }
-
-    @media (max-width: 860px) {
-      .layout { grid-template-columns: 1fr; }
-      .toc { position: static; }
-      .bar .product span { display: none; }
-    }
-    @media (max-width: 560px) {
-      .subnav .wide-only:not([aria-current]) { display: none; }
-      .subnav a { padding: 0 14px; }
-    }
-    @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
-  </style>
+  ]
+}
+  </script>
+  <link rel="preload" href="/exitwise/fonts/lilita-one-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/privacy-tall-540.avif 540w, /exitwise/wiki/img/art/privacy-tall-810.avif 810w, /exitwise/wiki/img/art/privacy-tall-1080.avif 1080w, /exitwise/wiki/img/art/privacy-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
+  <link rel="preload" as="image" type="image/avif" media="not all and (max-aspect-ratio: 4/5)" imagesrcset="/exitwise/wiki/img/art/privacy-640.avif 640w, /exitwise/wiki/img/art/privacy-1280.avif 1280w, /exitwise/wiki/img/art/privacy-1920.avif 1920w, /exitwise/wiki/img/art/privacy-2560.avif 2560w, /exitwise/wiki/img/art/privacy-3200.avif 3200w" imagesizes="max(100vw, 672px, min(75.6vw, 130.2vh))" fetchpriority="high">
+  <link rel="stylesheet" href="/exitwise/theme/theme.css">
+  <link rel="stylesheet" href="/assets/product.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
 </head>
 <body>
-<a class="skip" href="#main">Skip to content</a>
-<header class="bar">
-  <a class="product" href="/exitwise/"><img src="/exitwise/img/icon-512.png" alt="" width="36" height="36"><span>Exitwise</span></a>
-  <nav class="subnav" aria-label="Exitwise">
-    <a href="/exitwise/">Overview</a>
-    <a href="/exitwise/wiki/">Wiki</a>
-    <a href="/exitwise/ranking/">Ranking</a>
-    <a class="wide-only" href="/exitwise/privacy.html" aria-current="page">Privacy</a>
-    <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
-  </nav>
-</header>
+  <a class="skip" href="#main">Skip to content</a>
+  <header class="top">
+    <a class="product-name" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="150px" alt="Exitwise" width="146" height="36"></a>
+    <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
+    <nav class="subnav" id="site-menu" aria-label="Exitwise">
+      <a href="/exitwise/">Overview</a>
+      <a href="/exitwise/wiki/">Wiki</a>
+      <a href="/exitwise/ranking/">Ranking</a>
+      <a class="wide-only" href="/exitwise/privacy.html" aria-current="page">Privacy</a>
+      <a class="wide-only" href="/exitwise/map-rules.html">Map rules</a>
+      <a class="play" href="/exitwise/play/" title="Play online"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span class="play-label">Play online</span></a>
+    </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
+  </header>
 
-<main id="main" class="wrap">
-  <div class="head">
-    <p class="kicker">Exitwise</p>
-    <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 18 October 2026</span>
+  <main id="main">
+    <section class="key-art is-page" style="--art-at: 50% 40%; --art-fade: 86%; --art-fade-tall: 80%; --art-placeholder: linear-gradient(#36235F, #588660)" aria-labelledby="title">
+      <picture>
+        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/exitwise/wiki/img/art/privacy-tall-540.avif 540w, /exitwise/wiki/img/art/privacy-tall-810.avif 810w, /exitwise/wiki/img/art/privacy-tall-1080.avif 1080w, /exitwise/wiki/img/art/privacy-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/exitwise/wiki/img/art/privacy-tall-540.webp 540w, /exitwise/wiki/img/art/privacy-tall-810.webp 810w, /exitwise/wiki/img/art/privacy-tall-1080.webp 1080w, /exitwise/wiki/img/art/privacy-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
+        <source media="(max-aspect-ratio: 4/5)" srcset="/exitwise/wiki/img/art/privacy-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
+        <source type="image/avif" srcset="/exitwise/wiki/img/art/privacy-640.avif 640w, /exitwise/wiki/img/art/privacy-1280.avif 1280w, /exitwise/wiki/img/art/privacy-1920.avif 1920w, /exitwise/wiki/img/art/privacy-2560.avif 2560w, /exitwise/wiki/img/art/privacy-3200.avif 3200w" sizes="max(100vw, 672px, min(75.6vw, 130.2vh))" width="3200" height="1829">
+        <source type="image/webp" srcset="/exitwise/wiki/img/art/privacy-640.webp 640w, /exitwise/wiki/img/art/privacy-1280.webp 1280w, /exitwise/wiki/img/art/privacy-1920.webp 1920w, /exitwise/wiki/img/art/privacy-2560.webp 2560w, /exitwise/wiki/img/art/privacy-3200.webp 3200w" sizes="max(100vw, 672px, min(75.6vw, 130.2vh))" width="3200" height="1829">
+        <img src="/exitwise/wiki/img/art/privacy-1920.jpg" srcset="/exitwise/wiki/img/art/privacy-1280.jpg 1280w, /exitwise/wiki/img/art/privacy-1920.jpg 1920w" sizes="max(100vw, 672px, min(75.6vw, 130.2vh))" width="3200" height="1829" fetchpriority="high" alt="A round stone tower with a golden padlock on its door, on a floating island with lanterns and arrow signposts under a starry twilight sky">
+      </picture>
+      <div class="hero-foot">
+        <div class="wrap">
+          <h1 id="title" class="sr-only">Exitwise privacy policy</h1>
+          <p class="lead">Privacy policy</p>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="sec" id="policy">
+      <div class="wrap">
+        <div class="document">
+<div class="head">
+    <span class="updated">Last updated: 26 October 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -479,18 +463,46 @@
           VGRAPHICS SINGLE MEMBER P.C.<br>
           Kalamaria, Thessaloniki, Greece<br>
           G.E.MI. no. 181823306000<br>
-          Email: <a href="mailto:gvergidis90@gmail.com">gvergidis90@gmail.com</a>
+          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
         </address>
       </section>
     </div>
   </div>
-</main>
+        </div>
+        
+      </div>
+    </section>
 
-<footer>
-  <a href="/">More from VGraphics</a>
-  <a href="/exitwise/">Exitwise</a>
-  <a href="/exitwise/wiki/">Wiki</a>
-  <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a></p>
-</footer>
+    <section class="cta-band" aria-labelledby="cta-title">
+      <div class="wrap">
+        <div class="panel">
+          <h2 id="cta-title">Your first board is waiting</h2>
+          <p>Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.</p>
+          <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="play-cta" href="/exitwise/play/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Play in your browser</span></a><a class="vhub-entry pill" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg></span><span class="vhub-words"><b class="vhub-name">Get your VHub name</b><small class="vhub-note">Your name in every room</small></span></a><small class="play-note">Play now, free</small></div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <footer class="foot has-art">
+    <div class="foot-art" style="--foot-at: 50% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/exitwise/img/footer-960.avif 960w, /exitwise/img/footer-1440.avif 1440w, /exitwise/img/footer-1920.avif 1920w, /exitwise/img/footer-2560.avif 2560w, /exitwise/img/footer-3200.avif 3200w, /exitwise/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * 3.12))"><img src="/exitwise/img/footer-4096.webp" srcset="/exitwise/img/footer-960.webp 960w, /exitwise/img/footer-1440.webp 1440w, /exitwise/img/footer-1920.webp 1920w, /exitwise/img/footer-2560.webp 2560w, /exitwise/img/footer-3200.webp 3200w, /exitwise/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 260px) * 3.12))" alt="" width="4096" height="1311" loading="lazy" decoding="async"></picture></div>
+    <div class="wrap">
+      <a class="foot-brand" href="/exitwise/"><img class="logo" src="/exitwise/assets/logo-600.webp" srcset="/exitwise/assets/logo-300.webp 300w, /exitwise/assets/logo-600.webp 600w" sizes="230px" alt="Exitwise" width="195" height="48"></a>
+      <nav class="foot-links" aria-label="Exitwise and VGraphics">
+        <a href="/exitwise/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/ranking/">Global ranking</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/exitwise/map-rules.html">Map rules</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/games/">More games</a><span class="sep" aria-hidden="true">·</span>
+        <a href="/services/">Work with us</a><span class="sep" aria-hidden="true">·</span>
+        <a href="mailto:support@vgraphics.gr">Contact</a>
+      </nav>
+      <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" aria-label="Exitwise on Google Play" title="Exitwise on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
+      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+    </div>
+  </footer>
+  <script src="/assets/anchors.js" defer></script>
+  <script src="/assets/product.js" defer></script>
+  <script src="/assets/menu.js" defer></script>
 </body>
 </html>

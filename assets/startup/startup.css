@@ -1,0 +1,146 @@
+/* The start-up every VGraphics product opens with (D:\Projects\Mine\CLAUDE.md, "Start-up"), as a piece the site's web
+   versions share (assets/startup/startup.js): a plain dark launch, the VGraphics intro, then the product's welcome art
+   with the squishy loading bar for at least 2 s and until the product is ready. It fills the element it is mounted in
+   (a try page's phone screen). The bar is Exitwise's web loader's, in the product's colours: a pill on a darker lip
+   with a groove, and in the groove a fat bar that grows to the right, the product's own mark at its head (startup.js,
+   TIPS). Each product sets the --startup-* colours. */
+.vg-startup {
+  --startup-bg: #0A090D;
+  --startup-track: #1F1F22;
+  --startup-lip: #34343A;
+  --startup-groove: #0B0B0C;
+  --startup-fill: var(--accent, #F04A2C);
+  --startup-fill-edge: color-mix(in srgb, var(--startup-fill) 70%, #000);
+  --startup-ink: #ECECEE;
+  position: absolute;
+  inset: 0;
+  z-index: 5;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-end;
+  padding-bottom: max(9%, 32px);
+  background: var(--startup-bg);
+  color: var(--startup-ink);
+  font: var(--label-weight, 600) 1rem/1.2 var(--label-font, system-ui, sans-serif);
+  text-transform: var(--label-case, none);
+  letter-spacing: var(--label-tracking, 0.04em);
+  transition: opacity 0.4s;
+}
+.vg-startup.done { opacity: 0; pointer-events: none; }
+
+/* The welcome art fills the screen and fades in once it can be drawn, settling from a touch larger. */
+.vg-startup-art { position: absolute; inset: 0; opacity: 0; transition: opacity 0.3s; }
+.vg-startup-art img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.vg-startup-art::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 40%;
+  background: linear-gradient(rgba(10, 9, 13, 0), rgba(10, 9, 13, 0.7));
+}
+.vg-startup.with-art .vg-startup-art { opacity: 1; }
+.vg-startup.settle .vg-startup-art img { animation: vg-startup-settle 1.6s cubic-bezier(0.23, 1, 0.32, 1) both; }
+@keyframes vg-startup-settle { from { transform: scale(1.04); } to { transform: scale(1); } }
+
+/* The VGraphics intro over everything, a square film on the launch colour, so it letterboxes without a seam. */
+.vg-startup-intro { position: absolute; inset: 0; z-index: 2; background: var(--startup-bg); transition: opacity 0.5s cubic-bezier(0.23, 1, 0.32, 1); }
+.vg-startup-intro.quick { transition-duration: 0.3s; }
+.vg-startup-intro.gone { opacity: 0; pointer-events: none; }
+.vg-startup-intro video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+
+/* The bar: --t is its thickness, --lead its length at 0% (a round tail and the head); the script slides the body and
+   the head together along the rest of the groove, by transform only. */
+.vg-startup-bar {
+  --h: clamp(24px, 6cqh, 38px);
+  --lip: calc(var(--h) * 0.1);
+  --pad: calc(var(--h) * 0.17);
+  --t: calc(var(--h) - var(--lip) - 2 * var(--pad));
+  --hl: calc(var(--t) * 1.1);
+  --lead: calc(var(--hl) + var(--t) / 2);
+  position: relative;
+  z-index: 1;
+  width: min(78%, 360px);
+  height: var(--h);
+}
+.vg-startup { container-type: size; }
+.vg-startup .bar-shadow {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: calc(var(--h) * -0.3);
+  height: calc(var(--h) * 0.6);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, rgba(0, 0, 0, 0.45), rgba(0, 0, 0, 0));
+}
+.vg-startup .bar-hop, .vg-startup .bar-jelly, .vg-startup .bar-track { position: absolute; inset: 0; }
+.vg-startup .bar-hop { transform-origin: 50% 100%; }
+.vg-startup .bar-jelly { transform-origin: 0 50%; }
+.vg-startup .bar-track { border-radius: 999px; background: var(--startup-track); box-shadow: inset 0 calc(var(--lip) * -1) 0 var(--startup-lip); }
+.vg-startup .bar-groove, .vg-startup .bar-head { position: absolute; left: var(--pad); right: var(--pad); top: var(--pad); height: var(--t); }
+.vg-startup .bar-groove {
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--startup-groove);
+  box-shadow: inset 0 calc(var(--t) * 0.12) calc(var(--t) * 0.14) rgba(0, 0, 0, 0.5);
+}
+.vg-startup .bar-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--t) / 2 - var(--hl));
+  width: 100%;
+  border-radius: 999px;
+  background: var(--startup-fill);
+  box-shadow: inset 0 calc(var(--t) * -0.16) 0 var(--startup-fill-edge);
+}
+.vg-startup .bar-fill::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: calc(var(--t) / 2);
+  top: 16%;
+  height: 28%;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+}
+.vg-startup .bar-fill, .vg-startup .bar-head { transform: translateX(calc(var(--lead) - 100%)); transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1); }
+.vg-startup .bar-tip { position: absolute; right: 0; top: 50%; width: var(--hl); height: calc(var(--t) * 1.5); margin-top: calc(var(--t) * -0.75); transform-origin: 0 50%; }
+.vg-startup .bar-tip svg { display: block; width: 100%; height: 100%; }
+.vg-startup .bar-tip .edge { fill: var(--startup-fill-edge); stroke: var(--startup-fill-edge); }
+.vg-startup .bar-tip .face { fill: var(--startup-fill); stroke: var(--startup-fill); }
+/* The round knob and the dial are as tall as they are wide, a little fatter than the bar, over its round end. */
+.vg-startup .bar-tip.tip-round { width: calc(var(--t) * 1.3); height: calc(var(--t) * 1.3); margin-top: calc(var(--t) * -0.65); }
+.vg-startup .bar-tip.tip-dial { width: calc(var(--t) * 1.6); height: calc(var(--t) * 1.6); margin-top: calc(var(--t) * -0.8); }
+/* The dial's needle lies at the bottom of the scale at 0% and reaches the red line full, moving as the bar does. */
+.vg-startup .bar-tip .dial-face { fill: var(--startup-groove); }
+.vg-startup .bar-tip .dial-red { stroke: var(--startup-fill); }
+.vg-startup .bar-tip .dial-needle {
+  fill: var(--startup-fill);
+  transform-origin: 50px 47px;
+  transform: rotate(calc(150deg + var(--progress, 0) * 240deg));
+  transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1);
+}
+/* Full, while the product starts: the tip nudges to get out and a sheen runs along the bar. */
+.vg-startup .bar-groove::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(100deg, rgba(255, 255, 255, 0) 30%, rgba(255, 255, 255, 0.4) 50%, rgba(255, 255, 255, 0) 70%);
+}
+.vg-startup.starting .bar-groove::after { opacity: 1; animation: vg-startup-sheen 1.8s cubic-bezier(0.77, 0, 0.175, 1) infinite; }
+.vg-startup.starting .bar-tip { animation: vg-startup-nudge 1.8s ease-in-out infinite; }
+@keyframes vg-startup-sheen { from { transform: translateX(-100%); } 70%, to { transform: translateX(100%); } }
+@keyframes vg-startup-nudge { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(16%); } }
+.vg-startup-status { position: relative; z-index: 1; margin-top: 14px; font-size: 0.9rem; text-shadow: 0 1px 3px rgba(0, 0, 0, 0.8); }
+.vg-startup.failed .vg-startup-bar { display: none; }
+.vg-startup.failed .vg-startup-status { max-width: 80%; text-align: center; text-transform: none; letter-spacing: 0; }
+@media (prefers-reduced-motion: reduce) {
+  .vg-startup.starting .bar-tip, .vg-startup.starting .bar-groove::after, .vg-startup.settle .vg-startup-art img { animation: none; }
+  .vg-startup .bar-fill, .vg-startup .bar-head, .vg-startup .bar-tip .dial-needle { transition-duration: 0.2s; }
+}

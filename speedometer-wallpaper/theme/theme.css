@@ -14,6 +14,8 @@
   --line: #34343A;
   --link: #ECECEE;
   --accent: #F04A2C;
+  --play: #D34126;
+  --play-ink: #FFFFFF;
   --accent-2: #FFB547;
   --accent-3: #4BD66B;
   --cta: #FFB547;
@@ -48,7 +50,7 @@
   --body-weight: 400;
   --h2-size: clamp(2.2rem, 5vw, 3.6rem);
   --section-pad: 84px;
-  --intro-bg: radial-gradient(ellipse 60% 70% at 72% 45%, rgba(240, 74, 44, 0.16), transparent 70%), linear-gradient(180deg, #0B0B0C, rgba(11, 11, 12, 0.2) 140px, #0B0B0C 96%), url("/speedometer-wallpaper/img/asphalt.webp") center / cover;
+  --intro-bg: linear-gradient(#10243A, #0B0B0C 78%);
   --shot-frame: 6px solid #1A1A1D;
   --step-font: "DSEG7", ui-monospace, monospace;
   --step-ink: #F04A2C;
@@ -93,4 +95,11 @@
   --swatch-2: #FFB547;
   --swatch-3: #4BD66B;
   color-scheme: dark;
+}
+@media (hover: hover) and (pointer: fine) {
+  :root {
+    --cursor: url("/speedometer-wallpaper/theme/cursor.svg") 3 3, auto;
+    --cursor-link: url("/speedometer-wallpaper/theme/cursor-link.svg") 13 2, pointer;
+    --cursor-text: url("/speedometer-wallpaper/theme/cursor-text.svg") 16 16, text;
+  }
 }

@@ -1,0 +1,89 @@
+{
+  "posts": [
+    {
+      "slug": "speedometer-in-your-browser",
+      "date": "2026-10-27",
+      "product": "Speedometer Live Wallpaper",
+      "title": "The real Speedometer, running in your browser",
+      "description": "How the try page runs Speedometer Live Wallpaper's own drawing code in a browser, with Kotlin Multiplatform and Skia, and what a browser can read.",
+      "lede": "When we added a way to try Speedometer Live Wallpaper online, there were three options: record a video of it, draw a look-alike for the web, or run the app itself. A video can't be tapped, and a look-alike drifts further from the real thing with every update. So the try page runs the app's own drawing code.",
+      "sections": [
+        {
+          "title": "One renderer, two homes",
+          "paragraphs": [
+            "Every style in the app, from Classic to Harbour, draws with Android's graphics classes: a canvas, paints, paths and gradients. We moved the styles into a Kotlin Multiplatform module that draws through a thin layer with the same class names. On a phone, that layer hands each call straight to Android. In the browser, it hands it to Skia, the graphics library Chrome itself draws with, compiled to WebAssembly.",
+            "The styles never know which one they are talking to, so there is no second version of them to keep in step."
+          ]
+        },
+        {
+          "title": "Proving nothing changed",
+          "paragraphs": [
+            "The app's tests keep reference pictures of the styles in their different states: calibrating, charging, on Wi-Fi, at speed. The rule for the move was strict. Every one of those pictures had to come out byte for byte identical, and a style that shifted by a single pixel meant the move wasn't finished."
+          ]
+        },
+        {
+          "title": "What a browser can read",
+          "paragraphs": [
+            "On your phone the wallpaper reads the battery, the charger, the network and the processor. In a browser it uses what the browser is willing to share: your clock, in your time zone and with your 12 or 24-hour setting; the battery level and charging, in browsers that share them, such as Chrome; and, if you tap Use my real speed and allow it, your speed from GPS. Your location never leaves your browser.",
+            "Everything a browser keeps to itself, like the processor's clock or the phone signal, comes from a short recorded drive, the same one the app plays in its own previews."
+          ]
+        },
+        {
+          "title": "The one thing it can't do",
+          "paragraphs": [
+            "A web page can't set your wallpaper. That last step belongs to the app, so the page shows a QR code and a Google Play link. Every style you try on the page is in the app; the premium ones are a one-time purchase."
+          ]
+        },
+        {
+          "title": "Why it was worth it",
+          "paragraphs": [
+            "You can try a premium style live, with its layouts and colours, before you pay for it. And because the page runs the same code, what you see there is what you get on your home screen."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/speedometer-wallpaper/play/", "label": "Try it in your browser" },
+        { "href": "/speedometer-wallpaper/wiki/", "label": "How each gauge works" }
+      ]
+    },
+    {
+      "slug": "exitwise-board-shapes",
+      "date": "2026-10-27",
+      "product": "Exitwise",
+      "title": "Why Exitwise boards stopped being rectangles",
+      "description": "In October we found Exitwise far too easy by level 60. Part of the fix was the boards themselves: 49 shapes, no slivers and no easy lines.",
+      "lede": "In October we played Exitwise up to level 60 and had to admit it: it was far too easy. The arrows were fine. A big part of the problem was the boards. A rectangle full of arrows reads quickly: you sweep along the edges, find the arrows pointing out, and the rest falls into place.",
+      "sections": [
+        {
+          "title": "Shapes change how you read a board",
+          "paragraphs": [
+            "So the boards stopped being mostly rectangles. Exitwise now has 49 board shapes, up from 20: 18 plain ones that fill the screen, from hexagons to spirals, and 31 pictures that hold their own proportions, from a rocket to a castle. Many worlds have pictures of their own, such as Volcano's flame and gem or Glacier's snowflake.",
+            "Only the first four levels are plain rectangles, to learn the rules on, and after that only a few. A shaped board has no tidy edge to sweep along, so you read each arrow's path instead."
+          ]
+        },
+        {
+          "title": "No slivers",
+          "paragraphs": [
+            "Cutting a picture out of a square grid leaves stray single cells along its edges. Every shape is cleaned so that each cell belongs to a solid two-by-two block, and only the largest piece is kept, so a shape reads as a shape."
+          ]
+        },
+        {
+          "title": "No easy lines",
+          "paragraphs": [
+            "Sometimes the generator left a string of short arrows nose to tail, each starting right in front of the one before and pointing the same way. Each one frees only the next, so the whole string clears in a row of easy taps. A level may now have at most three in a row; one with more is built again from another seed."
+          ]
+        },
+        {
+          "title": "The same puzzle for everyone",
+          "paragraphs": [
+            "Every level comes from a fixed seed, so every player gets the same board and the leaderboards compare like with like, and every level is tested to be solvable. Every 10th level is a hard level: about one and a half times the size of the levels around it, always a picture, and played at night."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/exitwise/play/", "label": "Play Exitwise in your browser" },
+        { "href": "/exitwise/wiki/board-shapes/", "label": "Every shape in the wiki" }
+      ]
+    }
+  ]
+}

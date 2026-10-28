@@ -1,0 +1,35 @@
+{
+  "path": "/exitwise/privacy.html",
+  "title": "Exitwise privacy policy: the arrow puzzle game and your data",
+  "description": "What Exitwise, the free arrow puzzle game for Android and the web, keeps: your account, cloud save, rooms, custom maps, analytics and ads, and how to delete it.",
+  "social": {
+    "title": "Privacy policy · Exitwise",
+    "description": "How the Exitwise arrow puzzle handles your data.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+      { "@type": "ListItem", "position": 4, "name": "Privacy policy", "item": "https://vgraphics.gr/exitwise/privacy.html" }
+    ]
+  },
+  "hero": {
+    "title": "Exitwise privacy policy",
+    "lead": "Privacy policy",
+    "align": "center",
+    "art": {
+      "alt": "A round stone tower with a golden padlock on its door, on a floating island with lanterns and arrow signposts under a starry twilight sky",
+      "wiki": "privacy",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#36235F, #588660)"
+    }
+  },
+  "sections": [
+    { "id": "policy", "blocks": [{ "type": "document", "src": "source.html", "from": { "repo": "Games", "path": "docs/store/privacy-policy.html" } }] }
+  ]
+}

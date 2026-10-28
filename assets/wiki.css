@@ -1,0 +1,186 @@
+/* Every product's wiki: one layout (George, 22 Oct 2026, "A+B"), dressed by the product's theme pack
+   (<product>/theme/theme.css) and the product pages' shared CSS (assets/product.css: page, header, footer).
+   tools/build-wiki.mjs writes the pages. Nothing here names a product's colour or font; the game pieces (boards,
+   level bubbles, the tip card) only appear on pages whose wiki.json asks for them. */
+
+.wiki main { padding-bottom: 8px; }
+.w-muted { color: var(--muted); }
+.w-kicker { margin: 0 0 6px; font: var(--label-weight) 0.78rem/1.2 var(--label-font); letter-spacing: 0.14em; text-transform: uppercase; color: var(--muted); }
+
+/* Hero: the landing page's own box (assets/product.css .key-art, tools/lib/hero.mjs), so it is exactly as tall
+   (George, 23 Oct 2026: "Heroes of all pages must have same height as hero in overview"): the entry's painting edge to
+   edge from the very top, the tall 9:16 cut on portrait screens, the title in its foot. The paintings are paler
+   towards their foot than the key art, so they fade later, only in their last seventh, to look as solid as it does
+   ("Hero still has more alpha than overview page"); the index's hero is the key art itself, faded where the landing
+   page's is. Only the foot's words are the wiki's own. */
+.w-hero-foot { position: absolute; inset: auto 0 0; z-index: 2; padding-bottom: clamp(10px, 3vh, 32px); display: grid; gap: 10px; }
+.w-hero h1 { font-size: clamp(2.6rem, 7vw, 5rem); color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-hero.is-index h1 { font-size: clamp(2.1rem, 5vw, 3.6rem); max-width: 16em; }
+.w-lede { margin: 0; max-width: 42em; font-size: 1.12rem; color: var(--muted); }
+.w-hero .w-lede { color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-crumbs { font: var(--label-weight) 0.95rem/1.2 var(--label-font); color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-hero .w-kicker { color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-crumbs a { color: inherit; text-decoration: none; }
+.w-crumbs a:hover { text-decoration: underline; }
+.w-arrive { display: flex; flex-wrap: wrap; align-items: center; gap: 10px; margin: 0; font-weight: 700; color: var(--lead-ink); text-shadow: var(--lead-shadow); }
+.w-search input {
+  width: min(520px, 100%);
+  min-height: 52px;
+  padding: 0 18px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: var(--body-weight) 1rem var(--font-body);
+}
+.w-search input:focus { outline: 3px solid var(--accent); outline-offset: 2px; }
+@media (max-aspect-ratio: 4/5) {
+  .w-hero.is-index .w-lede { display: none; }
+}
+
+/* Game pieces: the world chip (the level bubble, .bubble, is the product pages', in assets/product.css) */
+.w-world { padding: 5px 12px; border-radius: 999px; background: var(--w); color: #FFFFFF; font: var(--label-weight) 0.85rem/1.2 var(--label-font); text-shadow: none; }
+
+/* Buttons: chunky and pressable, in the pack's call-to-action colours */
+.w-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 46px; padding: 0 22px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer);
+  background: var(--cta); color: var(--cta-ink); box-shadow: 0 5px 0 var(--cta-edge);
+  font: var(--display-weight) 1.08rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); text-decoration: none;
+}
+.w-btn:active { transform: translateY(3px); box-shadow: 0 2px 0 var(--cta-edge); }
+.w-btn.ghost { background: var(--surface); color: var(--ink); box-shadow: 0 5px 0 var(--line); }
+
+/* Index: the world journey (.journey, the product pages'), the filters, the painted cards */
+.w-head { display: grid; gap: 4px; margin: 34px 0 16px; max-width: 46em; }
+.w-head h2 { font-size: var(--h2-size); }
+.w-head p { margin: 0; color: var(--muted); }
+.w-new { list-style: none; padding: 0; margin: 0; display: grid; gap: 8px; }
+.w-new a { display: flex; align-items: center; gap: 10px; padding: 6px 10px 6px 6px; border-radius: var(--radius-sm); background: rgba(255, 255, 255, 0.96); color: #3B3355; text-decoration: none; font: var(--display-weight) 1rem/1.1 var(--font-display); box-shadow: 0 4px 0 rgba(0, 0, 0, 0.2); }
+.w-chips { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 30px; }
+.w-chip { min-height: 44px; padding: 0 18px; border: 0; border-radius: 999px; cursor: var(--cursor-link, pointer); background: var(--surface); color: var(--ink); box-shadow: 0 4px 0 var(--line); font: var(--display-weight) 1rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.w-chip b { margin-left: 4px; opacity: 0.7; }
+.w-chip.on { background: var(--cta); color: var(--cta-ink); box-shadow: 0 4px 0 var(--cta-edge); }
+.w-sec { padding-bottom: 6px; }
+.w-grid { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); }
+.w-grid.three { grid-template-columns: repeat(auto-fill, minmax(240px, 1fr)); }
+.w-card { display: grid; grid-template-rows: auto 1fr; overflow: hidden; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); text-decoration: none; transition: transform 200ms ease-out; }
+.w-card:hover { transform: translateY(-3px); }
+.w-card-art { position: relative; display: block; aspect-ratio: 16 / 9; background: var(--surface-2); overflow: hidden; }
+.w-card-pic, .w-card-pic img { display: block; width: 100%; height: 100%; object-fit: cover; }
+.w-card-badges { position: absolute; left: 10px; top: 10px; display: flex; align-items: center; gap: 6px; }
+.w-card-body { display: grid; gap: 4px; align-content: start; padding: 14px 18px 18px; }
+.w-card-body b { font: var(--display-weight) 1.3rem/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.w-card-body span { color: var(--muted); font-size: 0.95rem; line-height: 1.45; }
+.w-empty { padding: 20px 0; color: var(--muted); font-weight: 700; }
+
+/* Entry: the reading column */
+.w-body { max-width: 980px; padding-top: 6px; }
+.w-glance { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 10px; margin: 18px 0 0; }
+.w-glance div { padding: 12px 14px; border: var(--card-border); border-radius: var(--radius-sm); background: var(--card-bg); }
+.w-glance dt { font: var(--label-weight) 0.72rem/1.2 var(--label-font); letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.w-glance dd { margin: 4px 0 0; font-weight: 700; line-height: 1.3; }
+.w-block, .w-panel { margin-top: 38px; }
+.w-panel { padding: clamp(18px, 3vw, 28px); border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); box-shadow: var(--card-shadow); }
+/* Section headings as the landing page's: the display face, a link to the section beside them. */
+.w-h2 { margin-bottom: 16px; font-size: clamp(1.8rem, 4vw, 2.4rem); }
+.w-steps { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.w-steps li { display: grid; grid-template-columns: auto 1fr; gap: 12px; align-items: start; padding: 12px; border-radius: var(--radius-sm); background: var(--surface-2); transition: background 250ms, box-shadow 250ms; }
+.w-steps li.on { background: color-mix(in srgb, var(--swatch-3) 22%, var(--surface)); box-shadow: inset 0 0 0 3px var(--swatch-3); }
+.w-steps p { margin: 0; font-weight: 700; }
+.w-step-n { display: inline-grid; place-items: center; width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: var(--page); font: var(--display-weight) 1rem/1 var(--font-display); }
+.w-how-grid { display: grid; gap: 18px; }
+@media (min-width: 760px) { .w-how-grid { grid-template-columns: minmax(0, 1.05fr) minmax(0, 1fr); align-items: start; } }
+
+/* The playable board */
+.w-play { display: grid; gap: 10px; justify-items: center; padding: 12px 12px 16px; border-radius: var(--radius-sm); background: var(--page); }
+.w-play-hud { display: flex; justify-content: space-between; align-items: center; gap: 10px; width: 100%; padding: 0 4px; }
+.w-hearts { display: flex; gap: 4px; }
+.w-heart { width: 22px; height: 22px; fill: var(--heart, #FF5A6E); transition: fill 200ms; }
+.w-heart.lost { fill: var(--line); }
+.w-play-say { min-height: 1.3em; text-align: right; font-weight: 700; font-size: 0.9rem; color: var(--muted); }
+.w-board { display: block; width: 100%; max-width: 340px; height: auto; overflow: visible; touch-action: manipulation; }
+.w-board .card { fill: #FFFDF8; stroke: #E4DACA; stroke-width: 2; }
+.w-board .dot { fill: #C0AF95; }
+.w-board .piece { cursor: var(--cursor-link, pointer); outline: none; }
+.w-board .piece:focus-visible { filter: drop-shadow(0 0 5px var(--accent)); }
+.w-board .pulse { animation: w-pulse 0.7s ease-in-out 2; }
+@keyframes w-pulse { 50% { opacity: 0.35; } }
+.w-play-acts { display: flex; gap: 10px; }
+
+/* What it does: the lead beside the piece, then one card per point */
+.w-what { display: grid; gap: 14px; }
+.w-what-lead { display: grid; gap: 18px; align-items: center; padding: 18px; border: var(--card-border); border-radius: var(--radius); background: var(--card-bg); }
+@media (min-width: 640px) { .w-what-lead { grid-template-columns: 120px 1fr; padding: 22px 26px; } }
+.w-what-lead p { margin: 0; font-size: 1.12rem; line-height: 1.55; }
+.w-medal { display: grid; place-items: center; width: 110px; height: 110px; overflow: hidden; border-radius: 30px; background: var(--page); transform: rotate(-4deg); }
+.w-medal svg { width: 72px; height: 72px; }
+.w-medal img { width: 100%; height: 100%; object-fit: cover; }
+.w-medal.is-piece img { width: 76px; height: 76px; object-fit: contain; }
+.w-what-cards { display: grid; gap: 12px; }
+@media (min-width: 700px) { .w-what-cards { grid-template-columns: repeat(2, minmax(0, 1fr)); } .w-what-card:last-child:nth-child(odd) { grid-column: 1 / -1; } }
+.w-what-card { position: relative; overflow: hidden; padding: 16px 18px 16px 24px; border: var(--card-border); border-radius: var(--radius-sm); background: var(--card-bg); }
+.w-what-card::before { content: ""; position: absolute; inset: 0 auto 0 0; width: 6px; background: var(--k); }
+.w-what-card b { display: block; margin-bottom: 6px; font: var(--display-weight) 1.12rem/1.25 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.w-what-card p { margin: 0; color: var(--muted); line-height: 1.55; }
+
+/* The tip: the game's own tip card, with the tutorial hand pointing at it */
+.w-tip { display: flex; align-items: flex-end; justify-content: center; gap: 2px; margin-top: 38px; }
+.w-hand { flex: none; width: 72px; height: 72px; transform: rotate(-24deg) translateY(-16px); }
+.w-tipcard { max-width: 440px; padding: 20px 22px; border-radius: var(--radius); background: var(--surface); color: var(--ink); text-align: center; box-shadow: 0 18px 40px -18px rgba(30, 20, 50, 0.6), 0 0 0 1px var(--line); }
+.w-tipcard p { margin: 0 0 8px; color: var(--muted); }
+.w-tip-label { font: var(--label-weight) 0.72rem/1 var(--label-font); letter-spacing: 0.14em; text-transform: uppercase; }
+.w-tipcard .w-tip-title { margin-bottom: 6px; font: var(--display-weight) 1.45rem/1.1 var(--font-display); color: var(--ink); }
+.w-gotit { display: inline-flex; margin-top: 4px; padding: 11px 28px; border-radius: 999px; background: var(--accent-2); color: #FFFFFF; font: var(--display-weight) 1.1rem/1 var(--font-display); box-shadow: 0 4px 0 color-mix(in srgb, var(--accent-2) 70%, #000); }
+
+.w-ticks { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.w-ticks li { position: relative; padding-left: 30px; }
+.w-ticks li::before { content: ""; position: absolute; left: 0; top: 0.3em; width: 19px; height: 19px; border-radius: 50%; background: var(--accent-2) url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cpath d='M6 12.5l4 4 8-9' fill='none' stroke='white' stroke-width='3.2' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") center / 13px no-repeat; }
+
+/* World map: the worlds as tiles in play order; the chosen one opens beside them. Without JavaScript the links jump to
+   each world's card, all of which are then shown. */
+.w-wm { display: grid; gap: 18px; margin-top: 12px; }
+@media (min-width: 900px) { .w-wm { grid-template-columns: minmax(0, 1.25fr) minmax(0, 1fr); align-items: start; } }
+.w-wm-tiles { list-style: none; padding: 0; margin: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); gap: 8px; }
+.w-wt { position: relative; isolation: isolate; display: block; aspect-ratio: 4 / 5; overflow: hidden; border-radius: var(--radius-sm); background: var(--w) var(--art) center / cover; color: #FFFFFF; text-decoration: none; box-shadow: 0 4px 0 rgba(30, 20, 50, 0.22); transition: transform 150ms ease-out; }
+.w-wt::after { content: ""; position: absolute; inset: 35% 0 0; z-index: -1; background: linear-gradient(transparent, rgba(20, 12, 40, 0.85)); }
+.w-wt:hover { transform: translateY(-2px); }
+.w-wt.on { box-shadow: 0 0 0 4px var(--swatch-3), 0 4px 0 rgba(30, 20, 50, 0.22); }
+.w-wt-n { position: absolute; left: 8px; top: 8px; display: grid; place-items: center; width: 28px; height: 28px; border-radius: 50%; background: #FFFFFF; color: #3B3355; font: var(--display-weight) 0.9rem/1 var(--font-display); box-shadow: 0 3px 0 rgba(0, 0, 0, 0.2); }
+.w-wt-n.big { left: 14px; top: 14px; width: 46px; height: 46px; font-size: 1.3rem; }
+.w-wt-name { position: absolute; left: 8px; right: 6px; bottom: 22px; font: var(--display-weight) 0.95rem/1.05 var(--font-display); text-shadow: 0 1px 3px rgba(0, 0, 0, 0.6); }
+.w-wt-lv { position: absolute; left: 8px; bottom: 7px; font-weight: 700; font-size: 0.72rem; }
+.w-wd { display: grid; gap: 14px; }
+.w-wcard { overflow: hidden; border-radius: var(--radius); background: var(--page); }
+.js .w-wcard.is-off { display: none; }
+.w-wcard-art { position: relative; aspect-ratio: 16 / 9; background: var(--w) var(--art) center / cover; }
+.w-wcard-body { padding: 16px 18px 18px; }
+.w-wcard-body h3 { font-size: 2rem; margin-bottom: 4px; }
+.w-wcard-lv { margin: 0 0 14px; font-weight: 700; color: var(--muted); }
+.w-wcard-body .w-muted { margin: 0; }
+
+/* In the game: a phone on small screens; the browser game's wide player on big ones */
+.w-player { margin: 0; display: grid; gap: 12px; }
+.w-player-screen { position: relative; justify-self: start; overflow: hidden; border-radius: var(--radius); }
+.w-player-screen img { display: block; width: min(280px, 100%); height: auto; border: 8px solid #2A2340; border-radius: var(--radius); box-shadow: var(--shot-frame); }
+.w-player.is-wide .w-player-screen { justify-self: stretch; }
+.w-player.is-wide .w-player-screen img { width: 100%; border-width: 0; }
+.w-player figcaption { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 8px 16px; color: var(--muted); font-weight: 700; }
+@media (min-width: 760px) {
+  .w-player-screen[style] { justify-self: stretch; aspect-ratio: 16 / 9; border: 10px solid #2A2340; background: #2A2340 var(--band) center / cover; box-shadow: var(--card-shadow); }
+  .w-player-screen[style]::before { content: ""; position: absolute; inset: 0; background: radial-gradient(ellipse at center, transparent 30%, rgba(20, 14, 40, 0.35)); }
+  .w-player-screen[style] img { position: absolute; top: 3%; left: 50%; height: 94%; width: auto; max-width: none; transform: translateX(-50%); border: 0; border-radius: 14px; box-shadow: 0 20px 40px -12px rgba(0, 0, 0, 0.6); }
+}
+
+/* The live gauge (Speedometer) */
+.w-gauge-try { display: grid; gap: 16px; align-items: center; justify-items: center; }
+@media (min-width: 640px) { .w-gauge-try { grid-template-columns: 280px 1fr; justify-items: start; } }
+.w-gauge { width: min(260px, 100%); height: auto; filter: drop-shadow(0 16px 24px rgba(0, 0, 0, 0.8)); }
+.w-gauge .num { fill: #ECECEE; font: 700 15px var(--font-display); text-anchor: middle; }
+.w-gauge .unit { fill: #A9A9B1; font: 800 12px var(--font-display); letter-spacing: 0.2em; text-anchor: middle; }
+.w-gauge .lcd { fill: var(--swatch-2); font: 800 19px var(--font-display); text-anchor: middle; letter-spacing: 0.06em; }
+.w-gauge-say { margin: 12px 0 0; color: var(--muted); font-weight: 600; }
+
+.w-pager { display: flex; flex-wrap: wrap; justify-content: space-between; gap: 12px; margin: 40px 0 10px; }
+
+@media (prefers-reduced-motion: reduce) { .wiki *, .wiki *::before, .wiki *::after { animation: none !important; transition: none !important; } }

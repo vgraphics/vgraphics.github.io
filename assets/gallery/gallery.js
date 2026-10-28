@@ -126,7 +126,13 @@
       const { root, slides, n } = g
       const panel = root.querySelector('.g-panel')
       const track = root.querySelector('.g-track')
-      const now = h('div', { class: 'g-now' })
+      // Every caption, stacked in one cell (see .g-now): the box keeps the longest one's height.
+      const items = slides.map((s) => {
+        const item = h('div', { class: 'g-now-item' }, [...s.querySelector('.g-cap').children].map((c) => c.cloneNode(true)))
+        item.querySelector('.g-line')?.classList.add('g-lettered')
+        return item
+      })
+      const now = h('div', { class: 'g-now' }, items)
       track.after(now, g.controls())
       let pos = 0
       // Where each phone stands for a (possibly fractional) position: in front, beside it, behind, or gone. The
@@ -153,9 +159,10 @@
       g.onShow = (i) => {
         pos = i
         place()
-        const cap = slides[i].querySelector('.g-cap')
-        now.replaceChildren(...[...cap.children].map((c) => c.cloneNode(true)))
-        now.querySelector('.g-line')?.classList.add('g-lettered')
+        items.forEach((item, k) => {
+          item.classList.toggle('is-on', k === i)
+          item.inert = k !== i
+        })
         slides.forEach((s, k) => {
           const phone = s.querySelector('.g-phone')
           if (k === i) phone.removeAttribute('tabindex')
@@ -193,7 +200,11 @@
     },
   }
 
-  // One lightbox for every gallery on the page.
+  // One lightbox for every gallery on the page. It flies out of the phone tapped and back into the one shown when it
+  // closes; a screenshot still loading shows its blurhash, never the one before it (George, 26 Oct 2026: "preview
+  // open on previous image until new loads. Also open preview with animation. Use blurhash. General rules for all
+  // pages.").
+  const blur = import('/assets/blurhash.js').catch(() => null)
   const Box = {
     build() {
       const dlg = h('dialog', { class: 'g-box', 'aria-label': 'Screenshot' })
@@ -207,13 +218,18 @@
       this.stage.append(this.hint)
       document.body.append(dlg)
       this.dlg = dlg
-      this.closeBtn.addEventListener('click', () => dlg.close())
+      this.closeBtn.addEventListener('click', () => this.shut())
       this.prev.addEventListener('click', () => this.set(this.i - 1, -1))
       this.next.addEventListener('click', () => this.set(this.i + 1, 1))
       dlg.addEventListener('close', () => {
         document.documentElement.classList.remove('g-lock')
         this.opener?.focus?.({ preventScroll: true })
       })
+      dlg.addEventListener('cancel', (e) => {
+        e.preventDefault()
+        this.shut()
+      })
+      addEventListener('resize', () => dlg.open && this.fit())
       dlg.addEventListener('keydown', (e) => {
         if (e.key === 'ArrowLeft') this.set(this.i - 1, -1)
         else if (e.key === 'ArrowRight') this.set(this.i + 1, 1)
@@ -226,7 +242,7 @@
       let downOnSpace = false
       dlg.addEventListener('pointerdown', (e) => (downOnSpace = e.target === dlg || e.target === this.stage))
       dlg.addEventListener('click', (e) => {
-        if (downOnSpace && (e.target === dlg || e.target === this.stage)) dlg.close()
+        if (downOnSpace && (e.target === dlg || e.target === this.stage)) this.shut()
       })
       this.gestures()
     },
@@ -238,6 +254,51 @@
       document.documentElement.classList.add('g-lock')
       this.dlg.showModal()
       this.set(i, 0)
+      if (motion.matches) return
+      this.dlg.animate([{ opacity: 0 }, {}], { duration: 320, easing: 'ease-out', pseudoElement: '::backdrop' })
+      for (const e of [this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint]) {
+        e.animate([{ opacity: 0 }, {}], { duration: 300, delay: 140, easing: 'ease-out', fill: 'backwards' })
+      }
+      this.pic.animate([{ transform: this.flight(g, this.i) }, { transform: 'none' }], { duration: 440, easing: 'cubic-bezier(.2,.8,.2,1)' })
+    },
+
+    // From the picture's place in the lightbox to the phone's screen it came from (the same picture, so they meet
+    // at their widths and centres), or null when that phone is off the screen
+    flight(g, i) {
+      const s = g.slides[i].querySelector('.g-screen')?.getBoundingClientRect(), p = this.pic.getBoundingClientRect()
+      if (!s || !s.width || s.bottom < 0 || s.top > innerHeight) return null
+      return `translate(${s.left + s.width / 2 - (p.left + p.width / 2)}px, ${s.top + s.height / 2 - (p.top + p.height / 2)}px) scale(${s.width / p.width})`
+    },
+
+    async shut() {
+      if (!this.dlg.open || this.closing) return
+      if (!motion.matches) {
+        this.closing = true
+        this.reset()
+        const to = this.flight(this.g, this.i)
+        await Promise.all([
+          this.dlg.animate([{}, { opacity: 0 }], { duration: 300, easing: 'ease-in', pseudoElement: '::backdrop' }).finished,
+          ...[this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint].map((e) => e.animate([{}, { opacity: 0 }], { duration: 160, fill: 'forwards' }).finished),
+          to ? this.pic.animate([{ transform: 'none' }, { transform: to }], { duration: 320, easing: 'cubic-bezier(.4,0,.7,.2)', fill: 'forwards' }).finished
+            : this.pic.animate([{}, { opacity: 0, transform: 'scale(0.94)' }], { duration: 220, easing: 'ease-in', fill: 'forwards' }).finished,
+        ].map((p) => p.catch(() => {})))
+        this.closing = false
+        this.dlg.getAnimations({ subtree: true }).forEach((a) => a.cancel())
+      }
+      this.dlg.close()
+    },
+
+    // The picture's box: the whole screenshot as large as the stage (and the picture's own sizes) allow, so its
+    // blurhash takes the place the screenshot will
+    fit() {
+      if (!this.pic) return
+      const img = this.pic.querySelector('img'), cs = getComputedStyle(this.stage)
+      const w = +img.getAttribute('width'), h = +img.getAttribute('height')
+      const aw = Math.min(this.stage.clientWidth - parseFloat(cs.paddingLeft) - parseFloat(cs.paddingRight), innerWidth * 0.92)
+      const ah = Math.min(this.stage.clientHeight - parseFloat(cs.paddingTop) - parseFloat(cs.paddingBottom), innerHeight - 190)
+      const s = Math.min(aw / w, ah / h)
+      this.pic.style.width = `${Math.round(w * s)}px`
+      this.pic.style.height = `${Math.round(h * s)}px`
     },
 
     set(i, dir) {
@@ -258,7 +319,20 @@
       }
       this.stage.querySelector('picture')?.remove()
       this.stage.prepend(pic)
+      this.pic = pic
       this.img = img
+      this.fit()
+      // Until the screenshot has loaded: its blurhash, the screenshot hidden; then it fades in
+      if (!(img.complete && img.naturalWidth)) {
+        img.style.opacity = '0'
+        const hash = pic.dataset.hash
+        blur.then((m) => m && hash && this.pic === pic && img.style.opacity === '0' && (pic.style.backgroundImage = `url(${m.url(hash, +img.getAttribute('width'), +img.getAttribute('height'))})`))
+        img.addEventListener('load', () => {
+          img.style.opacity = ''
+          pic.style.backgroundImage = ''
+          if (!motion.matches) img.animate([{ opacity: 0 }, { opacity: 1 }], { duration: 280, easing: 'ease-out' })
+        }, { once: true })
+      }
       this.reset()
       const s = g.shots[this.i]
       this.cap.replaceChildren(h('b', { text: s.line }), h('span', { text: `${s.tag} · ${this.i + 1} of ${g.n}` }))
@@ -343,7 +417,7 @@
         if (this.scale > 1) return
         if (dx < -60 && Math.abs(dx) > Math.abs(dy)) this.set(this.i + 1, 1)
         else if (dx > 60 && Math.abs(dx) > Math.abs(dy)) this.set(this.i - 1, -1)
-        else if (dy > 110) this.dlg.close()
+        else if (dy > 110) this.shut()
         else this.apply()
       }
       st.addEventListener('pointerup', up)

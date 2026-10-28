@@ -1,0 +1,1457 @@
+{
+ "product": {
+  "name": "Palermo Noir",
+  "slug": "palermo",
+  "home": "/palermo/",
+  "icon": "/palermo/assets/icon-192.png",
+  "image": "/palermo/img/card-1200x630.jpg",
+  "parent": {
+   "name": "Games",
+   "href": "/games/"
+  }
+ },
+ "title": "Palermo Noir wiki",
+ "heading": "Every role, power and rule",
+ "intro": "Every role you can be dealt, every card in the Lawyer's briefcase, and how a round of Palermo Noir plays, from the deal to the verdict.",
+ "art": {
+  "alt": "A man in a fedora and a trench coat studies a cork evidence board of engraved portraits of suspects linked by strings, a black rose at its centre, under a hanging lamp in a dark Palermo office, drawn in gold engraved lines on navy",
+  "tall": { "src": "img/hero-wiki-tall", "widths": [480, 720, 1080, 1440, 2160], "width": 2160, "height": 3193 },
+  "wide": { "src": "img/hero-wiki-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 1515, "sizes": "max(100vw, min(158vw, 253vh))" },
+  "position": "50% 40%",
+  "fade": { "wide": "74%", "tall": "70%" },
+  "placeholder": "linear-gradient(#0B1623, #0E1B2B 60%, #0B1623)"
+ },
+ "metaTitle": "Palermo Noir wiki: every role and rule of the mafia party game",
+ "metaDescription": "Every role in Palermo Noir, the hidden-role mafia party game for phones and a TV: the killers, the Police Officer, the Doctor, the Lawyer's cards and the rules.",
+ "entryTitles": ["{name} ({kind}) · Palermo Noir mafia party game wiki", "{name} · Palermo Noir mafia party game wiki", "{name} · Palermo Noir mafia game wiki"],
+ "entryTail": "In Palermo Noir, the mafia party game for phones and a TV.",
+ "source": "Written from the game's own texts (Palermo repo, assets/messages/en.json, engine/roles.ts, engine/rules.ts and engine/flow.ts at 2e16c55, 24 Oct 2026) and VHub's docs/party/palermo-design.md and design-pass/art/round-2-plan.md.",
+ "whatTitle": "What it does",
+ "relatedTitle": "See also",
+ "nav": [
+  {
+   "label": "Overview",
+   "href": "/palermo/"
+  },
+  {
+   "label": "Wiki",
+   "href": "/palermo/wiki/",
+   "current": true
+  },
+  {
+   "label": "Privacy",
+   "href": "/palermo/privacy.html",
+   "wide": true
+  }
+ ],
+ "sections": [
+  {
+   "id": "roles",
+   "title": "The roles",
+   "kind": "role",
+   "intro": "Every card a player can be dealt. The classic roles are in every game; the extras unlock as a host plays, or all at once for groups who know Palermo. None of them costs anything."
+  },
+  {
+   "id": "powers",
+   "title": "The Lawyer's briefcase",
+   "kind": "Lawyer's card",
+   "intro": "At the deal the Lawyer is dealt 5 of these 17 power cards at random and keeps 2. Each works once, at its own moment. The contract is a host variant that makes him Solo."
+  },
+  {
+   "id": "rules",
+   "title": "How it plays",
+   "intro": "A round from the deal to the verdict, how a game is won, and the rules a host can change."
+  }
+ ],
+ "entries": [
+  {
+   "slug": "known-killer",
+   "section": "roles",
+   "name": "Known Killer",
+   "image": "/palermo/wiki/img/medals/known-killer.webp",
+   "summary": "Picks a victim with the other killers each night. The Police Officer knows his face.",
+   "quote": {
+    "text": "Tonight… someone won't wake up.",
+    "by": "The Known Killer",
+    "audio": "/palermo/audio/voices/known-killer.mp3",
+    "listen": "Hear the Known Killer"
+   },
+   "what": [
+    "Every night from the second, you and the other killers choose a victim together on your phones. Your partners see your pick, and the most picked player is the victim.",
+    "On the first night there is no kill: the killers only see each other, and the Police Officer learns who you are, though not the other killers.",
+    "There is always exactly one Known Killer, whatever the number of players. The officer who knows his face is the heart of the Greek game."
+   ],
+   "how": [
+    "At the deal, hold to see your card: your partners are named on it.",
+    "On the first night, look at your partners and tap I've seen.",
+    "From the second night, pick a victim, then name a suspect like everyone else, so your phone looks like theirs.",
+    "By day, accuse, argue and vote like a townsperson, and keep away from the officer's suspicion."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Killers"
+    ],
+    [
+     "Acts",
+     "Every night from the second"
+    ],
+    [
+     "In the game",
+     "Classic: in every game, always one"
+    ]
+   ],
+   "related": [
+    "hidden-killer",
+    "police-officer",
+    "the-night"
+   ],
+   "artAlt": "The Known Killer, in a fedora and a dark overcoat with a rose on the lapel, lights a match in a doorway of a narrow Palermo alley at night, a black cat on a step"
+  },
+  {
+   "slug": "hidden-killer",
+   "section": "roles",
+   "name": "Hidden Killer",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/hidden-killer.webp",
+   "summary": "A killer the Police Officer doesn't know, and the Detective sees as innocent.",
+   "quote": {
+    "text": "You'll never see me coming.",
+    "by": "The Hidden Killer",
+    "audio": "/palermo/audio/voices/hidden-killer.mp3",
+    "listen": "Hear the Hidden Killer"
+   },
+   "what": [
+    "You kill with the Known Killer every night from the second, but on the first night the Police Officer learns only the Known Killer's face, not yours.",
+    "By default the Detective sees you as not a killer, a host rule. With 12 players or more there are two Hidden Killers, three killers in all."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Killers"
+    ],
+    [
+     "Acts",
+     "Every night from the second"
+    ],
+    [
+     "In the game",
+     "Classic: in every game"
+    ]
+   ],
+   "related": [
+    "known-killer",
+    "detective",
+    "henchman"
+   ],
+   "artAlt": "The Hidden Killer, his fedora pulled low, stands in a crowd under a piazza's arcades while the Detective peers at him through a magnifying glass"
+  },
+  {
+   "slug": "police-officer",
+   "section": "roles",
+   "name": "Police Officer",
+   "image": "/palermo/wiki/img/medals/police-officer.webp",
+   "summary": "Learns the Known Killer's face on the first night, then steers the town without giving himself away.",
+   "quote": {
+    "text": "You're under arrest!",
+    "by": "The Police Officer",
+    "audio": "/palermo/audio/voices/police-officer.mp3",
+    "listen": "Hear the Police Officer"
+   },
+   "what": [
+    "On the first night your phone names the Known Killer: you know one killer from the start.",
+    "You have no other power. Lead the town towards the Known Killer without showing what you know, or the killers will make you their next victim.",
+    "A host rule can make killing the Police Officer a win for the killers, as some groups play it. It's off by default."
+   ],
+   "how": [
+    "On the first night, read the Known Killer's name and tap I've seen.",
+    "By day, nudge the accusations his way, slowly enough to stay out of the killers' sights."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "The first night"
+    ],
+    [
+     "In the game",
+     "Classic: in every game, always one"
+    ]
+   ],
+   "related": [
+    "known-killer",
+    "doctor",
+    "the-night"
+   ],
+   "artAlt": "The Police Officer writes in his notebook under a street lamp, watching the Known Killer pass on the other side of the street at night"
+  },
+  {
+   "slug": "doctor",
+   "section": "roles",
+   "name": "Doctor",
+   "image": "/palermo/wiki/img/medals/doctor.webp",
+   "summary": "Protects one player each night from the second, never the same one two nights running.",
+   "quote": {
+    "text": "Not tonight. Not on my watch.",
+    "by": "The Doctor",
+    "audio": "/palermo/audio/voices/doctor.mp3",
+    "listen": "Hear the Doctor"
+   },
+   "what": [
+    "From the second night, you choose one player to protect. If the killers pick them, the night passes without a murder, and only the dawn says so.",
+    "You can't protect the same player two nights running, and you can save yourself once a game. Both are host rules."
+   ],
+   "how": [
+    "Each night, pick who to protect, then name a suspect like everyone else.",
+    "Watch the town's rumour at dawn: the killers often go for the most trusted voices."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "Every night from the second"
+    ],
+    [
+     "In the game",
+     "Classic: in every game"
+    ]
+   ],
+   "related": [
+    "known-killer",
+    "bulletproof",
+    "the-night"
+   ],
+   "artAlt": "The Doctor sits at a sleeping patient's bedside by the light of an oil lamp, her bag at her feet and Palermo's rooftops in the window"
+  },
+  {
+   "slug": "citizen",
+   "section": "roles",
+   "name": "Citizen",
+   "image": "/palermo/wiki/img/medals/citizen.webp",
+   "summary": "No power: listen, accuse and vote the killers out.",
+   "quote": {
+    "text": "I only bake the bread… but I see everything.",
+    "by": "The Citizen",
+    "audio": "/palermo/audio/voices/citizen.mp3",
+    "listen": "Hear the Citizen"
+   },
+   "what": [
+    "Most of the town are citizens. At night your phone asks who you trust and who you suspect, so it looks exactly like everyone else's, and the most suspected name is told at dawn.",
+    "Citizens come with four faces on their cards: the baker, the fisherman, the seamstress and the kiosk owner. Each citizen gets one at the deal."
+   ],
+   "how": [
+    "At night, answer who you trust and who you suspect.",
+    "By day, point at a suspect on the accusation board, argue, and vote."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "By day"
+    ],
+    [
+     "In the game",
+     "Classic: in every game: citizens fill the other seats"
+    ]
+   ],
+   "related": [
+    "the-day",
+    "the-night",
+    "mayor"
+   ],
+   "artAlt": "The town's citizens at the market: the Baker at his bread stall, the Fisherman with his net, the Seamstress and the newspaper seller reading at his kiosk"
+  },
+  {
+   "slug": "detective",
+   "section": "roles",
+   "name": "Detective",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/detective.webp",
+   "summary": "Each night, checks one player: killer or not.",
+   "quote": {
+    "text": "Just as I suspected.",
+    "by": "The Detective",
+    "audio": "/palermo/audio/voices/detective.mp3",
+    "listen": "Hear the Detective"
+   },
+   "what": [
+    "Each night from the second, you pick one player and your phone tells you at once whether they're a killer.",
+    "The Henchman and the Kamikaze show as not a killer, and so does the Hidden Killer unless the host turns that rule off."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "Every night from the second"
+    ],
+    [
+     "In the game",
+     "Extra: unlocks after a host's first game"
+    ]
+   ],
+   "related": [
+    "hidden-killer",
+    "seer",
+    "henchman"
+   ],
+   "artAlt": "The Detective crouches under a street lamp at night, studying footprints on the cobbles through his magnifying glass, his pipe smoking"
+  },
+  {
+   "slug": "seer",
+   "section": "roles",
+   "name": "Seer",
+   "image": "/palermo/wiki/img/medals/seer.webp",
+   "summary": "Once a game, at night, learns one player's exact role.",
+   "quote": {
+    "text": "The cards never lie.",
+    "by": "The Seer",
+    "audio": "/palermo/audio/voices/seer.mp3",
+    "listen": "Hear the Seer"
+   },
+   "what": [
+    "One night of your choice, you look at a player and learn their role, not just their side. Any other night, tap Not tonight.",
+    "One look is all you get, so choose well, and keep it to yourself: the killers will want to know who has it."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "One night of the game"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games"
+    ]
+   ],
+   "related": [
+    "detective",
+    "bulletproof",
+    "the-night"
+   ],
+   "artAlt": "The Seer, a fortune teller in a headscarf, turns over a tarot card at a candlelit table with a glowing crystal ball"
+  },
+  {
+   "slug": "bulletproof",
+   "section": "roles",
+   "name": "Bulletproof",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/bulletproof.webp",
+   "summary": "Survives the killers' first attack on him.",
+   "quote": {
+    "text": "Ha! Missed me!",
+    "by": "The Bulletproof",
+    "audio": "/palermo/audio/voices/bulletproof.mp3",
+    "listen": "Hear the Bulletproof"
+   },
+   "what": [
+    "The first time the killers pick you, you live, and the dawn tells the town only that the night passed without a murder, as if the Doctor had saved you.",
+    "The second attack kills you as it would anyone."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "On its own, the first time he is attacked"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games"
+    ]
+   ],
+   "related": [
+    "doctor",
+    "known-killer",
+    "the-night"
+   ],
+   "artAlt": "The Bulletproof man grins at his scratched front door, holding up a dented pocket watch, while neighbours look out of their windows"
+  },
+  {
+   "slug": "henchman",
+   "section": "roles",
+   "name": "Henchman",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/henchman.webp",
+   "summary": "Knows the killers, unknown to them, and wins with them.",
+   "quote": {
+    "text": "The car's ready, boss.",
+    "by": "The Henchman",
+    "audio": "/palermo/audio/voices/henchman.mp3",
+    "listen": "Hear the Henchman"
+   },
+   "what": [
+    "Your card names the killers, but they don't know you. You don't kill: you help from the shadows, steering the votes away from them and onto the town.",
+    "You win when the killers win, but in their head count you count with everyone else, and the Detective sees you as not a killer."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Killers"
+    ],
+    [
+     "Acts",
+     "By day"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games"
+    ]
+   ],
+   "related": [
+    "known-killer",
+    "kamikaze",
+    "winning"
+   ],
+   "artAlt": "The Henchman leans on an old car in a garage, twirling a key, as the two killers walk past under a street lamp outside"
+  },
+  {
+   "slug": "mayor",
+   "section": "roles",
+   "name": "Mayor",
+   "image": "/palermo/wiki/img/medals/mayor.webp",
+   "summary": "Reveals himself during a day; from then on his vote counts twice.",
+   "quote": {
+    "text": "Citizens! I am your mayor!",
+    "by": "The Mayor",
+    "audio": "/palermo/audio/voices/mayor.mp3",
+    "listen": "Hear the Mayor"
+   },
+   "what": [
+    "You start as a secret. During any day's talk, use Reveal in your Secret actions: a gold badge appears on your tile, everyone knows who you are, and your vote counts twice from then on.",
+    "Revealing makes you a target at night, so choose your moment."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "By day, once he reveals"
+    ],
+    [
+     "In the game",
+     "Extra: unlocks after a host's first game"
+    ]
+   ],
+   "related": [
+    "the-day",
+    "injunction",
+    "ties"
+   ],
+   "artAlt": "The Mayor, in his sash, raises his big ornate key from the town hall balcony as the townspeople below look up"
+  },
+  {
+   "slug": "hunter",
+   "section": "roles",
+   "name": "Hunter",
+   "image": "/palermo/wiki/img/medals/hunter.webp",
+   "summary": "When he's out, by vote, by night or by a bomb, he takes one player with him.",
+   "quote": {
+    "text": "If I go down, you're coming with me.",
+    "by": "The Hunter",
+    "audio": "/palermo/audio/voices/hunter.mp3",
+    "listen": "Hear the Hunter"
+   },
+   "what": [
+    "Whenever you go out, you get 20 seconds to choose one player to take with you.",
+    "A good shot can win the game for the town; a bad one hands it to the killers."
+   ],
+   "how": [
+    "When your phone says you're out, pick who goes with you before the 20 seconds run out."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town"
+    ],
+    [
+     "Acts",
+     "When he's out"
+    ],
+    [
+     "In the game",
+     "Extra: unlocks after a host's first game"
+    ]
+   ],
+   "related": [
+    "kamikaze",
+    "the-day",
+    "winning"
+   ],
+   "artAlt": "The Hunter raises his brass horn by an olive tree and a stone wall at the edge of town, his hound at his feet"
+  },
+  {
+   "slug": "lawyer",
+   "section": "roles",
+   "name": "Lawyer",
+   "image": "/palermo/wiki/img/medals/lawyer.webp",
+   "summary": "Dealt 5 power cards at the deal, keeps 2, and each works once.",
+   "quote": {
+    "text": "Objection!",
+    "by": "The Lawyer",
+    "audio": "/palermo/audio/voices/lawyer.mp3",
+    "listen": "Hear the Lawyer"
+   },
+   "what": [
+    "While everyone reads their card, your phone deals you 5 of the 17 power cards at random, and you keep 2. Every phone shows a card screen for the same time, so nobody can tell.",
+    "Each kept card works once, at its own moment: a verdict, a vote, a night or your death. Your Secret actions drawer offers a card only when it can be used, at most one a day or a night.",
+    "A host variant, the contract, makes you Solo with one power instead: a secret client you win with."
+   ],
+   "how": [
+    "At the deal, pick the 2 cards you keep; if your time runs out, 2 of the 5 are kept at random.",
+    "Use each card at its moment from your Secret actions drawer. The TV says the Lawyer steps in, without naming you.",
+    "At the end, the truth shows the cards you kept and whether you used them."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Town, or Solo with the contract"
+    ],
+    [
+     "Acts",
+     "When his cards allow"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games"
+    ]
+   ],
+   "related": [
+    "objection",
+    "client",
+    "the-contract"
+   ],
+   "artAlt": "The Lawyer, in round spectacles, fans out his power cards at his desk under a brass lamp, law books on the shelves behind him"
+  },
+  {
+   "slug": "kamikaze",
+   "section": "roles",
+   "name": "Kamikaze",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/kamikaze.webp",
+   "summary": "With the killers. Once, during a day, he blows himself up and takes one player with him.",
+   "quote": {
+    "text": "Say goodbye, Palermo!",
+    "by": "The Kamikaze",
+    "audio": "/palermo/audio/voices/kamikaze.mp3",
+    "listen": "Hear the Kamikaze"
+   },
+   "what": [
+    "You know the killers, and they know you. You don't kill at night.",
+    "Once in the game, during a day's talk, use Explode in your Secret actions and pick a player: you both fall at once, in front of the whole town.",
+    "The Detective sees you as not a killer."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Killers"
+    ],
+    [
+     "Acts",
+     "By day, once"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games"
+    ]
+   ],
+   "related": [
+    "henchman",
+    "hunter",
+    "injunction"
+   ],
+   "artAlt": "The grinning Kamikaze leaps over a fountain holding up a cartoon bomb with a lit fuse while the townspeople scatter"
+  },
+  {
+   "slug": "madman",
+   "section": "roles",
+   "name": "Madman",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/madman.webp",
+   "summary": "Wins alone if the town votes him out, and that ends the game.",
+   "quote": {
+    "text": "I wanted this all along!",
+    "by": "The Madman",
+    "audio": "/palermo/audio/voices/madman.mp3",
+    "listen": "Hear the Madman"
+   },
+   "what": [
+    "Make the town vote you out and you win alone, on the spot: the game ends there.",
+    "Killed at night, you just die. You're on no one's side."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Solo"
+    ],
+    [
+     "Acts",
+     "By day"
+    ],
+    [
+     "In the game",
+     "Extra: unlocks after a host's first game"
+    ]
+   ],
+   "related": [
+    "winning",
+    "the-day",
+    "ties"
+   ],
+   "artAlt": "The Madman dances down the town hall steps holding his cracked harlequin mask while the townspeople point at him"
+  },
+  {
+   "slug": "lovers",
+   "section": "roles",
+   "name": "Lovers",
+   "image": "/palermo/wiki/img/medals/lovers.webp",
+   "summary": "Two players tied by a heart: if one dies, the other dies too.",
+   "what": [
+    "When the host switches the Lovers on, two random players also get a heart on their card. They know each other, whatever their teams.",
+    "If one of them dies, by night, by vote or by a bomb, the other dies of heartbreak. If they're the last two alive, they win together."
+   ],
+   "facts": [
+    [
+     "Team",
+     "Any: a heart on top of a role"
+    ],
+    [
+     "In the game",
+     "Advanced: unlocks after five games, a host rule"
+    ]
+   ],
+   "related": [
+    "winning",
+    "hunter",
+    "host-rules"
+   ],
+   "artAlt": "The Seamstress and the newspaper seller hold hands on a small stone bridge over a canal under the full moon"
+  },
+  {
+   "slug": "objection",
+   "section": "powers",
+   "name": "Objection!",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/objection.webp",
+   "summary": "After the count, cancels the verdict: nobody goes out today.",
+   "what": [
+    "At a verdict, after the votes are counted, the Lawyer objects and the verdict is cancelled: nobody goes out that day."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 1 of the briefcase"
+    ],
+    [
+     "When",
+     "At a verdict"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "appeal",
+    "retrial",
+    "lawyer"
+   ],
+   "artAlt": "The Lawyer springs up in a courtroom at night, one finger raised, his open briefcase and papers on the table in front of him"
+  },
+  {
+   "slug": "client",
+   "section": "powers",
+   "name": "Client",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/client.webp",
+   "summary": "Picks a client: if the town votes them out, the vote fails, once.",
+   "what": [
+    "During a day's talk the Lawyer picks a client in secret. If the town then votes that player out, the vote fails, once, and the card is spent.",
+    "It works like a Doctor for the vote."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 2 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Secret, until it saves the client"
+    ]
+   ],
+   "related": [
+    "objection",
+    "safe-house",
+    "the-contract"
+   ],
+   "artAlt": "The Lawyer shakes hands with the Fisherman, his secret client, by a tall window in a courthouse corridor"
+  },
+  {
+   "slug": "appeal",
+   "section": "powers",
+   "name": "Appeal",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/appeal.webp",
+   "summary": "At a verdict: the condemned defends for 20 seconds, then a majority must confirm.",
+   "what": [
+    "The condemned player gets 20 seconds in the TV's spotlight to defend themselves, then the town votes yes or no on them alone. Without a majority to confirm, they stay."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 3 of the briefcase"
+    ],
+    [
+     "When",
+     "At a verdict"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "retrial",
+    "sealed-evidence",
+    "objection"
+   ],
+   "artAlt": "The condemned Fisherman pleads in a beam of light while the Lawyer holds a sealed parchment and an hourglass runs on the judge's bench"
+  },
+  {
+   "slug": "retrial",
+   "section": "powers",
+   "name": "Retrial",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/retrial.webp",
+   "summary": "At a verdict: the vote is thrown out, and the town revotes between the top two.",
+   "what": [
+    "The day's vote is thrown out, and the town votes again, this time only between the two players with the most votes."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 4 of the briefcase"
+    ],
+    [
+     "When",
+     "At a verdict"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "appeal",
+    "hung-jury",
+    "ties"
+   ],
+   "artAlt": "The Lawyer turns over an hourglass on the judge's bench while two townspeople wait at the front of the courtroom"
+  },
+  {
+   "slug": "hung-jury",
+   "section": "powers",
+   "name": "Hung jury",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/hung-jury.webp",
+   "summary": "Today someone goes out only with a majority of the living.",
+   "what": [
+    "For the rest of the day, a player goes out only if more than half of the living players vote for them. Most votes is no longer enough."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 5 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "retrial",
+    "gag-order",
+    "ties"
+   ],
+   "artAlt": "A jury argues around a long table at night, split into two equal halves, with brass scales hanging level between them"
+  },
+  {
+   "slug": "alibi",
+   "section": "powers",
+   "name": "Alibi",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/alibi.webp",
+   "summary": "At night: gives a player an alibi, so they can't be voted out the next day.",
+   "what": [
+    "At night the Lawyer gives a player an alibi. The next day, no vote can send that player out."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 6 of the briefcase"
+    ],
+    [
+     "When",
+     "At night"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "safe-house",
+    "client",
+    "the-night"
+   ],
+   "artAlt": "In a theatre box, the Lawyer slips the Seamstress a ticket stub, a gold pocket watch on the ledge and the lit stage below"
+  },
+  {
+   "slug": "cross-examination",
+   "section": "powers",
+   "name": "Cross-examination",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/cross-examination.webp",
+   "summary": "During the talk: puts a player on the stand with a set question, for 30 seconds.",
+   "what": [
+    "The Lawyer picks a player and one of 16 set questions. The TV puts them in the spotlight for 30 seconds, with the question on screen, and the room listens to the answer."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 7 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "the-day",
+    "appeal",
+    "gag-order"
+   ],
+   "artAlt": "The Henchman sits in the witness stand under a cone of light while the Lawyer leans on the rail, questioning him"
+  },
+  {
+   "slug": "case-file",
+   "section": "powers",
+   "name": "Case file",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/case-file.webp",
+   "summary": "At night: learns whether a player did anything that night.",
+   "what": [
+    "The Lawyer picks a player and learns whether they acted that night, busy or asleep, but not what they did."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 8 of the briefcase"
+    ],
+    [
+     "When",
+     "At night"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Secret: the TV only says a case file is opened"
+    ]
+   ],
+   "related": [
+    "detective",
+    "seer",
+    "the-night"
+   ],
+   "artAlt": "The Lawyer opens a thick case file under his desk lamp at night, holding up a fingerprint card, a magnifying glass on the desk"
+  },
+  {
+   "slug": "plea-bargain",
+   "section": "powers",
+   "name": "Plea bargain",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/plea-bargain.webp",
+   "summary": "If the Lawyer is voted out, he survives, but his card is shown.",
+   "what": [
+    "When the town votes the Lawyer out, he stays alive, but his own card is turned over for everyone to see."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 9 of the briefcase"
+    ],
+    [
+     "When",
+     "When he's voted out"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: his card is shown"
+    ]
+   ],
+   "related": [
+    "objection",
+    "last-will",
+    "lawyer"
+   ],
+   "artAlt": "In a small police office, the Lawyer slides a signed paper across the table to the Police Officer, open handcuffs between them"
+  },
+  {
+   "slug": "last-will",
+   "section": "powers",
+   "name": "Last will",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/last-will.webp",
+   "summary": "When the Lawyer dies, he names a player, and their team is read out.",
+   "what": [
+    "When the Lawyer dies, by night or by vote, he names one player, and that player's team is read out to everyone."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 10 of the briefcase"
+    ],
+    [
+     "When",
+     "When he dies"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Public: read out to everyone"
+    ]
+   ],
+   "related": [
+    "plea-bargain",
+    "sealed-evidence",
+    "detective"
+   ],
+   "artAlt": "The Lawyer's empty study by candlelight: his spectacles beside a sealed envelope, a candle burned low and his briefcase on the chair"
+  },
+  {
+   "slug": "gag-order",
+   "section": "powers",
+   "name": "Gag order",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/gag-order.webp",
+   "summary": "One player's vote doesn't count today.",
+   "what": [
+    "The Lawyer picks a player whose vote won't count today, and the TV says so."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 11 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk or the vote"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "hung-jury",
+    "change-of-venue",
+    "the-day"
+   ],
+   "artAlt": "The newspaper seller posts his ballot into a box whose slot is tied shut with a ribbon and a wax seal, while the Lawyer raises a finger"
+  },
+  {
+   "slug": "safe-house",
+   "section": "powers",
+   "name": "Safe house",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/safe-house.webp",
+   "summary": "At night: one player is safe from tonight's killers and the next day's vote.",
+   "what": [
+    "At night the Lawyer hides a player in a safe house: the killers can't reach them tonight, and the next day's vote can't send them out."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 12 of the briefcase"
+    ],
+    [
+     "When",
+     "At night"
+    ],
+    [
+     "Target",
+     "A living player"
+    ],
+    [
+     "Seen",
+     "Secret, until it saves them"
+    ]
+   ],
+   "related": [
+    "alibi",
+    "doctor",
+    "client"
+   ],
+   "artAlt": "The Lawyer holds a heavy studded door open for the Seamstress at night while the two killers watch from down the street"
+  },
+  {
+   "slug": "bail",
+   "section": "powers",
+   "name": "Bail",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/bail.webp",
+   "summary": "At night: yesterday's condemned comes back at dawn, without a vote.",
+   "what": [
+    "The player the town voted out the day before comes back at dawn, alive, but out on bail: no vote that day."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 13 of the briefcase"
+    ],
+    [
+     "When",
+     "At night"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "appeal",
+    "objection",
+    "the-day"
+   ],
+   "artAlt": "The Lawyer, holding up a big iron key, walks out of the old town jail beside the freed Fisherman, the gate open behind them"
+  },
+  {
+   "slug": "change-of-venue",
+   "section": "powers",
+   "name": "Change of venue",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/change-of-venue.webp",
+   "summary": "Today's vote becomes secret, or open if the room votes in secret.",
+   "what": [
+    "For today, the vote switches: a room that votes openly votes in secret, and a room that votes in secret votes openly."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 14 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "gag-order",
+    "host-rules",
+    "the-day"
+   ],
+   "artAlt": "The Lawyer draws a velvet curtain round the ballot box while the Baker and other townspeople wait in line with their ballots"
+  },
+  {
+   "slug": "injunction",
+   "section": "powers",
+   "name": "Injunction",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/injunction.webp",
+   "summary": "For today, the Mayor's vote counts once and the Kamikaze can't blow up.",
+   "what": [
+    "For the rest of the day, a revealed Mayor's vote counts once instead of twice, and the Kamikaze can't blow himself up."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 15 of the briefcase"
+    ],
+    [
+     "When",
+     "During the talk"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "mayor",
+    "kamikaze",
+    "hung-jury"
+   ],
+   "artAlt": "On the town hall steps the Lawyer brings down a rubber stamp on a paper while the Mayor frowns and the Kamikaze lowers his bomb"
+  },
+  {
+   "slug": "power-of-attorney",
+   "section": "powers",
+   "name": "Power of attorney",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/power-of-attorney.webp",
+   "summary": "At the vote, a dead player casts one last vote through the Lawyer.",
+   "what": [
+    "At the vote, the Lawyer picks a dead player, who casts one last vote through him."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 16 of the briefcase"
+    ],
+    [
+     "When",
+     "At the vote"
+    ],
+    [
+     "Target",
+     "A dead player"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "last-will",
+    "the-day",
+    "night-announcer"
+   ],
+   "artAlt": "In the town hall during the vote, the Lawyer writes on a folded ballot with his quill while the townspeople on the benches look on"
+  },
+  {
+   "slug": "sealed-evidence",
+   "section": "powers",
+   "name": "Sealed evidence",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/sealed-evidence.webp",
+   "summary": "At a verdict: shows the condemned's team, then the town confirms or cancels.",
+   "what": [
+    "Before the sentence, the condemned player's team is shown to everyone, and the town votes again to confirm or cancel."
+   ],
+   "facts": [
+    [
+     "Card",
+     "No. 17 of the briefcase"
+    ],
+    [
+     "When",
+     "At a verdict"
+    ],
+    [
+     "Target",
+     "None"
+    ],
+    [
+     "Seen",
+     "Public: the TV shows it, never who"
+    ]
+   ],
+   "related": [
+    "appeal",
+    "last-will",
+    "retrial"
+   ],
+   "artAlt": "The Lawyer holds up a sealed evidence envelope in court while the condemned Fisherman and the jury lean in to see"
+  },
+  {
+   "slug": "the-contract",
+   "section": "powers",
+   "name": "The contract",
+   "image": "/palermo/wiki/img/medals/the-contract.webp",
+   "summary": "A host variant: the Lawyer gets a secret client and wins too if they're alive at the end.",
+   "what": [
+    "With this variant on, the Lawyer plays Solo with this one card instead of the briefcase: at the deal he gets a secret client.",
+    "If the client is alive at the end, the Lawyer wins too, whoever else wins."
+   ],
+   "facts": [
+    [
+     "Card",
+     "A host variant"
+    ],
+    [
+     "When",
+     "From the deal"
+    ],
+    [
+     "Target",
+     "A secret client"
+    ],
+    [
+     "Seen",
+     "Secret"
+    ]
+   ],
+   "related": [
+    "lawyer",
+    "client",
+    "host-rules"
+   ],
+   "artAlt": "The Lawyer signs a contract with a client whose face stays in shadow, in the back room of a café under a hanging lamp"
+  },
+  {
+   "slug": "a-round",
+   "section": "rules",
+   "name": "A round",
+   "image": "/palermo/wiki/img/medals/a-round.webp",
+   "summary": "From the deal to the verdict: one night and one day, again and again until a side has won.",
+   "what": [
+    "A game opens with the deal: everyone holds their phone to see their card, and the TV names the roles in play if the host chose so.",
+    "The first night only introduces the killers to each other and the Known Killer to the Police Officer. From then on each round is a dawn, a day's talk, a vote, a verdict and a night, until a side has won.",
+    "A safety valve keeps it moving: after three full rounds without a death, the narrator says the town won't wait any longer, and ties go to fate from then on."
+   ],
+   "how": [
+    "The deal: hold your phone to see your card, then tap Got it.",
+    "The first night: recognition only, no kill.",
+    "Dawn: who the killers found, or a night without a murder, and the town's rumour.",
+    "The talk: accusations, arguments and secret actions.",
+    "The vote and the verdict, then the next night."
+   ],
+   "related": [
+    "the-night",
+    "the-day",
+    "winning"
+   ],
+   "artAlt": "Palermo from night to day: the two killers whisper on the moonlit rooftops while the Mayor, the Baker and the Seamstress meet in the morning light"
+  },
+  {
+   "slug": "the-night",
+   "section": "rules",
+   "name": "The night",
+   "image": "/palermo/wiki/img/medals/the-night.webp",
+   "summary": "Every phone asks for two taps, so nobody can tell who did what.",
+   "what": [
+    "When night comes, the TV goes dark and every phone vibrates together. First your role's move: the killers pick a victim, the Doctor protects, the Detective checks, the Seer looks, and everyone else answers who they trust. Then, for everyone: who do you suspect?",
+    "The night ends when everyone is done plus a few random seconds, or at the timer, so how long it takes gives nothing away.",
+    "The killers' victim dies at dawn, unless the Doctor protected them or a Bulletproof shrugs it off. The most suspected name is told at dawn as the town's rumour."
+   ],
+   "related": [
+    "known-killer",
+    "doctor",
+    "the-day"
+   ],
+   "artAlt": "A Palermo piazza at midnight: the two killers whisper under an archway, the Doctor hurries past with her bag and the Detective watches from a window"
+  },
+  {
+   "slug": "the-day",
+   "section": "rules",
+   "name": "The day",
+   "image": "/palermo/wiki/img/medals/the-day.webp",
+   "summary": "Dawn, the talk and the vote: the town argues and sends someone out.",
+   "what": [
+    "At dawn the narrator says who the killers found, or that the night passed without a murder; by default the victim's card stays hidden. The TV also shows the town's rumour, the most suspected name of the night.",
+    "The talk has no clock by default: the town argues as long as it likes, and the vote opens once every player online has tapped Ready on their phone (a host can set a time instead). During the talk, each player can point at one suspect from their phone, and the accusation board shows the arrows live on the TV. When the talk ends, whoever drew the most arrows, two at least, gets 30 seconds to answer the town before the vote; players tied at the top answer in turn. Everyone has the same Secret actions drawer: for most it says there's nothing to do today, the Mayor can reveal and the Kamikaze can explode.",
+    "Then the vote: open, with each vote shown as an arrow as it arrives, or secret, with only the count. Most votes goes out, and a revealed Mayor's vote counts twice. The one who goes out may say a few last words before their card is shown."
+   ],
+   "related": [
+    "ties",
+    "the-night",
+    "winning"
+   ],
+   "artAlt": "The town argues around the fountain in the piazza: the Mayor, the Baker, the Seamstress and the Lawyer, with the Madman on the fountain's rim"
+  },
+  {
+   "slug": "winning",
+   "section": "rules",
+   "name": "Winning",
+   "image": "/palermo/wiki/img/medals/winning.webp",
+   "summary": "The town wins when every killer is out, the killers when they match everyone else.",
+   "what": [
+    "The win check runs after every death, in this order: the Madman voted out wins alone; the Lovers, as the last two alive, win together; the town wins when every killer is out; the killers win when they are at least as many as everyone else alive.",
+    "The Henchman and the Kamikaze win with the killers but count with everyone else. Then the TV tells the truth: every card turned over, killers last, the story of every night, and awards such as the sharpest eye, the best liar and the lifesaver."
+   ],
+   "related": [
+    "madman",
+    "lovers",
+    "the-day"
+   ],
+   "artAlt": "The townspeople cheer and throw their hats on the town hall steps as the Police Officer leads the two killers away"
+  },
+  {
+   "slug": "ties",
+   "section": "rules",
+   "name": "Ties",
+   "robots": "noindex",
+   "image": "/palermo/wiki/img/medals/ties.webp",
+   "summary": "A revote among the tied, a short talk, a last revote, then nobody goes out, or fate decides.",
+   "what": [
+    "When the vote ties, each tied player gets 20 seconds in the spotlight to defend themselves, and the town revotes among them only.",
+    "If it ties again, a short talk and one last revote follow. Still tied: nobody goes out today, the default, or fate picks one of the tied, as the host chose."
+   ],
+   "related": [
+    "the-day",
+    "retrial",
+    "host-rules"
+   ],
+   "artAlt": "The Seamstress and the newspaper seller stand side by side under two lamps, two equal piles of ballots and an hourglass in front of them"
+  },
+  {
+   "slug": "night-announcer",
+   "section": "rules",
+   "name": "The night announcer",
+   "image": "/palermo/wiki/img/medals/night-announcer.webp",
+   "summary": "The first player out sees every role and tells the dawns, as Greek groups do.",
+   "what": [
+    "In many Greek groups the first player out becomes the narrator. Palermo Noir keeps it: from then on that player's phone shows every role and every night's moves, and offers a choice of lines for the dawn.",
+    "The TV says so, so the room knows. A host rule lets all the dead see everything, livelier for them and leakier among friends, and a host who moderates sees every role from the start."
+   ],
+   "related": [
+    "a-round",
+    "power-of-attorney",
+    "host-rules"
+   ],
+   "artAlt": "The Fisherman holds up a lantern on a rooftop above the sleeping town, watching over the streets below"
+  },
+  {
+   "slug": "host-rules",
+   "section": "rules",
+   "name": "The host's rules",
+   "image": "/palermo/wiki/img/medals/host-rules.webp",
+   "summary": "Presets, timers, voting, ties and reveals: everything the host can change before the deal.",
+   "what": [
+    "Start from a preset: Classic (the killers, the Police Officer, the Doctor and citizens), Quick (shorter timers), Full house (with the suggested extras) or Random (extras drawn in balance, the roles kept hidden). A balance meter shows whether the setup favours the town or the killers.",
+    "Then change any rule: the discussion, vote and night times; open or secret voting; ties; last words; what a voted-out player's or a night victim's card shows; kills on the first night; the Doctor's self-saves; the Lovers; the Lawyer's variant; the accusation board (with the most accused's 30 seconds before the vote) and the town's rumour; and whether the host plays or moderates."
+   ],
+   "facts": [
+    [
+     "Players",
+     "6 to 14"
+    ],
+    [
+     "Killers",
+     "2 up to 11 players, 3 from 12"
+    ],
+    [
+     "Default times",
+     "3 min talk, 45 s vote, 45 s night"
+    ]
+   ],
+   "related": [
+    "a-round",
+    "ties",
+    "phones-and-tv"
+   ],
+   "artAlt": "The host's card table under a hanging lamp: a deck of role cards, an hourglass, a brass bell, ballots and a pocket watch, the town's lights through the window"
+  },
+  {
+   "slug": "phones-and-tv",
+   "section": "rules",
+   "name": "Phones and the TV",
+   "image": "/palermo/wiki/img/medals/phones-and-tv.webp",
+   "summary": "One phone each and one screen for the room: nothing to install.",
+   "what": [
+    "The host opens Palermo Noir on their phone and creates a room. The TV opens vgraphics.gr/tv in its browser and shows the room's code and a QR code; friends scan it to join. A laptop on the TV works too.",
+    "Phones never play a sound, every phone looks the same at night, and your card shows only while you hold it. The TV shows only what everyone may see. The game plays in English or Greek.",
+    "The first time a killer is caught in a game, the TV plays the town's newsreel once the card has turned: a short film of the arrest in the role cards' gold frame, with the officer's line in the room's language. With no TV, the host's phone plays it."
+   ],
+   "how": [
+    "The host creates a room on their phone.",
+    "The TV opens vgraphics.gr/tv and types the room's code.",
+    "Everyone scans the QR code on the TV and joins."
+   ],
+   "facts": [
+    [
+     "Players",
+     "6 to 14"
+    ],
+    [
+     "Ages",
+     "13 and up"
+    ]
+   ],
+   "related": [
+    "a-round",
+    "night-announcer",
+    "host-rules"
+   ],
+   "artAlt": "Friends on sofas in a lamplit living room, each holding a phone, with Palermo's seafront at night on the big screen on the wall"
+  }
+ ]
+}
