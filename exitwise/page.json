@@ -81,6 +81,13 @@
     "lead": "Arrow Escape Puzzle",
     "align": "center",
     "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
+    "facts": [
+      { "value": "600", "label": "levels" },
+      { "value": "17", "label": "worlds" },
+      { "value": "49", "label": "board shapes" },
+      { "value": "2–8", "label": "players in a room" },
+      { "value": "Free", "label": "online and on Android" }
+    ],
     "art": {
       "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, a volcano and ice to purple crystals, with a glowing door at the top under the title, balloons in a starry sky and a river winding past forests",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
@@ -212,20 +219,11 @@
       "title": "Why you'll love it",
       "blocks": [
         {
-          "type": "features",
+          "type": "reasons",
           "items": [
-            { "title": "Easy to learn", "text": "One tap, one rule." },
-            { "title": "600 levels", "text": "Harder all the way, with a hard level every 10th, from small warm-ups to giant 100&times;100 brain-teasers." },
-            { "title": "Always solvable", "text": "No luck, just logic. Every player gets the same levels." },
-            { "title": "Play at your own pace", "text": "Think first, then tap." },
-            { "title": "Hints when you're stuck", "text": "Light up an arrow that's free to go." },
-            { "title": "Plays offline", "text": "On the commute, on a break, anywhere." },
-            { "title": "17 worlds, 49 shapes", "text": "From Meadow to Starlight on one level map, on boards shaped like hexagons, spirals, rockets and castles." },
-            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards." },
-            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code." },
-            { "title": "Custom maps", "text": "Build your own levels, share them, and play everyone else's." },
-            { "title": "Leaderboards", "text": "A board for every level, plus global ranks for score, perfect clears and maps. <a href=\"/exitwise/ranking/\">See the global ranking</a>" },
-            { "title": "Powerups", "text": "Auto-play, grid lines, remove arrow and the magic wand, for the toughest boards." }
+            { "title": "600 levels, 17 worlds", "text": "Harder all the way, with a hard level every 10th, from Meadow to Starlight on one level map.", "wiki": "worlds", "more": "The level map" },
+            { "title": "Play with friends", "text": "Race 2 to 8 players on the same boards with a room code.", "wiki": "rooms", "more": "How rooms work" },
+            { "title": "Daily challenge", "text": "One new board a day, the same for everyone, with monthly rewards.", "wiki": "daily-challenge", "more": "The daily challenge" }
           ]
         }
       ]

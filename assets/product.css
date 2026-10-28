@@ -905,7 +905,7 @@ html.card-open { overflow: hidden; }
 .reason-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 clamp(18px, 2vw, 26px) 18px; }
 .reason h3 { font: var(--display-weight) clamp(1.4rem, 2vw, 1.6rem)/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .reason p { margin: 0; color: var(--muted); }
-.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link); }
+.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link, var(--accent)); }
 .reason-more::after { content: "\2192"; color: var(--accent); }
 @media (max-width: 760px) { .reasons { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
 
