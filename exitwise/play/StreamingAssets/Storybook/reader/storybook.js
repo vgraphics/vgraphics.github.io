@@ -192,10 +192,11 @@
 
     function panelUrl(id) { return base + '/Panels/' + encodeURIComponent(id) + '.' + ext; }
     function tallUrl(id) { return base + '/Tall/' + encodeURIComponent(id) + '.' + ext; }
-    // A painting at a size (paintingSize): the shipped picture, or a sharp copy.
-    function paintingUrl(id, tall, size) {
-      if (!size || size === (tall ? SHIPPED.tall : SHIPPED.wide)) return tall ? tallUrl(id) : panelUrl(id);
-      return base + (tall ? '/Tall-' : '/Panels-') + size + '/' + encodeURIComponent(id) + '.avif';
+    // A painting at a size (paintingSize): the shipped picture, or a sharp copy. The sizes are called "painted", never
+    // "size", which is the function below that sizes the <img>.
+    function paintingUrl(id, tall, painted) {
+      if (!painted || painted === (tall ? SHIPPED.tall : SHIPPED.wide)) return tall ? tallUrl(id) : panelUrl(id);
+      return base + (tall ? '/Tall-' : '/Panels-') + painted + '/' + encodeURIComponent(id) + '.avif';
     }
     // The size of a painting drawn this many CSS pixels wide: the shipped one while it would be stretched at most SHORT
     // times, else the smallest sharp copy that would, or the biggest.
@@ -209,15 +210,15 @@
     // Puts a painting on an <img> at the size this width needs and returns that size. A sharp copy that can't be shown
     // falls back to the shipped picture (and no more sharp copies are asked for); onMissing runs when that fails too.
     function showPainting(img, id, tall, width, onMissing) {
-      var shipped = paintingUrl(id, tall, 0), size = paintingSize(tall, width);
+      var shipped = paintingUrl(id, tall, 0), painted = paintingSize(tall, width);
       img.onerror = function () {
         if (img.getAttribute('src') !== shipped) {
           sharp = false;
           img.src = shipped;
         } else if (onMissing) onMissing();
       };
-      img.src = paintingUrl(id, tall, size);
-      return size;
+      img.src = paintingUrl(id, tall, painted);
+      return painted;
     }
     // The width the camera draws a painting at on this screen, the same for every shot (its zoom adds up to 10%).
     function paintedWidth() { return camera(scene.clientWidth, scene.clientHeight, 0, true).width; }
@@ -463,10 +464,10 @@
           missing.style.setProperty('--xsb-dusk', DUSK[book.chapters.indexOf(shot.chapter) % DUSK.length]);
           paint.parentNode.replaceChild(missing, paint);
         };
-        var size = showPainting(paint, shot.panel.id, tall, paintedWidth(), unpainted);
+        var painted = showPainting(paint, shot.panel.id, tall, paintedWidth(), unpainted);
         layerShot.appendChild(paint);
         scene.appendChild(layerShot);
-        startFilm(paint, shot.panel.id, size, unpainted);
+        startFilm(paint, shot.panel.id, painted, unpainted);
         caption(shot.panel.line);
         if (shot.page !== shown) {
           leavePage(false);
@@ -478,7 +479,7 @@
         }
         // Ready before the cut: the next painting, in the screen's shape.
         var next = shots[at + 1];
-        if (next && next.kind === 'panel') new Image().src = paintingUrl(next.panel.id, tall, size);
+        if (next && next.kind === 'panel') new Image().src = paintingUrl(next.panel.id, tall, painted);
       } else {
         var veiled = shot.kind === 'end' ? (nextChapter(shot.chapter) || shot.chapter) : shot.chapter;
         layerShot.appendChild(picture(backdropUrl(firstPanel(veiled)), 'xsb-backdrop', ''));
@@ -564,9 +565,9 @@
 
     // ---------- The camera at work ----------
 
-    function startFilm(paint, panel, size, unpainted) {
+    function startFilm(paint, panel, painted, unpainted) {
       var move = camera(scene.clientWidth, scene.clientHeight, filmed, still);
-      film = { paint: paint, panel: panel, size: size, unpainted: unpainted, shot: filmed, move: move, start: performance.now(), raf: 0 };
+      film = { paint: paint, panel: panel, painted: painted, unpainted: unpainted, shot: filmed, move: move, start: performance.now(), raf: 0 };
       filmed++;
       size(paint, move);
       place(paint, move.at(0));
@@ -601,8 +602,8 @@
       var t = (performance.now() - film.start) / 1000;
       var tall = film.move.tall;
       film.move = camera(scene.clientWidth, scene.clientHeight, film.shot, still);
-      if (film.move.tall !== tall || paintingSize(film.move.tall, film.move.width) > film.size) {
-        film.size = showPainting(film.paint, film.panel, film.move.tall, film.move.width, film.unpainted);
+      if (film.move.tall !== tall || paintingSize(film.move.tall, film.move.width) > film.painted) {
+        film.painted = showPainting(film.paint, film.panel, film.move.tall, film.move.width, film.unpainted);
       }
       size(film.paint, film.move);
       place(film.paint, film.move.at(t));

@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.27ca1c68",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Stories play again",
+      "items": [
+        "Fixed a glitch so stories play again in your browser — before, no story could load."
+      ],
+      "commit": "27ca1c68"
+    },
+    {
       "version": "1.0.22",
       "date": "2026-10-28",
       "platforms": [
