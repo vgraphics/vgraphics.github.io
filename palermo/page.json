@@ -106,7 +106,7 @@
           "type": "steps",
           "items": [
             "<b>Open a room.</b> The host opens Palermo Noir on their phone and taps Create a room.",
-            "<b>Put the town on the TV.</b> Open vgraphics.gr/tv in the TV's browser and type the room code. Friends scan the QR code on the screen to join.",
+            "<b>Put the town on the TV.</b> Open vgraphics.gr/tv in the TV's browser and type the TV code from Show on TV on the host's phone. Friends scan the QR code on the screen to join.",
             "<b>Choose the rules.</b> Classic, Quick or Full house, or your own: the host picks the roles and the timers, and the TV shows the roles in play.",
             "<b>Hold to see your card.</b> Everyone gets a secret role. Your card shows only while you hold it, and every card has the same frame."
           ]
