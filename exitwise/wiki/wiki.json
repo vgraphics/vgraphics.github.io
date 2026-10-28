@@ -116,7 +116,7 @@
       "piece": "/exitwise/wiki/img/pieces/ice.webp",
       "summary": "A block with a number that melts as arrows leave.",
       "what": ["Ice is one cell showing a number. It holds no arrow and stops every arrow, bombs too, and a bomb can't break it.","Each time any arrow leaves the board, by a tap or a powerup, the number drops by one. At 0 the ice melts and the way is open."],
-      "how": ["Arrows pointing at the ice have to wait: clear the other arrows first.","The number is just big enough: the ice melts right as you run out of other arrows to clear, so spend your moves on the arrows that don't wait on it."],
+      "how": ["Arrows pointing at the ice have to wait: clear the other arrows first.","The number is just big enough: the ice melts right as you run out of other arrows to clear, so spend your moves on the arrows that don't wait on it.","With more than one ice block or shutter on a board, their numbers are always well apart: at least a twentieth of the board's arrows, and never under 3. Each one opens at its own moment, so plan which arrows to clear before the next one goes."],
       "notes": ["Level 131 introduces ice with one block counting from 5, and a tutorial that shows an arrow waiting on it.","In-game tip: \"Ice melts as arrows leave.\""],
       "figure": {"src":"/exitwise/wiki/img/ice.webp","alt":"Level 131 in the Lagoon world: an ice cell showing 5 on a pyramid-shaped board","width":720,"height":1280,"caption":"Level 131 introduces ice."},
       "related": ["shutter","magic-wand","hearts"]
@@ -154,7 +154,7 @@
       "piece": "/exitwise/wiki/img/pieces/shutter.webp",
       "summary": "A roller door that hides arrows until it rolls up.",
       "what": ["A shutter is a steel roller door over a rectangle of cells, 2×2 to 3×3 at first and up to 5 cells a side later, with a number on a plate. The arrows under it, even partly, are hidden and locked.","No path gets through a shutter that's down. Each time any arrow leaves the board the number drops by one, and at 0 the shutter rolls up and shows what was underneath."],
-      "how": ["Tapping a shutter only rattles it: it costs no heart.","No powerup touches a hidden arrow, because you can't see it. Remove arrow can't take one: tap the shutter with it and nothing is used. Hints, Auto-play and the wand never pick one, and grid lines draw no path for it.","Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it."],
+      "how": ["Tapping a shutter only rattles it: it costs no heart.","No powerup touches a hidden arrow, because you can't see it. Remove arrow can't take one: tap the shutter with it and nothing is used. Hints, Auto-play and the wand never pick one, and grid lines draw no path for it.","Like ice, the number runs out just as you run out of other arrows, so clear everything that isn't waiting on it.","Shutters and ice on one board never open at nearly the same moment: their numbers are always well apart, so each one frees its part of the board in turn."],
       "notes": ["Level 221 introduces shutters with one, counting from 5. Bigger ones arrive from levels 320 and 420.","In-game tip: \"Shutters roll up as arrows leave.\""],
       "figure": {"src":"/exitwise/img/5-shutters.webp","alt":"Level 221 in the Crystal caves: a steel shutter with its number on a diamond-shaped board","width":720,"height":1280,"caption":"Level 221 introduces shutters."},
       "related": ["ice","remove-arrow","hints"]
