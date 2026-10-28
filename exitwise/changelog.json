@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.1967529e",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Neater top row on wide windows",
+      "items": [
+        "On a wide browser window, the top row of buttons and the coin counter now line up neatly with the buttons along the sides of the board, instead of floating over the map."
+      ],
+      "commit": "1967529e"
+    },
+    {
       "version": "1.0.e6ac5ebc",
       "date": "2026-10-28",
       "platforms": [
