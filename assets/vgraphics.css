@@ -237,6 +237,11 @@ h2 .dot { width: 0.36em; height: 0.36em; margin-right: 0.3em; vertical-align: 0.
 .site-nav .cta { margin-left: 8px; background: var(--ink); color: var(--bg); }
 .site-nav .cta::before { content: none; }
 .site-nav .cta:hover { background: var(--violet); color: var(--on-violet); }
+/* The VHub avatar, the header's last item after the menu (and after the phone menu's button): its size here, so the row
+   doesn't move before its own look (assets/account.css) arrives. The menu and the button keep to the right. */
+.site-head .site-nav, .site-head .menu-toggle { margin-left: auto; }
+.vhub-avatar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; }
+.vhub-avatar svg { width: 26px; height: 26px; }
 
 /* Buttons and links */
 .btn {

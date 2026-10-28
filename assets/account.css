@@ -1,0 +1,186 @@
+/* The VHub avatar, the last item of every header, and its menu (assets/account.js; VHub
+   docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md section 4), in the page's own look: a product's page
+   takes its theme's surfaces, inks and fonts, and its colour is the product's (its play button's: --play, else its
+   scrollbar's --sb); a company page's are the company's, in VHub's violet.
+   - The avatar: the VHub mark on a white disc, or the player's picture, with a ring and a small level badge in that
+     colour. product.css and vgraphics.css hold its size, so the header doesn't move before this file arrives.
+   - The menu: a drop-down under the header at the avatar's right, a sheet from the bottom on a phone. It grows from the
+     avatar and fades in, and closes the same way a little faster; under reduced motion, a short fade only. Its body
+     scrolls inside it on a short screen, with faded edges (assets/fade-edges.js). The switches are the site's
+     (assets/switch.css), on in the product's colour. */
+.vhub-avatar {
+  --va-ring: var(--play, var(--sb, var(--violet, var(--accent, #4B4CD6))));
+  --va-ink: var(--play-ink, var(--page, var(--on-violet, #FFFFFF)));
+  --va-gap: var(--page, var(--bg, #000000));
+  position: relative;
+  flex: none;
+  display: inline-grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: #FFFFFF;
+  box-shadow: 0 0 0 2px var(--va-ring);
+  cursor: var(--cursor-link, pointer);
+  transition: transform 140ms ease-out, box-shadow 140ms ease-out;
+}
+.vhub-avatar:hover { transform: translateY(-1px); }
+.vhub-avatar:active { transform: translateY(1px); }
+.vhub-avatar:focus-visible { outline: 2px solid var(--va-ring); outline-offset: 5px; }
+.vhub-avatar-face { display: grid; place-items: center; width: 100%; height: 100%; border-radius: 50%; overflow: hidden; }
+.vhub-avatar-face svg { width: 26px; height: 26px; }
+.vhub-avatar.signed-in { box-shadow: 0 0 0 2px var(--va-gap), 0 0 0 4px var(--va-ring); }
+.vhub-avatar.signed-in .vhub-avatar-face :is(svg, img) { width: 100%; height: 100%; object-fit: cover; }
+.vhub-avatar-level {
+  position: absolute; right: -7px; bottom: -6px;
+  min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box;
+  display: grid; place-items: center; border-radius: 10px;
+  background: var(--va-ring); color: var(--va-ink); box-shadow: 0 0 0 2px var(--va-gap);
+  font: 700 11px/1 var(--font-body, var(--body, system-ui));
+}
+.vhub-avatar[aria-expanded="true"] { transform: none; }
+
+.vhub-menu {
+  --vm-surface: var(--surface, #FFFFFF);
+  --vm-surface-2: var(--surface-2, #EFE9DD);
+  --vm-ink: var(--ink, #16151B);
+  --vm-muted: var(--muted, var(--ink-2, #4A4658));
+  --vm-line: var(--line, #DDD4C3);
+  --vm-on: var(--play, var(--sb, var(--violet, var(--accent, #4B4CD6))));
+  --vm-on-ink: var(--play-ink, var(--page, var(--on-violet, #FFFFFF)));
+  --selection: var(--vm-on);
+  --selection-ink: var(--vm-on-ink);
+  position: fixed;
+  z-index: 60;
+  width: min(400px, calc(100vw - 32px));
+  display: flex;
+  flex-direction: column;
+  box-sizing: border-box;
+  overflow: hidden;
+  background: var(--vm-surface);
+  color: var(--vm-ink);
+  border: 1px solid var(--vm-line);
+  border-radius: var(--radius, 22px);
+  box-shadow: 0 30px 70px -24px rgb(0 0 0 / 0.6);
+  font: 400 15px/1.45 var(--font-body, var(--body, system-ui, sans-serif));
+  text-align: left;
+  transform-origin: top right;
+  transition: opacity 220ms ease-out, transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.vhub-menu:focus { outline: none; }
+.vhub-menu.vm-enter { opacity: 0; transform: translateY(-6px) scale(0.96); }
+.vhub-menu.vm-leave { opacity: 0; transform: translateY(-4px) scale(0.98); transition-duration: 150ms; pointer-events: none; }
+.vhub-menu.vm-sheet {
+  inset: auto 0 0 0;
+  width: auto;
+  max-height: 88dvh;
+  border-width: 1px 0 0;
+  border-radius: 22px 22px 0 0;
+  transform-origin: bottom center;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+.vhub-menu.vm-sheet.vm-enter { transform: translateY(24px); }
+.vhub-menu.vm-sheet.vm-leave { transform: translateY(16px); }
+.vhub-menu.vm-still, .vhub-menu.vm-still.vm-enter, .vhub-menu.vm-still.vm-leave { transform: none; transition: opacity 120ms linear; }
+@media (prefers-reduced-motion: reduce) {
+  .vhub-menu, .vhub-menu.vm-enter, .vhub-menu.vm-leave { transform: none; transition: opacity 120ms linear; }
+}
+.vm-body { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--vm-on) transparent; }
+
+.vhub-menu a, .vhub-menu button { color: inherit; font: inherit; cursor: var(--cursor-link, pointer); }
+.vhub-menu h2, .vhub-menu h3, .vhub-menu p { margin: 0; }
+.vm-loading, .vm-card .vm-line, .vm-small { color: var(--vm-muted); }
+.vm-loading { padding: 22px 24px; }
+
+/* Signed out */
+.vm-card { display: grid; gap: 14px; justify-items: start; padding: 24px; }
+.vm-mark svg { width: 46px; height: 46px; }
+.vm-title {
+  font: var(--display-weight, 800) 1.6rem/1.1 var(--font-display, var(--display, inherit));
+  text-transform: var(--display-case, none);
+}
+.vm-small { font-size: 0.85rem; }
+.vm-google { min-height: 44px; }
+.vm-button {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
+  background: var(--vm-on); color: var(--vm-on-ink) !important; font-weight: 700; text-decoration: none;
+}
+
+/* Signed in: the account */
+.vm-account { display: flex; gap: 14px; align-items: center; padding: 18px 20px 12px; }
+.vm-pic { flex: none; width: 58px; height: 58px; border-radius: 50%; overflow: hidden; display: grid; }
+.vm-pic :is(svg, img) { width: 100%; height: 100%; object-fit: cover; }
+.vm-who { flex: 1; min-width: 0; display: grid; gap: 3px; }
+.vm-name {
+  overflow: hidden; text-overflow: ellipsis; white-space: nowrap;
+  font: var(--display-weight, 800) 1.45rem/1.1 var(--font-display, var(--display, inherit));
+  text-transform: var(--display-case, none);
+}
+.vm-level { font-size: 0.85rem; color: var(--vm-muted); }
+.vm-bar { display: block; height: 6px; margin-top: 5px; border-radius: 3px; background: var(--vm-line); overflow: hidden; }
+.vm-bar > span { display: block; height: 100%; border-radius: 3px; background: var(--vm-on); }
+.vm-links { display: flex; flex-wrap: wrap; gap: 8px; padding: 0 20px 14px; }
+.vm-links a {
+  display: inline-flex; align-items: center; min-height: 40px; padding: 0 14px; border: 1px solid var(--vm-line);
+  border-radius: var(--radius-sm, 12px); font-size: 0.9rem; font-weight: 600; text-decoration: none; white-space: nowrap;
+}
+.vm-links a:hover { background: var(--vm-surface-2); }
+
+/* The game settings */
+.vm-settings, .vm-games { border-top: 1px solid var(--vm-line); padding: 14px 20px 8px; }
+.vm-section {
+  font: var(--label-weight, 700) 0.78rem/1.2 var(--label-font, inherit);
+  text-transform: var(--label-case, uppercase);
+  letter-spacing: var(--label-tracking, 0.1em);
+  color: var(--vm-on);
+}
+.vm-note { margin-top: 3px !important; font-size: 0.8rem; color: var(--vm-muted); }
+.vm-back {
+  display: inline-flex; align-items: center; gap: 4px; min-height: 32px; margin: 0 0 6px -6px; padding: 0 6px;
+  border: 0; border-radius: 8px; background: transparent; color: var(--vm-muted) !important; font-size: 0.85rem; font-weight: 600;
+}
+.vm-back::before { content: "‹"; font-size: 1.2em; line-height: 1; }
+.vm-rows { margin-top: 6px; }
+.vm-row {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px;
+  min-height: 46px; padding: 4px 0; border-bottom: 1px solid color-mix(in srgb, var(--vm-line) 70%, transparent);
+}
+.vm-row:last-child { border-bottom: 0; }
+.vm-row-words { display: grid; gap: 1px; min-width: 0; }
+.vm-row-name { font-weight: 600; }
+.vm-row-help { font-size: 0.78rem; color: var(--vm-muted); }
+.vm-seg { flex: none; display: inline-flex; gap: 2px; padding: 3px; border-radius: 999px; background: var(--vm-surface-2); }
+.vm-seg button {
+  min-width: 32px; height: 32px; padding: 0 11px; border: 0; border-radius: 999px;
+  background: transparent; color: var(--vm-muted) !important; font-size: 0.82rem; font-weight: 700; white-space: nowrap;
+  transition: background-color 160ms ease-out, color 160ms ease-out;
+}
+.vm-seg-sizes button { padding: 0 8px; line-height: 1; }
+.vm-seg button[aria-checked="true"] { background: var(--vm-on); color: var(--vm-on-ink) !important; }
+.vm-seg button:focus-visible, .vm-games .vm-game:focus-visible, .vm-links a:focus-visible { outline: 2px solid var(--vm-on); outline-offset: 2px; }
+.vhub-menu :disabled { opacity: 0.55; cursor: default; }
+
+/* The other games and apps: their logos only (George, 28 Oct 2026) */
+.vm-games { display: grid; gap: 2px; }
+.vm-games .vm-section { margin-bottom: 4px; }
+.vm-game {
+  display: flex; align-items: center; justify-content: space-between; gap: 12px; width: 100%; min-height: 54px;
+  margin: 0 -10px; padding: 6px 10px; box-sizing: content-box; border: 0; border-radius: var(--radius-sm, 12px); background: transparent;
+}
+.vm-game:hover { background: var(--vm-surface-2); }
+.vm-game img { height: 36px; width: auto; max-width: 180px; object-fit: contain; }
+.vm-game::after { content: "›"; font-size: 1.5rem; line-height: 1; color: var(--vm-muted); }
+.vm-game-name { font-weight: 700; }
+
+/* The foot */
+.vm-foot { display: flex; align-items: center; justify-content: space-between; gap: 12px; border-top: 1px solid var(--vm-line); padding: 8px 20px; }
+.vm-signout { min-height: 44px; padding: 0 4px; border: 0; background: transparent; font-weight: 600 !important; }
+.vm-hub { min-height: 44px; display: inline-flex; align-items: center; font-size: 0.85rem; font-weight: 700; color: var(--vm-muted) !important; text-decoration: none; }
+
+@media (forced-colors: active) {
+  .vhub-avatar, .vhub-menu { border: 1px solid CanvasText; }
+  .vm-seg button[aria-checked="true"] { background: Highlight; color: HighlightText !important; }
+}

@@ -98,6 +98,10 @@ h1, h2, h3 {
 /* A product's painted title logo (page.json site.logo) carries its name: shown at its own shape, a soft shadow so it
    reads on any sky and on the frosted bar. */
 .product-name img.logo, .foot-brand img.logo { width: auto; border-radius: 0; box-shadow: none; filter: drop-shadow(0 2px 6px rgb(20 12 40 / 0.3)); }
+/* The VHub avatar, the header's last item (tools/lib/partials.mjs VHUB_AVATAR): its size here, so the row doesn't move
+   before its own look (assets/account.css) arrives. */
+.vhub-avatar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; }
+.vhub-avatar svg { width: 26px; height: 26px; }
 .product-name img.logo { height: 42px; }
 .foot-brand img.logo { height: 64px; }
 .subnav { display: flex; flex: none; gap: 4px; }
