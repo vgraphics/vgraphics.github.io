@@ -269,6 +269,25 @@ h1, h2, h3 {
   }
   .foot-left .hero-foot .wrap { justify-items: center; text-align: center; }
 }
+/* The product's key figures in the hero's foot (build-pages.mjs, hero.facts; George, 28 Oct 2026, picked "D. Facts on
+   the first screen"): a short line under the badges on narrow and portrait screens; on wide ones a column at the
+   foot's right after a fine rule in the accent, the lead and the badges moved left beside it, so the foot grows no
+   taller. */
+.hero-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 4px 0 0; padding: 0; list-style: none; }
+.hero-foot .hero-facts { animation-delay: 360ms; }
+.hero-facts li { display: inline-flex; align-items: baseline; gap: 7px; }
+.hero-facts b { font: var(--display-weight) 1.15rem/1 var(--font-display); color: var(--accent); text-shadow: var(--on-art-shadow); }
+.hero-facts span { font: var(--label-weight) 0.72rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--on-art); text-shadow: var(--on-art-shadow); }
+@media (min-width: 900px) and (min-aspect-ratio: 4/5) {
+  .has-facts .hero-foot .wrap { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: clamp(32px, 4vw, 64px); justify-items: start; align-items: end; text-align: left; }
+  .has-facts .hero-foot .lead { grid-area: 1 / 1; }
+  .has-facts .hero-foot .badges { grid-area: 2 / 1; justify-content: flex-start; }
+  .has-facts .hero-foot .badges .play-note { text-align: left; }
+  .has-facts .hero-facts { grid-area: 1 / 2 / 3 / 3; display: grid; grid-template-columns: auto auto; gap: 9px 14px; margin: 0 0 6px; padding: 4px 0 4px clamp(20px, 2vw, 28px); border-left: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); }
+  .has-facts .hero-facts li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; }
+  .has-facts .hero-facts b { font-size: clamp(1.25rem, 1.7vw, 1.6rem); text-align: right; }
+  .has-facts .hero-facts span { font-size: 0.78rem; }
+}
 /* Every other page's hero (the wiki's, the ranking's, the policies'; tools/lib/hero.mjs): shorter, so the page's own
    content starts sooner (George, 24 Oct 2026: "The hero height is not so good for other pages other than overview.
    Revert to previous height +20%"): the band those pages had before 23 Oct, 20% taller. Portrait screens show the
@@ -849,6 +868,35 @@ html.card-open { overflow: hidden; }
   letter-spacing: var(--feature-title-tracking, normal); /* optional */
 }
 
+/* The product's other places as a row of chips, each with its icon in the accent (build-pages.mjs, links) */
+.sec-links { display: flex; flex-wrap: wrap; gap: 10px; }
+.sec-links a {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 48px; padding: 0 20px 0 15px; border-radius: 999px;
+  border: var(--card-border); background: color-mix(in srgb, var(--surface) 60%, transparent); color: var(--ink);
+  font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.1em; text-decoration: none;
+  transition: border-color 160ms ease-out, transform 160ms ease-out;
+}
+.sec-links a:hover { border-color: var(--accent); transform: translateY(-1px); }
+.sec-links svg { flex: none; width: 20px; height: 20px; color: var(--accent); }
+
+/* A "why" section's points as cards, each opening with the painting of the wiki page it links to, its link lined up
+   along the row's foot however long the words (build-pages.mjs, reasons) */
+.reasons { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 24px; margin: 0; padding: 0; list-style: none; }
+.reasons li { display: flex; }
+.reason {
+  display: flex; flex-direction: column; width: 100%; overflow: hidden; border-radius: var(--radius); border: var(--card-border);
+  background: var(--card-bg); box-shadow: var(--card-shadow); color: var(--ink); text-decoration: none;
+  transition: transform 160ms ease-out, box-shadow 160ms ease-out;
+}
+.reason:hover { transform: translateY(-3px); box-shadow: var(--card-lift); }
+.reason img { display: block; width: 100%; aspect-ratio: 16 / 9; object-fit: cover; -webkit-mask-image: linear-gradient(#000 72%, transparent); mask-image: linear-gradient(#000 72%, transparent); }
+.reason-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 clamp(18px, 2vw, 26px) 18px; }
+.reason h3 { font: var(--display-weight) clamp(1.4rem, 2vw, 1.6rem)/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
+.reason p { margin: 0; color: var(--muted); }
+.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link); }
+.reason-more::after { content: "\2192"; color: var(--accent); }
+@media (max-width: 760px) { .reasons { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
+
 /* A device frame, for products whose demo or tour shows a phone screen. */
 .phone {
   position: relative;
@@ -1062,12 +1110,7 @@ html.card-open { overflow: hidden; }
   .with-figure, .with-figure.figure-right { grid-template-columns: minmax(0, 1fr); }
   .sec-figure { display: none; }
 }
-/* The thread (optional tokens --thread, --thread-show: block, --thread-space): a gold line with an arrowhead in the gap
-   before each chapter, pointing down to its art and stopping just above it, so the chapters read as one story. */
-.sec.has-art { position: relative; margin-top: var(--thread-space, 0px); }
-.sec.has-art::before, .sec.has-art::after { display: var(--thread-show, none); position: absolute; left: 50%; z-index: 1; pointer-events: none; }
-.sec.has-art::before { content: ""; top: calc((var(--section-pad) + var(--thread-space, 0px)) * -1 + 28px); width: 2px; height: calc(var(--section-pad) + var(--thread-space, 0px) - 58px); margin-left: -1px; background: linear-gradient(transparent, var(--thread) 30%, var(--thread)); }
-.sec.has-art::after { content: ""; top: -36px; width: 18px; height: 18px; margin-left: -9px; border-right: 2px solid var(--thread); border-bottom: 2px solid var(--thread); transform: rotate(45deg); filter: drop-shadow(0 0 6px color-mix(in srgb, var(--thread) 60%, transparent)); }
+.sec.has-art { position: relative; }
 
 /* Documents: a policy another repo owns, set in the page as it is (the "document" block): its date and opening line,
    the short version as cards in the pack's swatches, then the contents beside the text on a card. */

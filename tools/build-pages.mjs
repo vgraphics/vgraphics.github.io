@@ -22,7 +22,8 @@
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
 //   stores                       { googlePlay }: the store links the "google-play" badge points at
-//   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
+//   hero                         { title?, lead, align: center | left, badges, facts?, art }: the key art and its foot;
+//                                facts: [{ value, label }], the product's key figures beside the lead
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
 //                                or, on another page, { wiki: "<slug>", alt, position?, fade?, placeholder? }: that
@@ -37,7 +38,9 @@
 //                                of many small media cards, two to a row on phones, framed like playing cards; deck: true
 //                                for one row that scrolls sideways between two arrows), features (an item's value and
 //                                label: its key figure over its title), facts, actions, quote, chips, song, album, tour,
-//                                soundtrack, journey, embed, document, try (the product's web version, tools/lib/try.mjs),
+//                                soundtrack, journey, embed, document, links (icon chips to the product's other places),
+//                                reasons (a "why" section's points, each a card with its wiki page's painting),
+//                                try (the product's web version, tools/lib/try.mjs),
 //                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
@@ -72,14 +75,17 @@ const image = (i, lazy = true) => (i.widths
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
 // and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
-// stays for screen readers and search.
+// stays for screen readers and search. The product's key figures (hero.facts) stand beside the lead on wide screens
+// and in a line under the badges on narrow ones (George, 28 Oct 2026, picked "D. Facts on the first screen").
 function hero(p, overview) {
   const h = p.hero
-  return heroSection(h.art, { overview, cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
+  const cls = [h.align === 'left' && 'foot-left', h.facts?.length && 'has-facts'].filter(Boolean).join(' ')
+  return heroSection(h.art, { overview, cls, attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
-          ${h.badges?.length ? actions(p, h.badges) : ''}
+          ${h.badges?.length ? actions(p, h.badges) : ''}${h.facts?.length ? `
+          <ul class="hero-facts">${h.facts.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('')}</ul>` : ''}
         </div>
       </div>` })
 }
@@ -144,6 +150,14 @@ function wikiAlbum(slug, from) {
 // The quote's play button (a pause while it speaks) and the song button's note
 const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
 const NOTE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.2l10-2.2v11.3h-2V7.1L11 8.4v9.1H9z"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.3" r="2.5"/></svg>'
+// The links block's icons, drawn in one line weight: a link's "icon" names one
+const line = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`
+const LINK_ICONS = {
+  book: line('<path d="M2.5 5h6a3.5 3.5 0 0 1 3.5 3.5V20a2.5 2.5 0 0 0-2.5-2.5h-7zM21.5 5h-6A3.5 3.5 0 0 0 12 8.5V20a2.5 2.5 0 0 1 2.5-2.5h7z"/>'),
+  rules: line('<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2H9zM8.5 10h7M8.5 13.5h7M8.5 17h4"/>'),
+  music: line('<path d="M9 18V5.5l11-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>'),
+  person: line('<circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/>'),
+}
 
 const BLOCKS = {
   // A row of buttons and pills, the same kinds as the hero's badges: { type: "actions", items: [...] }
@@ -152,6 +166,21 @@ const BLOCKS = {
   // Key figures in a row, each a big value over its label: { type: "facts", items: [{ value, label }] }
   facts: (b) => `<ul class="facts-row">
           ${b.items.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('\n          ')}
+        </ul>`,
+
+  // The product's other places as a row of chips, each with its icon (LINK_ICONS): { type: "links", label (the row's
+  // name for screen readers), items: [{ href, label, icon }] }. George, 28 Oct 2026: "D", the links as icon chips.
+  links: (b) => `<nav class="sec-links" aria-label="${esc(b.label)}">${b.items.map((l) => `<a href="${esc(l.href)}">${LINK_ICONS[l.icon] ?? ''}<span>${l.label}</span></a>`).join('')}</nav>`,
+
+  // A "why" section's few strong points, each a card opening with the painting of the wiki page it links to (the card
+  // is that page's preview, so check-site.mjs lets the painting show on both): { type: "reasons", items: [{ title,
+  // text, wiki: "<entry slug>", more: the link's words }] }. George, 28 Oct 2026: "2. Three paintings".
+  reasons: (b, { slug }) => `<ul class="reasons">
+          ${b.items.map((r) => {
+    const { wide } = wikiArt(slug, r.wiki)
+    const pic = image({ src: wide.src, widths: wide.widths, width: wide.width, height: wide.height, alt: '', sizes: '(max-width: 760px) calc(100vw - 40px), 360px' })
+    return `<li><a class="reason" href="/${slug}/wiki/${esc(r.wiki)}/">${pic}<span class="reason-body"><h3>${r.title}</h3><p>${r.text}</p><span class="reason-more">${r.more}</span></span></a></li>`
+  }).join('\n          ')}
         </ul>`,
 
   // A line said in the product, set large across the content's width, with a small play button after its last word

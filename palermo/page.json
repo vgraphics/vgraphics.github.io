@@ -65,8 +65,14 @@
     "align": "center",
     "badges": [
       { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
-      { "href": "/palermo/play/", "label": "Play online" },
-      { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
+      { "href": "/palermo/play/", "label": "Play online" }
+    ],
+    "facts": [
+      { "value": "6–14", "label": "players" },
+      { "value": "14", "label": "roles" },
+      { "value": "1 TV", "label": "and your phones" },
+      { "value": "EN · EL", "label": "English or Greek" },
+      { "value": "Free", "label": "every role" }
     ],
     "art": {
       "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
@@ -85,25 +91,11 @@
       "intro": "Palermo Noir is the hidden-role game Greeks know as Palermo, a cousin of Mafia and Werewolf. It always needed one friend who sat out: the narrator who knew every secret and counted the votes. Here the game takes that job. Every phone holds its player's secret card, the TV shows the town square, and a deep noir voice runs every night and every day, in English or Greek.",
       "figure": { "src": "img/cast/doctor", "widths": [260, 520, 1040], "width": 1040, "height": 2758 },
       "blocks": [
-        { "type": "facts", "items": [
-          { "value": "6–14", "label": "players" },
-          { "value": "14", "label": "roles" },
-          { "value": "1 TV", "label": "and your phones" },
-          { "value": "EN · EL", "label": "English or Greek" },
-          { "value": "Free", "label": "every role" }
-        ] },
-        { "type": "actions", "items": [
-          { "href": "#deal", "label": "1 · The deal", "note": "How to play" },
-          { "href": "#night", "label": "2 · The night", "note": "The night roles" },
-          { "href": "#day", "label": "3 · The day", "note": "Accuse and vote" },
-          { "href": "#verdict", "label": "4 · The verdict", "note": "The truth" }
-        ] },
-        { "type": "actions", "items": [
-          { "href": "/palermo/wiki/", "label": "Read the wiki", "note": "Every role, power and rule" },
-          { "href": "/palermo/wiki/host-rules/", "label": "The host's rules", "note": "Set up your table" },
-          { "href": "#soundtrack", "label": "Listen to the soundtrack", "note": "Nine songs" },
-          { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" },
-          { "href": "/palermo/privacy.html", "label": "Privacy policy", "note": "For ages 13 and up" }
+        { "type": "links", "label": "More about Palermo Noir", "items": [
+          { "href": "/palermo/wiki/", "label": "Wiki", "icon": "book" },
+          { "href": "/palermo/wiki/host-rules/", "label": "Host's rules", "icon": "rules" },
+          { "href": "#soundtrack", "label": "Soundtrack", "icon": "music" },
+          { "href": "/hub/", "label": "Your VHub name", "icon": "person" }
         ] }
       ]
     },
@@ -253,14 +245,11 @@
       "title": "A night out, without leaving the sofa",
       "blocks": [
         {
-          "type": "features",
+          "type": "reasons",
           "items": [
-            { "title": "Everybody plays", "text": "The game deals the cards, runs the nights, counts the votes and keeps the rules, so nobody sits out to narrate." },
-            { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen." },
-            { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same taps at night, and your card shows only while you hold it." },
-            { "title": "Any TV, nothing to install", "text": "A smart TV's browser or a laptop on the TV, and the phones you already have." },
-            { "title": "English or Greek", "text": "The narrator, the cards and every screen, in the host's language." },
-            { "title": "Free, every role", "text": "Up to 14 players with every role in. Ads only between games, never during one." }
+            { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same two taps at night, and your card shows only while you hold it.", "wiki": "the-night", "more": "How the night plays" },
+            { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen.", "wiki": "a-round", "more": "How a round plays" },
+            { "title": "Nothing to install", "text": "A smart TV's browser or a laptop on the TV, and the phones you already have.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
           ]
         }
       ]
