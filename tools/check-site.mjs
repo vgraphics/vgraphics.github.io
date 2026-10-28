@@ -1153,6 +1153,8 @@ else {
       }
       // A party game's own switch for its video between games: missing is on (gameAds decides).
       if (game.betweenGames !== undefined && typeof game.betweenGames !== 'boolean') report(WEB_ADS, 'web-ads', `games.${id}.betweenGames is not true or false`)
+      // Exitwise's play page reads its banner unit alone, so the key would do nothing there.
+      if (game.betweenGames !== undefined && id === 'exitwise') report(WEB_ADS, 'web-ads', `games.${id}.betweenGames: Exitwise has no video between games (its in-game ads follow gameAds)`)
     }
     // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
     // and loads no switch, so it needs no entry.
