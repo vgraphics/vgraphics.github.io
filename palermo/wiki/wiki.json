@@ -1345,7 +1345,8 @@
    "summary": "The town wins when every killer is out, the killers when they match everyone else.",
    "what": [
     "The win check runs after every death, in this order: the Madman voted out wins alone; the Lovers, as the last two alive, win together; the town wins when every killer is out; the killers win when they are at least as many as everyone else alive.",
-    "The Henchman and the Kamikaze win with the killers but count with everyone else. Then the TV tells the truth: every card turned over, killers last, the story of every night, and awards such as the sharpest eye, the best liar and the lifesaver."
+    "The Henchman and the Kamikaze win with the killers but count with everyone else. Then the TV tells the truth: every card turned over, killers last, the story of every night, and awards such as the sharpest eye, the best liar and the lifesaver.",
+    "After that, the night can be shared: each phone draws a picture of it to post or send, as the town paper, a film poster, your own secret card, the newsreel or the whole table, and the TV shows a QR code for friends who only watched."
    ],
    "related": [
     "madman",
