@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "0.1.66bcb235",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Whispers after a rumour",
+      "items": [
+        "When a rumour spreads at dawn, you'll now hear hushed whispers drift quietly through the day until night falls.",
+        "On the TV, the reveal and verdict now sit neatly centred with a slightly smaller card, and the \"first one out sees everything\" note now hangs in a tidy badge under the logo.",
+        "In the guided demo, only the highlighted spot responds to your taps, and you can't dismiss anything or skip ahead while the narrator is speaking.",
+        "The demo now walks you through each secret result on your phone, like a Detective's check or a Seer's look, and points to your phone whenever your private info is shown.",
+        "When a player is voted out in the demo, their card now greys out and gets stamped, matching the verdict on the TV, and the old \"Out\" label is gone.",
+        "On a computer, the demo's TV now fills more of the screen, with the TV and phone centred top to bottom."
+      ],
+      "commit": "66bcb235"
+    },
+    {
       "version": "0.1.52c1c5e2",
       "date": "2026-10-28",
       "platforms": [
