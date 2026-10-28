@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.021ea446",
+      "version": "1.0.25",
       "date": "2026-10-28",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Story music fades in and out",
