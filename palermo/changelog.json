@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "0.1.ece0a600",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Talk as long as you like",
+      "items": [
+        "By default, the daytime discussion no longer runs on a clock — talk as long as you like and move on once everyone taps Ready. The host can still turn on a time limit.",
+        "The rumour's whispers now play correctly — you can hear them under the day music, and they no longer blare too loudly at the wrong moment.",
+        "The guided demo keeps you on track at every step — only the highlighted spot responds, so you can't tap anything else or close your card while the narrator is speaking.",
+        "In the demo, the Secret actions now open at the right step, so you can see who was killed.",
+        "The settings menu (⋯) no longer appears during the demo."
+      ],
+      "commit": "ece0a600"
+    },
+    {
       "version": "0.1.69426d19",
       "date": "2026-10-28",
       "platforms": [
