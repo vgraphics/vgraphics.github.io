@@ -10,10 +10,11 @@
 // board that plays the rule and can be played, the tip card, a world map, a live gauge. The look comes from the
 // product's theme pack (<product>/theme/theme.css) and the shared assets/wiki.css; the header and footer are the
 // product pages' own (tools/lib/partials.mjs), so a wiki page looks and links like its landing page.
-// An entry's "quote" ({ text, by, audio, listen }, audio from the site's root) is the landing page's quote block, a
-// line it says with a button to hear it, set after the entry's lede: Palermo Noir's roles each say their own line in
-// their own voice (George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with play button to hear his
-// voice. Same way we do in overview page.").
+// An entry's "quotes" ([{ text, by, audio, listen }], audio from the site's root) are the landing page's quote block,
+// each a line it says with a button to hear it, one under the other after the entry's lede: Palermo Noir's roles each
+// say their own lines in their own voice (George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with
+// play button to hear his voice. Same way we do in overview page."; 29 Oct, on the Officer's, Inspector's and Mayor's
+// second picked lines: "Yes, add them").
 //
 // Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp/.jpg (wide) and
 // <slug>-tall-<width>.avif/.webp/.jpg (the 9:16 cut for portrait screens) with art.json, the sizes this script reads.
@@ -318,8 +319,8 @@ function entryPage(w, product, e, i) {
     </div>` })}
   <article class="w-body wrap">
     <p class="w-lede">${e.summary}</p>${facts.length ? `
-    <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}${e.quote ? `
-    ${quote(e.quote)}` : ''}
+    <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}${(e.quotes || []).map((q) => `
+    ${quote(q)}`).join('')}
     ${stepsBlock(w, e)}
     ${whatBlock(w, e)}
     ${tipBlock(w, e)}
