@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.69426d19",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "A smoother guided demo",
+      "items": [
+        "In the guided demo, only the spot it points to responds to your taps — so you can't close your role card or tap anything else while the narrator is still explaining a step.",
+        "The whispers no longer play out loud at the early \"rumor going around town\" moment.",
+        "Secret actions now open at the right step, so you can see who was found killed.",
+        "The settings menu (⋯) stays hidden during the demo, so it won't get in your way."
+      ],
+      "commit": "69426d19"
+    },
+    {
       "version": "0.1.c937c7d1",
       "date": "2026-10-28",
       "platforms": [
