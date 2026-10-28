@@ -363,6 +363,9 @@ a.pill:hover { transform: translateY(-2px); }
 .podium .who:empty { display: none; }
 .podium .av { width: 44px; height: 44px; border-radius: 50%; overflow: hidden; box-shadow: 0 0 0 3px #fff; background: #fff; }
 .podium .p1 .av { width: 54px; height: 54px; }
+/* A rank frame (assets/vhub-avatars.js) reaches a quarter of the picture above and below it: room for it over the name. */
+.podium .av[data-framed] { margin-block: 8px; }
+.podium .p1 .av[data-framed] { margin-block: 11px; }
 .podium .av img, .podium .av svg { display: block; width: 100%; height: 100%; object-fit: cover; }
 .podium .name { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 800; font-size: .92rem; }
 .podium .pts { font: 800 .95rem/1 var(--display); font-variant-numeric: tabular-nums; }
