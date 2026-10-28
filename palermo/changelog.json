@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.6f2f6422",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Clearer picture toggle wording",
+      "items": [
+        "The picture toggle now reads \"Use my character's picture instead\", so it's clear you can show your character's picture rather than your avatar"
+      ],
+      "commit": "6f2f6422"
+    },
+    {
       "version": "0.1.ed2daa78",
       "date": "2026-10-28",
       "platforms": [
