@@ -2,6 +2,29 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "ff175f3c88bcb9a277219deb8be8a07f370dec22",
+      "at": "2026-10-28T11:22:06.670Z",
+      "files": [
+        "app-qIWIWU3G.js",
+        "demo-CfNTfD7P.js",
+        "demo-CsnYrr-I.css",
+        "demo-screen-BMPF69YY.css",
+        "demo-screen-CghT-15W.js",
+        "firestore-D2rihMYl.js",
+        "index-SsfwH5Lm.js",
+        "layout-CiiNcQzC.js",
+        "newsreel-BausEchP.css",
+        "newsreel-CXJDPvqa.js",
+        "part-DcLJKxJc.js",
+        "part-E6I04dXC.js",
+        "play-B82TOAZs.js",
+        "private-C0UaQ3ui.js",
+        "room-screen-EEdtVmki.js",
+        "tv-CnWhbA1B.js",
+        "vote-opens-DRym2QVa.js"
+      ]
+    },
+    {
       "sha": "e7f2281537fbb3d770ef6fbdb8c3466ed87cef62",
       "at": "2026-10-28T09:59:31.408Z",
       "files": [

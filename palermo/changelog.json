@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.ff175f3c",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "A newsreel after a result",
+      "items": [
+        "After a result, a short newsreel now plays on the shared screen — your TV, or the phone acting as the screen in Table mode — right now when the killer is caught. It runs about ten seconds, once per game.",
+        "It's dressed up like an old newsreel: a film frame marked PALERMO NEWSREEL, a 3-2-1 countdown, light grain, projector and effect sounds, a captioned character line, and the music dips while it plays.",
+        "The guided demo against the bots now plays the newsreel too, so you can see it before a real game."
+      ],
+      "commit": "ff175f3c"
+    },
+    {
       "version": "0.1.e7f22815",
       "date": "2026-10-28",
       "platforms": [
