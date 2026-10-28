@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.0.c2c659a2",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "One curse clock on guardian levels",
+      "items": [
+        "On guardian levels, one clock now counts the curse down: its bar empties and the numbers turn amber, then red, as time runs low, and you win time back with every hit.",
+        "Ice from spells and frost now keeps its number well apart from the ice already on the board, so you won't get two almost-identical ice blocks.",
+        "Lists and the level map now stop cleanly at their ends instead of scrolling past them.",
+        "If you pick the wrong Google account when confirming a data deletion, the message now names the right account to use instead of just saying it couldn't confirm it's you.",
+        "The privacy policy now explains that your account, name, picture, blocked players, settings and the global leaderboards are handled through VHub, and it covers Google profile photos and how to delete your data."
+      ],
+      "commit": "c2c659a2"
+    },
+    {
       "version": "1.0.23",
       "date": "2026-10-28",
       "platforms": [
