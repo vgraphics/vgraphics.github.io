@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.d8826043",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Share your Daily as a picture",
+      "items": [
+        "Share your finished Daily as a picture of your solved board, with every arrow bursting out — post it anywhere or send it straight to your story.",
+        "Your profile picture now shows in place of the preset avatars — to pick a preset instead, remove your picture.",
+        "The preset avatars now slide smoothly in and out of view."
+      ],
+      "commit": "d8826043"
+    },
+    {
       "version": "1.0.484b3072",
       "date": "2026-10-28",
       "platforms": [
