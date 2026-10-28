@@ -297,6 +297,8 @@ function renderSignedOut(site, guest) {
         else if (outcome === "signed-in" || outcome === "linked") void drawAvatar().then(() => isOpen() && render());
       },
       dark ? "filled_black" : "outline",
+      // Google's words in the page's language (one language per page), never the account's or the network's.
+      lang,
     )
     .catch(() => google.replaceChildren(el("a", { class: "vm-button", href: "/hub/profile/" }, t.signIn)));
 }
