@@ -28,6 +28,10 @@
     "a": "English or Greek. The narrator, the cards and every screen follow the host's language."
   },
   {
+    "q": "Can we share how the night went?",
+    "a": "Yes. At the end of the guided demo, <b>Share the night</b> draws a picture of your own secret card to post or send, without naming who the killers were. When rooms open, every phone at the table gets it too: the town paper, a film poster, your secret card, the newsreel or the whole table, each with a QR code back to Palermo, and the TV shows a QR code so friends who only watched can share it as well. The phone draws the picture itself; nothing is uploaded."
+  },
+  {
     "q": "When can we play?",
     "a": "Rooms for your group open soon: on the web first, then on Android.<span data-demo> Until then, the guided demo seats you at a table of bots in your browser, today.</span> Every release shows under What's new on this page."
   },
