@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.8feef974",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Music returns under the last words",
+      "items": [
+        "After the town votes, the music slips quietly back in under the last words, right up until the card turns.",
+        "In the demo, the guide now points to your phone for the day's first discussion, not the TV.",
+        "On the demo page, the questions now rest within the footer picture, which fades in gently.",
+        "The \"first one out sees everything\" badge on the TV now has a bit more room inside."
+      ],
+      "commit": "8feef974"
+    },
+    {
       "version": "0.1.ece0a600",
       "date": "2026-10-28",
       "platforms": [
