@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.021ea446",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Story music fades in and out",
+      "items": [
+        "In the storybook, the music now fades smoothly in and out instead of cutting off, and it fades gently each time it loops.",
+        "When you open the game, your profile picture and name are ready as you reach the map, instead of popping in a moment later.",
+        "Before you delete your account, the \"Confirm it's you\" step now rejects a different Google account with a clear message, so nothing happens by mistake."
+      ],
+      "commit": "021ea446"
+    },
+    {
       "version": "1.0.24",
       "date": "2026-10-28",
       "platforms": [

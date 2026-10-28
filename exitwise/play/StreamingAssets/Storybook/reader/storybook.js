@@ -25,7 +25,8 @@
      overlay    true: over everything, closing removes it; false: the list inside options.mount, chapters full window
      mount      the element an inline book goes in
      playUrl    inline: where a locked chapter's "Play to unlock" goes
-     audio      { base }: plays <base>/<cue>.mp3 itself, after the reader's sound button (the site); else onCue (the game)
+     audio      { base }: plays <base>/<cue>.mp3 itself, faded in and out, after the reader's sound button (the site); else
+                onCue (the game, whose music player fades it)
      onPageShown(id), onPageLeft(id, skipped, seconds), onCue(cue), onClose() */
 (function () {
   'use strict';
@@ -36,6 +37,10 @@
   var STILL_MS = 180;
   var DUSK = ['#3a2c60', '#2e545c', '#66343c', '#6e522c', '#28466e', '#4e3462'];
   var SOUND_KEY = 'exitwise.storybook.sound';
+  // The music's level, and its fades in seconds: in as a cue starts, out as it stops or changes (quicker when the book
+  // is skipped shut), and out over a cue's last seconds before it starts again (George, 28 Oct 2026: "Music must always
+  // start and end with fading").
+  var MUSIC = { level: 0.5, fadeIn: 0.8, fadeOut: 0.5, skip: 0.35, tail: 1.5 };
   // The widths of the shipped pictures (Panels/ 4:3, Tall/ 9:16, Thumbs/, reader/threads.png's long side) and of the
   // sharp paintings. A picture may be drawn at most SHORT times bigger than it is; past that the smallest sharp copy
   // that is big enough is shown, or the biggest.
@@ -75,6 +80,30 @@
 
   function storedSound() {
     try { return window.localStorage.getItem(SOUND_KEY) === 'on'; } catch (e) { return false; }
+  }
+
+  // How a page sets an <audio>'s level, 0 to 1, as the site's shared fader does (vgraphics.gr assets/audio-fade.js): its
+  // own volume where the browser honours it; on iOS, which ignores a page's volume, a Web Audio gain, with the audio
+  // session set to playback so the silent switch doesn't mute it; null where neither works (an iPhone before Safari 17),
+  // and the music plays as before, without fades. Called from a press, before the element first plays.
+  function levelSetter(audio) {
+    var probe = document.createElement('audio');
+    probe.volume = 0.5;
+    if (probe.volume === 0.5) return function (level) { audio.volume = level; };
+    var Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context || typeof navigator === 'undefined' || !('audioSession' in navigator)) return null;
+    try {
+      var ctx = new Context();
+      navigator.audioSession.type = 'playback';
+      var gain = ctx.createGain();
+      ctx.createMediaElementSource(audio).connect(gain).connect(ctx.destination);
+      return function (level) {
+        if (ctx.state !== 'running') ctx.resume().catch(function () {});
+        gain.gain.setTargetAtTime(level, ctx.currentTime, 0.01);
+      };
+    } catch (e) {
+      return null;
+    }
   }
 
   // ---------- The camera: Core's StoryCamera.cs, number for number ----------
@@ -180,6 +209,12 @@
     var soundOn = o.audio ? storedSound() : false;
     var soundButtons = [];
     var cue = null;
+    // The music's fade: a level from 0 to 1 on its way from one value to another, what runs once it's there, and the
+    // timer that steps it (not the camera's frames, which stop while the page is hidden).
+    var fade = { from: 0, to: 0, t0: 0, s: 0 };
+    var faded = null;
+    var setLevel = null;
+    var musicTimer = 0;
 
     function setProgress(p) {
       progress.levelsWon = (p && p.levelsWon) || 0;
@@ -677,23 +712,97 @@
       playCue();
     }
 
-    function playCue() {
+    // The book's own music (the site; over the game, onCue hands the cue to the game's music player, which fades it).
+    // Every cue fades in, fades out before the next one starts or the music stops, and at the end of each pass fades
+    // out over its last MUSIC.tail seconds and in again from the top: it never starts or stops with a cut.
+    function playCue(skipped) {
       if (!o.audio) return;
-      if (!soundOn || !cue) {
-        if (audio) audio.pause();
+      if (!soundOn || !cue || closed) {
+        stopCue(skipped);
         return;
       }
       if (!audio) {
         audio = new Audio();
-        audio.loop = true;
-        audio.volume = 0.5;
+        setLevel = levelSetter(audio);
+        if (setLevel) setLevel(0);
+        audio.addEventListener('ended', againCue);
+        audio.addEventListener('playing', wakeMusic);
+        audio.addEventListener('timeupdate', wakeMusic);
+      }
+      // The cue before fades out first, then this one starts.
+      if (audio.dataset.cue && audio.dataset.cue !== cue && !audio.paused) fadeTo(0, skipped ? MUSIC.skip : MUSIC.fadeOut, startCue);
+      else startCue();
+    }
+
+    function startCue() {
+      if (!soundOn || !cue || closed) {
+        if (audio) audio.pause();
+        return;
       }
       if (audio.dataset.cue !== cue) {
         audio.dataset.cue = cue;
         audio.src = String(o.audio.base).replace(/\/$/, '') + '/' + cue + '.mp3';
+        fade = { from: 0, to: 0, t0: musicClock(), s: 0 };
       }
       // A cue not made yet is simply silent.
+      if (audio.paused) audio.play().catch(function () {});
+      fadeTo(1, MUSIC.fadeIn);
+    }
+
+    // A pass ended (after its tail faded out): the cue starts again from the top, fading in.
+    function againCue() {
+      if (!soundOn || closed) return;
+      audio.currentTime = 0;
+      fade = { from: 0, to: 0, t0: musicClock(), s: 0 };
       audio.play().catch(function () {});
+      fadeTo(1, MUSIC.fadeIn);
+    }
+
+    function stopCue(skipped) {
+      if (!audio || audio.paused) return;
+      fadeTo(0, skipped ? MUSIC.skip : MUSIC.fadeOut, function () { audio.pause(); });
+    }
+
+    function musicClock() { return performance.now() / 1000; }
+
+    function fadeLevel() {
+      var k = fade.s > 0 ? Math.min(1, (musicClock() - fade.t0) / fade.s) : 1;
+      return fade.from + (fade.to - fade.from) * k;
+    }
+
+    // Fades to a level over some seconds, then runs then (unless another fade has taken over first).
+    function fadeTo(level, seconds, then) {
+      fade = { from: fadeLevel(), to: level, t0: musicClock(), s: seconds };
+      faded = then || null;
+      wakeMusic();
+    }
+
+    // Sets the level: the fade, times the tail near a pass's end. True while it's still moving.
+    function stepMusic() {
+      if (!audio) return false;
+      if (faded && musicClock() - fade.t0 >= fade.s) {
+        var after = faded;
+        faded = null;
+        after();
+      }
+      // After that, which may have started another fade.
+      var moving = musicClock() - fade.t0 < fade.s;
+      var left = audio.duration - audio.currentTime;
+      var near = !audio.paused && left < MUSIC.tail + 0.5;
+      var tail = near && left < MUSIC.tail ? Math.max(0, left / MUSIC.tail) : 1;
+      if (setLevel) setLevel(MUSIC.level * fadeLevel() * tail);
+      return moving || near || !!faded;
+    }
+
+    function wakeMusic() {
+      if (!musicTimer) {
+        musicTimer = setInterval(function () {
+          if (stepMusic()) return;
+          clearInterval(musicTimer);
+          musicTimer = 0;
+        }, 15);
+      }
+      stepMusic();
     }
 
     function showSound() {
@@ -753,7 +862,7 @@
       window.removeEventListener('keydown', onKey, true);
       window.removeEventListener('resize', onResize);
       ['keyup', 'keypress'].forEach(function (type) { window.removeEventListener(type, stopKeys, true); });
-      if (audio) audio.pause();
+      stopCue(skipped);
       if (o.overlay) {
         root.classList.add('xsb--leaving');
         setTimeout(function () { if (root.parentNode) root.parentNode.removeChild(root); }, still ? 0 : 200);
