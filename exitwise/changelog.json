@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.31b6903b",
+      "version": "1.0.21",
       "date": "2026-10-28",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Clearer, fairer guardian fights",
