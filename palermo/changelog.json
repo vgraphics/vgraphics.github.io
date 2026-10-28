@@ -1,6 +1,27 @@
 {
   "entries": [
     {
+      "version": "0.1.5398d495",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The accused defends before the vote",
+      "items": [
+        "After the first talk each day, the player with the most accusations — at least two — now gets 30 seconds to answer the town before the vote.",
+        "The characters in play now show bigger on the TV, so it's easier to read who's in the game.",
+        "In the demo, the guide now chooses two of the Lawyer's five cards for you and explains aloud what each one does.",
+        "The demo's guide now follows what your phone has shown you: a killer you already know is suggested first, and anyone you've cleared is never suggested.",
+        "Every countdown now ticks through its last five seconds, and no clock sits frozen at zero anymore.",
+        "The demo now explains what each notebook pin colour means: red for suspect, grey for unsure, gold for trust.",
+        "Starting, restarting or changing your role now stops the running demo cleanly, so you won't hear two games at once, and the 2× speed option is gone.",
+        "The Lawyer's briefcase no longer offers the Injunction card when there's no Mayor or Kamikaze for it to work on.",
+        "Your notebook no longer records who answered yes to a confirmation, matching what the shared TV shows.",
+        "The demo page now carries the site's full footer, with its links and social channels."
+      ],
+      "commit": "5398d495"
+    },
+    {
       "version": "0.1.66bcb235",
       "date": "2026-10-28",
       "platforms": [
