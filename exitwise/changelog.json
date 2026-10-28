@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.1967529e",
+      "version": "1.0.22",
       "date": "2026-10-28",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Neater top row on wide windows",
