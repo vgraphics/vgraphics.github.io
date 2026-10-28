@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.ed2daa78",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your VHub picture on your seat",
+      "items": [
+        "Your seat now shows your own VHub picture — on your phone, in the lobby, on the tiles and in every TV scene.",
+        "Tap the new account button at the top right of the first screens to sign in, or to open your VHub profile.",
+        "Prefer your character's look? Turn on \"Use my character's picture instead\" when you join or create a game, or from the menu during a game.",
+        "The guided demo shows your VHub picture too, with the same account button and picture switch."
+      ],
+      "commit": "ed2daa78"
+    },
+    {
       "version": "0.1.12afcb4a",
       "date": "2026-10-28",
       "platforms": [
