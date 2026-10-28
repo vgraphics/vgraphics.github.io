@@ -1243,7 +1243,7 @@
    "summary": "Dawn, the talk and the vote: the town argues and sends someone out.",
    "what": [
     "At dawn the narrator says who the killers found, or that the night passed without a murder; by default the victim's card stays hidden. The TV also shows the town's rumour, the most suspected name of the night.",
-    "During the talk, each player can point at one suspect from their phone, and the accusation board shows the arrows live on the TV. When the talk ends, whoever drew the most arrows, two at least, gets 30 seconds to answer the town before the vote; players tied at the top answer in turn. Everyone has the same Secret actions drawer: for most it says there's nothing to do today, the Mayor can reveal and the Kamikaze can explode.",
+    "The talk has no clock by default: the town argues as long as it likes, and the vote opens once every player online has tapped Ready on their phone (a host can set a time instead). During the talk, each player can point at one suspect from their phone, and the accusation board shows the arrows live on the TV. When the talk ends, whoever drew the most arrows, two at least, gets 30 seconds to answer the town before the vote; players tied at the top answer in turn. Everyone has the same Secret actions drawer: for most it says there's nothing to do today, the Mayor can reveal and the Kamikaze can explode.",
     "Then the vote: open, with each vote shown as an arrow as it arrives, or secret, with only the count. Most votes goes out, and a revealed Mayor's vote counts twice. The one who goes out may say a few last words before their card is shown."
    ],
    "related": [
