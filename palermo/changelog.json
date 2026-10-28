@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.294ddfa1",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Share the night",
+      "items": [
+        "At the end of the guided demo, you can now share the night as a picture of your secret card — from a phone it opens your share menu, and on a computer it saves the picture and copies a ready message to paste.",
+        "The About panel now answers “Can I share how it went?”"
+      ],
+      "commit": "294ddfa1"
+    },
+    {
       "version": "0.1.8b05427d",
       "date": "2026-10-28",
       "platforms": [
