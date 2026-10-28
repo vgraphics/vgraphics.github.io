@@ -246,7 +246,7 @@
   "cta": {
     "title": "Your first board is waiting",
     "text": "Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.",
-    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }, "vhub"]
   },
   "footerArt": { "src": "/exitwise/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1311, "position": "50% 50%" }
 }

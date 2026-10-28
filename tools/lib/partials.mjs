@@ -45,7 +45,15 @@ const forTesters = (site, html) => (site.demo?.private ? `<template class="priva
 // private, shown as words once it is public.
 export const demoText = (site, html) => (site?.demo?.private ? html.replace(/\s*<span data-demo>[\s\S]*?<\/span>/g, '') : html.replace(/<span data-demo>([\s\S]*?)<\/span>/g, '$1'))
 
-// Badges and actions: "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }. A pill to
+// The VHub entry, one piece on every product's pages: "Get your VHub name" to the hub for everyone, and a signed-in
+// player's own VHub name and picture, linking to their profile, once assets/vhub.js finds their session (George, 28 Oct
+// 2026: "I am logged in. Shouldnt it show my name and avatar here? And this must be in exitwise page and speedometer
+// page too right?"). chip: as a chip of the links block; else a pill, as in a closing card's badges.
+const PERSON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg>'
+export const vhubEntry = (chip = false) => `<a class="vhub-entry${chip ? '' : ' pill'}" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true">${PERSON}</span><span class="vhub-words"><b class="vhub-name">${chip ? 'Your VHub name' : 'Get your VHub name'}</b>${chip ? '' : '<small class="vhub-note">Your name in every room</small>'}</span></a>`
+
+// Badges and actions: "google-play", "vhub" (the VHub entry), { href, label, note? } (a pill) or { href, label, icon?,
+// button: true }. A pill to
 // the product's main play or try page (playButtons) is its play button instead, the header's (assets/product.css
 // .play-cta: George, 27 Oct 2026, "A, Clean"), with its note as a small line under the row; a pill to the second is
 // the second button (.demo-cta, or the game's .soon-cta while it is coming soon, without a note), and of the two the
@@ -60,6 +68,7 @@ export function actions(page, list, cls = 'badges') {
   const notes = []
   const items = list.map((b) => {
     if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
+    if (b === 'vhub') return vhubEntry()
     if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
     if (main && b.href === main.href) {
       if (b.note) notes.push(own(b, `<small class="play-note">${b.note}</small>`))

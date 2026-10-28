@@ -95,7 +95,7 @@
           { "href": "/palermo/wiki/", "label": "Wiki", "icon": "book" },
           { "href": "/palermo/wiki/host-rules/", "label": "Host's rules", "icon": "rules" },
           { "href": "#soundtrack", "label": "Soundtrack", "icon": "music" },
-          { "href": "/hub/", "label": "Your VHub name", "icon": "person" }
+          "vhub"
         ] }
       ]
     },
@@ -282,7 +282,7 @@
     "badges": [
       { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
       { "href": "/palermo/play/", "label": "Play online" },
-      { "href": "/hub/", "label": "Get your VHub name", "note": "Your name in every room" }
+      "vhub"
     ]
   },
   "footerArt": { "src": "/palermo/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1738, "position": "55% 50%" }

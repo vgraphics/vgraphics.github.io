@@ -878,6 +878,18 @@ html.card-open { overflow: hidden; }
 }
 .sec-links a:hover { border-color: var(--accent); transform: translateY(-1px); }
 .sec-links svg { flex: none; width: 20px; height: 20px; color: var(--accent); }
+/* The VHub entry (tools/lib/partials.mjs vhubEntry, assets/vhub.js): a pill or a chip with a person icon; for a signed-in
+   player, their own picture in a ring of the accent and their name in its own letters */
+.vhub-face { flex: none; display: grid; place-items: center; width: 20px; height: 20px; color: var(--accent); }
+.vhub-face > svg, .vhub-face > img { display: block; width: 100%; height: 100%; }
+.vhub-entry.signed-in .vhub-face { width: 30px; height: 30px; margin-left: -6px; overflow: hidden; border-radius: 50%; box-shadow: 0 0 0 2px color-mix(in srgb, var(--accent) 70%, transparent); }
+.vhub-entry.signed-in .vhub-face img { object-fit: cover; }
+.vhub-words { display: grid; min-width: 0; }
+.vhub-name { max-width: 16em; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+.sec-links .vhub-entry.signed-in .vhub-name { text-transform: none; letter-spacing: 0.01em; font-size: 1rem; }
+.pill.vhub-entry { flex-direction: row; align-items: center; gap: 12px; }
+.pill.vhub-entry .vhub-face { width: 26px; height: 26px; }
+.pill.vhub-entry.signed-in .vhub-face { width: 38px; height: 38px; }
 
 /* A "why" section's points as cards, each opening with the painting of the wiki page it links to, its link lined up
    along the row's foot however long the words (build-pages.mjs, reasons) */

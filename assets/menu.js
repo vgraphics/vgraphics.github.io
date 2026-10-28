@@ -13,7 +13,8 @@
 // chapter stepper (stepper.js), which shows on a page with two chapters or more, no-select.js, which keeps the page's
 // text from being selected, its right-click menu shut and the developer tools' keys off, with a warning in the console,
 // and faq.js, which opens and closes every expandable on the page with an animation (questions and answers one at a
-// time); and, on a page with parts only testers see while they are private, private.js.
+// time); on a page with parts only testers see while they are private, private.js; and on a page with a VHub entry,
+// vhub.js.
 (() => {
   const nav = document.querySelector(".site-head .site-nav");
   if (nav && !document.querySelector(".site-head .menu-toggle")) {
@@ -118,4 +119,6 @@
   import("/assets/faq.js").catch(() => {});
   // The parts only testers see while they are private (a product's demo before it opens), on a page that has them.
   if (document.querySelector("template.private")) import("/assets/private.js").catch(() => {});
+  // The VHub entry, which shows a signed-in player's own name and picture, on a page that has one.
+  if (document.querySelector("[data-vhub]")) import("/assets/vhub.js").catch(() => {});
 })();
