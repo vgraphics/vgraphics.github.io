@@ -67,13 +67,6 @@
       { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
       { "href": "/palermo/play/", "label": "Play online" }
     ],
-    "facts": [
-      { "value": "6–14", "label": "players" },
-      { "value": "14", "label": "roles" },
-      { "value": "1 TV", "label": "and your phones" },
-      { "value": "EN · EL", "label": "English or Greek" },
-      { "value": "Free", "label": "every role" }
-    ],
     "art": {
       "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440, 2160], "jpeg": [1080], "width": 2160, "height": 3870 },

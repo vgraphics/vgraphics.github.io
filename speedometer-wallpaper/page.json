@@ -125,28 +125,6 @@
         "note": "Live demo, no install"
       }
     ],
-    "facts": [
-      {
-        "value": "19",
-        "label": "dashboard styles"
-      },
-      {
-        "value": "GPS",
-        "label": "real speed"
-      },
-      {
-        "value": "No ads",
-        "label": "on your home screen"
-      },
-      {
-        "value": "Buy once",
-        "label": "keep your styles"
-      },
-      {
-        "value": "Android",
-        "label": "only"
-      }
-    ],
     "art": {
       "alt": "Speedometer Live Wallpaper on a phone in a car's dashboard mount at night: the Amber Night gauges at 87 km/h, with rain on the windscreen, city lights and tail-light trails behind",
       "tall": {

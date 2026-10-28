@@ -22,8 +22,7 @@
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
 //   stores                       { googlePlay }: the store links the "google-play" badge points at
-//   hero                         { title?, lead, align: center | left, badges, facts?, art }: the key art and its foot;
-//                                facts: [{ value, label }], the product's key figures beside the lead
+//   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
 //                                or, on another page, { wiki: "<slug>", alt, position?, fade?, placeholder? }: that
@@ -36,8 +35,8 @@
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side | tile; dense: true for a deck
 //                                of many small media cards, two to a row on phones, framed like playing cards; deck: true
-//                                for one row that scrolls sideways between two arrows), features (an item's value and
-//                                label: its key figure over its title), facts, actions, quote, chips, song, album, tour,
+//                                for one row that scrolls sideways between two arrows), features (items with a value and
+//                                label, their key figures, become tabs), facts, actions, quote, chips, song, album, tour,
 //                                soundtrack, journey, embed, document, links (icon chips to the product's other places),
 //                                reasons (a "why" section's points, each a card with its wiki page's painting),
 //                                try (the product's web version, tools/lib/try.mjs),
@@ -75,17 +74,15 @@ const image = (i, lazy = true) => (i.widths
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
 // and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
-// stays for screen readers and search. The product's key figures (hero.facts) stand beside the lead on wide screens
-// and in a line under the badges on narrow ones (George, 28 Oct 2026, picked "D. Facts on the first screen").
+// stays for screen readers and search. No key figures in it (George, 28 Oct 2026: "Remove hero facts", on every
+// product).
 function hero(p, overview) {
   const h = p.hero
-  const cls = [h.align === 'left' && 'foot-left', h.facts?.length && 'has-facts'].filter(Boolean).join(' ')
-  return heroSection(h.art, { overview, cls, attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
+  return heroSection(h.art, { overview, cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
-          ${h.badges?.length ? actions(p, h.badges) : ''}${h.facts?.length ? `
-          <ul class="hero-facts">${h.facts.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('')}</ul>` : ''}
+          ${h.badges?.length ? actions(p, h.badges) : ''}
         </div>
       </div>` })
 }
@@ -279,10 +276,22 @@ const BLOCKS = {
         ${arrow('next', 'Next cards')}</div>`
   },
 
-  features: (b, { theme }) => {
+  // A title and a line each, marked with the pack's glyph: { type: "features", items: [{ title, text }] }. When every
+  // item has its key figure (value, label), the figures are tabs and each one's words show alone under them
+  // (assets/product.js; George, 28 Oct 2026, picked "S4. Pick a figure" for Palermo's day and verdict).
+  features: (b, { theme }, s) => {
     const mark = theme.mark ? theme.mark.replace('<svg', '<svg class="mark" aria-hidden="true"') : ''
+    if (b.items.every((f) => f.value)) {
+      const id = (kind, i) => `${s.id}-${kind}-${i + 1}`
+      return `<div class="feat-tabs">
+          <div class="feat-tablist" role="tablist" aria-label="${esc(s.title)}">${b.items.map((f, i) => `<button type="button" role="tab" id="${id('tab', i)}" aria-controls="${id('figure', i)}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><strong>${f.value}</strong><small>${f.label}</small></button>`).join('')}</div>
+          <div class="feat-panels">
+          ${b.items.map((f, i) => `<div class="feat-panel${i ? '' : ' is-on'}" role="tabpanel" id="${id('figure', i)}" aria-labelledby="${id('tab', i)}"${i ? ' inert' : ''}>${mark}<div><h3>${f.title}</h3><p>${f.text}</p></div></div>`).join('\n          ')}
+          </div>
+        </div>`
+    }
     return `<ul class="features${b.items.length === 4 ? ' n4' : ''}">
-          ${b.items.map((f, i) => `<li${f.value ? ' class="has-fact"' : ''} style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${f.value ? `<span class="feat-fact"><strong>${f.value}</strong><small>${f.label}</small></span>` : ''}${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
+          ${b.items.map((f, i) => `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
         </ul>`
   },
 
