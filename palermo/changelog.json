@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.b6ce4a5f",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Shop new looks at the Tailor",
+      "items": [
+        "Visit the Tailor, a new shop where you can buy fresh looks with coins or real money and wear them in the game.",
+        "Get the Host Pass to run your rooms with no ads at all, and the TV will thank you by name."
+      ],
+      "commit": "b6ce4a5f"
+    },
+    {
       "version": "0.1.ae0da0d9",
       "date": "2026-10-28",
       "platforms": [
