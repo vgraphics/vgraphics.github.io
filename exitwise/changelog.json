@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.22c17aeb",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your profile photo now shows",
+      "items": [
+        "Your profile picture now shows across the game — on your account button, your profile, and in boards and rooms.",
+        "On your profile, your name now sits next to your picture, with a small note beneath it that it can't be changed."
+      ],
+      "commit": "22c17aeb"
+    },
+    {
       "version": "1.0.27ca1c68",
       "date": "2026-10-28",
       "platforms": [
