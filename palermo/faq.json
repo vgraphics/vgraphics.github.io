@@ -36,6 +36,10 @@
     "a": "A room closes 30 minutes after its last phone goes offline, or 8 hours after it opened, and is deleted 24 hours after it closes. A short summary of each game, with no names, identifiers or votes, is kept for 12 months. Analytics runs only with your consent. The <a href=\"/palermo/privacy.html\">privacy policy</a> has the details."
   },
   {
+    "q": "What does the TV show when a killer is caught?",
+    "a": "The first time a killer is caught in a game, after the card turns, the TV plays the town's 1947 newsreel: a short film of the arrest on a Palermo street, in the gold frame of the role cards, with the officer's words in the room's language. Each newsreel plays once a game, and more of the game's outcomes will get their own."
+  },
+  {
     "q": "Where can I read the rules?",
     "a": "In the <a href=\"/palermo/wiki/\">wiki</a>: every role, every card in the Lawyer's briefcase, and how a round plays, from the deal to the verdict."
   }
