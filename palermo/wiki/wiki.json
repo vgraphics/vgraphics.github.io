@@ -1344,7 +1344,8 @@
    "summary": "One phone each and one screen for the room: nothing to install.",
    "what": [
     "The host opens Palermo Noir on their phone and creates a room. The TV opens vgraphics.gr/tv in its browser and shows the room's code and a QR code; friends scan it to join. A laptop on the TV works too.",
-    "Phones never play a sound, every phone looks the same at night, and your card shows only while you hold it. The TV shows only what everyone may see. The game plays in English or Greek."
+    "Players' phones never play a sound, every phone looks the same at night, and your card shows only while you hold it. The TV shows only what everyone may see. The game plays in English or Greek.",
+    "Each phone's menu (⋯) holds your own settings: your phone's language, music, sound effects, narrator voice, vibration, text size, captions and calmer motion. Signed in to VHub, they follow you to your other devices. With no TV, the host's phone plays the room's sound, and its menu also sets how loud each sound plays there. Narrator voice quiets only your own device, never the host's narrator rule."
    ],
    "how": [
     "The host creates a room on their phone.",
