@@ -1,0 +1,235 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Palermo Noir: Pass οικοδεσπότη και εμφανίσεις, τιμές · VGraphics</title>
+  <meta name="description" content="Το Palermo Noir είναι δωρεάν με κάθε ρόλο. Προαιρετικά: Pass οικοδεσπότη €4,99 μία φορά, σετ εμφανίσεων €2,99, πακέτο υποστηρικτή €9,99 και εμφανίσεις με νομίσματα που κερδίζετε παίζοντας.">
+  <!-- DRAFT (Palermo money, task S1, 28 Oct 2026): the Greek text of the "Host Pass and looks" section of the Palermo Noir landing page (the English section waits in palermo/store-draft.json), with the Greek answer of the "Is it free?" question. The site's template makes English pages only (lang="en", Latin-only product fonts), so the Greek text is a company-style page for now. Not linked from any menu, footer or page, and kept out of search and the sitemap by the noindex line below. George checks the Greek before anything goes live. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/el/palermo/store/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Pass οικοδεσπότη και εμφανίσεις · Palermo Noir">
+  <meta property="og:description" content="Το παιχνίδι μένει δωρεάν με κάθε ρόλο. Δύο προαιρετικά πράγματα κάνουν τις βραδιές σας πιο όμορφες, και κανένα δεν αλλάζει ποιος κερδίζει.">
+  <meta property="og:url" content="https://vgraphics.gr/el/palermo/store/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Παιχνίδια", "item": "https://vgraphics.gr/games/" },
+      { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" },
+      { "@type": "ListItem", "position": 4, "name": "Pass οικοδεσπότη και εμφανίσεις", "item": "https://vgraphics.gr/el/palermo/store/" }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* Laid out like the terms of use and the privacy policy: a summary in the logo's four colours, then the text, with its contents beside it on wide screens. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+
+    .draft-note { margin: 0; padding: 14px 18px; border-radius: var(--r-md); border: 2px dashed var(--coral); background: var(--surface); font-weight: 600; }
+    .table-wrap { overflow-x: auto; }
+    .prices { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+    .prices th, .prices td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prices th { font: 700 0.8rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+    .prices td:last-child, .prices th:last-child { white-space: nowrap; }
+    .prices tbody th { font: 700 1rem/1.4 var(--body); letter-spacing: 0; text-transform: none; color: var(--ink); white-space: nowrap; }
+    .text ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Μετάβαση στο περιεχόμενο</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · Palermo Noir · Προαιρετικά</span>
+    <h1>Pass οικοδεσπότη και εμφανίσεις</h1>
+    <p class="lede">Το <a href="/palermo/">Palermo Noir</a> είναι δωρεάν: κάθε ρόλος, κάθε λειτουργία και κάθε κανόνας, για έως 14 παίκτες. Αν αγαπάτε τις βραδιές σας, δύο προαιρετικά πράγματα τις κάνουν πιο όμορφες. Τίποτα από όσα αγοράζετε δεν αλλάζει ποιος κερδίζει.</p>
+    <p class="chip">Τελευταία ενημέρωση <time datetime="2026-10-28">28 Οκτωβρίου 2026</time></p>
+    <p class="draft-note">Πρόχειρο για τον έλεγχο του Γιώργου: δεν ισχύει ακόμη και δεν υπάρχει σύνδεσμος προς αυτό από τον ιστότοπο. Οι τιμές και τα κείμενα περιμένουν το OK του. Το αγγλικό κείμενο του ίδιου τμήματος είναι στο palermo/store-draft.json.</p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">Με δυο λόγια</h2>
+    <ul class="short">
+      <li><b>€4,99 μία φορά</b><span>Pass οικοδεσπότη: χωρίς διαφημίσεις στα δωμάτιά σας και δύο θέματα τηλεόρασης.</span></li>
+      <li><b>€2,99 το σετ</b><span>Τέσσερις εμφανίσεις γύρω από ένα μέρος του Παλέρμο, για εσάς και όχι για τον ρόλο σας.</span></li>
+      <li><b>€9,99 το πακέτο υποστηρικτή</b><span>Το Pass οικοδεσπότη, τα τρία πρώτα σετ και η πινακίδα ονόματος «Patron».</span></li>
+      <li><b>Νομίσματα από το παιχνίδι</b><span>Μία εμφάνιση τη φορά, με νομίσματα που κερδίζετε παίζοντας: 300, 600 ή 900.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">Σε αυτή τη σελίδα</h2>
+      <ol>
+        <li><a href="#free">Τι μένει δωρεάν</a></li>
+        <li><a href="#hostpass">Pass οικοδεσπότη</a></li>
+        <li><a href="#looks">Εμφανίσεις και σετ</a></li>
+        <li><a href="#coins">Νομίσματα</a></li>
+        <li><a href="#buying">Πώς αγοράζετε</a></li>
+        <li><a href="#faq">Είναι δωρεάν;</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="free" aria-labelledby="free-title">
+        <h2 id="free-title"><span class="dot c-sun" aria-hidden="true"></span>Τι μένει δωρεάν</h2>
+        <ul>
+          <li><strong>Τίποτα δεν αλλάζει ένα παιχνίδι.</strong> Οι ρόλοι, οι λειτουργίες και οι κανόνες μένουν δωρεάν για όλους. Μια εμφάνιση σχεδιάζεται με τον ίδιο τρόπο, με το ίδιο timing και τον ίδιο ήχο, όποιον ρόλο κι αν έχετε.</li>
+          <li><strong>Τίποτα δεν είναι τυχαίο.</strong> Βλέπετε πάντα τι αγοράζετε, και την τιμή του σε ευρώ, πριν πληρώσετε. Δεν υπάρχουν κουτιά-εκπλήξεις, αντίστροφες μετρήσεις ή «μόνο σήμερα».</li>
+          <li><strong>Οι διαφημίσεις μένουν εκτός παιχνιδιού,</strong> όπως πάντα: ποτέ κατά τη διάρκεια ενός παιχνιδιού.</li>
+        </ul>
+      </section>
+
+      <section id="hostpass" aria-labelledby="hostpass-title">
+        <h2 id="hostpass-title"><span class="dot c-coral" aria-hidden="true"></span>Pass οικοδεσπότη: €4,99, μία φορά</h2>
+        <p>Για τον φίλο του οποίου είναι η τηλεόραση και η βραδιά. Το αγοράζει ο οικοδεσπότης μία φορά και ισχύει σε κάθε ιδιωτικό δωμάτιο που ανοίγει:</p>
+        <ul>
+          <li>καμία διαφήμιση για κανέναν στο δωμάτιο, ούτε στην τηλεόραση ούτε στα κινητά·</li>
+          <li>δύο θέματα τηλεόρασης από την αρχή, για τη σκηνή και τη μουσική της βραδιάς·</li>
+          <li>αργότερα, επιπλέον φωνές αφηγητή και αρχεία τραπεζιού, καθώς και κάθε άλλο αντικείμενο οικοδεσπότη που θα προσθέσουμε, χωρίς επιπλέον χρέωση. Δεν δίνουμε ημερομηνία.</li>
+        </ul>
+        <p>Η τηλεόραση δείχνει στην αίθουσα αναμονής μία μικρή γραμμή ευγνωμοσύνης για τον οικοδεσπότη. Και όποιος έχει αγοράσει οτιδήποτε δεν βλέπει πια banner στο δικό του κινητό.</p>
+      </section>
+
+      <section id="looks" aria-labelledby="looks-title">
+        <h2 id="looks-title"><span class="dot c-sky" aria-hidden="true"></span>Εμφανίσεις και σετ</h2>
+        <p>Στο κατάστημα του παιχνιδιού, <strong>«Ο Ράφτης»</strong>, ντύνετε τον εαυτό σας: το πορτρέτο σας, την κέρινη σφραγίδα στον σφραγισμένο φάκελο, την πίσω όψη της κάρτας σας και την πινακίδα με το όνομά σας. Οι άλλοι στο τραπέζι, και στο διαδίκτυο, τα βλέπουν.</p>
+        <ul>
+          <li><strong>Σετ, €2,99:</strong> πορτρέτο, κέρινη σφραγίδα, πίσω όψη κάρτας και πινακίδα ονόματος, γύρω από ένα μέρος του Παλέρμο.</li>
+          <li><strong>Πακέτο υποστηρικτή, €9,99:</strong> το Pass οικοδεσπότη, τα τρία πρώτα σετ και η πινακίδα ονόματος «Patron». Δεν προσφέρεται σε όποιον έχει ήδη κάποιο μέρος του· αυτός αγοράζει ό,τι του λείπει ένα ένα.</li>
+          <li>Τα 16 δωρεάν avatar του παιχνιδιού μένουν δωρεάν για όλους.</li>
+        </ul>
+      </section>
+
+      <section id="coins" aria-labelledby="coins-title">
+        <h2 id="coins-title"><span class="dot c-violet" aria-hidden="true"></span>Νομίσματα</h2>
+        <ul>
+          <li><strong>Μία εμφάνιση τη φορά,</strong> με νομίσματα: πορτρέτο 600, πορτρέτο με δική του κίνηση 900, κέρινη σφραγίδα, πίσω όψη κάρτας ή πινακίδα ονόματος 300.</li>
+          <li><strong>Τα νομίσματα κερδίζονται παίζοντας:</strong> 30 για ένα ολοκληρωμένο παιχνίδι, 15 ακόμη για μια νίκη και άλλα 30 για το πρώτο παιχνίδι της ημέρας, έως 300 την ημέρα από το Palermo Noir.</li>
+          <li><strong>Πακέτα νομισμάτων</strong> (από €0,99 έως €9,99) πωλούνται μόνο στις εφαρμογές κινητού. Το διαδίκτυο δεν πουλά νομίσματα.</li>
+        </ul>
+      </section>
+
+      <section id="buying" aria-labelledby="buying-title">
+        <h2 id="buying-title"><span class="dot c-sun" aria-hidden="true"></span>Πώς αγοράζετε</h2>
+        <ul>
+          <li><strong>Συνδεδεμένοι στο VHub.</strong> Οι αγορές μένουν στον λογαριασμό σας στο VHub και επιστρέφουν όταν συνδεθείτε από οποιοδήποτε κινητό ή υπολογιστή.</li>
+          <li><strong>Από 16 ετών.</strong> Οι παίκτες 13 έως 15 ετών κερδίζουν και ξοδεύουν νομίσματα, αλλά δεν πληρώνουν με χρήματα.</li>
+          <li><strong>Στο διαδίκτυο πληρώνετε μέσω της Paddle,</strong> που χρεώνει τον ΦΠΑ της χώρας σας και σας στέλνει την απόδειξη. Οι τιμές περιλαμβάνουν ΦΠΑ.</li>
+          <li><strong>Επιστροφή χρημάτων μέσα σε 14 ημέρες,</strong> αν την ζητήσετε. Το αντικείμενο φεύγει.</li>
+        </ul>
+        <p>Οι <a href="/el/terms/sale/">όροι πώλησης</a>, η <a href="/el/refunds/">πολιτική επιστροφών</a> και το <a href="/el/privacy/purchases/">τι κρατάμε για τις αγορές σας</a> έχουν τις λεπτομέρειες.</p>
+      </section>
+
+      <section id="faq" aria-labelledby="faq-title">
+        <h2 id="faq-title"><span class="dot c-coral" aria-hidden="true"></span>Είναι δωρεάν;</h2>
+        <p>Ναι, με κάθε ρόλο μέσα, για έως 14 παίκτες. Διαφημίσεις εμφανίζονται μόνο εκτός παιχνιδιού, ανάμεσα στα παιχνίδια και ποτέ κατά τη διάρκεια ενός. Αν θέλετε, υπάρχουν προαιρετικές εμφανίσεις και ένα Pass οικοδεσπότη: αλλάζουν πώς φαίνονται και ακούγονται οι βραδιές σας, όχι ποιος κερδίζει.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>

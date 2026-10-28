@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="el">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Πολιτική επιστροφών για τις αγορές στο Palermo Noir · VGraphics</title>
+  <meta name="description" content="Ζητήστε το μέσα σε 14 ημέρες και παίρνετε τα χρήματά σας πίσω: πώς το ζητάτε, τι αφαιρεί μια επιστροφή, πώς λειτουργούν τα νομίσματα και τι ισχύει στις εφαρμογές κινητού.">
+  <!-- DRAFT (Palermo money, task S1, 28 Oct 2026): the Greek twin of /refunds/. Not linked from any menu, footer or page, and kept out of search and the sitemap by the noindex line below. George checks the Greek before anything goes live. To publish: as /refunds/, and add the pair of rel="alternate" hreflang links to both. The site's header and footer stay in English: check-site holds every company page to the home page's. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/el/refunds/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Πολιτική επιστροφών · VGraphics">
+  <meta property="og:description" content="Αλλάξατε γνώμη; Ζητήστε το μέσα σε 14 ημέρες και η αγορά σας στο Palermo Noir επιστρέφεται, χωρίς ερωτήσεις.">
+  <meta property="og:url" content="https://vgraphics.gr/el/refunds/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Πολιτική επιστροφών", "item": "https://vgraphics.gr/el/refunds/" }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* Laid out like the terms of use and the privacy policy: a summary in the logo's four colours, then the text, with its contents beside it on wide screens. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+
+    .draft-note { margin: 0; padding: 14px 18px; border-radius: var(--r-md); border: 2px dashed var(--coral); background: var(--surface); font-weight: 600; }
+    .table-wrap { overflow-x: auto; }
+    .prices { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+    .prices th, .prices td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prices th { font: 700 0.8rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+    .prices td:last-child, .prices th:last-child { white-space: nowrap; }
+    .prices tbody th { font: 700 1rem/1.4 var(--body); letter-spacing: 0; text-transform: none; color: var(--ink); white-space: nowrap; }
+    .text ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Μετάβαση στο περιεχόμενο</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · Palermo Noir · Αγορές</span>
+    <h1>Πολιτική επιστροφών</h1>
+    <p class="lede">Μπορείτε να πάρετε πίσω τα χρήματά σας για οτιδήποτε αγοράσατε στο Palermo Noir στο διαδίκτυο, αν το ζητήσετε μέσα σε 14 ημέρες. Δεν χρειάζεται λόγος. Η σελίδα λέει πώς το ζητάτε και τι αφαιρεί μια επιστροφή. Με απλά λόγια.</p>
+    <p class="chip">Τελευταία ενημέρωση <time datetime="2026-10-28">28 Οκτωβρίου 2026</time></p>
+    <p class="draft-note">Πρόχειρο για τον έλεγχο του Γιώργου: δεν ισχύει ακόμη και δεν υπάρχει σύνδεσμος προς αυτό από τον ιστότοπο. Οι 14 ημέρες και τα κείμενα περιμένουν το OK του. <a href="/refunds/">English version</a></p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">Με δυο λόγια</h2>
+    <ul class="short">
+      <li><b>14 ημέρες, χωρίς ερωτήσεις</b><span>Ζητήστε το μέσα σε 14 ημέρες από μια αγορά στο διαδίκτυο και παίρνετε τα χρήματά σας πίσω.</span></li>
+      <li><b>Το αντικείμενο φεύγει</b><span>Η επιστροφή αφαιρεί ό,τι αγοράσατε: το pass λήγει, οι εμφανίσεις επιστρέφουν στις δωρεάν.</span></li>
+      <li><b>Τα νομίσματα που ξοδεύτηκαν μένουν ξοδεμένα</b><span>Μια εμφάνιση που αγοράσατε με νομίσματα μένει δική σας και τα νομίσματα δεν επιστρέφονται.</span></li>
+      <li><b>Οι εφαρμογές ακολουθούν το κατάστημα</b><span>Στην εφαρμογή Android ισχύουν οι κανόνες επιστροφών του Google Play.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">Σε αυτή τη σελίδα</h2>
+      <ol>
+        <li><a href="#window">Οι 14 ημέρες</a></li>
+        <li><a href="#ask">Πώς το ζητάτε</a></li>
+        <li><a href="#removes">Τι αφαιρεί μια επιστροφή</a></li>
+        <li><a href="#coins">Νομίσματα</a></li>
+        <li><a href="#disputes">Αμφισβητούμενες πληρωμές</a></li>
+        <li><a href="#apps">Στις εφαρμογές κινητού</a></li>
+        <li><a href="#rights">Τα νόμιμα δικαιώματά σας</a></li>
+        <li><a href="#changes">Αλλαγές</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="window" aria-labelledby="window-title">
+        <h2 id="window-title"><span class="dot c-sun" aria-hidden="true"></span>Οι 14 ημέρες</h2>
+        <p>Ό,τι αγοράζετε στο διαδίκτυο, το Pass οικοδεσπότη, ένα σετ εμφανίσεων ή το πακέτο υποστηρικτή, μπορεί να επιστραφεί κατόπιν αιτήματος μέσα σε <strong>14 ημέρες</strong> από την ημέρα της αγοράς, δηλαδή την ημερομηνία στην απόδειξή σας. Δεν χρειάζεται να δώσετε λόγο. Η επιστροφή είναι ολόκληρη η τιμή που πληρώσατε, μαζί με τον ΦΠΑ.</p>
+        <p>Την πώληση στο διαδίκτυο την κάνει η Paddle, ο «merchant of record» μας, που επιστρέφει τα χρήματα. Οι <a href="/el/terms/sale/">όροι πώλησης</a> λένε ποιος πουλάει τι.</p>
+      </section>
+
+      <section id="ask" aria-labelledby="ask-title">
+        <h2 id="ask-title"><span class="dot c-coral" aria-hidden="true"></span>Πώς το ζητάτε</h2>
+        <ol>
+          <li>Γράψτε στο <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a> από οποιαδήποτε διεύθυνση.</li>
+          <li>Δώστε τον αριθμό παραγγελίας από το email με την απόδειξη της Paddle και το όνομά σας στο VHub.</li>
+          <li>Περνάμε το αίτημά σας στην Paddle, που επιστρέφει τα χρήματα με τον τρόπο που πληρώσατε. Το πόσο σύντομα θα το δείτε στην τράπεζά σας εξαρτάται από την τράπεζά σας.</li>
+          <li>Το αντικείμενο αφαιρείται από τον λογαριασμό σας στο VHub.</li>
+        </ol>
+        <p>Μπορείτε επίσης να ρωτήσετε απευθείας την Paddle, με τον σύνδεσμο βοήθειας στο email με την απόδειξή της.</p>
+      </section>
+
+      <section id="removes" aria-labelledby="removes-title">
+        <h2 id="removes-title"><span class="dot c-sky" aria-hidden="true"></span>Τι αφαιρεί μια επιστροφή</h2>
+        <p>Η επιστροφή αφαιρεί το αντικείμενο που πήρατε με αυτά τα χρήματα:</p>
+        <ul>
+          <li><strong>Pass οικοδεσπότη:</strong> το pass λήγει. Ένα δωμάτιο που είναι ήδη ανοιχτό το κρατά μέχρι να κλείσει, ώστε μια βραδιά παιχνιδιού να μη διακόπτεται στη μέση. Το επόμενο δωμάτιο που θα ανοίξετε δείχνει ξανά διαφημίσεις.</li>
+          <li><strong>Ένα σετ:</strong> οι τέσσερις εμφανίσεις του επιστρέφουν στις δωρεάν. Μια εμφάνιση που φορούσατε βγαίνει, και το δωρεάν avatar εμφανίζεται από την επόμενη φορά που θα μπείτε σε δωμάτιο.</li>
+          <li><strong>Πακέτο υποστηρικτή:</strong> αφαιρούνται μόνο όσα έδωσε αυτό το πακέτο. Ό,τι σας έδωσε άλλη αγορά σας παραμένει.</li>
+        </ul>
+        <p>Τίποτα άλλο στον λογαριασμό σας δεν αλλάζει, και μια επιστροφή δεν επηρεάζει το όνομά σας στο VHub, το επίπεδο, τους φίλους ή την πρόοδό σας.</p>
+      </section>
+
+      <section id="coins" aria-labelledby="coins-title">
+        <h2 id="coins-title"><span class="dot c-violet" aria-hidden="true"></span>Νομίσματα</h2>
+        <ul>
+          <li><strong>Μια εμφάνιση που αγοράστηκε με νομίσματα</strong> δεν επιστρέφεται και τα νομίσματά της δεν επιστρέφονται. Η εμφάνιση παραμένει δική σας.</li>
+          <li><strong>Ένα πακέτο νομισμάτων</strong> υπάρχει μόνο στις εφαρμογές κινητού, οπότε το κατάστημα που το πούλησε το επιστρέφει (δείτε <a href="#apps">στις εφαρμογές κινητού</a>). Όταν επιστρέφεται ένα πακέτο, τα νομίσματά του αφαιρούνται. Αν τα έχετε ήδη ξοδέψει, το υπόλοιπο νομισμάτων σας μπορεί να πέσει κάτω από το μηδέν μέχρι να τα ξανακερδίσετε, και μέχρι τότε δεν μπορείτε να ξοδέψετε νομίσματα.</li>
+        </ul>
+      </section>
+
+      <section id="disputes" aria-labelledby="disputes-title">
+        <h2 id="disputes-title"><span class="dot c-sun" aria-hidden="true"></span>Αμφισβητούμενες πληρωμές</h2>
+        <p>Αν ζητήσετε από την τράπεζά σας να αντιστρέψει μια πληρωμή και το κάνει, το αντικείμενο αφαιρείται με τον ίδιο τρόπο όπως σε μια επιστροφή. Γράψτε πρώτα σε εμάς: είναι πιο γρήγορο και γλιτώνετε μια διαφορά.</p>
+      </section>
+
+      <section id="apps" aria-labelledby="apps-title">
+        <h2 id="apps-title"><span class="dot c-coral" aria-hidden="true"></span>Στις εφαρμογές κινητού</h2>
+        <p>Ό,τι αγοράζετε στην εφαρμογή Android, αντικείμενα και πακέτα νομισμάτων, το πουλά το Google Play, οπότε ισχύουν οι δικοί του κανόνες επιστροφών και ζητάτε την επιστροφή από το Google Play, από το ιστορικό παραγγελιών σας. Όταν η Google επιστρέφει μια αγορά, το VHub αφαιρεί το αντικείμενο από τον λογαριασμό σας με τον ίδιο τρόπο όπως παραπάνω. Αργότερα, μια εφαρμογή iOS θα λειτουργούσε με τον ίδιο τρόπο με την Apple.</p>
+      </section>
+
+      <section id="rights" aria-labelledby="rights-title">
+        <h2 id="rights-title"><span class="dot c-sky" aria-hidden="true"></span>Τα νόμιμα δικαιώματά σας</h2>
+        <p>Τα αντικείμενα είναι ψηφιακό περιεχόμενο και παραδίδονται αμέσως. Όταν αγοράζετε στο διαδίκτυο, η Paddle σας ζητά να συμφωνήσετε σε αυτή την παράδοση και να αναγνωρίσετε ότι το νόμιμο δικαίωμα υπαναχώρησης για ψηφιακό περιεχόμενο λήγει μόλις ξεκινήσει η παράδοση. Η πολιτική επιστροφών είναι ξεχωριστή και ισχύει επιπλέον: μπορείτε και πάλι να ζητήσετε επιστροφή μέσα στις 14 ημέρες. Δεν αφαιρεί ποτέ τα δικαιώματά σας βάσει του δικαίου προστασίας του καταναλωτή, για παράδειγμα όταν ένα αντικείμενο δεν φτάνει ή δεν λειτουργεί όπως περιγράφεται. Σε αυτή την περίπτωση, γράψτε μας.</p>
+      </section>
+
+      <section id="changes" aria-labelledby="changes-title">
+        <h2 id="changes-title"><span class="dot c-violet" aria-hidden="true"></span>Αλλαγές</h2>
+        <p>Μπορεί να αλλάξουμε αυτή την πολιτική για μεταγενέστερες αγορές. Μια αγορά διατηρεί τους όρους επιστροφής με τους οποίους έγινε. Όταν η πολιτική αλλάζει, ενημερώνουμε αυτή τη σελίδα και την ημερομηνία στην κορυφή.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>

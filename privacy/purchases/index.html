@@ -1,0 +1,236 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Privacy: purchases and coins in Palermo Noir · VGraphics</title>
+  <meta name="description" content="What happens to your data when you buy in Palermo Noir or earn and spend coins: what VHub keeps, what Paddle and Google receive, and what is deleted with your account.">
+  <!-- DRAFT (Palermo money, task S1, 28 Oct 2026). This is the text of the new "Purchases and coins" part of Palermo Noir's privacy policy (and of VHub's), written here to be read. Not linked from any menu, footer or page, and kept out of search and the sitemap by the noindex line below. George reads it before anything goes live. To publish: add the part to the Palermo repo's docs/privacy-policy.html (section id="purchases", with a contents entry) and to the VHub repo's docs/privacy/vhub-privacy.html, run tools/sync-documents.mjs palermo, then delete this page and its Greek twin /el/privacy/purchases/. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/privacy/purchases/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Privacy: purchases and coins · VGraphics">
+  <meta property="og:description" content="What we keep when you buy in Palermo Noir, who else receives it, and what is deleted with your account.">
+  <meta property="og:url" content="https://vgraphics.gr/privacy/purchases/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Privacy policy", "item": "https://vgraphics.gr/privacy/" },
+      { "@type": "ListItem", "position": 3, "name": "Purchases and coins", "item": "https://vgraphics.gr/privacy/purchases/" }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* Laid out like the terms of use and the privacy policy: a summary in the logo's four colours, then the text, with its contents beside it on wide screens. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+
+    .draft-note { margin: 0; padding: 14px 18px; border-radius: var(--r-md); border: 2px dashed var(--coral); background: var(--surface); font-weight: 600; }
+    .table-wrap { overflow-x: auto; }
+    .prices { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+    .prices th, .prices td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prices th { font: 700 0.8rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+    .prices td:last-child, .prices th:last-child { white-space: nowrap; }
+    .prices tbody th { font: 700 1rem/1.4 var(--body); letter-spacing: 0; text-transform: none; color: var(--ink); white-space: nowrap; }
+    .text ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · Palermo Noir · Privacy</span>
+    <h1>Purchases and coins</h1>
+    <p class="lede">What happens to your data when you buy the Host Pass or looks in Palermo Noir, or earn and spend its coins. This is a part of the game's <a href="/palermo/privacy.html">privacy policy</a>, and of VHub's. In plain words.</p>
+    <p class="chip">Last updated <time datetime="2026-10-28">28 October 2026</time></p>
+    <p class="draft-note">Draft for George's review: the text of a new part of two privacy policies, not in force yet, not linked from the site. <a href="/el/privacy/purchases/">Greek version</a></p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">In short</h2>
+    <ul class="short">
+      <li><b>No card details with us</b><span>Paddle and Google take the payment. We never see your card.</span></li>
+      <li><b>VHub keeps what you own</b><span>Your orders, owned items, worn looks and coins, on your VHub account.</span></li>
+      <li><b>Others see only what you wear</b><span>Not what you paid, and not what else you own.</span></li>
+      <li><b>Deleted with your account</b><span>Your items and coins go. A bare order record stays, with no link to you.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ol>
+        <li><a href="#payment">Who takes the payment</a></li>
+        <li><a href="#vhub">What VHub keeps</a></li>
+        <li><a href="#seen">What others see</a></li>
+        <li><a href="#age">Your age</a></li>
+        <li><a href="#kept">How long, and deleting</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#basis">Why we may</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="payment" aria-labelledby="payment-title">
+        <h2 id="payment-title"><span class="dot c-sun" aria-hidden="true"></span>Who takes the payment</h2>
+        <ul>
+          <li><strong>On the web, Paddle</strong> (Paddle.com Market Limited) is the seller and takes the payment. It collects what it needs for that, such as your email address, country and payment details, and uses them for the sale, the VAT, the receipt, fraud checks and refunds, under <strong>its own privacy policy</strong>. It is responsible for that data on its own account. It does not give us your card details.</li>
+          <li><strong>In the Android app, Google Play</strong> takes the payment under Google's privacy policy, and likewise gives us no card details. An iOS app, once there is one, would use Apple in the same way.</li>
+          <li>The checkout carries your VHub identifier, so the purchase lands on the right account. Paddle or Google tells VHub that the order was paid or refunded, with the item, the price and currency, the time and the store's order number.</li>
+        </ul>
+      </section>
+
+      <section id="vhub" aria-labelledby="vhub-title">
+        <h2 id="vhub-title"><span class="dot c-coral" aria-hidden="true"></span>What VHub keeps</h2>
+        <p>VHub, our player network, keeps these on your account, in Google Firebase in Belgium, as <a href="/hub/privacy.html">VHub's privacy policy</a> describes:</p>
+        <ul>
+          <li><strong>Your orders:</strong> the item, the store (Paddle, Google Play or coins), the price and currency, the dates of the payment and of any refund, and the store's order number.</li>
+          <li><strong>What you own,</strong> and which looks you have put on.</li>
+          <li><strong>Your coins:</strong> your balance, and a list of each time coins were earned, spent, bought or taken back, with the game, the reason, the amount and the time.</li>
+          <li>A check that your account is signed in (not a guest) and that your age group is 16 or over, before an order is accepted.</li>
+        </ul>
+        <p>Palermo Noir's own Firebase project receives only what the game needs to show you: whether you have the Host Pass, whether you are a supporter, and which looks you wear.</p>
+      </section>
+
+      <section id="seen" aria-labelledby="seen-title">
+        <h2 id="seen-title"><span class="dot c-sky" aria-hidden="true"></span>What others see</h2>
+        <ul>
+          <li>The players in your room, and strangers at an online table, see the looks you wear: your portrait, wax seal, card back and name plate.</li>
+          <li>The TV of a room whose host has the Host Pass shows one line in the lobby, such as "No ads tonight, thanks to Maria's Host Pass", with the name the host plays under.</li>
+          <li>Nobody sees what you paid, which orders you made, what else you own or how many coins you have.</li>
+        </ul>
+      </section>
+
+      <section id="age" aria-labelledby="age-title">
+        <h2 id="age-title"><span class="dot c-violet" aria-hidden="true"></span>Your age</h2>
+        <p>Buying with money needs an age group of 16 or over, which the game works out from the year of birth it asks for once and does not keep (see <a href="/palermo/privacy.html#age">your age</a>). Accounts aged 13 to 15 can earn and spend coins only: they get no checkout, no offers and no nudges to buy.</p>
+      </section>
+
+      <section id="kept" aria-labelledby="kept-title">
+        <h2 id="kept-title"><span class="dot c-sun" aria-hidden="true"></span>How long, and deleting</h2>
+        <ul>
+          <li>Your purchases and coins are kept as long as your VHub account exists, so that signing in anywhere brings them back.</li>
+          <li><strong>When you delete your VHub account,</strong> your owned items, worn looks, coins and coin history are deleted with it, and the deletion screen says so. The record of each order stays, cut loose from your account, for as long as accounting law and late refunds need it: it holds the item, the price, the dates and the store's order number, and no name or identifier of yours.</li>
+          <li>Paddle and Google keep their own records of the sale, as the tax and accounting laws require of them, under their own policies. VGraphics keeps its accounting records of what they pay it for as long as Greek law requires.</li>
+          <li>You can ask for a copy of what VHub keeps about your purchases with the data download in VHub, or by writing to <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>.</li>
+        </ul>
+      </section>
+
+      <section id="analytics" aria-labelledby="analytics-title">
+        <h2 id="analytics-title"><span class="dot c-coral" aria-hidden="true"></span>Analytics</h2>
+        <p>Only if you allow analytics, and never for players under 16, the game counts that the store was opened, which item was looked at, and that a purchase, a refund or a look change happened, with the item and the price. These counts carry no name or email address. See <a href="/palermo/privacy.html#analytics">analytics and error reports</a>.</p>
+      </section>
+
+      <section id="basis" aria-labelledby="basis-title">
+        <h2 id="basis-title"><span class="dot c-sky" aria-hidden="true"></span>Why we may</h2>
+        <p class="basis">Legal basis: keeping your orders and items so that we can deliver what you bought, and give or take it back after a refund, is our contract with you (GDPR Article 6(1)(b)). Keeping accounting records is a legal duty (Article 6(1)(c)). Analytics rely on your consent (Article 6(1)(a)), which you can withdraw at any time. Paddle and Google may handle data outside the EU, under the safeguards their policies describe.</p>
+        <p>Your other rights, and how to use them, are in the <a href="/palermo/privacy.html">Palermo Noir privacy policy</a>. The <a href="/terms/sale/">terms of sale</a> and the <a href="/refunds/">refund policy</a> say what you buy and how to get it refunded.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>

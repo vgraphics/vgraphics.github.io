@@ -1,0 +1,45 @@
+{
+  "about": "DRAFT (Palermo money, task S1, 28 Oct 2026). The words of the 'Host Pass and looks' section and of the changed 'Is it free?' answer for Palermo Noir's landing page, in the template's own format. Nothing reads this file: the landing page does not change until George says yes. Then: paste 'section' into palermo/page.json's sections, between 'love' and 'whats-new'; replace the 'Is it free?' item of palermo/faq.json with 'faq.item'; run 'node tools/build-pages.mjs palermo' and 'node tools/build-wiki.mjs'; link /terms/sale/ and /refunds/ from the footer's Company column on every company page (home first, then the copies); delete this file. The Greek text of the same section is the draft page /el/palermo/store/. The numbers are the money design's (Games/palermo docs/superpowers/specs/2026-10-28-palermo-money-design.md sections 3, 5, 6, 7, 9, 11) and the catalog's: if either moves, change this file first.",
+  "section": {
+    "id": "store",
+    "eyebrow": "Optional, never needed",
+    "title": "Host Pass and looks",
+    "intro": "Palermo Noir is free: every role, every mode and every rule, for up to 14 players. If you love your evenings, two optional things make them nicer. Nothing you buy changes who wins.",
+    "blocks": [
+      {
+        "type": "features",
+        "items": [
+          { "value": "€4.99", "label": "once", "title": "Host Pass", "text": "For the friend whose TV and evening it is. No ads for anyone in your rooms, two TV themes from the start, and later narrator voices, table records and every host item we add, at no extra charge." },
+          { "value": "€2.99", "label": "a set", "title": "Looks", "text": "Four looks around one place in Palermo: a portrait, a wax seal, a card back and a name plate. They belong to you, never to your role, and everyone at the table sees them." },
+          { "value": "€9.99", "label": "supporter pack", "title": "Supporter pack", "text": "The Host Pass, the first three sets and the Patron name plate, in one go." },
+          { "value": "300–900", "label": "coins", "title": "Single looks", "text": "Earn coins by playing and buy one look at a time. A finished game earns 30, a win 15 more, the first game of the day another 30, up to 300 a day. Coin packs, from €0.99, exist only in the phone apps." }
+        ]
+      },
+      {
+        "type": "steps",
+        "items": [
+          "<b>Nothing changes a game.</b> Every role, mode and rule stays free. A look is drawn the same way, with the same timing and sound, whatever role you hold.",
+          "<b>Nothing is random.</b> You see what you buy, and its price in euros, before you pay. No mystery boxes, no timers, no “only today”.",
+          "<b>Kept on your VHub account.</b> Sign in on any phone or computer and your purchases are back. Buyers are 16 or over; players aged 13 to 15 earn and spend coins and buy nothing with money.",
+          "<b>Refunds within 14 days.</b> Ask and the money comes back; the item goes. On the web, Paddle takes the payment, adds the VAT of your country and sends the receipt. Prices include VAT."
+        ]
+      },
+      {
+        "type": "links",
+        "label": "Terms and policies for purchases",
+        "items": [
+          { "href": "/terms/sale/", "label": "Terms of sale", "icon": "rules" },
+          { "href": "/refunds/", "label": "Refund policy", "icon": "book" },
+          { "href": "/palermo/privacy.html", "label": "Privacy policy", "icon": "rules" }
+        ]
+      }
+    ]
+  },
+  "faq": {
+    "replaces": "Is it free?",
+    "item": {
+      "q": "Is it free?",
+      "a": "Yes, with every role in, for up to 14 players. Ads only show outside play, between games and never during one. Optional looks and a Host Pass are for sale if you want them: they change how your evenings look and sound, never who wins. See <a href=\"#store\">Host Pass and looks</a>."
+    }
+  }
+}

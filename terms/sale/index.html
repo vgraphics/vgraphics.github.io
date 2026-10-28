@@ -1,0 +1,287 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Terms of sale: Palermo Noir Host Pass, looks and coins · VGraphics</title>
+  <meta name="description" content="What you buy in Palermo Noir, who sells it, who may buy, what you get and how refunds work: the Host Pass, sets of looks, the supporter pack and coins.">
+  <!-- DRAFT (Palermo money, task S1, 28 Oct 2026). Not linked from any menu, footer or page, and kept out of search and the sitemap by the noindex line below. George reads it before anything goes live. To publish: delete this comment, the noindex line and the draft note under the heading; link /terms/sale/ from /terms/ and the footer's Company column; run tools/build-sitemap.mjs and tools/check-site.mjs. -->
+  <meta name="robots" content="noindex">
+  <link rel="canonical" href="https://vgraphics.gr/terms/sale/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="Terms of sale · VGraphics">
+  <meta property="og:description" content="What you can buy in Palermo Noir, at what price, who may buy it and how to get your money back.">
+  <meta property="og:url" content="https://vgraphics.gr/terms/sale/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+      { "@type": "ListItem", "position": 2, "name": "Terms of use", "item": "https://vgraphics.gr/terms/" },
+      { "@type": "ListItem", "position": 3, "name": "Terms of sale", "item": "https://vgraphics.gr/terms/sale/" }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* Laid out like the terms of use and the privacy policy: a summary in the logo's four colours, then the text, with its contents beside it on wide screens. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.4rem, 6vw, 4.2rem); }
+
+    .short-title { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: var(--s2); }
+    .short { list-style: none; margin: 0 0 var(--s6); padding: 0; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 14px; }
+    .short li { border-radius: var(--r-md); padding: 20px 22px; display: grid; gap: 6px; align-content: start; color: var(--on-block); }
+    .short b { font: 800 1.15rem/1.2 var(--display); letter-spacing: -0.01em; }
+    .short span { font-size: 0.95rem; line-height: 1.5; }
+    .short li:nth-child(1) { background: var(--sun); }
+    .short li:nth-child(2) { background: var(--coral); }
+    .short li:nth-child(3) { background: var(--sky); }
+    .short li:nth-child(4) { background: var(--violet); color: var(--on-violet); }
+
+    .policy { display: grid; grid-template-columns: 230px minmax(0, 1fr); gap: var(--s6); align-items: start; padding-bottom: var(--s7); }
+    .toc { position: sticky; top: 96px; }
+    .toc h2 { font: 700 0.8rem/1 var(--body); letter-spacing: 0.12em; text-transform: uppercase; color: var(--ink-2); margin-bottom: 10px; }
+    .toc ol { list-style: none; margin: 0; padding: 0; display: grid; gap: 2px; }
+    .toc a { display: flex; align-items: center; min-height: 40px; padding: 0 12px; border-radius: var(--r-sm); color: var(--ink); font-weight: 600; text-decoration: none; }
+    .toc a:hover { background: var(--surface-2); }
+
+    .text { display: grid; gap: var(--s6); max-width: 46em; }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.6rem, 3vw, 2.2rem); }
+    .text h3 { font-size: 1.2rem; margin-top: var(--s1); }
+    .text ul { margin: 0; padding-left: 1.2em; display: grid; gap: 10px; }
+    .text li::marker { color: var(--ink-2); }
+    .text a, .text code { overflow-wrap: anywhere; }
+    .text code { font: 600 0.86em/1.5 ui-monospace, SFMono-Regular, Menlo, Consolas, monospace; padding: 1px 6px; border-radius: 6px; background: var(--surface-2); }
+    .box { margin: 0; padding: 20px 22px; border-radius: var(--r-md); background: var(--surface); border: 1px solid var(--line); font-style: normal; }
+    .statement { border-left: 6px solid var(--violet); font-weight: 600; }
+
+    @media (max-width: 960px) {
+      .short { grid-template-columns: 1fr 1fr; }
+      .policy { grid-template-columns: 1fr; gap: var(--s4); }
+      .toc { position: static; }
+      .toc ol { display: flex; flex-wrap: wrap; gap: 6px; }
+      .toc a { padding: 0 14px; border-radius: 999px; background: var(--surface-2); }
+    }
+    @media (max-width: 560px) {
+      .short { grid-template-columns: 1fr; }
+      .text { gap: var(--s5); }
+    }
+
+    .draft-note { margin: 0; padding: 14px 18px; border-radius: var(--r-md); border: 2px dashed var(--coral); background: var(--surface); font-weight: 600; }
+    .table-wrap { overflow-x: auto; }
+    .prices { width: 100%; border-collapse: collapse; font-size: 0.98rem; }
+    .prices th, .prices td { text-align: left; padding: 10px 12px; border-bottom: 1px solid var(--line); vertical-align: top; }
+    .prices th { font: 700 0.8rem/1.2 var(--body); letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+    .prices td:last-child, .prices th:last-child { white-space: nowrap; }
+    .prices tbody th { font: 700 1rem/1.4 var(--body); letter-spacing: 0; text-transform: none; color: var(--ink); white-space: nowrap; }
+    .text ol { margin: 0; padding-left: 1.4em; display: grid; gap: 10px; }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-hub" href="/hub/">VHub</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <div class="intro">
+    <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · Palermo Noir · Buying</span>
+    <h1>Terms of sale</h1>
+    <p class="lede">What you can buy in Palermo Noir, who sells it, who may buy, what you get and how refunds work. In plain words. They cover the Host Pass, sets of looks, the supporter pack and single looks bought with coins. The game itself is free.</p>
+    <p class="chip">Last updated <time datetime="2026-10-28">28 October 2026</time></p>
+    <p class="draft-note">Draft for George's review: not in force yet, not linked from the site. Prices and wording wait for his OK. <a href="/el/terms/sale/">Greek version</a></p>
+  </div>
+
+  <section aria-labelledby="short-title">
+    <h2 class="short-title" id="short-title">In short</h2>
+    <ul class="short">
+      <li><b>Optional, never needed</b><span>Every role, mode and rule stays free. Nothing you buy changes who wins.</span></li>
+      <li><b>Paid once, kept on VHub</b><span>What you buy lives on your VHub account and comes back when you sign in.</span></li>
+      <li><b>Sixteen or over</b><span>Buyers sign in with VHub and are 16 or older. Players aged 13 to 15 earn and spend coins only.</span></li>
+      <li><b>Refund within 14 days</b><span>Ask, and your money comes back. The item goes with it.</span></li>
+    </ul>
+  </section>
+
+  <div class="policy">
+    <nav class="toc" aria-labelledby="toc-title">
+      <h2 id="toc-title">On this page</h2>
+      <ol>
+        <li><a href="#seller">Who sells</a></li>
+        <li><a href="#items">What you can buy</a></li>
+        <li><a href="#buyers">Who may buy</a></li>
+        <li><a href="#paying">Paying and delivery</a></li>
+        <li><a href="#yours">What you get</a></li>
+        <li><a href="#coins">Coins</a></li>
+        <li><a href="#refunds">Refunds</a></li>
+        <li><a href="#apps">In the phone apps</a></li>
+        <li><a href="#help">Help</a></li>
+        <li><a href="#law">Responsibility and law</a></li>
+        <li><a href="#changes">Changes</a></li>
+      </ol>
+    </nav>
+
+    <div class="text">
+      <section id="seller" aria-labelledby="seller-title">
+        <h2 id="seller-title"><span class="dot c-sun" aria-hidden="true"></span>Who sells</h2>
+        <p>Palermo Noir and everything you can buy in it are made by VGraphics:</p>
+        <address class="box">
+          VGRAPHICS SINGLE MEMBER P.C.<br>
+          Kalamaria, Thessaloniki, Greece<br>
+          G.E.MI. no. 181823306000 · VAT no. EL802736373<br>
+          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+        </address>
+        <p>When you buy on the web, the seller is <strong>Paddle.com Market Limited</strong> ("Paddle"), our reseller and merchant of record. Paddle takes your payment, charges the VAT of your country, sends you the receipt and handles refunds and chargebacks. VGraphics makes the items and delivers them to your VHub account. Paddle's own buyer terms apply to the sale itself, and Paddle shows them at checkout. In the Android app the seller is Google Play (see <a href="#apps">in the phone apps</a>).</p>
+      </section>
+
+      <section id="items" aria-labelledby="items-title">
+        <h2 id="items-title"><span class="dot c-coral" aria-hidden="true"></span>What you can buy</h2>
+        <div class="table-wrap">
+          <table class="prices">
+            <thead><tr><th scope="col">Item</th><th scope="col">What it is</th><th scope="col">Price</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Host Pass</th><td>Bought once by a host. In every private room that host opens: no ads for anyone in the room, two TV themes from the start, and later narrator voices, table records and any other host item we add, at no extra charge.</td><td>€4.99, once</td></tr>
+              <tr><th scope="row">Set of looks</th><td>Four looks around one place in Palermo: a portrait, a wax seal, a card back and a name plate.</td><td>€2.99 a set</td></tr>
+              <tr><th scope="row">Supporter pack</th><td>The Host Pass, the first three sets and the Patron name plate. It is not offered to anyone who already owns a part of it, who buys what they lack one by one.</td><td>€9.99</td></tr>
+              <tr><th scope="row">Single look</th><td>One look, bought with coins and never with money: a portrait for 600 coins, a portrait with its own small motion for 900, a wax seal, a card back or a name plate for 300.</td><td>300, 600 or 900 coins</td></tr>
+              <tr><th scope="row">Coin packs</th><td>300 coins for €0.99, 1,000 for €2.99, 2,000 for €4.99 and 5,000 for €9.99. Sold only in the phone apps. The web sells no coins.</td><td>€0.99 to €9.99</td></tr>
+            </tbody>
+          </table>
+        </div>
+        <ul>
+          <li><strong>Prices include VAT.</strong> Paddle works out the VAT of your country and shows the total, in your currency where it offers one, before you pay.</li>
+          <li><strong>What the Host Pass includes today:</strong> no ads in the host's private rooms, and two TV themes. Extra narrator voices and table records are promised for the pass and will be added at no extra charge when they are ready. We give no date.</li>
+          <li><strong>Anyone who has bought anything</strong> no longer sees a banner ad on their own phone.</li>
+        </ul>
+        <h3>What is never sold</h3>
+        <p>Roles, a better chance at a role, modes, player slots and host rules: all of them stay free for everyone. Nothing that changes a game is sold. Nothing random is sold either: you always see what you buy, and its price, before you pay. There are no mystery boxes and no packs with unknown contents, for euros or for coins.</p>
+      </section>
+
+      <section id="buyers" aria-labelledby="buyers-title">
+        <h2 id="buyers-title"><span class="dot c-sky" aria-hidden="true"></span>Who may buy</h2>
+        <ul>
+          <li><strong>Buying with money</strong> needs a signed-in VHub account (not a guest) whose age group is 16 or over. The game asks for a year of birth once and keeps only the age group.</li>
+          <li><strong>Players aged 13 to 15</strong> pay nothing in euros. They earn and spend coins like everyone else, see the sets without a Buy button, and get no offers.</li>
+          <li><strong>Spending coins</strong> needs a signed-in VHub account too, so that a look is never lost with a guest browser.</li>
+          <li>Palermo Noir is for ages 13 and up. Under 13, the game does not open.</li>
+        </ul>
+      </section>
+
+      <section id="paying" aria-labelledby="paying-title">
+        <h2 id="paying-title"><span class="dot c-violet" aria-hidden="true"></span>Paying and delivery</h2>
+        <p>On the web you choose an item in the game's store, or on its page here, and Paddle's checkout opens. You pay with a method Paddle offers. The checkout carries your VHub account, so the item arrives on the account you were signed in with. The TV page of the game never sells anything: no checkout, no prices.</p>
+        <p>Everything is digital and is delivered at once: as soon as Paddle confirms the payment, the item is on your VHub account, normally within moments.</p>
+        <p>Because of that, Paddle asks you at checkout to agree that delivery starts straight away, and to acknowledge that the statutory 14-day right of withdrawal for digital content ends once delivery has begun with your consent (Directive 2011/83/EU on consumer rights, Article 16(m), and the Greek consumer protection law). This does not touch our own refund policy, which is more generous: you can still ask for a refund within 14 days (see <a href="#refunds">refunds</a>).</p>
+      </section>
+
+      <section id="yours" aria-labelledby="yours-title">
+        <h2 id="yours-title"><span class="dot c-sun" aria-hidden="true"></span>What you get</h2>
+        <ul>
+          <li><strong>A personal right to use the item</strong> in Palermo Noir, with your VHub account, for as long as the game is offered. You may not sell, share or transfer it.</li>
+          <li><strong>Looks are for show.</strong> A look belongs to the player, never to a role: it is drawn the same way, with the same timing and sound, whatever role you hold, and it changes nothing anyone sees or hears about the game. Others at the table, and online, see what you wear.</li>
+          <li><strong>It is kept on your VHub account,</strong> not on a phone. Sign in on any phone or computer and your purchases are back. Deleting your VHub account deletes what you bought; the deletion screen says so.</li>
+          <li><strong>A refund or a reversed payment removes the item</strong> (see <a href="#refunds">refunds</a>).</li>
+        </ul>
+      </section>
+
+      <section id="coins" aria-labelledby="coins-title">
+        <h2 id="coins-title"><span class="dot c-coral" aria-hidden="true"></span>Coins</h2>
+        <ul>
+          <li><strong>Coins are earned by playing.</strong> A finished game earns 30 coins, a win 15 more, and the first game finished each day another 30, up to 300 coins a day from Palermo Noir.</li>
+          <li>Coins are VHub's: coins earned in another VGraphics game that uses VHub coins can be spent here, and the other way round. They do not expire.</li>
+          <li>Coins have no cash value. They cannot be exchanged for money or given to another player.</li>
+          <li>Every coin price is a multiple of 300, the smallest coin pack, so you can always buy exactly what you need. Each price shows its value in euros under it.</li>
+          <li>Coins spent on a look are not refunded, and the look stays yours.</li>
+        </ul>
+      </section>
+
+      <section id="refunds" aria-labelledby="refunds-title">
+        <h2 id="refunds-title"><span class="dot c-sky" aria-hidden="true"></span>Refunds</h2>
+        <p>Ask within 14 days of buying on the web, give no reason, and you get your money back through Paddle. The item is removed from your account. The <a href="/refunds/">refund policy</a> has the details: how to ask, what a refund takes away, coins and the phone apps.</p>
+      </section>
+
+      <section id="apps" aria-labelledby="apps-title">
+        <h2 id="apps-title"><span class="dot c-violet" aria-hidden="true"></span>In the phone apps</h2>
+        <ul>
+          <li>In the Android app, items and coin packs are sold by <strong>Google Play</strong> under Google's terms, and Google Play's refund rules apply to them. Later, an iOS app would sell through Apple in the same way.</li>
+          <li>The same items, at the same prices in euros, are sold on every platform. What you buy anywhere is kept on your VHub account, so a pass bought on the web works in the app, and the other way round.</li>
+          <li>Coin packs exist only in the phone apps.</li>
+        </ul>
+      </section>
+
+      <section id="help" aria-labelledby="help-title">
+        <h2 id="help-title"><span class="dot c-sun" aria-hidden="true"></span>Help</h2>
+        <p>If an item does not arrive, or does not work as described, write to <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a> and we will put it right or refund you. For a question about a payment or a receipt from the web, you can also use the help link in Paddle's receipt email.</p>
+      </section>
+
+      <section id="law" aria-labelledby="law-title">
+        <h2 id="law-title"><span class="dot c-coral" aria-hidden="true"></span>Responsibility and law</h2>
+        <p>Your rights as a consumer, including your rights when digital content does not work as described, stay as the law gives them. Nothing here takes them away.</p>
+        <p>Greek law applies to these terms, and the courts of Thessaloniki, Greece, decide any dispute about them, without taking away the protection, or the right to go to your own courts, that the law of the country you live in gives you as a consumer. If we cannot settle a complaint, you can turn to an out-of-court dispute body in Greece, such as the Consumer Ombudsman. The rest of our <a href="/terms/">terms of use</a> apply to this website, and our <a href="/privacy/">privacy policy</a> and <a href="/privacy/purchases/">what we keep about your purchases</a> explain your data.</p>
+      </section>
+
+      <section id="changes" aria-labelledby="changes-title">
+        <h2 id="changes-title"><span class="dot c-violet" aria-hidden="true"></span>Changes</h2>
+        <p>We may add items, change prices and change these terms. What you have already bought keeps the price and the terms it was bought under. When these terms change, we update this page and its date at the top.</p>
+      </section>
+    </div>
+  </div>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/vhub-me.js" defer></script>
+</body>
+</html>
