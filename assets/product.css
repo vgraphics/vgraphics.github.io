@@ -272,21 +272,25 @@ h1, h2, h3 {
 /* The product's key figures in the hero's foot (build-pages.mjs, hero.facts; George, 28 Oct 2026, picked "D. Facts on
    the first screen"): a short line under the badges on narrow and portrait screens; on wide ones a column at the
    foot's right after a fine rule in the accent, the lead and the badges moved left beside it, so the foot grows no
-   taller. */
+   taller. A hero whose words stand at its left (hero.align "left") has its art's subject on the right, as
+   Speedometer's phone, so there the facts stay a line under the badges, on the left and never wider than 34rem. */
 .hero-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 4px 0 0; padding: 0; list-style: none; }
 .hero-foot .hero-facts { animation-delay: 360ms; }
 .hero-facts li { display: inline-flex; align-items: baseline; gap: 7px; }
 .hero-facts b { font: var(--display-weight) 1.15rem/1 var(--font-display); color: var(--accent); text-shadow: var(--on-art-shadow); }
 .hero-facts span { font: var(--label-weight) 0.72rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--on-art); text-shadow: var(--on-art-shadow); }
 @media (min-width: 900px) and (min-aspect-ratio: 4/5) {
-  .has-facts .hero-foot .wrap { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: clamp(32px, 4vw, 64px); justify-items: start; align-items: end; text-align: left; }
-  .has-facts .hero-foot .lead { grid-area: 1 / 1; }
-  .has-facts .hero-foot .badges { grid-area: 2 / 1; justify-content: flex-start; }
-  .has-facts .hero-foot .badges .play-note { text-align: left; }
-  .has-facts .hero-facts { grid-area: 1 / 2 / 3 / 3; display: grid; grid-template-columns: auto auto; gap: 9px 14px; margin: 0 0 6px; padding: 4px 0 4px clamp(20px, 2vw, 28px); border-left: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); }
-  .has-facts .hero-facts li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; }
-  .has-facts .hero-facts b { font-size: clamp(1.25rem, 1.7vw, 1.6rem); text-align: right; }
-  .has-facts .hero-facts span { font-size: 0.78rem; }
+  .has-facts:not(.foot-left) .hero-foot .wrap { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: clamp(32px, 4vw, 64px); justify-items: start; align-items: end; text-align: left; }
+  .has-facts:not(.foot-left) .hero-foot .lead { grid-area: 1 / 1; }
+  .has-facts:not(.foot-left) .hero-foot .badges { grid-area: 2 / 1; justify-content: flex-start; }
+  .has-facts:not(.foot-left) .hero-foot .badges .play-note { text-align: left; }
+  .has-facts:not(.foot-left) .hero-facts { grid-area: 1 / 2 / 3 / 3; display: grid; grid-template-columns: auto auto; gap: 9px 14px; margin: 0 0 6px; padding: 4px 0 4px clamp(20px, 2vw, 28px); border-left: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); }
+  .has-facts:not(.foot-left) .hero-facts li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; }
+  .has-facts:not(.foot-left) .hero-facts b { font-size: clamp(1.25rem, 1.7vw, 1.6rem); text-align: right; }
+  .has-facts:not(.foot-left) .hero-facts span { font-size: 0.78rem; }
+}
+@media not all and (max-aspect-ratio: 4/5) {
+  .foot-left .hero-facts { justify-content: flex-start; max-width: 34rem; }
 }
 /* Every other page's hero (the wiki's, the ranking's, the policies'; tools/lib/hero.mjs): shorter, so the page's own
    content starts sooner (George, 24 Oct 2026: "The hero height is not so good for other pages other than overview.
@@ -905,7 +909,7 @@ html.card-open { overflow: hidden; }
 .reason-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 clamp(18px, 2vw, 26px) 18px; }
 .reason h3 { font: var(--display-weight) clamp(1.4rem, 2vw, 1.6rem)/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .reason p { margin: 0; color: var(--muted); }
-.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link); }
+.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link, var(--accent)); }
 .reason-more::after { content: "\2192"; color: var(--accent); }
 @media (max-width: 760px) { .reasons { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
 
