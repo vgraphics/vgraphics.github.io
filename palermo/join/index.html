@@ -17,15 +17,18 @@
     <script src="/assets/no-select.js" defer ></script>
     <style>
       html, body { margin: 0; background: #0B1623; color: #EFE7D4; }
-      /* The company's legal line, the site's rule for every page: small, along the foot of the door. */
+      /* The company's legal line, the site's rule for every page: small, at the foot until the door draws, which then gives
+         it a row of its own under the form (door-layout.tsx, LegalRow), so it never covers the button. */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.5em 1em calc(0.5em + env(safe-area-inset-bottom));
         background: linear-gradient(rgba(11, 22, 35, 0), #0B1623 45%); color: rgba(239, 231, 212, 0.55); font: 12px/1.5 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/join-Cdow4tD0.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-Cw0Y2oMN.js">
-    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-D2UQBGSt.css">
+    <script type="module" crossorigin src="/palermo/game/join-BLnfDX2d.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-D9D99Hic.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-Bq2KHlO7.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/code-boxes-_iwnNLP9.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-JAfZlvc2.css">
   </head>
   <body>
     <!-- With a room's code and the phone page on the site, the phone goes straight on to the room; the door draws otherwise. -->

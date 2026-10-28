@@ -14,7 +14,8 @@
     <script src="/assets/no-select.js" defer ></script>
     <style>
       html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
-      /* The company's legal line, the site's rule for every page: fine print in the stage's safe margin at the foot. */
+      /* The company's legal line, the site's rule for every page: fine print along the screen's foot. The start screen
+         gives it a row of its own at the foot of its stage (door-layout.tsx, LegalRow), so the keys never sit on it. */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
         color: rgba(239, 231, 212, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
@@ -23,12 +24,13 @@
          welcome for its art; this covers the legal line before the app has loaded. */
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/tv-DGoWlL_6.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-Cw0Y2oMN.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-DD9SUJt2.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-DOP-g1Gs.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/app-DUYt75Rl.js">
-    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-D2UQBGSt.css">
+    <script type="module" crossorigin src="/palermo/game/tv-DUv8yk27.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-D9D99Hic.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-BDiNcW1l.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-fk6ht6NL.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-Bq2KHlO7.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/app-BCzwSH42.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-JAfZlvc2.css">
     <link rel="stylesheet" crossorigin href="/palermo/game/newsreel-sE5nnSXv.css">
   </head>
   <body>

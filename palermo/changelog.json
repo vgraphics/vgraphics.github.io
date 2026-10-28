@@ -1,6 +1,24 @@
 {
   "entries": [
     {
+      "version": "0.1.460acc5b",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The demo loads again",
+      "items": [
+        "The guided demo now loads all the way, even if you have an ad or cookie blocker turned on.",
+        "The TV's start screen has a fresh look: the artwork now fills the whole screen, and the code shows on a flip-style departures board.",
+        "On the TV you now hear just one welcome, in your room's language, instead of both Greek and English — and none at all during the demo.",
+        "Your TV room now stays open when you reload the page, and opening the TV in another tab no longer closes it.",
+        "The code the TV screen shows for pairing is now twelve digits, grouped in threes, the same as the one your phone makes.",
+        "Long player names now fit on the TV, shown in a narrower, condensed lettering so they're no longer cut off.",
+        "In the demo, your phone keeps its sound until the TV's audio takes over, and restarting or trying another role plays that game's sounds from the start."
+      ],
+      "commit": "460acc5b"
+    },
+    {
       "version": "0.1.2a7c475a",
       "date": "2026-10-28",
       "platforms": [
