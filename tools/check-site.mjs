@@ -201,7 +201,8 @@ const homeHtml = readFileSync(join(root, 'index.html'), 'utf8')
 // Google Search Console's proof of ownership (README, "Search engines"): without it the site loses its verification.
 if (!/<meta name="google-site-verification" content="[^"]+">/.test(homeHtml)) report('index.html', 'search-console', 'no google-site-verification meta tag')
 const home = chrome(homeHtml)
-for (const menu of ['/games/', '/apps/', '/services/', '/hub/']) {
+// VHub has no link of its own: the avatar, the header's last item (below), opens the hub.
+for (const menu of ['/games/', '/apps/', '/services/']) {
   if (!home.head?.includes(`href="${menu}"`)) report('index.html', 'menu', `the header has no link to ${menu}`)
 }
 for (const file of pages) {
@@ -362,6 +363,20 @@ for (const file of served) {
     } else if (second && ![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => /\sclass="demo-link"/.test(m[1]) && m[1].match(/\shref="([^"]*)"/)?.[1] === second.href)) {
       playButton(file, `the menu has no "${second.label}" link (${second.href}) before its play button (${slug}/page.json site.demo): make the page with the template`)
     }
+  }
+}
+
+// The VHub avatar, the last item of every header (George, 28 Oct 2026: "All pages must show the VHub avatar clickable on
+// top right after any play or try button."; VHub docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md 4.1): a
+// button after the play or try link where a page has one, on company pages where the VHub link was, drawn and opened by
+// assets/account.js (which menu.js loads). The company header's old VHub link and its chip (vhub-me.js) gave way to it.
+const avatar = (file, message) => report(file, 'avatar', message)
+const AVATAR_TAIL = /<button class="vhub-avatar"[^>]*>(?:(?!<button\b|<a\b|<nav\b)[\s\S])*<\/button>(?:\s*<\/div>)?\s*$/
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (html.includes('/assets/vhub-me.js')) avatar(file, 'loads /assets/vhub-me.js, which the VHub avatar replaced')
+  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)"[^>]*>([\s\S]*?)<\/header>/g)) {
+    if (!AVATAR_TAIL.test(inner)) avatar(file, `the header's last item is not the VHub avatar (<button class="vhub-avatar">, tools/lib/partials.mjs VHUB_AVATAR)`)
   }
 }
 
@@ -571,7 +586,8 @@ for (const file of served) {
 const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
 for (const file of siteScripts) {
-  if (file === 'assets/faq.js' || file === 'assets/menu.js') continue
+  // The VHub avatar's menu (assets/account.js) opens and closes with its own animation, as faq.js's.
+  if (file === 'assets/faq.js' || file === 'assets/menu.js' || file === 'assets/account.js') continue
   if (readFileSync(join(root, file), 'utf8').includes('aria-expanded')) {
     faqJs(file, 'opens or closes something by aria-expanded itself, with no animation: drive its kind from assets/faq.js, which animates every expandable')
   }
