@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.c937c7d1",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner demo page footer",
+      "items": [
+        "The demo page looks tidier: the \"More about Palermo Noir\" links now sit together in the footer, and the line above the footer is gone."
+      ],
+      "commit": "c937c7d1"
+    },
+    {
       "version": "0.1.5398d495",
       "date": "2026-10-28",
       "platforms": [
