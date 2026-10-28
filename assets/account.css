@@ -111,7 +111,20 @@
   text-transform: var(--display-case, none);
 }
 .vm-small { font-size: 0.85rem; }
-.vm-google { min-height: 44px; }
+/* Our own "Sign in with Google" button, in the page's language (Google's own speaks the Google account's), as Google's
+   branding asks: its G, a white pill with a grey edge (a dark one on a dark menu), Google's words. */
+.vm-gbtn {
+  display: inline-flex; align-items: center; gap: 10px; min-height: 44px; padding: 0 16px 0 12px; box-sizing: border-box;
+  border: 1px solid #747775; border-radius: 999px; background: #FFFFFF; color: #1F1F1F !important;
+  font: 500 14px/1 Roboto, Arial, system-ui, sans-serif; letter-spacing: 0.25px; white-space: nowrap;
+  transition: background-color 140ms ease-out, box-shadow 140ms ease-out;
+}
+.vm-gbtn:hover:not(:disabled) { background: #F2F2F2; box-shadow: 0 1px 3px rgb(0 0 0 / 0.2); }
+.vm-gbtn.vm-gbtn-dark { border-color: #8E918F; background: #131314; color: #E3E3E3 !important; }
+.vm-gbtn.vm-gbtn-dark:hover:not(:disabled) { background: #1F1F21; }
+.vm-gbtn:focus-visible { outline: 2px solid var(--vm-on); outline-offset: 2px; }
+.vm-gbtn-g { display: grid; place-items: center; width: 18px; height: 18px; }
+.vm-gnote:empty { display: none; }
 .vm-button {
   display: inline-flex; align-items: center; min-height: 44px; padding: 0 18px; border-radius: 999px;
   background: var(--vm-on); color: var(--vm-on-ink) !important; font-weight: 700; text-decoration: none;

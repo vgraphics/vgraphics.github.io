@@ -46,6 +46,8 @@ const WORDS = {
     all: "All games and apps",
     signOut: "Sign out",
     you: (name, n) => `Your VHub account: ${name}, level ${n}`,
+    google: "Sign in with Google",
+    blocked: "Your browser blocked Google's window. Press the button again, or allow pop-ups for vgraphics.gr.",
   },
   el: {
     menu: "Ο λογαριασμός σου στο VHub",
@@ -67,6 +69,8 @@ const WORDS = {
     all: "Όλα τα παιχνίδια και οι εφαρμογές",
     signOut: "Αποσύνδεση",
     you: (name, n) => `Ο λογαριασμός σου στο VHub: ${name}, επίπεδο ${n}`,
+    google: "Σύνδεση με Google",
+    blocked: "Ο φυλλομετρητής σου μπλόκαρε το παράθυρο της Google. Πάτα ξανά το κουμπί ή επίτρεψε τα αναδυόμενα παράθυρα για το vgraphics.gr.",
   },
 };
 const t = WORDS[lang];
@@ -274,8 +278,16 @@ async function render() {
 
 // ---------- Signed out ----------
 
+/** Google's "G", as Google's sign-in branding draws it. */
+const GOOGLE_G =
+  '<svg viewBox="0 0 48 48" width="18" height="18" aria-hidden="true" focusable="false"><path fill="#EA4335" d="M24 9.5c3.54 0 6.71 1.22 9.21 3.6l6.85-6.85C35.9 2.38 30.47 0 24 0 14.62 0 6.51 5.38 2.56 13.22l7.98 6.19C12.43 13.72 17.74 9.5 24 9.5z"/><path fill="#4285F4" d="M46.98 24.55c0-1.57-.15-3.09-.38-4.55H24v9.02h12.94c-.58 2.96-2.26 5.48-4.78 7.18l7.73 6c4.51-4.18 7.09-10.36 7.09-17.65z"/><path fill="#FBBC05" d="M10.53 28.59c-.48-1.45-.76-2.99-.76-4.59s.27-3.14.76-4.59l-7.98-6.19C.92 16.46 0 20.12 0 24c0 3.88.92 7.54 2.56 10.78l7.97-6.19z"/><path fill="#34A853" d="M24 48c6.48 0 11.93-2.13 15.89-5.81l-7.73-6c-2.15 1.45-4.92 2.3-8.16 2.3-6.26 0-11.57-4.22-13.47-9.91l-7.98 6.19C6.51 42.62 14.62 48 24 48z"/></svg>';
+
 function renderSignedOut(site, guest) {
-  const google = el("div", { class: "vm-google" });
+  // Our own button in the page's language (one language per page): Google's own button speaks the language of the
+  // Google account signed in to the browser, whatever the page asks. Google's window opens from its click.
+  const google = el("button", { type: "button", class: "vm-gbtn", disabled: true }, el("span", { class: "vm-gbtn-g" }), el("span", {}, t.google));
+  google.querySelector(".vm-gbtn-g").innerHTML = GOOGLE_G;
+  const note = el("p", { class: "vm-small vm-gnote", role: "status" });
   show(
     el(
       "div",
@@ -284,23 +296,28 @@ function renderSignedOut(site, guest) {
       el("h2", { class: "vm-title" }, t.signIn),
       el("p", { class: "vm-line" }, guest ? t.guest : t.pitch),
       google,
+      note,
       el("p", { class: "vm-small" }, t.without),
     ),
   );
   body.querySelector(".vm-mark").innerHTML = MARK;
-  const dark = isDark(menu);
-  site
-    .showGoogleButton(
-      google,
-      (outcome) => {
-        if (outcome === "conflict" || outcome === "setup") location.href = "/hub/profile/";
-        else if (outcome === "signed-in" || outcome === "linked") void drawAvatar().then(() => isOpen() && render());
-      },
-      dark ? "filled_black" : "outline",
-      // Google's words in the page's language (one language per page), never the account's or the network's.
-      lang,
-    )
-    .catch(() => google.replaceChildren(el("a", { class: "vm-button", href: "/hub/profile/" }, t.signIn)));
+  if (isDark(menu)) google.classList.add("vm-gbtn-dark");
+  site.prepareGoogle().then(
+    () => (google.disabled = false),
+    () => google.replaceWith(el("a", { class: "vm-button", href: "/hub/profile/" }, t.signIn)),
+  );
+  google.addEventListener("click", () => {
+    google.disabled = true;
+    note.textContent = "";
+    // Nothing is awaited before this: Google's window opens inside the click.
+    site.googleSignIn().then((outcome) => {
+      google.disabled = false;
+      if (outcome === "conflict" || outcome === "setup") location.href = "/hub/profile/";
+      else if (outcome === "signed-in" || outcome === "linked") void drawAvatar().then(() => isOpen() && render());
+      else if (outcome === "blocked") note.textContent = t.blocked;
+      else if (outcome === "error") note.textContent = t.offline;
+    });
+  });
 }
 
 /** Whether the menu's own surface is dark, for Google's button. */
