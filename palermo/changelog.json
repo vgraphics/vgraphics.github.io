@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.6e9ba1ad",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Talk by tapping cards",
+      "items": [
+        "In the demo, you can now speak up by tapping cards — accuse someone, cast doubt, claim a role, defend yourself, or just react — with a live feed on your phone and the newest cards up on the TV.",
+        "Meet the town's 16 regulars as your opponents — each with their own face, their name in your language, and their own lines they drop now and then — playing their own way as they weigh up what they've seen."
+      ],
+      "commit": "6e9ba1ad"
+    },
+    {
       "version": "0.1.80f7dbc5",
       "date": "2026-10-28",
       "platforms": [
