@@ -14,8 +14,9 @@
     <script src="/assets/no-select.js" defer ></script>
     <style>
       html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
-      /* The company's legal line, the site's rule for every page: fine print along the screen's foot. The start screen
-         gives it a row of its own at the foot of its stage (door-layout.tsx, LegalRow), so the keys never sit on it. */
+      /* The legal line, fine print along the screen's foot: a game's screen, this TV door included, says only "© VGraphics"
+         (George, 29 Oct 2026: "Apps just can say VGraphics."). The start screen gives it a row of its own at the foot of
+         its stage (door-layout.tsx, LegalRow), so the keys never sit on it. */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
         color: rgba(239, 231, 212, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
@@ -23,14 +24,16 @@
          page."): the kit's KitRoot does it for the whole page, with the right-click menu and the fields, and the shared
          welcome for its art; this covers the legal line before the app has loaded. */
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+      /* The VGraphics intro, over the welcome (its 1000), when this page opened first. */
+      #intro-box { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 1100; pointer-events: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/tv-BYaMHQAb.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-DMhEtDll.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-BkefwUr6.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-CQTzDZWe.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-BRH4A2nm.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/app-BAkyA2Nb.js">
-    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-C1WXjlbV.css">
+    <script type="module" crossorigin src="/palermo/game/tv-ChNRSqig.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-D1SD_-XK.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-BHAEP9WO.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-CK4u5ubu.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/vote-opens-C7P0csC3.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/app-C5gEQ9uo.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-TZ_vLt_d.css">
     <link rel="stylesheet" crossorigin href="/palermo/game/newsreel-sE5nnSXv.css">
   </head>
   <body>
@@ -56,10 +59,22 @@
       data-groove="#08111C"
       data-rim="#B8862E"
     ></div>
+    <!-- The VGraphics intro first, as every product starts (D:\Projects\Mine\CLAUDE.md, "Start-up", step 2; the doors
+         review, 29 Oct 2026: none when this page is opened directly): the shared film, which plays only over its box, so
+         the box is made only when vgraphics.gr/tv, which played it already, didn't send this TV here. Before the
+         welcome, which then waits for it. -->
+    <script>
+      if (document.referrer.indexOf(location.origin + "/tv/") !== 0) {
+        var introBox = document.createElement("div");
+        introBox.id = "intro-box";
+        document.body.appendChild(introBox);
+      }
+    </script>
+    <script src="../../tv/start-up/brand-intro.js" data-under="intro-box" data-film="1080"></script>
     <script src="../../tv/start-up/welcome.js"></script>
     <div id="app"></div>
-    <!-- In the page's HTML, in English; the kit's LegalLine puts it in the room's language. Hidden while a game plays;
-         its links stay out of the remote's way. -->
+    <!-- A product's legal line (the kit's PRODUCT_LEGAL_LINE), the same in every language, with nothing for the remote to
+         land on. Hidden while a game plays. -->
     <footer id="party-legal" class="party-legal">&copy; 2026 VGraphics</footer>
     <!-- vgraphics.gr's one ad switch, read before the app starts the kit's ads: the video between games on the primary
          display (off unless it says on). The site's own file, so vite-ignore; on the dev server it's missing, and there

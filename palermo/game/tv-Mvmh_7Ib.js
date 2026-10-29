@@ -1,1 +1,0 @@
-import{ax as s,a6 as o,ay as t,az as e,u as m}from"./sound-DjUw6M47.js";import{a as p}from"./app-qw9ZD_Cm.js";import"./vote-opens-DLevfNvV.js";s(o);t();const a=document.getElementById("app");a&&e(m(p,{}),a);

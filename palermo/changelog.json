@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "0.1.1ecf348b",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "1ecf348b"
+    },
+    {
       "version": "0.1.7cad6de2",
       "date": "2026-10-29",
       "platforms": [
