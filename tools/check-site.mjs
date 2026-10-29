@@ -769,6 +769,22 @@ for (const file of served) {
   }
 }
 
+// A wiki's playable boards (wiki.json "board", assets/wiki.js) hold only arrows the game can have: each head points the
+// way its body's last cell runs into it (Exitwise Core, Arrow.cs, whose constructor refuses any other), bombs too.
+{
+  const STEP = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] }
+  for (const dir of readdirSync(root)) {
+    const file = join(dir, 'wiki', 'wiki.json')
+    if (!existsSync(join(root, file))) continue
+    for (const e of JSON.parse(readFileSync(join(root, file), 'utf8')).entries ?? []) {
+      for (const a of [...(e.board?.arrows ?? []), ...(e.board?.bombs ?? [])]) {
+        const [q, h] = a.cells.slice(-2), [dx, dy] = STEP[a.dir] ?? []
+        if (h && q && (h[0] - q[0] !== dx || h[1] - q[1] !== dy)) report(file, 'board', `${e.slug}: the ${a.id} arrow points ${a.dir}, but its body runs into its head from ${q} to ${h}: the game has no such arrow (Arrow.cs), so turn its head or move its last cell`)
+      }
+    }
+  }
+}
+
 // The wikis' masters, the big pictures their served sizes are cut from, stay in the products' private repos
 // (tools/art_src.py): this public site holds only the published pictures (27 Oct 2026; they were <product>/wiki/art-src/).
 {
