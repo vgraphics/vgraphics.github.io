@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.c07257cc",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The demo now teaches you",
+      "items": [
+        "The guided demo now teaches you how to play, with cards like how it works and what happens at night shown over the bots.",
+        "In the demo, the guide now shows in front of the role faces instead of behind them, so it's easy to read."
+      ],
+      "commit": "c07257cc"
+    },
+    {
       "version": "0.1.888bf94d",
       "date": "2026-10-29",
       "platforms": [
