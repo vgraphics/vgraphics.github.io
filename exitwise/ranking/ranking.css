@@ -76,6 +76,9 @@
 .ranking .trophy .cup { width: 76px; height: 76px; }
 .ranking .trophy.t1 .cup { width: 100px; height: 100px; }
 .ranking .trophy .avatar { margin-top: -2px; box-shadow: 0 0 0 3px var(--surface); }
+/* A rank frame (assets/vhub-avatars.js) reaches a quarter of the picture above and below it: room for it under the cup
+   and over the name. */
+.ranking .trophy .avatar[data-framed] { margin-block: 8px 7px; }
 .ranking .tname { max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-size: 0.98rem; }
 .ranking .tname.anon { color: var(--muted); }
 .ranking .tstat { color: var(--muted); font-size: 0.8rem; font-variant-numeric: tabular-nums; }

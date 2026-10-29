@@ -41,7 +41,7 @@ export const MADE_WITH = [
   [/(^|\/)wiki\/img\/(art|worlds|bands|medals)\//, 'Recraft', 'compositeWithTrainedAlgorithmicMedia'],
   [/(^|\/)site-art\/[^/]+\/wiki\/(painted\/)?[^/]+\.(webp|png|jpe?g)$/, 'Recraft', 'compositeWithTrainedAlgorithmicMedia'],
   [/^[^/]+\/img\/(key-art|cover-|footer|hero-|scene-|ost-backdrop)/, 'Recraft', 'compositeWithTrainedAlgorithmicMedia'],
-  [/^palermo\/img\/(roles|cast)\//, 'Recraft', 'compositeWithTrainedAlgorithmicMedia'],
+  [/^palermo\/img\/((roles|cast)\/|newsreel-)/, 'Recraft', 'compositeWithTrainedAlgorithmicMedia'],
   [/(^|\/)audio\/\d\d-[^/]+\.(m4a|mp3)$/, 'Suno', 'trainedAlgorithmicMedia'],
 ]
 export const madeWith = (path) => {

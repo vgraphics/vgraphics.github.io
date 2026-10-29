@@ -1,6 +1,310 @@
 {
   "entries": [
     {
+      "version": "0.1.7cad6de2",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner TV sound",
+      "items": [
+        "On the shared TV, sound now starts cleanly when you press OK for sound — earlier sounds no longer stack up and all play at once.",
+        "During the guided demo, reloading or rejoining no longer makes the TV skip the opening of a new game — it keeps its place across the reload."
+      ],
+      "commit": "7cad6de2"
+    },
+    {
+      "version": "0.1.c07257cc",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The demo now teaches you",
+      "items": [
+        "The guided demo now teaches you how to play, with cards like how it works and what happens at night shown over the bots.",
+        "In the demo, the guide now shows in front of the role faces instead of behind them, so it's easy to read."
+      ],
+      "commit": "c07257cc"
+    },
+    {
+      "version": "0.1.888bf94d",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner guided demo",
+      "items": [
+        "The guided demo now plays through cleanly, without the extra how-to-play prompts that used to pop up over the bots at night."
+      ],
+      "commit": "888bf94d"
+    },
+    {
+      "version": "0.1.9543f6c5",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The guide stays in front",
+      "items": [
+        "The guide's card now shows in front of the role faces and the subtitles, so you can always read it.",
+        "Subtitles now stay put at the bottom and no longer jump up when a role or a secret action appears.",
+        "The timer no longer overlaps the most-accused player.",
+        "In the demo, the Lawyer's briefcase now highlights each ability as the guide explains it.",
+        "When you join by scanning the TV's QR code, the welcome now plays on the TV.",
+        "The TV's \"first one out sees everything\" label now has more room, so the text isn't cramped."
+      ],
+      "commit": "9543f6c5"
+    },
+    {
+      "version": "0.1.3d64f44a",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "See what the guide explains",
+      "items": [
+        "In the guided demo on your phone, your role card, the secret actions and your notebook pins now stay lit while the guide explains them, so you can see what it means instead of just hearing it. The top bar's menu and TV button stay in reach too."
+      ],
+      "commit": "3d64f44a"
+    },
+    {
+      "version": "0.1.460acc5b",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The demo loads again",
+      "items": [
+        "The guided demo now loads all the way, even if you have an ad or cookie blocker turned on.",
+        "The TV's start screen has a fresh look: the artwork now fills the whole screen, and the code shows on a flip-style departures board.",
+        "On the TV you now hear just one welcome, in your room's language, instead of both Greek and English — and none at all during the demo.",
+        "Your TV room now stays open when you reload the page, and opening the TV in another tab no longer closes it.",
+        "The code the TV screen shows for pairing is now twelve digits, grouped in threes, the same as the one your phone makes.",
+        "Long player names now fit on the TV, shown in a narrower, condensed lettering so they're no longer cut off.",
+        "In the demo, your phone keeps its sound until the TV's audio takes over, and restarting or trying another role plays that game's sounds from the start."
+      ],
+      "commit": "460acc5b"
+    },
+    {
+      "version": "0.1.2a7c475a",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "A new TV door at vgraphics.gr/tv",
+      "items": [
+        "To put the game on a TV or computer, you can now open vgraphics.gr/tv and type your code, or go straight to vgraphics.gr/palermo/tv."
+      ],
+      "commit": "2a7c475a"
+    },
+    {
+      "version": "0.1.ae0da0d9",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Connect a TV two ways",
+      "items": [
+        "Open a TV without a game in progress and it now shows a start screen with two ways to connect: scan its code with your phone, or type the room code on the TV. In the demo, scanning links the two for you.",
+        "Any phone can now show the room on a TV — players, spectators and the host — so if a TV closes, you can bring it right back. You'll see the room code and a link to share or copy.",
+        "No profile photo? Your seat now shows your character's portrait — on every phone, tile and on the TV — instead of a stand-in picture, and the 'Use my character's picture instead' switch appears only when you do have a photo.",
+        "There's a new join page for your phone at vgraphics.gr/palermo/join, styled to match Palermo.",
+        "When you create a game, your characters now open with a smooth animation under 'Use my character's picture instead,' instead of snapping into place."
+      ],
+      "commit": "ae0da0d9"
+    },
+    {
+      "version": "0.1.6e9ba1ad",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Talk by tapping cards",
+      "items": [
+        "In the demo, you can now speak up by tapping cards — accuse someone, cast doubt, claim a role, defend yourself, or just react — with a live feed on your phone and the newest cards up on the TV.",
+        "Meet the town's 16 regulars as your opponents — each with their own face, their name in your language, and their own lines they drop now and then — playing their own way as they weigh up what they've seen."
+      ],
+      "commit": "6e9ba1ad"
+    },
+    {
+      "version": "0.1.80f7dbc5",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Watch the night unfold",
+      "items": [
+        "When the night ends, the TV now reveals what happened — who was taken and who slipped away — one step at a time.",
+        "In the demo, the TV tip now gives you a direct link to the game's own TV page, so you don't have to open vgraphics.gr/tv and type a code — and that shared page no longer opens Palermo games.",
+        "When you press and hold on your phone, it now finishes on the game's own clock, so a brief connection blip won't cut it short — and if one table runs into trouble, the others carry on."
+      ],
+      "commit": "80f7dbc5"
+    },
+    {
+      "version": "0.1.fda55940",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo guides your Notebook pins",
+      "items": [
+        "In the demo, after you use your power, the guide now takes you to your Notebook to pin that player — a red pin for a killer, a gold pin for someone cleared",
+        "On the shared TV, players voted out now get an OUT stamp on their card at the final reveal, instead of a crossed-out name",
+        "In the demo, when you're voted out your own card reveal is now skipped, and if you're the Madman you're told that you won",
+        "In the demo, when the guide skips through a night, you now hear its final five-second ticks and the time-up sound",
+        "In the Greek demo, the red-pin step now shows the player's name, matching the English"
+      ],
+      "commit": "fda55940"
+    },
+    {
+      "version": "0.1.294ddfa1",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Share the night",
+      "items": [
+        "At the end of the guided demo, you can now share the night as a picture of your secret card — from a phone it opens your share menu, and on a computer it saves the picture and copies a ready message to paste.",
+        "The About panel now answers “Can I share how it went?”"
+      ],
+      "commit": "294ddfa1"
+    },
+    {
+      "version": "0.1.8b05427d",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Demo timer counts down to zero",
+      "items": [
+        "In the guided demo, once everyone has opened their envelope, the countdown now runs smoothly down to zero before the next screen appears."
+      ],
+      "commit": "8b05427d"
+    },
+    {
+      "version": "0.1.ff175f3c",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "A newsreel after a result",
+      "items": [
+        "After a result, a short newsreel now plays on the shared screen — your TV, or the phone acting as the screen in Table mode — right now when the killer is caught. It runs about ten seconds, once per game.",
+        "It's dressed up like an old newsreel: a film frame marked PALERMO NEWSREEL, a 3-2-1 countdown, light grain, projector and effect sounds, a captioned character line, and the music dips while it plays.",
+        "The guided demo against the bots now plays the newsreel too, so you can see it before a real game."
+      ],
+      "commit": "ff175f3c"
+    },
+    {
+      "version": "0.1.e7f22815",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Behind-the-scenes demo fix",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "e7f22815"
+    },
+    {
+      "version": "0.1.36345a80",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "TV redraws when you resize",
+      "items": [
+        "In the guided demo, the shared TV now redraws when you resize your browser between phone and wide view, instead of staying a blank dark frame."
+      ],
+      "commit": "36345a80"
+    },
+    {
+      "version": "0.1.64f4cd44",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Settings follow you everywhere",
+      "items": [
+        "Your settings for this game now follow you to every device — change the music, sound or narrator on one and they're the same everywhere.",
+        "Your phone now has switches for Music, Sound effects, Narrator voice and Vibration — and in Table mode the host can set each sound's volume.",
+        "The character picture you choose on the website now appears on your phone, and everyone in the room sees it right away.",
+        "The Google sign-in button now shows in the page's language, and tells you if your browser blocked the sign-in window."
+      ],
+      "commit": "64f4cd44"
+    },
+    {
+      "version": "0.1.6f2f6422",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Clearer picture toggle wording",
+      "items": [
+        "The picture toggle now reads \"Use my character's picture instead\", so it's clear you can show your character's picture rather than your avatar"
+      ],
+      "commit": "6f2f6422"
+    },
+    {
+      "version": "0.1.ed2daa78",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your VHub picture on your seat",
+      "items": [
+        "Your seat now shows your own VHub picture — on your phone, in the lobby, on the tiles and in every TV scene.",
+        "Tap the new account button at the top right of the first screens to sign in, or to open your VHub profile.",
+        "Prefer your character's look? Turn on \"Use my character's picture instead\" when you join or create a game, or from the menu during a game.",
+        "The guided demo shows your VHub picture too, with the same account button and picture switch."
+      ],
+      "commit": "ed2daa78"
+    },
+    {
+      "version": "0.1.12afcb4a",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Sharper Watch the TV scene",
+      "items": [
+        "On your phone, the scene behind \"Watch the TV\" now looks sharp instead of breaking up."
+      ],
+      "commit": "12afcb4a"
+    },
+    {
+      "version": "0.1.8feef974",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Music returns under the last words",
+      "items": [
+        "After the town votes, the music slips quietly back in under the last words, right up until the card turns.",
+        "In the demo, the guide now points to your phone for the day's first discussion, not the TV.",
+        "On the demo page, the questions now rest within the footer picture, which fades in gently.",
+        "The \"first one out sees everything\" badge on the TV now has a bit more room inside."
+      ],
+      "commit": "8feef974"
+    },
+    {
+      "version": "0.1.ece0a600",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Talk as long as you like",
+      "items": [
+        "By default, the daytime discussion no longer runs on a clock — talk as long as you like and move on once everyone taps Ready. The host can still turn on a time limit.",
+        "The rumour's whispers now play correctly — you can hear them under the day music, and they no longer blare too loudly at the wrong moment.",
+        "The guided demo keeps you on track at every step — only the highlighted spot responds, so you can't tap anything else or close your card while the narrator is speaking.",
+        "In the demo, the Secret actions now open at the right step, so you can see who was killed.",
+        "The settings menu (⋯) no longer appears during the demo."
+      ],
+      "commit": "ece0a600"
+    },
+    {
       "version": "0.1.69426d19",
       "date": "2026-10-28",
       "platforms": [

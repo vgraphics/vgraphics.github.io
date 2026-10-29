@@ -1,8 +1,8 @@
 # Writes the small pictures of Exitwise's obstacles and powerups that the wiki and the landing page show beside an
 # entry's name (the "Unlocks as you play" journey, an entry's "What it does", the world map's "New here"):
 #   exitwise/wiki/img/pieces/<slug>.webp     192 px square, 2x the largest place they're shown (the 76 px medal)
-#   exitwise/wiki/img/pieces/board-*.webp    96 px, the rock, bomb and portal the wiki's playable boards draw
-#                                            (assets/wiki.js), each placed on its cell as the game places it
+#   exitwise/wiki/img/pieces/board-*.webp    96 px, the rock, bomb, portal, mirror, ice and gates the wiki's playable
+#                                            boards draw (assets/wiki.js), each placed on its cell as the game places it
 # from the game's own art (George, 23 Oct 2026: "These small icons need to be replaced"): the obstacles from the
 # "Rich cartoon" pack (Resources/Traps, docs/obstacle-art), the coin and the powerups from Resources/Icons. Pieces the
 # game paints in a world's colour (gates, keys, paint, portals: grey masks) are tinted the colour the wiki's own boards
@@ -57,10 +57,13 @@ def shutter(games):
     return im
 
 
-def gate(games):
-    im = tint(load(games, 'Traps', 'Gate'), BLUE)
+def gate(games, rgb=BLUE, mark='circle'):
+    im = tint(load(games, 'Traps', 'Gate'), rgb)
     d = ImageDraw.Draw(im)
-    symbol(d, 'circle', im.width / 2, im.height / 2, im.width * 0.09, CREAM)
+    if mark == 'circle':
+        symbol(d, 'circle', im.width / 2, im.height / 2, im.width * 0.09, CREAM)
+    else:
+        symbol(d, 'triangle', im.width / 2, im.height / 2 + im.height * 0.02, im.width * 0.1, CREAM)
     return im
 
 
@@ -127,11 +130,17 @@ PIECES = {
 
 
 # For the boards, uncropped, so the picture's middle is the cell's: the bomb's ball (0.485 of its width) sits over the
-# board's charcoal ball and nose, and the portal (its dot drawn by the board, on one of the pair) round its cell.
+# board's charcoal ball and nose, and the portal (its dot drawn by the board, on one of the pair) round its cell. The
+# mirror (a "/"; the board flips it for "\"), the ice (its number drawn by the board) and the gates, one per colour with
+# its symbol, are cut to their own shape like the rock.
 BOARD = {
     'board-rock': lambda g: fit(load(g, 'Traps', 'Boulder1-1')),
     'board-bomb': lambda g: load(g, 'Traps', 'Bomb'),
     'board-portal': lambda g: portal(g, dot=False),
+    'board-mirror': lambda g: fit(load(g, 'Traps', 'Mirror')),
+    'board-ice': lambda g: fit(load(g, 'Traps', 'Ice')),
+    'board-gate-blue': lambda g: fit(gate(g)),
+    'board-gate-yellow': lambda g: fit(gate(g, YELLOW, 'triangle')),
 }
 
 

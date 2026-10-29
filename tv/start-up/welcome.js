@@ -20,9 +20,10 @@
 // at its head that flickers, stretches as it shoots ahead and squashes as it stops.
 //
 // The app calls PartyWelcome.progress(0 to 1) as it gets on, and PartyWelcome.ready(then) once the lobby is drawn
-// underneath: the bar fills and hops, and a timer holds the welcome until it has been up 2 s and the key art, if it
-// came, has been seen for 2 s; then it fades out over 300 ms and then(ms) gets how long it was up (the app logs
-// splash_shown). PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
+// underneath. The bar never shows more than the app has said, and fills no faster than the clock across those 2 s
+// (and the key art's own 2 s once it appears), so it starts empty and is full just as the welcome may go; then it
+// hops, and a timer holds the welcome until it has been up 2 s and the key art, if it came, has been seen for 2 s; then
+// it fades out over 300 ms and then(ms) gets how long it was up (the app logs splash_shown). PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
 // changes the art late (a new art without its own srcset drops the old one's); PartyWelcome.hide()
 // removes it at once. Plain ES5 and CSS that 2022 TV browsers (Chromium 85) run; only transforms and opacity move.
 //
@@ -87,17 +88,19 @@
     ".pw-fill { position: absolute; top: 0; bottom: 0; left: calc(var(--t) / 2 - var(--hl)); width: 100%; border-radius: 999px;",
     " background: linear-gradient(90deg, var(--pw-accent-lip), var(--pw-accent) 60%);",
     " box-shadow: inset 0 -4px 0 var(--pw-accent-lip), inset 0 3px 0 rgba(255, 246, 216, 0.45); }",
-    ".pw-fill, .pw-head { transform: translateX(calc(var(--lead) - 100%)); transition: transform 0.45s cubic-bezier(0.23, 1, 0.32, 1); }",
+    // Fill and head move together by transform (the script plans each glide as a transition).
+    ".pw-fill, .pw-head { transform: translateX(calc(var(--lead) - 100%)); }",
     ".pw-tip { position: absolute; right: 0; top: 50%; width: var(--hl); height: calc(var(--t) * 1.5); margin-top: calc(var(--t) * -0.75);",
     " transform-origin: 0 50%; }",
+    // Inside the tip, so the spark can stretch with its speed while the tip squashes.
+    ".pw-stretch { position: absolute; left: 0; top: 0; right: 0; bottom: 0; transform-origin: 0 50%; }",
     // The spark: a hot core in a glow of the accent, flickering.
     ".pw-spark { position: absolute; left: 0; top: 50%; width: calc(var(--t) * 1.5); height: calc(var(--t) * 1.5);",
     " margin: calc(var(--t) * -0.75) 0 0 calc(var(--t) * -0.75); border-radius: 50%;",
     " background: radial-gradient(circle, #FFFBEA 0, #FFF1C2 22%, var(--pw-accent) 46%, rgba(0, 0, 0, 0) 70%);",
     " animation: pw-flicker 0.9s ease-in-out infinite alternate; }",
     "@keyframes pw-flicker { from { opacity: 0.85; transform: scale(0.92); } to { opacity: 1; transform: scale(1.1); } }",
-    "@media (prefers-reduced-motion: reduce) { .pw-art.pw-settle img { animation: none; } .pw-spark { animation: none; }",
-    " .pw-fill, .pw-head { transition-duration: 0.2s; } }",
+    "@media (prefers-reduced-motion: reduce) { .pw-art.pw-settle img { animation: none; } .pw-spark { animation: none; } }",
     // The failsafe's message: plain, over everything, its button in the game's accent.
     "#party-welcome-failed { position: fixed; left: 0; top: 0; right: 0; bottom: 0; z-index: 1001; display: flex;",
     " flex-direction: column; align-items: center; justify-content: center; padding: 24px; background: #0A090D;",
@@ -116,7 +119,7 @@
     '<div class="pw-bar" role="progressbar" aria-label="Loading" aria-valuemin="0" aria-valuemax="100" aria-valuenow="0">' +
     '<div class="pw-shadow"></div><div class="pw-hop"><div class="pw-jelly">' +
     '<div class="pw-track"><div class="pw-groove"><div class="pw-fill"></div></div></div>' +
-    '<div class="pw-head"><div class="pw-tip"><span class="pw-spark"></span></div></div></div></div></div>';
+    '<div class="pw-head"><div class="pw-tip"><div class="pw-stretch"><span class="pw-spark"></span></div></div></div></div></div></div>';
 
   // The logo, once it has come (a missing one leaves no broken picture).
   var logoSrc = root.getAttribute("data-logo");
@@ -144,7 +147,10 @@
     img.srcset = (useTall ? arts.tallSet : arts.wideSet) || "";
     img.src = src;
     var shown = function () {
-      if (shownAt < 0) shownAt = now();
+      if (shownAt < 0) {
+        shownAt = now();
+        artCame(); // the bar's pace: the key art's own 2 s
+      }
       art.classList.add("pw-settle");
       root.classList.add("pw-with-art");
     };
@@ -183,14 +189,36 @@
     rim: root.getAttribute("data-rim")
   });
 
-  // The loading bar, as Exitwise's web loader moves it: steps that ease in and never go back. Each step stretches the
-  // spark as it shoots ahead, squashes it as it stops and wobbles the bar; full, the bar hops.
+  // The loading bar, paced as every start-up's is (Exitwise's web loader, loadingBar(), in the Games repo's
+  // WebGLTemplates): never ahead of what the app has said, never back, and no faster than the clock across the
+  // welcome's 2 s, on the same curve (half steady, half smoothstep), so it fills from empty and is full just as the
+  // welcome may go, never sooner (it used to jump to full and sit there while the timer ran). Once the key art appears
+  // it fills from where it is to full at the end of the art's own 2 s. Each glide is a CSS transition planned ahead,
+  // and the spark's stretch with the speed, a squash and the bar's wobble at each quarter, and the hop at full are
+  // animations planned ahead too: only transforms, which the compositor runs while the page is busy.
   var bar = root.querySelector(".pw-bar");
   var part = function (name) { return root.querySelector(".pw-" + name); };
-  var fill = part("fill"), head = part("head"), tip = part("tip"), jelly = part("jelly"), hop = part("hop"), shadow = part("shadow");
+  var fill = part("fill"), head = part("head"), tip = part("tip"), stretchy = part("stretch"), jelly = part("jelly"), hop = part("hop"),
+    shadow = part("shadow");
   var lively = typeof tip.animate === "function" && !reduce;
-  var target = 0, shownValue = 0, last = -1e4, timer = 0, settled = 0;
+  // linear() easing (Chromium 113 on) lets a glide follow the curve; older TV browsers glide straight from stop to stop.
+  var curved = !!(window.CSS && window.CSS.supports && window.CSS.supports("transition-timing-function", "linear(0, 1)"));
   var UP = "cubic-bezier(0.61, 1, 0.88, 1)", DOWN = "cubic-bezier(0.12, 0, 0.39, 0)";
+  var easeOut = function (x) { x = Math.min(1, Math.max(0, x)); return 1 - (1 - x) * (1 - x) * (1 - x); };
+  var smooth = function (x) { x = Math.min(1, Math.max(0, x)); return x * x * (3 - 2 * x); };
+  var target = 0, base = 0, from = startedAt, until = startedAt + SHOWN_MS, settled = Infinity;
+  // The clock: from base at `from` to full at `until`.
+  var paced = function (t) {
+    if (t < from) return base;
+    if (t >= until) return 1;
+    var u = (t - from) / (until - from);
+    return base + (1 - base) * (0.5 * u + 0.5 * smooth(u));
+  };
+  // The fill's way as planned: from a at ta to b at tb, along way(0 to 1).
+  var a = 0, b = 0, ta = 0, tb = 0, way = function (u) { return u; };
+  var at = function (t) { return t >= tb ? b : t <= ta ? a : a + (b - a) * way((t - ta) / (tb - ta)); };
+  var effects = [], stretch = null;
+  var place = function (shown) { return "translateX(calc(" + (1 - shown).toFixed(4) + " * (var(--lead) - 100%)))"; };
   var wobble = function (amount, frame) {
     var frames = [];
     for (var i = 0; i <= 24; i++) {
@@ -199,16 +227,19 @@
     }
     return frames;
   };
-  var squish = function (jump, wholeBar) {
-    var amount = Math.min(0.3, 0.08 + jump * 0.6);
-    tip.animate(wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), 600);
-    if (wholeBar) {
-      jelly.animate(wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }),
-        { duration: 600, delay: 40 });
+  var later = function (element, frames, timing) {
+    effects.push({ at: now() + (timing.delay || 0), run: element.animate(frames, timing) });
+  };
+  // `delay` ms from now: the spark squashes, and the bar wobbles a beat later (not when full: it hops then).
+  var gulp = function (delay, amount, full) {
+    later(tip, wobble(amount, function (q) { return "scale(" + (1 + q) + ", " + (1 - 0.7 * q) + ")"; }), { duration: 600, delay: delay });
+    if (!full) {
+      later(jelly, wobble(amount, function (q) { return "scale(" + (1 + 0.06 * q) + ", " + (1 - 0.3 * q) + ")"; }),
+        { duration: 600, delay: delay + 40 });
     }
   };
-  var bounce = function () {
-    hop.animate([
+  var bounce = function (delay) {
+    later(hop, [
       { offset: 0, transform: "translateY(0) scale(1, 1)", easing: UP },
       { offset: 0.16, transform: "translateY(0) scale(1.04, 0.84)", easing: UP },
       { offset: 0.44, transform: "translateY(-40%) scale(0.97, 1.08)", easing: DOWN },
@@ -216,41 +247,83 @@
       { offset: 0.8, transform: "translateY(-10%) scale(0.99, 1.03)", easing: DOWN },
       { offset: 0.92, transform: "translateY(0) scale(1.01, 0.98)" },
       { offset: 1, transform: "translateY(0) scale(1, 1)" }
-    ], 620);
-    shadow.animate([
+    ], { duration: 620, delay: delay });
+    later(shadow, [
       { offset: 0, transform: "scale(1, 1)", opacity: 1, easing: UP },
       { offset: 0.16, transform: "scale(1.05, 1)", opacity: 1, easing: UP },
       { offset: 0.44, transform: "scale(0.8, 0.8)", opacity: 0.5, easing: DOWN },
       { offset: 0.64, transform: "scale(1.06, 1)", opacity: 1, easing: UP },
       { offset: 0.8, transform: "scale(0.95, 0.95)", opacity: 0.85, easing: DOWN },
       { offset: 1, transform: "scale(1, 1)", opacity: 1 }
-    ], 620);
+    ], { duration: 620, delay: delay });
   };
-  var step = function () {
-    clearTimeout(timer);
-    if (target <= shownValue) return;
-    // One gulp at a time: a big one after half a second, a small one after a longer beat, the last one at once.
-    var wait = (target < 1 ? (target - shownValue >= 0.04 ? 500 : 900) : 0) - (now() - last);
-    if (wait > 0) {
-      timer = setTimeout(step, wait);
-      return;
+  // From where the fill is now to as far as the app has said: along the clock, after a quick catch-up if the clock ran
+  // on ahead while the bar waited for the app.
+  var plan = function () {
+    var t = now(), shown = at(t), goal = target;
+    if (goal <= shown) return;
+    var catchUp = paced(t) > shown + 1e-3 ? 450 : 0;
+    var go = function (t2) {
+      var w = catchUp ? easeOut((t2 - t) / catchUp) : 1;
+      return shown + (Math.max(shown, Math.min(goal, paced(t2))) - shown) * w;
+    };
+    // When the way first reaches `share` (it only ever grows), found by halving.
+    var reach = function (share, end) {
+      var lo = t, hi = end;
+      for (var n = 0; n < 32; n++) {
+        var mid = (lo + hi) / 2;
+        if (go(mid) < share) lo = mid;
+        else hi = mid;
+      }
+      return hi;
+    };
+    var end = Math.max(t + catchUp, paced(t) >= goal ? t : reach(goal, Math.max(until, t + catchUp)));
+    var ms = Math.max(1, end - t), steps = Math.max(2, Math.min(60, Math.round(ms / 40))), points = [];
+    a = shown;
+    b = goal;
+    ta = t;
+    tb = t + ms;
+    way = curved ? function (u) { return (go(t + u * ms) - shown) / (goal - shown); } : function (u) { return u; };
+    for (var n = 0; n <= steps; n++) points.push(way(n / steps).toFixed(4));
+    var easing = curved ? "linear(" + points.join(", ") + ")" : "linear";
+    fill.style.transition = head.style.transition = "transform " + Math.round(ms) + "ms " + easing;
+    fill.style.transform = head.style.transform = place(goal);
+    bar.setAttribute("aria-valuenow", String(Math.floor(goal * 100)));
+    // What the last plan had still to come gives way to this one's.
+    for (var i = 0; i < effects.length; i++) if (effects[i].at > t) effects[i].run.cancel();
+    effects = [];
+    if (lively) {
+      // The spark stretches with the speed (bars a second) and settles back as the fill stops.
+      var frames = [];
+      for (n = 0; n <= steps; n++) {
+        var t2 = t + ms * n / steps, speed = (at(t2 + 8) - at(t2 - 8)) / 16 * 1000, k = Math.min(0.3, 0.2 * Math.max(0, speed));
+        frames.push({ offset: (ms * n / steps) / (ms + 120), transform: "scale(" + (1 + k).toFixed(3) + ", " + (1 - 0.5 * k).toFixed(3) + ")" });
+      }
+      frames.push({ offset: 1, transform: "scale(1, 1)" });
+      if (stretch) stretch.cancel();
+      stretch = stretchy.animate(frames, ms + 120);
+      [0.25, 0.5, 0.75].forEach(function (quarter) {
+        if (shown < quarter && goal >= quarter) gulp(reach(quarter, tb) - t, 0.12, false);
+      });
+      if (goal >= 1) {
+        gulp(ms, 0.3, true);
+        bounce(ms + 150);
+      }
     }
-    var jump = target - shownValue;
-    shownValue = target;
-    last = now();
-    var at = "translateX(calc(" + (1 - shownValue).toFixed(4) + " * (var(--lead) - 100%)))";
-    fill.style.transform = at;
-    head.style.transform = at;
-    bar.setAttribute("aria-valuenow", String(Math.floor(shownValue * 100)));
-    if (lively) squish(jump, shownValue < 1);
-    if (shownValue < 1) return;
-    if (lively) setTimeout(bounce, 150);
-    settled = last + (lively ? 770 : 0);
+    if (goal >= 1) settled = tb + (lively ? 770 : 0);
   };
   var progress = function (value) {
     if (!(value > target)) return;
     target = Math.min(1, value);
-    step();
+    plan();
+  };
+  // The key art has appeared: from where the bar is, full at the end of the art's 2 s.
+  var artCame = function () {
+    var t = now();
+    base = at(t);
+    from = t;
+    until = shownAt + SHOWN_MS;
+    plan();
   };
 
   var gone = false;
@@ -416,8 +489,9 @@
         return;
       }
       progress(1);
-      // The timer: the bar's hop ends, the welcome has been up 2 s, and the key art, if it came, has been seen for 2 s
-      // (no wait for an art that isn't there). It looks again when it fires, in case the art came meanwhile.
+      // The timer: the bar is full (at the end of the 2 s, or later if the app was) and its hop over, the welcome has
+      // been up 2 s, and the key art, if it came, has been seen for 2 s (no wait for an art that isn't there). It looks
+      // again when it fires, in case the art came meanwhile.
       var due = function () {
         if (gone) return;
         var at = now();
@@ -430,8 +504,7 @@
         remove();
         if (then) then(Math.round(at - startedAt));
       };
-      // The last gulp may still be waiting its turn.
-      setTimeout(due, Math.max(0, last + 20 - now()));
+      setTimeout(due, 0);
     },
     hide: function () {
       spoke = true;

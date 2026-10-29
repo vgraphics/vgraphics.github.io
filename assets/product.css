@@ -98,6 +98,13 @@ h1, h2, h3 {
 /* A product's painted title logo (page.json site.logo) carries its name: shown at its own shape, a soft shadow so it
    reads on any sky and on the frosted bar. */
 .product-name img.logo, .foot-brand img.logo { width: auto; border-radius: 0; box-shadow: none; filter: drop-shadow(0 2px 6px rgb(20 12 40 / 0.3)); }
+/* The VHub avatar, the header's last item (tools/lib/partials.mjs VHUB_AVATAR): its size here, so the row doesn't move
+   before its own look (assets/account.css) arrives. */
+.vhub-avatar { flex: none; width: 44px; height: 44px; padding: 0; border: 0; border-radius: 50%; background: #FFFFFF; }
+.vhub-avatar svg { width: 26px; height: 26px; }
+/* Folded, the bar holds the logo, the play button, the menu button and the avatar: closer, so a 320px phone keeps them
+   all in one row. */
+.top.folded { column-gap: 8px; }
 .product-name img.logo { height: 42px; }
 .foot-brand img.logo { height: 64px; }
 .subnav { display: flex; flex: none; gap: 4px; }
@@ -268,25 +275,6 @@ h1, h2, h3 {
     mask-image: linear-gradient(#000 var(--art-fade-tall, 62%), transparent);
   }
   .foot-left .hero-foot .wrap { justify-items: center; text-align: center; }
-}
-/* The product's key figures in the hero's foot (build-pages.mjs, hero.facts; George, 28 Oct 2026, picked "D. Facts on
-   the first screen"): a short line under the badges on narrow and portrait screens; on wide ones a column at the
-   foot's right after a fine rule in the accent, the lead and the badges moved left beside it, so the foot grows no
-   taller. */
-.hero-facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px 18px; margin: 4px 0 0; padding: 0; list-style: none; }
-.hero-foot .hero-facts { animation-delay: 360ms; }
-.hero-facts li { display: inline-flex; align-items: baseline; gap: 7px; }
-.hero-facts b { font: var(--display-weight) 1.15rem/1 var(--font-display); color: var(--accent); text-shadow: var(--on-art-shadow); }
-.hero-facts span { font: var(--label-weight) 0.72rem/1.2 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--on-art); text-shadow: var(--on-art-shadow); }
-@media (min-width: 900px) and (min-aspect-ratio: 4/5) {
-  .has-facts .hero-foot .wrap { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto auto; column-gap: clamp(32px, 4vw, 64px); justify-items: start; align-items: end; text-align: left; }
-  .has-facts .hero-foot .lead { grid-area: 1 / 1; }
-  .has-facts .hero-foot .badges { grid-area: 2 / 1; justify-content: flex-start; }
-  .has-facts .hero-foot .badges .play-note { text-align: left; }
-  .has-facts .hero-facts { grid-area: 1 / 2 / 3 / 3; display: grid; grid-template-columns: auto auto; gap: 9px 14px; margin: 0 0 6px; padding: 4px 0 4px clamp(20px, 2vw, 28px); border-left: 1px solid color-mix(in srgb, var(--accent) 55%, transparent); }
-  .has-facts .hero-facts li { display: grid; grid-template-columns: subgrid; grid-column: 1 / -1; align-items: baseline; }
-  .has-facts .hero-facts b { font-size: clamp(1.25rem, 1.7vw, 1.6rem); text-align: right; }
-  .has-facts .hero-facts span { font-size: 0.78rem; }
 }
 /* Every other page's hero (the wiki's, the ranking's, the policies'; tools/lib/hero.mjs): shorter, so the page's own
    content starts sooner (George, 24 Oct 2026: "The hero height is not so good for other pages other than overview.
@@ -819,6 +807,8 @@ html.card-open { overflow: hidden; }
 .sec-quote blockquote::before { content: "\201C"; position: absolute; top: -0.1em; left: 0; font: var(--display-weight) clamp(3rem, 6vw, 4.6rem)/1 var(--font-display); color: var(--accent); }
 .sec-quote p { margin: 0; font: var(--display-weight) clamp(1.7rem, 3.3vw, 2.7rem)/1.15 var(--font-display); color: var(--lead-ink, var(--ink)); text-wrap: balance; }
 .sec-quote figcaption { padding-left: var(--hang); font: var(--label-weight) 0.8rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.14em; color: var(--accent); }
+/* Lines one under the other (a wiki role's two lines) stand 40 px apart, closer than a quote and what follows it */
+.sec-quote + .sec-quote { margin-top: -24px; }
 /* The small play button after the quote's last word, kept on its line (a pause while it speaks; 44 px to touch) */
 .quote-end { white-space: nowrap; }
 .quote-play {
@@ -849,14 +839,43 @@ html.card-open { overflow: hidden; }
 .song-play b { display: inline-flex; align-items: center; gap: 8px; }
 .song-play svg { width: 18px; height: 18px; color: var(--accent); }
 .song-play[aria-pressed="true"] { border-color: var(--accent); }
-/* A feature with its key figure over it (features item value, label): the figures and their rules line up across a
-   row, however their labels wrap (George, 24 Oct 2026: "Top row and bottom row are not combined perfectly") */
-.features li.has-fact { display: grid; grid-template-columns: auto minmax(0, 1fr); grid-template-rows: subgrid; grid-row: span 2; row-gap: 18px; column-gap: 14px; }
-/* two to a row, so each feature's words run in two lines rather than five (George, 24 Oct: "info is too tight"; option B) */
-.features:has(> .has-fact) { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: 64px; row-gap: clamp(32px, 4vw, 48px); }
-.feat-fact { grid-column: 1 / -1; display: grid; align-content: end; gap: 5px; padding-bottom: 16px; border-bottom: 1px solid color-mix(in srgb, var(--accent) 40%, transparent); }
-.feat-fact strong { font: var(--display-weight) clamp(1.7rem, 2.6vw, 2.3rem)/1 var(--font-display); color: var(--accent); }
-.feat-fact small { font: var(--label-weight) 0.78rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+/* Features with key figures (features items with value, label; Palermo's day and verdict): the figures are tabs in a
+   row, the chosen one lit from above and underlined, and its title and line show under them, one at a time, fading
+   in where the last one was (assets/product.js; George, 28 Oct 2026, picked "S4. Pick a figure"). Every panel stands
+   in the same cell, so the block keeps the tallest one's height and nothing under it moves. */
+.feat-tabs { max-width: 58rem; }
+.feat-tablist { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); border-bottom: 1px solid var(--line); }
+.feat-tablist button {
+  position: relative; display: grid; align-content: end; justify-items: start; gap: 6px; min-height: 44px; margin: 0;
+  padding: 22px 16px 18px; border: 0; border-radius: var(--radius) var(--radius) 0 0; background: none; color: var(--muted);
+  font: inherit; text-align: left; cursor: var(--cursor-link, pointer); transition: background-color 240ms ease-out;
+}
+.feat-tablist button::after { content: ""; position: absolute; left: 16px; right: 16px; bottom: -1px; height: 2px; background: var(--accent); transform: scaleX(0); transform-origin: left; transition: transform 260ms cubic-bezier(.2, .8, .2, 1); }
+.feat-tablist strong { font: var(--display-weight) clamp(1.8rem, 2.8vw, 2.5rem)/1 var(--font-display); color: var(--muted); transition: color 200ms ease-out; }
+.feat-tablist small { font: var(--label-weight) 0.76rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--muted); }
+.feat-tablist button:hover strong { color: var(--accent-2, var(--accent)); }
+.feat-tablist [aria-selected="true"] { background: radial-gradient(ellipse 80% 100% at 50% 0%, color-mix(in srgb, var(--accent) 18%, transparent), transparent 75%); }
+.feat-tablist [aria-selected="true"] strong { color: var(--accent); }
+.feat-tablist [aria-selected="true"]::after { transform: scaleX(1); }
+.feat-tablist button:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.feat-panels { display: grid; }
+.feat-panel {
+  grid-area: 1 / 1; display: grid; grid-template-columns: auto minmax(0, 1fr); gap: 16px; padding: 26px 16px 4px;
+  opacity: 0; visibility: hidden; transform: translateY(8px); transition: opacity 180ms ease-in, transform 180ms ease-in, visibility 0s 180ms;
+}
+.feat-panel.is-on { opacity: 1; visibility: visible; transform: none; transition: opacity 280ms ease-out 80ms, transform 320ms cubic-bezier(.2, .8, .2, 1) 80ms, visibility 0s; }
+.feat-panel .mark { width: 30px; height: 30px; margin-top: 4px; color: var(--accent); }
+.feat-panel h3 { margin: 0 0 6px; font: var(--display-weight) 1.6rem/1.2 var(--font-display); color: var(--ink); }
+.feat-panel p { margin: 0; max-width: 38rem; color: var(--feature-text, var(--muted)); font-size: 1.1rem; line-height: 1.6; }
+@media (max-width: 560px) {
+  .feat-tablist { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feat-tablist button { padding: 16px 12px 14px; }
+  .feat-panel { padding: 22px 4px 4px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .feat-panel, .feat-panel.is-on { transform: none; }
+  .feat-tablist button::after { transition: none; }
+}
 .features + .cards { margin-top: 28px; } /* a section's features followed by its cards (Palermo's day chapter) */
 .features .mark { flex: none; width: 30px; height: 30px; margin-top: 3px; color: var(--c); }
 .features b {
@@ -905,7 +924,7 @@ html.card-open { overflow: hidden; }
 .reason-body { flex: 1; display: flex; flex-direction: column; gap: 10px; padding: 0 clamp(18px, 2vw, 26px) 18px; }
 .reason h3 { font: var(--display-weight) clamp(1.4rem, 2vw, 1.6rem)/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .reason p { margin: 0; color: var(--muted); }
-.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link); }
+.reason-more { display: inline-flex; align-items: center; gap: 8px; min-height: 44px; margin-top: auto; font: var(--label-weight) 0.8rem/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.12em; color: var(--link, var(--accent)); }
 .reason-more::after { content: "\2192"; color: var(--accent); }
 @media (max-width: 760px) { .reasons { grid-template-columns: minmax(0, 1fr); gap: 18px; } }
 

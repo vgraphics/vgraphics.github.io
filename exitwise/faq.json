@@ -16,6 +16,14 @@
     "a": "600, in 17 worlds from the Meadow to Starlight, harder all the way, with a <a href=\"/exitwise/wiki/hard-levels/\">hard level</a> every 10th. A new obstacle arrives every 20 to 30 levels, each on an easy level built to teach it. Boards come in 49 shapes and grow up to 100 cells a side."
   },
   {
+    "q": "Does Exitwise have a story?",
+    "a": "Yes: The Tangled Tower. Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse, told in 81 painted pages with their own music. A world's pages play over the map when you reach it and when you free its guardian, and you can read the whole <a href=\"/exitwise/storybook/\">storybook</a> here too, chapter by chapter as you unlock them."
+  },
+  {
+    "q": "What are guardians?",
+    "a": "The boss of each world, on its last level, from Bramble the hedgehog on level 20 to the Duskweaver on level 500. Arrows that fly out of the top of the board hit the guardian, and the last hit frees it, before the curse clock runs out. Most guardians hold a shield that moves every few hits. The <a href=\"/exitwise/wiki/guardians/\">wiki</a> explains every trick."
+  },
+  {
     "q": "Can I play without installing it?",
     "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. There is no App Store version yet."
   },
@@ -25,7 +33,7 @@
   },
   {
     "q": "How do I keep my progress on a new phone, or in the browser?",
-    "a": "Sign in with Google: on Android in Settings, and on vgraphics.gr with Sign in. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
+    "a": "Sign in with Google: tap the VHub button at the top right of the map, or Sign in in Settings, on Android and on vgraphics.gr. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
   },
   {
     "q": "How do coins and hints work?",
@@ -37,6 +45,10 @@
   },
   {
     "q": "How do I delete my data?",
-    "a": "In Settings, Profile, \"Delete my leaderboard data\" removes your name, picture and results, and \"Delete cloud save\" removes your cloud save and your game account. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
+    "a": "In Settings, Profile, \"Delete my Exitwise data\" takes you off the boards and removes your results, stats, cloud save and published maps, and what you earned in Exitwise on VHub; your VGraphics name and picture stay. In Settings, \"Delete my VGraphics account\" removes your account in every VGraphics game, name and picture too. Either way the progress on your device stays. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "Do my settings follow me to my other devices?",
+    "a": "Yes, once you sign in to VHub, the free VGraphics account. Music, sounds, vibration, tap twice to launch and the story pages follow you to every phone and PC you play on, and you can change them from your VHub picture at the top right of this site too. Without an account they stay on the device. How loud the game plays stays with each device."
   }
 ]

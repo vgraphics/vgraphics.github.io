@@ -1,6 +1,143 @@
 {
   "entries": [
     {
+      "version": "1.0.26",
+      "date": "2026-10-29",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Rank frames on your picture",
+      "items": [
+        "Each player's picture now has a frame that shows their rank — you'll see it on leaderboards, player cards, rooms, match history and more. Pick your own on your VHub profile."
+      ],
+      "commit": "234907c1"
+    },
+    {
+      "version": "1.0.25",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Story music fades in and out",
+      "items": [
+        "In the storybook, the music now fades smoothly in and out instead of cutting off, and it fades gently each time it loops.",
+        "When you open the game, your profile picture and name are ready as you reach the map, instead of popping in a moment later.",
+        "Before you delete your account, the \"Confirm it's you\" step now rejects a different Google account with a clear message, so nothing happens by mistake."
+      ],
+      "commit": "021ea446"
+    },
+    {
+      "version": "1.0.24",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "One curse clock on guardian levels",
+      "items": [
+        "On guardian levels, one clock now counts the curse down: its bar empties and the numbers turn amber, then red, as time runs low, and you win time back with every hit.",
+        "Ice from spells and frost now keeps its number well apart from the ice already on the board, so you won't get two almost-identical ice blocks.",
+        "Lists and the level map now stop cleanly at their ends instead of scrolling past them.",
+        "If you pick the wrong Google account when confirming a data deletion, the message now names the right account to use instead of just saying it couldn't confirm it's you.",
+        "The privacy policy now explains that your account, name, picture, blocked players, settings and the global leaderboards are handled through VHub, and it covers Google profile photos and how to delete your data."
+      ],
+      "commit": "c2c659a2"
+    },
+    {
+      "version": "1.0.23",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Share your Daily as a picture",
+      "items": [
+        "Share your finished Daily as a picture of your solved board, with every arrow bursting out — post it anywhere or send it straight to your story.",
+        "Your profile picture now shows in place of the preset avatars — to pick a preset instead, remove your picture.",
+        "The preset avatars now slide smoothly in and out of view."
+      ],
+      "commit": "d8826043"
+    },
+    {
+      "version": "1.0.484b3072",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your settings follow you everywhere",
+      "items": [
+        "When you're signed in, your settings — Music, Sounds, Vibration, Tap twice to launch and Show story pages — follow you across your devices, and changes you make in your avatar menu on the site show up in the game right away.",
+        "The \"Sign in with Google\" button now appears in your language, and the sign-in window opens and closes more smoothly.",
+        "The About panel now notes that your settings travel with you."
+      ],
+      "commit": "484b3072"
+    },
+    {
+      "version": "1.0.22c17aeb",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your profile photo now shows",
+      "items": [
+        "Your profile picture now shows across the game — on your account button, your profile, and in boards and rooms.",
+        "On your profile, your name now sits next to your picture, with a small note beneath it that it can't be changed."
+      ],
+      "commit": "22c17aeb"
+    },
+    {
+      "version": "1.0.27ca1c68",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Stories play again",
+      "items": [
+        "Fixed a glitch so stories play again in your browser — before, no story could load."
+      ],
+      "commit": "27ca1c68"
+    },
+    {
+      "version": "1.0.22",
+      "date": "2026-10-28",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Neater top row on wide windows",
+      "items": [
+        "On a wide browser window, the top row of buttons and the coin counter now line up neatly with the buttons along the sides of the board, instead of floating over the map."
+      ],
+      "commit": "1967529e"
+    },
+    {
+      "version": "1.0.e6ac5ebc",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Account button on the home screen",
+      "items": [
+        "A new account button sits at the top right of the home screen — tap it to sign in, or, once you're signed in, see your picture and open your profile."
+      ],
+      "commit": "e6ac5ebc"
+    },
+    {
+      "version": "1.0.e7eb7e01",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Sharper story pictures on big screens",
+      "items": [
+        "Story pictures now look sharp on big screens instead of pixelated",
+        "Boss shields that move now wait for your arrow, then drop neatly into place"
+      ],
+      "commit": "e7eb7e01"
+    },
+    {
       "version": "1.0.21",
       "date": "2026-10-28",
       "platforms": [
@@ -63,9 +200,16 @@
       "platforms": [
         "Web"
       ],
+      "title": "The Tangled Tower: a story and 17 guardians",
       "items": [
-        "Improvements and fixes."
+        "A story in 81 painted pages: Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse. Read it from the new Story button on the map.",
+        "A guardian waits at the top of every world, from level 20: send arrows out of the top to free it before the curse clock runs out.",
+        "Earn up to three stars on every level, keep a daily streak and level up the prince's skills."
       ],
+      "link": {
+        "href": "/exitwise/storybook/",
+        "label": "Read the storybook"
+      },
       "commit": "f4f96dbf"
     },
     {
@@ -74,9 +218,16 @@
       "platforms": [
         "Android"
       ],
+      "title": "The Tangled Tower: a story and 17 guardians",
       "items": [
-        "Improvements and fixes."
+        "A story in 81 painted pages: Prince Arlo and Pip the owl climb the Tower of Worlds to break the Duskweaver's curse. Read it from the new Story button on the map.",
+        "A guardian waits at the top of every world, from level 20: send arrows out of the top to free it before the curse clock runs out.",
+        "Earn up to three stars on every level, keep a daily streak and level up the prince's skills."
       ],
+      "link": {
+        "href": "/exitwise/storybook/",
+        "label": "Read the storybook"
+      },
       "commit": "cd2af9f2"
     },
     {

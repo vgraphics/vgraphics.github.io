@@ -19,6 +19,24 @@ export const ICONS = {
 // click"); assets/anchors.js copies it, and without JavaScript it is a plain link. id: the section's (or heading's) id.
 export const anchor = (id, title) => `<a class="anchor" href="#${id}" aria-label="Copy the link to ${esc(title.replace(/<[^>]+>/g, ''))}"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a>`
 
+// The quote's play button (a pause while it speaks)
+export const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+
+// A line said in the product, set large across the content's width, with a small play button after its last word
+// when the page has the recording (assets/product.js plays it, one recording at a time; listen is the button's name
+// for screen readers): { text, by?, audio?, listen? }. A landing page's quote block and a wiki entry's quotes (a role's
+// own lines in its own voice, George, 28 Oct 2026: "In palermo wiki, in any character, have a quote with play button to
+// hear his voice. Same way we do in overview page.") are this one piece. George, 24 Oct 2026: "a small play/pause next
+// to quotes".
+export function quote(b) {
+  const cut = b.text.lastIndexOf(' ') + 1
+  const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
+  return `<figure class="sec-quote">
+          <blockquote><p>${text}</p></blockquote>${b.by ? `
+          <figcaption>${b.by}</figcaption>` : ''}
+        </figure>`
+}
+
 // A product's play and try buttons: page.json site.play { label, href, soon? }, and site.demo { label, href } for one
 // that also has a guided demo (Palermo Noir, George, 27 Oct 2026: "Build the demo button. Its different from play
 // online. Build both buttons and for play now say Coming soon."). The main button (the header's last item, the landing
@@ -51,6 +69,12 @@ export const demoText = (site, html) => (site?.demo?.private ? html.replace(/\s*
 // page too right?"). chip: as a chip of the links block; else a pill, as in a closing card's badges.
 const PERSON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg>'
 export const vhubEntry = (chip = false) => `<a class="vhub-entry${chip ? '' : ' pill'}" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true">${PERSON}</span><span class="vhub-words"><b class="vhub-name">${chip ? 'Your VHub name' : 'Get your VHub name'}</b>${chip ? '' : '<small class="vhub-note">Your name in every room</small>'}</span></a>`
+
+// The VHub avatar, the last item of every header (George, 28 Oct 2026: "All pages must show the VHub avatar clickable on
+// top right after any play or try button."; VHub docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md 4.1):
+// the VHub mark until assets/account.js finds a signed-in player and draws their picture and level, and the menu it
+// opens. The company header (index.html and its copies) carries the same button, word for word.
+export const VHUB_AVATAR = '<button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>'
 
 // Badges and actions: "google-play", "vhub" (the VHub entry), { href, label, note? } (a pill) or { href, label, icon?,
 // button: true }. A pill to
@@ -135,6 +159,7 @@ export function header({ page }, { current } = {}) {
     <nav class="subnav" id="site-menu" aria-label="${esc(s.name)}">
       ${links.join('\n      ')}
     </nav>
+    ${VHUB_AVATAR}
   </header>`
 }
 

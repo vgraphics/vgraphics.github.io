@@ -23,37 +23,94 @@
     update();
   }
 
+  // Features with key figures (tools/build-pages.mjs, features items with "value"; Palermo's day and verdict): a click
+  // on a figure shows its words in place of the last (assets/product.css fades them); the arrow keys, Home and End move
+  // along the figures. Without JavaScript the first figure's words show.
+  for (const list of document.querySelectorAll(".feat-tablist")) {
+    const tabs = [...list.querySelectorAll('[role="tab"]')];
+    const select = (tab) => {
+      for (const t of tabs) {
+        const on = t === tab;
+        const panel = document.getElementById(t.getAttribute("aria-controls"));
+        t.setAttribute("aria-selected", on);
+        t.tabIndex = on ? 0 : -1;
+        panel.classList.toggle("is-on", on);
+        panel.inert = !on;
+      }
+    };
+    list.addEventListener("click", (e) => {
+      const tab = e.target.closest('[role="tab"]');
+      if (tab) select(tab);
+    });
+    list.addEventListener("keydown", (e) => {
+      const i = tabs.indexOf(document.activeElement);
+      const to = { ArrowRight: i + 1, ArrowLeft: i - 1, Home: 0, End: tabs.length - 1 }[e.key];
+      if (i < 0 || to === undefined) return;
+      e.preventDefault();
+      const tab = tabs[(to + tabs.length) % tabs.length];
+      select(tab);
+      tab.focus();
+    });
+  }
+
   // One recording at a time, for the quotes' buttons and the role cards' voices: a button plays its recording and stops
-  // it again, the soundtrack stops while it speaks and stops it in turn, and the button's --played (0 to 1) follows it
-  // for a ring. Nothing loads until a button is pressed.
-  let voice = null, on = null, tick = 0;
+  // it again, the soundtrack's songs sink under it while it speaks and a song starting stops it, and the button's
+  // --played (0 to 1) follows it for a ring. Nothing loads until a button is pressed.
+  // Every recording fades in and out, never cuts (assets/audio-fade.js, which fades the songs too): it rises over its
+  // first 40 ms and falls over its last 150 ms, and a stop falls over 120 ms before it pauses, the next recording
+  // starting once it is silent. Until the fades have loaded a recording plays as it is, and the songs stop under it.
+  const FADE_IN = 0.04, FADE_OUT = 0.15, STOP = 0.12;
+  let fades = null;
+  import("/assets/audio-fade.js").then((m) => (fades = m)).catch(() => {});
+  let voice = null, fader = null, on = null, tick = 0, turn = 0;
+  // Frees the button, brings the songs back up and fades out what still speaks; returns the seconds until it is silent
   const hush = () => {
-    voice?.pause();
     cancelAnimationFrame(tick);
     on?.setAttribute("aria-pressed", "false");
     on?.style.removeProperty("--played");
     on = null;
+    fades?.duck(false);
+    const t = ++turn;
+    if (!voice || voice.paused || voice.ended) return 0;
+    if (!fader) {
+      voice.pause();
+      return 0;
+    }
+    fader.to(0, STOP).then((done) => done && t === turn && voice.pause());
+    return STOP;
   };
   const speak = (b, src) => {
     if (on === b) return hush();
-    hush();
+    const wait = hush(), t = turn;
     if (!voice) {
       voice = new Audio();
       voice.preload = "none";
       voice.addEventListener("ended", hush);
       voice.addEventListener("error", hush);
+      // Up from silence once it plays; not when a stop is already taking it down
+      voice.addEventListener("playing", () => on && fader?.to(1, FADE_IN));
       document.addEventListener("play", (e) => e.target !== voice && hush(), true);
     }
-    document.querySelectorAll(".ost audio").forEach((a) => a.pause());
-    voice.src = src;
-    voice.play().catch(() => on === b && hush()); // a play cut short by the next one leaves the next one alone
+    fader ??= fades?.fader(voice, { tail: FADE_OUT }) ?? null;
+    fades?.resume();
+    if (fades) fades.duck(true);
+    else document.querySelectorAll(".ost audio").forEach((a) => a.pause());
     on = b;
     b.setAttribute("aria-pressed", "true");
-    const follow = () => {
-      if (voice.duration) b.style.setProperty("--played", (voice.currentTime / voice.duration).toFixed(3));
-      tick = requestAnimationFrame(follow);
+    const start = () => {
+      if (t !== turn) return; // stopped, or another button pressed, while the last one fell silent
+      turn++;
+      fader?.to(0);
+      voice.src = src;
+      voice.play().catch(() => on === b && hush()); // a play cut short by the next one leaves the next one alone
+      const follow = () => {
+        if (voice.duration) b.style.setProperty("--played", (voice.currentTime / voice.duration).toFixed(3));
+        tick = requestAnimationFrame(follow);
+      };
+      follow();
     };
-    follow();
+    if (wait) setTimeout(start, wait * 1000);
+    else start();
   };
 
   // A card with a back (cards item "back"; Palermo's role cards): a click grows it to a full-screen view, flying from

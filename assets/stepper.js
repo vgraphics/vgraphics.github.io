@@ -15,11 +15,14 @@
 // it with <script type="module" src="/assets/stepper.js">. Its look is assets/stepper.css, in the page's own colour (the
 // scrollbar's), which this file links only on a page with chapters.
 //
+// A page that draws its content after loading (VHub's hub draws each of its pages once VHub has started, and again on
+// every move to another of its pages) gets its chapters read again whenever <main>'s content changes: the stepper is
+// drawn when there are two or more, drawn anew when they change, and taken away when fewer than two are left.
+//
 // It keeps clear of what it would cover: it fades out while the closing card, the footer or a fixed panel (the try
 // page's statistics question, the soundtrack's mini-bar) reaches it, it hides on a screen too short for it, and the
 // phone menu makes it inert and dims it like the rest of the page. On touch screens it is a slim rail that only shows
 // where the reader is (stepper.css).
-const main = document.querySelector("main") ?? document.body;
 const HEADING = "h1, h2, h3, h4, h5, h6";
 // What it fades out over (above): the page's foot, and the fixed panels that might reach the right edge.
 const AVOID = "body > footer, .cta-band .panel, .try-consent, .ost-mini";
@@ -36,7 +39,36 @@ function chaptersOf(root) {
   return [...found.values()].sort((x, y) => (x.target.compareDocumentPosition(y.target) & Node.DOCUMENT_POSITION_FOLLOWING ? -1 : 1));
 }
 
-function start(chapters) {
+/** Whether two lists are the same chapters: the same ids and names, on the same elements, in the same order. */
+export function sameChapters(a, b) {
+  return a.length === b.length && a.every((c, i) => c.id === b[i].id && c.name === b[i].name && c.target === b[i].target);
+}
+
+/**
+ * One stepper for the page's chapters as they are now. Each call of what it returns reads them (`scan`); when they
+ * changed, it stops the stepper drawn for the old ones and draws one for the new (`show`, which returns its stop), or
+ * none for fewer than two.
+ */
+export function keeper(scan, show) {
+  let drawn = [];
+  let stop = null;
+  return () => {
+    const chapters = scan();
+    if (stop && sameChapters(drawn, chapters)) return;
+    stop?.();
+    stop = null;
+    drawn = [];
+    if (chapters.length < 2) return;
+    drawn = chapters;
+    stop = show(chapters);
+  };
+}
+
+/** Draws the stepper for these chapters of `main`; returns what takes it away again, with all it listens to. */
+function start(main, chapters) {
+  // Every listener of this stepper goes with it (stop, below).
+  const gone = new AbortController();
+  const on = { signal: gone.signal };
   const nav = document.createElement("nav");
   nav.className = "vg-stepper";
   nav.setAttribute("aria-label", "Chapters");
@@ -128,6 +160,7 @@ function start(chapters) {
     if (el.hidden !== on) el.hidden = on;
   };
   const refresh = () => {
+    if (gone.signal.aborted) return;
     chapters.forEach((c, i) => {
       shown[i] = c.target.getClientRects().length > 0;
       hide(links[i].parentElement, !shown[i]);
@@ -149,11 +182,12 @@ function start(chapters) {
       refresh();
     });
   };
-  addEventListener("resize", later);
-  new MutationObserver(later).observe(main, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
+  addEventListener("resize", later, on);
+  const hiding = new MutationObserver(later);
+  hiding.observe(main, { subtree: true, attributes: true, attributeFilter: ["hidden"] });
   // A jump that crosses no line on its way (Home, End, a link to a chapter) still lands on the right bullet.
-  addEventListener("hashchange", update);
-  if ("onscrollend" in window) addEventListener("scrollend", update);
+  addEventListener("hashchange", update, on);
+  if ("onscrollend" in window) addEventListener("scrollend", update, on);
 
   // A click scrolls to the chapter and puts its address in the address bar without a new history step. From the
   // keyboard, the chapter's heading takes the focus too, so Tab goes on from there.
@@ -183,18 +217,50 @@ function start(chapters) {
       clearTimeout(timer);
       timer = setTimeout(done, 150);
     };
-    addEventListener("scroll", wait, { passive: true });
+    addEventListener("scroll", wait, { passive: true, signal: gone.signal });
     wait();
   });
 
   refresh();
+  return () => {
+    gone.abort();
+    hiding.disconnect();
+    band?.disconnect();
+    avoid?.disconnect();
+    nav.remove();
+  };
 }
 
-const chapters = chaptersOf(main);
-if (chapters.length >= 2) {
-  const sheet = document.createElement("link");
-  sheet.rel = "stylesheet";
-  sheet.href = "/assets/stepper.css";
-  sheet.addEventListener("load", () => start(chapters), { once: true });
-  document.head.append(sheet);
+function boot() {
+  const main = document.querySelector("main") ?? document.body;
+  const sync = keeper(() => chaptersOf(main), (chapters) => start(main, chapters));
+  // stepper.css comes once, with the first two chapters; until it has loaded, no stepper is drawn.
+  let sheet = "none";
+  const check = () => {
+    if (sheet === "ready") return sync();
+    if (sheet === "loading" || chaptersOf(main).length < 2) return;
+    sheet = "loading";
+    const link = document.createElement("link");
+    link.rel = "stylesheet";
+    link.href = "/assets/stepper.css";
+    link.addEventListener("load", () => {
+      sheet = "ready";
+      sync();
+    }, { once: true });
+    document.head.append(link);
+  };
+  // Content drawn or changed after loading: the chapters are read again the frame after, once however much changed.
+  let queued = false;
+  new MutationObserver(() => {
+    if (queued) return;
+    queued = true;
+    requestAnimationFrame(() => {
+      queued = false;
+      check();
+    });
+  }).observe(main, { childList: true, subtree: true });
+  check();
 }
+
+// Imported without a page (tools/test/stepper.test.mjs), it only lends its bookkeeping.
+if (typeof document !== "undefined") boot();

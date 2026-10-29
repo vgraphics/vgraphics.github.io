@@ -8,19 +8,25 @@
    text (Lilita One for titles, Comic Neue Bold for the story lines), never part of the art. Pictures, all beside
    storybook.json: Panels/<panel id>.<ext>, Tall/<panel id>.<ext> (its 9:16 version for upright screens,
    Tools/Storybook/tall_art.py), Backdrops/<panel id>.jpg (blurred), Thumbs/<chapter id>.jpg, Medals/<chapter id>.png,
-   reader/knot.png and reader/threads.png (Tools/Storybook/reader_art.py makes these last ones).
+   reader/knot.png and reader/threads.png (Tools/Storybook/reader_art.py makes these last ones). A screen that would
+   stretch a painting gets a sharp copy instead (George, 28 Oct 2026: "Exitwise story images need upscaling. They look
+   pixelated at pc big screen."): Panels-<width>/<panel id>.avif, Tall-<width>/<panel id>.avif and
+   reader/threads-2048.png, threads-tall-2048.png (Tools/Storybook/sharp_art.py), which only the vgraphics.gr build
+   carries (SHARP below).
 
    window.ExitwiseStorybook.open(options) -> { close(), setProgress(progress) }
      book       the parsed storybook.json
      base       the folder holding storybook.json and the pictures
      panelExt   "jpg"
+     sharp      false: only the shipped pictures (the CrazyGames build has no sharp copies); else as the screen needs
      mode       "book": the chapter list, then any open chapter; "pages": these pages, then it closes
      pages      page ids for "pages"
      progress   { levelsWon, read: [page ids], medals: [world numbers whose guardian is freed] }
      overlay    true: over everything, closing removes it; false: the list inside options.mount, chapters full window
      mount      the element an inline book goes in
      playUrl    inline: where a locked chapter's "Play to unlock" goes
-     audio      { base }: plays <base>/<cue>.mp3 itself, after the reader's sound button (the site); else onCue (the game)
+     audio      { base }: plays <base>/<cue>.mp3 itself, faded in and out, after the reader's sound button (the site); else
+                onCue (the game, whose music player fades it)
      onPageShown(id), onPageLeft(id, skipped, seconds), onCue(cue), onClose() */
 (function () {
   'use strict';
@@ -31,6 +37,16 @@
   var STILL_MS = 180;
   var DUSK = ['#3a2c60', '#2e545c', '#66343c', '#6e522c', '#28466e', '#4e3462'];
   var SOUND_KEY = 'exitwise.storybook.sound';
+  // The music's level, and its fades in seconds: in as a cue starts, out as it stops or changes (quicker when the book
+  // is skipped shut), and out over a cue's last seconds before it starts again (George, 28 Oct 2026: "Music must always
+  // start and end with fading").
+  var MUSIC = { level: 0.5, fadeIn: 0.8, fadeOut: 0.5, skip: 0.35, tail: 1.5 };
+  // The widths of the shipped pictures (Panels/ 4:3, Tall/ 9:16, Thumbs/, reader/threads.png's long side) and of the
+  // sharp paintings. A picture may be drawn at most SHORT times bigger than it is; past that the smallest sharp copy
+  // that is big enough is shown, or the biggest.
+  var SHIPPED = { wide: 1280, tall: 1080, thumb: 512, threads: 1024 };
+  var SHARP = { wide: [2560, 4096], tall: [1440, 2160], threads: 2048 };
+  var SHORT = 1.1;
   var ICON = {
     close: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
     back: '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg>',
@@ -51,9 +67,12 @@
     img.alt = alt || '';
     img.decoding = 'async';
     img.draggable = false;
-    img.src = src;
+    if (src) img.src = src;
     return img;
   }
+
+  // How many device pixels a picture drawn this many CSS pixels wide covers.
+  function devicePixels(width) { return width * (window.devicePixelRatio || 1); }
 
   function reducedMotion() {
     return !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
@@ -61,6 +80,30 @@
 
   function storedSound() {
     try { return window.localStorage.getItem(SOUND_KEY) === 'on'; } catch (e) { return false; }
+  }
+
+  // How a page sets an <audio>'s level, 0 to 1, as the site's shared fader does (vgraphics.gr assets/audio-fade.js): its
+  // own volume where the browser honours it; on iOS, which ignores a page's volume, a Web Audio gain, with the audio
+  // session set to playback so the silent switch doesn't mute it; null where neither works (an iPhone before Safari 17),
+  // and the music plays as before, without fades. Called from a press, before the element first plays.
+  function levelSetter(audio) {
+    var probe = document.createElement('audio');
+    probe.volume = 0.5;
+    if (probe.volume === 0.5) return function (level) { audio.volume = level; };
+    var Context = window.AudioContext || window.webkitAudioContext;
+    if (!Context || typeof navigator === 'undefined' || !('audioSession' in navigator)) return null;
+    try {
+      var ctx = new Context();
+      navigator.audioSession.type = 'playback';
+      var gain = ctx.createGain();
+      ctx.createMediaElementSource(audio).connect(gain).connect(ctx.destination);
+      return function (level) {
+        if (ctx.state !== 'running') ctx.resume().catch(function () {});
+        gain.gain.setTargetAtTime(level, ctx.currentTime, 0.01);
+      };
+    } catch (e) {
+      return null;
+    }
   }
 
   // ---------- The camera: Core's StoryCamera.cs, number for number ----------
@@ -147,6 +190,8 @@
     });
     var base = String(o.base || '.').replace(/\/$/, '');
     var ext = o.panelExt || 'jpg';
+    // Until a sharp copy fails to show (a browser without AVIF): then only the shipped pictures.
+    var sharp = o.sharp !== false;
     var progress = { levelsWon: 0, read: {}, medals: {} };
     var bookMode = o.mode !== 'pages';
     var still = reducedMotion();
@@ -164,6 +209,12 @@
     var soundOn = o.audio ? storedSound() : false;
     var soundButtons = [];
     var cue = null;
+    // The music's fade: a level from 0 to 1 on its way from one value to another, what runs once it's there, and the
+    // timer that steps it (not the camera's frames, which stop while the page is hidden).
+    var fade = { from: 0, to: 0, t0: 0, s: 0 };
+    var faded = null;
+    var setLevel = null;
+    var musicTimer = 0;
 
     function setProgress(p) {
       progress.levelsWon = (p && p.levelsWon) || 0;
@@ -176,7 +227,39 @@
 
     function panelUrl(id) { return base + '/Panels/' + encodeURIComponent(id) + '.' + ext; }
     function tallUrl(id) { return base + '/Tall/' + encodeURIComponent(id) + '.' + ext; }
-    function paintingUrl(id, tall) { return tall ? tallUrl(id) : panelUrl(id); }
+    // A painting at a size (paintingSize): the shipped picture, or a sharp copy. The sizes are called "painted", never
+    // "size", which is the function below that sizes the <img>.
+    function paintingUrl(id, tall, painted) {
+      if (!painted || painted === (tall ? SHIPPED.tall : SHIPPED.wide)) return tall ? tallUrl(id) : panelUrl(id);
+      return base + (tall ? '/Tall-' : '/Panels-') + painted + '/' + encodeURIComponent(id) + '.avif';
+    }
+    // The size of a painting drawn this many CSS pixels wide: the shipped one while it would be stretched at most SHORT
+    // times, else the smallest sharp copy that would, or the biggest.
+    function paintingSize(tall, width) {
+      var shipped = tall ? SHIPPED.tall : SHIPPED.wide, need = devicePixels(width);
+      if (!sharp || need <= shipped * SHORT) return shipped;
+      var sizes = tall ? SHARP.tall : SHARP.wide, i = 0;
+      while (i < sizes.length - 1 && need > sizes[i] * SHORT) i++;
+      return sizes[i];
+    }
+    // Puts a painting on an <img> at the size this width needs and returns that size. A sharp copy that can't be shown
+    // falls back to the shipped picture (and no more sharp copies are asked for); onMissing runs when that fails too.
+    function showPainting(img, id, tall, width, onMissing) {
+      var shipped = paintingUrl(id, tall, 0), painted = paintingSize(tall, width);
+      img.onerror = function () {
+        if (img.getAttribute('src') !== shipped) {
+          sharp = false;
+          img.src = shipped;
+        } else if (onMissing) onMissing();
+      };
+      img.src = paintingUrl(id, tall, painted);
+      return painted;
+    }
+    // The width the camera draws a painting at on this screen, the same for every shot (its zoom adds up to 10%).
+    function paintedWidth() { return camera(scene.clientWidth, scene.clientHeight, 0, true).width; }
+    // How wide the chapter list is, also while its first drawing isn't in the page yet: over the game the window, inline
+    // its place in the page.
+    function listWidth() { return list.clientWidth || (!o.overlay && o.mount && o.mount.clientWidth) || window.innerWidth; }
     function backdropUrl(id) { return base + '/Backdrops/' + encodeURIComponent(id) + '.jpg'; }
     function thumbUrl(chapter) { return base + '/Thumbs/' + encodeURIComponent(chapter.id) + '.jpg'; }
     function medalUrl(chapter) { return base + '/Medals/' + encodeURIComponent(chapter.id) + '.png'; }
@@ -286,7 +369,9 @@
         var hero = el('button', 'xsb-hero');
         hero.type = 'button';
         hero.setAttribute('aria-label', 'Continue: ' + next.chapter.label + ', ' + next.chapter.title);
-        hero.appendChild(picture(panelUrl(next.shot.panel.id), '', ''));
+        var heroPicture = picture(null, '', '');
+        showPainting(heroPicture, next.shot.panel.id, false, listWidth());
+        hero.appendChild(heroPicture);
         hero.appendChild(el('span', 'xsb-hero-fade'));
         var words = el('span', 'xsb-hero-text');
         words.appendChild(el('span', 'xsb-eyebrow', 'Continue · ' + next.chapter.label));
@@ -349,9 +434,14 @@
       button.setAttribute('role', 'listitem');
       button.setAttribute('aria-label', chapter.label + ', ' + chapter.title + (medal ? ', guardian freed' : '') + (isNew ? ', new pages' : ''));
       button.style.background = DUSK[i % DUSK.length];
-      var cover = picture(thumbUrl(chapter), 'xsb-cover', '');
+      // The chapter's thumb, or on a card too big for it, its first painting (the thumb's own picture) at the card's size.
+      var cover = picture(null, 'xsb-cover', '');
       cover.loading = 'lazy';
-      cover.onerror = function () { cover.remove(); };
+      var width = cardWidth();
+      if (devicePixels(width) <= SHIPPED.thumb * SHORT) {
+        cover.onerror = function () { cover.remove(); };
+        cover.src = thumbUrl(chapter);
+      } else showPainting(cover, firstPanel(chapter), false, width, function () { cover.remove(); });
       button.appendChild(cover);
       button.appendChild(el('span', 'xsb-card-fade'));
       var meta = el('span', 'xsb-meta');
@@ -362,6 +452,12 @@
       if (isNew) button.appendChild(el('span', 'xsb-new', 'New'));
       button.addEventListener('click', function () { play(chapterShots(chapter, progress.levelsWon), 0); });
       return button;
+    }
+
+    // A chapter card's width (storybook.css): three to a row once the list is 700 wide, else the list's whole width.
+    function cardWidth() {
+      var width = listWidth();
+      return width >= 700 ? (width - 2 * 34 - 2 * 16) / 3 : width - 2 * 14;
     }
 
     // ---------- Reading ----------
@@ -395,17 +491,18 @@
       over.textContent = '';
       if (shot.kind === 'panel') {
         var tall = upright(scene.clientWidth, scene.clientHeight);
-        var paint = picture(paintingUrl(shot.panel.id, tall), 'xsb-paint', shot.panel.alt);
-        paint.onerror = function () {
+        var paint = picture(null, 'xsb-paint', shot.panel.alt);
+        var unpainted = function () {
           // Not painted yet: the panel's description on its world's dusk colour.
           if (!paint.parentNode) return;
           var missing = el('div', 'xsb-missing', shot.panel.alt);
           missing.style.setProperty('--xsb-dusk', DUSK[book.chapters.indexOf(shot.chapter) % DUSK.length]);
           paint.parentNode.replaceChild(missing, paint);
         };
+        var painted = showPainting(paint, shot.panel.id, tall, paintedWidth(), unpainted);
         layerShot.appendChild(paint);
         scene.appendChild(layerShot);
-        startFilm(paint, shot.panel.id);
+        startFilm(paint, shot.panel.id, painted, unpainted);
         caption(shot.panel.line);
         if (shot.page !== shown) {
           leavePage(false);
@@ -417,12 +514,12 @@
         }
         // Ready before the cut: the next painting, in the screen's shape.
         var next = shots[at + 1];
-        if (next && next.kind === 'panel') new Image().src = paintingUrl(next.panel.id, tall);
+        if (next && next.kind === 'panel') new Image().src = paintingUrl(next.panel.id, tall, painted);
       } else {
         var veiled = shot.kind === 'end' ? (nextChapter(shot.chapter) || shot.chapter) : shot.chapter;
         layerShot.appendChild(picture(backdropUrl(firstPanel(veiled)), 'xsb-backdrop', ''));
         layerShot.appendChild(el('span', 'xsb-tint'));
-        if (shot.kind === 'locked') layerShot.appendChild(picture(artUrl(scene.clientWidth < scene.clientHeight ? 'threads-tall.png' : 'threads.png'), 'xsb-threads', ''));
+        if (shot.kind === 'locked') layerShot.appendChild(threads());
         scene.appendChild(layerShot);
         caption(null);
         over.appendChild(shot.kind === 'locked' ? lockCard(shot) : endCard(shot));
@@ -430,6 +527,18 @@
       var earlier = Array.prototype.slice.call(scene.children, 0, -1);
       if (layerShot.animate) layerShot.animate([{ opacity: 0 }, { opacity: 1 }], { duration: still ? STILL_MS : DISSOLVE_MS, easing: 'ease-out' });
       setTimeout(function () { earlier.forEach(function (node) { node.remove(); }); }, (still ? STILL_MS : DISSOLVE_MS) + 20);
+    }
+
+    // The Duskweaver's threads across a locked page, stretched over the screen: their sharp copy on a screen that would
+    // stretch the shipped one too far, falling back to it.
+    function threads() {
+      var name = scene.clientWidth < scene.clientHeight ? 'threads-tall' : 'threads';
+      var shipped = artUrl(name + '.png');
+      var img = picture(null, 'xsb-threads', '');
+      img.onerror = function () { if (img.getAttribute('src') !== shipped) img.src = shipped; };
+      var big = sharp && devicePixels(Math.max(scene.clientWidth, scene.clientHeight)) > SHIPPED.threads * SHORT;
+      img.src = big ? artUrl(name + '-' + SHARP.threads + '.png') : shipped;
+      return img;
     }
 
     function lockCard(shot) {
@@ -491,9 +600,9 @@
 
     // ---------- The camera at work ----------
 
-    function startFilm(paint, panel) {
+    function startFilm(paint, panel, painted, unpainted) {
       var move = camera(scene.clientWidth, scene.clientHeight, filmed, still);
-      film = { paint: paint, panel: panel, shot: filmed, move: move, start: performance.now(), raf: 0 };
+      film = { paint: paint, panel: panel, painted: painted, unpainted: unpainted, shot: filmed, move: move, start: performance.now(), raf: 0 };
       filmed++;
       size(paint, move);
       place(paint, move.at(0));
@@ -522,13 +631,15 @@
     }
 
     // A turned phone or a resized window: the same shot's camera for the new shape, as far along as it was, and the
-    // painting in that shape (its tall version upright).
+    // painting in that shape (its tall version upright), in a bigger size if the window grew past the one shown.
     function onResize() {
       if (!film) return;
       var t = (performance.now() - film.start) / 1000;
       var tall = film.move.tall;
       film.move = camera(scene.clientWidth, scene.clientHeight, film.shot, still);
-      if (film.move.tall !== tall) film.paint.src = paintingUrl(film.panel, film.move.tall);
+      if (film.move.tall !== tall || paintingSize(film.move.tall, film.move.width) > film.painted) {
+        film.painted = showPainting(film.paint, film.panel, film.move.tall, film.move.width, film.unpainted);
+      }
       size(film.paint, film.move);
       place(film.paint, film.move.at(t));
       if (!film.raf && !film.move.done(t)) film.raf = requestAnimationFrame(roll);
@@ -601,23 +712,97 @@
       playCue();
     }
 
-    function playCue() {
+    // The book's own music (the site; over the game, onCue hands the cue to the game's music player, which fades it).
+    // Every cue fades in, fades out before the next one starts or the music stops, and at the end of each pass fades
+    // out over its last MUSIC.tail seconds and in again from the top: it never starts or stops with a cut.
+    function playCue(skipped) {
       if (!o.audio) return;
-      if (!soundOn || !cue) {
-        if (audio) audio.pause();
+      if (!soundOn || !cue || closed) {
+        stopCue(skipped);
         return;
       }
       if (!audio) {
         audio = new Audio();
-        audio.loop = true;
-        audio.volume = 0.5;
+        setLevel = levelSetter(audio);
+        if (setLevel) setLevel(0);
+        audio.addEventListener('ended', againCue);
+        audio.addEventListener('playing', wakeMusic);
+        audio.addEventListener('timeupdate', wakeMusic);
+      }
+      // The cue before fades out first, then this one starts.
+      if (audio.dataset.cue && audio.dataset.cue !== cue && !audio.paused) fadeTo(0, skipped ? MUSIC.skip : MUSIC.fadeOut, startCue);
+      else startCue();
+    }
+
+    function startCue() {
+      if (!soundOn || !cue || closed) {
+        if (audio) audio.pause();
+        return;
       }
       if (audio.dataset.cue !== cue) {
         audio.dataset.cue = cue;
         audio.src = String(o.audio.base).replace(/\/$/, '') + '/' + cue + '.mp3';
+        fade = { from: 0, to: 0, t0: musicClock(), s: 0 };
       }
       // A cue not made yet is simply silent.
+      if (audio.paused) audio.play().catch(function () {});
+      fadeTo(1, MUSIC.fadeIn);
+    }
+
+    // A pass ended (after its tail faded out): the cue starts again from the top, fading in.
+    function againCue() {
+      if (!soundOn || closed) return;
+      audio.currentTime = 0;
+      fade = { from: 0, to: 0, t0: musicClock(), s: 0 };
       audio.play().catch(function () {});
+      fadeTo(1, MUSIC.fadeIn);
+    }
+
+    function stopCue(skipped) {
+      if (!audio || audio.paused) return;
+      fadeTo(0, skipped ? MUSIC.skip : MUSIC.fadeOut, function () { audio.pause(); });
+    }
+
+    function musicClock() { return performance.now() / 1000; }
+
+    function fadeLevel() {
+      var k = fade.s > 0 ? Math.min(1, (musicClock() - fade.t0) / fade.s) : 1;
+      return fade.from + (fade.to - fade.from) * k;
+    }
+
+    // Fades to a level over some seconds, then runs then (unless another fade has taken over first).
+    function fadeTo(level, seconds, then) {
+      fade = { from: fadeLevel(), to: level, t0: musicClock(), s: seconds };
+      faded = then || null;
+      wakeMusic();
+    }
+
+    // Sets the level: the fade, times the tail near a pass's end. True while it's still moving.
+    function stepMusic() {
+      if (!audio) return false;
+      if (faded && musicClock() - fade.t0 >= fade.s) {
+        var after = faded;
+        faded = null;
+        after();
+      }
+      // After that, which may have started another fade.
+      var moving = musicClock() - fade.t0 < fade.s;
+      var left = audio.duration - audio.currentTime;
+      var near = !audio.paused && left < MUSIC.tail + 0.5;
+      var tail = near && left < MUSIC.tail ? Math.max(0, left / MUSIC.tail) : 1;
+      if (setLevel) setLevel(MUSIC.level * fadeLevel() * tail);
+      return moving || near || !!faded;
+    }
+
+    function wakeMusic() {
+      if (!musicTimer) {
+        musicTimer = setInterval(function () {
+          if (stepMusic()) return;
+          clearInterval(musicTimer);
+          musicTimer = 0;
+        }, 15);
+      }
+      stepMusic();
     }
 
     function showSound() {
@@ -677,7 +862,7 @@
       window.removeEventListener('keydown', onKey, true);
       window.removeEventListener('resize', onResize);
       ['keyup', 'keypress'].forEach(function (type) { window.removeEventListener(type, stopKeys, true); });
-      if (audio) audio.pause();
+      stopCue(skipped);
       if (o.overlay) {
         root.classList.add('xsb--leaving');
         setTimeout(function () { if (root.parentNode) root.parentNode.removeChild(root); }, still ? 0 : 200);

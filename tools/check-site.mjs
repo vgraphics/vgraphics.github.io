@@ -17,6 +17,7 @@ import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
+import { blockedBy, readRules } from './lib/blockers.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -201,7 +202,8 @@ const homeHtml = readFileSync(join(root, 'index.html'), 'utf8')
 // Google Search Console's proof of ownership (README, "Search engines"): without it the site loses its verification.
 if (!/<meta name="google-site-verification" content="[^"]+">/.test(homeHtml)) report('index.html', 'search-console', 'no google-site-verification meta tag')
 const home = chrome(homeHtml)
-for (const menu of ['/games/', '/apps/', '/services/', '/hub/']) {
+// VHub has no link of its own: the avatar, the header's last item (below), opens the hub.
+for (const menu of ['/games/', '/apps/', '/services/']) {
   if (!home.head?.includes(`href="${menu}"`)) report('index.html', 'menu', `the header has no link to ${menu}`)
 }
 for (const file of pages) {
@@ -362,6 +364,20 @@ for (const file of served) {
     } else if (second && ![...menu.matchAll(/<a\b([^>]*)>/g)].some((m) => /\sclass="demo-link"/.test(m[1]) && m[1].match(/\shref="([^"]*)"/)?.[1] === second.href)) {
       playButton(file, `the menu has no "${second.label}" link (${second.href}) before its play button (${slug}/page.json site.demo): make the page with the template`)
     }
+  }
+}
+
+// The VHub avatar, the last item of every header (George, 28 Oct 2026: "All pages must show the VHub avatar clickable on
+// top right after any play or try button."; VHub docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md 4.1): a
+// button after the play or try link where a page has one, on company pages where the VHub link was, drawn and opened by
+// assets/account.js (which menu.js loads). The company header's old VHub link and its chip (vhub-me.js) gave way to it.
+const avatar = (file, message) => report(file, 'avatar', message)
+const AVATAR_TAIL = /<button class="vhub-avatar"[^>]*>(?:(?!<button\b|<a\b|<nav\b)[\s\S])*<\/button>(?:\s*<\/div>)?\s*$/
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (html.includes('/assets/vhub-me.js')) avatar(file, 'loads /assets/vhub-me.js, which the VHub avatar replaced')
+  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)"[^>]*>([\s\S]*?)<\/header>/g)) {
+    if (!AVATAR_TAIL.test(inner)) avatar(file, `the header's last item is not the VHub avatar (<button class="vhub-avatar">, tools/lib/partials.mjs VHUB_AVATAR)`)
   }
 }
 
@@ -571,7 +587,8 @@ for (const file of served) {
 const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
 for (const file of siteScripts) {
-  if (file === 'assets/faq.js' || file === 'assets/menu.js') continue
+  // The VHub avatar's menu (assets/account.js) opens and closes with its own animation, as faq.js's.
+  if (file === 'assets/faq.js' || file === 'assets/menu.js' || file === 'assets/account.js') continue
   if (readFileSync(join(root, file), 'utf8').includes('aria-expanded')) {
     faqJs(file, 'opens or closes something by aria-expanded itself, with no animation: drive its kind from assets/faq.js, which animates every expandable')
   }
@@ -748,6 +765,22 @@ for (const file of served) {
     const own = existsSync(target) ? imageSize(target) : null
     if (own && Math.abs((w / h) / (own.width / own.height) - 1) > 0.01) {
       report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
+    }
+  }
+}
+
+// A wiki's playable boards (wiki.json "board", assets/wiki.js) hold only arrows the game can have: each head points the
+// way its body's last cell runs into it (Exitwise Core, Arrow.cs, whose constructor refuses any other), bombs too.
+{
+  const STEP = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] }
+  for (const dir of readdirSync(root)) {
+    const file = join(dir, 'wiki', 'wiki.json')
+    if (!existsSync(join(root, file))) continue
+    for (const e of JSON.parse(readFileSync(join(root, file), 'utf8')).entries ?? []) {
+      for (const a of [...(e.board?.arrows ?? []), ...(e.board?.bombs ?? [])]) {
+        const [q, h] = a.cells.slice(-2), [dx, dy] = STEP[a.dir] ?? []
+        if (h && q && (h[0] - q[0] !== dx || h[1] - q[1] !== dy)) report(file, 'board', `${e.slug}: the ${a.id} arrow points ${a.dir}, but its body runs into its head from ${q} to ${h}: the game has no such arrow (Arrow.cs), so turn its head or move its last cell`)
+      }
     }
   }
 }
@@ -1145,10 +1178,16 @@ else {
         report(WEB_ADS, 'web-ads', `games.${id} is not { bannerSlot }`)
         continue
       }
-      for (const k of Object.keys(game)) if (k !== 'bannerSlot') report(WEB_ADS, 'web-ads', `games.${id}: unknown setting "${k}" (a game has only bannerSlot)`)
+      for (const k of Object.keys(game)) {
+        if (!['bannerSlot', 'betweenGames'].includes(k)) report(WEB_ADS, 'web-ads', `games.${id}: unknown setting "${k}" (a game has bannerSlot and, for a party game, betweenGames)`)
+      }
       if (game.bannerSlot !== null && !(typeof game.bannerSlot === 'string' && /^\d{6,}$/.test(game.bannerSlot))) {
         report(WEB_ADS, 'web-ads', `games.${id}.bannerSlot is not null or an ad unit's data-ad-slot (digits, in quotes)`)
       }
+      // A party game's own switch for its video between games: missing is on (gameAds decides).
+      if (game.betweenGames !== undefined && typeof game.betweenGames !== 'boolean') report(WEB_ADS, 'web-ads', `games.${id}.betweenGames is not true or false`)
+      // Exitwise's play page reads its banner unit alone, so the key would do nothing there.
+      if (game.betweenGames !== undefined && id === 'exitwise') report(WEB_ADS, 'web-ads', `games.${id}.betweenGames: Exitwise has no video between games (its in-game ads follow gameAds)`)
     }
     // A game's play page takes its ads from the switch. An app's try page (speedometer-wallpaper/play/) shows no ads
     // and loads no switch, so it needs no entry.
@@ -1158,6 +1197,22 @@ else {
       if (!existsSync(play) || !readFileSync(play, 'utf8').includes('/assets/web-ads.js')) continue
       if (!Object.hasOwn(games, dir)) report(WEB_ADS, 'web-ads', `no entry for ${dir}, whose play page (${dir}/play/) loads the switch`)
     }
+  }
+}
+
+// No file a blocker would drop (George, 27 Oct 2026: "Demo still not loading. Stays at 5% of loading."): Palermo's
+// demo shipped consent-banner-<hash>.js, Fanboy's cookie-notice list blocks "/consent-banner-", and the demo never
+// started for players with Brave, AdGuard or uBlock's annoyance filters on. Every file a page loads (scripts, styles,
+// pictures, sounds, fonts and data, the built games' too) is tried against the lists' rules that could reach our own
+// addresses (tools/blocker-rules.txt, tools/lib/blockers.mjs; node tools/update-blocker-rules.mjs refreshes them). A
+// hit gets another name: a built piece is named after its module, so rename the module or the build's chunk names.
+{
+  const rules = readRules(readFileSync(join(root, 'tools', 'blocker-rules.txt'), 'utf8'))
+  const shipped = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z'], { cwd: root, encoding: 'utf8' })
+    .split('\0').filter((f) => f && !f.startsWith('tools/') && existsSync(join(root, f)))
+  for (const file of shipped) {
+    const rule = blockedBy(file, rules)
+    if (rule) report(file, 'blockers', `${rule.list} drops it (${rule.text}): give it a name no blocker list matches`)
   }
 }
 

@@ -36,15 +36,26 @@
 
   // ---------- The playable board ----------
   // A board in wiki.json: { cols, rows, rocks: [[x, y]], portals: [{ cells: [[x, y], [x, y]], color, dots }],
-  // bombs: [{ id, cells, dir }], arrows: [{ id, cells, dir, color }], script: [{ hl | tap: id, say }] }.
-  // Cells run tail to head; dir is the head's direction (U, D, L, R).
+  // mirrors: [{ cell, slant: "/" | "\\" }], gates: [{ cell, color }], ice: [{ cell, count }],
+  // bombs: [{ id, cells, dir }], arrows: [{ id, cells, dir, color }], script: [{ hl | tap: id, say, step? }] }.
+  // Cells run tail to head; dir is the head's direction (U, D, L, R). A script line lights its step in the list beside
+  // the board: step (from 0), else the line's own place, or the last step.
+  // The rules are the game's (Exitwise Core: Board.WayIsClear and RemoveOne, PathTracer): a path stops at an arrow (its
+  // own body too), a rock (a bomb hits it), a closed gate of another colour (every gate stops a bomb) and ice; a mirror
+  // turns it 90 degrees and a portal carries it on from its twin. An arrow that passes a gate of its colour opens it for
+  // good, and every arrow that leaves counts each ice block down by one: at 0 it melts.
   const CELL = 40, PAD = 16, SW = 13
   const DIRS = { U: [0, -1, -90], D: [0, 1, 90], L: [-1, 0, 180], R: [1, 0, 0] }
+  const TURN = { '/': { R: 'U', U: 'R', L: 'D', D: 'L' }, '\\': { R: 'D', D: 'R', L: 'U', U: 'L' } }
+  // The mirror's pane, the ice block and the gate's block at the game's sizes (0.95, 0.93 and 0.86 of a cell; each
+  // picture fills 0.88 of its square).
+  const MIRROR = 43, ICE = 42, GATE = 39
   const COL = { red: '#FF6B6B', orange: '#FF922B', yellow: '#F2B705', green: '#3BB273', blue: '#1C9FD8', purple: '#8C5CF0' }
   const ctr = ([x, y]) => [PAD + x * CELL + CELL / 2, PAD + y * CELL + CELL / 2]
   const key = (c) => c[0] + ',' + c[1]
   const pts = (list) => list.map((p) => p.join(' ')).join(' L')
-  // The rock, bomb and portal are the game's own pictures (tools/make-wiki-pieces.py, the board's data-art folder).
+  // The rock, bomb, portal, mirror, ice and gates are the game's own pictures (tools/make-wiki-pieces.py, the board's
+  // data-art folder).
   const ART = document.querySelector('.w-play[data-art]')?.dataset.art || ''
   const ROCK = `<image href="${ART}board-rock.webp" width="48" height="48"/>`
   const HEAD = (c) => `<path d="M15 0 L-3 -11 L-3 11 Z" fill="${c}" stroke="${c}" stroke-width="4" stroke-linejoin="round"/>`
@@ -66,30 +77,59 @@
     const hearts = [...host.querySelectorAll('.w-heart')]
     const steps = [...host.closest('.w-how').querySelectorAll('.w-steps li')]
     const portalAt = (c) => { for (const p of b.portals || []) { const i = p.cells.findIndex((q) => q[0] === c[0] && q[1] === c[1]); if (i >= 0) return p.cells[1 - i] } return null }
-    let pieces, rocks, lives, busy, playing
-    const occupied = (except) => { const occ = new Map(); for (const [k] of rocks) occ.set(k, 'rock'); for (const p of pieces) if (p.alive && p !== except) p.cells.forEach((c) => occ.set(key(c), p.id)); return occ }
-    // The path from a head: through portals, until the edge or the first occupied cell.
-    function trace(from, dir, occ) {
-      let [x, y] = from
-      const [dx, dy] = DIRS[dir], route = [[ctr(from)]], cells = []
+    const mirrors = new Map((b.mirrors || []).map((m) => [key(m.cell), m.slant]))
+    let pieces, rocks, gates, ices, lives, busy, playing
+    const occupied = () => { const occ = new Map(); for (const [k] of rocks) occ.set(k, 'rock'); for (const p of pieces) if (p.alive) p.cells.forEach((c) => occ.set(key(c), p.id)); return occ }
+    // The path from a head of color (none for a bomb), through portals and round mirrors, until the edge or the first
+    // thing in its way; opens: the gates of its colour it passes, each with how far along the path it is.
+    function trace(from, dir, color, occ) {
+      let [x, y] = from, d = dir, along = 0
+      const route = [[ctr(from)]], cells = [], opens = []
       for (let n = 0; n < 60; n++) {
-        x += dx; y += dy
-        if (x < 0 || y < 0 || x >= b.cols || y >= b.rows) { const [cx, cy] = ctr([x, y]); route.at(-1).push([cx + dx * CELL * 3, cy + dy * CELL * 3]); return { route, cells, exit: true } }
+        const [dx, dy] = DIRS[d]
+        x += dx; y += dy; along += CELL
+        if (x < 0 || y < 0 || x >= b.cols || y >= b.rows) { const [cx, cy] = ctr([x, y]); route.at(-1).push([cx + dx * CELL * 3, cy + dy * CELL * 3]); return { route, cells, opens, exit: true } }
         const twin = portalAt([x, y])
         if (twin) { route.at(-1).push(ctr([x, y])); route.push([ctr(twin)]); [x, y] = twin; continue }
-        if (occ.has(key([x, y]))) { route.at(-1).push(ctr([x, y])); return { route, cells, blockedAt: [x, y], hit: occ.get(key([x, y])) } }
+        const k = key([x, y]), gate = gates.get(k)
+        if (occ.has(k) || ices.has(k) || (gate && gate.color !== color)) { route.at(-1).push(ctr([x, y])); return { route, cells, opens, blockedAt: [x, y], hit: occ.get(k) ?? (gate ? 'gate' : 'ice') } }
+        if (gate) opens.push({ k, gate, at: along })
+        if (mirrors.has(k)) d = TURN[mirrors.get(k)][d]
         cells.push([x, y]); route.at(-1).push(ctr([x, y]))
       }
-      return { route, cells }
+      return { route, cells, opens }
     }
+    // A gate pops open as its colour reaches it and is gone for good; a gate or ice block shakes when an arrow bumps
+    // into it; every arrow that leaves counts each ice block down (a pulse), and at 0 it melts (a squash). As the game's
+    // GateView and IceView do.
+    const pose = (x, extra = '') => { const [cx, cy] = ctr(x.cell); x.g.setAttribute('transform', `translate(${cx} ${cy})${extra}`) }
+    function openGate({ k, gate }) {
+      gates.delete(k)
+      tween(220, (q) => pose(gate, ` scale(${(1 + 0.35 * q) * (1 - q)})`)).then(() => gate.g.remove())
+    }
+    const shake = (x) => tween(300, (q) => { const [cx, cy] = ctr(x.cell); x.g.setAttribute('transform', `translate(${cx + Math.sin(q * Math.PI * 6) * 3 * (1 - q)} ${cy})`) })
+    const countDown = () => Promise.all([...ices].map(([k, ice]) => {
+      ice.count -= 1
+      if (ice.count > 0) {
+        ice.g.querySelector('text').textContent = ice.count
+        return tween(180, (q) => pose(ice, ` scale(${1 + 0.12 * Math.sin(q * Math.PI)})`))
+      }
+      ices.delete(k)
+      return tween(250, (q) => { const s = 1 - (q < 0.5 ? 2 * q * q : 1 - (2 - 2 * q) ** 2 / 2); pose(ice, ` scale(${1 + (1 - s) * 0.2} ${s})`) }).then(() => ice.g.remove())
+    }))
     function build() {
       const w = PAD * 2 + b.cols * CELL, h = PAD * 2 + b.rows * CELL
       svg.setAttribute('viewBox', `0 0 ${w} ${h}`)
       let s = `<rect x="3" y="3" width="${w - 6}" height="${h - 6}" rx="18" class="card"/>`
       for (let y = 0; y < b.rows; y++) for (let x = 0; x < b.cols; x++) { const [cx, cy] = ctr([x, y]); s += `<circle cx="${cx}" cy="${cy}" r="2.6" class="dot"/>` }
       for (const p of b.portals || []) for (const c of p.cells) { const [cx, cy] = ctr(c); s += `<image href="${ART}board-portal.webp" x="${cx - 19}" y="${cy - 19}" width="38" height="38"/>${p.dots === 1 ? `<circle cx="${cx}" cy="${cy}" r="3" fill="#fff"/>` : ''}` }
+      // A mirror lies under the arrows; its picture is a "/", turned over for a "\".
+      for (const m of b.mirrors || []) { const [cx, cy] = ctr(m.cell); s += `<image href="${ART}board-mirror.webp" x="${cx - MIRROR / 2}" y="${cy - MIRROR / 2}" width="${MIRROR}" height="${MIRROR}"${m.slant === '/' ? '' : ` transform="matrix(-1 0 0 1 ${cx * 2} 0)"`}/>` }
       svg.innerHTML = s
       rocks = new Map((b.rocks || []).map((r) => { const [cx, cy] = ctr(r); const g = el('g', { transform: `translate(${cx - 19} ${cy - 19}) scale(.79)` }, svg); g.innerHTML = ROCK; return [key(r), g] }))
+      const block = (x, html) => { const v = { ...x, g: el('g', {}, svg) }; v.g.innerHTML = html; pose(v); return [key(x.cell), v] }
+      gates = new Map((b.gates || []).map((x) => block(x, `<image href="${ART}board-gate-${x.color}.webp" x="${-GATE / 2}" y="${-GATE / 2}" width="${GATE}" height="${GATE}"/>`)))
+      ices = new Map((b.ice || []).map((x) => block(x, `<image href="${ART}board-ice.webp" x="${-ICE / 2}" y="${-ICE / 2}" width="${ICE}" height="${ICE}"/><text y="-2" class="ice-n">${x.count}</text>`)))
       pieces = [...(b.arrows || []), ...(b.bombs || [])].map((a) => {
         const name = a.color ? `${a.color} arrow` : 'bomb'
         const g = el('g', { class: 'piece', tabindex: 0, role: 'button', 'aria-label': `${name} pointing ${{ U: 'up', D: 'down', L: 'left', R: 'right' }[a.dir]}` }, svg)
@@ -107,7 +147,7 @@
     async function tap(p) {
       if (busy || !p.alive || lives <= 0) return
       busy = true
-      const t = trace(p.cells.at(-1), p.dir, occupied(p))
+      const t = trace(p.cells.at(-1), p.dir, p.color, occupied())
       const isBomb = !p.color, ok = t.exit || (isBomb && t.hit === 'rock')
       const body = (p.cells.length - 1) * CELL
       const segs = t.route.map((seg, i) => (i === 0 ? [...p.cells.map(ctr), ...seg.slice(1)] : seg))
@@ -119,11 +159,12 @@
         const path = el('path', { d, fill: 'none', stroke: col, 'stroke-width': isBomb ? 4.5 : SW, 'stroke-linecap': 'round', 'stroke-linejoin': 'round' }, p.g)
         return { path, under, len: path.getTotalLength() }
       })
-      const rot = DIRS[p.dir][2]
+      let rot = DIRS[p.dir][2]
       const head = el('g', {}, p.g); head.innerHTML = isBomb ? BOMB(rot) : HEAD(col)
       const tail = isBomb ? el('g', {}, p.g) : null
       if (tail) tail.innerHTML = SPARK
-      // along: how far the tail has moved. Each segment shows the part of the body that is on it.
+      // along: how far the tail has moved. Each segment shows the part of the body that is on it. The head faces the
+      // way its path goes on, so it turns with the path at a mirror.
       const place = (along) => {
         let c = 0
         for (const L of lines) {
@@ -132,7 +173,11 @@
         }
         let hd = along + body, i = 0
         while (i < lines.length - 1 && hd > lines[i].len) { hd -= lines[i].len; i++ }
-        const pt = lines[i].path.getPointAtLength(Math.max(0, Math.min(hd, lines[i].len)))
+        const L = lines[i], h = Math.max(0, Math.min(hd, L.len)), pt = L.path.getPointAtLength(h)
+        const [a, z] = h + 1 <= L.len ? [pt, L.path.getPointAtLength(h + 1)] : [L.path.getPointAtLength(Math.max(0, h - 1)), pt]
+        const r = a.x === z.x && a.y === z.y ? rot : Math.round(Math.atan2(z.y - a.y, z.x - a.x) * 180 / Math.PI)
+        if (isBomb && r !== rot) head.innerHTML = BOMB(r)
+        rot = r
         head.setAttribute('transform', `translate(${pt.x} ${pt.y}) rotate(${rot})`)
         if (tail) { const tp = lines[0].path.getPointAtLength(Math.max(0, Math.min(along, lines[0].len))); tail.setAttribute('transform', `translate(${tp.x} ${tp.y})`) }
       }
@@ -150,17 +195,26 @@
           await tween(420, (k) => { burst.setAttribute('transform', `translate(${cx} ${cy}) scale(${0.4 + k * 1.3})`); burst.style.opacity = String(1 - k * k); r.style.opacity = String(1 - k) })
           burst.remove(); r.remove()
         } else {
-          await tween(520 + total * 0.35, (k) => { place((total - body) * k * k); p.g.style.opacity = k < 0.75 ? '1' : String(1 - (k - 0.75) / 0.25) })
+          const opens = [...t.opens]
+          await tween(520 + total * 0.35, (k) => {
+            const along = (total - body) * k * k
+            place(along)
+            while (opens.length && along >= opens[0].at) openGate(opens.shift())
+            p.g.style.opacity = k < 0.75 ? '1' : String(1 - (k - 0.75) / 0.25)
+          })
           p.g.remove()
         }
+        await countDown()
         if (!playing) say.textContent = pieces.some((x) => x.alive) ? 'Nice. Which one next?' : 'Board clear!'
       } else {
         const push = t.cells.length * CELL + CELL * 0.3
+        const blocker = t.hit === 'gate' ? gates.get(key(t.blockedAt)) : t.hit === 'ice' ? ices.get(key(t.blockedAt)) : null
         p.g.querySelectorAll('path[stroke]').forEach((x) => { if (x.getAttribute('stroke') !== '#E9E3D8') x.setAttribute('stroke', '#FF5A6E') })
         lives -= 1
         hearts[lives]?.classList.add('lost')
         say.textContent = lives > 0 ? 'Blocked! That cost a heart.' : 'Out of hearts. Tap Reset.'
         await tween(120 + push * 0.4, (k) => place(push * k))
+        if (blocker) shake(blocker)
         await tween(300, (k) => place(push * (1 - k) * (1 - k)))
         p.g.innerHTML = staticPiece(p)
       }
@@ -170,7 +224,8 @@
       build(); playing = true
       for (let i = 0; i < (b.script || []).length; i++) {
         const st = b.script[i]
-        steps.forEach((x, j) => x.classList.toggle('on', j === Math.min(i, steps.length - 1)))
+        const on = st.step ?? Math.min(i, steps.length - 1)
+        steps.forEach((x, j) => x.classList.toggle('on', j === on))
         say.textContent = st.say
         const p = pieces.find((x) => x.id === (st.hl || st.tap))
         if (st.hl) { p.g.classList.add('pulse'); await wait(1400); p.g.classList.remove('pulse') }

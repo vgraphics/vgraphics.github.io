@@ -21,7 +21,7 @@
   },
   {
     "q": "Which styles are free?",
-    "a": "Classic, Steel and Graphite. Every other style is €2.39, once, or unlock them all for €5.99, including the styles still to come. Those are the prices with VAT in most of the euro area; Google Play shows the price in your country. On a new phone with the same Google account, the styles you bought come back by themselves."
+    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, a monthly or yearly subscription that also turns the app's ads off. On a new phone with the same Google account, the styles you bought come back by themselves."
   },
   {
     "q": "Do I need an account?",
@@ -38,5 +38,9 @@
   {
     "q": "What data does the app collect?",
     "a": "Very little. What the gauges read stays on your phone, and your location is used only for GPS speed. The app sends anonymous usage statistics and crash reports, and the banner's ads follow the consent choice you make. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
+  },
+  {
+    "q": "Do my settings follow me to my other devices?",
+    "a": "Yes, once you sign in to VHub, the free VGraphics account. Your speed unit, clock, seconds, vibration and every style you tweaked follow you to your next phone, and you can change the speed unit, the clock, the seconds and vibration from your VHub picture at the top right of this site too. Without an account they stay on the phone."
   }
 ]

@@ -22,8 +22,7 @@
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
 //   stores                       { googlePlay }: the store links the "google-play" badge points at
-//   hero                         { title?, lead, align: center | left, badges, facts?, art }: the key art and its foot;
-//                                facts: [{ value, label }], the product's key figures beside the lead
+//   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
 //                                or, on another page, { wiki: "<slug>", alt, position?, fade?, placeholder? }: that
@@ -36,11 +35,12 @@
 //                                side? }: a character beside the section's words (tools/make-cutouts.py), left or "right"
 //                                blocks: gallery, steps, cards (layout icon | media | side | tile; dense: true for a deck
 //                                of many small media cards, two to a row on phones, framed like playing cards; deck: true
-//                                for one row that scrolls sideways between two arrows), features (an item's value and
-//                                label: its key figure over its title), facts, actions, quote, chips, song, album, tour,
+//                                for one row that scrolls sideways between two arrows), features (items with a value and
+//                                label, their key figures, become tabs), facts, actions, quote, chips, song, album, tour,
 //                                soundtrack, journey, embed, document, links (icon chips to the product's other places),
 //                                reasons (a "why" section's points, each a card with its wiki page's painting),
-//                                try (the product's web version, tools/lib/try.mjs),
+//                                try (the product's web version, tools/lib/try.mjs), storybook (the game's own book,
+//                                exitwise/storybook),
 //                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
@@ -51,7 +51,7 @@
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, vhubEntry } from './lib/partials.mjs'
+import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
@@ -75,17 +75,15 @@ const image = (i, lazy = true) => (i.widths
 
 // The hero: the key art (or the page's own art) in the box every product page shares (tools/lib/hero.mjs), the lead
 // and the badges in its foot; overview: the landing page's full height. The painted title stands in for the h1, which
-// stays for screen readers and search. The product's key figures (hero.facts) stand beside the lead on wide screens
-// and in a line under the badges on narrow ones (George, 28 Oct 2026, picked "D. Facts on the first screen").
+// stays for screen readers and search. No key figures in it (George, 28 Oct 2026: "Remove hero facts", on every
+// product).
 function hero(p, overview) {
   const h = p.hero
-  const cls = [h.align === 'left' && 'foot-left', h.facts?.length && 'has-facts'].filter(Boolean).join(' ')
-  return heroSection(h.art, { overview, cls, attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
+  return heroSection(h.art, { overview, cls: h.align === 'left' ? 'foot-left' : '', attrs: ' aria-labelledby="title"', foot: `<div class="hero-foot">
         <div class="wrap">
           <h1 id="title" class="sr-only">${esc(h.title ?? p.site.name)}</h1>
           <p class="lead">${h.lead}</p>
-          ${h.badges?.length ? actions(p, h.badges) : ''}${h.facts?.length ? `
-          <ul class="hero-facts">${h.facts.map((f) => `<li><b>${f.value}</b><span>${f.label}</span></li>`).join('')}</ul>` : ''}
+          ${h.badges?.length ? actions(p, h.badges) : ''}
         </div>
       </div>` })
 }
@@ -147,8 +145,7 @@ function wikiAlbum(slug, from) {
 }
 
 // One renderer per block type. Items that take turns in the pack's swatches (steps, feature marks) get --c.
-// The quote's play button (a pause while it speaks) and the song button's note
-const PLAY_PAUSE = '<svg class="i-play" viewBox="0 0 24 24" aria-hidden="true"><path d="M8.2 5.3v13.4a1.2 1.2 0 0 0 1.8 1l10.4-6.7a1.2 1.2 0 0 0 0-2L10 4.3a1.2 1.2 0 0 0-1.8 1z"/></svg><svg class="i-pause" viewBox="0 0 24 24" aria-hidden="true"><rect x="5.6" y="4.6" width="4.6" height="14.8" rx="1.7"/><rect x="13.8" y="4.6" width="4.6" height="14.8" rx="1.7"/></svg>'
+// The song button's note
 const NOTE = '<svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M9 6.2l10-2.2v11.3h-2V7.1L11 8.4v9.1H9z"/><circle cx="6.5" cy="17.5" r="2.5"/><circle cx="16.5" cy="15.3" r="2.5"/></svg>'
 // The links block's icons, drawn in one line weight: a link's "icon" names one
 const line = (d) => `<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">${d}</svg>`
@@ -183,17 +180,9 @@ const BLOCKS = {
   }).join('\n          ')}
         </ul>`,
 
-  // A line said in the product, set large across the content's width, with a small play button after its last word
-  // when the page has the recording (assets/product.js plays it; listen is the button's name for screen readers):
-  // { type: "quote", text, by?, audio?, listen? }. George, 24 Oct 2026: "a small play/pause next to quotes".
-  quote: (b) => {
-    const cut = b.text.lastIndexOf(' ') + 1
-    const text = b.audio ? `${b.text.slice(0, cut)}<span class="quote-end">${b.text.slice(cut)}<button class="quote-play" type="button" data-voice="${esc(b.audio)}" aria-pressed="false" aria-label="${esc(b.listen ?? 'Listen')}">${PLAY_PAUSE}</button></span>` : b.text
-    return `<figure class="sec-quote">
-          <blockquote><p>${text}</p></blockquote>${b.by ? `
-          <figcaption>${b.by}</figcaption>` : ''}
-        </figure>`
-  },
+  // A line said in the product with a button to hear it, the piece a wiki entry's quote is too (tools/lib/partials.mjs):
+  // { type: "quote", text, by?, audio?, listen? }
+  quote: (b) => quote(b),
 
   // Small cards in a row under their label, each linking to its page (Palermo Noir's roles who act in a chapter):
   // { type: "chips", label, items: [{ title, image: { src, width, height }, href }] }
@@ -279,10 +268,22 @@ const BLOCKS = {
         ${arrow('next', 'Next cards')}</div>`
   },
 
-  features: (b, { theme }) => {
+  // A title and a line each, marked with the pack's glyph: { type: "features", items: [{ title, text }] }. When every
+  // item has its key figure (value, label), the figures are tabs and each one's words show alone under them
+  // (assets/product.js; George, 28 Oct 2026, picked "S4. Pick a figure" for Palermo's day and verdict).
+  features: (b, { theme }, s) => {
     const mark = theme.mark ? theme.mark.replace('<svg', '<svg class="mark" aria-hidden="true"') : ''
+    if (b.items.every((f) => f.value)) {
+      const id = (kind, i) => `${s.id}-${kind}-${i + 1}`
+      return `<div class="feat-tabs">
+          <div class="feat-tablist" role="tablist" aria-label="${esc(s.title)}">${b.items.map((f, i) => `<button type="button" role="tab" id="${id('tab', i)}" aria-controls="${id('figure', i)}" aria-selected="${i === 0}"${i ? ' tabindex="-1"' : ''}><strong>${f.value}</strong><small>${f.label}</small></button>`).join('')}</div>
+          <div class="feat-panels">
+          ${b.items.map((f, i) => `<div class="feat-panel${i ? '' : ' is-on'}" role="tabpanel" id="${id('figure', i)}" aria-labelledby="${id('tab', i)}"${i ? ' inert' : ''}>${mark}<div><h3>${f.title}</h3><p>${f.text}</p></div></div>`).join('\n          ')}
+          </div>
+        </div>`
+    }
     return `<ul class="features${b.items.length === 4 ? ' n4' : ''}">
-          ${b.items.map((f, i) => `<li${f.value ? ' class="has-fact"' : ''} style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${f.value ? `<span class="feat-fact"><strong>${f.value}</strong><small>${f.label}</small></span>` : ''}${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
+          ${b.items.map((f, i) => `<li style="--c: var(--swatch-${(i % theme.swatches.length) + 1})">${mark}<span><b>${f.title}</b>${f.text}</span></li>`).join('\n          ')}
         </ul>`
   },
 
@@ -318,6 +319,29 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
   news: (b, { dir, page }) => news(readNews(b, dir, page.site), b, page.site.name),
+
+  // The game's own storybook (b.book: the folder of its storybook.json and HTML reader, the web game's
+  // StreamingAssets/Storybook), read where it stands: the page holds the first chapter's lines and the chapter list as
+  // text, for search engines and readers without JavaScript, and assets/storybook.js swaps in the reader, opened with
+  // the visitor's progress from the web game on this site (localStorage b.progressKey). b.play is where a locked
+  // chapter's "Play to unlock" goes; b.audio, the folder of the music cues.
+  storybook: (b) => {
+    const file = join(root, b.book.replace(/^\//, ''), 'storybook.json')
+    if (!existsSync(file)) throw new Error(`${b.book}/storybook.json is missing: release the web game, which carries the book, before building this page`)
+    const book = JSON.parse(readFileSync(file, 'utf8'))
+    const [first, ...rest] = book.chapters
+    const lines = first.pages.flatMap((page) => page.panels).map((panel) => `<p>${esc(panel.line)}</p>`)
+    return `<div class="storybook" data-book="${esc(b.book)}" data-progress="${esc(b.progressKey)}" data-play="${esc(b.play)}"${b.audio ? ` data-audio="${esc(b.audio)}"` : ''}>
+          <div class="storybook-text">
+            <h3>${esc(first.title)}</h3>
+            ${lines.join('\n            ')}
+            <ol class="storybook-chapters">
+              ${rest.map((c) => `<li><b>${esc(c.label)}</b> ${esc(c.title)}</li>`).join('\n              ')}
+            </ol>
+            <a class="btn" href="${esc(b.play)}">Play to unlock the chapters</a>
+          </div>
+        </div>`
+  },
 
   // Numbered spots on a phone screen, each opening its part of the list (assets/faq.js; without JavaScript every part
   // stays open).
@@ -431,6 +455,7 @@ export function render(slug, sub) {
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
+  const book = blocks.find((b) => b.type === 'storybook')
   const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
@@ -474,7 +499,9 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="/assets/soundtrack.css">` : ''}${trial ? `
   <link rel="stylesheet" href="/assets/startup/startup.css">
   <link rel="stylesheet" href="/assets/switch.css">
-  <link rel="stylesheet" href="/assets/try/try.css">` : ''}${demoCss ? `
+  <link rel="stylesheet" href="/assets/try/try.css">` : ''}${book ? `
+  <link rel="stylesheet" href="/assets/storybook.css">
+  <link rel="stylesheet" href="${esc(book.book)}/reader/storybook.css">` : ''}${demoCss ? `
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
@@ -496,7 +523,9 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${trial ? `
   <script src="/assets/startup/startup.js" defer></script>
-  <script src="/assets/try/try.js" defer></script>` : ''}${beside('js').map((e) => `
+  <script src="/assets/try/try.js" defer></script>` : ''}${book ? `
+  <script src="${esc(book.book)}/reader/storybook.js" defer></script>
+  <script src="/assets/storybook.js" defer></script>` : ''}${beside('js').map((e) => `
   <script src="${e}.js" defer></script>`).join('')}
 </body>
 </html>

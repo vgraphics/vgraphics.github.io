@@ -1,6 +1,31 @@
 {
   "entries": [
     {
+      "version": "2.0.77bd3160",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Calls and messages no longer empty",
+      "items": [
+        "The Calls and messages gauge now shows a sample song and counts in every style you try, instead of looking empty."
+      ],
+      "commit": "77bd3160"
+    },
+    {
+      "version": "2.0.d8826043",
+      "date": "2026-10-28",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Settings apply to every style",
+      "items": [
+        "Changing the speed unit, clock or seconds now updates every style, including ones you've customized.",
+        "When you sign in, your settings follow you between the browser and the app."
+      ],
+      "commit": "d8826043"
+    },
+    {
       "version": "2.0.bc4c966a",
       "date": "2026-10-27",
       "platforms": [

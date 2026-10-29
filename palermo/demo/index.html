@@ -59,6 +59,11 @@
                 "@type": "Question",
                 "name": "How do we play it together?",
                 "acceptedAnswer": { "@type": "Answer", "text": "Each player needs a phone, and the room needs one screen everyone can see, such as a smart TV's browser or a laptop. The host opens a room, and the others join with its code." }
+              },
+              {
+                "@type": "Question",
+                "name": "Can I share how it went?",
+                "acceptedAnswer": { "@type": "Answer", "text": "Yes. At the end, Share the night draws a picture of your own secret card to post or send, and it never shows who the demo's killers were. In a real game every phone can also share the town paper, a film poster, the newsreel or the whole table." }
               }
             ]
           }
@@ -83,13 +88,15 @@
          (gate.ts) takes it off: until then, and for everyone it stays shut to, no About panel and no bar to it. */
       html.demo-private #about, html.demo-private .demo-about-bar { display: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/demo-C3xxL-wD.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/sound-zev-r8Xx.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/layout-DG32qqxY.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/part-Vlmikno_.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/private-CEVGFreG.js">
-    <link rel="stylesheet" crossorigin href="/palermo/game/sound-Bc6oq1Po.css">
-    <link rel="stylesheet" crossorigin href="/palermo/game/demo-wh96Hlog.css">
+    <script type="module" crossorigin src="/palermo/game/demo-BtLRiehJ.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-DMhEtDll.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/newsreel-BkefwUr6.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/private-BGoS6QiT.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/tv-sites-D2p4ze-l.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/spot-CGJupG4U.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-C1WXjlbV.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/newsreel-sE5nnSXv.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/demo-DOwosFGk.css">
   </head>
   <body>
     <!-- The start-up (D:\Projects\Mine\CLAUDE.md): the party games' shared welcome from vgraphics.gr/tv/start-up/, the
@@ -162,6 +169,7 @@
           <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.alone">Do I need friends or an account to try it?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.aloneText">No. The whole demo runs in this page, with a bot in every other seat. There's nothing to install and nothing to sign in to.</p></div></details>
           <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.real">Is this the real game?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.realText">The screens, the rules and the narrator are the real game's. Only the other players are bots, and the clock waits while the guide explains.</p></div></details>
           <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.friends">How do we play it together?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.friendsText">Each player needs a phone, and the room needs one screen everyone can see, such as a smart TV's browser or a laptop. The host opens a room, and the others join with its code.</p></div></details>
+          <details class="faq-item demo-about-card"><summary><span data-about="pal.demo.about.faq.share">Can I share how it went?</span><svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p data-about="pal.demo.about.faq.shareText">Yes. At the end, Share the night draws a picture of your own secret card to post or send, and it never shows who the demo's killers were. In a real game every phone can also share the town paper, a film poster, the newsreel or the whole table.</p></div></details>
         </div>
       </section>
     </section>
@@ -176,7 +184,7 @@
          legal line. The site's files, by their addresses on vgraphics.gr. In the page's HTML, in English: about.ts puts
          the links in the page's language, and the kit's LegalLine the legal line. Hidden during the game. -->
     <footer id="party-legal" class="party-legal foot has-art">
-      <div class="foot-art" style="--foot-at: 55% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/palermo/img/footer-960.avif 960w, /palermo/img/footer-1440.avif 1440w, /palermo/img/footer-1920.avif 1920w, /palermo/img/footer-2560.avif 2560w, /palermo/img/footer-3200.avif 3200w, /palermo/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 400px) * 2.36))" /><img src="/palermo/img/footer-4096.webp" srcset="/palermo/img/footer-960.webp 960w, /palermo/img/footer-1440.webp 1440w, /palermo/img/footer-1920.webp 1920w, /palermo/img/footer-2560.webp 2560w, /palermo/img/footer-3200.webp 3200w, /palermo/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 400px) * 2.36))" alt="" width="4096" height="1738" loading="lazy" decoding="async" /></picture></div>
+      <div class="foot-art" style="--foot-at: 55% 50%" aria-hidden="true"><picture><source type="image/avif" srcset="/palermo/img/footer-960.avif 960w, /palermo/img/footer-1440.avif 1440w, /palermo/img/footer-1920.avif 1920w, /palermo/img/footer-2560.avif 2560w, /palermo/img/footer-3200.avif 3200w, /palermo/img/footer-4096.avif 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 640px) * 2.36))" /><img src="/palermo/img/footer-4096.webp" srcset="/palermo/img/footer-960.webp 960w, /palermo/img/footer-1440.webp 1440w, /palermo/img/footer-1920.webp 1920w, /palermo/img/footer-2560.webp 2560w, /palermo/img/footer-3200.webp 3200w, /palermo/img/footer-4096.webp 4096w" sizes="max(100vw, calc((clamp(170px, 21vw, 420px) + 640px) * 2.36))" alt="" width="4096" height="1738" loading="lazy" decoding="async" /></picture></div>
       <div class="wrap">
         <a class="foot-brand" href="/palermo/"><img class="logo" src="/palermo/assets/logo-600.webp" srcset="/palermo/assets/logo-300.webp 300w, /palermo/assets/logo-600.webp 600w" sizes="230px" alt="Palermo Noir" width="99" height="48" loading="lazy" /></a>
         <nav class="foot-links" aria-label="Palermo Noir">

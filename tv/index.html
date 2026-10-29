@@ -24,15 +24,16 @@
       html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
       /* Where the VGraphics intro plays, over the whole screen; it lets clicks through once it's gone. */
       #intro-box { position: fixed; top: 0; right: 0; bottom: 0; left: 0; z-index: 50; pointer-events: none; }
-      /* The company's legal line, the site's rule for every page: fine print along the screen's foot, under the band. */
+      /* The company's legal line, the site's rule for every page: fine print along the screen's foot until the door draws,
+         which then gives it a row of its own at the foot of its stage (door.tsx, DoorLegal), so nothing sits on it. */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
         color: rgba(244, 240, 232, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
     </style>
-    <script type="module" crossorigin src="/party-doors/tv-BqYMmQqJ.js"></script>
-    <link rel="modulepreload" crossorigin href="/party-doors/games--kFJdrR6.js">
-    <link rel="modulepreload" crossorigin href="/party-doors/door-CPq93CL3.js">
-    <link rel="stylesheet" crossorigin href="/party-doors/door-CJTVGNT8.css">
+    <script type="module" crossorigin src="/party-doors/tv-tXkV2AIv.js"></script>
+    <link rel="modulepreload" crossorigin href="/party-doors/games-DGOGcB6S.js">
+    <link rel="modulepreload" crossorigin href="/party-doors/door-D5fvT6po.js">
+    <link rel="stylesheet" crossorigin href="/party-doors/door-CIPrxz14.css">
   </head>
   <body>
     <div id="app"></div>
