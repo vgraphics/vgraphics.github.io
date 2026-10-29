@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.9d881213",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "First bump free after ward moves",
+      "items": [
+        "After the ward moves, your first bump into it is free — no lost heart, and your combo keeps going",
+        "The game page is now just the game with no scrolling, and About has moved to a link in the bar"
+      ],
+      "commit": "9d881213"
+    },
+    {
       "version": "1.0.27",
       "date": "2026-10-29",
       "platforms": [
