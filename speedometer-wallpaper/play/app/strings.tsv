@@ -399,6 +399,8 @@ screen__access__title	Music, calls and messages
 screen__access__top_bar__title	Notification access
 screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song and counts missed calls and messages.
 screen__account__bonus_line	Sign in and pick a premium style, free
+screen__account__delete_wrong_account__message	That's a different Google account. Your VHub account signs in with %1$s: choose that one.
+screen__account__delete_wrong_account_no_email__message	That's a different Google account. Choose the Google account your VHub account signs in with.
 screen__account__failed__message	That didn't work. Try again.
 screen__account__free_style__button	Keep %1$s
 screen__account__free_style__chip	Free for you
@@ -457,8 +459,8 @@ screen__app_settings__copy_confirm__message	Every style gets %1$s's big gauge, u
 screen__app_settings__copy_confirm__title	Copy to all styles?
 screen__app_settings__copy_source_sheet__subtitle	Pick the style whose settings every style gets.
 screen__app_settings__copy_source_sheet__title	Copy settings from
-screen__app_settings__foot__no_version	© G. Vergidis · VGraphics
-screen__app_settings__foot__version	Version %1$s · © G. Vergidis · VGraphics
+screen__app_settings__foot__no_version	© VGraphics
+screen__app_settings__foot__version	Version %1$s · © VGraphics
 screen__app_settings__gps_blocked__button_open_settings__label	Open settings
 screen__app_settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
 screen__app_settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
@@ -480,6 +482,7 @@ screen__app_settings__motion__smooth	Smooth
 screen__app_settings__motion__smooth_note	Your screen's full rate while a needle moves, nothing while they're still. Android's Battery saver switches to Saver.
 screen__app_settings__motion__title	Motion and battery
 screen__app_settings__no_browser__message	No app on this phone can open that page.
+screen__app_settings__pass_not_on_sale__message	Speedometer Plus isn't on sale on Google Play yet. Try again later.
 screen__app_settings__pass_on__message	Speedometer Plus is on. Every style is yours.
 screen__app_settings__pass_pending__message	Payment pending. Speedometer Plus starts when it goes through.
 screen__app_settings__play_unavailable__message	Google Play isn't available right now.
@@ -493,6 +496,8 @@ screen__app_settings__row_ad_choices__subtitle	Change what you agreed to for ads
 screen__app_settings__row_ad_choices__title	Ad choices
 screen__app_settings__row_clock__summary	%1$s · %2$s
 screen__app_settings__row_clock__title	Clock
+screen__app_settings__row_company__subtitle	VGraphics' company information and contact
+screen__app_settings__row_company__title	Company
 screen__app_settings__row_copy__subtitle	Use one style's settings everywhere
 screen__app_settings__row_copy__title	Copy settings to all styles
 screen__app_settings__row_gps__allowed	Precise location · allowed
@@ -622,7 +627,7 @@ screen__guide__tile__row_title	Swipe down and tap Big gauge
 screen__guide__top_bar__title	Guide
 screen__guide__widgets__body	Add widgets to any style in its layout builder: your trip, top speed and 0–100, the compass and altitude, the sun, moon and weather, your steps, the next alarm and more. Each one reads only while it's on your wallpaper.
 screen__guide__widgets__credit	Weather data from MET Norway (api.met.no), under the Norwegian Licence for Open Government Data and CC BY 4.0.
-screen__guide__widgets__settings	Pick the second clock's city, your step goal and the tilt's level in App settings, under Widgets. The music buttons work where your home screen passes taps to the wallpaper; Samsung's home screen doesn't.
+screen__guide__widgets__settings	Pick the second clock's city, your step goal and the tilt's level in App settings, under Widgets. Tap the music buttons on your home screen to play, pause or skip, on Samsung's home screen too. Keep app icons off them, so a tap there doesn't open an app instead.
 screen__guide__widgets_day__subtitle	Read on your phone and never sent anywhere
 screen__guide__widgets_day__title	Steps, alarm and calendar
 screen__guide__widgets_drive__subtitle	From GPS, like GPS speed. Nothing leaves your phone.
@@ -647,7 +652,7 @@ screen__home__button_settings__subtitle	Gauges, date, time and leds
 screen__home__button_settings__title	SETTINGS
 screen__home__button_styles__label	Styles
 screen__home__button_wallpaper_on__label	On your home screen
-screen__home__footer	© G. Vergidis · VGraphics
+screen__home__footer	© VGraphics
 screen__home__logo__content_description	Speedometer Live Wallpaper by VGraphics
 screen__home__now_showing__click_label	Open this style
 screen__home__now_showing__live	· live
@@ -744,6 +749,7 @@ screen__layout_editor__smaller__label	Make smaller
 screen__market__button_publish__label	Publish a layout
 screen__market__button_retry__label	Try again
 screen__market__button_sign_in__label	Sign in
+screen__market__card_featured	Layout of the week
 screen__market__card_made_with	Made with %1$s
 screen__market__card_meta	%1$s · %2$s
 screen__market__card_no_ratings	No ratings yet
@@ -1033,6 +1039,8 @@ screen__styles__hero__kicker	On your wallpaper
 screen__styles__market__subtitle	Layouts made by players, in any style
 screen__styles__market__title	Layout market
 screen__styles__message_failed	The purchase didn't go through.
+screen__styles__message_not_on_sale	%1$s isn't on sale on Google Play yet. Try again later.
+screen__styles__message_pass_not_on_sale	Speedometer Plus isn't on sale on Google Play yet. Try again later.
 screen__styles__message_pass_on	Speedometer Plus is on: every style is yours.
 screen__styles__message_pass_on_style	Speedometer Plus is on. %1$s is on your wallpaper.
 screen__styles__message_pass_pending	Payment pending. Speedometer Plus starts when it goes through.

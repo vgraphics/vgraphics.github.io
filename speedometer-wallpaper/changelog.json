@@ -4,7 +4,8 @@
       "version": "2.0.7",
       "date": "2026-10-29",
       "platforms": [
-        "Android"
+        "Android",
+        "Web"
       ],
       "title": "Build your own layout",
       "items": [
