@@ -384,6 +384,8 @@ async function account(site, me, uid) {
   const pic = el("span", { class: "vm-pic", "aria-hidden": "true" });
   void vhubAvatars().then((pictures) => pictures?.draw(pic, { uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256));
   const level = me?.level ?? profile?.level ?? 1;
+  // VHub's levelProgress: { level, into, needed, next }, where next is the total XP the next level starts at, not its
+  // number (29 Oct: "Level 37 · 740 XP to level 17020").
   let next = null;
   if (typeof site.level === "function" && typeof me?.xp === "number") next = await site.level(me.xp).catch(() => null);
   const bar = next ? Math.max(0, Math.min(1, next.into / Math.max(1, next.needed))) : null;
@@ -395,7 +397,7 @@ async function account(site, me, uid) {
       "div",
       { class: "vm-who" },
       el("b", { class: "vm-name" }, me?.name || profile?.name || window.VHubAvatars?.anonymous(uid) || ""),
-      el("span", { class: "vm-level" }, next ? `${t.level(level)} · ${t.toNext(next.needed - next.into, next.next)}` : t.level(level)),
+      el("span", { class: "vm-level" }, next ? `${t.level(level)} · ${t.toNext(next.needed - next.into, next.level + 1)}` : t.level(level)),
       bar === null ? null : el("span", { class: "vm-bar" }, el("span", { style: `width: ${Math.round(bar * 100)}%` })),
     ),
   );
