@@ -7,6 +7,8 @@
 // The questions come from the block's items in page.json, or from the file its src names beside page.json (faq.json):
 // [{ q, a }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them. Words about the
 // product's demo in an answer, <span data-demo>…</span>, are left out while the demo is private (partials.mjs demoText).
+// A block with "schema": false shows its questions without the FAQPage data (an About page's: the landing page's
+// questions are the product's FAQPage, and the About page asks other ones).
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { demoText, esc, ICONS } from './partials.mjs'

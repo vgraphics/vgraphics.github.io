@@ -1427,6 +1427,32 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .faq-item > summary { padding-inline: 16px; font-size: 1rem; }
   .faq-a { padding-inline: 16px; }
 }
+/* A product screen (page.json "screen", tools/build-pages.mjs: the try page): the product alone, with nothing to scroll
+   (George, 29 Oct 2026: "When we play we play. No scroll needed."; D:\Projects\Mine\CLAUDE.md, "Play and try pages are
+   the product alone"). The header, the product filling the rest of the window and the slim bar under it
+   (tools/lib/partials.mjs screenBar) are the window's height; only a box of the product's own may scroll inside it, as
+   a long list's box does (the try panel). Its words about the product are on its About page, which the menu and the
+   bar link. */
+html.screen, html.screen body { height: 100%; overflow: hidden; overscroll-behavior: none; }
+html.screen body { display: flex; flex-direction: column; height: 100vh; height: 100dvh; }
+html.screen .top { position: relative; flex: none; }
+.screen-main { flex: 1 1 auto; min-height: 0; display: grid; padding: 12px clamp(16px, 3vw, 40px); overflow: hidden; }
+.screen-bar {
+  flex: none; display: flex; align-items: center; gap: 16px; min-height: 40px;
+  padding: 0 clamp(16px, 3vw, 40px) env(safe-area-inset-bottom, 0px);
+  border-top: 1px solid var(--line); background: var(--surface);
+  font: 600 0.82rem/1 var(--font-body); white-space: nowrap; overflow: hidden;
+}
+.screen-bar a { padding: 8px 0; color: var(--ink); text-decoration: none; }
+.screen-bar a:hover { text-decoration: underline; }
+/* The legal line gives way first when the row runs short: on phones it keeps "© <year> VGraphics". */
+.screen-bar .legal { min-width: 0; margin-left: auto; overflow: hidden; text-overflow: ellipsis; color: var(--muted); font-weight: 500; }
+.screen-bar .legal a { color: inherit; font-weight: inherit; }
+@media (max-width: 640px) {
+  .screen-bar { gap: 12px; padding-inline: 12px; }
+  .screen-bar .legal .long { display: none; }
+}
+
 /* The menu folded (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a burger menu.";
    26 Oct 2026: "Map rules - always single line menu items."): the row shows every link and the play button with its
    words wherever they fit beside the logo, drawn closer (.compact) where they only just would. On phones (below 561px)

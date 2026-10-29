@@ -29,9 +29,10 @@
         "exitwise/wiki/img/art/how-to-play",
         "exitwise/wiki/img/art/how-to-play-tall"
       ],
-      "todo": "The wiki entry keeps it. To do (Recraft): a stage of its own, wide and tall, behind the landing page's demo (#how).",
+      "todo": "The wiki entry keeps it. To do (Recraft): a stage of its own, wide and tall, behind the landing page's demo (#how), and a hero of its own, wide and tall, for the About page (/exitwise/about/, 29 Oct 2026, which borrows it until then).",
       "places": [
         "/exitwise/#how",
+        "/exitwise/about/ hero",
         "/exitwise/wiki/how-to-play/ hero"
       ]
     },
@@ -63,13 +64,13 @@
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"
       ],
-      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for /play/, /l/, the layout market (/layouts/) and creator pages (/creators/), and for every style page, made before the 19-style release publishes them.",
+      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for the About page (/about/, which took the try page's place on 29 Oct 2026, when the try page lost its hero), /l/, the layout market (/layouts/) and creator pages (/creators/), and for every style page, made before the 19-style release publishes them.",
       "places": [
         "/speedometer-wallpaper/ hero",
+        "/speedometer-wallpaper/about/ hero",
         "/speedometer-wallpaper/creators/ hero",
         "/speedometer-wallpaper/l/ hero",
         "/speedometer-wallpaper/layouts/ hero",
-        "/speedometer-wallpaper/play/ hero",
         "/speedometer-wallpaper/styles/amber-night/ hero",
         "/speedometer-wallpaper/styles/aura/ hero",
         "/speedometer-wallpaper/styles/carbon/ hero",

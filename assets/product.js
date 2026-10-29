@@ -430,10 +430,12 @@
     sky.dataset.now = kind;
   }
 
-  // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled).
+  // The header turns into a frosted bar once the page leaves its very top (assets/product.css, .top.scrolled); on a
+  // product screen (html.screen, the try page), which has nothing to scroll and no art behind it, it is the bar always.
   const top = document.querySelector(".top");
   if (top) {
-    const update = () => top.classList.toggle("scrolled", scrollY > 8);
+    const screen = document.documentElement.classList.contains("screen");
+    const update = () => top.classList.toggle("scrolled", screen || scrollY > 8);
     addEventListener("scroll", update, { passive: true });
     update();
   }

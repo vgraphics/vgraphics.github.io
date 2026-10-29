@@ -63,6 +63,7 @@
     "parent": { "name": "Games", "href": "/games/" },
     "nav": [
       { "label": "Overview", "href": "/exitwise/" },
+      { "label": "About", "href": "/exitwise/about/" },
       { "label": "Wiki", "href": "/exitwise/wiki/" },
       { "label": "Ranking", "href": "/exitwise/ranking/" },
       { "label": "Storybook", "href": "/exitwise/storybook/", "wide": true },
@@ -258,7 +259,8 @@
       "id": "faq",
       "title": "Questions and answers",
       "intro": "Quick answers about playing, saving and staying free. The <a href=\"/exitwise/wiki/\">wiki</a> has every obstacle and powerup.",
-      "blocks": [{ "type": "faq", "src": "faq.json" }]
+      "blocks": [{ "type": "faq", "src": "faq.json" }],
+      "more": { "href": "/exitwise/about/", "label": "All about Exitwise on one page →" }
     }
   ],
   "cta": {

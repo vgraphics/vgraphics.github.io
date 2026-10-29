@@ -1,11 +1,11 @@
 // The legal line by kind of page (tools/lib/legal.mjs; George, 29 Oct 2026: "These are only required at the website not
 // in the apps. Apps just can say VGraphics."): which addresses are a product's screens, what each kind of page must and
-// must not show, the company footer's product version, and the template's footer on a landing page and a try page.
+// must not show, the company footer's product version, the template's footer on a landing page and a try page's bar.
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { isProductScreen, legalProblems, PRODUCT_LEGAL, productFoot } from '../lib/legal.mjs'
-import { footer, LEGAL } from '../lib/partials.mjs'
+import { footer, LEGAL, screenBar } from '../lib/partials.mjs'
 import { loadProduct, loadSubpage } from '../lib/product.mjs'
 
 const FULL = '<p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>'
@@ -46,9 +46,10 @@ test('the company footer\'s product version swaps only its legal paragraph', () 
   assert.equal(productFoot(foot.replace('© 2026', '&copy; 2026')), productFoot(foot))
 })
 
-test('the template writes the full line on a landing page and the short one on a try page', () => {
+test('the template writes the full line on a landing page and the short one in a try page\'s bar', () => {
   const landing = footer(loadProduct('speedometer-wallpaper'))
   assert.ok(landing.includes(LEGAL) && !landing.includes(PRODUCT_LEGAL))
-  const play = footer(loadSubpage('speedometer-wallpaper', 'play'))
-  assert.ok(play.includes(`<p class="legal">${PRODUCT_LEGAL}`) && !play.includes('G.E.MI.'))
+  const play = screenBar(loadSubpage('speedometer-wallpaper', 'play'))
+  assert.ok(play.includes(`<span class="legal">${PRODUCT_LEGAL}`) && !play.includes('G.E.MI.'))
+  assert.deepEqual(legalProblems('/speedometer-wallpaper/play/', play), [])
 })

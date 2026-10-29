@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="en">
+<html lang="en" class="screen">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -95,58 +95,7 @@
   ]
 }
   </script>
-  <script type="application/ld+json">
-{
-  "@context": "https://schema.org",
-  "@type": "FAQPage",
-  "mainEntity": [
-    {
-      "@type": "Question",
-      "name": "Will the app look exactly like this?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Yes. This page runs the same drawing code as the app, checked picture by picture against the app's own screenshots, so a style you like here looks the same behind your icons."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Does the demo use my location?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Only after you tap Use my real speed and allow it when your browser asks. Your speed is worked out on this page and never sent anywhere, and Back to the demo drive stops it."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Do I need an account?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. The app works without one. Signing in with a free VHub account is optional: your settings then follow you to every phone you sign in on, and you can share your own layouts in the market."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "What does a premium style cost?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "Its price shows beside its name in the panel above. You pay once on Google Play, and the style stays yours on every phone signed in to the same Google account."
-      }
-    },
-    {
-      "@type": "Question",
-      "name": "Is there an iPhone version?",
-      "acceptedAnswer": {
-        "@type": "Answer",
-        "text": "No. iPhones don't let apps draw a live wallpaper, so Speedometer is for Android only: phones, tall Flip screens, foldables and tablets."
-      }
-    }
-  ]
-}
-  </script>
   <link rel="preload" href="/speedometer-wallpaper/fonts/saira-condensed-800.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" as="image" type="image/avif" media="(max-aspect-ratio: 4/5)" imagesrcset="/speedometer-wallpaper/img/key-art-tall-480.avif 480w, /speedometer-wallpaper/img/key-art-tall-720.avif 720w, /speedometer-wallpaper/img/key-art-tall-1080.avif 1080w, /speedometer-wallpaper/img/key-art-tall-1440.avif 1440w" imagesizes="100vw" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 4/5) and (max-aspect-ratio: 2/1)" imagesrcset="/speedometer-wallpaper/img/key-art-960.avif 960w, /speedometer-wallpaper/img/key-art-1440.avif 1440w, /speedometer-wallpaper/img/key-art-1920.avif 1920w, /speedometer-wallpaper/img/key-art-2560.avif 2560w, /speedometer-wallpaper/img/key-art-3200.avif 3200w" imagesizes="max(100vw, min(111vw, 178vh))" fetchpriority="high">
-  <link rel="preload" as="image" type="image/avif" media="(min-aspect-ratio: 2/1)" imagesrcset="/speedometer-wallpaper/img/key-art-ultra-1920.avif 1920w, /speedometer-wallpaper/img/key-art-ultra-2560.avif 2560w, /speedometer-wallpaper/img/key-art-ultra-3200.avif 3200w" imagesizes="100vw" fetchpriority="high">
   <link rel="stylesheet" href="/speedometer-wallpaper/theme/theme.css">
   <link rel="stylesheet" href="/assets/product.css">
   <link rel="stylesheet" href="/assets/cursors.css">
@@ -156,11 +105,12 @@
 </head>
 <body>
   <a class="skip" href="#main">Skip to content</a>
-  <header class="top">
+  <header class="top scrolled">
     <a class="product-name" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="36" height="36"><span>Speedometer Live Wallpaper</span></a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav class="subnav" id="site-menu" aria-label="Speedometer Live Wallpaper">
       <a href="/speedometer-wallpaper/">Overview</a>
+      <a href="/speedometer-wallpaper/about/">About</a>
       <a href="/speedometer-wallpaper/layouts/">Layouts</a>
       <a href="/speedometer-wallpaper/wiki/">Wiki</a>
       <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
@@ -169,35 +119,10 @@
     <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
   </header>
 
-  <main id="main">
-    <section class="key-art is-page foot-left" style="--art-at: 50% 22%; --art-fade: 78%; --art-fade-tall: 76%; --art-placeholder: linear-gradient(160deg, #1B3550, #0D1622 55%, #0B0B0C)" aria-labelledby="title">
-      <picture>
-        <source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="/speedometer-wallpaper/img/key-art-tall-480.avif 480w, /speedometer-wallpaper/img/key-art-tall-720.avif 720w, /speedometer-wallpaper/img/key-art-tall-1080.avif 1080w, /speedometer-wallpaper/img/key-art-tall-1440.avif 1440w" sizes="100vw" width="1440" height="2560">
-        <source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="/speedometer-wallpaper/img/key-art-tall-480.webp 480w, /speedometer-wallpaper/img/key-art-tall-720.webp 720w, /speedometer-wallpaper/img/key-art-tall-1080.webp 1080w, /speedometer-wallpaper/img/key-art-tall-1440.webp 1440w" sizes="100vw" width="1440" height="2560">
-        <source media="(max-aspect-ratio: 4/5)" srcset="/speedometer-wallpaper/img/key-art-tall-1080.jpg 1080w" sizes="100vw" width="1440" height="2560">
-        <source media="(min-aspect-ratio: 2/1)" type="image/avif" srcset="/speedometer-wallpaper/img/key-art-ultra-1920.avif 1920w, /speedometer-wallpaper/img/key-art-ultra-2560.avif 2560w, /speedometer-wallpaper/img/key-art-ultra-3200.avif 3200w" sizes="100vw" width="3200" height="1325">
-        <source media="(min-aspect-ratio: 2/1)" type="image/webp" srcset="/speedometer-wallpaper/img/key-art-ultra-1920.webp 1920w, /speedometer-wallpaper/img/key-art-ultra-2560.webp 2560w, /speedometer-wallpaper/img/key-art-ultra-3200.webp 3200w" sizes="100vw" width="3200" height="1325">
-        <source type="image/avif" srcset="/speedometer-wallpaper/img/key-art-960.avif 960w, /speedometer-wallpaper/img/key-art-1440.avif 1440w, /speedometer-wallpaper/img/key-art-1920.avif 1920w, /speedometer-wallpaper/img/key-art-2560.avif 2560w, /speedometer-wallpaper/img/key-art-3200.avif 3200w" sizes="max(100vw, min(111vw, 178vh))" width="1920" height="1080">
-        <source type="image/webp" srcset="/speedometer-wallpaper/img/key-art-960.webp 960w, /speedometer-wallpaper/img/key-art-1440.webp 1440w, /speedometer-wallpaper/img/key-art-1920.webp 1920w, /speedometer-wallpaper/img/key-art-2560.webp 2560w, /speedometer-wallpaper/img/key-art-3200.webp 3200w" sizes="max(100vw, min(111vw, 178vh))" width="1920" height="1080">
-        <img src="/speedometer-wallpaper/img/key-art-1920.jpg" srcset="/speedometer-wallpaper/img/key-art-960.jpg 960w, /speedometer-wallpaper/img/key-art-1920.jpg 1920w" sizes="max(100vw, min(111vw, 178vh))" width="1920" height="1080" fetchpriority="high" alt="Speedometer Live Wallpaper on a phone in a car's dashboard mount at night: the Amber Night gauges at 87 km/h, with rain on the windscreen, city lights and tail-light trails behind">
-      </picture>
-      <div class="hero-foot">
-        <div class="wrap">
-          <h1 id="title" class="sr-only">Try Speedometer Live Wallpaper online</h1>
-          <p class="lead">Your phone's dashboard, <em>live in your browser.</em></p>
-          <div class="badges"><a class="btn" href="#try">Start the live demo<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg></a><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>
-        </div>
-      </div>
-    </section>
+  <main id="main" class="screen-main">
+    <h1 class="sr-only">Try Speedometer Live Wallpaper online</h1>
 
-    <section class="sec" id="try" aria-labelledby="try-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">Live demo</span>
-          <h2 id="try-title">Try the car dashboard wallpaper<a class="anchor" href="#try" aria-label="Copy the link to Try the car dashboard wallpaper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-          <p class="sec-intro">This is the real live wallpaper: the code that draws it on your phone draws it here. Pick a style, try its layouts and colours, change the settings and tap the big gauge. The premium styles are fully live too.</p>
-        </div>
-        <div class="try" data-state="idle">
+    <div class="try" data-state="idle">
           <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=try_online","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":{"base":"/assets/startup/","minMs":2000,"art":{"tall":{"src":"/speedometer-wallpaper/img/key-art-tall","widths":[480,720,1080,1440]},"wide":{"src":"/speedometer-wallpaper/img/key-art","widths":[960,1440,1920,2560,3200]}},"tip":"dial"},"layouts":"/speedometer-wallpaper/market/market.js"}</script>
           <div class="try-stage">
             <div class="try-device" data-orientation="portrait">
@@ -216,7 +141,7 @@
               <button class="try-tool" type="button" data-action="fullscreen" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9V4h5M20 9V4h-5M4 15v5h5M20 15v5h-5"/></svg><span>Full screen</span></button>
             </div>
           </div>
-          <div class="try-panel">
+          <div class="try-panel fade-edges">
             <div class="try-now">
               <button class="try-step" type="button" data-action="prev" aria-label="The style before"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15 5l-7 7 7 7"/></svg></button>
               <div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>
@@ -264,114 +189,13 @@
             <div class="try-consent-buttons"><button type="button" data-answer="denied">No, thanks</button><button class="allow" type="button" data-answer="granted">Yes</button></div>
           </div>
         </div>
-        
-      </div>
-    </section>
-
-    <section class="sec" id="real" aria-labelledby="real-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">Real or demo</span>
-          <h2 id="real-title">Real readings, where your browser has them<a class="anchor" href="#real" aria-label="Copy the link to Real readings, where your browser has them"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-          <p class="sec-intro">The demo feeds the wallpaper the same readings your phone would, through the app's own code, so units, clocks and warning lights behave as they do in the app.</p>
-        </div>
-        <ul class="features n4">
-          <li style="--c: var(--swatch-1)"><span><b>The clock</b>Your browser's own time, in your time zone, with your 12 or 24-hour clock.</span></li>
-          <li style="--c: var(--swatch-2)"><span><b>Your battery</b>Its level and charging, in Chrome, Edge and Samsung Internet. Safari and Firefox show the demo's.</span></li>
-          <li style="--c: var(--swatch-3)"><span><b>Your real speed</b>Tap Use my real speed and allow your location. It stays in your browser. Watch it only as a passenger.</span></li>
-          <li style="--c: var(--swatch-1)"><span><b>A demo drive for the rest</b>Power, CPU clock, RAM, signal, Bluetooth and the music come from a 26-second drive, as in the app's previews.</span></li>
-        </ul>
-        
-      </div>
-    </section>
-
-    <section class="sec" id="about" aria-labelledby="about-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">About the app</span>
-          <h2 id="about-title">About Speedometer Live Wallpaper<a class="anchor" href="#about" aria-label="Copy the link to About Speedometer Live Wallpaper"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-          <p class="sec-intro">Speedometer Live Wallpaper turns an Android home screen into a working car dashboard. It isn't a picture: the needles follow what your phone is really doing, from the power flowing into or out of its battery to the processor's clock speed or, on the road, your GPS speed. It runs on Android 8.0 or newer, on phones, foldables and tablets.</p>
-        </div>
-        <ul class="features n4">
-          <li style="--c: var(--swatch-1)"><span><b>One dial, three readings</b>Battery power in watts, the processor's clock or GPS speed in km/h or mph. A tap on the home screen moves the dial to the next one.</span></li>
-          <li style="--c: var(--swatch-2)"><span><b>Gauges all around it</b>Battery level and temperature, memory in use, mobile signal, Wi-Fi and its link speed, a clock and a date, and warning lights for Bluetooth, charging and heat.</span></li>
-          <li style="--c: var(--swatch-3)"><span><b>Layouts of your own</b>Drag and resize any style's gauges and keep the arrangement, or open the layout market and use one that another driver built.</span></li>
-          <li style="--c: var(--swatch-1)"><span><b>Free to start</b>Classic, Steel and Graphite cost nothing. Each other style is a one-time purchase, and it follows your Google account to a new phone.</span></li>
-        </ul>
-        
-      </div>
-    </section>
-
-    <section class="sec" id="how-to" aria-labelledby="how-to-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">How to use it</span>
-          <h2 id="how-to-title">Getting the most from the demo<a class="anchor" href="#how-to" aria-label="Copy the link to Getting the most from the demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-        </div>
-        <ol class="steps n4">
-          <li style="--c: var(--swatch-1)">Wait a few seconds while the engine loads: it is the app's own drawing code, running in your browser instead of on a phone.</li>
-          <li style="--c: var(--swatch-2)">Tap the big gauge to cycle through power, CPU clock and speed, exactly as you would on your home screen.</li>
-          <li style="--c: var(--swatch-3)">Flip through the styles in the panel, try each one's layouts, and change its colours, units and lights under Settings.</li>
-          <li style="--c: var(--swatch-1)">Rotate the phone, lay home-screen icons over it or go full screen, then copy a link to the look you made and send it on.</li>
-        </ol>
-        
-      </div>
-    </section>
-
-    <section class="sec" id="questions" aria-labelledby="questions-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">Before you install</span>
-          <h2 id="questions-title">A few questions<a class="anchor" href="#questions" aria-label="Copy the link to A few questions"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-        </div>
-        <div class="faq">
-          <details class="faq-item"><summary>Will the app look exactly like this?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Yes. This page runs the same drawing code as the app, checked picture by picture against the app's own screenshots, so a style you like here looks the same behind your icons.</p></div></details>
-          <details class="faq-item"><summary>Does the demo use my location?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Only after you tap Use my real speed and allow it when your browser asks. Your speed is worked out on this page and never sent anywhere, and Back to the demo drive stops it.</p></div></details>
-          <details class="faq-item"><summary>Do I need an account?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>No. The app works without one. Signing in with a free VHub account is optional: your settings then follow you to every phone you sign in on, and you can share your own layouts in the market.</p></div></details>
-          <details class="faq-item"><summary>What does a premium style cost?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>Its price shows beside its name in the panel above. You pay once on Google Play, and the style stays yours on every phone signed in to the same Google account.</p></div></details>
-          <details class="faq-item"><summary>Is there an iPhone version?<svg class="chev" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"/></svg></summary><div class="faq-a"><p>No. iPhones don't let apps draw a live wallpaper, so Speedometer is for Android only: phones, tall Flip screens, foldables and tablets.</p></div></details>
-        </div>
-        
-      </div>
-    </section>
-
-    <section class="sec" id="explore" aria-labelledby="explore-title">
-      <div class="wrap">
-        <div class="sec-head">
-          <span class="eyebrow">Keep exploring</span>
-          <h2 id="explore-title">More about Speedometer<a class="anchor" href="#explore" aria-label="Copy the link to More about Speedometer"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
-          <p class="sec-intro">Every gauge has its own page in the wiki, the layout market shows what other drivers built, and What's new lists each release.</p>
-        </div>
-        <div class="badges sec-actions"><a class="pill" href="/speedometer-wallpaper/"><b>The overview</b><small>Every style</small></a><a class="pill" href="/speedometer-wallpaper/wiki/"><b>The wiki</b><small>Each gauge explained</small></a><a class="pill" href="/speedometer-wallpaper/layouts/"><b>The layout market</b><small>Drivers' layouts</small></a><a class="pill" href="/speedometer-wallpaper/#whats-new"><b>What's new</b><small>Each release</small></a><a class="pill" href="/speedometer-wallpaper/privacy.html"><b>Privacy policy</b><small>What the app keeps</small></a><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>
-        
-      </div>
-    </section>
-
-    <section class="cta-band" aria-labelledby="cta-title">
-      <div class="wrap">
-        <div class="panel">
-          <h2 id="cta-title">Put the dashboard on your phone</h2>
-          <p>Free on Google Play, for Android phones and tablets, with every style you tried here.</p>
-          <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a></div>
-        </div>
-      </div>
-    </section>
   </main>
 
-  <footer class="foot">
-    <div class="wrap">
-      <a class="foot-brand" href="/speedometer-wallpaper/"><img src="/speedometer-wallpaper/img/icon.png" alt="" width="48" height="48"><span>Speedometer Live Wallpaper</span></a>
-      <nav class="foot-links" aria-label="Speedometer Live Wallpaper and VGraphics">
-        <a href="/speedometer-wallpaper/layouts/">Layouts</a><span class="sep" aria-hidden="true">·</span>
-        <a href="/speedometer-wallpaper/wiki/">Wiki</a><span class="sep" aria-hidden="true">·</span>
-        <a href="/speedometer-wallpaper/privacy.html">Privacy policy</a><span class="sep" aria-hidden="true">·</span>
-        <a href="/apps/">More apps</a><span class="sep" aria-hidden="true">·</span>
-        <a href="/services/">Work with us</a><span class="sep" aria-hidden="true">·</span>
-        <a href="mailto:support@vgraphics.gr">Contact</a>
-      </nav>
-      <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" aria-label="Speedometer Live Wallpaper on Google Play" title="Speedometer Live Wallpaper on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
-      <p class="legal">&copy; 2026 VGraphics<br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
-    </div>
+  <footer class="screen-bar">
+    <a href="/speedometer-wallpaper/">&larr; Overview</a>
+    <a href="/speedometer-wallpaper/about/">About</a>
+    <a href="/speedometer-wallpaper/privacy.html">Privacy</a>
+    <span class="legal">&copy; 2026 VGraphics<span class="long"> · <a href="/company/">Company</a> · <a href="/terms/">Terms</a></span></span>
   </footer>
   <script src="/assets/anchors.js" defer></script>
   <script src="/assets/product.js" defer></script>

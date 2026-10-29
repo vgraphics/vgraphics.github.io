@@ -144,7 +144,8 @@ function brand(s, height, sizes) {
 // site.play: { label, href }) ends its menu with that page, drawn as its main button (George, 26 Oct 2026: "For all
 // landing pages, when there is a play online/test online, make it a fancy primary button last on the toolbar
 // buttons."), so it is the phone panel's last item too; a product with a demo as well has the second button just
-// before it (playButtons, above), which stays in the panel when the main one moves to the folded bar.
+// before it (playButtons, above), which stays in the panel when the main one moves to the folded bar. On a product
+// screen (page.json "screen"), with no art behind it and nothing to scroll, it is the frosted bar from the first frame.
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
@@ -154,7 +155,7 @@ export function header({ page }, { current } = {}) {
   if (second?.soon) links.push(`<span class="play-soon">${esc(second.label)}<small>${esc(second.soon)}</small></span>`)
   else if (second) links.push(own(second, `<a class="demo-link" href="${esc(second.href)}"${second.href === current ? ' aria-current="page"' : ''}>${esc(second.label)}</a>`))
   if (p) links.push(own(p, `<a class="play" href="${esc(p.href)}" title="${esc(p.label)}"${p.href === current ? ' aria-current="page"' : ''}>${ICONS.play}<span class="play-label">${esc(p.label)}</span></a>`))
-  return `<header class="top">
+  return `<header class="top${page.screen ? ' scrolled' : ''}">
     <a class="product-name" href="${esc(s.nav[0].href)}">${brand(s, 36, '150px')}</a>
     <button class="menu-toggle" type="button" aria-expanded="false" aria-controls="site-menu"><span class="sr-only">Menu</span><span class="bars" aria-hidden="true"></span></button>
     <nav class="subnav" id="site-menu" aria-label="${esc(s.name)}">
@@ -192,6 +193,22 @@ export function footer({ page, slug }) {
       </nav>${buttons(page)}
       <p class="legal">${isProductScreen(page.path ?? `/${slug}/`) ? PRODUCT_LEGAL : LEGAL}${play}</p>
     </div>${f ? f.band : ''}
+  </footer>`
+}
+
+// A product screen's foot (page.json "screen": the try page): one slim bar under the product in place of the footer, so
+// nothing lies below it to scroll to (George, 29 Oct 2026: "When we play we play. No scroll needed."), as the web
+// games' play pages have it: the way back to the product, its About page (/<product>/about/, which check-site requires
+// of every product with a play or try page), its privacy policy and the short legal line, whose Company and Terms give
+// way first on phones.
+export function screenBar({ page, slug }) {
+  const s = page.site
+  const privacy = [...s.nav, ...s.footer].find((l) => /privacy/i.test(l.href))
+  return `<footer class="screen-bar">
+    <a href="${esc(s.nav[0].href)}">&larr; ${esc(s.nav[0].label)}</a>
+    <a href="/${slug}/about/">About</a>${privacy ? `
+    <a href="${esc(privacy.href)}">Privacy</a>` : ''}
+    <span class="legal">${PRODUCT_LEGAL}<span class="long"> · <a href="/company/">Company</a> · <a href="/terms/">Terms</a></span></span>
   </footer>`
 }
 

@@ -47,11 +47,24 @@
 //                                blocks (or the intro's demo), each picture { src, widths, width, height }, as
 //                                src-<width>.avif and .webp, the tall one on narrow screens
 //   cta                          { title, text, badges }: the closing card, half in the footer's picture
+//   screen                       { heading }, on another page: a product screen, the product alone with nothing to scroll
+//                                (George, 29 Oct 2026: "When we play we play. No scroll needed."; the try page): the
+//                                header, its sections' blocks filling the window without their headings, and the slim
+//                                bar (partials.mjs screenBar) in place of the hero, closing card and footer; heading is
+//                                its h1, for screen readers and search. Its words about the product are on its About page.
+// A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
+// (site.demo.private), as the words in <span data-demo> are.
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+//
+// Every product with a play or try page has an About page, <product>/about/page.json (check-site): what the product is,
+// how to play or use it, what's inside, its store and sign-in, a few questions (a faq block) and the links to its wiki,
+// ranking, devlog and landing page, in about 400 words found nowhere else on the site, linked from the product's menu
+// (site.nav), its landing page and its play or try page (George, 29 Oct 2026, "Yes, that way", to the words that were
+// under the play and try pages getting a page of their own).
 import { existsSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
-import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, vhubEntry } from './lib/partials.mjs'
+import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, screenBar, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
@@ -314,7 +327,8 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   try: (b, product) => tryBlock(b, product.page),
 
   // Questions that each open their answer, from page.json or the faq.json beside it (tools/lib/faq.mjs); the page's
-  // head carries them as FAQPage structured data too.
+  // head carries them as FAQPage structured data too, unless the block says "schema": false (an About page's: the
+  // product's FAQPage is its landing page's, and the About page asks other questions).
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
@@ -449,20 +463,24 @@ export function render(slug, sub) {
   const demo = p.intro?.demo ? readFileSync(demoFile('html'), 'utf8') : ''
   const demoCss = demoFile('css') && existsSync(demoFile('css'))
   const demoJs = demoFile('js') && existsSync(demoFile('js'))
-  const art = heroPicture(p.hero.art)
+  const art = p.screen ? { preloads: [] } : heroPicture(p.hero.art)
   const fonts = t.fonts.filter((f) => f.preload).map((f) => `<link rel="preload" href="${f.src}" as="font" type="font/${f.src.split('.').pop()}" crossorigin>`)
-  const blocks = p.sections.flatMap((s) => s.blocks ?? [])
+  const sections = p.sections.filter((s) => !(s.demo && p.site.demo?.private))
+  const blocks = sections.flatMap((s) => s.blocks ?? [])
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
   const book = blocks.find((b) => b.type === 'storybook')
-  const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir, p.site).items)
+  const questions = blocks.filter((b) => b.type === 'faq' && b.schema !== false).flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
-  const body = decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...p.sections.map((s) => section(product, s)), closing(p)])
+  // A screen is its h1 and its sections' blocks alone; any other page its hero, its sections and the closing card.
+  const content = p.screen
+    ? [`<h1 class="sr-only">${esc(p.screen.heading)}</h1>`, ...sections.flatMap((s) => s.blocks.map((b) => BLOCKS[b.type](b, product, s)))]
+    : [hero(p, !sub), ...decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...sections.map((s) => section(product, s)), closing(p)])]
   const url = `https://vgraphics.gr${path}`
   const html = `<!doctype html>
-<html lang="en">
+<html lang="en"${p.screen ? ' class="screen"' : ''}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -509,13 +527,11 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <a class="skip" href="#main">Skip to content</a>
   ${header(product, { current: path })}
 
-  <main id="main">
-    ${hero(p, !sub)}
-
-    ${body.join('\n\n    ')}
+  <main id="main"${p.screen ? ' class="screen-main"' : ''}>
+    ${content.join('\n\n    ')}
   </main>
 
-  ${footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
+  ${p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
   <script src="/assets/product.js" defer></script>
   <script src="/assets/menu.js" defer></script>${gallery ? `

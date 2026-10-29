@@ -20,6 +20,7 @@ import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
+import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -361,6 +362,40 @@ for (const file of served) {
   }
 }
 
+// Play and try pages are the product alone (George, 29 Oct 2026: "When we play we play. No scroll needed."; then "Yes,
+// that way" to each product's About text on a page of its own; tools/lib/play-pages.mjs), on every page GitHub Pages
+// serves at /<product>/play/ or /<product>/demo/, whoever writes it: no About panel and no button to one, nothing under
+// the product (the website's footer; a template page is a screen), and a link to the product's About page. Every
+// product with such a page has its About page from the template, with questions, linked from its menu and from its
+// landing page's own words.
+// OLD_PANELS: the play pages other repos build that still carry the About panel of 27 Oct 2026, until the release that
+// drops it (29 Oct 2026). Each passes until then; once the page passes, check-site warns (on stderr, without failing, so
+// the very release that fixes it isn't held up by the Deployer's own run of this check) until the master takes its line
+// out.
+const OLD_PANELS = {
+  'exitwise/play/index.html': "Exitwise's next exitwise-web release, from the Games repo's feature/exitwise-play-alone (29 Oct 2026)",
+  'palermo/demo/index.html': "Palermo Noir's next palermo-web release, once the palermo repo's web/demo/ drops its About panel (29 Oct 2026)",
+}
+const playAlone = (file, message) => report(file, 'play-alone', message)
+const withPlayPages = new Set()
+for (const file of served) {
+  if (!isPlayPage(urlPath(file))) continue
+  const slug = file.split('/')[0]
+  withPlayPages.add(slug)
+  const found = playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })
+  if (Object.hasOwn(OLD_PANELS, file)) {
+    if (!found.length) console.warn(`warning: ${file} is the product alone now: take its line out of OLD_PANELS in tools/check-site.mjs (${OLD_PANELS[file]})`)
+    continue
+  }
+  for (const m of found) playAlone(file, m)
+}
+for (const slug of [...withPlayPages].sort()) {
+  const built = existsSync(join(root, slug, 'about', 'page.json'))
+  const page = built ? JSON.parse(readFileSync(join(root, slug, 'about', 'page.json'), 'utf8')) : undefined
+  const landing = existsSync(join(root, slug, 'index.html')) ? readFileSync(join(root, slug, 'index.html'), 'utf8') : ''
+  for (const m of aboutProblems(slug, { built, page, site: plays.get(slug), landing })) playAlone(join(slug, built ? join('about', 'page.json') : 'page.json'), m)
+}
+
 // The VHub avatar, the last item of every header (George, 28 Oct 2026: "All pages must show the VHub avatar clickable on
 // top right after any play or try button."; VHub docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md 4.1): a
 // button after the play or try link where a page has one, on company pages where the VHub link was, drawn and opened by
@@ -370,7 +405,7 @@ const AVATAR_TAIL = /<button class="vhub-avatar"[^>]*>(?:(?!<button\b|<a\b|<nav\
 for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')
   if (html.includes('/assets/vhub-me.js')) avatar(file, 'loads /assets/vhub-me.js, which the VHub avatar replaced')
-  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)"[^>]*>([\s\S]*?)<\/header>/g)) {
+  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)(?:\s[^"]*)?"[^>]*>([\s\S]*?)<\/header>/g)) {
     if (!AVATAR_TAIL.test(inner)) avatar(file, `the header's last item is not the VHub avatar (<button class="vhub-avatar">, tools/lib/partials.mjs VHUB_AVATAR)`)
   }
 }
