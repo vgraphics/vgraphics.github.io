@@ -315,8 +315,9 @@ def compose(product, slug, entry, screens, overlays):
             img = np.uint8(img * (1 - k) + base * k + 0.5)
     out = Image.fromarray(img)
     if entry.get('crop'):
-        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size.
-        out = out.crop(tuple(entry['crop'])).resize(out.size, Image.LANCZOS)
+        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size;
+        # or a closer frame on the phone (cropTo the box's own size, so nothing is scaled up).
+        out = out.crop(tuple(entry['crop'])).resize(tuple(entry.get('cropTo', out.size)), Image.LANCZOS)
     return out
 
 
@@ -374,6 +375,8 @@ def main(argv):
     screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in wanted}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')
                 for name in ('status-bar', 'home')}
+    # The home screen's page dots and dock alone, for a style whose own layout reaches down to the icon row (Future).
+    overlays['dock'] = overlays['home'].crop((0, 250, overlays['home'].width, overlays['home'].height))
     if blank:
         # The paintings with the same new front but the screen switched off: dial-free sources for outpainting.
         screens = {name: Image.new('RGB', im.size) for name, im in screens.items()}
