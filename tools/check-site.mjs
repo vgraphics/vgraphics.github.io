@@ -367,26 +367,15 @@ for (const file of served) {
 // serves at /<product>/play/ or /<product>/demo/, whoever writes it: no About panel and no button to one, nothing under
 // the product (the website's footer; a template page is a screen), and a link to the product's About page. Every
 // product with such a page has its About page from the template, with questions, linked from its menu and from its
-// landing page's own words.
-// OLD_PANELS: the play pages other repos build that still carry the About panel of 27 Oct 2026, until the release that
-// drops it (29 Oct 2026). Each passes until then; once the page passes, check-site warns (on stderr, without failing, so
-// the very release that fixes it isn't held up by the Deployer's own run of this check) until the master takes its line
-// out. Exitwise's play page left the list once exitwise-web 1.0.9d881213 shipped it without the panel (29 Oct 2026).
-const OLD_PANELS = {
-  'palermo/demo/index.html': "Palermo Noir's next palermo-web release, once the palermo repo's web/demo/ drops its About panel (29 Oct 2026)",
-}
+// landing page's own words. Nothing is exempt: the last About panels of 27 Oct 2026 left with exitwise-web 1.0.9d881213
+// and palermo-web 20261029-164735 (29 Oct 2026).
 const playAlone = (file, message) => report(file, 'play-alone', message)
 const withPlayPages = new Set()
 for (const file of served) {
   if (!isPlayPage(urlPath(file))) continue
   const slug = file.split('/')[0]
   withPlayPages.add(slug)
-  const found = playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })
-  if (Object.hasOwn(OLD_PANELS, file)) {
-    if (!found.length) console.warn(`warning: ${file} is the product alone now: take its line out of OLD_PANELS in tools/check-site.mjs (${OLD_PANELS[file]})`)
-    continue
-  }
-  for (const m of found) playAlone(file, m)
+  for (const m of playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })) playAlone(file, m)
 }
 for (const slug of [...withPlayPages].sort()) {
   const built = existsSync(join(root, slug, 'about', 'page.json'))
