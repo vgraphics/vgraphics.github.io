@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.9d881213",
+      "version": "1.0.28",
       "date": "2026-10-29",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "First bump free after ward moves",
