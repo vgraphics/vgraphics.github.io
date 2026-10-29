@@ -33,12 +33,36 @@ window.ExitwiseBoards = (() => {
       empty: "Publish a custom map. Its plays put you on this board." },
   };
 
-  // The site's VHub pictures (assets/vhub-avatars.js), loaded with the first board.
-  const avatars = () => window.VHubAvatars ? Promise.resolve() : import("/assets/vhub-avatars.js");
-  // A player without a name, as the hub shows one: "Player" and the start of the id.
-  const anonymous = uid => window.VHubAvatars.anonymous(uid);
-  // Fills `el` with the player's approved photo (96 or 256 px), or their preset, in the rank frame they wear.
-  const drawAvatar = (el, p, size = 96) => window.VHubAvatars.draw(el, p, size);
+  // The site's VHub pictures (assets/vhub-avatars.js), asked for with the first board. A board never fails for want of
+  // them (29 Oct 2026: George's ranking said "Couldn't load the ranking" during a deploy, most likely this script not
+  // coming): without them the rows draw the page's plain discs, with no frames, and each later draw asks again, filling
+  // the pictures in when they come. A classic script, so a failed fetch isn't remembered as a failed module import is,
+  // and a retry asks past the cache. Resolves to the pictures, or null. (assets/vhub-session.js's vhubAvatars and
+  // speedometer-wallpaper/market/market.js load them the same way.)
+  let asking = null, tries = 0;
+  function avatars() {
+    if (window.VHubAvatars) return Promise.resolve(window.VHubAvatars);
+    return asking || (asking = new Promise(resolve => {
+      const n = tries++;
+      const script = document.createElement("script");
+      script.src = "/assets/vhub-avatars.js" + (n ? `?retry=${n}` : "");
+      script.onload = script.onerror = () => {
+        asking = null;
+        if (!window.VHubAvatars) script.remove();
+        resolve(window.VHubAvatars || null);
+      };
+      document.head.append(script);
+    }));
+  }
+  // A player without a name, as the hub shows one: "Player" and the start of the id (vhub-avatars.js's own).
+  const anonymous = uid => window.VHubAvatars ? window.VHubAvatars.anonymous(uid) : "Player " + uid.slice(0, 4).toUpperCase();
+  // Fills `el` with the player's approved photo (96 or 256 px), or their preset, in the rank frame they wear; without
+  // the pictures, the page's plain disc until they come.
+  function drawAvatar(el, p, size = 96) {
+    if (window.VHubAvatars) return window.VHubAvatars.draw(el, p, size);
+    el.replaceChildren();
+    avatars().then(pictures => pictures && pictures.draw(el, p, size));
+  }
 
   async function call(path, body) {
     const controller = new AbortController();
@@ -58,7 +82,8 @@ window.ExitwiseBoards = (() => {
 
   // A board's rows as the hub builds them: by value, then tie-break, highest first; rows equal on both share a rank.
   // `stats` holds the board's counter and its tie-break counter (the Score board's is the highest level). `top` reads
-  // only the first rows (the podium); the rules allow at most 100.
+  // only the first rows (the podium); the rules allow at most 100. The pictures are asked for alongside, so the rows
+  // usually draw with them, but they never hold up or fail the board: avatars() answers null when they don't come.
   async function loadBoard(id, top = TOP) {
     const b = BOARDS[id];
     const [answer] = await Promise.all([call(`/leaderboards/${b.board}:runQuery`, { structuredQuery: {
@@ -78,7 +103,8 @@ window.ExitwiseBoards = (() => {
       return {
         uid, value, tiebreak, stats,
         name: f.name?.stringValue || null,
-        avatar: f.avatar?.integerValue !== undefined ? int(f, "avatar") : window.VHubAvatars.avatarFor(uid),
+        // The preset they chose; none on the entry, vhub-avatars.js picks it from the id when it draws.
+        avatar: f.avatar?.integerValue !== undefined ? int(f, "avatar") : undefined,
         // The approved picture's version; 0 or none draws the preset.
         photo: /^[1-9]\d{0,17}$/.test(photo ?? "") ? photo : null,
         // The player's VHub level and the rank frame they chose there (none on an entry from before frames).

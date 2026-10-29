@@ -3,7 +3,7 @@
 // linking to their profile (George, 28 Oct 2026: "I am logged in. Shouldnt it show my name and avatar here?").
 // The session and the profile come from assets/vhub-session.js; the picture is drawn by assets/vhub-avatars.js. A guest
 // without a name keeps "Get your VHub name". menu.js loads this file on a page with an entry.
-import { vhubProfile, vhubSession } from "/assets/vhub-session.js";
+import { vhubAvatars, vhubProfile, vhubSession } from "/assets/vhub-session.js";
 
 const entries = document.querySelectorAll("[data-vhub]");
 
@@ -13,18 +13,14 @@ const entries = document.querySelectorAll("[data-vhub]");
   if (!session) return;
   const profile = await vhubProfile(session.uid);
   if (!profile || !profile.name) return;
-  try {
-    if (!window.VHubAvatars) await import("/assets/vhub-avatars.js");
-  } catch (e) {
-    return;
-  }
-  if (!window.VHubAvatars) return;
+  // Without the pictures' drawing the entry keeps its face, but still names the player.
+  const pictures = await vhubAvatars();
   const player = { uid: session.uid, avatar: profile.avatar, photo: profile.photo };
   for (const a of entries) {
     a.href = "/hub/profile/";
     a.classList.add("signed-in");
     a.setAttribute("aria-label", `${profile.name}: your VHub profile`);
-    window.VHubAvatars.draw(a.querySelector(".vhub-face"), player);
+    if (pictures) pictures.draw(a.querySelector(".vhub-face"), player);
     a.querySelector(".vhub-name").textContent = profile.name;
     const note = a.querySelector(".vhub-note");
     if (note) note.textContent = "Your VHub profile";

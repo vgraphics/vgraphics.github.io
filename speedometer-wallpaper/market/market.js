@@ -260,20 +260,34 @@ window.SpeedoMarket = (() => {
   // ---------- Creators (VHub's public profiles) ----------
 
   // VHub's avatar drawing (assets/vhub-avatars.js): the market's pages load it beside this file; the try page, which
-  // loads only this one, gets it here.
-  let avatarsLoad = null;
+  // loads only this one, and a page whose own copy didn't come get it here. A page never fails for want of it: names
+  // stay "Player XXXX" where VHub has none, pictures the page's plain disc until it comes, and each later draw asks
+  // again, past the cache. Resolves to the drawing, or null. (exitwise/ranking/boards.js loads it the same way.)
+  let avatarsLoad = null, avatarTries = 0;
   function avatars() {
     if (window.VHubAvatars) return Promise.resolve(window.VHubAvatars);
     if (!avatarsLoad) {
-      avatarsLoad = new Promise((resolve, reject) => {
+      avatarsLoad = new Promise((resolve) => {
+        const n = avatarTries++;
         const script = document.createElement("script");
-        script.src = "/assets/vhub-avatars.js";
-        script.onload = () => resolve(window.VHubAvatars);
-        script.onerror = () => reject(new Error("No avatars"));
+        script.src = "/assets/vhub-avatars.js" + (n ? `?retry=${n}` : "");
+        script.onload = script.onerror = () => {
+          avatarsLoad = null;
+          if (!window.VHubAvatars) script.remove();
+          resolve(window.VHubAvatars || null);
+        };
         document.head.appendChild(script);
       });
     }
     return avatarsLoad;
+  }
+  // A player without a name, as the hub shows one (vhub-avatars.js's own).
+  const anonymous = (uid) => (window.VHubAvatars ? window.VHubAvatars.anonymous(uid) : "Player " + uid.slice(0, 4).toUpperCase());
+  // Draws a creator's picture in `pic`, in the frame they wear; without VHub's drawing, the plain disc until it comes.
+  function drawAvatar(pic, profile, size) {
+    if (window.VHubAvatars) return window.VHubAvatars.draw(pic, profile, size);
+    pic.replaceChildren();
+    avatars().then((pictures) => pictures && pictures.draw(pic, profile, size));
   }
 
   const profileCache = new Map();
@@ -300,8 +314,9 @@ window.SpeedoMarket = (() => {
         const photo = f.photo ? String(f.photo) : "";
         profileCache.set(uid, {
           uid,
-          name: f.name || window.VHubAvatars.anonymous(uid),
-          avatar: typeof f.avatar === "number" ? f.avatar : window.VHubAvatars.avatarFor(uid),
+          name: f.name || anonymous(uid),
+          // None chosen: vhub-avatars.js picks the preset from the id when it draws.
+          avatar: typeof f.avatar === "number" ? f.avatar : undefined,
           photo: /^[1-9]\d{0,17}$/.test(photo) ? photo : null,
           level: typeof f.level === "number" ? f.level : undefined,
           frame: typeof f.frame === "string" ? f.frame : null,
@@ -309,7 +324,7 @@ window.SpeedoMarket = (() => {
       });
     }
     return new Map(uids.map(uid => [uid, profileCache.get(uid) || {
-      uid, name: window.VHubAvatars.anonymous(uid), avatar: window.VHubAvatars.avatarFor(uid), photo: null,
+      uid, name: anonymous(uid), photo: null,
     }]));
   }
 
@@ -521,7 +536,7 @@ window.SpeedoMarket = (() => {
     const link = el("a", "mk-by");
     link.href = creatorUrl(profile.uid);
     const pic = el("span", "mk-avatar");
-    window.VHubAvatars.draw(pic, profile, 96);
+    drawAvatar(pic, profile, 96);
     link.append(pic, el("span", "mk-by-name", profile.name));
     return link;
   }
@@ -649,7 +664,7 @@ window.SpeedoMarket = (() => {
   return {
     SHAPES, REASONS, WIDGETS, CODE,
     list, search, codeIn, byCode, byCreator, byStyle, stats, featured, profiles, config, styles, styleIn,
-    preview, fallback, card, cards, placeholders, stars, byline, tag, shapeTags, starsText, usesText,
+    preview, fallback, card, cards, placeholders, stars, byline, drawAvatar, tag, shapeTags, starsText, usesText,
     layoutUrl, creatorUrl, playUrl, appIntent, report, wasReported, event, error,
     format: n => numbers.format(n),
     date: d => (d ? dates.format(d) : ""),
