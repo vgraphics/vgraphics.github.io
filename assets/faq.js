@@ -20,8 +20,10 @@
 // close ends), find-in-page opening a row (which then closes the others in its list), and all of it without script.
 // Clicks are taken where they land, so a details a script adds later is driven too, and a click a page's own script
 // has already handled (preventDefault) is left to it.
-// menu.js loads this on every page; tools/check-site.mjs ([faq-js]) holds every page with an expandable to it, and
-// fails any other kind of expandable until this file drives it.
+// Menus open and close the same way (George, 29 Oct 2026, asked whether menus should too: "Yes, animate menus"):
+// showMenu() and hideMenu() below, which the header's folded menu (menu.js) and the VHub avatar's (account.js) call.
+// menu.js loads this on every page; tools/check-site.mjs ([faq-js]) holds every page with an expandable to it, fails
+// any other kind of expandable until this file drives it, and any site script that opens a menu without these two.
 const EASE = "cubic-bezier(.2, .8, .2, 1)";
 const OPEN = { duration: 260, easing: EASE };
 const CLOSE = { duration: 200, easing: EASE };
@@ -246,3 +248,47 @@ for (const tour of document.querySelectorAll(".tour")) {
     }
   });
 }
+
+// A menu: a drop-down grows from its button (from the button's middle, at the menu's top) as it fades in, and closes
+// the same way back, a little faster; a sheet (the avatar's menu on a phone) rises from the screen's foot the same way.
+// Under reduced motion, a short fade only. The page shows the menu before showMenu(), and hides it in hideMenu()'s
+// done(), which runs in the same task as the close's last frame. Shown again while it closes, it turns round from
+// where it is, and that close's done() never runs.
+const menus = new Map();
+
+function shutLook(panel, button, sheet) {
+  if (sheet) {
+    panel.style.transformOrigin = "50% 100%";
+    return { opacity: 0, transform: "translateY(24px)" };
+  }
+  const b = button.getBoundingClientRect();
+  const p = panel.getBoundingClientRect();
+  panel.style.transformOrigin = `${Math.round(b.left + b.width / 2 - p.left)}px 0`;
+  return { opacity: 0, transform: "translateY(-8px) scale(0.96)" };
+}
+
+function moveMenu(panel, button, sheet, on, done) {
+  // Where it stands: mid-move, where its animation has it; else shut, or open.
+  const now = menus.has(panel) ? getComputedStyle(panel) : null;
+  const from = now && { opacity: now.opacity, transform: now.transform };
+  menus.get(panel)?.cancel();
+  const shut = shutLook(panel, button, sheet);
+  const open = { opacity: 1, transform: "none" };
+  const frames = on ? [from ?? shut, open] : [from ?? open, shut];
+  const anim = still.matches
+    ? panel.animate(frames.map((f) => ({ opacity: f.opacity })), { ...(on ? FADE_IN : FADE_OUT), fill: "forwards" })
+    : panel.animate(frames, { ...(on ? OPEN : CLOSE), fill: "forwards" });
+  menus.set(panel, anim);
+  anim.finished.then(
+    () => {
+      if (menus.get(panel) !== anim) return;
+      menus.delete(panel);
+      done?.();
+      anim.cancel();
+    },
+    () => {} // cancelled: a newer move took over
+  );
+}
+
+export const showMenu = (panel, button, sheet = false) => moveMenu(panel, button, sheet, true);
+export const hideMenu = (panel, button, done, sheet = false) => moveMenu(panel, button, sheet, false, done);

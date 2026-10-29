@@ -599,15 +599,22 @@ for (const slug of products()) {
 // - whatever a served page marks aria-expanded is one faq.js or menu.js drives: a tour's buttons and spots, the header's
 //   menu button. Anything else is a kind faq.js doesn't know, which would open with no animation: make it a details, or
 //   drive its kind from faq.js;
-// - none of the site's own scripts but those two opens or closes anything by aria-expanded. The scripts other repos
-//   build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer engine) animate theirs
-//   with their own shared piece, whose tests hold it; here only their markup is read.
+// - none of the site's own scripts but faq.js opens or closes anything by aria-expanded unless it moves it with faq.js's
+//   showMenu and hideMenu: menus open and close the same way (George, 29 Oct 2026: "Yes, animate menus"), as the
+//   header's folded menu (menu.js) and the VHub avatar's (account.js) do. A script that marks a menu open without them
+//   would snap it open and shut;
+// - no served page has a popover (the popover attribute), which the browser opens and shuts at once.
+// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer
+// engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is read.
 // Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
 const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
 const BUILT_ELSEWHERE = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
+else if (!['showMenu', 'hideMenu'].every((name) => new RegExp(`^export const ${name} =`, 'm').test(readFileSync(join(root, 'assets', 'faq.js'), 'utf8')))) {
+  faqJs(join('assets', 'faq.js'), "does not export showMenu and hideMenu, which open and close every menu with the expandables' animation")
+}
 if (!/^\s*import\("\/assets\/faq\.js"\)/m.test(readFileSync(join(root, 'assets', 'menu.js'), 'utf8'))) {
   faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js on every page, which opens and closes every expandable with an animation')
 }
@@ -621,15 +628,22 @@ for (const file of served) {
     if (part || /\sclass="(?:menu-toggle|spot)"/.test(attrs)) continue
     faqJs(file, `a <${tag}> marked aria-expanded that assets/faq.js doesn't drive, so it opens with no animation: make it a details, or drive its kind from faq.js`)
   }
+  for (const [, tag] of html.matchAll(/<(\w+)\b[^>]*\spopover(?=[\s=>])[^>]*>/g)) {
+    faqJs(file, `a <${tag}> with the popover attribute, which opens and shuts at once: open it from a script with assets/faq.js's showMenu and hideMenu`)
+  }
 }
 const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
 for (const file of siteScripts) {
-  // The VHub avatar's menu (assets/account.js) opens and closes with its own animation, as faq.js's.
-  if (file === 'assets/faq.js' || file === 'assets/menu.js' || file === 'assets/account.js') continue
-  if (readFileSync(join(root, file), 'utf8').includes('aria-expanded')) {
-    faqJs(file, 'opens or closes something by aria-expanded itself, with no animation: drive its kind from assets/faq.js, which animates every expandable')
-  }
+  if (file === 'assets/faq.js') continue
+  const js = readFileSync(join(root, file), 'utf8')
+  if (!js.includes('aria-expanded')) continue
+  // A menu's script (menu.js, account.js) moves it with showMenu and hideMenu.
+  const moved = ['showMenu', 'hideMenu'].filter((name) => new RegExp(`\\b${name}\\(`).test(js))
+  if (moved.length === 2) continue
+  faqJs(file, moved.length
+    ? `opens a menu by aria-expanded but calls only ${moved[0]}: both its opening (showMenu) and its closing (hideMenu) go through assets/faq.js, or one of them snaps`
+    : 'opens or closes something by aria-expanded itself, with no animation: a menu opens and closes with assets/faq.js\'s showMenu and hideMenu, anything else is driven from faq.js')
 }
 
 // No text selection and no right-click (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page.

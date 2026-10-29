@@ -5,7 +5,10 @@
 // its menu into the button (.folded) on phones and wherever the row would not fit beside the logo, and unfolds it where
 // it fits again. This file opens and closes the panel: the button again, Escape, a tap outside it or one of its links
 // closes it. While it is open, Tab stays in the button and the panel, the rest of the page is inert, and closing gives
-// focus back to the button.
+// focus back to the button. It opens and closes as every menu does (faq.js, showMenu and hideMenu: George, 29 Oct
+// 2026, "Yes, animate menus"): it grows from the button as it fades in and closes a little faster, the header staying a
+// solid bar (.menu-closing) until it has gone; when the header unfolds, the screen widens or the page is left, it goes
+// at once.
 // The company header gets its button here, so its markup stays the copy tools/check-site.mjs compares on every company
 // page (the hub's pages, which the VHub repo writes, too). The product header has its own (tools/lib/partials.mjs).
 // A panel taller than a short screen scrolls, with a fading bottom edge while more lies below; and since every page
@@ -16,6 +19,9 @@
 // time); on a page with parts only testers see while they are private, private.js; and on a page with a VHub entry,
 // vhub.js.
 (() => {
+  // faq.js, once it has come: its showMenu and hideMenu move the panel. Before it comes, the panel opens and closes at
+  // once.
+  let motion = null;
   const nav = document.querySelector(".site-head .site-nav");
   if (nav && !document.querySelector(".site-head .menu-toggle")) {
     nav.id ||= "site-menu";
@@ -35,11 +41,18 @@
     let open = false;
     let behind = [];
 
-    const set = (on, refocus) => {
+    const set = (on, refocus, moving = true) => {
       if (on === open) return;
       open = on;
       button.setAttribute("aria-expanded", on);
       head.classList.toggle("menu-open", on);
+      head.classList.remove("menu-closing");
+      if (on) {
+        if (moving) motion?.showMenu(panel, button);
+      } else if (moving && motion) {
+        head.classList.add("menu-closing");
+        motion.hideMenu(panel, button, () => head.classList.remove("menu-closing"));
+      }
       // The page behind the panel, out of reach of Tab and screen readers while it is open.
       if (on) behind = [...document.body.children].filter((el) => !el.contains(head) && !el.inert);
       behind.forEach((el) => (el.inert = on));
@@ -98,7 +111,7 @@
         void head.offsetWidth;
         head.classList.remove("measuring");
         if (focused) play.focus();
-        if (!fold) set(false, false);
+        if (!fold) set(false, false, false);
       };
       fit();
       // The header spans the screen: its own size changes with it (the window, the page's scrollbar coming and going).
@@ -108,15 +121,15 @@
     }
     // The screen grows past the phone layout (the button is gone), or the page is left with the panel open.
     addEventListener("resize", () => {
-      if (open && !button.offsetWidth) set(false, false);
+      if (open && !button.offsetWidth) set(false, false, false);
     });
-    addEventListener("pagehide", () => set(false, false));
+    addEventListener("pagehide", () => set(false, false, false));
   }
 
   import("/assets/fade-edges.js").catch(() => {});
   import("/assets/stepper.js").catch(() => {});
   import("/assets/no-select.js").catch(() => {});
-  import("/assets/faq.js").catch(() => {});
+  import("/assets/faq.js").then((m) => (motion = m)).catch(() => {});
   // The parts only testers see while they are private (a product's demo before it opens), on a page that has them.
   if (document.querySelector("template.private")) import("/assets/private.js").catch(() => {});
   // The VHub entry, which shows a signed-in player's own name and picture, on a page that has one.
