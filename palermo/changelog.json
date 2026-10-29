@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.3d64f44a",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "See what the guide explains",
+      "items": [
+        "In the guided demo on your phone, your role card, the secret actions and your notebook pins now stay lit while the guide explains them, so you can see what it means instead of just hearing it. The top bar's menu and TV button stay in reach too."
+      ],
+      "commit": "3d64f44a"
+    },
+    {
       "version": "0.1.460acc5b",
       "date": "2026-10-29",
       "platforms": [
