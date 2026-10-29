@@ -26,6 +26,12 @@
 #   python tools/make-wiki-screens.py <product> --blank <folder> [slug ...] the same pictures with every screen
 #                                                                           switched off (black glass), into <folder>:
 #                                                                           dial-free sources to outpaint from
+#   python tools/make-wiki-screens.py <product> --style <style> --screens <Games checkout> slug ...
+#                                                                           one of the app's styles into the phones of
+#                                                                           those entries and their tall twins: the
+#                                                                           spec (screens.json's style-<style>, or
+#                                                                           style-<style>-land for a sideways phone),
+#                                                                           those screens, then the pictures
 # An entry need not be a wiki entry: painted/<name>.webp plus screens.json entries.<name> gives <name>.webp
 # (a tall version, an index or privacy hero), and sources.json's "tall" can then name it.
 # Then: python tools/make-wiki-art.py <product>, node tools/build-wiki.mjs <product>.
@@ -111,12 +117,14 @@ def home_screen(games):
     return layer
 
 
-def make_screens(product, games, frames):
+def make_screens(product, games, frames, names=None):
     src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     out = os.path.join(src, 'screens')
     os.makedirs(out, exist_ok=True)
     for name, s in spec['screens'].items():
+        if names and name not in names:
+            continue
         if s['from'] == 'golden':
             path = os.path.join(games, 'SpeedometerWallpaper', s.get('module', 'logic_render'), 'src', 'test',
                                 'screenshots', s['file'])
@@ -307,8 +315,9 @@ def compose(product, slug, entry, screens, overlays):
             img = np.uint8(img * (1 - k) + base * k + 0.5)
     out = Image.fromarray(img)
     if entry.get('crop'):
-        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size.
-        out = out.crop(tuple(entry['crop'])).resize(out.size, Image.LANCZOS)
+        # A flat band the painting came with (music-calls-messages' foot): cut to the box, back to the painting's size;
+        # or a closer frame on the phone (cropTo the box's own size, so nothing is scaled up).
+        out = out.crop(tuple(entry['crop'])).resize(tuple(entry.get('cropTo', out.size)), Image.LANCZOS)
     return out
 
 
@@ -325,21 +334,49 @@ def check(product, slug, entry, out, folder):
     out.crop(box).save(os.path.join(folder, slug + '-after.jpg'), quality=90)
 
 
+def set_style(product, style, slugs):
+    """Puts the style's screen into every phone of each entry and its tall twin: screens.json's "style-<style>" in an
+    upright phone, "style-<style>-land" in a sideways one. Returns the screens they use."""
+    src = art_src(product)
+    path = os.path.join(src, 'screens.json')
+    spec = json.load(open(path, encoding='utf-8'))
+    used = set()
+    for slug in slugs:
+        for name in (slug, slug + '-tall'):
+            for phone in spec['entries'].get(name, {}).get('phones', []):
+                w, h = side_lengths(phone['glass'])
+                phone['screen'] = f'style-{style}' + ('' if h > w else '-land')
+                if phone['screen'] not in spec['screens']:
+                    sys.exit(f'{phone["screen"]}: not in screens.json')
+                used.add(phone['screen'])
+    json.dump(spec, open(path, 'w', encoding='utf-8', newline='\n'), indent=1, ensure_ascii=False)
+    return used
+
+
 def main(argv):
     product, rest = argv[0], argv[1:]
-    if '--screens' in rest:
-        games = rest[rest.index('--screens') + 1]
-        frames = rest[rest.index('--frames') + 1] if '--frames' in rest else None
+    value = {flag: rest[rest.index(flag) + 1] if flag in rest else None
+             for flag in ('--screens', '--frames', '--style', '--check', '--blank')}
+    games, frames, style, folder, blank = value.values()
+    if games and not style:
         make_screens(product, games, frames)
         return
-    folder = rest[rest.index('--check') + 1] if '--check' in rest else None
-    blank = rest[rest.index('--blank') + 1] if '--blank' in rest else None
-    only = [a for a in rest if not a.startswith('--') and a not in (folder, blank)]
+    if style and not games:
+        sys.exit('--style needs --screens <Games checkout>, where the style\'s renders are')
+    only = [a for a in rest if not a.startswith('--') and a not in value.values()]
+    if style:
+        # One style into the named entries' phones: the spec, those screens from the app's renders, then the pictures.
+        make_screens(product, games, frames, set_style(product, style, only))
+        only += [slug + '-tall' for slug in only]
     src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
-    screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in spec['screens']}
+    wanted = {phone['screen'] for slug, entry in spec['entries'].items() if not only or slug in only
+              for phone in entry['phones']}
+    screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in wanted}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')
                 for name in ('status-bar', 'home')}
+    # The home screen's page dots and dock alone, for a style whose own layout reaches down to the icon row (Future).
+    overlays['dock'] = overlays['home'].crop((0, 250, overlays['home'].width, overlays['home'].height))
     if blank:
         # The paintings with the same new front but the screen switched off: dial-free sources for outpainting.
         screens = {name: Image.new('RGB', im.size) for name, im in screens.items()}
@@ -348,7 +385,9 @@ def main(argv):
         if only and slug not in only:
             continue
         for phone in entry['phones']:
-            phone.setdefault('overlays', [] if blank else spec['screens'][phone['screen']].get('overlays', []))
+            # A phone's own overlays (the home screen on set-as-wallpaper) win over its screen's.
+            own = phone.get('overlays', spec['screens'][phone['screen']].get('overlays', []))
+            phone['overlays'] = [] if blank else own
         out = compose(product, slug, entry, screens, overlays)
         out.save(os.path.join(blank or src, slug + '.webp'), 'WEBP', quality=90, method=6)
         if folder:
