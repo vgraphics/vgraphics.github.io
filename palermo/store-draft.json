@@ -9,7 +9,7 @@
       {
         "type": "features",
         "items": [
-          { "value": "€4.99", "label": "once", "title": "Host Pass", "text": "For the friend whose TV and evening it is. No ads for anyone in your rooms, two TV themes from the start, and later narrator voices, table records and every host item we add, at no extra charge." }
+          { "value": "€4.99", "label": "once", "title": "Host Pass", "text": "For the friend whose TV and evening it is. No ads for anyone in your rooms, and later four TV themes, narrator voices, table records and every host item we add, at no extra charge." }
         ]
       },
       {
@@ -40,13 +40,13 @@
     }
   },
   "whenTheyGoOnSale": {
-    "about": "Add these as each item opens: sets, single looks and coins, then the supporter pack. Nothing here is for sale at the Host Pass launch.",
+    "about": "Add these when the looks open: the four sets and the Host Pass's four TV themes open all together once their art is done (George, 29 Oct), with single looks, coins and the supporter pack. Nothing here is for sale at the Host Pass launch.",
     "section": {
       "title": "Host Pass and looks",
       "intro": "Palermo Noir is free: every role, every mode and every rule, for up to 14 players. If you love your evenings, two optional things make them nicer. Nothing you buy changes who wins.",
       "addFeatures": [
         { "value": "€2.99", "label": "a set", "title": "Looks", "text": "Four looks around one place in Palermo: a portrait, a wax seal, a card back and a name plate. They belong to you, never to your role, and everyone at the table sees them." },
-        { "value": "€9.99", "label": "supporter pack", "title": "Supporter pack", "text": "The Host Pass, the first three sets and the Patron name plate, in one go." },
+        { "value": "€9.99", "label": "supporter pack", "title": "Supporter pack", "text": "The Host Pass, all four sets and the Patron name plate, in one go." },
         { "value": "300–900", "label": "coins", "title": "Single looks", "text": "Earn coins by playing and buy one look at a time. A finished game earns 30, a win 15 more, the first game of the day another 30, up to 300 a day. Coin packs, from €0.99, exist only in the phone apps." }
       ],
       "steps": [
