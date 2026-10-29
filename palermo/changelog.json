@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.888bf94d",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner guided demo",
+      "items": [
+        "The guided demo now plays through cleanly, without the extra how-to-play prompts that used to pop up over the bots at night."
+      ],
+      "commit": "888bf94d"
+    },
+    {
       "version": "0.1.9543f6c5",
       "date": "2026-10-29",
       "platforms": [
