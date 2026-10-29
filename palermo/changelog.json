@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "0.1.9543f6c5",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The guide stays in front",
+      "items": [
+        "The guide's card now shows in front of the role faces and the subtitles, so you can always read it.",
+        "Subtitles now stay put at the bottom and no longer jump up when a role or a secret action appears.",
+        "The timer no longer overlaps the most-accused player.",
+        "In the demo, the Lawyer's briefcase now highlights each ability as the guide explains it.",
+        "When you join by scanning the TV's QR code, the welcome now plays on the TV.",
+        "The TV's \"first one out sees everything\" label now has more room, so the text isn't cramped."
+      ],
+      "commit": "9543f6c5"
+    },
+    {
       "version": "0.1.3d64f44a",
       "date": "2026-10-29",
       "platforms": [

@@ -2,6 +2,34 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "9543f6c507edc09ceb46558140e9c4da060107b9",
+      "at": "2026-10-29T01:52:27.312Z",
+      "files": [
+        "app-DXiu0m5J.js",
+        "code-boxes-o-PL-Ffu.js",
+        "demo-DOwosFGk.css",
+        "demo-D_J9WefT.js",
+        "demo-screen-BcrtHPPs.js",
+        "demo-screen-C6ViSdM2.css",
+        "door-layout-BLIuXzg4.js",
+        "firestore-C5Z5GX6R.js",
+        "index-x6MKDlQN.js",
+        "join-BX-nEO2B.js",
+        "newsreel-Dz8Dyu0u.js",
+        "newsreel-sE5nnSXv.css",
+        "part-Ck1GQIbW.js",
+        "play-DBC0CDqL.js",
+        "private-B9oJLn2e.js",
+        "room-screen-BLkPo1Kp.js",
+        "spot-Uk3F_zZS.js",
+        "tv-B3i806My.js",
+        "tv-sites-BwcY5691.js",
+        "vote-opens-Cga9WPXi.js",
+        "wordmark-3G5rbVJ0.js",
+        "wordmark-CYXT97tL.css"
+      ]
+    },
+    {
       "sha": "3d64f44a9ce7ebde1f359ae7824c0bc4e00fcfa2",
       "at": "2026-10-29T00:14:26.650Z",
       "files": [
@@ -455,95 +483,6 @@
         "sound-Bc6oq1Po.css",
         "tv-BiVt7_zJ.js",
         "vote-opens-DhrVmT7f.js"
-      ]
-    },
-    {
-      "sha": "69426d191ad46526cf3087fbd12f1a2158549e36",
-      "at": "2026-10-28T01:23:55.638Z",
-      "files": [
-        "app-D0v3qKZn.js",
-        "demo-C3xxL-wD.js",
-        "demo-screen-BMPF69YY.css",
-        "demo-screen-DJ8Lr2Ry.js",
-        "demo-wh96Hlog.css",
-        "firestore-BPJGTzP_.js",
-        "index-DKmUP9Yi.js",
-        "layout-DG32qqxY.js",
-        "part-Vlmikno_.js",
-        "part-cUr0dDzf.js",
-        "play-CK6yrqPW.js",
-        "private-CEVGFreG.js",
-        "room-screen-Cu43zMTJ.js",
-        "sound-Bc6oq1Po.css",
-        "sound-zev-r8Xx.js",
-        "tv-DdXmrRyo.js",
-        "vote-opens-Cdt_4d32.js"
-      ]
-    },
-    {
-      "sha": "c937c7d115f91d1fdca0c320118277c34f3da0f7",
-      "at": "2026-10-28T01:11:21.341Z",
-      "files": [
-        "app-i_sRYafj.js",
-        "demo-DF2bn6Ck.js",
-        "demo-screen-CrdnWQRZ.js",
-        "demo-screen-DvP_DKm1.css",
-        "demo-wh96Hlog.css",
-        "firestore-UmrHSkAQ.js",
-        "index-9blrf0Ic.js",
-        "part-CvfkUvhb.js",
-        "part-Dn2NIxr5.js",
-        "play-BX_CG_uz.js",
-        "private-CEVGFreG.js",
-        "room-screen-CgkkVuHr.js",
-        "sound-Bc6oq1Po.css",
-        "sound-CjShkW8H.js",
-        "tv-B-C07JVk.js",
-        "vote-opens-BElP9BiY.js"
-      ]
-    },
-    {
-      "sha": "5398d495412b28641a7dcc9dd30202fd7198b423",
-      "at": "2026-10-28T00:52:39.187Z",
-      "files": [
-        "app-CETZrlyf.js",
-        "demo-BQAM-MVp.js",
-        "demo-COwtc-Qa.css",
-        "demo-screen-D08GYj8D.js",
-        "demo-screen-DvP_DKm1.css",
-        "firestore--XQcuQPC.js",
-        "index-CxmX_Vvp.js",
-        "part-BcxeDEdT.js",
-        "part-_hRs9MFS.js",
-        "play-Mk6yZRmS.js",
-        "private-CEVGFreG.js",
-        "room-screen-Dfp6EEJ5.js",
-        "sound-Bc6oq1Po.css",
-        "sound-Dwjz-yoW.js",
-        "tv-4kdhH_bG.js",
-        "vote-opens-8dt7Lk9w.js"
-      ]
-    },
-    {
-      "sha": "66bcb23500c0779a2a3633cfffb70a1eebfa9ff7",
-      "at": "2026-10-28T00:06:55.278Z",
-      "files": [
-        "app-DjunmGDF.js",
-        "demo-Bagulsg9.js",
-        "demo-D28h7scN.css",
-        "demo-screen-DUm4o7wL.js",
-        "demo-screen-DvP_DKm1.css",
-        "firestore-Bl8wcOjz.js",
-        "index-Cp2MU9h7.js",
-        "part-BEutBbmf.js",
-        "part-kQC4v4vc.js",
-        "play-CkzM6Vfh.js",
-        "private-CEVGFreG.js",
-        "room-screen-CZyfKMaS.js",
-        "sound-B703XXxW.css",
-        "sound-NY6tYcU-.js",
-        "tv-CQ2zB-zM.js",
-        "vote-opens-Cs-19kiH.js"
       ]
     }
   ]
