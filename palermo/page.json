@@ -209,7 +209,7 @@
       "id": "soundtrack",
       "eyebrow": "The music",
       "title": "Listen to the soundtrack",
-      "intro": "The music of an evening in Palermo, in the order you hear it: a 1950s Sicilian noir chamber orchestra with staccato strings, clarinet, mandolin and accordion. Hushed for the night, sunny but suspicious at noon, relentless for the vote, and a theme for whoever wins. Press play and keep reading; a small player stays with you down the page.",
+      "intro": "The music of an evening in Palermo, in the order you hear it: a 1950s Sicilian noir chamber orchestra with staccato strings, clarinet, mandolin and accordion. Hushed for the night, sunny but suspicious at noon, relentless for the vote, and a theme for whoever wins. The newest song, After Midnight, plays behind the app's main menu: the Main Theme slowed down into a late-night lounge. Press play and keep reading; a small player stays with you down the page.",
       "blocks": [
         {
           "type": "soundtrack",
@@ -227,7 +227,8 @@
             { "title": "The Town Wins", "src": "audio/06-the-town-wins.m4a", "duration": "0:42" },
             { "title": "Palermo Belongs to Them", "src": "audio/07-palermo-belongs-to-them.m4a", "duration": "0:50" },
             { "title": "The Madman's Tarantella", "src": "audio/08-the-madmans-tarantella.m4a", "duration": "0:42" },
-            { "title": "Another Night in Palermo", "src": "audio/09-another-night-in-palermo.m4a", "duration": "2:00" }
+            { "title": "Another Night in Palermo", "src": "audio/09-another-night-in-palermo.m4a", "duration": "2:00" },
+            { "title": "After Midnight", "src": "audio/10-after-midnight.m4a", "duration": "2:58" }
           ]
         }
       ]
