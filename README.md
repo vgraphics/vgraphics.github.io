@@ -345,7 +345,9 @@ About pages; D:\Projects\Mine\CLAUDE.md, "Play and try pages are the product alo
   review, 29 Oct 2026: on 29 Oct they measured 416, 605 and 669 words in no 5-word run of another page), with an
   AboutPage in its structured data and its sitemap entry. The product's menu (`site.nav`) and its landing page's
   questions (their `more` link) link it. Its hero is a picture of its own (every picture once): Palermo Noir's is the
-  deal scene, until then only a gallery tile, with a 9:16 cut (`palermo/img/scene-deal-tall`); Exitwise's (the wiki's
+  game's lobby scene (`palermo/img/about-wide`, `about-tall`, made with `tools/make-key-art.py --name about` from the
+  game's `scenes/lobby` and `lobby-tall`, which only the game draws, by script; 1920 and 780 wide, as large as they
+  come); Exitwise's (the wiki's
   how-to-play painting) and Speedometer's (its key art) are borrowed until each has its own, listed in
   `tools/art-once-todo.json`. A section with `"demo": true` (Palermo Noir's "Try it alone first") stays out while the
   product's demo is private.

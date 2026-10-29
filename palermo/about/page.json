@@ -39,10 +39,10 @@
     "align": "center",
     "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }, { "href": "/palermo/play/", "label": "Play online" }],
     "art": {
-      "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy",
-      "wide": { "src": "/palermo/img/scene-deal", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "sizes": "max(100vw, 688px, min(77.4vw, 133.3vh))" },
-      "tall": { "src": "/palermo/img/scene-deal-tall", "widths": [480, 720, 1080, 1205], "width": 1205, "height": 2143 },
-      "position": "50% 55%",
+      "alt": "A Palermo piazza at night in gold lines on navy: a café's striped awning and its tables, a fountain between two lit street lamps, balconies hung with washing, a cathedral dome behind and a crescent moon",
+      "wide": { "src": "/palermo/img/about-wide", "widths": [960, 1280, 1920], "width": 1920, "height": 1080, "sizes": "max(100vw, 683px, min(76.8vw, 132.3vh))" },
+      "tall": { "src": "/palermo/img/about-tall", "widths": [480, 720, 780], "width": 780, "height": 1688 },
+      "position": "50% 50%",
       "fade": { "wide": "86%", "tall": "80%" },
       "placeholder": "linear-gradient(#0B1623, #1A2433 60%, #0A090D)"
     }
