@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.de8b08be",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Share your daily result anywhere",
+      "items": [
+        "Share your daily result through your device's share menu — one Share button, pick Post or Story — and the board, hearts, flame and QR are back on the picture",
+        "When your avatar wears its rank frame, the white or dark background behind it is gone for a cleaner look",
+        "The play page footer now reads © 2026 VGraphics with Company, Terms and Privacy links, and Settings gains a Company link beside Privacy"
+      ],
+      "commit": "de8b08be"
+    },
+    {
       "version": "1.0.52387e4e",
       "date": "2026-10-29",
       "platforms": [
