@@ -18,6 +18,7 @@ import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
+import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -129,18 +130,6 @@ function seo(file, html) {
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
 
-  for (const s of ['VGRAPHICS SINGLE MEMBER P.C.', 'G.E.MI. no. 181823306000', 'VAT no. EL802736373']) {
-    if (!html.includes(s)) report(file, 'legal-footer', `missing "${s}"`)
-  }
-  if (!/href="\/company\/"/.test(html)) report(file, 'legal-footer', 'no link to /company/')
-  // The site's privacy policy: Google's OAuth consent screen (VGraphics Deployer) and AdSense look for it.
-  if (!/href="\/privacy\/"/.test(html)) report(file, 'legal-footer', 'no link to /privacy/')
-  // Our art and songs are ours (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies
-  // them?"): every page carries the copyright line and links the terms of use.
-  // (The party games' pages wrap "All rights reserved" in a span, which their kit puts in the page's language.)
-  if (!/(?:©|&copy;) \d{4} VGRAPHICS SINGLE MEMBER P\.C\.(?:\s|<span[^>]*>)+All rights reserved/.test(html)) report(file, 'legal-footer', 'no copyright line "© <year> VGRAPHICS SINGLE MEMBER P.C. All rights reserved"')
-  if (!/href="\/terms\/"/.test(html)) report(file, 'legal-footer', 'no link to /terms/')
-
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
   if (!/<meta name="viewport"/.test(html)) report(file, 'head', 'no viewport meta')
   if (!/<title>[^<\s][^<]*<\/title>/.test(html)) report(file, 'head', 'empty or missing <title>')
@@ -192,7 +181,8 @@ for (const [what, seen] of [['title', seoTitles], ['description', seoDescription
 }
 
 // The company pages (every page on /assets/vgraphics.css) share the home page's header and footer, word for word.
-// Only aria-current may differ, and it may only mark the page's own menu item.
+// Only aria-current may differ, and it may only mark the page's own menu item. A product's screen on it (the hub's
+// pages) has the footer with the short legal line (tools/lib/legal.mjs productFoot).
 const chrome = (html) => ({
   head: html.match(/<header class="site-head">[\s\S]*?<\/header>/)?.[0],
   foot: html.match(/<footer class="site-foot">[\s\S]*?<\/footer>/)?.[0],
@@ -211,7 +201,10 @@ for (const file of pages) {
   if (!html.includes('href="/assets/vgraphics.css"')) continue
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
-  if (plain(foot) !== plain(home.foot)) report(file, 'menu', "footer differs from the home page's")
+  const screen = isProductScreen(urlPath(file))
+  if (plain(foot) !== plain(screen ? productFoot(home.foot) : home.foot)) {
+    report(file, 'menu', screen ? "footer differs from the home page's with the product's legal line, \"© <year> VGraphics\"" : "footer differs from the home page's")
+  }
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
     if (href !== urlPath(file)) report(file, 'menu', `marks ${href} as the current page`)
@@ -444,6 +437,15 @@ for (const [file, text] of sheets) {
       }
     }
   }
+}
+
+// The legal line (tools/lib/legal.mjs; George, 29 Oct 2026: "These are only required at the website not in the apps.
+// Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
+// above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
+// screens (its play, TV, join and demo pages, the hub, the try pages).
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file)) continue
+  for (const m of legalProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'legal-footer', m)
 }
 
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
