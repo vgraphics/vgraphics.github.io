@@ -218,7 +218,7 @@ h1, h2, h3 {
   letter-spacing: 0.08em;
   text-shadow: none;
 }
-.top.scrolled .subnav .play-soon, .top.menu-open .subnav .play-soon { color: color-mix(in srgb, var(--ink) 66%, transparent); text-shadow: none; }
+.top.scrolled .subnav .play-soon, .top.menu-open .subnav .play-soon, .top.menu-closing .subnav .play-soon { color: color-mix(in srgb, var(--ink) 66%, transparent); text-shadow: none; }
 :is(.top.scrolled, .top) .subnav a.demo-link { box-shadow: inset 0 0 0 1.5px var(--pb); }
 :is(.top.scrolled, .top) .subnav a.demo-link:hover { background: color-mix(in srgb, var(--pb) 18%, transparent); }
 .top.compact .subnav .play-soon { margin-left: 4px; padding: 0 6px 0 11px; }
@@ -1448,7 +1448,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   background: transparent; color: var(--on-art); filter: drop-shadow(var(--on-art-shadow)); cursor: var(--cursor-link, pointer);
   transition: color 200ms ease-out, background-color 200ms ease-out;
 }
-.top.scrolled .menu-toggle, .top.menu-open .menu-toggle { color: var(--ink); filter: none; }
+.top.scrolled .menu-toggle, .top.menu-open .menu-toggle, .top.menu-closing .menu-toggle { color: var(--ink); filter: none; }
 .menu-toggle:hover { background: color-mix(in srgb, var(--ink) 8%, transparent); }
 /* Three bars, which turn into a cross while the panel is open */
 .menu-toggle .bars { position: relative; }
@@ -1463,21 +1463,19 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 .menu-open .menu-toggle .bars::before { transform: translateY(6px) rotate(45deg); }
 .menu-open .menu-toggle .bars::after { transform: translateY(-6px) rotate(-45deg); }
 
-/* While it is open the header is a solid bar in the page's colour, the panel its continuation */
-.top.menu-open { background-color: var(--page); }
-.top.menu-open a { color: var(--ink); text-shadow: none; }
+/* While it is open the header is a solid bar in the page's colour, the panel its continuation, and so it stays while
+   the panel closes (.menu-closing). assets/faq.js moves the panel (showMenu, hideMenu): it grows from the button as it
+   fades in and closes a little faster, a short fade under reduced motion; these rules only show and hide it. */
+.top.menu-open, .top.menu-closing { background-color: var(--page); }
+.top.menu-open a, .top.menu-closing a { color: var(--ink); text-shadow: none; }
 .folded .subnav {
   position: absolute; top: 100%; left: 0; right: 0; z-index: 1;
   display: grid; gap: 4px; max-height: calc(100dvh - 100%); overflow-y: auto; overscroll-behavior: contain;
   padding: 8px 16px 20px; background: var(--page); border-bottom: 1px solid var(--line);
   border-radius: 0 0 var(--radius) var(--radius); box-shadow: 0 18px 36px -24px rgb(0 0 0 / 0.55);
-  visibility: hidden; opacity: 0; transform: translateY(-8px);
-  transition: opacity 140ms ease-in, transform 140ms ease-in, visibility 0s linear 140ms;
+  visibility: hidden;
 }
-.folded.menu-open .subnav {
-  visibility: visible; opacity: 1; transform: none;
-  transition: opacity 200ms ease-out, transform 200ms ease-out;
-}
+.folded.menu-open .subnav, .folded.menu-closing .subnav { visibility: visible; }
 /* Taller than a short screen, the panel scrolls (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own box"):
    its bottom edge fades into the panel while more lies below. fade-edges.js keeps --fade-end current; the fade is
    drawn here in the panel's colour (--fade-mode: overlay), since a mask would fade the panel's own background too.
@@ -1500,13 +1498,15 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   color: var(--nav-current-ink-scrolled, var(--nav-current-ink));
   border-radius: var(--nav-current-radius, var(--radius-sm)); /* optional */
 }
-/* The page under the panel, dimmed; a tap on it closes the panel */
-.top.menu-open::after {
+/* The page under the panel, dimmed; a tap on it closes the panel. The dim lifts as the panel closes. */
+.top.menu-open::after, .top.menu-closing::after {
   content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 100dvh;
   background: rgb(8 6 14 / 0.55);
   animation: menu-dim 200ms ease-out;
 }
+.top.menu-closing::after { animation: menu-undim 200ms ease-out forwards; }
 @keyframes menu-dim { from { opacity: 0; } }
+@keyframes menu-undim { to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }

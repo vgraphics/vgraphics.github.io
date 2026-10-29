@@ -472,7 +472,7 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
   html:has(script[src="/assets/menu.js"]) {
     & .site-head .wrap { flex-wrap: nowrap; justify-content: space-between; gap: var(--s2); padding-block: 0; }
     & .brand span { display: inline; }
-    & .site-head.menu-open { background: var(--bg); }
+    & .site-head.menu-open, & .site-head.menu-closing { background: var(--bg); }
 
     & .menu-toggle {
       display: inline-flex; align-items: center; justify-content: center; flex: none;
@@ -494,19 +494,17 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
     & .menu-open .menu-toggle .bars::before { transform: translateY(6px) rotate(45deg); }
     & .menu-open .menu-toggle .bars::after { transform: translateY(-6px) rotate(-45deg); }
 
-    /* The panel drops in under the header; it leaves a little faster than it comes */
+    /* The panel under the header. assets/faq.js moves it (showMenu, hideMenu): it grows from the button as it fades in
+       and closes a little faster, a short fade under reduced motion; these rules only show it, and keep it while it
+       closes (.menu-closing). */
     & .site-nav {
       position: absolute; top: 100%; left: 0; right: 0; z-index: 1;
       display: grid; gap: 4px; justify-content: normal; max-height: calc(100dvh - 100%); overflow-y: auto; overscroll-behavior: contain;
       padding: 8px 20px 20px; background: var(--bg); border-bottom: 1px solid var(--line);
       border-radius: 0 0 var(--r-lg) var(--r-lg); box-shadow: var(--shadow);
-      visibility: hidden; opacity: 0; transform: translateY(-8px);
-      transition: opacity 140ms ease-in, transform 140ms ease-in, visibility 0s linear 140ms;
+      visibility: hidden;
     }
-    & .menu-open .site-nav {
-      visibility: visible; opacity: 1; transform: none;
-      transition: opacity 200ms var(--ease), transform 200ms var(--ease);
-    }
+    & .menu-open .site-nav, & .menu-closing .site-nav { visibility: visible; }
     /* Taller than a short screen, the panel scrolls (D:\Projects\Mine\CLAUDE.md, "Long lists scroll in their own
        box"): a thin scrollbar in the company's colour, and its bottom edge fades into the panel while more lies below.
        fade-edges.js keeps --fade-end current; the fade is drawn here in the panel's colour (--fade-mode: overlay),
@@ -523,11 +521,13 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
     & .site-nav .cta { display: flex; justify-content: center; margin: 8px 0 0; border-radius: 999px; background: transparent; color: var(--ink); box-shadow: inset 0 0 0 2px var(--ink); }
     & .site-nav .cta:hover { background: var(--ink); color: var(--bg); }
     /* The page under the panel, dimmed; a tap on it closes the panel */
-    & .site-head.menu-open::after {
+    & .site-head.menu-open::after, & .site-head.menu-closing::after {
       content: ""; position: absolute; top: 100%; left: 0; right: 0; height: 100dvh;
       background: color-mix(in srgb, var(--night) 55%, transparent);
       animation: menu-dim 200ms var(--ease);
     }
+    /* The dim lifts as the panel closes */
+    & .site-head.menu-closing::after { animation: menu-undim 200ms var(--ease) forwards; }
   }
 }
 /* Phones on their side: the links in two columns, so the panel fits the short screen */
@@ -538,6 +538,7 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
   }
 }
 @keyframes menu-dim { from { opacity: 0; } }
+@keyframes menu-undim { to { opacity: 0; } }
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
