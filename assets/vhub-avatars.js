@@ -92,14 +92,15 @@ window.VHubAvatars = (() => {
   // into a new element before adding it: on 29 Oct, `el` left unpositioned, Garithos's frame took its size from the
   // ranking's row and the podium's card). The page's own disc and ring around the picture give way to the frame. `el`
   // gets data-framed, for a page that keeps room above or below it. A drawing that won't load leaves the picture as it
-  // was.
-  function wear(el, p) {
+  // was. `reach` is how far the drawing may reach, in pictures: REACH, or less where the room around `el` is tighter
+  // (the header's avatar).
+  function wear(el, p, reach = REACH) {
     const id = shownFrame(p.frame, p.level);
     const pic = el.firstElementChild;
     if (!id || !pic) return;
     const [, width, height, cx, cy, r] = FRAMES[id];
     const across = 1 / (2 * r), down = across * height / width;
-    const fit = Math.min(1, REACH / Math.max(across, down));
+    const fit = Math.min(1, reach / Math.max(across, down));
     const fw = fit * across * 100, fh = fit * down * 100;
     const art = document.createElement("img");
     art.alt = "";
@@ -137,13 +138,13 @@ window.VHubAvatars = (() => {
 
   // Fills `el` with the player's approved photo (96 or 256 px), or their preset when there's none or it won't load, in
   // the rank frame they wear. `p` is { uid, avatar, photo, level?, frame? }: photo the approved picture's version, or
-  // null; frame the id they chose on VHub, or none.
-  function draw(el, p, size = 96) {
+  // null; frame the id they chose on VHub, or none. `reach`: how far the frame may reach, in pictures (wear).
+  function draw(el, p, size = 96, reach = REACH) {
     plain(el);
     const preset = () => {
       plain(el);
       el.innerHTML = svg(typeof p.avatar === "number" ? p.avatar : avatarFor(p.uid));
-      wear(el, p);
+      wear(el, p, reach);
     };
     if (!p.photo) return preset();
     const img = document.createElement("img");
@@ -154,8 +155,8 @@ window.VHubAvatars = (() => {
     img.onerror = preset;
     img.src = `${storage}/v0/b/${bucket}/o/${encodeURIComponent(`photos/${p.uid}/${p.photo}/${size}.jpg`)}?alt=media`;
     el.replaceChildren(img);
-    wear(el, p);
+    wear(el, p, reach);
   }
 
-  return { svg, avatarFor, anonymous, draw, shownFrame };
+  return { svg, avatarFor, anonymous, draw, plain, shownFrame };
 })();

@@ -96,6 +96,18 @@ test('a frame drawn before the avatar is on the page is sized from the avatar', 
   assert.ok(frameOf(avatar))
 })
 
+test('a tighter reach keeps the frame in less room, and plain() takes it off', () => {
+  // The header's avatar: 1.35 pictures at most (assets/account.js HEADER_REACH).
+  const avatar = element('span')
+  draw(avatar, { uid: 'george', avatar: 3, photo: null, level: 200, frame: 'amethyst' }, 96, 1.35)
+  const [width, height] = ['width', 'height'].map((k) => parseFloat(frameOf(avatar).style[k]))
+  assert.ok(Math.max(width, height) <= 135.01, `${width}% × ${height}%`)
+  window.VHubAvatars.plain(avatar)
+  assert.equal(avatar.dataset.framed, undefined)
+  assert.equal(frameBoxOf(avatar), undefined)
+  assert.equal(avatar.children[0].tag, 'svg', 'the picture stays')
+})
+
 test('drawn again without a frame, the box is the page’s own again', () => {
   const box = element('span')
   draw(box, { uid: 'george', avatar: 3, photo: null, level: 40, frame: 'bronze' })
