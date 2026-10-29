@@ -59,48 +59,6 @@
     },
     {
       "art": [
-        "exitwise/img/7-win"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/exitwise/wiki/coins/ section.w-block",
-        "/games/ section.page-hero"
-      ]
-    },
-    {
-      "art": [
-        "assets/img/exitwise-giant",
-        "exitwise/img/4-giant"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/ article.b.x-game.s7.r2",
-        "/exitwise/wiki/hard-levels/ section.w-block"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/img/3-mirrors"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/exitwise/wiki/mirror/ section.w-block",
-        "/games/ article.b.x-game.feature"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/img/2-map"
-      ],
-      "todo": "To do (no credits): the company pages show fresh captures from the game (or the unused exitwise/img/3-shapes.webp and 8-switches.webp); the wiki keeps its own.",
-      "places": [
-        "/exitwise/wiki/worlds/ section.w-block",
-        "/games/ section.page-hero",
-        "/multiplayer/#rooms"
-      ]
-    },
-    {
-      "art": [
         "speedometer-wallpaper/img/key-art",
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"
