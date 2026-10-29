@@ -87,8 +87,12 @@ window.VHubAvatars = (() => {
   // Draws the frame `p` wears around the picture in `el`, as the hub's lists do: `el` keeps its size, so rows still line
   // up (George: "Avatars are not aligned. Borders makes some wider."); the picture tucks a little under the ring (smaller
   // only for a frame that would reach past REACH), and the drawing lies over it, its opening on the centre, reaching into
-  // the room around `el`. The page's own disc and ring around the picture give way to the frame. `el` gets
-  // data-framed, for a page that keeps room above or below it. A drawing that won't load leaves the picture as it was.
+  // the room around `el`. The picture and the drawing go in a box of their own that fills `el` and places the drawing,
+  // so it is sized from the avatar however `el` is positioned and whether or not it is on the page yet (the pages draw
+  // into a new element before adding it: on 29 Oct, `el` left unpositioned, Garithos's frame took its size from the
+  // ranking's row and the podium's card). The page's own disc and ring around the picture give way to the frame. `el`
+  // gets data-framed, for a page that keeps room above or below it. A drawing that won't load leaves the picture as it
+  // was.
   function wear(el, p) {
     const id = shownFrame(p.frame, p.level);
     const pic = el.firstElementChild;
@@ -109,21 +113,26 @@ window.VHubAvatars = (() => {
       maxWidth: "none", pointerEvents: "none",
     });
     art.onerror = () => { if (el.dataset.framed === id) plain(el); };
-    if (getComputedStyle(el).position === "static") el.style.position = "relative";
+    const box = document.createElement("span");
+    box.dataset.frameBox = "";
+    Object.assign(box.style, { position: "relative", display: "block", width: "100%", height: "100%" });
     Object.assign(el.style, { overflow: "visible", background: "transparent", boxShadow: "none" });
     Object.assign(pic.style, { transform: `scale(${(fit * 1.04).toFixed(4)})`, borderRadius: "50%" });
     el.dataset.framed = id;
     art.src = `/hub/frames/${id}.webp`;
-    el.append(art);
+    box.append(pic, art);
+    el.append(box);
   }
 
   // Takes a frame off `el`: the picture as the page draws it.
   function plain(el) {
     if (!el.dataset.framed) return;
     delete el.dataset.framed;
-    for (const k of ["position", "overflow", "background", "boxShadow"]) el.style[k] = "";
-    el.querySelectorAll(":scope > img[data-frame-art]").forEach(art => art.remove());
-    if (el.firstElementChild) Object.assign(el.firstElementChild.style, { transform: "", borderRadius: "" });
+    for (const k of ["overflow", "background", "boxShadow"]) el.style[k] = "";
+    const box = el.querySelector(":scope > [data-frame-box]");
+    const pic = box ? box.firstElementChild : el.firstElementChild;
+    if (box) box.replaceWith(...(pic ? [pic] : []));
+    if (pic) Object.assign(pic.style, { transform: "", borderRadius: "" });
   }
 
   // Fills `el` with the player's approved photo (96 or 256 px), or their preset when there's none or it won't load, in
