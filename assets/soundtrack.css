@@ -19,7 +19,11 @@
 .ost-player {
   position: relative;
   isolation: isolate;
+  /* Clipped, not a scroll box: the blurred backdrop is taller than the card, and as a scroll box (overflow: hidden)
+     scrolling something inside it into view slid its contents up and left an empty strip of picture at its foot.
+     hidden stays for browsers without clip. */
   overflow: hidden;
+  overflow: clip;
   display: grid;
   justify-items: center;
   gap: 22px;
