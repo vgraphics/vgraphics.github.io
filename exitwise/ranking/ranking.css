@@ -1,7 +1,9 @@
 /* The ranking page's boards (ranking.html, on the section's scene): the tabs as the game's pill buttons, then the board
    on the game's card. Colours and type come from the theme pack; the cups keep their gold, silver and bronze. */
 .ranking { width: min(100%, 760px); margin-inline: auto; color: var(--ink); --gold: #F2B705; --silver: #CDD3DC; --bronze: #E9A46B; }
-.ranking button { font: inherit; color: inherit; }
+/* Every button but the shared .btn (the error state's Try again), which keeps assets/product.css's ink and type: this
+   rule outranks .btn, and once drew Try again in the ink of its own face (George, 29 Oct 2026). */
+.ranking button:where(:not(.btn)) { font: inherit; color: inherit; }
 
 .ranking .tabs { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 16px; }
 .ranking .tab {

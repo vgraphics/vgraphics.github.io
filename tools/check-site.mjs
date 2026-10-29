@@ -19,6 +19,7 @@ import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
+import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -747,6 +748,30 @@ for (const file of served) {
   const makes = [...html.matchAll(/<script\b[^>]*\ssrc="([^"]+)"/g)].map((m) => m[1]).filter((src) => switchScripts.has(src))
   if ((boxes.length || makes.length) && !SWITCH_CSS.test(html)) {
     switchRule(file, `has switches (${boxes.length ? 'in its markup' : makes.join(', ')}) but doesn't link /assets/switch.css, which draws them: <link rel="stylesheet" href="/assets/switch.css">`)
+  }
+}
+
+// Buttons keep their own colours and type (George, 29 Oct 2026, on the ranking's empty Try again: "The button shows no
+// text. Check it."): no rule of a page's stylesheets that styles every link or button of a box (`.ranking button`)
+// outranks the own rule of a button in that box (`.btn`) for its colour, background or font. tools/lib/buttons.mjs finds
+// a page's buttons, in its markup or put into one of its elements by its scripts, and the rules that take them over.
+// The pages other repos build keep theirs in their repo.
+const buttonRule = (file, message) => report(file, 'buttons', message)
+const pageFile = (file, href) => {
+  const clean = decodeURIComponent(href.replace(/[?#].*$/, ''))
+  if (/^([a-z]+:|\/\/)/i.test(clean)) return null
+  const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
+  return existsSync(target) && statSync(target).isFile() ? [relative(root, target).split(sep).join('/'), readFileSync(target, 'utf8')] : null
+}
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file) || BUILT_ELSEWHERE.test(file)) continue
+  const html = readFileSync(join(root, file), 'utf8')
+  const css = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => pageFile(file, m[1])).filter(Boolean)
+  for (const [, inline] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) css.push(['its <style>', inline])
+  const js = [...html.matchAll(/<script\b[^>]*\ssrc="([^"]+)"/g)].map((m) => pageFile(file, m[1])?.[1]).filter(Boolean)
+  for (const [, inline] of html.matchAll(/<script\b(?![^>]*\ssrc=)[^>]*>([\s\S]*?)<\/script>/g)) js.push(inline)
+  for (const { selector, from, props, button } of buttonOverrides(css.flatMap(([from, text]) => rulesOf(text, from)), buttonsOf(html, js))) {
+    buttonRule(file, `${from}'s "${selector}" takes the ${props.join(' and ')} of its ${button}, outranking the button's own rule: leave the buttons out with :where(:not(.btn)) on its element, or write its element as :where(a, button)`)
   }
 }
 
