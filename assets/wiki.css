@@ -105,6 +105,8 @@
 .w-board .piece { cursor: var(--cursor-link, pointer); outline: none; }
 .w-board .piece:focus-visible { filter: drop-shadow(0 0 5px var(--accent)); }
 .w-board .pulse { animation: w-pulse 0.7s ease-in-out 2; }
+/* An ice block's number, on its top in the game's ice ink */
+.w-board .ice-n { font: var(--display-weight) 19px/1 var(--font-display); fill: #0F4C75; text-anchor: middle; dominant-baseline: central; }
 @keyframes w-pulse { 50% { opacity: 0.35; } }
 .w-play-acts { display: flex; gap: 10px; }
 
