@@ -353,7 +353,8 @@ About pages; D:\Projects\Mine\CLAUDE.md, "Play and try pages are the product alo
   such a page but no About page from the template, or one without questions, missing from its menu or from its
   landing page's own words. `OLD_PANELS` in check-site lets the two pages other repos build pass until the releases
   that drop their panels (`exitwise/play/`: exitwise-web; `palermo/demo/`: palermo-web; 29 Oct 2026). Once one
-  passes, check-site asks for its line to go.
+  passes, check-site warns (on stderr, without failing, so the Deployer's own run doesn't hold that release up) until
+  its line is taken out.
 
 ## What's new and Questions and answers
 

@@ -369,8 +369,9 @@ for (const file of served) {
 // product with such a page has its About page from the template, with questions, linked from its menu and from its
 // landing page's own words.
 // OLD_PANELS: the play pages other repos build that still carry the About panel of 27 Oct 2026, until the release that
-// drops it (29 Oct 2026). Each passes until then; once that release is live check-site asks for its line to go, and the
-// master takes it out.
+// drops it (29 Oct 2026). Each passes until then; once the page passes, check-site warns (on stderr, without failing, so
+// the very release that fixes it isn't held up by the Deployer's own run of this check) until the master takes its line
+// out.
 const OLD_PANELS = {
   'exitwise/play/index.html': "Exitwise's next exitwise-web release, from the Games repo's feature/exitwise-play-alone (29 Oct 2026)",
   'palermo/demo/index.html': "Palermo Noir's next palermo-web release, once the palermo repo's web/demo/ drops its About panel (29 Oct 2026)",
@@ -383,7 +384,7 @@ for (const file of served) {
   withPlayPages.add(slug)
   const found = playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })
   if (Object.hasOwn(OLD_PANELS, file)) {
-    if (!found.length) playAlone(file, `passes now: take its line out of OLD_PANELS in tools/check-site.mjs (${OLD_PANELS[file]})`)
+    if (!found.length) console.warn(`warning: ${file} is the product alone now: take its line out of OLD_PANELS in tools/check-site.mjs (${OLD_PANELS[file]})`)
     continue
   }
   for (const m of found) playAlone(file, m)
