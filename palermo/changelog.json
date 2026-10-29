@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "0.1.7cad6de2",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner TV sound",
+      "items": [
+        "On the shared TV, sound now starts cleanly when you press OK for sound — earlier sounds no longer stack up and all play at once.",
+        "During the guided demo, reloading or rejoining no longer makes the TV skip the opening of a new game — it keeps its place across the reload."
+      ],
+      "commit": "7cad6de2"
+    },
+    {
       "version": "0.1.c07257cc",
       "date": "2026-10-29",
       "platforms": [
