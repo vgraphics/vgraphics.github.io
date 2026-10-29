@@ -1,9 +1,10 @@
 // The pieces every page of a product shares, for tools/build-pages.mjs and the wikis: the header with only the
 // product's own logo top left (George's rule, 22 Oct 2026), the closing card and the footer with the company's legal
-// line (the same on every page, George, 23 Oct 2026: "The foother must be same on all pages"), the store badges and
-// buttons, and the theme's decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for
-// attribute values.
+// line (the same on every page, George, 23 Oct 2026: "The foother must be same on all pages"; a product's screens, its
+// try page, carry the short one, tools/lib/legal.mjs), the store badges and buttons, and the theme's decorative
+// ornaments. Text from page.json is trusted HTML from this repo; esc() is for attribute values.
 import { readFileSync } from 'node:fs'
+import { isProductScreen, PRODUCT_LEGAL } from './legal.mjs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -166,8 +167,9 @@ export function header({ page }, { current } = {}) {
 // The footer is styled like the hero (George, 22 Oct 2026): a picture generated from the key art (page.json footerArt:
 // { src, widths, width, height, position }, with src-<width>.avif and .webp files) fades in from the page. Over its foot,
 // centred (George picked layout B): the product's logo, one row of links, round buttons for its stores and the
-// studio's channels, then the legal line.
-export function footer({ page }) {
+// studio's channels, then the legal line: the company's full one on the website's pages, "© <year> VGraphics" on the
+// product's own screens (tools/lib/legal.mjs).
+export function footer({ page, slug }) {
   const s = page.site
   // The product's own pages (its menu, without Overview, under the footer's names for them), then the studio's.
   const own = new Map(s.nav.slice(1).map((n) => [n.href, n.label]))
@@ -188,7 +190,7 @@ export function footer({ page }) {
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
         ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${buttons(page)}
-      <p class="legal">${LEGAL}${play}</p>
+      <p class="legal">${isProductScreen(page.path ?? `/${slug}/`) ? PRODUCT_LEGAL : LEGAL}${play}</p>
     </div>${f ? f.band : ''}
   </footer>`
 }
