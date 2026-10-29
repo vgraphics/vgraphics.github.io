@@ -98,7 +98,9 @@
 }
 .vm-body { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--vm-on) transparent; }
 
-.vhub-menu a, .vhub-menu button { color: inherit; font: inherit; cursor: var(--cursor-link, pointer); }
+/* Weighs one class, so the menu's own buttons written after it keep their type (.vm-gbtn's Google font, .vm-hub's and
+   .vm-back's small print, .vm-button's bold), which `.vhub-menu button` used to take from them. */
+.vhub-menu :where(a, button) { color: inherit; font: inherit; cursor: var(--cursor-link, pointer); }
 .vhub-menu h2, .vhub-menu h3, .vhub-menu p { margin: 0; }
 .vm-loading, .vm-card .vm-line, .vm-small { color: var(--vm-muted); }
 .vm-loading { padding: 22px 24px; }

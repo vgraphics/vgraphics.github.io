@@ -121,14 +121,24 @@
   const CUPS = ["#F2B705", "#C3CAD6", "#E39A5E"];
   const cupMark = rank => rank === 1 ? STAR : `<text x="24" y="22" text-anchor="middle" font-family="Lilita One, Arial Rounded MT Bold, sans-serif" font-size="12" fill="#3B3355">${rank}</text>`;
   const CLOUD = `<path d="M14 36a9 9 0 0 1-1-18 12 12 0 0 1 23 2 8 8 0 0 1-1 16z" fill="#E9E1D3"/><path d="M24 22v8" stroke="#3B3355" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="35" r="2.4" fill="#3B3355"/>`;
+  // A board card with a warning: the board loaded but the page couldn't draw it.
+  const SNAG = `<rect x="8" y="10" width="32" height="28" rx="6" fill="#E9E1D3"/><path d="M24 17v10" stroke="#3B3355" stroke-width="4" stroke-linecap="round"/><circle cx="24" cy="32" r="2.4" fill="#3B3355"/>`;
+
+  // What shows in the board's place: an empty board; a board that didn't load (the connection, VHub, or a script the
+  // board needs); and a board that loaded but couldn't be drawn, the page's own fault, which a reload fetches again.
+  const STATES = {
+    empty: { pic: TROPHY, title: "Be the first on this board" },
+    error: { pic: CLOUD, title: "Couldn't load the ranking", text: "Check your connection and try again.", button: "Try again", act: () => show(board, true) },
+    broken: { pic: SNAG, title: "Couldn't show the ranking", text: "Something went wrong while drawing this board. Reload the page to try again.", button: "Reload the page", act: () => location.reload() },
+  };
 
   function showState(kind) {
-    const b = BOARDS[board];
-    $("state-pic").innerHTML = kind === "empty" ? TROPHY : CLOUD;
-    $("state-title").textContent = kind === "empty" ? "Be the first on this board" : "Couldn't load the ranking";
-    $("state-text").textContent = kind === "empty" ? b.empty : "Check your connection and try again.";
-    $("state-actions").innerHTML = kind === "empty" ? PLAY : `<button class="btn" type="button" id="retry">Try again</button>`;
-    if (kind === "error") $("retry").addEventListener("click", () => show(board, true));
+    const s = STATES[kind];
+    $("state-pic").innerHTML = s.pic;
+    $("state-title").textContent = s.title;
+    $("state-text").textContent = s.text || BOARDS[board].empty;
+    $("state-actions").innerHTML = s.act ? `<button class="btn" type="button" id="retry">${s.button}</button>` : PLAY;
+    if (s.act) $("retry").addEventListener("click", s.act);
     state.hidden = false;
     $("cols").hidden = true;
   }
@@ -158,6 +168,22 @@
     status.textContent = `${BOARDS[id].title}: ${plural(n, "player", "players")}.`;
   }
 
+  // Draws a loaded board. A throw while drawing it (a row, a trophy, a picture or its frame) is the page's, not the
+  // connection's: it says so, and leaves the cause in the console.
+  function display(id, data, animate) {
+    try {
+      render(id, data, animate);
+    } catch (e) {
+      console.warn(`Ranking: the ${id} board loaded but couldn't be drawn.`, e);
+      rows.textContent = "";
+      rows.setAttribute("aria-busy", "false");
+      $("trophies").hidden = true;
+      count.hidden = true;
+      showState("broken");
+      status.textContent = "Couldn't show the ranking.";
+    }
+  }
+
   async function show(id, reload) {
     const mine = ++request;
     const b = BOARDS[id];
@@ -168,7 +194,7 @@
     state.hidden = true;
     $("cols").hidden = false;
     if (cache[id] && !reload) {
-      render(id, cache[id], false);
+      display(id, cache[id], false);
       return;
     }
     count.hidden = true;
@@ -178,24 +204,27 @@
     $("updated").textContent = "Loading…";
     refresh.disabled = true;
     refresh.setAttribute("aria-busy", "true");
+    let data;
     try {
-      const data = await loadBoard(id);
-      if (mine !== request) return;
-      cache[id] = data;
-      render(id, data, true);
+      data = await loadBoard(id);
     } catch (e) {
       if (mine !== request) return;
+      console.warn(`Ranking: the ${id} board didn't load.`, e);
       rows.textContent = "";
       rows.setAttribute("aria-busy", "false");
       $("updated").textContent = "Not loaded";
       showState("error");
       status.textContent = "Couldn't load the ranking.";
+      return;
     } finally {
       if (mine === request) {
         refresh.disabled = false;
         refresh.removeAttribute("aria-busy");
       }
     }
+    if (mine !== request) return;
+    cache[id] = data;
+    display(id, data, true);
   }
 
   function select(tab, focus) {
