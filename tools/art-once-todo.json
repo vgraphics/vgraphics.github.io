@@ -101,16 +101,6 @@
     },
     {
       "art": [
-        "assets/img/exitwise-maps"
-      ],
-      "todo": "To do (no credits): one of the two company pages shows a fresh capture of the map editor, or the services card links to /multiplayer/#maps, whose preview it then is.",
-      "places": [
-        "/multiplayer/#maps",
-        "/services/#proof"
-      ]
-    },
-    {
-      "art": [
         "speedometer-wallpaper/img/key-art",
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"
