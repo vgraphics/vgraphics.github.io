@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.52387e4e",
+      "date": "2026-10-29",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New star and chest sounds",
+      "items": [
+        "When you clear a level, your stars now pop in with cheerful rising notes, the third lands with a magic sparkle, and a full three-star chest rattles with coins before bursting open."
+      ],
+      "commit": "52387e4e"
+    },
+    {
       "version": "1.0.26",
       "date": "2026-10-29",
       "platforms": [
