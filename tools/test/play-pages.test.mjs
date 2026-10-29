@@ -68,14 +68,19 @@ test('the template\'s try page is the app alone: a screen with the bar, its Abou
   assert.ok(html.includes('class="try-panel fade-edges"'), 'the panel scrolls in its own box')
 })
 
-test('a product with a play or try page needs its About page, with questions, linked from its menu and its landing page', () => {
+test('a product with a play or try page needs its About page, with questions of its own, linked from its menu and its landing page', () => {
   const site = { nav: [{ label: 'Overview', href: '/x/' }, { label: 'About', href: '/x/about/' }] }
-  const page = { sections: [{ id: 'questions', blocks: [{ type: 'faq', items: [] }] }] }
-  const landing = '<header><a href="/x/about/">About</a></header><main><a class="more" href="/x/about/">All about X</a></main>'
+  const page = { sections: [{ id: 'questions', blocks: [{ type: 'faq', schema: false, items: [{ q: 'Why is the sky blue?', a: 'Air.' }] }] }] }
+  const landing = '<header><a href="/x/about/">About</a></header><main><details class="faq-item"><summary>Is X free?<svg></svg></summary></details><a class="more" href="/x/about/">All about X</a></main>'
   assert.deepEqual(aboutProblems('x', { built: true, page, site, landing }), [])
   assert.match(aboutProblems('x', { built: false })[0], /no About page: add x\/about\/page\.json/)
   const found = aboutProblems('x', { built: true, page: { sections: [] }, site: { nav: site.nav.slice(0, 1) }, landing: landing.replace(/<main>[\s\S]*<\/main>/, '<main></main>') })
   assert.equal(found.length, 3, found.join('\n'))
+  // Its questions are its own: no FAQPage data (the landing page's are the product's), and none the landing page asks.
+  const copied = { sections: [{ id: 'questions', blocks: [{ type: 'faq', items: [{ q: 'is x free? ', a: 'Yes.' }] }] }] }
+  const again = aboutProblems('x', { built: true, page: copied, site, landing })
+  assert.ok(again.some((m) => m.includes('"schema": false')), again.join('\n'))
+  assert.ok(again.some((m) => m.includes('already ask ("is x free? ")')), again.join('\n'))
 })
 
 test('the three About pages are built from the template, linked from their menus and landing pages', () => {
@@ -83,7 +88,8 @@ test('the three About pages are built from the template, linked from their menus
     const { html, file } = render(slug, 'about')
     assert.equal(file.replace(/\\/g, '/'), `${slug}/about/index.html`)
     assert.equal((html.match(/<h1[\s>]/g) ?? []).length, 1, `${slug}: one h1`)
-    assert.ok(html.includes('"@type": "AboutPage"') && html.includes('"@type": "FAQPage"'), `${slug}: its structured data`)
+    assert.ok(html.includes('"@type": "AboutPage"'), `${slug}: its structured data`)
+    assert.ok(!html.includes('"@type": "FAQPage"'), `${slug}: no FAQPage, which is the landing page's`)
     const { page } = loadSubpage(slug, 'about')
     assert.deepEqual(aboutProblems(slug, { built: true, page, site: loadProduct(slug).page.site, landing: render(slug).html }), [], slug)
   }

@@ -327,7 +327,8 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   try: (b, product) => tryBlock(b, product.page),
 
   // Questions that each open their answer, from page.json or the faq.json beside it (tools/lib/faq.mjs); the page's
-  // head carries them as FAQPage structured data too.
+  // head carries them as FAQPage structured data too, unless the block says "schema": false (an About page's: the
+  // product's FAQPage is its landing page's, and the About page asks other questions).
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
@@ -470,7 +471,7 @@ export function render(slug, sub) {
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
   const book = blocks.find((b) => b.type === 'storybook')
-  const questions = blocks.filter((b) => b.type === 'faq').flatMap((b) => readFaq(b, product.dir, p.site).items)
+  const questions = blocks.filter((b) => b.type === 'faq' && b.schema !== false).flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
   const beside = (ext) => embeds.filter((e) => existsSync(join(root, `${e}.${ext}`)))
   // A screen is its h1 and its sections' blocks alone; any other page its hero, its sections and the closing card.

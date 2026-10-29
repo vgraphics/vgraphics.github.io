@@ -49,13 +49,20 @@ export function playPageProblems(html, slug, { template = false } = {}) {
 // What is wrong with the About page of a product that has a play or try page. built: <product>/about/page.json exists
 // (the template's page, tools/build-pages.mjs); page: that page.json (its sections, for the questions); site: the
 // product's site block (its menu); landing: the product's landing page as built. A list of messages, none when it's
-// right: the page exists from the template, has a few questions (a faq block), and the product's menu and its landing
-// page's own words link it.
+// right: the page exists from the template, has a few questions of its own (a faq block with "schema": false, since the
+// landing page's questions are the product's FAQPage, and none the landing page already asks: AdSense's review of 29
+// Oct 2026 wants its words to be its own), and the product's menu and its landing page's own words link it.
+const asked = (q) => q.replace(/&amp;/g, '&').replace(/&quot;/g, '"').replace(/&lt;/g, '<').replace(/&gt;/g, '>').trim().toLowerCase()
 export function aboutProblems(slug, { built, page, site, landing }) {
   const about = `/${slug}/about/`
   if (!built) return [`${slug} has a play or try page but no About page: add ${slug}/about/page.json (tools/build-pages.mjs), what the product is, how to play or use it, what's inside and a few questions`]
   const out = []
-  if (!(page?.sections ?? []).some((s) => (s.blocks ?? []).some((b) => b.type === 'faq'))) out.push(`${about} has no questions: give it a section with a faq block`)
+  const faqs = (page?.sections ?? []).flatMap((s) => s.blocks ?? []).filter((b) => b.type === 'faq')
+  if (!faqs.length) out.push(`${about} has no questions: give it a section with a faq block`)
+  if (faqs.some((b) => b.schema !== false)) out.push(`${about}'s questions carry FAQPage data: give its faq block "schema": false (the product's FAQPage is its landing page's)`)
+  const landingAsks = new Set([...(landing ?? '').matchAll(/<summary>([^<]*)/g)].map((m) => asked(m[1])))
+  const again = faqs.flatMap((b) => b.items ?? []).filter((i) => typeof i?.q === 'string' && landingAsks.has(asked(i.q))).map((i) => i.q)
+  if (again.length) out.push(`${about} asks what the landing page's questions already ask ("${again.join('", "')}"): ask its own`)
   if (!(site?.nav ?? []).some((n) => n.href === about)) out.push(`the product's menu (${slug}/page.json site.nav) doesn't link its About page, ${about}`)
   const main = landing?.match(/<main\b[\s\S]*<\/main>/)?.[0] ?? ''
   if (!main.includes(`href="${about}"`)) out.push(`the landing page's own words (its <main>) don't link the About page, ${about}: a section's "more" link does`)

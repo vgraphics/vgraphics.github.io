@@ -57,9 +57,9 @@
         {
           "type": "features",
           "items": [
-            { "title": "Nobody sits out", "text": "A noir narrator leads every night and every dawn, so the friend who used to run the game gets a card too. Later the first player out takes over the dawns, as Greek groups like it." },
-            { "title": "Secrets stay secret", "text": "No phone makes a sound, all the screens look alike at night, and your card stays hidden unless you press and hold." },
-            { "title": "One screen for the room", "text": "Any TV with a browser, or a laptop on one, shows the town: the dawn's news, the rumour, every accusation as it lands and the vote." }
+            { "title": "Nobody sits out", "text": "A noir narrator leads each night and each morning, so the friend who used to run the game gets a card too. Later the first player out narrates the mornings, a Greek house rule kept on purpose." },
+            { "title": "Secrets stay secret", "text": "No phone makes a sound, every screen looks the same after dark, and your card stays hidden unless you press and hold." },
+            { "title": "One screen for everyone", "text": "Any TV with a web browser, or a laptop plugged into one, shows the town: the dawn's news, the rumour, every accusation as it lands and the vote." }
           ]
         }
       ]
@@ -67,14 +67,14 @@
     {
       "id": "round",
       "title": "How a round goes",
-      "intro": "After the deal and a first night where the killers only meet, every round runs the same way, until one side has won.",
+      "intro": "After the deal and a first night where the killers only meet, every round runs the same way, until one side wins.",
       "blocks": [
         {
           "type": "features",
           "items": [
-            { "title": "The night", "text": "The killers choose a victim in secret, the Doctor guards someone and the Detective checks a suspect, while everyone else says whom they trust." },
-            { "title": "Dawn", "text": "The narrator tells the town who died in the night, or that nobody did, and the day begins." },
-            { "title": "Talk and vote", "text": "The town argues out loud. Each player points at a suspect from their phone, and whoever draws the most arrows gets 30 seconds to answer before everyone votes." },
+            { "title": "The night", "text": "In secret, the killers settle on a victim, the Doctor guards someone and the Detective checks a suspect, while everyone else says whom they trust." },
+            { "title": "Dawn", "text": "The narrator announces who died in the night, or that nobody did, and the day begins." },
+            { "title": "Talk and vote", "text": "The town argues out loud. Each player points at a suspect from their phone, and whoever draws the most arrows has half a minute to answer before the vote." },
             { "title": "The verdict", "text": "A tie sends the tied players to a revote. Whoever goes out leaves the table, and night falls again." }
           ]
         }
@@ -90,9 +90,9 @@
             { "title": "14 roles", "text": "From the Known Killer and the Hidden Killer to the Seer, the Madman and the Kamikaze, each with its own card and its own voice." },
             { "title": "The Lawyer's briefcase", "text": "17 power cards: the Lawyer keeps 2 of the 5 dealt at random, and each one works once." },
             { "title": "Rules for every group", "text": "Start from Classic, Quick, Full house or Random, then set the timers, open or secret votes, ties and reveals before the deal." },
-            { "title": "English or Greek", "text": "Whichever the host picks, the narrator, the cards and the screens all speak it." },
-            { "title": "A newsreel from 1947", "text": "Catch the game's first killer and the TV rolls a short film of the arrest on a Palermo street." },
-            { "title": "Share the night", "text": "At the end each phone can draw the game as a town paper, a film poster, your own card or the whole table." }
+            { "title": "English or Greek", "text": "Whichever the host picks, narration, cards and screens all switch to it." },
+            { "title": "A newsreel from 1947", "text": "Catch the game's first killer and the TV screens the arrest as a newsreel, filmed on a street of 1947 Palermo." },
+            { "title": "Share the night", "text": "At the end each phone can turn the game into your own card, a film poster, the town paper's front page or the whole table." }
           ]
         }
       ]
@@ -123,7 +123,7 @@
     {
       "id": "rooms",
       "title": "Rooms and your VHub name",
-      "intro": "When rooms open, on the web first and then on Android, anyone can join as a guest. Sign in with a free VHub name and your games, XP and achievements stay with you, here and in every other VGraphics game.",
+      "intro": "When rooms open, on the web first and then on Android, anyone can join as a guest. Sign in with a free VHub name and your games, your XP and your achievements stay with you, here and in every other VGraphics game.",
       "blocks": [{ "type": "actions", "items": [{ "href": "/palermo/play/", "label": "Play online" }, "vhub"] }]
     },
     {
@@ -132,8 +132,9 @@
       "blocks": [
         {
           "type": "faq",
+          "schema": false,
           "items": [
-            { "q": "How do we play it together?", "a": "Each player needs a phone, and the room needs one screen everyone can see, such as a smart TV's browser or a laptop. The host opens a room, and the others join with its code." },
+            { "q": "What is the town's rumour?", "a": "Every night, besides their role's move, each player names the one they suspect most. At dawn the TV shows the name picked most often as the town's rumour, so the day's talk starts from a hint." },
             { "q": "Who wins?", "a": "The town, once every killer is out. The killers, once they are as many as everyone else still alive. A few roles keep their own score: the Madman wins alone if the town votes him out." },
             { "q": "What if nobody dies for a while?", "a": "After three full rounds without a death, the narrator tells the town it won't wait any longer, and from then on fate settles every tie." },
             { "q": "Can the dead still play along?", "a": "The first player out becomes the night announcer: their phone shows every role and every night's moves, and they choose the lines for the dawn. A host rule lets every dead player see it all." }
