@@ -21,7 +21,7 @@
       if (profile) {
         $("creator-name").textContent = profile.name;
         document.title = `${profile.name}: Speedometer layouts`;
-        window.VHubAvatars.draw($("creator-avatar"), profile, 256);
+        M.drawAvatar($("creator-avatar"), profile, 256);
       }
       const uses = layouts.reduce((sum, l) => sum + l.uses, 0);
       const ratings = layouts.reduce((sum, l) => sum + l.ratingCount, 0);

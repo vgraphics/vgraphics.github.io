@@ -14,7 +14,7 @@
 //     Sign out and the hub.
 //   Every change is VHub's at once (it queues and sends it); a change made elsewhere shows as it comes.
 // Its words follow the page's language; the settings' own come from VHub's catalog in both.
-import { vhubProfile, vhubSession } from "/assets/vhub-session.js";
+import { vhubAvatars, vhubProfile, vhubSession } from "/assets/vhub-session.js";
 import { gameRow, shortName } from "/assets/vhub-games.js";
 
 const button = document.querySelector(".vhub-avatar");
@@ -120,13 +120,10 @@ async function drawAvatar() {
     button.setAttribute("aria-label", t.signIn);
     return;
   }
-  try {
-    if (!window.VHubAvatars) await import("/assets/vhub-avatars.js");
-  } catch (e) {
-    // the mark stays
-  }
+  // Without the pictures' drawing the mark stays; the next drawing asks again.
+  const pictures = await vhubAvatars();
   if (mine !== drawing) return;
-  if (window.VHubAvatars) window.VHubAvatars.draw(face, { uid: session.uid, avatar: profile.avatar, photo: profile.photo });
+  if (pictures) pictures.draw(face, { uid: session.uid, avatar: profile.avatar, photo: profile.photo });
   button.classList.add("signed-in");
   button.append(el("span", { class: "vhub-avatar-level", "aria-hidden": "true" }, String(profile.level)));
   button.setAttribute("aria-label", t.you(profile.name || window.VHubAvatars?.anonymous(session.uid) || "", profile.level));
@@ -378,7 +375,7 @@ async function renderSignedIn(site, player) {
 
 async function account(site, me, uid) {
   const pic = el("span", { class: "vm-pic", "aria-hidden": "true" });
-  if (window.VHubAvatars) window.VHubAvatars.draw(pic, { uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256);
+  void vhubAvatars().then((pictures) => pictures?.draw(pic, { uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256));
   const level = me?.level ?? profile?.level ?? 1;
   let next = null;
   if (typeof site.level === "function" && typeof me?.xp === "number") next = await site.level(me.xp).catch(() => null);
