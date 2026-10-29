@@ -87,6 +87,10 @@
         "href": "/speedometer-wallpaper/"
       },
       {
+        "label": "About",
+        "href": "/speedometer-wallpaper/about/"
+      },
+      {
         "label": "Layouts",
         "href": "/speedometer-wallpaper/layouts/"
       },
@@ -952,7 +956,11 @@
           "type": "faq",
           "src": "faq.json"
         }
-      ]
+      ],
+      "more": {
+        "href": "/speedometer-wallpaper/about/",
+        "label": "All about Speedometer on one page →"
+      }
     }
   ],
   "cta": {

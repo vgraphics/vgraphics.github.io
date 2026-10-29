@@ -1,0 +1,125 @@
+{
+  "title": "About Exitwise: how to play the free arrow puzzle",
+  "description": "How Exitwise works: tap each arrow off the board in the right order. 600 levels in 17 worlds, a hard level every tenth, a daily board and rooms with friends.",
+  "social": {
+    "title": "About Exitwise, the arrow puzzle you can play online",
+    "description": "How to play, what's inside and a few questions answered: 600 levels in 17 worlds, free in your browser and on Android.",
+    "image": "/exitwise/img/card-1200x630.jpg",
+    "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://vgraphics.gr/exitwise/about/#page",
+        "url": "https://vgraphics.gr/exitwise/about/",
+        "name": "About Exitwise",
+        "description": "What Exitwise is, how to play it, what's inside and a few questions answered.",
+        "inLanguage": "en",
+        "about": { "@id": "https://vgraphics.gr/exitwise/#game" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "VideoGame", "@id": "https://vgraphics.gr/exitwise/#game", "name": "Exitwise", "url": "https://vgraphics.gr/exitwise/" },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+          { "@type": "ListItem", "position": 4, "name": "About", "item": "https://vgraphics.gr/exitwise/about/" }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "About Exitwise, the arrow puzzle you can play online",
+    "lead": "The arrow puzzle <em>you can play right here.</em>",
+    "align": "center",
+    "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "google-play"],
+    "art": {
+      "alt": "A white puzzle board of curling arrows in four colours on a green hill, a path winding up past candy hills to a round tower under the sun and a crescent moon",
+      "wiki": "how-to-play",
+      "position": "50% 60%",
+      "placeholder": "linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E)"
+    }
+  },
+  "sections": [
+    {
+      "id": "how",
+      "eyebrow": "About Exitwise",
+      "title": "How to play",
+      "intro": "Every arrow on the board points somewhere. Tap one and it slides away, but only if nothing stands in its way. Find the order that sets them all free, from a gentle first board to puzzles bigger than your screen.",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Look where each arrow points. Its path runs straight on to the edge of the board.",
+            "Tap an arrow whose path is clear, and off it goes. Tap a blocked one and you lose one of your 3 hearts.",
+            "Clear every arrow to win. Clearing one can only ever free others, so no level turns impossible halfway."
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            { "title": "Stuck?", "text": "A hint lights up an arrow that can leave right now. The first 3 are free, then they cost 30 coins." },
+            { "title": "A big board?", "text": "Drag to move around it, and pinch to see all of it." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inside",
+      "title": "What's inside",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "600 levels, 17 worlds", "text": "From Meadow to Starlight, each world with its own look, along one long map." },
+            { "title": "A hard level every 10th", "text": "Bigger, always a picture, played at night, and worth 30 coins." },
+            { "title": "New obstacles as you go", "text": "Rocks, bombs, ice, mirrors, portals, shutters and colour gates, each introduced as you reach it." },
+            { "title": "A daily challenge", "text": "One board a day, the same for every player, with rewards for each month." },
+            { "title": "Rooms with friends", "text": "Race 2 to 8 players on the same boards. Share a 6-character code and go." },
+            { "title": "Your own maps", "text": "Build levels, share them by code, and play the ones other players made." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "phone",
+      "title": "On your phone too",
+      "intro": "Exitwise is free on Android too. Sign in with Google in your browser and on your phone, and your progress, your name and your settings come with you.",
+      "blocks": [{ "type": "actions", "items": ["google-play", "vhub"] }]
+    },
+    {
+      "id": "questions",
+      "title": "Questions",
+      "blocks": [
+        {
+          "type": "faq",
+          "items": [
+            { "q": "Is Exitwise free?", "a": "Yes, in your browser and on Android. You earn coins by playing: 10 for a level, 30 for a hard one, and 5 more for a perfect clear." },
+            { "q": "Do I need an account?", "a": "No, you can play straight away. Signing in with Google keeps your progress and your settings on every device and puts your name on the leaderboards." },
+            { "q": "Can every level be solved?", "a": "Yes. Every level comes from a fixed seed, so everyone gets the same board, and each one is tested to be solvable before it ships." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "title": "More about Exitwise",
+      "blocks": [
+        {
+          "type": "actions",
+          "items": [
+            { "href": "/exitwise/wiki/", "label": "The wiki", "note": "Every obstacle and powerup" },
+            { "href": "/exitwise/ranking/", "label": "Global ranking", "note": "The best players, live" },
+            { "href": "/devlog/exitwise-board-shapes/", "label": "From the devlog", "note": "Why the boards stopped being rectangles" },
+            { "href": "/exitwise/", "label": "The overview", "note": "Worlds, story and soundtrack" }
+          ]
+        }
+      ]
+    }
+  ]
+}

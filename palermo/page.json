@@ -48,6 +48,7 @@
     "parent": { "name": "Games", "href": "/games/" },
     "nav": [
       { "label": "Overview", "href": "/palermo/" },
+      { "label": "About", "href": "/palermo/about/" },
       { "label": "Wiki", "href": "/palermo/wiki/" },
       { "label": "Gallery", "href": "/palermo/gallery/" },
       { "label": "Map", "href": "/palermo/map/" },
@@ -258,7 +259,8 @@
       "id": "faq",
       "title": "Questions and answers",
       "intro": "Quick answers about playing, rooms and your data.",
-      "blocks": [{ "type": "faq", "src": "faq.json" }]
+      "blocks": [{ "type": "faq", "src": "faq.json" }],
+      "more": { "href": "/palermo/about/", "label": "All about Palermo Noir on one page →" }
     },
     {
       "id": "privacy",

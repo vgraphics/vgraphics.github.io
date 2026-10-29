@@ -1,8 +1,9 @@
 /* A product's web version on its page (the template's "try" block, tools/lib/try.mjs, run by assets/try/try.js): the
    phone with the live screen and its tools, beside a panel of the product's styles and settings. In the product's own
-   colours (its theme pack's tokens), so every product's try page looks like the rest of its pages. On wide screens the
-   phone stays in view while the panel scrolls with the page; on phones the screen takes the window's height and the
-   panel follows under it. Nothing scrolls inside a box: the page scrolls. */
+   colours (its theme pack's tokens), so every product's try page looks like the rest of its pages. On a page that
+   scrolls (a style's page) the phone stays in view on wide screens while the panel scrolls with the page, and on
+   phones the screen takes the window's height and the panel follows under it. The try page itself is a screen with
+   nothing to scroll (below, .screen), its panel in a box of its own. */
 .try {
   --device-h: clamp(520px, 80vh, 820px);
   display: grid;
@@ -209,7 +210,8 @@
 .try-statistics small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.85rem; }
 
 /* Until the engine runs, the panel's controls wait; if it can't run (an old browser, or the engine not there), the
-   phone keeps the welcome art with the reason, and only the store call stays in the panel. */
+   phone keeps the welcome art with the reason, and only the store call stays in the panel (on a screen, the reason
+   at the foot of the panel's box). */
 .try:not([data-state="running"]) .try-now .try-step, .try:not([data-state="running"]) .try-quick { visibility: hidden; }
 .try[data-state="failed"] .try-tools, .try[data-state="failed"] .try-panel > :not(.try-get):not(.try-now) { display: none; }
 .try[data-state="failed"] .try-style-price { display: none; }
@@ -255,6 +257,35 @@
   .try-quick .try-tool span { display: inline; }
   .try-qr { display: none; }
   .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
+}
+
+/* On a screen (html.screen: the try page, the app alone with nothing to scroll; tools/lib/try.mjs): the block fills the
+   window between the header and the bar. The phone takes the height that leaves (the header, the bar, the tools and
+   the gaps are about 200px) and the panel scrolls in its own box beside it, its edges fading (fade-edges), so the page
+   never does. Narrow windows, and a phone turned on its side, put the panel's box under the phone: on phones the
+   screen takes 60% of the window and the box the rest, the style's name and arrows at its top. */
+.screen .try {
+  --device-h: clamp(300px, calc(100dvh - 200px), 860px);
+  width: min(100%, 1240px);
+  height: 100%;
+  min-height: 0;
+  margin-inline: auto;
+  grid-template-rows: minmax(0, 1fr);
+  align-items: stretch;
+  row-gap: 16px;
+}
+.screen .try-stage { position: static; align-self: center; }
+.screen .try-panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 4px 14px 24px 2px; }
+.screen .try:has(.try-device[data-orientation="landscape"]) { grid-template-rows: auto minmax(0, 1fr); }
+.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, calc((100dvh - 380px) * 2340 / 1080)); }
+.screen .try-fallback { grid-column: -2; grid-row: -2; align-self: end; }
+@media (max-width: 900px) {
+  .screen .try { grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
+  .screen .try-device { --device-h: clamp(240px, calc((100dvh - 110px) * 0.6), 820px); }
+}
+@media (max-width: 560px) {
+  .screen .try-device:not([data-orientation="landscape"]) { height: var(--device-h); min-height: 0; }
+  .screen .try-panel { padding-right: 6px; }
 }
 @media (prefers-reduced-motion: reduce) {
   .try-busy span { animation-duration: 3s; }
