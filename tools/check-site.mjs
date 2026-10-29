@@ -371,9 +371,8 @@ for (const file of served) {
 // OLD_PANELS: the play pages other repos build that still carry the About panel of 27 Oct 2026, until the release that
 // drops it (29 Oct 2026). Each passes until then; once the page passes, check-site warns (on stderr, without failing, so
 // the very release that fixes it isn't held up by the Deployer's own run of this check) until the master takes its line
-// out.
+// out. Exitwise's play page left the list once exitwise-web 1.0.9d881213 shipped it without the panel (29 Oct 2026).
 const OLD_PANELS = {
-  'exitwise/play/index.html': "Exitwise's next exitwise-web release, from the Games repo's feature/exitwise-play-alone (29 Oct 2026)",
   'palermo/demo/index.html': "Palermo Noir's next palermo-web release, once the palermo repo's web/demo/ drops its About panel (29 Oct 2026)",
 }
 const playAlone = (file, message) => report(file, 'play-alone', message)
