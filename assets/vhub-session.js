@@ -58,10 +58,13 @@ export async function vhubSession() {
 
 const int = (field) => (field ? Number(field.integerValue) : NaN);
 
-/** A player's public profile: { name, avatar, photo, level, products }, or null when it can't be read. */
+/**
+ * A player's public profile: { name, avatar, photo, level, frame, products }, or null when it can't be read. frame is
+ * the rank frame they chose on VHub, or null.
+ */
 export async function vhubProfile(uid) {
   try {
-    const fields = ["name", "avatar", "photo", "level", "products"].map((f) => `mask.fieldPaths=${f}`).join("&");
+    const fields = ["name", "avatar", "photo", "level", "frame", "products"].map((f) => `mask.fieldPaths=${f}`).join("&");
     const r = await fetch(`${PROFILES}${encodeURIComponent(uid)}?key=${KEY}&${fields}`);
     if (!r.ok) return null;
     const f = (await r.json()).fields || {};
@@ -70,6 +73,7 @@ export async function vhubProfile(uid) {
       avatar: Number.isFinite(int(f.avatar)) ? int(f.avatar) : undefined,
       photo: int(f.photo) || null,
       level: int(f.level) || 1,
+      frame: (f.frame && f.frame.stringValue) || null,
       products: ((f.products && f.products.arrayValue && f.products.arrayValue.values) || []).map((v) => v.stringValue).filter(Boolean),
     };
   } catch (e) {

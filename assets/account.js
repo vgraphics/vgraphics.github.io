@@ -106,6 +106,11 @@ let drawing = 0;
 
 const signedIn = () => Boolean(session && !session.guest && profile);
 
+// A signed-in player's VHub rank frame around their picture (George, 29 Oct 2026: "Yes, show it"), reaching at most 1.35
+// of the 44px picture: 59px, inside the product bar's 64px and the company and hub bar's 72px, and under 8px past its
+// sides, inside the folded bar's 8px gap to the menu and play buttons. The frame takes the ring's place (account.css).
+const HEADER_REACH = 1.35;
+
 async function drawAvatar() {
   const mine = ++drawing;
   const nextSession = await vhubSession();
@@ -115,6 +120,7 @@ async function drawAvatar() {
   profile = nextProfile;
   button.querySelector(".vhub-avatar-level")?.remove();
   if (!signedIn()) {
+    window.VHubAvatars?.plain(face);
     face.innerHTML = MARK;
     button.classList.remove("signed-in");
     button.setAttribute("aria-label", t.signIn);
@@ -123,7 +129,10 @@ async function drawAvatar() {
   // Without the pictures' drawing the mark stays; the next drawing asks again.
   const pictures = await vhubAvatars();
   if (mine !== drawing) return;
-  if (pictures) pictures.draw(face, { uid: session.uid, avatar: profile.avatar, photo: profile.photo });
+  if (pictures) {
+    const player = { uid: session.uid, avatar: profile.avatar, photo: profile.photo, level: profile.level, frame: profile.frame };
+    pictures.draw(face, player, 96, HEADER_REACH);
+  }
   button.classList.add("signed-in");
   button.append(el("span", { class: "vhub-avatar-level", "aria-hidden": "true" }, String(profile.level)));
   button.setAttribute("aria-label", t.you(profile.name || window.VHubAvatars?.anonymous(session.uid) || "", profile.level));
