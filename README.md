@@ -370,12 +370,19 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   the open state screen readers announce, find-in-page (a row it opens closes the others in its list) and, without
   script, the plain rows. A new kind of expandable is a details, or gets driven from `faq.js`. Google shows FAQ rich results only for government and health sites since 2023, so the markup is for
   other search engines and assistants; the questions are there for people.
+- **Menus open and close the same way** (George, 29 Oct 2026: "Yes, animate menus"): `faq.js` exports `showMenu` and
+  `hideMenu`, which the header's folded menu (`menu.js`, product and company headers) and the VHub avatar's menu
+  (`account.js`) call. A drop-down grows from its button (from the button's middle, at its top) as it fades in, 260 ms,
+  and closes the same way back, 200 ms; the avatar's sheet on a phone rises from the screen's foot. Under reduced
+  motion, a short fade only (150 ms in, 100 ms out). The stylesheets only show and hide a menu: while it closes, its
+  header keeps `.menu-closing` (the solid bar, the panel, the dim lifting), which `hideMenu`'s `done()` takes off.
 - check-site holds every landing page to this: both sections, with those titles, questions that each have an answer,
   a changelog that is valid JSON with well-formed entries, newest first (a broken one shows as no releases, and the
   check says why), and a news block's `empty` that is a line or `{ title, text, link }`. `[faq-js]`: every served
   page with an expandable (a details, a tour, anything marked `aria-expanded`) loads `/assets/menu.js` (or `faq.js`
   itself), menu.js loads `faq.js` on every page, whatever a page marks `aria-expanded` is a tour's button or spot or
-  the header's menu button, and no site script but `faq.js` and `menu.js` opens or closes anything by `aria-expanded`.
+  the header's menu button, no site script but `faq.js` opens or closes anything by `aria-expanded` unless it calls both
+  `showMenu` and `hideMenu` (a menu that would snap fails), `faq.js` exports both, and no page has a `popover`.
 
 ## Search engines
 
