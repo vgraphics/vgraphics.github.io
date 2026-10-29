@@ -1474,13 +1474,13 @@
    "image": "/palermo/wiki/img/medals/phones-and-tv.webp",
    "summary": "One phone each and one screen for the room: nothing to install.",
    "what": [
-    "The host opens Palermo Noir on their phone and creates a room. The TV opens vgraphics.gr/tv in its browser and types the TV code from the host's Show on TV; then it shows the room's code and a QR code, which friends scan to join. A laptop on the TV works too.",
+    "The host opens Palermo Noir on their phone and creates a room. Any phone in the room can tap Show on TV for the room's twelve-digit TV code: the TV opens vgraphics.gr/tv (or vgraphics.gr/palermo/tv) in its browser and types it with the remote, or opens the link Show on TV gives. Then the TV shows the room's six-digit code and a QR code: friends scan the QR code, or tap Join with a code and type the six digits. If the TV closes, the same TV code or link brings it back into the room. A laptop on the TV works too.",
     "Phones never play a sound, every phone looks the same at night, and your card shows only while you hold it. The TV shows only what everyone may see. The game plays in English or Greek.",
     "The first time a killer is caught in a game, the TV plays the town's newsreel once the card has turned: a short film of the arrest in the role cards' gold frame, with the officer's line in the room's language. With no TV, the host's phone plays it."
    ],
    "how": [
     "The host creates a room on their phone.",
-    "The TV opens vgraphics.gr/tv and types the TV code from the host's Show on TV.",
+    "A phone taps Show on TV, and the TV opens vgraphics.gr/tv and types the TV code it gives.",
     "Everyone scans the QR code on the TV and joins."
    ],
    "facts": [
