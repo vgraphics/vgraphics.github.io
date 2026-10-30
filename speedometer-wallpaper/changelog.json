@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "2.0.8",
+      "date": "2026-10-30",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Cleaner layouts and new designs",
+      "items": [
+        "We reviewed every layout: cluttered and unbalanced ones are gone, and the rest are now symmetrical, with real gauges around the main dial.",
+        "Your music player now takes on each style's own look, instead of the same plain card everywhere.",
+        "Gauges, clocks and music controls now stay readable on whatever background they sit on."
+      ],
+      "commit": "74dd09e3"
+    },
+    {
       "version": "2.0.7",
       "date": "2026-10-29",
       "platforms": [
