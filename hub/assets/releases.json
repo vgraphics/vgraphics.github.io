@@ -2,6 +2,42 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "01afc6d4c713f50b019781dfc3ede60e746083f7",
+      "at": "2026-10-30T15:12:25.120Z",
+      "files": [
+        "achievement-card-BaF5QS-C.js",
+        "achievements-D0_tWef1.js",
+        "add-DZKL143p.js",
+        "board-table-CD7YHkzQ.js",
+        "boards-DUhAjkmI.js",
+        "delete-DC3sd0sZ.js",
+        "demo-C9zqrhga.js",
+        "empty-state-C-DamMhv.js",
+        "firestore-oj60CkQh.js",
+        "found-player-BlDoeEsn.js",
+        "friend-code-X7HZyYYq.js",
+        "friend-row-BZV4ZZWI.js",
+        "friends-CiMmoMqT.js",
+        "games-BiVOSlK9.js",
+        "history-BxxuVP5e.js",
+        "home-DMyTeUkW.js",
+        "hooks-DhMq9I9_.js",
+        "index-3vdn9jLe.css",
+        "index-S-1yNX5w.js",
+        "join-CriA7n_V.js",
+        "level-DCbpwXe3.js",
+        "level-ring-C0GziCKX.js",
+        "match-list-BQiLo1AL.js",
+        "messages-DzvATLYL.js",
+        "picture-Bie8Ab-x.js",
+        "player-DmTAGTax.js",
+        "product-look-DE5x4wc2.js",
+        "product-tile-3c3raIuK.js",
+        "profile-DlG4qY-O.js",
+        "settings-DkJXqWIJ.js"
+      ]
+    },
+    {
       "sha": "257731119aa48e91e00614c961d3815e30cfc180",
       "at": "2026-10-29T15:14:24.928Z",
       "files": [
@@ -72,43 +108,6 @@
         "product-tile-BZnqmZvQ.js",
         "profile-BU0l-c2h.js",
         "settings-CAfjAKQq.js"
-      ]
-    },
-    {
-      "sha": "cd1148cd50ec7598b4b3289a8e06e2b2d9e708fd",
-      "at": "2026-10-28T14:02:59.630Z",
-      "files": [
-        "achievement-card-BpPOfHvT.js",
-        "achievements-Dwjn4ds5.js",
-        "add-BynNdLdb.js",
-        "board-table-Dzfauepe.js",
-        "boards-CTwVVJZT.js",
-        "delete-CegLf65t.js",
-        "demo-C9zqrhga.js",
-        "empty-state-BalIwZNZ.js",
-        "expand-Nd5GMKC7.js",
-        "firestore-Cfot7ovK.js",
-        "found-player-CIIaqL46.js",
-        "friend-code-rGJ3YV0G.js",
-        "friend-row-BJ893OCb.js",
-        "friends-BsKZe4B3.js",
-        "games-jltlyHuQ.js",
-        "history-B9-PihWW.js",
-        "home-CILe_gdx.js",
-        "hooks-C6QTKtS3.js",
-        "index-C04EhtSs.js",
-        "index-v2Rtr85F.css",
-        "join-Bl9CYQzC.js",
-        "level-BUEefrTG.js",
-        "level-ring-D4h2j2m7.js",
-        "match-list-vgGVp-xw.js",
-        "messages-DzvATLYL.js",
-        "picture-CnjaS5JK.js",
-        "player-DF6_RdNq.js",
-        "product-look-DE5x4wc2.js",
-        "product-tile-BC4LazKc.js",
-        "profile-BKthuP3P.js",
-        "settings-C4oSWrgW.js"
       ]
     }
   ]
