@@ -23,7 +23,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `<product>/changelog.json`, `<product>/faq.json` | The landing page's "What's new" (every release players got, which the Deployer adds to) and "Questions and answers" (see "What's new and Questions and answers" below) |
 | `<product>/privacy.html` | Each product's privacy policy, e.g. `exitwise/privacy.html`, `speedometer-wallpaper/privacy.html`. Each is made by `tools/build-pages.mjs` from the product's copy of its text in `<product>/privacy/source.html` (Exitwise's `map-rules.html` from `exitwise/map-rules/source.html`), set into the product pages' template. `tools/sync-documents.mjs` brings the copies in from their repos (see "Privacy policies" below) |
 | `<product>/<page>/page.json` | A product's other pages, made from the same template as its landing page by `tools/build-pages.mjs`: Exitwise's ranking, room, privacy policy and map rules, and Speedometer's privacy policy. A page's own markup sits beside its page.json (`ranking.html`, `.css`, `.js`) |
-| `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` skips it, but for the rules it holds every served page to (the phone menu, the legal line, "Play and try pages" below). Since exitwise-web 1.0.9d881213 (29 Oct 2026) it is the game alone with nothing to scroll, its bar linking `/exitwise/about/`. |
+| `exitwise/play/` | The Exitwise WebGL build. Only the Deployer's `exitwise-web` project writes it; `check-site.mjs` holds it to the Unity pages' rules ("Unity WebGL pages" below) and to those of every served page (the phone menu, the cursors), and skips it in the rest. Since exitwise-web 1.0.9d881213 (29 Oct 2026) it is the game alone with nothing to scroll, its bar linking `/exitwise/about/`. |
 | `speedometer-wallpaper/play/` | Speedometer's try page: the real app's engine (Kotlin/Wasm and Skia), live in a phone with its styles and settings. The page is the template's (`play/page.json`, the "try" block); the engine's files in `play/app/` come only from the Deployer's `speedometer-web` project, never by hand. `play/img/play-qr.svg` is the store link's QR code (`tools/make-qr.py`). The page is a screen (page.json `"screen"`, see "Play and try pages" below): the app alone, with nothing to scroll. The words that were under the phone from 27 Oct 2026 are on `speedometer-wallpaper/about/`. |
 | `palermo/demo/`, `palermo/play/`, `palermo/tv/`, `palermo/game/` | Palermo Noir's guided demo, its phone and TV pages, and their scripts, art and audio. Only the Deployer's `palermo-web` project writes them (from the palermo repo's `web/`; before the launch, `--pages=demo` ships the demo alone). The demo is a page of its own, held to every rule here, "Play and try pages" below too (the game alone, with its bar to /palermo/about/, since palermo-web 20261029-164735), and private for now: George alone gets it, so it is noindex and out of the sitemap until it opens (see "A private demo" under "Play button"); only a landing page's intro demo (page.json `intro.demo`, e.g. `exitwise/demo/board.html`) is a piece the template sets in. The site's `palermo/page.json` names both buttons: `site.demo` (the demo, the main button until the launch) and `site.play` (the game, "Coming soon" until then; see "Play button") |
 | `speedometer/` | The short address `vgraphics.gr/speedometer/`: it forwards at once to the try page (noindex) |
@@ -40,14 +40,14 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `ads.txt` | The sellers of the ads on vgraphics.gr itself (Google AdSense, for the web games). Apps read `app-ads.txt` instead. It must stay at the root. |
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
 | `assets/audio-fade.js` | The fades of every song and voice on the product pages (George, 28 Oct 2026: "Music must always start and end with fading"): `soundtrack.js` and `product.js` import it, so the songs fade in, out and under a voice, and the voices fade in and out, from one piece |
-| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark) |
+| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark). `loading-bar.js` and `loading-bar.css` are that bar as a piece of its own, which every Unity WebGL page loads ("The shared loading bar" below) |
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
 | `.well-known/tdmrep.json` | The same reservation for the whole site in the W3C TDM Reservation Protocol (`"tdm-reservation": 1` on `/*`), which AI and text and data mining tools read |
 | `tools/check-site.mjs` | The site's content rules (legal footer with the copyright line and the terms link on the website's pages, the short line "© <year> VGraphics" on the products' screens, the AI-training reservation in robots.txt and tdmrep.json, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, the wiki boards' arrows (each head points the way its body runs, as in the game), every picture's stated size matching its file, so none is shown stretched, no rule for a box's links or buttons that outranks a button's own colours or type (`tools/lib/buttons.mjs`: the ranking's Try again drew its words in the colour of its face, 29 Oct 2026), play and try pages that are the product alone, each product with one having its About page (`tools/lib/play-pages.mjs`, "Play and try pages" below), and no file a blocker would drop) |
 | `tools/blocker-rules.txt`, `tools/lib/blockers.mjs`, `tools/update-blocker-rules.mjs` | No file the pages load may be dropped by an ad, cookie-notice or privacy blocker (George, 27 Oct 2026: Palermo's demo shipped `consent-banner-<hash>.js`, which Fanboy's cookie-notice list blocks, and stuck at 5% for players with Brave, AdGuard or uBlock's annoyance filters). `blocker-rules.txt` is check-site's copy of the rules of ten lists (EasyList, EasyPrivacy, Fanboy's Cookie Monster and Annoyance, uBlock's, AdGuard's) that could reach vgraphics.gr's own addresses; `node tools/update-blocker-rules.mjs` refreshes it, never by hand. A file check-site names gets another name: a built piece is named after its module, so rename the module or set the build's chunk names |
-| `tools/test/` | Unit tests of the site's own scripts, with no DOM and no packages: `node --test tools/test/*.test.mjs` (Node 24 reads a bare `tools/test/` as a module and fails). `blockers.test.mjs` holds the blocker rule's matching (patterns, kinds, other sites' rules, exceptions) and that the copy still drops `consent-banner-*.js`. `vhub-games.test.mjs` holds the VHub avatar menu's game and app rows (`assets/vhub-games.js`): the store icon from VHub's catalog in a rounded 40 px tile for every product, then the name. `stepper.test.mjs` holds the chapter stepper's bookkeeping (`assets/stepper.js`): one stepper kept while the chapters stay, drawn anew when they change, none below two. `vhub-avatars.test.mjs` holds the VHub pictures' rank frames (`assets/vhub-avatars.js`): a framed picture's box paints no disc or ring behind the frame, a redraw without one gives the box back, the drawing sized from the avatar also when it is drawn before the avatar is on the page, the frame the level shows, and every `hub/frames/` drawing a WebP with its alpha channel. `vhub-header-frame.test.mjs` holds the header avatar's rank frame (`assets/account.js`): the profile read brings the frame, the avatar is drawn in it at a reach that stays inside every header bar and clear of the buttons beside it, and the frame takes the ring's place with no disc behind it. `vhub-menu-level.test.mjs` holds the avatar menu's level line (`assets/account.js`): the XP still to go and the next level's number, never the XP that level starts at, in English and Greek. `legal.test.mjs` holds the legal line by kind of page (`tools/lib/legal.mjs`): which addresses are a product's screens, what each kind must and must not show, the company footer's product version, the template's footer on a landing page and a try page's bar. `play-pages.test.mjs` holds the play and try pages and the About pages (`tools/lib/play-pages.mjs`): the game alone with its About link passes; the panels of 27 Oct (`#about`, `.demo-about`, "About this game", "Back to the game"), the website's footer under the product, a template page that isn't a screen and a missing About link fail, what a script, a template or a comment holds aside; the try page as built is a screen with its bar and no hero, sections or closing card; an About page needs questions of its own (no FAQPage data, none its landing page asks); and the three About pages are built with an h1 and AboutPage data, no FAQPage, linked from their menus and landing pages, Palermo Noir's demo section out while the demo is private. `buttons.test.mjs` holds the buttons' own colours (`tools/lib/buttons.mjs`): selector weights as the browser counts them, the buttons a page's markup holds and those its scripts write into it, a box's rule for its links or buttons that outranks a button's own failing and one that leaves the buttons out passing, and the ranking page's Try again and the avatar menu's reset as they are. `boards.test.mjs` holds Exitwise's boards without VHub's pictures (`exitwise/ranking/boards.js`): the board loads and names its players while `/assets/vhub-avatars.js` fails, the ranking page draws its rows and trophies with plain discs, each later draw asks for the script again past the cache, and the pictures fill in when it comes. |
+| `tools/test/` | Unit tests of the site's own scripts, with no DOM and no packages: `node --test tools/test/*.test.mjs` (Node 24 reads a bare `tools/test/` as a module and fails). `blockers.test.mjs` holds the blocker rule's matching (patterns, kinds, other sites' rules, exceptions) and that the copy still drops `consent-banner-*.js`. `vhub-games.test.mjs` holds the VHub avatar menu's game and app rows (`assets/vhub-games.js`): the store icon from VHub's catalog in a rounded 40 px tile for every product, then the name. `stepper.test.mjs` holds the chapter stepper's bookkeeping (`assets/stepper.js`): one stepper kept while the chapters stay, drawn anew when they change, none below two. `vhub-avatars.test.mjs` holds the VHub pictures' rank frames (`assets/vhub-avatars.js`): a framed picture's box paints no disc or ring behind the frame, a redraw without one gives the box back, the drawing sized from the avatar also when it is drawn before the avatar is on the page, the frame the level shows, and every `hub/frames/` drawing a WebP with its alpha channel. `vhub-header-frame.test.mjs` holds the header avatar's rank frame (`assets/account.js`): the profile read brings the frame, the avatar is drawn in it at a reach that stays inside every header bar and clear of the buttons beside it, and the frame takes the ring's place with no disc behind it. `vhub-menu-level.test.mjs` holds the avatar menu's level line (`assets/account.js`): the XP still to go and the next level's number, never the XP that level starts at, in English and Greek. `legal.test.mjs` holds the legal line by kind of page (`tools/lib/legal.mjs`): which addresses are a product's screens, what each kind must and must not show, the company footer's product version, the template's footer on a landing page and a try page's bar. `play-pages.test.mjs` holds the play and try pages and the About pages (`tools/lib/play-pages.mjs`): the game alone with its About link passes; the panels of 27 Oct (`#about`, `.demo-about`, "About this game", "Back to the game"), the website's footer under the product, a template page that isn't a screen and a missing About link fail, what a script, a template or a comment holds aside; the try page as built is a screen with its bar and no hero, sections or closing card; an About page needs questions of its own (no FAQPage data, none its landing page asks); and the three About pages are built with an h1 and AboutPage data, no FAQPage, linked from their menus and landing pages, Palermo Noir's demo section out while the demo is private. `buttons.test.mjs` holds the buttons' own colours (`tools/lib/buttons.mjs`): selector weights as the browser counts them, the buttons a page's markup holds and those its scripts write into it, a box's rule for its links or buttons that outranks a button's own failing and one that leaves the buttons out passing, and the ranking page's Try again and the avatar menu's reset as they are. `loading-bar.test.mjs` holds the shared squishy loading bar (`assets/startup/loading-bar.js`) against a pretend page and clock, as the Games repo's test held Exitwise's copy: empty under the intro, one glide across the welcome art's 2 s and full as the game may come in, never ahead of the download nor back, the gulps, sparkles and hop, still under reduced motion; the product's mark at its head (the round knob for any other), its colour, and a rule in `loading-bar.css` for every part. `unity-pages.test.mjs` holds the Unity WebGL pages (`tools/lib/unity-pages.mjs`): which pages are Unity's and where their framework is; a page on the shared pieces passes, and each rule fails with its own name (play-alone, legal-footer, no-select, analytics, loading-bar, source-maps, noindex); Exitwise's play page as served keeps all but the shared bar. `boards.test.mjs` holds Exitwise's boards without VHub's pictures (`exitwise/ranking/boards.js`): the board loads and names its players while `/assets/vhub-avatars.js` fails, the ranking page draws its rows and trophies with plain discs, each later draw asks for the script again past the cache, and the pictures fill in when it comes. |
 | `tools/protect-art.mjs`, `tools/lib/credentials.mjs` | Write our rights into our pictures and songs before they are published: the rights mark (XMP) and, signed as VGraphics, Content Credentials (see "Rights in the files" below) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
@@ -82,7 +82,9 @@ pages or in the SVGs they show (the Greek product names belong in the Greek stor
 
 The app pages are the exceptions to "no third-party scripts":
 
-- `exitwise/play/`, the game. `check-site.mjs` skips it.
+- The Unity WebGL pages: Exitwise's game at `exitwise/play/`, and Palermo Noir's play, join, TV and demo pages to come.
+  Their games load Google Analytics after the player says yes. `check-site.mjs` holds them to their own rules ("Unity
+  WebGL pages" below).
 - `speedometer-wallpaper/play/`, Speedometer's try page, from the template. It loads its engine from `play/app/`, which
   only the Deployer's `speedometer-web` writes, and nothing from another site, except Google Analytics: only once its
   page.json has the product's measurement id (none yet) and only after the visitor says yes, from `assets/try/try.js`,
@@ -356,7 +358,81 @@ About pages; D:\Projects\Mine\CLAUDE.md, "Play and try pages are the product alo
   footer (class `foot`), a template page that isn't a screen, and a missing link to the About page; and a product with
   such a page but no About page from the template, or one without questions, with FAQPage data, asking a question
   its landing page asks, or missing from its menu or from its landing page's own words. No page is exempt: the last
-  About panels left with exitwise-web 1.0.9d881213 and palermo-web 20261029-164735 (29 Oct 2026).
+  About panels left with exitwise-web 1.0.9d881213 and palermo-web 20261029-164735 (29 Oct 2026). A Unity page is held
+  to the same by its own rules (below).
+
+## Unity WebGL pages
+
+A game made in Unity is the same game in the browser: its WebGL build, from a WebGL template in the game's repo, which
+the game's Deployer project copies here. Exitwise's `/exitwise/play/` is one, and Palermo Noir's `/palermo/play/`,
+`/join/`, `/tv/` and `/demo/` become four (George, 30 Oct 2026: "Unity and browser must use unity too. We dont want to
+have 2 code bases."). check-site (`tools/lib/unity-pages.mjs`) knows one by Unity's own call, `createUnityInstance()`,
+wherever it is served, so a new game's pages need no entry here. It holds every one to the same rules, each from
+D:\Projects\Mine\CLAUDE.md, each failing under its own name:
+
+- `play-alone`: the product alone. Nothing to scroll (a `<style>` gives `html` or `body` `overflow: hidden`), no About
+  panel, no button to one and no website footer, and the About page linked in its bar. A TV or join page needs no
+  About link.
+- `legal-footer`: "© 2026 VGraphics" and none of the company's numbers, wherever the page is.
+- `no-select`: it loads `/assets/no-select.js`: no selecting, no right-click, the developer tools' keys blocked and the
+  console warning.
+- `analytics`: the page or the game's framework (its `.jslib` bridges, unpacked from the build) loads Google Analytics
+  (`gtag.js`) and reports errors: it hooks the window's `error` and `unhandledrejection` events and sends them as GA4
+  `exception` events, the web's Crashlytics.
+- `loading-bar`: the shared squishy loading bar (below), and no bar of its own.
+- `source-maps`: no `.map` file and no Unity debug symbols in its folders, no `symbolsUrl`, and no `sourceMappingURL`
+  in the page or a script beside it.
+- `noindex`: a TV or join page is kept out of search.
+
+The page's folder and its build's (the folder its `Build/` is in) are another repo's release: the text and page checks
+skip them (titles, headings, links), as do the rules for scripts other repos build. `OWN_BAR` in `check-site.mjs`
+lists the Unity pages that still draw a bar of their own until their template moves onto the shared one: today
+Exitwise's, until its `WebGLTemplates/Portfolio` does and exitwise-web releases it. An entry whose page uses the shared
+bar fails, so the list only shrinks.
+
+### The shared loading bar
+
+The squishy, chubby loading bar (George's start-up rule: "web and Unity loaders show the squishy, chubby loading bar
+(the model: Exitwise's web loader)") is one piece on the site: `assets/startup/loading-bar.js` and `loading-bar.css`,
+Exitwise's web loader's bar moved out of its WebGL template, with the product's colour and mark as parameters. A WebGL
+template uses it like this:
+
+```html
+<link rel="stylesheet" href="/assets/startup/loading-bar.css">
+...
+<div id="loader-bar" class="vg-bar"></div>          <!-- in the loading screen, where the bar goes -->
+<div id="loader-status">Loading</div>
+...
+<script src="/assets/startup/loading-bar.js"></script>
+<script>
+  var statusLine = document.querySelector("#loader-status");
+  var bar = VGLoadingBar(document.querySelector("#loader-bar"), {
+    colour: "#B3122E",                               // the product's colour
+    tip: "round",                                    // its mark at the head: "arrow" is Exitwise's; any other, the round knob
+    onStep: function (shown) { statusLine.textContent = shown < 1 ? "Loading " + Math.floor(shown * 100) + "%" : "Starting"; },
+    onFull: function () {}                           // full and its hop over: the game is starting
+  });
+  // Under the VGraphics intro the bar waits empty, then fills across the welcome art's 2 s:
+  //   bar.pace(Infinity, Infinity); VGIntro.welcomeWindow(bar.pace);
+  createUnityInstance(canvas, config, function (progress) { bar.show(Math.min(1, progress / 0.9)); })
+    .then(function () { bar.whenSettled(function () { /* fade the loading screen out */ }); })
+    .catch(function () { bar.stop(); });
+</script>
+```
+
+- The script draws the bar's parts and sets its progressbar role; the page draws nothing of the bar itself.
+- `bar.show(0 to 1)` is the download: the bar never shows more and never goes back. `bar.pace(from, until)` is the
+  welcome art's clock (`performance.now()` ms): it also fills no faster than that, and `pace(Infinity, Infinity)` holds
+  it where it is. `bar.whenSettled(then)` fills it and calls `then` once its hop is over. `bar.stop()` halts it.
+- While the game starts, the bar has the class `starting`: it nudges and a sheen runs along it.
+- Its look comes from `--vg-bar-*` properties, set on the bar or on any element around it: `--vg-bar-fill` (or the
+  script's `colour`) and `--vg-bar-fill-edge`; the pill's `--vg-bar-track`, `--vg-bar-lip`, `--vg-bar-groove` and
+  `--vg-bar-shade`; `--vg-bar-shadow` under it; the sparkles' `--vg-bar-spark`, `--vg-bar-spark-alt` and `--vg-bar-ink`;
+  `--vg-bar-sheen`; and its size, `--vg-bar-height` and `--vg-bar-width`. Unset, each is Exitwise's. On a dark loading
+  screen, the try pages' start-up colours suit: track `#1F1F22`, lip `#34343A`, groove `#0B0B0C`, shade
+  `rgba(0, 0, 0, 0.5)`, shadow `rgba(0, 0, 0, 0.45)`.
+- The try pages' start-up (`assets/startup/startup.js`) still draws its own, simpler copy of the bar.
+- A CrazyGames build (Exitwise's `WebGLTemplates/Responsive`) keeps its own copy: the portal serves it, not this site.
 
 ## What's new and Questions and answers
 
