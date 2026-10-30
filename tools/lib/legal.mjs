@@ -15,9 +15,10 @@ export const isProductScreen = (path) => /^\/[^/]+\/(play|tv|join|demo)\//.test(
 // The company's details, which a product screen never shows.
 const DETAILS = ['G.E.MI.', '181823306000', 'EL802736373', 'VAT no.']
 
-// What is wrong with a page's legal line, for the page at `path`: a list of messages, none when it is right.
-export function legalProblems(path, html) {
-  if (isProductScreen(path)) {
+// What is wrong with a page's legal line, for the page at `path`: a list of messages, none when it is right. screen:
+// whether it is a product's screen, by its address unless known otherwise (a Unity WebGL page is one wherever it is).
+export function legalProblems(path, html, screen = isProductScreen(path)) {
+  if (screen) {
     const out = DETAILS.filter((s) => html.includes(s))
       .map((s) => `a product screen shows "${s}": the company's details belong on the website's pages; the product says only "© <year> VGraphics"`)
     if (!/(?:©|&copy;) \d{4} VGraphics\b/.test(html)) out.push('a product screen without its legal line "© <year> VGraphics"')

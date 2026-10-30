@@ -13,7 +13,8 @@ const ABOUT = /(^|-)about(-|$)/i
 const words = (html) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim()
 
 // What is wrong with a play or try page: html, its markup; slug, its product; template, true for a page built here from
-// its page.json. A list of messages, none when it is the product alone.
+// its page.json; about, false for a product's TV or join page, which needs no About link. A list of messages, none when
+// it is the product alone.
 // - No About panel and no button to one: nothing named about (an id or class), and no button that says About or Back
 //   to the game.
 // - Nothing under the product: not the website's footer (class "foot", the template's and the party kit's), and on a
@@ -21,7 +22,7 @@ const words = (html) => html.replace(/<[^>]+>/g, ' ').replace(/\s+/g, ' ').trim(
 //   the footer for the slim bar.
 // - A link to the product's About page, /<product>/about/, where it needs no scrolling (its bar or its menu).
 // What a script writes later, a <template> holds, and comments are not read.
-export function playPageProblems(html, slug, { template = false } = {}) {
+export function playPageProblems(html, slug, { template = false, about = true } = {}) {
   const out = []
   const body = (html.split(/<body\b/i)[1] ?? '')
     .replace(/<!--[\s\S]*?-->/g, '')
@@ -42,7 +43,7 @@ export function playPageProblems(html, slug, { template = false } = {}) {
   if (template && !/<html\b[^>]*\sclass="(?:[^"]*\s)?screen(?:\s[^"]*)?"/.test(html)) {
     out.push('is built from its page.json without "screen": give it "screen": { "heading" }, so the template draws the product alone, with nothing to scroll')
   }
-  if (!new RegExp(`\\shref="(?:https://vgraphics\\.gr)?/${slug}/about/"`).test(body)) out.push(`doesn't link its About page, /${slug}/about/, in its bar or its menu`)
+  if (about && !new RegExp(`\\shref="(?:https://vgraphics\\.gr)?/${slug}/about/"`).test(body)) out.push(`doesn't link its About page, /${slug}/about/, in its bar or its menu`)
   return out
 }
 

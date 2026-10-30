@@ -1,0 +1,114 @@
+/* The squishy, chubby loading bar (assets/startup/loading-bar.js), the one every VGraphics web loader shows, the Unity
+   WebGL pages' included (D:\Projects\Mine\CLAUDE.md, "Start-up"). It is Exitwise's web loader's bar: a white pill on a
+   darker lip with a groove in it, and in the groove a fat bar, .bar-fill its body and .bar-head its head, that grows to
+   the right. --t is the bar's thickness and --lead its length at 0%, a round tail and the head; the script slides both
+   parts along the rest of the groove, by transform only (the compositor keeps it smooth while the page is busy).
+   A product sets its look on the bar or any element around it:
+     --vg-bar-fill        its colour (or the script's colour), the body and the head; --vg-bar-fill-edge their lip
+     --vg-bar-track, --vg-bar-lip, --vg-bar-groove, --vg-bar-shade   the pill, its lip, the groove and its inner shade
+     --vg-bar-shadow      the soft shadow under the bar
+     --vg-bar-spark, --vg-bar-spark-alt, --vg-bar-ink   the sparkles' two colours and their outline
+     --vg-bar-sheen       the shine that runs along it while the product starts
+     --vg-bar-height, --vg-bar-width   its size
+   Unset, each is Exitwise's (its paper, ink, lemon and cream, and its green). A dark loading screen sets the track's
+   (the try pages' start-up has #1F1F22, #34343A, #0B0B0C, rgba(0, 0, 0, 0.5) and rgba(0, 0, 0, 0.45)). */
+.vg-bar {
+  --bar-fill: var(--vg-bar-fill, #3BB273);
+  --bar-edge: var(--vg-bar-fill-edge, color-mix(in srgb, var(--bar-fill) 74%, #000));
+  --h: var(--vg-bar-height, clamp(26px, 6vh, 40px));
+  --lip: calc(var(--h) * 0.1);
+  --pad: calc(var(--h) * 0.17);
+  --t: calc(var(--h) - var(--lip) - 2 * var(--pad));
+  --hl: calc(var(--t) * 1.1);
+  --lead: calc(var(--hl) + var(--t) / 2);
+  position: relative;
+  width: var(--vg-bar-width, min(70vw, 400px, 62vh));
+  height: var(--h);
+}
+.vg-bar .bar-shadow {
+  position: absolute;
+  left: 5%;
+  right: 5%;
+  bottom: calc(var(--h) * -0.3);
+  height: calc(var(--h) * 0.6);
+  border-radius: 50%;
+  background: radial-gradient(closest-side, var(--vg-bar-shadow, rgba(59, 51, 85, 0.2)), transparent);
+}
+.vg-bar .bar-hop, .vg-bar .bar-jelly, .vg-bar .bar-track { position: absolute; inset: 0; }
+.vg-bar .bar-hop { transform-origin: 50% 100%; }
+.vg-bar .bar-jelly { transform-origin: 0 50%; }
+.vg-bar .bar-track { border-radius: 999px; background: var(--vg-bar-track, #FFFDF8); box-shadow: inset 0 calc(var(--lip) * -1) 0 var(--vg-bar-lip, #DED4C4); }
+.vg-bar .bar-groove, .vg-bar .bar-head { position: absolute; left: var(--pad); right: var(--pad); top: var(--pad); height: var(--t); }
+.vg-bar .bar-groove {
+  overflow: hidden;
+  border-radius: 999px;
+  background: var(--vg-bar-groove, #ECE4D6);
+  box-shadow: inset 0 calc(var(--t) * 0.12) calc(var(--t) * 0.14) var(--vg-bar-shade, rgba(59, 51, 85, 0.16));
+}
+.vg-bar .bar-fill {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  left: calc(var(--t) / 2 - var(--hl));
+  width: 100%;
+  border-radius: 999px;
+  background: var(--bar-fill);
+  box-shadow: inset 0 calc(var(--t) * -0.16) 0 var(--bar-edge);
+}
+.vg-bar .bar-fill::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: calc(var(--t) / 2);
+  top: 16%;
+  height: 28%;
+  border-radius: 999px 0 0 999px;
+  background: linear-gradient(rgba(255, 255, 255, 0.6), rgba(255, 255, 255, 0.3));
+}
+/* Body and head move together (the script plans each glide as a transition). The head squashes, and its face
+   stretches with the speed, about its back (the script's keyframes). */
+.vg-bar .bar-fill, .vg-bar .bar-head { transform: translateX(calc(var(--lead) - 100%)); }
+.vg-bar .bar-tip {
+  position: absolute;
+  right: 0;
+  top: 50%;
+  width: var(--hl);
+  height: calc(var(--t) * 1.5);
+  margin-top: calc(var(--t) * -0.75);
+  transform-origin: 0 50%;
+}
+.vg-bar .bar-tip svg { display: block; width: 100%; height: 100%; transform-origin: 0 50%; }
+.vg-bar .bar-tip .edge { fill: var(--bar-edge); stroke: var(--bar-edge); }
+.vg-bar .bar-tip .face { fill: var(--bar-fill); stroke: var(--bar-fill); }
+/* The round knob is as tall as it is wide, a little fatter than the bar, over its round end. */
+.vg-bar .bar-tip.tip-round { width: calc(var(--t) * 1.3); height: calc(var(--t) * 1.3); margin-top: calc(var(--t) * -0.65); }
+/* The sparkles the script flings off the head, its em a bar height; it sets each one's left to the head's. */
+.vg-bar .bar-spark {
+  position: absolute;
+  top: calc(var(--pad) + var(--t) / 2);
+  font-size: var(--h);
+  width: 0.5em;
+  height: 0.5em;
+  margin: -0.25em 0 0 -0.25em;
+  opacity: 0;
+  pointer-events: none;
+}
+.vg-bar .bar-spark svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.vg-bar .bar-spark path { fill: var(--vg-bar-spark, #FFD23F); stroke: var(--vg-bar-ink, #3B3355); }
+.vg-bar .bar-spark.alt path { fill: var(--vg-bar-spark-alt, #FFFDF8); }
+/* Full, while the product starts: the head nudges to get out and a sheen runs along the bar. */
+.vg-bar .bar-groove::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  opacity: 0;
+  transform: translateX(-100%);
+  background: linear-gradient(100deg, transparent 30%, var(--vg-bar-sheen, rgba(255, 255, 255, 0.5)) 50%, transparent 70%);
+}
+.vg-bar.starting .bar-groove::after { opacity: 1; animation: vg-bar-sheen 1.8s cubic-bezier(0.77, 0, 0.175, 1) infinite; }
+.vg-bar.starting .bar-tip { animation: vg-bar-nudge 1.8s ease-in-out infinite; }
+@keyframes vg-bar-sheen { from { transform: translateX(-100%); } 70%, to { transform: translateX(100%); } }
+@keyframes vg-bar-nudge { 0%, 45%, 100% { transform: translateX(0); } 20% { transform: translateX(16%); } }
+@media (prefers-reduced-motion: reduce) {
+  .vg-bar.starting .bar-tip, .vg-bar.starting .bar-groove::after { animation: none; }
+}

@@ -4,9 +4,10 @@ import { execFileSync } from 'node:child_process'
 import { createHash } from 'node:crypto'
 import { existsSync, readdirSync, readFileSync, renameSync, statSync, writeFileSync } from 'node:fs'
 import { tmpdir } from 'node:os'
-import { dirname, join, relative, sep } from 'node:path'
+import { dirname, join, posix, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { runInNewContext } from 'node:vm'
+import { brotliDecompressSync, gunzipSync } from 'node:zlib'
 import { render } from './build-pages.mjs'
 import { sitemap } from './build-sitemap.mjs'
 import { styleSources, strayStylePages } from './make-style-pages.mjs'
@@ -21,10 +22,38 @@ import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
+import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
+// Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
+// the files git tracks or would add, so only what git ignores (_mockups/, .claude/worktrees/) is left out.
+const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)))
+// A file a page names (relative to it, or from the site's root), as a path in the site.
+const siteFile = (file, ref) => {
+  const clean = decodeURIComponent(ref.replace(/[?#].*$/, ''))
+  return clean.startsWith('/') ? clean.slice(1) : posix.join(posix.dirname(file), clean)
+}
+// The Unity WebGL pages (tools/lib/unity-pages.mjs), wherever they are served, each with the folders its page and its
+// build are in. Other repos' releases write those (Exitwise's exitwise-web, Palermo Noir's to come): the text and page
+// checks below skip them, as the scripts built elsewhere, and the Unity pages' own rules hold them.
+const unity = new Map()
+for (const file of served) {
+  const html = readFileSync(join(root, file), 'utf8')
+  if (!isUnityPage(html)) continue
+  const dirs = new Set([posix.dirname(file)])
+  const framework = unityFramework(html)
+  if (framework) {
+    const build = posix.dirname(siteFile(file, framework))
+    dirs.add(posix.basename(build) === 'Build' ? posix.dirname(build) : build)
+  }
+  unity.set(file, [...dirs])
+}
+const UNITY_DIRS = [...new Set([...unity.values()].flat())]
+const UNITY_PATHS = new Set([...unity.keys()].map((f) => '/' + f.replace(/(^|\/)index\.html$/, '$1')))
+const builtByUnity = (f) => UNITY_DIRS.some((d) => f.startsWith(`${d}/`))
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
-const SKIP = ['.git', '.claude', 'tools', '_mockups', join('exitwise', 'play')]
+const SKIP = ['.git', '.claude', 'tools', '_mockups', ...UNITY_DIRS.map((d) => join(...d.split('/')))]
 const TEXT = /\.(html|css|js|mjs|txt|xml|md|json|svg)$/i
 
 const COMPANY = [
@@ -230,8 +259,6 @@ for (const file of pages) {
 // Nothing is exempt: a page another repo writes (VHub's hub/, since vhub-hub shipped VHub 880438d on 24 Oct 2026) fails
 // like any other until that repo brings the menu.
 const MENU_JS = '<script src="/assets/menu.js" defer></script>'
-const served = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.html'], { cwd: root, encoding: 'utf8' })
-  .split('\0').filter((f) => f && existsSync(join(root, f)))
 const sources = new Map(documents().map((d) => [d.file.split(sep).join('/'), d.url]))
 for (const d of documents()) if (!d.from?.repo || !d.from?.path) report(d.file, 'source', `its page.json document block doesn't name the file it is copied from: add from: { repo, path } (tools/sync-documents.mjs)`)
 const burger = (file, message) => report(file, 'burger', message)
@@ -372,11 +399,52 @@ for (const file of served) {
 const playAlone = (file, message) => report(file, 'play-alone', message)
 const withPlayPages = new Set()
 for (const file of served) {
+  // A Unity page's own rules (below) hold it to these wherever it is; its TV and join pages need no About page.
+  if (unity.has(file)) {
+    if (!isDoor(urlPath(file))) withPlayPages.add(file.split('/')[0])
+    continue
+  }
   if (!isPlayPage(urlPath(file))) continue
   const slug = file.split('/')[0]
   withPlayPages.add(slug)
   for (const m of playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })) playAlone(file, m)
 }
+
+// A Unity WebGL page (tools/lib/unity-pages.mjs: Exitwise's /exitwise/play/; Palermo Noir's play, join, TV and demo
+// pages to come, George, 30 Oct 2026: "Unity and browser must use unity too. We dont want to have 2 code bases."), on
+// every page GitHub Pages serves that calls createUnityInstance(), wherever it is: the product alone with nothing to
+// scroll (play-alone), "© <year> VGraphics" (legal-footer), no-select with the developer tools' keys blocked
+// (no-select), Google Analytics and error reports from the page or the game's framework (analytics), the shared
+// squishy loading bar and none of its own (loading-bar), no source maps or debug symbols (source-maps), and its TV and
+// join pages kept out of search (noindex). Its folders are skipped by the text and page checks, which other pages get.
+// OWN_BAR lists the Unity pages that still draw a bar of their own, each with the change that moves it onto the shared
+// one; an entry whose page uses the shared bar fails, so the list only shrinks.
+const OWN_BAR = {
+  'exitwise/play/index.html': "Exitwise's WebGL template (the Games repo, ArrowPuzzle/Assets/WebGLTemplates/Portfolio/index.html) loads /assets/startup/loading-bar.css and .js in place of its own loadingBar(), its bar's markup and CSS; then an exitwise-web release",
+}
+const unityText = (file) => (ref) => {
+  const target = join(root, siteFile(file, ref))
+  if (!existsSync(target) || !statSync(target).isFile()) return null
+  const bytes = readFileSync(target)
+  // Unity packs its files with gzip, or with brotli (.br, or .unityweb with no gzip header).
+  if (bytes[0] === 0x1f && bytes[1] === 0x8b) return gunzipSync(bytes).toString('utf8')
+  if (/\.(br|unityweb)$/i.test(target)) {
+    try {
+      return brotliDecompressSync(bytes).toString('utf8')
+    } catch {}
+  }
+  return bytes.toString('utf8')
+}
+const servedIn = (dirs) => execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', ...dirs], { cwd: root, encoding: 'utf8' })
+  .split('\0').filter((f) => f && existsSync(join(root, f)))
+for (const [file, dirs] of unity) {
+  const found = unityPageProblems(readFileSync(join(root, file), 'utf8'), urlPath(file), { text: unityText(file), files: servedIn(dirs) })
+  const ownBar = Object.hasOwn(OWN_BAR, file)
+  if (ownBar && !found.some(([rule]) => rule === 'loading-bar')) report(file, 'loading-bar', 'uses the shared loading bar now: take it out of OWN_BAR in tools/check-site.mjs')
+  for (const [rule, message] of found) if (!(ownBar && rule === 'loading-bar')) report(file, rule, message)
+}
+for (const file of Object.keys(OWN_BAR)) if (!unity.has(file)) report(file, 'loading-bar', 'is no Unity page now: take it out of OWN_BAR in tools/check-site.mjs')
+
 for (const slug of [...withPlayPages].sort()) {
   const built = existsSync(join(root, slug, 'about', 'page.json'))
   const page = built ? JSON.parse(readFileSync(join(root, slug, 'about', 'page.json'), 'utf8')) : undefined
@@ -466,9 +534,10 @@ for (const [file, text] of sheets) {
 // The legal line (tools/lib/legal.mjs; George, 29 Oct 2026: "These are only required at the website not in the apps.
 // Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
 // above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
-// screens (its play, TV, join and demo pages, the hub, the try pages).
+// screens (its play, TV, join and demo pages, the hub, the try pages). A Unity page's own rules (above) hold it to the
+// product's line wherever it is.
 for (const file of served) {
-  if (notPages.has(file) || PARTIAL.test(file)) continue
+  if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
   for (const m of legalProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'legal-footer', m)
 }
 
@@ -592,13 +661,13 @@ for (const slug of products()) {
 //   header's folded menu (menu.js) and the VHub avatar's (account.js) do. A script that marks a menu open without them
 //   would snap it open and shut;
 // - no served page has a popover (the popover attribute), which the browser opens and shuts at once.
-// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer
-// engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is read.
-// Without faq.js the rows still open, but jump, and several stay open.
+// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Unity games' pages and builds,
+// the Speedometer engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is
+// read. Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
 const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
-const BUILT_ELSEWHERE = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app|palermo\/game)\//
+const BUILT_ELSEWHERE = /^(?:hub|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
 else if (!['showMenu', 'hideMenu'].every((name) => new RegExp(`^export const ${name} =`, 'm').test(readFileSync(join(root, 'assets', 'faq.js'), 'utf8')))) {
   faqJs(join('assets', 'faq.js'), "does not export showMenu and hideMenu, which open and close every menu with the expandables' animation")
@@ -621,7 +690,7 @@ for (const file of served) {
   }
 }
 const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
-  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
+  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !builtByUnity(f) && !f.startsWith('tools/'))
 for (const file of siteScripts) {
   if (file === 'assets/faq.js') continue
   const js = readFileSync(join(root, file), 'utf8')
@@ -699,7 +768,8 @@ if (existsSync(join(root, 'assets', 'no-select.js'))) {
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
-  if (!html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
+  // A Unity page's own rules hold it to loading no-select.js.
+  if (!unity.has(file) && !html.includes(MENU_JS) && !NO_SELECT_JS.test(html)) {
     noSelect(file, `lets its text be selected, opens the right-click menu and the developer tools' keys, and shows no console warning: load /assets/menu.js (${MENU_JS}), or with no header <script src="/assets/no-select.js" defer></script>`)
   }
   for (const [, css] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) reselect(file, css)
@@ -754,17 +824,17 @@ for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
 // checkboxes in a page's markup and for those the site's own scripts make (the try page's settings, assets/try/try.js):
 // each `type = 'checkbox'` there gives the input the "switch" class and role in the lines that follow, and every page
 // that loads such a script links switch.css. A choice of a few is a segmented control or option cards, never a row of
-// checkboxes. The scripts other repos build (VHub's hub, the Exitwise game, the Speedometer engine) draw their own
+// checkboxes. The scripts other repos build (VHub's hub, the Unity games, the Speedometer engine) draw their own
 // switch in their repo, whose tests hold it; here only their markup is read.
 const switchRule = (file, message) => report(file, 'switch', message)
 const SWITCH_CSS = /<link rel="stylesheet" href="\/assets\/switch\.css">/
-const BUILT = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app)\//
+const BUILT = /^(?:hub|speedometer-wallpaper\/play\/app)\//
 const isSwitch = (tag) => /\srole="switch"/.test(tag) && /\sclass="(?:[^"]*\s)?switch(?:\s[^"]*)?"/.test(tag)
 if (!existsSync(join(root, 'assets', 'switch.css'))) switchRule(join('assets', 'switch.css'), 'missing')
 // The site's own scripts that make checkboxes, by their address.
 const switchScripts = new Set()
 const ownScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
-  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT.test(f) && !f.startsWith('tools/'))
+  .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT.test(f) && !builtByUnity(f) && !f.startsWith('tools/'))
 for (const file of ownScripts) {
   const js = readFileSync(join(root, file), 'utf8')
   for (const m of js.matchAll(/(?<!\[)\btype\s*[=:]\s*(['"])checkbox\1|setAttribute\(\s*(['"])type\2\s*,\s*(['"])checkbox\3/g)) {
@@ -801,7 +871,7 @@ const pageFile = (file, href) => {
   return existsSync(target) && statSync(target).isFile() ? [relative(root, target).split(sep).join('/'), readFileSync(target, 'utf8')] : null
 }
 for (const file of served) {
-  if (notPages.has(file) || PARTIAL.test(file) || BUILT_ELSEWHERE.test(file)) continue
+  if (notPages.has(file) || PARTIAL.test(file) || BUILT_ELSEWHERE.test(file) || builtByUnity(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
   const css = [...html.matchAll(/<link rel="stylesheet" href="([^"]+)"/g)].map((m) => pageFile(file, m[1])).filter(Boolean)
   for (const [, inline] of html.matchAll(/<style[^>]*>([\s\S]*?)<\/style>/g)) css.push(['its <style>', inline])
@@ -871,7 +941,7 @@ for (const file of served) {
 //   "The foother must be same on all pages."), one place each.
 // - Not counted, on purpose (keep this list short): the <head> (link previews, preloads, icons), logos, store badges,
 //   the soundtrack's cover, QR codes, pictures 256 px or smaller (icons, sprites, game pieces), the start-up's welcome
-//   splash (the key art's own job, after the VGraphics intro: in a play page's markup, the WebGL template's
+//   splash (the key art's own job, after the VGraphics intro: on a Unity page, the WebGL template's
 //   #loader-art; the try pages' start-up builds its own by script), pictures a script shows, stylesheet
 //   backgrounds, a picture in a link to a page
 //   that shows it (that card is the page's preview, as its link preview is), and a product gallery's tiles showing
@@ -898,7 +968,7 @@ function artPlace(page, chain) {
   const has = (c) => chain.some((e) => e.cls.includes(c))
   const both = (a, b) => chain.some((e) => e.cls.includes(a) && e.cls.includes(b))
   if (chain.some((e) => e.cls.some((c) => ART_FREE.has(c))) || both('ost-backdrop', 'blur')) return { free: true }
-  if (/^\/[^/]+\/play\/$/.test(page) && chain.some((e) => e.id === 'loader-art')) return { free: true }
+  if (UNITY_PATHS.has(page) && chain.some((e) => e.id === 'loader-art')) return { free: true }
   const product = page.split('/')[1]
   // A gallery tile: free while its picture is the product's own (pictureUses checks its files, the count its hero)
   if (chain.some((e) => e.cls.some((c) => TILE.has(c))) || both('shots', 'fade-edges')) return { free: true, tile: product, place: `${page} gallery tiles` }
