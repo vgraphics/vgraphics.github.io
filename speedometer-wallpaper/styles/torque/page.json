@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the dashboard of a muscle car on a desert highway at sunset, showing the Torque style",
+      "wiki": "styles-torque",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#775348, #5A6472)"
+    }
   },
   "sections": [
     {

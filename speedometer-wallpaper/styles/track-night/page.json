@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone in a clamp mount in a race car on a floodlit track at night, showing the Track Night race screen",
+      "wiki": "styles-track-night",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#10181D, #354145)"
+    }
   },
   "sections": [
     {

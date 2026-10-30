@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone in a brass mount on a yacht's teak console beside the ship's wheel at blue hour, showing the Harbour style",
+      "wiki": "styles-harbour",
+      "position": "65% 45%",
+      "placeholder": "linear-gradient(#4484B2, #413336)"
+    }
   },
   "sections": [
     {

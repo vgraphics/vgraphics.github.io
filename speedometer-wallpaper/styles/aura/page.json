@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone in a chrome mount on a sports car's dashboard on an alpine pass at golden hour, showing the Aura style",
+      "wiki": "styles-aura",
+      "position": "65% 45%",
+      "placeholder": "linear-gradient(#877A5D, #686150)"
+    }
   },
   "sections": [
     {

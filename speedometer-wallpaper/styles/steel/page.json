@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the brushed steel console of a grand tourer in a bright glass showroom, showing the Steel style",
+      "wiki": "styles-steel",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#92ACB0, #7B9498)"
+    }
   },
   "sections": [
     {

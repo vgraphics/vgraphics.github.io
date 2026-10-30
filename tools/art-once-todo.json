@@ -1,35 +1,4 @@
 {
   "about": "The reuses check-site's art-once rule (tools/check-site.mjs) found on 26 Oct 2026, each kept until its fix lands. \"art\" names the picture (any of its files, without size and type), \"places\" where it was shown. An entry passes while the picture is shown only in places it lists; a new place fails, and so does a fixed picture (one place left) until its entry is taken out. Add nothing here: give the new place its own picture.",
-  "reuses": [
-    {
-      "art": [
-        "speedometer-wallpaper/img/key-art",
-        "speedometer-wallpaper/img/key-art-tall",
-        "speedometer-wallpaper/img/key-art-ultra"
-      ],
-      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings; the About page, /l/, the layout market and the creator pages got theirs on 30 Oct 2026). To do (Recraft): a hero each, wide and tall, with a blank phone and the app's real render laid in, for every style page, made before the 19-style release publishes them.",
-      "places": [
-        "/speedometer-wallpaper/ hero",
-        "/speedometer-wallpaper/styles/amber-night/ hero",
-        "/speedometer-wallpaper/styles/aura/ hero",
-        "/speedometer-wallpaper/styles/carbon/ hero",
-        "/speedometer-wallpaper/styles/circuit/ hero",
-        "/speedometer-wallpaper/styles/classic/ hero",
-        "/speedometer-wallpaper/styles/cockpit/ hero",
-        "/speedometer-wallpaper/styles/future/ hero",
-        "/speedometer-wallpaper/styles/glass/ hero",
-        "/speedometer-wallpaper/styles/graphite/ hero",
-        "/speedometer-wallpaper/styles/harbour/ hero",
-        "/speedometer-wallpaper/styles/horizon/ hero",
-        "/speedometer-wallpaper/styles/prism/ hero",
-        "/speedometer-wallpaper/styles/pulse/ hero",
-        "/speedometer-wallpaper/styles/rally/ hero",
-        "/speedometer-wallpaper/styles/steel/ hero",
-        "/speedometer-wallpaper/styles/torque/ hero",
-        "/speedometer-wallpaper/styles/track-night/ hero",
-        "/speedometer-wallpaper/styles/vector/ hero",
-        "/speedometer-wallpaper/styles/vintage/ hero"
-      ]
-    }
-  ]
+  "reuses": []
 }
