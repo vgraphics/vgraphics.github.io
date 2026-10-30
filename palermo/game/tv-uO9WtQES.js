@@ -1,1 +1,0 @@
-import{aH as s,ad as o,aI as t,aJ as e,u as m}from"./newsreel-CEyZ2wvG.js";import{a as p}from"./app-Bg_tvbKR.js";import"./vote-opens-KoFxckDh.js";s(o);t();const a=document.getElementById("app");a&&e(m(p,{}),a);

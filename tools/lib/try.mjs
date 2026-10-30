@@ -3,7 +3,9 @@
 // screen, its tools (rotate, home screen icons, full screen) and the panel (styles, settings, real speed, the store
 // call), which assets/try/try.js builds from the engine's own catalog, so nothing is listed here by hand. The start-up
 // (assets/startup/) plays in the phone's screen. The engine's files come from the Deployer (speedometer-web writes
-// <engine>), never by hand.
+// <engine>), never by hand. On a screen (page.json "screen": the try page, the app alone with nothing to scroll) the
+// phone fills the window's height and the panel scrolls in its own box beside it, or under it on phones, its edges
+// fading (assets/fade-edges.js); on a page that scrolls (a style's page) the panel goes with the page.
 //
 // page.json: { "type": "try", "product", "engine", "store", "referrer", "measurementId", "prices", "qr", "startup",
 //   "style", "labels" }
@@ -90,7 +92,7 @@ export function tryBlock(b, page) {
               ${tool('fullscreen', 'full', 'Full screen', ' hidden')}
             </div>
           </div>
-          <div class="try-panel">
+          <div class="try-panel${page.screen ? ' fade-edges' : ''}">
             <div class="try-now">
               ${[step('prev', 'The style before', 'prev'), '<div class="try-now-name"><b class="try-style-name">Starting…</b><span class="try-style-price"></span></div>', step('next', 'The next style', 'next')].filter(Boolean).join('\n              ')}
             </div>

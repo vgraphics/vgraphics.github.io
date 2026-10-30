@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "2.0.7",
+      "date": "2026-10-29",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Build your own layout",
+      "items": [
+        "Build your own layout: add, move, resize, lock and stack any widget, preview it in any style, then save and use it.",
+        "Every style gets 25 new widgets, including trip, odometer, 0–100, G-force, weather, moon, steps, music controls and a second clock.",
+        "Browse layouts other people have made, preview any in your own style, then use, rate, share or report them — and publish your own."
+      ],
+      "commit": "de8b08be"
+    },
+    {
       "version": "2.0.77bd3160",
       "date": "2026-10-28",
       "platforms": [

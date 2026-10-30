@@ -5,7 +5,8 @@
    - The avatar: the VHub mark on a white disc, or the player's picture, with a ring and a small level badge in that
      colour. product.css and vgraphics.css hold its size, so the header doesn't move before this file arrives.
    - The menu: a drop-down under the header at the avatar's right, a sheet from the bottom on a phone. It grows from the
-     avatar and fades in, and closes the same way a little faster; under reduced motion, a short fade only. Its body
+     avatar and fades in, and closes the same way a little faster; under reduced motion, a short fade only (assets/faq.js
+     moves it, showMenu and hideMenu, as every menu). Its body
      scrolls inside it on a short screen, with faded edges (assets/fade-edges.js). The switches are the site's
      (assets/switch.css), on in the product's colour. */
 /* VHub's violet on the company pages: a lighter one where the page is dark, so the ring, the switches and the chosen
@@ -42,6 +43,11 @@
 .vhub-avatar-face svg { width: 26px; height: 26px; }
 .vhub-avatar.signed-in { box-shadow: 0 0 0 2px var(--va-gap), 0 0 0 4px var(--va-ring); }
 .vhub-avatar.signed-in .vhub-avatar-face :is(svg, img) { width: 100%; height: 100%; object-fit: cover; }
+/* In the VHub rank frame the player wears (assets/vhub-avatars.js marks the face data-framed; George, 29 Oct 2026: "Yes,
+   show it"), the frame takes the ring's place and stands on the header as it is, with no white disc behind it (29 Oct:
+   "remove that white/black background. It seems bad."); the level badge stays. A frame that won't load leaves the face
+   unmarked: the disc and ring come back. */
+.vhub-avatar.signed-in:has(.vhub-avatar-face[data-framed]) { background: transparent; box-shadow: none; }
 .vhub-avatar-level {
   position: absolute; right: -7px; bottom: -6px;
   min-width: 20px; height: 20px; padding: 0 5px; box-sizing: border-box;
@@ -75,26 +81,17 @@
   box-shadow: 0 30px 70px -24px rgb(0 0 0 / 0.6);
   font: 400 15px/1.45 var(--font-body, var(--body, system-ui, sans-serif));
   text-align: left;
-  transform-origin: top right;
-  transition: opacity 220ms ease-out, transform 220ms cubic-bezier(.2, .8, .2, 1);
 }
 .vhub-menu:focus { outline: none; }
-.vhub-menu.vm-enter { opacity: 0; transform: translateY(-6px) scale(0.96); }
-.vhub-menu.vm-leave { opacity: 0; transform: translateY(-4px) scale(0.98); transition-duration: 150ms; pointer-events: none; }
+/* Closing (assets/faq.js moves it, as every menu: hideMenu), it takes no more taps */
+.vhub-menu.vm-leave { pointer-events: none; }
 .vhub-menu.vm-sheet {
   inset: auto 0 0 0;
   width: auto;
   max-height: 88dvh;
   border-width: 1px 0 0;
   border-radius: 22px 22px 0 0;
-  transform-origin: bottom center;
   padding-bottom: env(safe-area-inset-bottom, 0px);
-}
-.vhub-menu.vm-sheet.vm-enter { transform: translateY(24px); }
-.vhub-menu.vm-sheet.vm-leave { transform: translateY(16px); }
-.vhub-menu.vm-still, .vhub-menu.vm-still.vm-enter, .vhub-menu.vm-still.vm-leave { transform: none; transition: opacity 120ms linear; }
-@media (prefers-reduced-motion: reduce) {
-  .vhub-menu, .vhub-menu.vm-enter, .vhub-menu.vm-leave { transform: none; transition: opacity 120ms linear; }
 }
 .vm-body { overflow-y: auto; overscroll-behavior: contain; scrollbar-color: var(--vm-on) transparent; }
 

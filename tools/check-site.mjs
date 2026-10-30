@@ -20,6 +20,7 @@ import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
+import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed (excluded in .git/info/exclude).
@@ -361,6 +362,28 @@ for (const file of served) {
   }
 }
 
+// Play and try pages are the product alone (George, 29 Oct 2026: "When we play we play. No scroll needed."; then "Yes,
+// that way" to each product's About text on a page of its own; tools/lib/play-pages.mjs), on every page GitHub Pages
+// serves at /<product>/play/ or /<product>/demo/, whoever writes it: no About panel and no button to one, nothing under
+// the product (the website's footer; a template page is a screen), and a link to the product's About page. Every
+// product with such a page has its About page from the template, with questions, linked from its menu and from its
+// landing page's own words. Nothing is exempt: the last About panels of 27 Oct 2026 left with exitwise-web 1.0.9d881213
+// and palermo-web 20261029-164735 (29 Oct 2026).
+const playAlone = (file, message) => report(file, 'play-alone', message)
+const withPlayPages = new Set()
+for (const file of served) {
+  if (!isPlayPage(urlPath(file))) continue
+  const slug = file.split('/')[0]
+  withPlayPages.add(slug)
+  for (const m of playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })) playAlone(file, m)
+}
+for (const slug of [...withPlayPages].sort()) {
+  const built = existsSync(join(root, slug, 'about', 'page.json'))
+  const page = built ? JSON.parse(readFileSync(join(root, slug, 'about', 'page.json'), 'utf8')) : undefined
+  const landing = existsSync(join(root, slug, 'index.html')) ? readFileSync(join(root, slug, 'index.html'), 'utf8') : ''
+  for (const m of aboutProblems(slug, { built, page, site: plays.get(slug), landing })) playAlone(join(slug, built ? join('about', 'page.json') : 'page.json'), m)
+}
+
 // The VHub avatar, the last item of every header (George, 28 Oct 2026: "All pages must show the VHub avatar clickable on
 // top right after any play or try button."; VHub docs/superpowers/specs/2026-10-28-vhub-settings-sync-design.md 4.1): a
 // button after the play or try link where a page has one, on company pages where the VHub link was, drawn and opened by
@@ -370,7 +393,7 @@ const AVATAR_TAIL = /<button class="vhub-avatar"[^>]*>(?:(?!<button\b|<a\b|<nav\
 for (const file of served) {
   const html = readFileSync(join(root, file), 'utf8')
   if (html.includes('/assets/vhub-me.js')) avatar(file, 'loads /assets/vhub-me.js, which the VHub avatar replaced')
-  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)"[^>]*>([\s\S]*?)<\/header>/g)) {
+  for (const [, inner] of html.matchAll(/<header class="(?:top|site-head)(?:\s[^"]*)?"[^>]*>([\s\S]*?)<\/header>/g)) {
     if (!AVATAR_TAIL.test(inner)) avatar(file, `the header's last item is not the VHub avatar (<button class="vhub-avatar">, tools/lib/partials.mjs VHUB_AVATAR)`)
   }
 }
@@ -564,15 +587,22 @@ for (const slug of products()) {
 // - whatever a served page marks aria-expanded is one faq.js or menu.js drives: a tour's buttons and spots, the header's
 //   menu button. Anything else is a kind faq.js doesn't know, which would open with no animation: make it a details, or
 //   drive its kind from faq.js;
-// - none of the site's own scripts but those two opens or closes anything by aria-expanded. The scripts other repos
-//   build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer engine) animate theirs
-//   with their own shared piece, whose tests hold it; here only their markup is read.
+// - none of the site's own scripts but faq.js opens or closes anything by aria-expanded unless it moves it with faq.js's
+//   showMenu and hideMenu: menus open and close the same way (George, 29 Oct 2026: "Yes, animate menus"), as the
+//   header's folded menu (menu.js) and the VHub avatar's (account.js) do. A script that marks a menu open without them
+//   would snap it open and shut;
+// - no served page has a popover (the popover attribute), which the browser opens and shuts at once.
+// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Exitwise game, the Speedometer
+// engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is read.
 // Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
 const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
 const BUILT_ELSEWHERE = /^(?:hub|exitwise\/play|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
+else if (!['showMenu', 'hideMenu'].every((name) => new RegExp(`^export const ${name} =`, 'm').test(readFileSync(join(root, 'assets', 'faq.js'), 'utf8')))) {
+  faqJs(join('assets', 'faq.js'), "does not export showMenu and hideMenu, which open and close every menu with the expandables' animation")
+}
 if (!/^\s*import\("\/assets\/faq\.js"\)/m.test(readFileSync(join(root, 'assets', 'menu.js'), 'utf8'))) {
   faqJs(join('assets', 'menu.js'), 'does not load /assets/faq.js on every page, which opens and closes every expandable with an animation')
 }
@@ -586,15 +616,22 @@ for (const file of served) {
     if (part || /\sclass="(?:menu-toggle|spot)"/.test(attrs)) continue
     faqJs(file, `a <${tag}> marked aria-expanded that assets/faq.js doesn't drive, so it opens with no animation: make it a details, or drive its kind from faq.js`)
   }
+  for (const [, tag] of html.matchAll(/<(\w+)\b[^>]*\spopover(?=[\s=>])[^>]*>/g)) {
+    faqJs(file, `a <${tag}> with the popover attribute, which opens and shuts at once: open it from a script with assets/faq.js's showMenu and hideMenu`)
+  }
 }
 const siteScripts = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.js'], { cwd: root, encoding: 'utf8' })
   .split('\0').filter((f) => f && existsSync(join(root, f)) && !BUILT_ELSEWHERE.test(f) && !f.startsWith('tools/'))
 for (const file of siteScripts) {
-  // The VHub avatar's menu (assets/account.js) opens and closes with its own animation, as faq.js's.
-  if (file === 'assets/faq.js' || file === 'assets/menu.js' || file === 'assets/account.js') continue
-  if (readFileSync(join(root, file), 'utf8').includes('aria-expanded')) {
-    faqJs(file, 'opens or closes something by aria-expanded itself, with no animation: drive its kind from assets/faq.js, which animates every expandable')
-  }
+  if (file === 'assets/faq.js') continue
+  const js = readFileSync(join(root, file), 'utf8')
+  if (!js.includes('aria-expanded')) continue
+  // A menu's script (menu.js, account.js) moves it with showMenu and hideMenu.
+  const moved = ['showMenu', 'hideMenu'].filter((name) => new RegExp(`\\b${name}\\(`).test(js))
+  if (moved.length === 2) continue
+  faqJs(file, moved.length
+    ? `opens a menu by aria-expanded but calls only ${moved[0]}: both its opening (showMenu) and its closing (hideMenu) go through assets/faq.js, or one of them snaps`
+    : 'opens or closes something by aria-expanded itself, with no animation: a menu opens and closes with assets/faq.js\'s showMenu and hideMenu, anything else is driven from faq.js')
 }
 
 // No text selection and no right-click (George, 26 Oct 2026: "Dont allow text selection and right clicking in any page.

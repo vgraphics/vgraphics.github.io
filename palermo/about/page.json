@@ -1,0 +1,162 @@
+{
+  "title": "About Palermo Noir: how the mafia party game plays",
+  "description": "How Palermo Noir plays: secret roles on your phones, the town on one TV, a narrator for every night. Nights, dawns, talk and votes for 6 to 14 friends.",
+  "social": {
+    "title": "About Palermo Noir, the mafia party game for phones and a TV",
+    "description": "What Palermo Noir is, how a round goes, what's inside and a few questions answered: a hidden-role game for 6 to 14 friends in one room.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "AboutPage",
+        "@id": "https://vgraphics.gr/palermo/about/#page",
+        "url": "https://vgraphics.gr/palermo/about/",
+        "name": "About Palermo Noir",
+        "description": "What Palermo Noir is, how a round goes, what's inside and a few questions answered.",
+        "inLanguage": "en",
+        "about": { "@id": "https://vgraphics.gr/palermo/#game" },
+        "publisher": { "@id": "https://vgraphics.gr/#organization" }
+      },
+      { "@type": "VideoGame", "@id": "https://vgraphics.gr/palermo/#game", "name": "Palermo Noir", "url": "https://vgraphics.gr/palermo/" },
+      { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Palermo Noir", "item": "https://vgraphics.gr/palermo/" },
+          { "@type": "ListItem", "position": 4, "name": "About", "item": "https://vgraphics.gr/palermo/about/" }
+        ]
+      }
+    ]
+  },
+  "hero": {
+    "title": "About Palermo Noir, the mafia party game for phones and a TV",
+    "lead": "Every phone hides a secret card. <em>The TV runs the town.</em>",
+    "align": "center",
+    "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }, { "href": "/palermo/play/", "label": "Play online" }],
+    "art": {
+      "alt": "A Palermo piazza at night in gold lines on navy: a café's striped awning and its tables, a fountain between two lit street lamps, balconies hung with washing, a cathedral dome behind and a crescent moon",
+      "wide": { "src": "/palermo/img/about-wide", "widths": [960, 1280, 1920], "width": 1920, "height": 1080, "sizes": "max(100vw, 683px, min(76.8vw, 132.3vh))" },
+      "tall": { "src": "/palermo/img/about-tall", "widths": [480, 720, 780], "width": 780, "height": 1688 },
+      "position": "50% 50%",
+      "fade": { "wide": "86%", "tall": "80%" },
+      "placeholder": "linear-gradient(#0B1623, #1A2433 60%, #0A090D)"
+    }
+  },
+  "sections": [
+    {
+      "id": "what",
+      "eyebrow": "About Palermo Noir",
+      "title": "What Palermo Noir is",
+      "intro": "Palermo Noir is a hidden-role party game for 6 to 14 friends in one room: every phone hides a secret card, and the TV runs the town. A few of you are killers who know each other. Everyone else has to find them by talking, before the killers are as many as the rest.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "Nobody sits out", "text": "A noir narrator leads each night and each morning, so the friend who used to run the game gets a card too. Later the first player out narrates the mornings, a Greek house rule kept on purpose." },
+            { "title": "Secrets stay secret", "text": "No phone makes a sound, every screen looks the same after dark, and your card stays hidden unless you press and hold." },
+            { "title": "One screen for everyone", "text": "Any TV with a web browser, or a laptop plugged into one, shows the town: the dawn's news, the rumour, every accusation as it lands and the vote." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "round",
+      "title": "How a round goes",
+      "intro": "After the deal and a first night where the killers only meet, every round runs the same way, until one side wins.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "The night", "text": "In secret, the killers settle on a victim, the Doctor guards someone and the Detective checks a suspect, while everyone else says whom they trust." },
+            { "title": "Dawn", "text": "The narrator announces who died in the night, or that nobody did, and the day begins." },
+            { "title": "Talk and vote", "text": "The town argues out loud. Each player points at a suspect from their phone, and whoever draws the most arrows has half a minute to answer before the vote." },
+            { "title": "The verdict", "text": "A tie sends the tied players to a revote. Whoever goes out leaves the table, and night falls again." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "inside",
+      "title": "What's inside",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            { "title": "14 roles", "text": "From the Known Killer and the Hidden Killer to the Seer, the Madman and the Kamikaze, each with its own card and its own voice." },
+            { "title": "The Lawyer's briefcase", "text": "17 power cards: the Lawyer keeps 2 of the 5 dealt at random, and each one works once." },
+            { "title": "Rules for every group", "text": "Start from Classic, Quick, Full house or Random, then set the timers, open or secret votes, ties and reveals before the deal." },
+            { "title": "English or Greek", "text": "Whichever the host picks, narration, cards and screens all switch to it." },
+            { "title": "A newsreel from 1947", "text": "Catch the game's first killer and the TV screens the arrest as a newsreel, filmed on a street of 1947 Palermo." },
+            { "title": "Share the night", "text": "At the end each phone can turn the game into your own card, a film poster, the town paper's front page or the whole table." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "demo",
+      "demo": true,
+      "title": "Try it alone first",
+      "intro": "The guided demo lets you learn Palermo Noir on your own. You sit at a table of bots, and a guide stops the game at each new moment to show you what to tap, and why it matters.",
+      "blocks": [
+        {
+          "type": "steps",
+          "items": [
+            "Choose your seat: one of the 14 roles, or Surprise me for a random deal. Then a table of 6, 8 or 10 players, in English or Greek.",
+            "Choose how long. The short demo takes about six minutes, through the deal, two nights and a day. The full one plays a whole game to its end in about fifteen.",
+            "Play your part. You see the game's own screens, with the guide beside them. On your turn it rings the spot to tap, and the bots answer as real players would."
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            { "title": "Lost the thread?", "text": "Chapters take you back to any moment, to play it again." },
+            { "title": "Sound off?", "text": "Every word the narrator and the guide say runs as subtitles at the foot of the screen, so you can follow with the sound off." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "rooms",
+      "title": "Rooms and your VHub name",
+      "intro": "When rooms open, on the web first and then on Android, anyone can join as a guest. Sign in with a free VHub name and your games, your XP and your achievements stay with you, here and in every other VGraphics game.",
+      "blocks": [{ "type": "actions", "items": [{ "href": "/palermo/play/", "label": "Play online" }, "vhub"] }]
+    },
+    {
+      "id": "questions",
+      "title": "Questions",
+      "blocks": [
+        {
+          "type": "faq",
+          "schema": false,
+          "items": [
+            { "q": "What is the town's rumour?", "a": "Every night, besides their role's move, each player names the one they suspect most. At dawn the TV shows the name picked most often as the town's rumour, so the day's talk starts from a hint." },
+            { "q": "Who wins?", "a": "The town, once every killer is out. The killers, once they are as many as everyone else still alive. A few roles keep their own score: the Madman wins alone if the town votes him out." },
+            { "q": "What if nobody dies for a while?", "a": "After three full rounds without a death, the narrator tells the town it won't wait any longer, and from then on fate settles every tie." },
+            { "q": "Can the dead still play along?", "a": "The first player out becomes the night announcer: their phone shows every role and every night's moves, and they choose the lines for the dawn. A host rule lets every dead player see it all." }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "more",
+      "title": "More about Palermo Noir",
+      "blocks": [
+        {
+          "type": "actions",
+          "items": [
+            { "href": "/palermo/wiki/", "label": "The wiki", "note": "Every role and card" },
+            { "href": "/palermo/wiki/host-rules/", "label": "The host's rules", "note": "Everything you can change" },
+            { "href": "/palermo/gallery/", "label": "The gallery", "note": "Every picture of the town" },
+            { "href": "/devlog/", "label": "The devlog", "note": "Notes from the studio" },
+            { "href": "/palermo/", "label": "The overview", "note": "The game in one page" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,8 +5,9 @@
 // - The avatar: the VHub mark, and for a signed-in player (never a guest) their picture with a ring and a small level
 //   badge in the product's colour, from VHub's session and public profile (assets/vhub-session.js), with no SDK.
 // - The menu, a drop-down under it (a sheet from the bottom on a phone), grows from the avatar and fades in, and closes
-//   a little faster (reduced motion: a short fade). Its first opening loads VHub's site bridge, /hub/sdk/vhub-site-1.js
-//   (window.VHubSite), which signs in, reads the catalog's menu settings and reads and writes game settings.
+//   a little faster (reduced motion: a short fade), as every menu does (faq.js, showMenu and hideMenu). Its first
+//   opening loads VHub's site bridge, /hub/sdk/vhub-site-1.js (window.VHubSite), which signs in, reads the catalog's
+//   menu settings and reads and writes game settings.
 //   - Signed out, or a guest: the sign-in invite, with Google's button. A sign-in VHub can't finish here (the account is
 //     another one's, or it owes the setup's answers) goes on in the hub.
 //   - Signed in: the account (picture, name, level, Profile, Account settings), the page's product's settings (a switch
@@ -16,12 +17,12 @@
 // Its words follow the page's language; the settings' own come from VHub's catalog in both.
 import { vhubAvatars, vhubProfile, vhubSession } from "/assets/vhub-session.js";
 import { gameRow, shortName } from "/assets/vhub-games.js";
+import { hideMenu, showMenu } from "/assets/faq.js";
 
 const button = document.querySelector(".vhub-avatar");
 const face = button && button.querySelector(".vhub-avatar-face");
 const MARK = face ? face.innerHTML : "";
 const lang = (document.documentElement.lang || "en").toLowerCase().startsWith("el") ? "el" : "en";
-const still = matchMedia("(prefers-reduced-motion: reduce)");
 const phone = matchMedia("(max-width: 560px)");
 const BRIDGE = "/hub/sdk/vhub-site-1.js";
 /** How long the menu waits for VHub's copy of a product's settings before it shows what it has. */
@@ -106,6 +107,11 @@ let drawing = 0;
 
 const signedIn = () => Boolean(session && !session.guest && profile);
 
+// A signed-in player's VHub rank frame around their picture (George, 29 Oct 2026: "Yes, show it"), reaching at most 1.35
+// of the 44px picture: 59px, inside the product bar's 64px and the company and hub bar's 72px, and under 8px past its
+// sides, inside the folded bar's 8px gap to the menu and play buttons. The frame takes the ring's place (account.css).
+const HEADER_REACH = 1.35;
+
 async function drawAvatar() {
   const mine = ++drawing;
   const nextSession = await vhubSession();
@@ -115,6 +121,7 @@ async function drawAvatar() {
   profile = nextProfile;
   button.querySelector(".vhub-avatar-level")?.remove();
   if (!signedIn()) {
+    window.VHubAvatars?.plain(face);
     face.innerHTML = MARK;
     button.classList.remove("signed-in");
     button.setAttribute("aria-label", t.signIn);
@@ -123,7 +130,10 @@ async function drawAvatar() {
   // Without the pictures' drawing the mark stays; the next drawing asks again.
   const pictures = await vhubAvatars();
   if (mine !== drawing) return;
-  if (pictures) pictures.draw(face, { uid: session.uid, avatar: profile.avatar, photo: profile.photo });
+  if (pictures) {
+    const player = { uid: session.uid, avatar: profile.avatar, photo: profile.photo, level: profile.level, frame: profile.frame };
+    pictures.draw(face, player, 96, HEADER_REACH);
+  }
   button.classList.add("signed-in");
   button.append(el("span", { class: "vhub-avatar-level", "aria-hidden": "true" }, String(profile.level)));
   button.setAttribute("aria-label", t.you(profile.name || window.VHubAvatars?.anonymous(session.uid) || "", profile.level));
@@ -188,13 +198,12 @@ function openMenu() {
     closing = null;
   }
   body = el("div", { class: "vm-body" });
-  menu = el("div", { class: "vhub-menu vm-enter", id: "vhub-menu", role: "dialog", "aria-label": t.menu, tabindex: "-1" }, body);
-  if (still.matches) menu.classList.add("vm-still");
+  menu = el("div", { class: "vhub-menu", id: "vhub-menu", role: "dialog", "aria-label": t.menu, tabindex: "-1" }, body);
   document.body.append(menu);
   button.setAttribute("aria-expanded", "true");
   button.setAttribute("aria-controls", "vhub-menu");
   place();
-  requestAnimationFrame(() => requestAnimationFrame(() => menu?.classList.remove("vm-enter")));
+  showMenu(menu, button, phone.matches);
   import("/assets/fade-edges.js").then((m) => body && m.fadeEdges(body)).catch(() => {});
   view = null;
   render().then(() => {
@@ -221,9 +230,7 @@ function closeMenu(refocus) {
     if (closing === finish) closing = null;
   };
   closing = finish;
-  // The menu's own fade, not a switch's or a segment's inside it.
-  leaving.addEventListener("transitionend", (e) => e.target === leaving && finish());
-  setTimeout(finish, 300);
+  hideMenu(leaving, button, finish, leaving.classList.contains("vm-sheet"));
   if (refocus) button.focus();
 }
 
@@ -377,6 +384,8 @@ async function account(site, me, uid) {
   const pic = el("span", { class: "vm-pic", "aria-hidden": "true" });
   void vhubAvatars().then((pictures) => pictures?.draw(pic, { uid, avatar: me?.avatar ?? profile?.avatar, photo: me?.photo ?? profile?.photo }, 256));
   const level = me?.level ?? profile?.level ?? 1;
+  // VHub's levelProgress: { level, into, needed, next }, where next is the total XP the next level starts at, not its
+  // number (29 Oct: "Level 37 · 740 XP to level 17020").
   let next = null;
   if (typeof site.level === "function" && typeof me?.xp === "number") next = await site.level(me.xp).catch(() => null);
   const bar = next ? Math.max(0, Math.min(1, next.into / Math.max(1, next.needed))) : null;
@@ -388,7 +397,7 @@ async function account(site, me, uid) {
       "div",
       { class: "vm-who" },
       el("b", { class: "vm-name" }, me?.name || profile?.name || window.VHubAvatars?.anonymous(uid) || ""),
-      el("span", { class: "vm-level" }, next ? `${t.level(level)} · ${t.toNext(next.needed - next.into, next.next)}` : t.level(level)),
+      el("span", { class: "vm-level" }, next ? `${t.level(level)} · ${t.toNext(next.needed - next.into, next.level + 1)}` : t.level(level)),
       bar === null ? null : el("span", { class: "vm-bar" }, el("span", { style: `width: ${Math.round(bar * 100)}%` })),
     ),
   );

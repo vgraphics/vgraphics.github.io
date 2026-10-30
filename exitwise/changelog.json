@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "version": "1.0.28",
+      "date": "2026-10-29",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "First bump free after ward moves",
+      "items": [
+        "After the ward moves, your first bump into it is free — no lost heart, and your combo keeps going",
+        "The game page is now just the game with no scrolling, and About has moved to a link in the bar"
+      ],
+      "commit": "9d881213"
+    },
+    {
+      "version": "1.0.27",
+      "date": "2026-10-29",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Share your daily result anywhere",
+      "items": [
+        "Share your daily result through your device's share menu — one Share button, pick Post or Story — and the board, hearts, flame and QR are back on the picture",
+        "When your avatar wears its rank frame, the white or dark background behind it is gone for a cleaner look",
+        "The play page footer now reads © 2026 VGraphics with Company, Terms and Privacy links, and Settings gains a Company link beside Privacy"
+      ],
+      "commit": "de8b08be"
+    },
+    {
       "version": "1.0.52387e4e",
       "date": "2026-10-29",
       "platforms": [

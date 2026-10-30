@@ -7,7 +7,7 @@
     <meta name="description" content="Join a game of Palermo Noir: type the room's six-digit code, or scan the QR code on the TV." />
     <!-- A door to a room, not a page to find in search, as the phone page and the shared vgraphics.gr/join are. -->
     <meta name="robots" content="noindex" />
-    <title>Join a game · Palermo Noir</title>
+    <title>Join the game · Palermo Noir</title>
     <link rel="canonical" href="https://vgraphics.gr/palermo/join/" />
     <link rel="icon" href="../game/art/logo.svg" type="image/svg+xml" />
     <!-- The site's cursors (every page on vgraphics.gr links it; palermo.css sets Palermo's); vite-ignore leaves the
@@ -17,23 +17,24 @@
     <script src="/assets/no-select.js" defer ></script>
     <style>
       html, body { margin: 0; background: #0B1623; color: #EFE7D4; }
-      /* The company's legal line, the site's rule for every page: small, at the foot until the door draws, which then gives
-         it a row of its own under the form (door-layout.tsx, LegalRow), so it never covers the button. */
+      /* The legal line, small, at the foot until the door draws, which then gives it a row of its own under the form
+         (door-layout.tsx, LegalRow), so it never covers the button: a game's screen, this join door included, says only
+         "© VGraphics" (George, 29 Oct 2026: "Apps just can say VGraphics."). */
       .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.5em 1em calc(0.5em + env(safe-area-inset-bottom));
         background: linear-gradient(rgba(11, 22, 35, 0), #0B1623 45%); color: rgba(239, 231, 212, 0.55); font: 12px/1.5 system-ui, sans-serif; text-align: center; }
       .party-legal a { color: inherit; }
       .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
     </style>
-    <script type="module" crossorigin src="/palermo/game/join-Mq0T-1Qa.js"></script>
-    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-DMhEtDll.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-BRH4A2nm.js">
-    <link rel="modulepreload" crossorigin href="/palermo/game/code-boxes-IzPbPRzB.js">
-    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-C1WXjlbV.css">
+    <script type="module" crossorigin src="/palermo/game/join-DxFY_lVC.js"></script>
+    <link rel="modulepreload" crossorigin href="/palermo/game/wordmark-D3CFEKeI.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/door-layout-BAEiAbUP.js">
+    <link rel="modulepreload" crossorigin href="/palermo/game/code-boxes-Dc9B-cFx.js">
+    <link rel="stylesheet" crossorigin href="/palermo/game/wordmark-TZ_vLt_d.css">
   </head>
   <body>
     <!-- With a room's code and the phone page on the site, the phone goes straight on to the room; the door draws otherwise. -->
     <div id="app"></div>
-    <!-- In the page's HTML, in English; the kit's LegalLine puts it in the phone's language. -->
+    <!-- A product's legal line (the kit's PRODUCT_LEGAL_LINE), the same in every language. -->
     <footer id="party-legal" class="party-legal">&copy; 2026 VGraphics</footer>
   </body>
 </html>
