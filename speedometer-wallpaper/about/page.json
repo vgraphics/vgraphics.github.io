@@ -37,7 +37,13 @@
     "title": "About Speedometer Live Wallpaper, the car dashboard for your Android home screen",
     "lead": "Your home screen, <em>a working dashboard.</em>",
     "align": "left",
-    "badges": [{ "href": "/speedometer-wallpaper/play/", "label": "Try online", "note": "The real app, in your browser" }, "google-play"]
+    "badges": [{ "href": "/speedometer-wallpaper/play/", "label": "Try online", "note": "The real app, in your browser" }, "google-play"],
+    "art": {
+      "alt": "A phone in a dashboard vent mount on a coastal highway at dusk, showing the Classic gauges at 101 km/h",
+      "wiki": "about",
+      "position": "60% 45%",
+      "placeholder": "linear-gradient(#08537A, #23353F)"
+    }
   },
   "sections": [
     {
