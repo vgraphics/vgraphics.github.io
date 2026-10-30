@@ -276,15 +276,13 @@ layouts__group__drive	On the road
 layouts__group__gauges	Gauges
 layouts__group__phone	The phone
 layouts__group__place	Where you are
-layouts__ready__classic_trio	Classic trio
 layouts__ready__column	Column
-layouts__ready__fold_square	Fold square
-layouts__ready__minimal	Minimal
+layouts__ready__fold_music	Fold music
+layouts__ready__grand_dash	Grand dash
 layouts__ready__music_drive	Music drive
 layouts__ready__night_table	Night table
 layouts__ready__six_pack	Six-pack
-layouts__ready__tablet_dashboard	Tablet dashboard
-layouts__ready__twin	Twin
+layouts__ready__wide_panel	Wide panel
 layouts__shape__foldable	Foldable
 layouts__shape__foldable__plural	foldables
 layouts__shape__phone	Phone
@@ -331,7 +329,7 @@ layouts__widget__main__description	The big reading: power, CPU clock or GPS spee
 layouts__widget__main__name	Main gauge
 layouts__widget__moon__description	Tonight's moon and its name.
 layouts__widget__moon__name	Moon
-layouts__widget__music_controls__description	Back, play or pause, and next, on the wallpaper. Your home screen must pass taps to the wallpaper.
+layouts__widget__music_controls__description	Back, play or pause, and next, on the wallpaper. Keep app icons off them.
 layouts__widget__music_controls__name	Music buttons
 layouts__widget__next_alarm__description	The next alarm you have set.
 layouts__widget__next_alarm__name	Next alarm
@@ -1096,9 +1094,7 @@ variation__prism_wide__name	Wide
 variation__pulse_rings__name	Rings
 variation__rally__name	Rally computer
 variation__rally_classic__name	Classic
-variation__rally_cluster__name	Car cluster
 variation__steel__name	Classic
-variation__steel_cluster__name	Car cluster
 variation__steel_six__name	Six gauges
 variation__torque_stack__name	Stack
 variation__torque_wide__name	Wide
@@ -1107,7 +1103,6 @@ variation__track_screen__name	Screen
 variation__vector_hexagons__name	Hexagons
 variation__vintage_classic__name	Classic
 variation__vintage_cluster__name	Car cluster
-variation__vintage_console__name	Console
 variation__vintage_pair__name	Speedometer and clock
 variation__vintage_six__name	Six gauges
 wallpaper__speedometer__description	A car-dashboard live wallpaper: power, CPU clock or GPS speed, with battery, Wi-Fi, signal and RAM gauges.

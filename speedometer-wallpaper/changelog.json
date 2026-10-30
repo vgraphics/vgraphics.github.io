@@ -4,7 +4,8 @@
       "version": "2.0.8",
       "date": "2026-10-30",
       "platforms": [
-        "Android"
+        "Android",
+        "Web"
       ],
       "title": "Cleaner layouts and new designs",
       "items": [
