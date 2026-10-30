@@ -39,10 +39,10 @@
     "align": "center",
     "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "google-play"],
     "art": {
-      "alt": "A white puzzle board of curling arrows in four colours on a green hill, a path winding up past candy hills to a round tower under the sun and a crescent moon",
-      "wiki": "how-to-play",
-      "position": "50% 60%",
-      "placeholder": "linear-gradient(#50638A, #8B8DBE 40%, #B6AFAA 60%, #4C805E)"
+      "alt": "A road of colourful arrows winding past a jungle, a desert, a candy land, a volcano, a glacier and a crystal cave, a little traveller in a red cape on it and the Tower of Worlds far away",
+      "wiki": "about",
+      "position": "50% 55%",
+      "placeholder": "linear-gradient(#7877C1, #617B5F)"
     }
   },
   "sections": [

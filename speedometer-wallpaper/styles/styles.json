@@ -32,7 +32,8 @@
       "lead": "The original dashboard, <em>live on your phone.</em>",
       "look": "Classic is where Speedometer started, in 2016: a big gauge on brushed metal with smaller gauges for battery, RAM, signal and Wi-Fi around it, an LCD clock and a row of warning lights. Steel and Graphite are Classic in new materials.",
       "summary": "the original 2016 dashboard with five gauges",
-      "seoTitle": "Free Car Dashboard"
+      "seoTitle": "Free Car Dashboard",
+      "hero": { "alt": "A phone in a vent mount on a hatchback's dashboard at a petrol station at dusk, showing the Classic dashboard", "position": "65% 45%", "placeholder": "linear-gradient(#56ADD4, #1B1E28)" }
     },
     {
       "slug": "steel",
@@ -44,7 +45,8 @@
       "lead": "Classic, <em>in chrome and graphite.</em>",
       "look": "Steel keeps Classic's gauges and puts them in chrome bezels around spun graphite dials, with a backlit ice-white LCD and its lamps set in chrome rings.",
       "summary": "Classic in chrome, spun graphite and an ice-white LCD",
-      "seoTitle": "Chrome Car Dashboard"
+      "seoTitle": "Chrome Car Dashboard",
+      "hero": { "alt": "A phone on the brushed steel console of a grand tourer in a bright glass showroom, showing the Steel style", "position": "50% 45%", "placeholder": "linear-gradient(#92ACB0, #7B9498)" }
     },
     {
       "slug": "graphite",
@@ -56,7 +58,8 @@
       "lead": "Classic, <em>flat and quiet.</em>",
       "look": "Graphite is Classic at its plainest: a satin ring around a flat graphite dial on a dark background, with nothing shiny to pull your eye away from your icons.",
       "summary": "Classic made flat, with graphite dials on a dark background",
-      "seoTitle": "Flat Dark Dashboard"
+      "seoTitle": "Flat Dark Dashboard",
+      "hero": { "alt": "A phone on a matte graphite dashboard on a rainy city morning, showing the Graphite style", "position": "51% 45%", "placeholder": "linear-gradient(#AABAC0, #475F69)" }
     },
     {
       "slug": "future",
@@ -68,7 +71,8 @@
       "lead": "The 2016 cluster, <em>with your music on it.</em>",
       "look": "Future is the other style from 2016: a chrome dial in a cluster that also shows the song that's playing, its cover and the volume, and your missed calls and unread messages. Those need notification access, and nothing it reads leaves your phone.",
       "summary": "a chrome cluster with your music, calls and messages",
-      "seoTitle": "Music on Your Dashboard"
+      "seoTitle": "Music on Your Dashboard",
+      "hero": { "alt": "A phone on the white dashboard of an electric car at a charging station at night, showing the Future style", "position": "49% 45%", "placeholder": "linear-gradient(#194857, #8BA7B3)" }
     },
     {
       "slug": "carbon",
@@ -80,7 +84,8 @@
       "lead": "A race dash, <em>on carbon fibre.</em>",
       "look": "Carbon is a race car's dash on fine twill carbon fibre: shift lights across the top, the reading huge on a race display with a bar under it, and bar meters for the rest, in white italic numbers with a red line.",
       "summary": "a race dash with shift lights on carbon fibre",
-      "seoTitle": "Race Car Dash"
+      "seoTitle": "Race Car Dash",
+      "hero": { "alt": "A phone on the carbon-fibre dashboard of a race car in a pit garage, showing the Carbon race dash", "position": "29% 45%", "placeholder": "linear-gradient(#C7CFD0, #595C62)" }
     },
     {
       "slug": "vintage",
@@ -92,7 +97,8 @@
       "lead": "A 1960s dashboard, <em>in walnut and chrome.</em>",
       "look": "Vintage is a 1960s sports car's dashboard: a cream enamel dial in a knurled chrome bezel over a matching clock, on walnut, with drum counters and jewel lamps in chrome cups.",
       "summary": "a 1960s dashboard in walnut, chrome and cream enamel",
-      "seoTitle": "1960s Car Dashboard"
+      "seoTitle": "1960s Car Dashboard",
+      "hero": { "alt": "A phone in a chrome cradle on the walnut dashboard of a 1960s convertible at golden hour, showing the Vintage style", "position": "50% 45%", "placeholder": "linear-gradient(#ADACA2, #5E5853)" }
     },
     {
       "slug": "amber-night",
@@ -104,7 +110,8 @@
       "lead": "Night luxury, <em>lit in amber.</em>",
       "look": "Amber Night is a luxury car's dash after dark: one big dial lit amber from its rim in a smoked black-chrome bezel, over an amber dot-matrix display on black quilted leather. Everything glows amber, and warnings glow orange-red.",
       "summary": "a luxury night dash lit amber, with a dot-matrix display",
-      "seoTitle": "Night Car Dash"
+      "seoTitle": "Night Car Dash",
+      "hero": { "alt": "A phone on the quilted leather dashboard of a luxury saloon under amber street lights at night, showing the Amber Night style", "position": "67% 45%", "placeholder": "linear-gradient(#452D23, #46251A)" }
     },
     {
       "slug": "rally",
@@ -116,7 +123,8 @@
       "lead": "Rally racing, <em>on your home screen.</em>",
       "look": "Rally is a rally car's instruments: a big white dial in a black knurled ring over a honeycomb grille, a rally computer's reflective LCD with black segments, and a strip of small dials.",
       "summary": "rally instruments with a rally computer's LCD",
-      "seoTitle": "Rally Car Dashboard"
+      "seoTitle": "Rally Car Dashboard",
+      "hero": { "alt": "A phone on the dashboard of a rally car with a roll cage on a dusty forest stage, showing the Rally style", "position": "50% 45%", "placeholder": "linear-gradient(#9A9384, #615342)" }
     },
     {
       "slug": "glass",
@@ -128,7 +136,8 @@
       "lead": "A head-up display, <em>in glowing cyan.</em>",
       "look": "Glass has no round gauges at all: glowing cyan arcs and thin, letter-spaced digits float in corner brackets over smoked glass and faint scan lines. Warnings glow pink-red.",
       "summary": "a glowing cyan head-up display with no round gauges",
-      "seoTitle": "Cyan HUD Dashboard"
+      "seoTitle": "Cyan HUD Dashboard",
+      "hero": { "alt": "A phone on the dashboard of an electric car on a mountain road at blue hour, showing the Glass head-up display", "position": "51% 45%", "placeholder": "linear-gradient(#47B1D2, #043047)" }
     },
     {
       "slug": "cockpit",
@@ -140,7 +149,8 @@
       "lead": "An aircraft panel, <em>on your phone.</em>",
       "look": "Cockpit is an aircraft's instrument panel: a matte black dial in a crinkle bezel with four screws, luminous drum counters in recessed windows, caption lights such as a lit green ON, and a clock on a riveted plate.",
       "summary": "an aircraft panel with caption lights and drum counters",
-      "seoTitle": "Aircraft Panel Style"
+      "seoTitle": "Aircraft Panel Style",
+      "hero": { "alt": "A phone in a cradle on a small aeroplane's panel above a golden sea of clouds, showing the Cockpit style", "position": "66% 45%", "placeholder": "linear-gradient(#C3BAB0, #222C2F)" }
     },
     {
       "slug": "harbour",
@@ -152,7 +162,8 @@
       "lead": "Marine brass, <em>on a teak deck.</em>",
       "look": "Harbour is a boat's instrument panel: brass bezels with a rope edge around navy enamel dials on a teak deck, a gold needle, and counters in brass frames.",
       "summary": "marine brass and navy enamel gauges on a teak deck",
-      "seoTitle": "Marine Brass Gauges"
+      "seoTitle": "Marine Brass Gauges",
+      "hero": { "alt": "A phone in a brass mount on a yacht's teak console beside the ship's wheel at blue hour, showing the Harbour style", "position": "65% 45%", "placeholder": "linear-gradient(#4484B2, #413336)" }
     },
     {
       "slug": "track-night",
@@ -164,7 +175,8 @@
       "lead": "A race screen, <em>in electric blue.</em>",
       "look": "Track Night is a modern race car's screen: a ladder of bars across the top, the reading huge on an electric-blue band, and shift lights that close in from both sides as it climbs.",
       "summary": "a race screen with shift lights, in electric blue",
-      "seoTitle": "Race Screen"
+      "seoTitle": "Race Screen",
+      "hero": { "alt": "A phone in a clamp mount in a race car on a floodlit track at night, showing the Track Night race screen", "position": "50% 45%", "placeholder": "linear-gradient(#10181D, #354145)" }
     },
     {
       "slug": "torque",
@@ -176,7 +188,8 @@
       "lead": "A muscle-car dash, <em>on gunmetal.</em>",
       "look": "Torque is a muscle car's dash on gunmetal: a curved arc with a red zone across the top, a big round dial under it, the time framed like a gear number, and two side arcs drawn as fuel and temperature.",
       "summary": "a muscle-car dash with a big round dial on gunmetal",
-      "seoTitle": "Muscle Car Dash"
+      "seoTitle": "Muscle Car Dash",
+      "hero": { "alt": "A phone on the dashboard of a muscle car on a desert highway at sunset, showing the Torque style", "position": "50% 45%", "placeholder": "linear-gradient(#775348, #5A6472)" }
     },
     {
       "slug": "circuit",
@@ -188,7 +201,8 @@
       "lead": "The track look, <em>in glowing blue.</em>",
       "look": "Circuit is a track car's cluster: glowing blue sweeps on deep black, three small round gauges between the top arc and the big dial, and crisp thin digits.",
       "summary": "a track car cluster of glowing blue sweeps on black",
-      "seoTitle": "Blue Track Cluster"
+      "seoTitle": "Blue Track Cluster",
+      "hero": { "alt": "A phone in a clamp mount in a sports coupe on a misty racing circuit at dawn, showing the Circuit style", "position": "50% 45%", "placeholder": "linear-gradient(#6FA2C6, #102335)" }
     },
     {
       "slug": "prism",
@@ -200,7 +214,8 @@
       "lead": "An angular cluster <em>of faceted glass.</em>",
       "look": "Prism is an angular tech cluster: two slanted panels of faceted glass, one blue and one red, with tilted bar scales and a thin neon outline.",
       "summary": "an angular cluster of faceted blue and red glass",
-      "seoTitle": "Angular Tech Cluster"
+      "seoTitle": "Angular Tech Cluster",
+      "hero": { "alt": "A phone on a black desk among blue and red neon glass sculptures, showing the Prism style", "position": "50% 45%", "placeholder": "linear-gradient(#050C1A, #15192F)" }
     },
     {
       "slug": "aura",
@@ -212,7 +227,8 @@
       "lead": "Premium sport dials, <em>on graphite leather.</em>",
       "look": "Aura is a premium sports car's dials: chrome rings with a warm glow behind white numerals, and big digital numbers, all on graphite leather.",
       "summary": "premium sport dials with chrome rings on graphite leather",
-      "seoTitle": "Premium Sport Dials"
+      "seoTitle": "Premium Sport Dials",
+      "hero": { "alt": "A phone in a chrome mount on a sports car's dashboard on an alpine pass at golden hour, showing the Aura style", "position": "65% 45%", "placeholder": "linear-gradient(#877A5D, #686150)" }
     },
     {
       "slug": "pulse",
@@ -224,7 +240,8 @@
       "lead": "A neon HUD <em>of magenta rings.</em>",
       "look": "Pulse turns every reading into a ring of light around the big number, magenta on black.",
       "summary": "a neon HUD of magenta rings on black",
-      "seoTitle": "Neon Ring HUD"
+      "seoTitle": "Neon Ring HUD",
+      "hero": { "alt": "A phone on a car's dashboard on a rainy street lit by magenta neon, showing the Pulse style", "position": "68% 45%", "placeholder": "linear-gradient(#421734, #450E35)" }
     },
     {
       "slug": "vector",
@@ -236,7 +253,8 @@
       "lead": "A neon HUD <em>in violet hexagons.</em>",
       "look": "Vector is a neon HUD built from hexagons: a faceted sweep that thickens as the reading climbs, and crisp thin digits, violet on black.",
       "summary": "a neon HUD of violet hexagons on black",
-      "seoTitle": "Violet Hexagon HUD"
+      "seoTitle": "Violet Hexagon HUD",
+      "hero": { "alt": "A phone on a car's dashboard in a tunnel of violet neon light, showing the Vector style", "position": "59% 45%", "placeholder": "linear-gradient(#4C246C, #3C1661)" }
     },
     {
       "slug": "horizon",
@@ -248,7 +266,8 @@
       "lead": "A fighter jet's HUD, <em>in green on black.</em>",
       "look": "Horizon is a fighter jet's head-up display: the readings slide past on tapes, the big value sits boxed between them, and a strip shows the time, all green on black.",
       "summary": "a fighter jet's head-up display, green on black",
-      "seoTitle": "Fighter Jet HUD"
+      "seoTitle": "Fighter Jet HUD",
+      "hero": { "alt": "A phone in a jet's canopy above the clouds at last light, showing the Horizon head-up display", "position": "50% 45%", "placeholder": "linear-gradient(#0B4743, #122D29)" }
     }
   ]
 }

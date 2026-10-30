@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the carbon-fibre dashboard of a race car in a pit garage, showing the Carbon race dash",
+      "wiki": "styles-carbon",
+      "position": "29% 45%",
+      "placeholder": "linear-gradient(#C7CFD0, #595C62)"
+    }
   },
   "sections": [
     {
@@ -108,7 +114,7 @@
             "gauge": "Tap the big gauge to switch between power, CPU clock and speed, as on your phone.",
             "gps": "Use my real speed",
             "get": "Set it as your wallpaper",
-            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play, open Styles and pick this one."
+            "getNote": "A browser can’t set your wallpaper. Get the app on Google Play and it opens on this style the first time."
           }
         }
       ]

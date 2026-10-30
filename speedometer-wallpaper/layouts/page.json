@@ -54,7 +54,13 @@
   "hero": {
     "title": "The Speedometer layout market",
     "lead": "Dashboards made by drivers, <em>drawn live.</em>",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "Four phones on a showroom counter in front of a sports car, each showing a different Speedometer dashboard",
+      "wiki": "layouts",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#10577C, #1E1A1D)"
+    }
   },
   "sections": [
     {
