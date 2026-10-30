@@ -143,10 +143,6 @@ SPEEDOMETER = {
     # The styles' own renders: logic_render's wallpaper goldens (TopScrimRendererTest, the S25+'s 1080x2340 screen),
     # read from the Games repo.
     "goldens": "SpeedometerWallpaper/logic_render/src/test/screenshots/wallpaper_{}.png",
-    # Vintage's speedometer and clock, until the app's wallpaper golden draws it: George removed its Console layout,
-    # the one wallpaper_vintage still shows, on 29 Oct 2026. Its skin golden (1080x2400), cut to 1080x2340; the
-    # gallery's vintage-pair-power is the same render, which a gallery tile may share.
-    "tileGoldens": {"vintage": "SpeedometerWallpaper/logic_render/src/test/screenshots/skin_vintage_pair_power.png"},
     # Every style the app sells, for the Styles tiles (img/styles/<name>.webp, 360 px).
     "styles": ["classic", "steel", "graphite", "future", "carbon", "vintage", "amber_night", "rally", "glass", "cockpit",
                "harbour", "track_night", "torque", "circuit", "prism", "aura", "pulse", "vector", "horizon"],
@@ -166,11 +162,7 @@ def speedometer(ref, out):
     tiles = os.path.join(img, "styles")
     os.makedirs(tiles, exist_ok=True)
     for name in SPEEDOMETER["styles"]:
-        path = SPEEDOMETER["tileGoldens"].get(name, SPEEDOMETER["goldens"].format(name))
-        golden = Image.open(io.BytesIO(blob(ref, path))).convert("RGB")
-        if golden.height > 2340:
-            cut = (golden.height - 2340) // 2
-            golden = golden.crop((0, cut, golden.width, cut + 2340))
+        golden = Image.open(io.BytesIO(blob(ref, SPEEDOMETER["goldens"].format(name)))).convert("RGB")
         save(scaled(golden, 360), tiles, name, avif=False, webp_quality=82)
         print("style tile", name)
     for path in SPEEDOMETER["dials"]:
