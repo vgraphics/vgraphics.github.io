@@ -4,7 +4,7 @@
   "robots": "noindex",
   "social": {
     "title": "Vintage, a Speedometer Live Wallpaper style",
-    "description": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
+    "description": "A 1960s dashboard: a cream speedometer over a matching clock, both chrome-rimmed, on walnut.",
     "image": "/speedometer-wallpaper/img/styles/cards/vintage.jpg",
     "imageAlt": "The Vintage style of Speedometer Live Wallpaper, as the app draws it, over the night drive of its key art"
   },
@@ -84,7 +84,7 @@
       "id": "live",
       "eyebrow": "Live",
       "title": "Vintage, live",
-      "intro": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Vintage's layouts and colours.",
+      "intro": "A 1960s dashboard: a cream speedometer over a matching clock, both chrome-rimmed, on walnut. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Vintage's layouts and colours.",
       "blocks": [
         {
           "type": "try",
@@ -117,7 +117,7 @@
       "id": "look",
       "eyebrow": "The look",
       "title": "About Vintage",
-      "intro": "Vintage is a 1960s sports car's dashboard: a cream enamel dial in a knurled chrome bezel and a matching clock over a walnut console, with drum counters and jewel lamps in chrome cups.",
+      "intro": "Vintage is a 1960s sports car's dashboard: a cream enamel dial in a knurled chrome bezel over a matching clock, on walnut, with drum counters and jewel lamps in chrome cups.",
       "blocks": [
         {
           "type": "gallery",

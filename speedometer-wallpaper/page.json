@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut console to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -343,8 +343,8 @@
               "tag": "Vintage",
               "place": "1960s",
               "caption": "A cream speedometer on walnut",
-              "text": "A matching clock under it, both chrome-rimmed, on a walnut console.",
-              "alt": "The Vintage style: a cream speedometer over a matching cream clock on a walnut console"
+              "text": "A matching clock under it, both chrome-rimmed, on walnut.",
+              "alt": "The Vintage style: a cream speedometer over a matching cream clock on walnut"
             },
             {
               "name": "track-night-power",
@@ -517,7 +517,7 @@
               },
               "title": "Vintage",
               "tag": "€2.39",
-              "text": "A 1960s dashboard: a cream speedometer and a matching clock over a chrome-rimmed walnut console.",
+              "text": "A 1960s dashboard: a cream speedometer over a matching clock, both chrome-rimmed, on walnut.",
               "href": "/speedometer-wallpaper/styles/vintage/",
               "tagTone": "alt"
             },
