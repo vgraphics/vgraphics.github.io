@@ -137,4 +137,6 @@
   // The VHub avatar, every header's last item, and the menu it opens (account.js). Folded, it stays in the bar after the
   // menu's button: fit() moves only the play button.
   if (document.querySelector(".vhub-avatar")) import("/assets/account.js").catch(() => {});
+  // The footer's sign-up for news by email (tools/lib/mail-list.mjs), on a page that has one.
+  if (document.querySelector("form.mail-list")) import("/assets/mail-list.js").catch(() => {});
 })();

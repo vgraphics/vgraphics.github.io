@@ -543,3 +543,16 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
   html { scroll-behavior: auto; }
   *, *::before, *::after { animation: none !important; transition: none !important; }
 }
+
+/* The footer's sign-up for news by email (tools/lib/mail-list.mjs, assets/mail-list.js): a label, the address and Sign
+   up on one row (two on a narrow screen), the fine print, and what VHub answered. The robots' field is out of sight. */
+.mail-list { display: grid; gap: 6px; justify-items: center; width: min(100%, 30rem); margin: 18px auto 6px; text-align: center; }
+.mail-list-title { font-weight: 700; }
+.mail-list-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
+.mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 44px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
+.mail-list-row input:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
+.mail-list-row .btn { min-height: 44px; }
+.mail-list-fine, .mail-list-said { font-size: 0.85rem; opacity: 0.86; }
+.mail-list-said:empty { display: none; }
+.mail-list-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+.foot-news { padding-block: var(--s4); border-bottom: 1px solid var(--night-line); }
