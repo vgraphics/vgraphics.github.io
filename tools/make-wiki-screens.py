@@ -20,7 +20,9 @@
 # Usage:
 #   python tools/make-wiki-screens.py <product> [slug ...]                  the masters (default: every entry)
 #   python tools/make-wiki-screens.py <product> --screens <Games checkout> [--frames <demo frames folder>]
-#                                                                           the screens, from the app's renders
+#                                     [--captures <folder>] [name ...]      the screens, from the app's renders
+#     (a "capture" screen is a PNG a capture test wrote to a folder, e.g. WikiSceneFramesTest's WIKI_SCENES_DIR;
+#     without --captures its screen in the masters is kept)
 #   python tools/make-wiki-screens.py <product> --check <folder> [slug ...] also writes before/after crops of the
 #                                                                           phones to <folder>, for a review
 #   python tools/make-wiki-screens.py <product> --blank <folder> [slug ...] the same pictures with every screen
@@ -117,7 +119,7 @@ def home_screen(games):
     return layer
 
 
-def make_screens(product, games, frames, names=None):
+def make_screens(product, games, frames, names=None, captures=None):
     src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
     out = os.path.join(src, 'screens')
@@ -128,6 +130,11 @@ def make_screens(product, games, frames, names=None):
         if s['from'] == 'golden':
             path = os.path.join(games, 'SpeedometerWallpaper', s.get('module', 'logic_render'), 'src', 'test',
                                 'screenshots', s['file'])
+        elif s['from'] == 'capture':
+            if not captures:
+                print('screen', name, 'kept (a capture: pass --captures to refresh it)')
+                continue
+            path = os.path.join(captures, s['file'])
         else:
             path = os.path.join(frames, s['style'], f"{s['frame']:04d}.jpg")
         im = Image.open(path).convert('RGB')
@@ -356,14 +363,15 @@ def set_style(product, style, slugs):
 def main(argv):
     product, rest = argv[0], argv[1:]
     value = {flag: rest[rest.index(flag) + 1] if flag in rest else None
-             for flag in ('--screens', '--frames', '--style', '--check', '--blank')}
-    games, frames, style, folder, blank = value.values()
+             for flag in ('--screens', '--frames', '--style', '--check', '--blank', '--captures')}
+    games, frames, style, folder, blank, captures = value.values()
+    only = [a for a in rest if not a.startswith('--') and a not in value.values()]
     if games and not style:
-        make_screens(product, games, frames)
+        # The screens named (default: every one), from the app's renders.
+        make_screens(product, games, frames, only or None, captures)
         return
     if style and not games:
         sys.exit('--style needs --screens <Games checkout>, where the style\'s renders are')
-    only = [a for a in rest if not a.startswith('--') and a not in value.values()]
     if style:
         # One style into the named entries' phones: the spec, those screens from the app's renders, then the pictures.
         make_screens(product, games, frames, set_style(product, style, only))
