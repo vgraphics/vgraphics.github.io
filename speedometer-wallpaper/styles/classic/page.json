@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone in a vent mount on a hatchback's dashboard at a petrol station at dusk, showing the Classic dashboard",
+      "wiki": "styles-classic",
+      "position": "65% 45%",
+      "placeholder": "linear-gradient(#56ADD4, #1B1E28)"
+    }
   },
   "sections": [
     {

@@ -92,6 +92,10 @@ function stylePage(slug, data, landing, demo, i) {
       lead: s.lead,
       align: 'left',
       badges: [{ href: '#live', label: 'See it live', icon: 'down', button: true }, 'google-play'],
+      // Its own hero (George, 26 Oct 2026: "Each art must be used only once!!"): the wiki set's styles-<slug>
+      // painting, a scene in the style's own colours (George's pick B, 30 Oct 2026) with the style's real render in
+      // its phone. styles.json's "hero" gives its alt and placeholder; without one the page keeps the key art.
+      ...(s.hero ? { art: { alt: s.hero.alt, wiki: `styles-${s.slug}`, position: s.hero.position ?? '55% 45%', placeholder: s.hero.placeholder } } : {}),
     },
     sections: [
       {

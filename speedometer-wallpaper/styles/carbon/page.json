@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the carbon-fibre dashboard of a race car in a pit garage, showing the Carbon race dash",
+      "wiki": "styles-carbon",
+      "position": "29% 45%",
+      "placeholder": "linear-gradient(#C7CFD0, #595C62)"
+    }
   },
   "sections": [
     {

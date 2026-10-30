@@ -23,10 +23,10 @@
     "lead": "Map rules",
     "align": "center",
     "art": {
-      "alt": "A player building an arrow puzzle board of their own on a hilltop",
-      "wiki": "custom-maps",
-      "position": "50% 45%",
-      "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
+      "alt": "A wise owl in round spectacles checking a hand-made arrow puzzle board through a magnifying glass at her workshop stall, while a beaver and a mouse wait their turn",
+      "wiki": "map-rules",
+      "position": "50% 50%",
+      "placeholder": "linear-gradient(#5F65A7, #597556)"
     }
   },
   "sections": [

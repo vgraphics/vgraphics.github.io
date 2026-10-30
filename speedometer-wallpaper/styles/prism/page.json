@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on a black desk among blue and red neon glass sculptures, showing the Prism style",
+      "wiki": "styles-prism",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#050C1A, #15192F)"
+    }
   },
   "sections": [
     {

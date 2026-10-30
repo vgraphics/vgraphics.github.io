@@ -11,7 +11,13 @@
   "hero": {
     "title": "A Speedometer layout creator",
     "lead": "Layouts from one driver's <em>garage.</em>",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "A phone on a desk by a rainy night window, showing the Future style at 72 km/h, beside a model sports car, a key and a cup of coffee",
+      "wiki": "creators",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#14587C, #2B2E33)"
+    }
   },
   "sections": [
     {

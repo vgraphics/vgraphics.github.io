@@ -11,7 +11,13 @@
   "hero": {
     "title": "A Speedometer layout",
     "lead": "A dashboard layout, <em>shared with you.</em>",
-    "align": "center"
+    "align": "center",
+    "art": {
+      "alt": "A phone on the dashboard of a car parked in an underground garage, showing the Glass style at 104 km/h",
+      "wiki": "layout-link",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#1B516F, #272F37)"
+    }
   },
   "sections": [
     {

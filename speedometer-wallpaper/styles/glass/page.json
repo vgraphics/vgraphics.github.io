@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the dashboard of an electric car on a mountain road at blue hour, showing the Glass head-up display",
+      "wiki": "styles-glass",
+      "position": "51% 45%",
+      "placeholder": "linear-gradient(#47B1D2, #043047)"
+    }
   },
   "sections": [
     {

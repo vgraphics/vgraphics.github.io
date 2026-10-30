@@ -77,7 +77,13 @@
         "button": true
       },
       "google-play"
-    ]
+    ],
+    "art": {
+      "alt": "A phone on the quilted leather dashboard of a luxury saloon under amber street lights at night, showing the Amber Night style",
+      "wiki": "styles-amber-night",
+      "position": "67% 45%",
+      "placeholder": "linear-gradient(#452D23, #46251A)"
+    }
   },
   "sections": [
     {
