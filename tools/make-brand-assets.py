@@ -16,6 +16,10 @@
 # D:/Projects/Mine/VHub palermo-noir:palermo"). Its logo is a tall stack (the lamp over PALERMO / NOIR), too small to
 # read in a 42 px header, so a <product>-wordmark-transparent.png (the logo's own letters alone) comes before the logo;
 # and without a round badge, the small icons are the app icon.
+# Palermo Noir's app icon is no longer the lantern in that VHub folder: since 30 Oct it is George's pick B2, the stranger
+# (Palermo repo docs/brand/app-icon/final/icon), copied by hand as icon-32 (favicon-32), icon-180 (apple-touch-icon),
+# icon-192 (app-icon-1024 at 192) and icon-512 (play-store-512). Running this for palermo-noir:palermo would bring the
+# lantern back, so only do it for the logo and copy those four again afterwards.
 import os, sys
 from PIL import Image
 

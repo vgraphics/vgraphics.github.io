@@ -336,6 +336,27 @@
       ]
     },
     {
+      "id": "app-icon",
+      "title": "The app icon",
+      "intro": "The stranger on a rooftop facing Palermo Cathedral, the game's app icon on phones and TVs.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "square",
+          "items": [
+            {
+              "title": "The stranger",
+              "src": "/palermo/img/app-icon-stranger-720.webp",
+              "full": "/palermo/img/app-icon-stranger-2048.webp",
+              "width": 2048,
+              "height": 2048,
+              "alt": "Palermo Noir's app icon: a man in a fedora and a trench coat, his face lost in shadow under the brim, before a full moon, the Gothic towers and the dome of Palermo Cathedral below him, in gold engraving on navy"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "around-the-site",
       "title": "Around the site",
       "intro": "The pictures at the top of the other Palermo pages, the harbour at the foot of every page, and the soundtrack’s cover and courtyard.",
