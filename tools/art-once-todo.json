@@ -3,63 +3,6 @@
   "reuses": [
     {
       "art": [
-        "exitwise/wiki/img/art/leaderboards",
-        "exitwise/wiki/img/art/leaderboards-tall"
-      ],
-      "todo": "The wiki entry keeps it. To do (Recraft): a hero each, wide and tall, for /exitwise/ranking/ and /exitwise/challenge/.",
-      "places": [
-        "/exitwise/challenge/ hero",
-        "/exitwise/ranking/ hero",
-        "/exitwise/wiki/leaderboards/ hero"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/img/key-art-tall",
-        "exitwise/img/key-art-wide"
-      ],
-      "todo": "The landing page keeps it (wiki-heroes-round2 gave the privacy page and the wiki index their own paintings). To do (Recraft): a stage of its own, wide and tall, behind the ranking's boards.",
-      "places": [
-        "/exitwise/ hero",
-        "/exitwise/ranking/#boards"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/art/how-to-play",
-        "exitwise/wiki/img/art/how-to-play-tall"
-      ],
-      "todo": "The wiki entry keeps it. To do (Recraft): a stage of its own, wide and tall, behind the landing page's demo (#how), and a hero of its own, wide and tall, for the About page (/exitwise/about/, 29 Oct 2026, which borrows it until then).",
-      "places": [
-        "/exitwise/#how",
-        "/exitwise/about/ hero",
-        "/exitwise/wiki/how-to-play/ hero"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/art/custom-maps",
-        "exitwise/wiki/img/art/custom-maps-tall"
-      ],
-      "todo": "The wiki entry keeps it. To do (Recraft): a hero of its own, wide and tall, for the map rules page.",
-      "places": [
-        "/exitwise/map-rules.html hero",
-        "/exitwise/wiki/custom-maps/ hero"
-      ]
-    },
-    {
-      "art": [
-        "exitwise/wiki/img/art/rooms",
-        "exitwise/wiki/img/art/rooms-tall"
-      ],
-      "todo": "The wiki entry keeps it. To do (Recraft): a hero of its own, wide and tall, for the room invite page.",
-      "places": [
-        "/exitwise/room/ hero",
-        "/exitwise/wiki/rooms/ hero"
-      ]
-    },
-    {
-      "art": [
         "speedometer-wallpaper/img/key-art",
         "speedometer-wallpaper/img/key-art-tall",
         "speedometer-wallpaper/img/key-art-ultra"

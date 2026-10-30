@@ -22,10 +22,10 @@
     "lead": "Global ranking",
     "align": "center",
     "art": {
-      "alt": "A fox, a panda and an owl on a winners' podium under falling confetti, beside an arrow puzzle board in a flower meadow",
-      "wiki": "leaderboards",
-      "position": "50% 45%",
-      "placeholder": "linear-gradient(#7F86C8, #A7CF7A)"
+      "alt": "A fox, a raccoon, a rabbit and a hedgehog climbing a rainbow staircase to a giant golden trophy, between banners with arrows under a starry violet sky",
+      "wiki": "ranking",
+      "position": "50% 40%",
+      "placeholder": "linear-gradient(#6469A5, #818779)"
     }
   },
   "sections": [
@@ -34,9 +34,8 @@
       "title": "The best players, live",
       "intro": "The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.",
       "stage": {
-        "tall": { "src": "/exitwise/img/key-art-tall", "widths": [480, 720, 1080, 1440], "width": 1440, "height": 2560 },
-        "wide": { "src": "/exitwise/img/key-art-tall", "widths": [1080, 1440], "width": 1440, "height": 2560 },
-        "position": "50% 0%"
+        "wiki": "ranking-stage",
+        "position": "50% 20%"
       },
       "blocks": [{ "type": "embed", "src": "ranking" }]
     },

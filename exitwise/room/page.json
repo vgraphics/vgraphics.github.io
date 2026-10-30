@@ -13,10 +13,10 @@
     "lead": "Join the race",
     "align": "center",
     "art": {
-      "alt": "Friends racing on arrow puzzle boards in a sunny meadow",
-      "wiki": "rooms",
-      "position": "50% 40%",
-      "placeholder": "linear-gradient(#7FA8D8, #A7CF7A)"
+      "alt": "A hedgehog, a bunny and a raccoon crossing a rope bridge to a glowing treehouse clubhouse with their puzzle boards, as invitation envelopes fly by",
+      "wiki": "room",
+      "position": "50% 45%",
+      "placeholder": "linear-gradient(#5E649A, #717A62)"
     }
   },
   "sections": [
