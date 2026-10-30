@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "0.1.aa858b41",
+      "date": "2026-10-30",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Smoother sound and cleaner replays",
+      "items": [
+        "The music now fades out and back in smoothly, instead of cutting off.",
+        "Start a new game straight after another and its opening plays in full, with nothing skipped.",
+        "Replay a chapter and the earlier narration stops first, so lines no longer play over each other.",
+        "Add a TV to a game that's already going and it joins from the current moment, instead of replaying from the start.",
+        "The PIN now scrolls into view so you can read it.",
+        "You can open a room again after its game has ended."
+      ],
+      "commit": "aa858b41"
+    },
+    {
       "version": "0.1.1a3174fc",
       "date": "2026-10-29",
       "platforms": [

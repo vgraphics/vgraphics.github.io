@@ -1,1 +1,0 @@
-import{aL as o,aj as s,aM as t,aN as e,u as m}from"./newsreel-JG37hCvu.js";import{TvApp as p}from"./app-BPJsKKFV.js";import"./vote-opens-BwHkvdMS.js";o(s);t();const a=document.getElementById("app");a&&e(m(p,{}),a);
