@@ -317,7 +317,7 @@
     {
       "id": "newsreels",
       "title": "The newsreels",
-      "intro": "The first time an outcome happens in a game, the TV plays it as the town's 1947 newsreel. These are their first pictures, each drawn at its own place on the town map.",
+      "intro": "The first time an outcome happens in a game, the TV plays it as the town's 1947 newsreel: fifteen of them, from the arrest to each side's win. These are their first pictures, each drawn at its own place on the town map.",
       "blocks": [
         {
           "type": "album",
@@ -330,6 +330,118 @@
               "width": 1376,
               "height": 768,
               "alt": "A Palermo street at night: a police officer handcuffs a man in a dark overcoat while the Inspector, pipe in hand, watches under a street lamp"
+            },
+            {
+              "title": "The wrong one goes",
+              "src": "/palermo/img/newsreel-innocent-960.webp",
+              "full": "/palermo/img/newsreel-innocent-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Piazza della Cattedrale by day: the Mayor mops his brow by a lamp while the Officer leads the baker away, his cap in his hands, and the Inspector watches by the Cathedral"
+            },
+            {
+              "title": "A stranger leaves town",
+              "src": "/palermo/img/newsreel-hidden-960.webp",
+              "full": "/palermo/img/newsreel-hidden-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "La Cala in fog at night: a stranger with a suitcase walks away along the quay past the moored boats while the Inspector, pipe in hand, watches by a lamp"
+            },
+            {
+              "title": "A body at dawn",
+              "src": "/palermo/img/newsreel-night-kill-960.webp",
+              "full": "/palermo/img/newsreel-night-kill-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A narrow Albergheria street at first light: a body lies under a white sheet on the setts, the Officer writes in his notebook and the Inspector stands by with his pipe"
+            },
+            {
+              "title": "Nobody died",
+              "src": "/palermo/img/newsreel-quiet-night-960.webp",
+              "full": "/palermo/img/newsreel-quiet-night-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Piazza Caracciolo in the morning: the Inspector reads the paper at a cafe table, the Officer holds a coffee cup and pigeons peck beside a parked carriage"
+            },
+            {
+              "title": "The town hall can't decide",
+              "src": "/palermo/img/newsreel-tie-none-960.webp",
+              "full": "/palermo/img/newsreel-tie-none-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "The town hall's council chamber by day: the Mayor stands by the ballot box among scattered slips, sunlight falling through the open balcony door"
+            },
+            {
+              "title": "Fate draws a card",
+              "src": "/palermo/img/newsreel-tie-fate-960.webp",
+              "full": "/palermo/img/newsreel-tie-fate-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A cafe table by the Fontana Pretoria at night: the Inspector and the Mayor look up at a single playing card spinning under the lamp"
+            },
+            {
+              "title": "The Hunter takes one with him",
+              "src": "/palermo/img/newsreel-hunter-960.webp",
+              "full": "/palermo/img/newsreel-hunter-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Baida at dusk: the Hunter, his hound at his side, holds the man he took along under an old olive tree and a lamp, the village road winding away"
+            },
+            {
+              "title": "A heart that couldn't bear it",
+              "src": "/palermo/img/newsreel-lovers-960.webp",
+              "full": "/palermo/img/newsreel-lovers-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "The lovers' bridge over the Oreto at night: an open locket and a red ribbon lie on the parapet, the full moon over the river"
+            },
+            {
+              "title": "The explosion in the square",
+              "src": "/palermo/img/newsreel-kamikaze-960.webp",
+              "full": "/palermo/img/newsreel-kamikaze-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Piazza Magione just after an explosion: smoke billows from the bar's burning awning, hats and cards rain down and the Officer sits dazed by a bent lamp post"
+            },
+            {
+              "title": "The Mayor stands up",
+              "src": "/palermo/img/newsreel-mayor-960.webp",
+              "full": "/palermo/img/newsreel-mayor-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "The town hall by day: the Mayor raises the ceremonial key from the curved balcony above the stair while a crowd in hats looks up"
+            },
+            {
+              "title": "The town wins",
+              "src": "/palermo/img/newsreel-win-town-960.webp",
+              "full": "/palermo/img/newsreel-win-town-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "The Foro Italico at sunrise: the Mayor and the Officer shake hands, the Inspector tips his hat, and the two killers sit in the back of a parked police car"
+            },
+            {
+              "title": "Palermo belongs to them",
+              "src": "/palermo/img/newsreel-win-killers-960.webp",
+              "full": "/palermo/img/newsreel-win-killers-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "A rooftop by Villa Bonanno under the full moon: the two killers look out over the sleeping town, one lighting a match"
+            },
+            {
+              "title": "The Madman got what he wanted",
+              "src": "/palermo/img/newsreel-win-madman-960.webp",
+              "full": "/palermo/img/newsreel-win-madman-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "The courthouse steps at night: the Madman dances with his cracked mask held high while the Officer and the Mayor stare"
+            },
+            {
+              "title": "Love wins",
+              "src": "/palermo/img/newsreel-win-lovers-960.webp",
+              "full": "/palermo/img/newsreel-win-lovers-1376.webp",
+              "width": 1376,
+              "height": 768,
+              "alt": "Piazza Bellini at night: the two lovers stand face to face by the fountain under a lamp, the bell tower and palms behind them"
             }
           ]
         }
