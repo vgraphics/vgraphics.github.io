@@ -26,6 +26,38 @@ export function helpLink(slug) {
   return [id ? `/hub/support/?p=${id}` : '/hub/support/', 'Help']
 }
 
+/**
+ * What is wrong with a page's Help and sign-up, for check-site's help-mail rule: messages, none when it is right.
+ * - VHub's own pages (/hub/…) are left out: their footer is the company footer, which the menu rule holds them to
+ *   (sign-up included), copied from the site at each vhub-hub release. /hub/join/ is VHub's invite page, not a game's.
+ * - A product's play, TV, join and demo screens are the product alone: no sign-up (its own menu has it).
+ * - Every other page with the template's footer or the company footer links Help and carries the sign-up.
+ */
+export function helpMailProblems(path, html) {
+  if (path.startsWith('/hub/')) return []
+  if (/^\/[^/]+\/(play|tv|join|demo)\//.test(path)) {
+    return html.includes('class="mail-list"') ? ['a play, TV, join or demo screen carries the sign-up for news: the product alone, its own menu has it'] : []
+  }
+  const foot = html.match(/<footer class="(?:foot|site-foot)\b[^"]*">[\s\S]*?<\/footer>/)?.[0]
+  if (!foot) return []
+  const out = []
+  if (!foot.includes('href="/hub/support/')) out.push('the footer has no Help link to /hub/support/')
+  if (!foot.includes('class="mail-list"')) out.push('the footer has no sign-up for news by email (tools/lib/mail-list.mjs)')
+  return out
+}
+
+/**
+ * What is wrong with a page's header for check-site's help-mail rule (George, 31 Oct 2026: "Help menu, I found it.
+ * Barely visible."): a company header or a product's header without its Help link. VHub's pages are left to the menu
+ * rule, which holds them to the company header.
+ */
+export function headerHelpProblems(path, html) {
+  if (path.startsWith('/hub/')) return []
+  const head = html.match(/<header class="(?:site-head|top)\b[^"]*">[\s\S]*?<\/header>/)?.[0]
+  if (!head || head.includes('href="/hub/support/')) return []
+  return ['the header has no Help link to /hub/support/']
+}
+
 /** The one-line sign-up: `slug` a product's folder, or null for the company pages (VGraphics news). */
 export function mailList(slug) {
   const topic = slug ? TOPICS[slug] : null

@@ -20,6 +20,7 @@ import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
+import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
@@ -822,20 +823,11 @@ for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
 // ticket section so users can report problems, bugs, new features etc."): every product page's footer and the company
 // pages' footer link Help to VHub's ticket page (/hub/support/) and carry the sign-up for news by email
 // (tools/lib/mail-list.mjs). A product's play, TV, join and demo screens are the product alone and carry neither: its
-// own menu has them. The hub's pages get the company footer from the site at each vhub-hub release.
-const playScreen = (path) => /^\/[^/]+\/(play|tv|join|demo)\//.test(path)
+// own menu has them. VHub's pages, /hub/join/ among them, are left to the menu rule, which holds them to the company
+// footer, sign-up included (tools/lib/mail-list.mjs helpMailProblems).
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
-  const path = urlPath(file)
-  if (playScreen(path)) {
-    if (html.includes('class="mail-list"')) report(file, 'help-mail', 'a play, TV, join or demo screen carries the sign-up for news: the product alone, its own menu has it')
-    continue
-  }
-  if (path.startsWith('/hub/')) continue
-  const foot = html.match(/<footer class="(?:foot|site-foot)\b[^"]*">[\s\S]*?<\/footer>/)?.[0]
-  if (!foot) continue
-  if (!foot.includes('href="/hub/support/')) report(file, 'help-mail', 'the footer has no Help link to /hub/support/')
-  if (!foot.includes('class="mail-list"')) report(file, 'help-mail', 'the footer has no sign-up for news by email (tools/lib/mail-list.mjs)')
+  for (const message of [...helpMailProblems(urlPath(file), html), ...headerHelpProblems(urlPath(file), html)]) report(file, 'help-mail', message)
 }
 
 // Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice

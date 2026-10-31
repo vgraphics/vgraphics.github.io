@@ -1,6 +1,6 @@
 // The header's menu on phones (George, 23 Oct 2026: "At mobile the vgraphics.gr toolbar does not fit. It must be a
 // burger menu."): a button at the header's right opens the menu as a panel under it. assets/vgraphics.css shows the
-// company header's button below 768px, where its full row no longer fits. A product's header (assets/product.css)
+// company header's button below 820px, where its full row no longer fits. A product's header (assets/product.css)
 // keeps every link on one line (George, 26 Oct 2026: "Map rules - always single line menu items."), so this file folds
 // its menu into the button (.folded) on phones and wherever the row would not fit beside the logo, and unfolds it where
 // it fits again. This file opens and closes the panel: the button again, Escape, a tap outside it or one of its links
