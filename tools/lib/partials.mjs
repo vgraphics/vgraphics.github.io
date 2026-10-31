@@ -5,6 +5,7 @@
 // ornaments. Text from page.json is trusted HTML from this repo; esc() is for attribute values.
 import { readFileSync } from 'node:fs'
 import { isProductScreen, PRODUCT_LEGAL } from './legal.mjs'
+import { helpLink, mailList } from './mail-list.mjs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -175,7 +176,7 @@ export function footer({ page, slug }) {
   // The product's own pages (its menu, without Overview, under the footer's names for them), then the studio's.
   const own = new Map(s.nav.slice(1).map((n) => [n.href, n.label]))
   for (const l of s.footer) own.set(l.href, l.label)
-  const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], ['mailto:support@vgraphics.gr', 'Contact']]
+  const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], helpLink(slug), ['mailto:support@vgraphics.gr', 'Contact']]
   const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
   const a = page.footerArt
   // The picture fills the footer, about clamp(170px, 21vw, 420px) of art above the links plus the links themselves
@@ -190,7 +191,8 @@ export function footer({ page, slug }) {
       <a class="foot-brand" href="${esc(s.nav[0].href)}">${brand(s, 48, '230px')}</a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
         ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
-      </nav>${buttons(page)}
+      </nav>${isProductScreen(page.path ?? `/${slug}/`) ? '' : `
+      ${mailList(slug)}`}${buttons(page)}
       <p class="legal">${isProductScreen(page.path ?? `/${slug}/`) ? PRODUCT_LEGAL : LEGAL}${play}</p>
     </div>${f ? f.band : ''}
   </footer>`

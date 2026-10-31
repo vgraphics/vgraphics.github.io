@@ -110,7 +110,7 @@
     <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> vgraphics.gr · VGraphics Deployer</span>
     <h1>Privacy policy</h1>
     <p class="lede">What happens to your data when you visit vgraphics.gr, when a web game here shows ads or counts statistics, when you try one of our apps in your browser, and when VGraphics Deployer, our internal tool, signs in with Google. In plain words.</p>
-    <p class="chip">Last updated <time datetime="2026-10-27">27 October 2026</time></p>
+    <p class="chip">Last updated <time datetime="2026-10-30">30 October 2026</time></p>
   </div>
 
   <section aria-labelledby="short-title">
@@ -118,6 +118,7 @@
     <ul class="short">
       <li><b>Most pages collect nothing</b><span>No cookies, statistics or ads, and nothing from other sites except the live Exitwise ranking.</span></li>
       <li><b>Ads only in the web games</b><span>Statistics only there and on the apps' try pages, and only if you allow them. In Europe, personalised ads only with your consent.</span></li>
+      <li><b>Help and news through VHub</b><span>The footer's Help link and sign-up for news use VHub; nothing is sent until you press Send or Sign up.</span></li>
       <li><b>Hosted on GitHub Pages</b><span>GitHub logs visitors' IP addresses for security. We get no logs.</span></li>
       <li><b>The Deployer only reads ad reports</b><span>Read-only access to VGraphics' own AdMob and AdSense reports, kept on our own computer.</span></li>
     </ul>
@@ -164,8 +165,10 @@
         <h3>The Speedometer layout market</h3>
         <p>The <a href="/speedometer-wallpaper/layouts/">Speedometer layout market</a>, a shared layout's page, a creator's page and the Speedometer pages that show layouts read the market's public layouts straight from Speedometer's Google Cloud Firestore (part of Google's Firebase, firestore.googleapis.com), and the creators' public names and pictures from VHub's, as the ranking does: Google receives your IP address and browser details for those requests. No sign-in is needed, no cookie is set, and nothing else about you is sent.</p>
         <p><strong>Reporting a layout.</strong> When you report a layout on its page, we store the layout, the reason you picked, the message you wrote (if any) and the time, so that we can review the layout. Nothing that identifies you is stored with it: no account, no email address, no IP address. We delete a report 30 days after we have reviewed it. Your browser remembers which layouts you reported (in its local storage), so the page doesn't offer the form again for them.</p>
+        <h3>Help and news by email</h3>
+        <p>Every page's footer has a Help link and a sign-up for news by email. Help opens VHub's page for help tickets, <a href="/hub/support/">vgraphics.gr/hub/support</a>, which the <a href="/hub/privacy.html#help">VHub privacy policy</a> covers. When you press Sign up, the address you typed and the page's topic go to VHub (Google Cloud Functions, in the EU), which emails you a link to confirm; nothing more comes until you use it, every issue has a one-tap unsubscribe, and we don't track opens or clicks. Nothing is sent before you press Sign up. The VHub privacy policy's <a href="/hub/privacy.html#news">Newsletter section</a> says what is kept and for how long. Legal basis: your consent (GDPR Article 6(1)(a)), which you can take back at any time.</p>
         <h3>Email</h3>
-        <p>When you email us, we get your address and what you write, and we use them only to answer you. Our email runs on Gmail, so Google stores the messages for us. We keep them as long as we need them for what you asked.</p>
+        <p>When you email us, we get your address and what you write, and we use them only to answer you. Our email runs on Hostinger, our email provider, which stores the messages for us. We keep them as long as we need them for what you asked.</p>
         <p class="basis">Legal basis: our legitimate interest in a secure website that works, shows the live ranking and the layout market, reviews the layouts you report, and answers your messages (GDPR Article 6(1)(f)).</p>
       </section>
 
@@ -287,6 +290,15 @@
     </div>
     <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
   </div>
+  <div class="wrap foot-news">
+      <form class="mail-list" data-topic="vgraphics" data-product="vgraphics" data-wording="site-footer-1" novalidate>
+        <label class="mail-list-title" for="ml-vgraphics">Get VGraphics news by email</label>
+        <span class="mail-list-row"><input id="ml-vgraphics" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
+  </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
       <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
@@ -295,7 +307,7 @@
     <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
     <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
     <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
-    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a href="/hub/support/">Help and ideas</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
     <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
