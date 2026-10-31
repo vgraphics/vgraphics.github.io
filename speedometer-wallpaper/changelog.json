@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "2.0.9",
+      "date": "2026-10-31",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Now available in Greek",
+      "items": [
+        "Set your phone's language to Greek and the whole app — screens, gauges, widget captions and messages — now shows in Greek; any other language stays in English."
+      ],
+      "commit": "f8c35dbd"
+    },
+    {
       "version": "2.0.8",
       "date": "2026-10-30",
       "platforms": [
