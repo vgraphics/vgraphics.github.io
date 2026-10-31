@@ -6,6 +6,7 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
+import { runInNewContext } from 'node:vm'
 import { productFoot } from '../lib/legal.mjs'
 import { headerHelpProblems, helpLink, helpMailProblems, mailList } from '../lib/mail-list.mjs'
 import { footer, header } from '../lib/partials.mjs'
@@ -69,4 +70,37 @@ test("every header has Help: the company header, and a product's before its play
 test("the footer's Help link is the product's pill", () => {
   const foot = footer(loadProduct('speedometer-wallpaper'))
   assert.match(foot, /<a class="foot-help" href="\/hub\/support\/\?p=speedometer">Help<\/a>/)
+})
+
+// What the sign-up says after the press (assets/mail-list.js; George, 31 Oct 2026: "I added my email to news letter but
+// only a text small confirmation showing. Fix it."). The script runs here without a page: it hands its words and the
+// meaning of VHub's answers to globalThis.VGMailList and wires nothing.
+const mailList = () => {
+  const sandbox = {}
+  runInNewContext(readFileSync(new URL('../../assets/mail-list.js', import.meta.url), 'utf8'), sandbox)
+  return sandbox.VGMailList
+}
+
+test("a sign-up's answer is a card (the link went, or signed up at once) or an error in plain words", () => {
+  const { WORDS, outcome } = mailList()
+  assert.deepEqual({ ...outcome('pending', WORDS.en) }, { card: true, title: 'Almost there', line: 'We sent a link to {email}. Tap it to confirm.' })
+  assert.equal(outcome('confirmed', WORDS.en).title, "You're signed up")
+  assert.deepEqual({ ...outcome('limit', WORDS.en) }, { card: false, error: 'Too many sign-ups from here right now. Try again in an hour.' })
+  assert.equal(outcome('invalid', WORDS.en).error, "That doesn't look like an email address. Check it and try again.")
+  // Anything VHub didn't mean (no answer, a new result) reads as a failure, never as nothing.
+  assert.equal(outcome(undefined, WORDS.en).error, WORDS.en.failed)
+  assert.equal(outcome('something-new', WORDS.en).error, WORDS.en.failed)
+})
+
+test('the card and the errors in English, and in Greek on a Greek page', () => {
+  const { WORDS, wordsFor } = mailList()
+  assert.equal(wordsFor('el'), WORDS.el)
+  assert.equal(wordsFor('el-GR'), WORDS.el)
+  assert.equal(wordsFor('en'), WORDS.en)
+  assert.equal(wordsFor(''), WORDS.en)
+  assert.deepEqual(Object.keys(WORDS.el).sort(), Object.keys(WORDS.en).sort())
+  for (const [key, text] of Object.entries(WORDS.en)) assert.doesNotMatch(text, /[\u0370-\u03FF]/, `en ${key}`)
+  for (const [key, text] of Object.entries(WORDS.el)) assert.match(text, /[\u0370-\u03FF]/, `el ${key}`)
+  assert.equal(WORDS.el.almost, 'Σχεδόν έτοιμο')
+  assert.ok(WORDS.el.sent.includes('{email}'))
 })

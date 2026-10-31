@@ -553,8 +553,42 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 .mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 44px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
 .mail-list-row input:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
 .mail-list-row .btn { min-height: 44px; }
-.mail-list-fine, .mail-list-said { font-size: 0.85rem; opacity: 0.86; }
+.mail-list-fine { font-size: 0.85rem; opacity: 0.86; }
 .mail-list-said:empty { display: none; }
+/* What the sign-up answers, plain to see (George, 31 Oct 2026: "only a text small confirmation showing. Fix it."). An
+   error is a box under the field with a mark, never small grey text; the field is marked too. */
+.mail-list-said.is-error {
+  display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 12px 14px; border: 2px solid #E0442B; border-radius: 14px;
+  background: #FFF1EE; color: #7F1A0B; font-size: 0.95rem; font-weight: 600; line-height: 1.4; text-align: left;
+}
+.mail-list-said.is-error::before {
+  content: "!"; display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%;
+  background: #E0442B; color: #FFFFFF; font-size: 0.85rem; font-weight: 800;
+}
+.mail-list-row input[aria-invalid="true"] { border-color: #E0442B; }
+/* Success: the form gives way to a card in the product's colours, with a big check mark, "Almost there", where the link
+   went, and "Send again" and "Change address" (assets/mail-list.js animates the change). */
+.mail-list.is-done > :not(.mail-list-done) { display: none; }
+.mail-list-done {
+  display: grid; justify-items: center; gap: 8px; width: 100%; padding: 22px 20px 16px; border-radius: 22px;
+  background: var(--ml-bg); color: var(--ml-ink); text-align: center; box-shadow: 0 18px 40px -22px rgb(0 0 0 / 0.6);
+}
+.mail-list-done:focus { outline: none; }
+.mail-list-done:focus-visible { outline: 3px solid var(--ml-ink); outline-offset: 3px; }
+.mail-list-check { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--ml-ink); color: var(--ml-bg); }
+.mail-list-done-title { font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
+.mail-list-done-line { font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
+.mail-list-done-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 16px; }
+.mail-list-done-actions button {
+  min-height: 44px; padding: 0 6px; border: 0; background: none; color: inherit; font: inherit; font-size: 0.9rem; font-weight: 700;
+  text-decoration: underline; text-underline-offset: 4px; cursor: var(--cursor-link, pointer);
+}
+.mail-list-done-actions button:disabled { opacity: 0.6; text-decoration: none; cursor: var(--cursor, default); }
+.mail-list-done-actions button:focus-visible { outline: 3px solid var(--ml-ink); outline-offset: 2px; border-radius: 6px; }
+.mail-list-done-note { font-size: 0.85rem; line-height: 1.4; }
+.mail-list-done-note:empty { display: none; }
+/* The company's card is sun on the night footer. */
+.mail-list { --ml-bg: var(--sun); --ml-ink: #16151B; }
 .mail-list-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .foot-news { padding-block: var(--s4); border-bottom: 1px solid var(--night-line); }
 /* The company footer's Help link, plain to see (George, 31 Oct 2026: "Help menu, I found it. Barely visible."). */
