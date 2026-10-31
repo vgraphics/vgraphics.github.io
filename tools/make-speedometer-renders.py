@@ -39,7 +39,8 @@ RENDERS = {
     "vintage-pair-power": ("golden:logic/skin_vintage_pair_power", "phone"),   # Vintage
     "track-night-power": ("golden:logic/skin_track_night_power", "phone"),     # Every gauge
     "glass-49kmh": ("drive:glass/0156", "phone"),                              # Glass at 49 km/h
-    "dial-vintage-power": ("golden:logic/skin_vintage_classic_power", 490),
+    # The skins' layouts draw their big dial lower since the app's layout fit of 27 Oct 2026, each where measured.
+    "dial-vintage-power": ("golden:logic/skin_vintage_classic_power", (462, (537, 1006))),
     "dial-classic-17kmh": ("drive:classic/0104", 462),
     "dial-future-49kmh": ("drive:future/0156", 465),
     # /apps/ and the home page's Apps door: George's picks (26 Oct 2026: "Use prism, use vintage speedometer and clock,
@@ -47,7 +48,9 @@ RENDERS = {
     "prism-twin-kmh": ("golden:logic/cluster_prism_twin_kmh", "phone"),               # /apps/ hero phone
     "dial-aura-tower-kmh": ("golden:logic/cluster_aura_tower_kmh", (404, (540, 640))),  # /apps/ hero dial
     "aura-tower-power": ("golden:logic/cluster_aura_tower_power", "phone"),           # /apps/ screens
-    "vintage-speedo-clock-power": ("golden:logic/skin_vintage_power", "phone"),       # /apps/ screens
+    # Vintage's speedometer and clock (skin_vintage_power is its Console layout, which George removed on 29 Oct 2026),
+    # in the reading with every lamp lit: its power reading is Vintage's Styles tile.
+    "vintage-speedo-clock-power": ("golden:logic/skin_vintage_pair_long_texts", "phone"),  # /apps/ screens
     "glass-column-power": ("golden:logic/skin_glass_column_power", "phone"),          # /apps/ screens
     "glass-119kmh": ("drive:glass/0520", "phone"),                                    # the home page's Apps door
     # The home page's Speedometer block.
@@ -56,8 +59,9 @@ RENDERS = {
     "dial-classic-49kmh": ("drive:classic/0156", 462),                         # classic-design
     "dial-classic-104kmh": ("drive:classic/0624", 462),                        # big-gauge
     "dial-classic-31kmh": ("drive:classic/0312", 462),                         # gps-speed
-    "dial-cockpit-power": ("golden:logic/skin_cockpit_classic_power", 462),    # power
-    "dial-rally-power": ("golden:logic/skin_rally_classic_power", 490),        # big-gauge-tile
+    # Cockpit's classic layout went in the layout fit: its pair's big dial, top of the screen.
+    "dial-cockpit-power": ("golden:logic/skin_cockpit_pair_power", (464, (541, 612))),        # power
+    "dial-rally-power": ("golden:logic/skin_rally_classic_power", (462, (538, 1006))),        # big-gauge-tile
     "dial-future-cpu": ("golden:logic/future_cpu", 465),                       # cpu-clock
     "settings-owned": ("golden:screens/app_settings_owned_allowed", "phone"),  # restoring-future
 }
