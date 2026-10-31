@@ -2,6 +2,33 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "d28ab4e518b8c6d51127c22a3d5b3be9ece16708",
+      "at": "2026-10-31T00:57:27.219Z",
+      "files": [
+        "app-CoWa60_F.js",
+        "code-boxes-DMy3Xoxw.js",
+        "demo-CBGn6PQL.js",
+        "demo-CL1uVqQv.css",
+        "demo-screen-C6ViSdM2.css",
+        "demo-screen-D4ZRU3VX.js",
+        "door-layout-bEA7sXv0.js",
+        "firestore-DeKRIdgg.js",
+        "index-AlcbxMMd.js",
+        "join-cKFNR7ZF.js",
+        "newsreel-D-MmkBKW.js",
+        "newsreel-sE5nnSXv.css",
+        "part-BI81Oww2.js",
+        "play-DTLkcM4T.js",
+        "room-screen-BUFYQ664.js",
+        "spot-QwEkJ1XF.js",
+        "tv-DsRLr9wB.js",
+        "tv-sites-BCFUzrf6.js",
+        "vote-opens-ChBFH-Q8.js",
+        "wordmark-CBxEr1I5.js",
+        "wordmark-TZ_vLt_d.css"
+      ]
+    },
+    {
       "sha": "d7a69d7e006f5dbd565ab3c6f0c68fd3ced741be",
       "at": "2026-10-30T15:31:37.726Z",
       "files": [
@@ -80,62 +107,6 @@
         "vote-opens-CpKGwUX3.js",
         "wordmark-D3CFEKeI.js",
         "wordmark-TZ_vLt_d.css"
-      ]
-    },
-    {
-      "sha": "1ecf348bb5279c8033210ff2f33510b9ff1b60df",
-      "at": "2026-10-29T16:58:12.331Z",
-      "files": [
-        "account-button-DI88XFGi.js",
-        "app-C5gEQ9uo.js",
-        "code-boxes-d-Kihc40.js",
-        "demo-Bey75QKh.js",
-        "demo-DKZ7RFFA.css",
-        "demo-screen-C6ViSdM2.css",
-        "demo-screen-CfwPubRV.js",
-        "door-layout-CK4u5ubu.js",
-        "firestore-CjTIJrJH.js",
-        "index-CfN9OKk5.js",
-        "join-CfW14j8t.js",
-        "newsreel-BHAEP9WO.js",
-        "newsreel-sE5nnSXv.css",
-        "part-BJw9V9a1.js",
-        "play-CkoZ3uIU.js",
-        "room-screen-BILDaRC1.js",
-        "spot-vpsyP8xJ.js",
-        "tv-ChNRSqig.js",
-        "tv-sites-ClfNL3Qr.js",
-        "vote-opens-C7P0csC3.js",
-        "wordmark-D1SD_-XK.js",
-        "wordmark-TZ_vLt_d.css"
-      ]
-    },
-    {
-      "sha": "7cad6de2f851162c729263b1c7211bf9bf367a16",
-      "at": "2026-10-29T09:44:52.442Z",
-      "files": [
-        "app-BAkyA2Nb.js",
-        "code-boxes-IzPbPRzB.js",
-        "demo-BtLRiehJ.js",
-        "demo-DOwosFGk.css",
-        "demo-screen-C6ViSdM2.css",
-        "demo-screen-pgZAmrWF.js",
-        "door-layout-BRH4A2nm.js",
-        "firestore-BPwc6CdS.js",
-        "index-I21ScFz_.js",
-        "join-Mq0T-1Qa.js",
-        "newsreel-BkefwUr6.js",
-        "newsreel-sE5nnSXv.css",
-        "part-P4wIKLEI.js",
-        "play-NQacxIVr.js",
-        "private-BGoS6QiT.js",
-        "room-screen-DyNAvr7w.js",
-        "spot-CGJupG4U.js",
-        "tv-BYaMHQAb.js",
-        "tv-sites-D2p4ze-l.js",
-        "vote-opens-CQTzDZWe.js",
-        "wordmark-C1WXjlbV.css",
-        "wordmark-DMhEtDll.js"
       ]
     }
   ]

@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.d28ab4e5",
+      "date": "2026-10-31",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Newsreels at the big moments",
+      "items": [
+        "Short newsreels now play at the game's big moments — fourteen in all, including when the town wins and when the Madman wins.",
+        "Settings has a new look: a grab handle at the top, a thin gold line, rounder corners, and square plus and minus buttons.",
+        "In the guided demo, tips now wait until a newsreel finishes before they appear."
+      ],
+      "commit": "d28ab4e5"
+    },
+    {
       "version": "0.1.aa858b41",
       "date": "2026-10-30",
       "platforms": [
