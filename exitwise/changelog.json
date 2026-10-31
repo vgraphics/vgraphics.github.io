@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.13e1ed99",
+      "version": "1.0.29",
       "date": "2026-10-31",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "One save across your devices",
