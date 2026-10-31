@@ -5,8 +5,11 @@
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { readFileSync } from 'node:fs'
 import { productFoot } from '../lib/legal.mjs'
-import { helpLink, helpMailProblems, mailList } from '../lib/mail-list.mjs'
+import { headerHelpProblems, helpLink, helpMailProblems, mailList } from '../lib/mail-list.mjs'
+import { footer, header } from '../lib/partials.mjs'
+import { loadProduct } from '../lib/product.mjs'
 
 const LEGAL = '<p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373</p>'
 /** The company footer as index.html has it: the sign-up for VGraphics news and the Help link. */
@@ -46,4 +49,24 @@ test("the Help link names the product's VHub id, and the sign-up its topic", () 
   assert.match(mailList('exitwise'), /data-topic="exitwise"/)
   // Palermo Noir has no topic while VHub's catalog keeps it unlisted: its pages offer VGraphics news.
   assert.match(mailList('palermo'), /data-topic="vgraphics" data-product="palermo"/)
+})
+
+// Help in plain sight (George, 31 Oct 2026: "Help menu, I found it. Barely visible.").
+test("every header has Help: the company header, and a product's before its play button", () => {
+  const home = readFileSync(new URL('../../index.html', import.meta.url), 'utf8')
+  assert.deepEqual(headerHelpProblems('/', home), [])
+  assert.match(home, /<a class="n-help" href="\/hub\/support\/">Help<\/a>\s*<a class="cta" href="#contact">Contact<\/a>/)
+  const exitwise = header(loadProduct('exitwise'))
+  assert.deepEqual(headerHelpProblems('/exitwise/', `${exitwise}<main></main>`), [])
+  assert.ok(exitwise.indexOf('href="/hub/support/?p=exitwise"') < exitwise.indexOf('class="play"'), 'Help comes before the play button')
+  assert.deepEqual(headerHelpProblems('/exitwise/', '<header class="top"><nav class="subnav"><a href="/exitwise/">Overview</a></nav></header>'), [
+    'the header has no Help link to /hub/support/',
+  ])
+  // VHub's pages are the menu rule's: they copy the company header.
+  assert.deepEqual(headerHelpProblems('/hub/friends/', '<header class="site-head"><nav class="site-nav"></nav></header>'), [])
+})
+
+test("the footer's Help link is the product's pill", () => {
+  const foot = footer(loadProduct('speedometer-wallpaper'))
+  assert.match(foot, /<a class="foot-help" href="\/hub\/support\/\?p=speedometer">Help<\/a>/)
 })

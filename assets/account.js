@@ -38,6 +38,7 @@ const WORDS = {
     loading: "Loading…",
     offline: "Couldn't reach VHub. Try again in a moment.",
     hub: "Open the hub",
+    help: "Help and ideas",
     profile: "Profile",
     accountSettings: "Account settings",
     level: (n) => `Level ${n}`,
@@ -61,6 +62,7 @@ const WORDS = {
     loading: "Φόρτωση…",
     offline: "Δεν ήταν δυνατή η σύνδεση με το VHub. Δοκίμασε ξανά σε λίγο.",
     hub: "Άνοιγμα του hub",
+    help: "Βοήθεια και ιδέες",
     profile: "Προφίλ",
     accountSettings: "Ρυθμίσεις λογαριασμού",
     level: (n) => `Επίπεδο ${n}`,
@@ -257,6 +259,16 @@ phone.addEventListener?.("change", place);
 addEventListener("pagehide", () => closeMenu(false));
 
 /** Shows `nodes` in the menu (only while this opening is still the one on screen). */
+/**
+ * VHub's ticket page for the page's product: the header's or the footer's Help link names it (tools/lib/mail-list.mjs
+ * helpLink); anywhere else, the page for every game and app.
+ */
+function helpHref() {
+  return document.querySelector('a[href^="/hub/support/?p="]')?.getAttribute("href") ?? "/hub/support/";
+}
+
+const help = () => el("a", { class: "vm-help", href: helpHref() }, t.help);
+
 function show(...nodes) {
   if (!body) return;
   body.replaceChildren(...nodes.flat().filter(Boolean));
@@ -305,6 +317,7 @@ function renderSignedOut(site, guest) {
       note,
       el("p", { class: "vm-small" }, t.without),
     ),
+    el("div", { class: "vm-links" }, help()),
   );
   body.querySelector(".vm-mark").innerHTML = MARK;
   if (isDark(menu)) google.classList.add("vm-gbtn-dark");
@@ -404,7 +417,7 @@ async function account(site, me, uid) {
 }
 
 const links = () =>
-  el("div", { class: "vm-links" }, el("a", { href: "/hub/profile/" }, t.profile), el("a", { href: "/hub/settings/" }, t.accountSettings));
+  el("div", { class: "vm-links" }, el("a", { href: "/hub/profile/" }, t.profile), el("a", { href: "/hub/settings/" }, t.accountSettings), help());
 
 function games(list, title, again) {
   if (!list.length) return null;

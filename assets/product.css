@@ -1549,3 +1549,7 @@ html.screen .top { position: relative; flex: none; }
 .mail-list-fine, .mail-list-said { font-size: 0.85rem; opacity: 0.86; }
 .mail-list-said:empty { display: none; }
 .mail-list-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
+/* The footer's Help link, plain to see (George, 31 Oct 2026: "Help menu, I found it. Barely visible."): a pill in the
+   product's play colours, as its play button, over the footer's art. */
+.foot-links a.foot-help { margin: 4px; padding: 0 18px; border-radius: 999px; background: var(--play, var(--sb)); color: var(--play-ink, var(--page)); font-weight: 700; text-decoration: none; }
+.foot-links a.foot-help:hover { text-decoration: underline; }

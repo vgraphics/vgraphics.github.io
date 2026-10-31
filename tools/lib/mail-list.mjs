@@ -46,6 +46,18 @@ export function helpMailProblems(path, html) {
   return out
 }
 
+/**
+ * What is wrong with a page's header for check-site's help-mail rule (George, 31 Oct 2026: "Help menu, I found it.
+ * Barely visible."): a company header or a product's header without its Help link. VHub's pages are left to the menu
+ * rule, which holds them to the company header.
+ */
+export function headerHelpProblems(path, html) {
+  if (path.startsWith('/hub/')) return []
+  const head = html.match(/<header class="(?:site-head|top)\b[^"]*">[\s\S]*?<\/header>/)?.[0]
+  if (!head || head.includes('href="/hub/support/')) return []
+  return ['the header has no Help link to /hub/support/']
+}
+
 /** The one-line sign-up: `slug` a product's folder, or null for the company pages (VGraphics news). */
 export function mailList(slug) {
   const topic = slug ? TOPICS[slug] : null

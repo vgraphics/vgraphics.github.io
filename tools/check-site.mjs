@@ -20,7 +20,7 @@ import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
-import { helpMailProblems } from './lib/mail-list.mjs'
+import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
@@ -826,7 +826,8 @@ for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
 // own menu has them. VHub's pages, /hub/join/ among them, are left to the menu rule, which holds them to the company
 // footer, sign-up included (tools/lib/mail-list.mjs helpMailProblems).
 for (const file of pages) {
-  for (const message of helpMailProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'help-mail', message)
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const message of [...helpMailProblems(urlPath(file), html), ...headerHelpProblems(urlPath(file), html)]) report(file, 'help-mail', message)
 }
 
 // Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice

@@ -150,6 +150,10 @@ function brand(s, height, sizes) {
 export function header({ page }, { current } = {}) {
   const s = page.site
   const links = s.nav.map((n) => `<a${n.wide ? ' class="wide-only"' : ''} href="${esc(n.href)}"${n.href === current ? ' aria-current="page"' : ''}>${esc(n.label)}</a>`)
+  // Help on every header (George, 31 Oct 2026: "Help menu, I found it. Barely visible."): VHub's ticket page for this
+  // product, after its own pages and before its demo and play buttons, so play stays last.
+  const [helpHref, helpLabel] = helpLink(s.nav[0].href.split('/')[1])
+  links.push(`<a class="help-link" href="${esc(helpHref)}">${esc(helpLabel)}</a>`)
   const { main: p, second } = playButtons(s, { tester: true })
   // A private demo's button is the testers' alone (playButtons).
   const own = (b, html) => (b === s.demo ? forTesters(s, html) : html)
@@ -190,7 +194,7 @@ export function footer({ page, slug }) {
     <div class="wrap">
       <a class="foot-brand" href="${esc(s.nav[0].href)}">${brand(s, 48, '230px')}</a>
       <nav class="foot-links" aria-label="${esc(s.name)} and VGraphics">
-        ${links.map(([href, label]) => `<a href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
+        ${links.map(([href, label]) => `<a${href.startsWith('/hub/support/') ? ' class="foot-help"' : ''} href="${esc(href)}">${esc(label)}</a>`).join('<span class="sep" aria-hidden="true">·</span>\n        ')}
       </nav>${isProductScreen(page.path ?? `/${slug}/`) ? '' : `
       ${mailList(slug)}`}${buttons(page)}
       <p class="legal">${isProductScreen(page.path ?? `/${slug}/`) ? PRODUCT_LEGAL : LEGAL}${play}</p>
