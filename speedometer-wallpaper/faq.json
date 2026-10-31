@@ -42,5 +42,9 @@
   {
     "q": "Do my settings follow me to my other devices?",
     "a": "Yes, once you sign in to VHub, the free VGraphics account. Your speed unit, clock, seconds, vibration and every style you tweaked follow you to your next phone, and you can change the speed unit, the clock, the seconds and vibration from your VHub picture at the top right of this site too. Without an account they stay on the phone."
+  },
+  {
+    "q": "How do I report a problem or suggest an idea?",
+    "a": "In the app, open Settings → Help → Report a problem or an idea: choose what it's about, write what happened, add a screenshot if it helps, and send. Our answer shows there, and in your inbox if you like, signed in or not. Away from the app, use <a href=\"/hub/support/?p=speedometer\">vgraphics.gr/hub/support</a>. Settings → Help also has News by email: new styles and features, one email a month at most."
   }
 ]
