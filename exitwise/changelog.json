@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.13e1ed99",
+      "date": "2026-10-31",
+      "platforms": [
+        "Web"
+      ],
+      "title": "One save across your devices",
+      "items": [
+        "The game now syncs your progress the moment it starts and keeps a single save, so switching between the web and your phone no longer asks you to choose a save.",
+        "When you play on more than one device, your progress is now combined correctly, so nothing you've earned gets lost or counted twice."
+      ],
+      "commit": "13e1ed99"
+    },
+    {
       "version": "1.0.28",
       "date": "2026-10-29",
       "platforms": [
