@@ -1391,7 +1391,7 @@
    "summary": "The town wins when every killer is out, the killers when they match everyone else.",
    "what": [
     "The win check runs after every death, in this order: the Madman voted out wins alone; the Lovers, as the last two alive, win together; the town wins when every killer is out; the killers win when they are at least as many as everyone else alive.",
-    "The Henchman and the Kamikaze win with the killers but count with everyone else. Then the TV tells the truth: every card turned over, killers last, the story of every night, and awards such as the sharpest eye, the best liar and the lifesaver.",
+    "The Henchman and the Kamikaze win with the killers but count with everyone else. The winners' newsreel plays first, then the TV tells the truth: every card turned over, killers last, the story of every night, and awards such as the sharpest eye, the best liar and the lifesaver.",
     "After that, the night can be shared: each phone draws a picture of it to post or send, as the town paper, a film poster, your own secret card, the newsreel or the whole table, and the TV shows a QR code for friends who only watched."
    ],
    "related": [
@@ -1476,7 +1476,7 @@
    "what": [
     "The host opens Palermo Noir on their phone and creates a room. Any phone in the room can tap Show on TV for the room's twelve-digit TV code: the TV opens vgraphics.gr/tv (or vgraphics.gr/palermo/tv) in its browser and types it with the remote, or opens the link Show on TV gives. Then the TV shows the room's six-digit code and a QR code: friends scan the QR code, or tap Join with a code and type the six digits. If the TV closes, the same TV code or link brings it back into the room. A laptop on the TV works too.",
     "Phones never play a sound, every phone looks the same at night, and your card shows only while you hold it. The TV shows only what everyone may see. The game plays in English or Greek.",
-    "The first time a killer is caught in a game, the TV plays the town's newsreel once the card has turned: a short film of the arrest in the role cards' gold frame, with the officer's line in the room's language. With no TV, the host's phone plays it."
+    "The first time each big moment of a game happens, from an arrest or a body at dawn to a tie or a win, the TV plays it as the town's newsreel: a short film in the role cards' gold frame, with the characters' lines in the room's language. With no TV, the host's phone plays it."
    ],
    "how": [
     "The host creates a room on their phone.",
