@@ -39,8 +39,9 @@
 //                                label, their key figures, become tabs), facts, actions, quote, chips, song, album, tour,
 //                                soundtrack, journey, embed, document, links (icon chips to the product's other places),
 //                                reasons (a "why" section's points, each a card with its wiki page's painting),
-//                                try (the product's web version, tools/lib/try.mjs), storybook (the game's own book,
-//                                exitwise/storybook),
+//                                try (the product's web version, tools/lib/try.mjs), frame (a build another Pages repo
+//                                serves, full screen on a screen page, tools/lib/frames.mjs), storybook (the game's own
+//                                book, exitwise/storybook),
 //                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
@@ -52,6 +53,9 @@
 //                                header, its sections' blocks filling the window without their headings, and the slim
 //                                bar (partials.mjs screenBar) in place of the hero, closing card and footer; heading is
 //                                its h1, for screen readers and search. Its words about the product are on its About page.
+//                                bare: true, for a TV or join page that frames its build (tools/lib/frames.mjs): no
+//                                header and no bar either, the frame alone filling the window; the build's page carries
+//                                the legal line, and the page loads the no-select piece itself.
 // A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
 // (site.demo.private), as the words in <span data-demo> are.
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
@@ -73,6 +77,7 @@ import { blurhashes } from './lib/blurhash.mjs'
 import { journey } from './lib/journey.mjs'
 import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
+import { frameBlock } from './lib/frames.mjs'
 import { faq, faqData, readFaq } from './lib/faq.mjs'
 import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
@@ -326,6 +331,10 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   // start-up in assets/startup/).
   try: (b, product) => tryBlock(b, product.page),
 
+  // A build another Pages repo serves under vgraphics.gr, framed full screen on a screen page (tools/lib/frames.mjs,
+  // assets/frame.js): Palermo Noir's Unity WebGL build.
+  frame: (b) => frameBlock(b),
+
   // Questions that each open their answer, from page.json or the faq.json beside it (tools/lib/faq.mjs); the page's
   // head carries them as FAQPage structured data too, unless the block says "schema": false (an About page's: the
   // product's FAQPage is its landing page's, and the About page asks other questions).
@@ -453,9 +462,10 @@ function decorate(theme, parts) {
   return out
 }
 
-// A product's landing page, or with sub its page <slug>/<sub>/: { html, file (where it goes), css, problems }.
-export function render(slug, sub) {
-  const product = sub ? loadSubpage(slug, sub) : loadProduct(slug)
+// A product's landing page, or with sub its page <slug>/<sub>/: { html, file (where it goes), css, problems }. source:
+// the sub-page's page.json when it isn't in its folder yet (a page waiting in <product>/frames/, tools/lib/frames.mjs).
+export function render(slug, sub, source) {
+  const product = sub ? loadSubpage(slug, sub, source) : loadProduct(slug)
   const { page: p, theme: t } = product
   product.dir = sub ? join(slug, sub) : slug
   const path = p.path ?? `/${slug}/`
@@ -470,6 +480,8 @@ export function render(slug, sub) {
   const ost = blocks.some((b) => b.type === 'soundtrack')
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
+  const framed = blocks.some((b) => b.type === 'frame')
+  const bare = Boolean(p.screen?.bare)
   const book = blocks.find((b) => b.type === 'storybook')
   const questions = blocks.filter((b) => b.type === 'faq' && b.schema !== false).flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
@@ -480,7 +492,7 @@ export function render(slug, sub) {
     : [hero(p, !sub), ...decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...sections.map((s) => section(product, s)), closing(p)])]
   const url = `https://vgraphics.gr${path}`
   const html = `<!doctype html>
-<html lang="en"${p.screen ? ' class="screen"' : ''}>
+<html lang="en"${p.screen ? ` class="screen${bare ? ' bare' : ''}"` : ''}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -523,23 +535,25 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
-<body>
+<body>${bare ? '' : `
   <a class="skip" href="#main">Skip to content</a>
-  ${header(product, { current: path })}
+  ${header(product, { current: path })}`}
 
-  <main id="main"${p.screen ? ' class="screen-main"' : ''}>
+  <main id="main"${p.screen ? ` class="screen-main${framed ? ' framed' : ''}"` : ''}>
     ${content.join('\n\n    ')}
   </main>
 
-  ${p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
+  ${bare ? '' : p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
-  <script src="/assets/product.js" defer></script>
-  <script src="/assets/menu.js" defer></script>${gallery ? `
+  <script src="/assets/product.js" defer></script>${bare ? `
+  <script src="/assets/no-select.js" defer></script>` : `
+  <script src="/assets/menu.js" defer></script>`}${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${trial ? `
   <script src="/assets/startup/startup.js" defer></script>
-  <script src="/assets/try/try.js" defer></script>` : ''}${book ? `
+  <script src="/assets/try/try.js" defer></script>` : ''}${framed ? `
+  <script src="/assets/frame.js" defer></script>` : ''}${book ? `
   <script src="${esc(book.book)}/reader/storybook.js" defer></script>
   <script src="/assets/storybook.js" defer></script>` : ''}${beside('js').map((e) => `
   <script src="${e}.js" defer></script>`).join('')}
