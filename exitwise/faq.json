@@ -45,7 +45,7 @@
   },
   {
     "q": "How do I add a friend?",
-    "a": "Tap a player on any leaderboard, the global boards or a map's creator, then Add friend on their profile. They get your request on <a href=\"/hub/friends/\">VHub</a> and in their notifications, and once they accept you are friends in every VGraphics game. You can also add friends by name or friend code on VHub. On a profile, sign in first; as a guest you can still add friends by friend code on VHub."
+    "a": "Tap a player on any leaderboard, the global boards, a map's creator, a room or your match history, then Add friend on their profile. They get your request on <a href=\"/hub/friends/\">VHub</a> and in their notifications, and once they accept you are friends in every VGraphics game. You can also add friends by name or friend code on VHub. On a profile, sign in first; as a guest you can still add friends by friend code on VHub."
   },
   {
     "q": "How do I delete my data?",
