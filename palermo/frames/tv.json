@@ -1,0 +1,26 @@
+{
+  "title": "Palermo Noir · TV",
+  "description": "Palermo Noir on the TV: the town, the night and the votes on the big screen, while every phone holds its player's secret card.",
+  "robots": "noindex",
+  "social": {
+    "title": "Palermo Noir on the TV",
+    "description": "The town, the night and the votes on the big screen, while every phone holds its player's secret card.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "screen": {
+    "heading": "Palermo Noir on the TV"
+  },
+  "sections": [
+    {
+      "id": "game",
+      "blocks": [
+        {
+          "type": "frame",
+          "src": "/vg--palermo-play/?route=tv",
+          "title": "Palermo Noir"
+        }
+      ]
+    }
+  ]
+}

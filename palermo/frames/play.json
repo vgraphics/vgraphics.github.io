@@ -1,0 +1,76 @@
+{
+  "title": "Play Palermo Noir online: the mafia party game in your browser",
+  "description": "Play Palermo Noir in your browser: start a room for your table or join one with its code, and a noir narrator runs every night and day. Free, for 6 to 14 friends.",
+  "social": {
+    "title": "Play Palermo Noir online",
+    "description": "The mafia party game in your browser: start a room for the table or join one with its code, and the narrator runs the night.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "structuredData": {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebPage",
+        "@id": "https://vgraphics.gr/palermo/play/#page",
+        "url": "https://vgraphics.gr/palermo/play/",
+        "name": "Play Palermo Noir online: the mafia party game in your browser",
+        "description": "Play Palermo Noir in your browser: start a room for your table or join one with its code, and a noir narrator runs every night and day. Free, for 6 to 14 friends.",
+        "inLanguage": "en",
+        "about": {
+          "@id": "https://vgraphics.gr/palermo/#game"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "breadcrumb": {
+          "@type": "BreadcrumbList",
+          "itemListElement": [
+            {
+              "@type": "ListItem",
+              "position": 1,
+              "name": "VGraphics",
+              "item": "https://vgraphics.gr/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Games",
+              "item": "https://vgraphics.gr/games/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 3,
+              "name": "Palermo Noir",
+              "item": "https://vgraphics.gr/palermo/"
+            },
+            {
+              "@type": "ListItem",
+              "position": 4,
+              "name": "Play online",
+              "item": "https://vgraphics.gr/palermo/play/"
+            }
+          ]
+        }
+      }
+    ]
+  },
+  "screen": {
+    "heading": "Play Palermo Noir online"
+  },
+  "sections": [
+    {
+      "id": "game",
+      "blocks": [
+        {
+          "type": "frame",
+          "src": "/vg--palermo-play/?route=play",
+          "title": "Palermo Noir"
+        }
+      ]
+    }
+  ]
+}

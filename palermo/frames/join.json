@@ -1,0 +1,26 @@
+{
+  "title": "Join the game · Palermo Noir",
+  "description": "Join a game of Palermo Noir: type the room's six-digit code, or scan the QR code on the TV.",
+  "robots": "noindex",
+  "social": {
+    "title": "Join a game of Palermo Noir",
+    "description": "Type the room's six-digit code, or scan the QR code on the TV, and take your seat at the table.",
+    "image": "/palermo/img/card-1200x630.jpg",
+    "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
+  },
+  "screen": {
+    "heading": "Join a game of Palermo Noir"
+  },
+  "sections": [
+    {
+      "id": "game",
+      "blocks": [
+        {
+          "type": "frame",
+          "src": "/vg--palermo-play/?route=join",
+          "title": "Palermo Noir"
+        }
+      ]
+    }
+  ]
+}
