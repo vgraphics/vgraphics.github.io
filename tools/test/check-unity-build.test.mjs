@@ -1,7 +1,8 @@
 // A Unity WebGL build another Pages repo serves (tools/check-unity-build.mjs; the master coordinator, 2 Nov 2026):
 // Palermo Noir's at /vg--palermo-play/, which check-site never sees, held to the Unity pages' rules when the Deployer
-// publishes it. A framed build (its frame pages carry the About link and the legal line) keeps the rest, and stays out
-// of search at its own address; the same page served on the site itself would need its bar.
+// publishes it. A framed build needs no About link (the play and demo frame pages' bar has it), carries its own short
+// legal line (the TV and join frame pages are the frame alone), and stays out of search at its own address; the same
+// page served on the site itself would need its About link.
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
@@ -10,7 +11,8 @@ import { tmpdir } from 'node:os'
 import { join } from 'node:path'
 import { unityBuildProblems } from '../check-unity-build.mjs'
 
-// The build's page as a framed WebGL template writes it: the game, the shared bar, no-select, noindex, no bar of its own.
+// The build's page as a framed WebGL template writes it: the game, the shared bar, no-select, noindex, its short legal
+// line, and no About link.
 const PAGE = `<!DOCTYPE html>
 <html lang="en">
   <head>
@@ -22,6 +24,7 @@ const PAGE = `<!DOCTYPE html>
   </head>
   <body>
     <canvas id="unity-canvas"></canvas>
+    <span class="legal">&copy; 2026 VGraphics</span>
     <div id="loader"><div id="loader-bar" class="vg-bar"></div></div>
     <script src="/assets/startup/loading-bar.js"></script>
     <script src="Build/PalermoNoir.loader.js"></script>
@@ -69,8 +72,12 @@ test('it fails each rule by name: noindex, source maps, analytics, the loading b
   assert.deepEqual(rules(unityBuildProblems(build({ 'index.html': PAGE.replace('<canvas', '<p>VAT no. EL802736373</p><canvas') }), '/vg--palermo-play/')), ['legal-footer'])
 })
 
-test('the same page served on the site itself, unframed, needs its bar: the About link and the legal line', () => {
-  assert.deepEqual(rules(unityBuildProblems(build(), '/palermo/play/')), ['play-alone', 'legal-footer'])
+test('a framed build without its legal line fails: the TV and join frame pages show only the build', () => {
+  assert.deepEqual(rules(unityBuildProblems(build({ 'index.html': PAGE.replace('<span class="legal">&copy; 2026 VGraphics</span>', '') }), '/vg--palermo-play/')), ['legal-footer'])
+})
+
+test('the same page served on the site itself, unframed, needs its About link', () => {
+  assert.deepEqual(rules(unityBuildProblems(build(), '/palermo/play/')), ['play-alone'])
 })
 
 test('no page, or a page that is no Unity page, says so', () => {

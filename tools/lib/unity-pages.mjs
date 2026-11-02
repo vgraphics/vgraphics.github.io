@@ -62,8 +62,9 @@ const SCRIPT = /\.js(?:\.(?:gz|br|unityweb))?$/i
 // file the page names (relative to it, or from the site's root), unpacked, or null when there is none; files, the
 // site's files in the page's folder and its build's (as "exitwise/play/Build/x.loader.js"); framed, true for a build
 // another Pages repo serves, which the product's frame pages show (tools/lib/frames.mjs, tools/check-unity-build.mjs):
-// their bar holds its About link and its legal line, and its own address is kept out of search, since players use
-// theirs. A list of [rule, message], none when it keeps every rule.
+// the play and demo pages' bar holds its About link (the TV and join pages need none), and its own address is kept out
+// of search, since players use theirs. Its legal line stays its own: the TV and join pages are the frame alone. A list
+// of [rule, message], none when it keeps every rule.
 export function unityPageProblems(html, path, { text = () => null, files = [], framed = false } = {}) {
   const out = []
   const add = (rule, message) => out.push([rule, message])
@@ -78,8 +79,7 @@ export function unityPageProblems(html, path, { text = () => null, files = [], f
     .some(([, selectors, body]) => selectors.split(',').some((s) => /^(?:html|body)$/i.test(s.trim())) && /(?:^|[;\s])overflow\s*:\s*(?:hidden|clip)\b/.test(body))
   if (!locked) add('play-alone', 'scrolls: give html and body overflow: hidden in its <style>, so the product fills the window with nothing to scroll ("When we play we play. No scroll needed.")')
 
-  // A framed build's legal line is its frame page's, in the bar under it; the company's details stay off it all the same.
-  for (const m of legalProblems(path, html, true)) if (!(framed && /without its legal line/.test(m))) add('legal-footer', m)
+  for (const m of legalProblems(path, html, true)) add('legal-footer', m)
 
   if (!NO_SELECT.test(markup)) {
     add('no-select', 'lets its text be selected, opens the right-click menu and the developer tools\' keys, and shows no console warning: load <script src="/assets/no-select.js" defer></script>')

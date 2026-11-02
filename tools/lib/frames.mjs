@@ -1,9 +1,12 @@
 // The "frame" block (tools/build-pages.mjs): a product's build that a repo of its own serves under vgraphics.gr, framed
 // full screen on the product's page, from the same origin (the master coordinator, 2 Nov 2026: Palermo Noir's Unity
 // WebGL build at /vg--palermo-play/, framed by /palermo/play/, /join/, /tv/ and /demo/, each page made from this
-// template; the Deployer's palermo-unity-web). The page is a screen (page.json "screen"): the header, the frame filling
-// the window and the slim bar, nothing to scroll. assets/frame.js points the frame at the build with the page's own
-// query and hash, so a room code from a QR or a shared link reaches the game.
+// template; the Deployer's palermo-unity-web). The page is a screen (page.json "screen"), nothing to scroll: a play or
+// demo page the play-page shell (the header, the frame filling the window, the slim bar with its About link); a TV or
+// join page the frame alone, with no header, menu, avatar or bar ("screen": { "bare": true }; the Palermo coordinator,
+// 2 Nov 2026: a TV page is driven by a remote, and George approved the join door as it is, with its language button
+// and short legal line inside it), the legal line in the build's own page. assets/frame.js points the frame at the
+// build with the page's own query and hash, so a room code from a QR or a shared link reaches the game.
 //
 // page.json: { "type": "frame", "src", "title" }
 //   src    the build's address, a folder of SERVED_ELSEWHERE with the page's route ("/vg--palermo-play/?route=play")
@@ -14,10 +17,11 @@
 // pages hold those addresses until then). check-site builds the waiting pages too, so they meet the play pages' rules
 // before they go live, and holds a page put in place to its source.
 //
-// Of the seven Unity pages' rules (tools/lib/unity-pages.mjs), a frame page keeps four itself: the product alone
-// (play-alone), the short legal line (legal-footer), no-select, and a TV or join page out of search (noindex). The build
-// keeps the other three (analytics and error reports, the shared loading bar, no source maps) in its own repo, where
-// check-site can't see it: tools/check-unity-build.mjs holds it to them when the Deployer publishes it.
+// Of the seven Unity pages' rules (tools/lib/unity-pages.mjs), a frame page keeps these itself: the product alone
+// (play-alone), the short legal line (legal-footer; a bare page's is in its build), no-select, and a TV or join page out
+// of search (noindex). The build keeps all seven (analytics and error reports, the shared loading bar and no source maps
+// besides) in its own repo, where check-site can't see it: tools/check-unity-build.mjs holds it to them when the
+// Deployer publishes it.
 import { existsSync, readdirSync } from 'node:fs'
 import { legalProblems } from './legal.mjs'
 import { esc } from './partials.mjs'
@@ -46,7 +50,10 @@ export function frameProblems(page, name) {
   if (!frames.length) return []
   const out = []
   if (!page.screen) out.push('frames a build without "screen": give it "screen": { "heading" }, so the frame fills the window with nothing to scroll')
-  if (isDoor(`/x/${name}/`) && !/noindex/.test(page.robots ?? '')) out.push('is a TV or join page, which search engines must not list: give it "robots": "noindex"')
+  const door = isDoor(`/x/${name}/`)
+  if (door && !/noindex/.test(page.robots ?? '')) out.push('is a TV or join page, which search engines must not list: give it "robots": "noindex"')
+  if (page.screen && door && !page.screen.bare) out.push('is a TV or join page, the frame alone: give it "screen": { "bare": true }, with no header, menu, avatar or bar')
+  if (page.screen?.bare && !door) out.push('is a play or demo page: drop "bare", so it keeps the play-page shell, the header and the bar with its About link')
   if (frames.length > 1) out.push(`has ${frames.length} frames: one build fills the screen`)
   for (const b of frames) {
     const src = String(b.src ?? '')
@@ -61,13 +68,20 @@ export function frameProblems(page, name) {
   return out
 }
 
+// A bare frame page as built: no header and no bar (the TV and join pages).
+export const isBare = (html) => /<html\b[^>]*\sclass="(?:[^"]*\s)?bare(?:\s[^"]*)?"/.test(html)
+
+// The legal line's problems on a frame page: a bare one's line is in its build (tools/check-unity-build.mjs holds it
+// there), so only the company's details are refused on the page itself.
+export const frameLegalProblems = (path, html) => legalProblems(path, html, true).filter((m) => !(isBare(html) && /without its legal line/.test(m)))
+
 // The rules a frame page keeps itself, on the page as built: html, its markup; path, its address. A list of
 // [rule, message], none when it keeps them (its frame's own are frameProblems'). check-site gets these from its own
 // checks on the pages it serves; a page still waiting in frames/ is held to them here.
 export function framePageProblems(html, path) {
   const out = []
   for (const m of playPageProblems(html, path.split('/')[1], { template: true, about: !isDoor(path) })) out.push(['play-alone', m])
-  for (const m of legalProblems(path, html, true)) out.push(['legal-footer', m])
-  if (!NO_SELECT.test(html)) out.push(['no-select', 'loads no /assets/menu.js, which brings the no-select piece: make the page with the template'])
+  for (const m of frameLegalProblems(path, html)) out.push(['legal-footer', m])
+  if (!NO_SELECT.test(html)) out.push(['no-select', 'loads neither /assets/menu.js nor /assets/no-select.js, the no-select piece: make the page with the template'])
   return out
 }

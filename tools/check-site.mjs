@@ -23,7 +23,7 @@ import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
-import { framePageProblems, frameProblems, frameSources, hasFrame } from './lib/frames.mjs'
+import { frameLegalProblems, framePageProblems, frameProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -547,10 +547,11 @@ for (const [file, text] of sheets) {
 // Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
 // above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
 // screens (its play, TV, join and demo pages, the hub, the try pages). A Unity page's own rules (above) hold it to the
-// product's line wherever it is.
+// product's line wherever it is; a bare frame page's line is in the build it frames (tools/lib/frames.mjs).
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
-  for (const m of legalProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'legal-footer', m)
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
 }
 
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One

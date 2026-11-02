@@ -9,6 +9,7 @@
     "imageAlt": "Palermo Noir: a man in a fedora stands at the seafront railings of Palermo at night, a black cat beside him, looking over the moonlit sea, drawn in gold lines on navy, beside the Palermo Noir logo"
   },
   "screen": {
+    "bare": true,
     "heading": "Palermo Noir on the TV"
   },
   "sections": [

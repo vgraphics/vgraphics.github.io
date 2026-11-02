@@ -53,6 +53,9 @@
 //                                header, its sections' blocks filling the window without their headings, and the slim
 //                                bar (partials.mjs screenBar) in place of the hero, closing card and footer; heading is
 //                                its h1, for screen readers and search. Its words about the product are on its About page.
+//                                bare: true, for a TV or join page that frames its build (tools/lib/frames.mjs): no
+//                                header and no bar either, the frame alone filling the window; the build's page carries
+//                                the legal line, and the page loads the no-select piece itself.
 // A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
 // (site.demo.private), as the words in <span data-demo> are.
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
@@ -478,6 +481,7 @@ export function render(slug, sub, source) {
   const gallery = blocks.some((b) => b.type === 'gallery' && b.layout)
   const trial = blocks.some((b) => b.type === 'try')
   const framed = blocks.some((b) => b.type === 'frame')
+  const bare = Boolean(p.screen?.bare)
   const book = blocks.find((b) => b.type === 'storybook')
   const questions = blocks.filter((b) => b.type === 'faq' && b.schema !== false).flatMap((b) => readFaq(b, product.dir, p.site).items)
   const embeds = blocks.filter((b) => b.type === 'embed').map((b) => `/${product.dir.replace(/\\/g, '/')}/${b.src}`)
@@ -488,7 +492,7 @@ export function render(slug, sub, source) {
     : [hero(p, !sub), ...decorate(t, [...(p.intro ? [intro(p, demo)] : []), ...sections.map((s) => section(product, s)), closing(p)])]
   const url = `https://vgraphics.gr${path}`
   const html = `<!doctype html>
-<html lang="en"${p.screen ? ' class="screen"' : ''}>
+<html lang="en"${p.screen ? ` class="screen${bare ? ' bare' : ''}"` : ''}>
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -531,18 +535,19 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
-<body>
+<body>${bare ? '' : `
   <a class="skip" href="#main">Skip to content</a>
-  ${header(product, { current: path })}
+  ${header(product, { current: path })}`}
 
   <main id="main"${p.screen ? ` class="screen-main${framed ? ' framed' : ''}"` : ''}>
     ${content.join('\n\n    ')}
   </main>
 
-  ${p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
+  ${bare ? '' : p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
-  <script src="/assets/product.js" defer></script>
-  <script src="/assets/menu.js" defer></script>${gallery ? `
+  <script src="/assets/product.js" defer></script>${bare ? `
+  <script src="/assets/no-select.js" defer></script>` : `
+  <script src="/assets/menu.js" defer></script>`}${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
   <script src="${p.intro.demo}.js" defer></script>` : ''}${ost ? `
   <script src="/assets/soundtrack.js" defer></script>` : ''}${trial ? `
