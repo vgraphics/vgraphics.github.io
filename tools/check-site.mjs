@@ -23,7 +23,7 @@ import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
-import { frameProblems, frameSources, hasFrame } from './lib/frames.mjs'
+import { framePageProblems, frameProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -621,9 +621,10 @@ for (const slug of products()) {
 }
 // A frame page (tools/lib/frames.mjs; the master coordinator, 2 Nov 2026) is a template screen with one build in it, a
 // build another Pages repo serves under vgraphics.gr (Palermo Noir's Unity WebGL build at /vg--palermo-play/), framed
-// from the same origin on the page's own route. A page that a release puts in place waits at <product>/frames/<page>.json
-// until then: it is built here as the page it will be, so it meets the play pages' rules before it goes live, and once
-// in place its page.json is that source.
+// from the same origin on the page's own route, a TV or join page kept out of search. A page that a release puts in
+// place waits at <product>/frames/<page>.json until then: it is built here as the page it will be, so it keeps the
+// Unity pages' rules that are a frame page's (play-alone, legal-footer, no-select, noindex) before it goes live, and once
+// in place its page.json is that source. The build keeps the others, checked by tools/check-unity-build.mjs.
 for (const slug of products()) {
   const waiting = frameSources(join(root, slug, 'frames'))
   for (const name of waiting) {
@@ -637,7 +638,7 @@ for (const slug of products()) {
       }
       for (const m of frameProblems(page, name)) report(source, 'frames', m)
       const { html } = render(slug, name, join(root, source))
-      for (const m of playPageProblems(html, slug, { template: true, about: !isDoor(`/${slug}/${name}/`) })) playAlone(source, m)
+      for (const [rule, m] of framePageProblems(html, `/${slug}/${name}/`)) report(source, rule, m)
       const placed = join(root, slug, name, 'page.json')
       if (existsSync(placed) && readFileSync(placed, 'utf8').replace(/\r\n/g, '\n') !== text) {
         report(join(slug, name, 'page.json'), 'frames', `not ${source.split(sep).join('/')}, the page it was put in place from: edit that one, copy it here, then run tools/build-pages.mjs`)

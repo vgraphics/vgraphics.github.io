@@ -13,8 +13,16 @@
 // copies it to <product>/<page>/page.json when Unity takes the page over, then runs tools/build-pages.mjs; the web's
 // pages hold those addresses until then). check-site builds the waiting pages too, so they meet the play pages' rules
 // before they go live, and holds a page put in place to its source.
+//
+// Of the seven Unity pages' rules (tools/lib/unity-pages.mjs), a frame page keeps four itself: the product alone
+// (play-alone), the short legal line (legal-footer), no-select, and a TV or join page out of search (noindex). The build
+// keeps the other three (analytics and error reports, the shared loading bar, no source maps) in its own repo, where
+// check-site can't see it: tools/check-unity-build.mjs holds it to them when the Deployer publishes it.
 import { existsSync, readdirSync } from 'node:fs'
+import { legalProblems } from './legal.mjs'
 import { esc } from './partials.mjs'
+import { playPageProblems } from './play-pages.mjs'
+import { isDoor, NO_SELECT } from './unity-pages.mjs'
 
 // vgraphics.gr's folders that another of the account's Pages repos serves (a project site under the same domain), so
 // the site has no file there: vgraphics/vg--palermo-play, Palermo Noir's Unity WebGL build.
@@ -31,12 +39,14 @@ export const hasFrame = (page) => framesOf(page).length > 0
 export const frameSources = (dir) => (existsSync(dir) ? readdirSync(dir).filter((f) => f.endsWith('.json')).map((f) => f.slice(0, -5)).sort() : [])
 
 // What is wrong with the frame of a page.json, if anything: name, the page's folder (its route). One frame, on a
-// screen, of a build in a folder of SERVED_ELSEWHERE, opening on the page's own route, with a name for screen readers.
+// screen, of a build in a folder of SERVED_ELSEWHERE, opening on the page's own route, with a name for screen readers;
+// a TV or join page kept out of search.
 export function frameProblems(page, name) {
   const frames = framesOf(page)
   if (!frames.length) return []
   const out = []
   if (!page.screen) out.push('frames a build without "screen": give it "screen": { "heading" }, so the frame fills the window with nothing to scroll')
+  if (isDoor(`/x/${name}/`) && !/noindex/.test(page.robots ?? '')) out.push('is a TV or join page, which search engines must not list: give it "robots": "noindex"')
   if (frames.length > 1) out.push(`has ${frames.length} frames: one build fills the screen`)
   for (const b of frames) {
     const src = String(b.src ?? '')
@@ -48,5 +58,16 @@ export function frameProblems(page, name) {
     if (route !== name) out.push(`frames ${src || 'nothing'} with ${route ? `route ${route}` : 'no route'}: the build opens on the page's own, ?route=${name}`)
     if (!b.title) out.push('its frame has no title, its name for screen readers')
   }
+  return out
+}
+
+// The rules a frame page keeps itself, on the page as built: html, its markup; path, its address. A list of
+// [rule, message], none when it keeps them (its frame's own are frameProblems'). check-site gets these from its own
+// checks on the pages it serves; a page still waiting in frames/ is held to them here.
+export function framePageProblems(html, path) {
+  const out = []
+  for (const m of playPageProblems(html, path.split('/')[1], { template: true, about: !isDoor(path) })) out.push(['play-alone', m])
+  for (const m of legalProblems(path, html, true)) out.push(['legal-footer', m])
+  if (!NO_SELECT.test(html)) out.push(['no-select', 'loads no /assets/menu.js, which brings the no-select piece: make the page with the template'])
   return out
 }

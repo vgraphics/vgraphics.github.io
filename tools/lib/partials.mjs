@@ -6,6 +6,7 @@
 import { readFileSync } from 'node:fs'
 import { isProductScreen, PRODUCT_LEGAL } from './legal.mjs'
 import { helpLink, mailList } from './mail-list.mjs'
+import { isDoor } from './unity-pages.mjs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
@@ -206,13 +207,14 @@ export function footer({ page, slug }) {
 // nothing lies below it to scroll to (George, 29 Oct 2026: "When we play we play. No scroll needed."), as the web
 // games' play pages have it: the way back to the product, its About page (/<product>/about/, which check-site requires
 // of every product with a play or try page), its privacy policy and the short legal line, whose Company and Terms give
-// way first on phones.
+// way first on phones. A TV or join page (a frame page, tools/lib/frames.mjs) has no About link: the play and demo
+// pages carry it (the Palermo coordinator, 2 Nov 2026, from palermo-unity's WebGL design review).
 export function screenBar({ page, slug }) {
   const s = page.site
   const privacy = [...s.nav, ...s.footer].find((l) => /privacy/i.test(l.href))
   return `<footer class="screen-bar">
-    <a href="${esc(s.nav[0].href)}">&larr; ${esc(s.nav[0].label)}</a>
-    <a href="/${slug}/about/">About</a>${privacy ? `
+    <a href="${esc(s.nav[0].href)}">&larr; ${esc(s.nav[0].label)}</a>${isDoor(page.path ?? '') ? '' : `
+    <a href="/${slug}/about/">About</a>`}${privacy ? `
     <a href="${esc(privacy.href)}">Privacy</a>` : ''}
     <span class="legal">${PRODUCT_LEGAL}<span class="long"> · <a href="/company/">Company</a> · <a href="/terms/">Terms</a></span></span>
   </footer>`
