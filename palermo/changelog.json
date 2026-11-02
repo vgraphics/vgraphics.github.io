@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.6a785e59",
+      "date": "2026-11-02",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Behind-the-scenes updates",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "6a785e59"
+    },
+    {
       "version": "0.1.d8e968b3",
       "date": "2026-11-02",
       "platforms": [
