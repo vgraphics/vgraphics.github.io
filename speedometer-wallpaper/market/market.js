@@ -362,10 +362,13 @@ window.SpeedoMarket = (() => {
 
   // ---------- Statistics (only with the try page's yes) ----------
 
+  // Our own test visits send nothing, as on the try page (assets/try/try.js; George, 31 Oct 2026: "Yes, players
+  // first"): a page served from this PC (localhost, 127.0.0.1, [::1], *.localhost, a file) or a browser a script drives.
+  const testVisit = location.protocol === "file:" || /^(localhost|127\.0\.0\.1|\[::1\]|::1)$|\.localhost$/i.test(location.hostname) || !!navigator.webdriver;
   let gtagLoaded = false;
   async function event(name, params) {
     try {
-      if (stored(CONSENT_KEY) !== "granted") return;
+      if (testVisit || stored(CONSENT_KEY) !== "granted") return;
       const { measurementId } = await config();
       if (!measurementId) return;
       if (!window.gtag || !document.querySelector('script[src*="googletagmanager.com/gtag/js"]')) {

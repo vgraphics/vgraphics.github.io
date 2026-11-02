@@ -13,7 +13,10 @@
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
 // share, fps_low, web_first_frame (ms from the phone coming into view to the wallpaper showing), and exception for the
-// page's and the engine's errors (20 at most).
+// page's and the engine's errors (20 at most). Our own test visits load nothing, whatever the answer (George, 31 Oct
+// 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
+// [::1], *.localhost, a file) or a browser a script drives (navigator.webdriver: Playwright, Selenium). The question
+// and the switch stay as they are.
 (function () {
   'use strict';
 
@@ -52,7 +55,16 @@
   };
   var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
 
-  // Statistics: gtag loads only after a yes; before the answer, events wait here and nothing leaves the page.
+  // A test visit, not a visitor: why, or '' for a visitor.
+  var testVisit = (function () {
+    var host = location.hostname.toLowerCase();
+    if (location.protocol === 'file:' || host === 'localhost' || host === '127.0.0.1' || host === '[::1]' || host === '::1' || /\.localhost$/.test(host)) return 'a page served from this PC';
+    if (navigator.webdriver) return 'a browser a script drives';
+    return '';
+  }());
+
+  // Statistics: gtag loads only after a yes, and never for a test visit; before the answer, events wait here and
+  // nothing leaves the page.
   var analytics = (function () {
     var id = config.measurementId;
     var loaded = false;
@@ -64,6 +76,10 @@
     };
     var load = function () {
       if (loaded || !id) return;
+      if (testVisit) {
+        console.log('[try] Statistics off: ' + testVisit + ', not a visitor.');
+        return;
+      }
       loaded = true;
       window.dataLayer = window.dataLayer || [];
       window.gtag = window.gtag || function () { window.dataLayer.push(arguments); };
