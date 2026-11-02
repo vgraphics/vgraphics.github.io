@@ -1,6 +1,6 @@
-// The landing's "Layouts made by drivers" chapter (the web market design §4.1): the market's three counts, which the
-// Deployer writes once a day, and a row of six cards: Layout of the week first, with its ribbon, then the five most
-// used live layouts. A card opens its layout's page; "See all" opens the market.
+// The landing's "Layouts made by drivers" chapter (the web market design §4.1): the market's three counts, counted live
+// on the server each visit, and a row of six cards: Layout of the week first, with its ribbon, then the five most used
+// live layouts. A card opens its layout's page; "See all" opens the market.
 (function () {
   "use strict";
   const root = document.querySelector(".mk-chapter");
@@ -12,22 +12,29 @@
   const list = root.querySelector(".mk-grid");
   const failed = root.querySelector('[data-market="failed"]');
 
+  // The counts, or "–" when the market doesn't answer: never an old number.
+  function showCounts(stats) {
+    root.querySelectorAll("[data-count]").forEach((b) => {
+      const key = b.getAttribute("data-count");
+      const n = stats ? stats[key] || 0 : null;
+      const words = b.nextElementSibling;
+      b.textContent = stats ? M.format(n) : "–";
+      words.dataset.many = words.dataset.many || words.textContent;
+      words.textContent = n === 1 && ONE[key] ? ONE[key] : words.dataset.many;
+    });
+    root.querySelector('[data-market="all"]').textContent = stats && stats.live > 1 ? `See all ${M.format(stats.live)} layouts` : "See all layouts";
+  }
+
   async function load() {
     failed.hidden = true;
     M.placeholders(list, ROW);
+    // The counts stand apart from the cards: either can fail without the other.
+    M.stats().then(showCounts, (failure) => {
+      showCounts(null);
+      M.error(`counts: ${failure && failure.message ? failure.message : failure}`);
+    });
     try {
-      const [stats, featured, popular] = await Promise.all([M.stats(), M.featured(), M.list({ tab: "popular", limit: ROW })]);
-      if (stats) {
-        root.querySelectorAll("[data-count]").forEach((b) => {
-          const key = b.getAttribute("data-count");
-          const n = stats[key] || 0;
-          const words = b.nextElementSibling;
-          b.textContent = M.format(n);
-          words.dataset.many = words.dataset.many || words.textContent;
-          words.textContent = n === 1 && ONE[key] ? ONE[key] : words.dataset.many;
-        });
-        if (stats.live > 1) root.querySelector('[data-market="all"]').textContent = `See all ${M.format(stats.live)} layouts`;
-      }
+      const [featured, popular] = await Promise.all([M.featured(), M.list({ tab: "popular", limit: ROW })]);
       const row = (featured ? [featured] : []).concat(popular.layouts.filter((l) => !featured || l.id !== featured.id)).slice(0, ROW);
       list.replaceChildren(...await M.cards(row, featured && featured.id));
       list.hidden = !row.length;

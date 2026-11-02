@@ -36,6 +36,7 @@ window.SpeedoMarket = (() => {
   const VHUB = `projects/${vhubProject}/databases/(default)/documents`;
 
   const PAGE_SIZE = 20;
+  const WEEK_MS = 7 * 86400000;
   const CREATOR_MOST = 50;
   const TIMEOUT_MS = 15000;
   const PROFILES_PER_CALL = 100;
@@ -241,10 +242,33 @@ window.SpeedoMarket = (() => {
     return docs.map(layoutOf);
   }
 
-  // The landing's counts, written once a day by the Deployer; null before the first run.
-  async function stats() {
-    const doc = await getDoc("marketStats/current");
-    return doc && fieldsOf(doc.fields);
+  // An aggregation over a query, counted on the server (a read per 1,000 index entries, no layout read).
+  async function aggregate(structuredQuery, aggregations) {
+    const answer = await call(`${speedoBase}${SPEEDO}:runAggregationQuery`, { structuredAggregationQuery: { structuredQuery, aggregations } });
+    const row = answer && answer.find(x => x.result);
+    if (!row) throw new Error("The market refused the count");
+    return fieldsOf(row.result.aggregateFields);
+  }
+
+  // The landing's counts, counted live every time, never a stored number (George, 31 Oct 2026: "Shouldnt it just count
+  // the layouts?"): live layouts (the list's own filter) and the sum of their uses, ordered as the Popular tab; and live
+  // layouts published in the last 7 days, ordered as the New tab, so the tabs' indexes serve both.
+  async function stats(now = Date.now()) {
+    const live = filter("status", "EQUAL", text("live"));
+    const since = filter("createdAt", "GREATER_THAN_OR_EQUAL", { timestampValue: new Date(now - WEEK_MS).toISOString() });
+    const [all, fresh] = await Promise.all([
+      aggregate({
+        from: [{ collectionId: "layouts" }],
+        where: { compositeFilter: { op: "AND", filters: [live] } },
+        orderBy: [{ field: { fieldPath: "uses" }, direction: "DESCENDING" }],
+      }, [{ alias: "live", count: {} }, { alias: "uses", sum: { field: { fieldPath: "uses" } } }]),
+      aggregate({
+        from: [{ collectionId: "layouts" }],
+        where: { compositeFilter: { op: "AND", filters: [live, since] } },
+        orderBy: [{ field: { fieldPath: "createdAt" }, direction: "DESCENDING" }],
+      }, [{ alias: "newThisWeek", count: {} }]),
+    ]);
+    return { live: all.live || 0, newThisWeek: fresh.newThisWeek || 0, uses: all.uses || 0 };
   }
 
   // Layout of the week, or null when there is none or it isn't live any more.
