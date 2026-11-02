@@ -72,7 +72,7 @@ for (const [name, want] of Object.entries(PAGES)) {
 
 test('one frame on a screen, of a build another Pages repo serves, on the page\'s route, with a name', () => {
   assert.deepEqual(frameProblems(page([{ type: 'faq' }]), 'play'), [], 'no frame, nothing to say')
-  const notScreen = frameProblems(page([frame('/vg--palermo-play/?route=play')], undefined), 'play')
+  const notScreen = frameProblems(page([frame('/vg--palermo-play/?route=play')], null), 'play')
   assert.ok(notScreen.some((m) => m.includes('"screen"')), notScreen.join('\n'))
   for (const src of ['https://example.com/?route=play', '//example.com/?route=play', '/palermo/game/?route=play', 'vg--palermo-play/?route=play', '']) {
     const found = frameProblems(page([frame(src)]), 'play')
@@ -115,5 +115,7 @@ test('a frame page keeps play-alone, the short legal line and no-select itself',
   assert.deepEqual(rules(html.replace('&copy; 2026 VGraphics', '')), ['legal-footer'])
   assert.deepEqual(rules(html.replace('<script src="/assets/menu.js" defer></script>', '')), ['no-select'])
   assert.deepEqual(rules(html.replace('<html lang="en" class="screen">', '<html lang="en">')), ['play-alone'])
-  assert.deepEqual(rules(html.replace(/\s*<a href="\/palermo\/about\/">About<\/a>/, '')), ['play-alone'], 'a play page links its About page')
+  // The menu links the About page as well as the bar, and either will do: without both, it fails.
+  assert.deepEqual(rules(html.replace(/\s*<a href="\/palermo\/about\/">About<\/a>/, '')), [], 'the menu still links it')
+  assert.deepEqual(rules(html.replaceAll('href="/palermo/about/"', 'href="/palermo/"')), ['play-alone'], 'a play page links its About page')
 })
