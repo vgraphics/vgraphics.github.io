@@ -26,6 +26,10 @@
 //                  market/market.js): a link #layout=<CODE>&style=<id> opens on that market layout, the panel says
 //                  whose it is, and the store links carry the code (the web market design §5.2)
 //   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
+//   hud            Speedometer's HUD mode (Games SpeedometerWallpaper/docs/hud-mode/design.md §9), or left out:
+//                  { label, note, brightness, exit, flip, styles: [ids], layouts: [{ id, name }] }. A HUD mode button
+//                  and its layouts in the panel; the phone's screen then fills the window, flipped for the windscreen,
+//                  with the visitor's real GPS speed where the browser shares it. Tap once for Exit and Flip; Esc leaves.
 import { esc } from './partials.mjs'
 
 const ICON = {
@@ -36,7 +40,26 @@ const ICON = {
   next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
   gps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg>',
   share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+  hud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg>',
 }
+
+// HUD mode's parts (the hud option): its button and layouts in the panel, and the layer over the phone's screen.
+const hudButton = (hud) => (hud
+  ? `<button class="btn try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
+  : '')
+const hudLayouts = (hud) => (hud
+  ? `<div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(hud.label)}">${hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div>
+            <p class="try-note try-hud-note">${esc(hud.note)}</p>`
+  : '')
+const hudLayer = (hud) => (hud
+  ? `<div class="try-hud-layer" hidden>
+                  <p class="try-hud-tip" hidden>${esc(hud.brightness)}</p>
+                  <div class="try-hud-controls" hidden>
+                    <button type="button" class="try-hud-exit" data-hud="exit">${esc(hud.exit)}</button>
+                    <button type="button" class="try-hud-flip" data-hud="flip">${esc(hud.flip)}</button>
+                  </div>
+                </div>`
+  : '')
 
 // Home screen icons over the wallpaper, as the app's style page shows them: plain shapes, no other app's marks.
 const HOME_ICONS = `<div class="try-icons" hidden aria-hidden="true">
@@ -61,6 +84,7 @@ export function tryBlock(b, page) {
     startup: b.startup === false ? false : { base: '/assets/startup/', minMs: 2000, ...b.startup },
     ...(b.style ? { style: b.style } : {}),
     ...(b.layouts ? { layouts: b.layouts } : {}),
+    ...(b.hud ? { hud: { styles: b.hud.styles, layouts: b.hud.layouts.map((layout) => layout.id) } } : {}),
   }
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
@@ -84,6 +108,7 @@ export function tryBlock(b, page) {
               <div class="try-screen" role="img" aria-label="${esc(l.screen ?? `${page.site.name}, live`)}">
                 ${HOME_ICONS}
                 <div class="try-busy" hidden><span></span></div>
+                ${hudLayer(b.hud)}
               </div>
             </div>
             <div class="try-tools">
@@ -100,7 +125,9 @@ export function tryBlock(b, page) {
             <div class="try-quick">
               <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
               <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>
+              ${hudButton(b.hud)}
             </div>
+            ${hudLayouts(b.hud)}
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             ${styles}

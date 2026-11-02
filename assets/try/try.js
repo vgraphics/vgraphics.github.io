@@ -376,6 +376,133 @@
     last = { style: style.id, layout: values.layout, mode: mode };
   }
 
+  // HUD mode (Speedometer docs/hud-mode/design.md §9; George, card 12 A: "A real HUD mode on the try page"): the
+  // phone's screen fills the window, flipped for the windscreen, the screen kept on, with the visitor's real GPS speed
+  // when they chose it and the demo drive's otherwise. A browser can't raise the brightness, so it asks. Tap once for
+  // Exit and Flip, as in the app; Esc or leaving full screen ends it.
+  function wireHud() {
+    if (!config.hud) return;
+    var layer = $('.try-hud-layer');
+    var tip = $('.try-hud-tip');
+    var controls = $('.try-hud-controls');
+    var chips = root.querySelectorAll('[data-hud-layout]');
+    var FLIP_KEY = 'vgtry.' + config.product + '.hudFlip';
+    var CONTROLS_MS = 4000;
+    var TIP_MS = 6000;
+    var BEEP_HZ = 880;
+    var BEEP_S = 0.18;
+    var layout = config.hud.layouts.indexOf('gauge_arc') >= 0 ? 'gauge_arc' : config.hud.layouts[0];
+    var isOn = false;
+    var openedAt = 0;
+    var wakeLock = null;
+    var hideTimer = 0;
+    var tipTimer = 0;
+    var sound = null;
+
+    var markLayout = function () {
+      Array.prototype.forEach.call(chips, function (chip) {
+        chip.setAttribute('aria-checked', String(chip.getAttribute('data-hud-layout') === layout));
+      });
+    };
+    // The style on show when it draws HUD mode; Horizon (free in the app) otherwise.
+    var style = function () {
+      return config.hud.styles.indexOf(last.style) >= 0 ? last.style : config.hud.styles[0];
+    };
+    var keepAwake = function () {
+      if (!navigator.wakeLock || !navigator.wakeLock.request) return;
+      navigator.wakeLock.request('screen').then(function (lock) { wakeLock = lock; }, function () {});
+    };
+    var showControls = function () {
+      controls.hidden = false;
+      controls.classList.add('is-shown');
+      clearTimeout(hideTimer);
+      hideTimer = setTimeout(function () { controls.classList.remove('is-shown'); }, CONTROLS_MS);
+    };
+    var beep = function () {
+      var Context = window.AudioContext || window.webkitAudioContext;
+      if (!Context) return;
+      sound = sound || new Context();
+      var tone = sound.createOscillator();
+      var gain = sound.createGain();
+      tone.frequency.value = BEEP_HZ;
+      gain.gain.setValueAtTime(0.2, sound.currentTime);
+      gain.gain.exponentialRampToValueAtTime(0.001, sound.currentTime + BEEP_S);
+      tone.connect(gain).connect(sound.destination);
+      tone.start();
+      tone.stop(sound.currentTime + BEEP_S);
+    };
+
+    function start() {
+      isOn = true;
+      openedAt = now();
+      root.setAttribute('data-hud', 'on');
+      device.setAttribute('data-orientation', 'landscape');
+      layer.hidden = false;
+      tip.hidden = false;
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(function () { tip.hidden = true; }, TIP_MS);
+      app.hud.start({ style: style(), layout: layout, flip: stored(FLIP_KEY) || '' });
+      if (document.fullscreenEnabled && device.requestFullscreen) {
+        device.requestFullscreen().then(function () {
+          var orientation = window.screen.orientation;
+          if (orientation && orientation.lock) orientation.lock('landscape').catch(function () {});
+        }, function () {});
+      }
+      keepAwake();
+      analytics.event('hud_opened', { source: 'web', style: style(), layout: layout, gps: app.values().source === 'gps' });
+    }
+
+    function stop(reason) {
+      if (!isOn) return;
+      isOn = false;
+      root.removeAttribute('data-hud');
+      layer.hidden = true;
+      controls.classList.remove('is-shown');
+      app.hud.stop();
+      if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
+      if (wakeLock) wakeLock.release().catch(function () {});
+      wakeLock = null;
+      analytics.event('hud_closed', { reason: reason, duration_s: Math.round((now() - openedAt) / 1000) });
+    }
+
+    markLayout();
+    Array.prototype.forEach.call(chips, function (chip) {
+      chip.addEventListener('click', function () {
+        layout = chip.getAttribute('data-hud-layout');
+        markLayout();
+      });
+    });
+    root.addEventListener('click', function (event) {
+      if (event.target.closest && event.target.closest('[data-action="hud"]')) start();
+    });
+    layer.addEventListener('click', function (event) {
+      var button = event.target.closest && event.target.closest('[data-hud]');
+      if (!button) {
+        showControls();
+        return;
+      }
+      if (button.getAttribute('data-hud') === 'exit') {
+        stop('exit');
+      } else {
+        var flip = app.hud.flip();
+        store(FLIP_KEY, flip);
+        analytics.event('hud_flipped', { to: flip });
+        showControls();
+      }
+    });
+    document.addEventListener('keydown', function (event) {
+      if (isOn && event.key === 'Escape') stop('back');
+    });
+    document.addEventListener('fullscreenchange', function () {
+      if (isOn && !document.fullscreenElement) stop('back');
+    });
+    // The browser drops the screen's wake lock when the page hides; it comes back with the page.
+    document.addEventListener('visibilitychange', function () {
+      if (isOn && !document.hidden) keepAwake();
+    });
+    app.on('hudwarning', beep);
+  }
+
   function wire() {
     catalog = app.catalog();
     if (catalog.api !== API_VERSION) analytics.error('catalog api ' + catalog.api + ', the page knows ' + API_VERSION);
@@ -400,6 +527,7 @@
       fpsReported = true;
       analytics.event('fps_low', { fps: data.fps, style: last.style });
     });
+    wireHud();
 
     root.addEventListener('click', function (event) {
       var button = event.target.closest && event.target.closest('[data-action]');
