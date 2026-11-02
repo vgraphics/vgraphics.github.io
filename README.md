@@ -67,13 +67,16 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
 | `tools/make-speedometer-renders.py` | Writes `speedometer-wallpaper/img/renders/`: the app's real renders (its screenshot goldens in the Games repo and frames of the Promo demo drive) that the gallery, `/apps/`, the home page and the wiki's medals show, each place its own: `python tools/make-speedometer-renders.py`, then `python tools/make-gallery-images.py speedometer-wallpaper` (Python with Pillow) |
 
-Rules for every page: the legal footer line. The website's pages (landing, wiki, gallery, company, privacy, terms and
-the like, the company's `/tv/` and `/join/` doors too) carry the full one: the copyright line "© 2026 VGRAPHICS SINGLE
-MEMBER P.C. All rights reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to `/company/`, `/privacy/`
-and `/terms/`. A product's screens (its `/play/`, `/tv/`, `/join/` and `/demo/` pages, the hub but its policy, the try
-pages) say only "© <year> VGraphics" and never the company's numbers (George, 29 Oct 2026: "These are only required at
-the website not in the apps. Apps just can say VGraphics."); `tools/lib/legal.mjs` decides which is which, and the
-template's try pages, VHub's hub and the games' web pages write the short line. Then: a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
+Rules for every page: the legal footer line. Only the company page, `/company/`, carries the company's details:
+"© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373",
+Kalamaria (George, 31 Oct 2026: "These are required only at company page at vgraphics.gr. Remove from everywhere
+else."). Every other website page (landing, wiki, gallery, privacy, terms and the like, the company's `/tv/` and
+`/join/` doors too) says "© 2026 VGraphics. All rights reserved" with links to `/company/`, `/privacy/` and `/terms/`,
+and a privacy policy names the data controller in one sentence, "The data controller is VGRAPHICS SINGLE MEMBER P.C.
+(VGraphics). Contact: info@vgraphics.gr. Company details: vgraphics.gr/company/", the company's name without its
+numbers or town. A product's screens (its `/play/`, `/tv/`, `/join/` and `/demo/` pages, the hub but its policy, the
+try pages) say only "© <year> VGraphics". `tools/lib/legal.mjs` decides which is which, and the template, VHub's hub
+and the games' web pages write their lines. Then: a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
 and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
 alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
 `tools/` and this README included. The site is in English: no Greek letters on its
@@ -513,8 +516,9 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
   data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
   same title or the same description. The canonical address is checked on every page.
-- **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: legal name,
-  logo, G.E.MI. and VAT numbers, Kalamaria, the Google Play developer page and GitHub) and the WebSite. Exitwise's page
+- **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: name, logo,
+  the Google Play developer page and GitHub; its legal name, G.E.MI. and VAT numbers and town are the company page's)
+  and the WebSite. Exitwise's page
   has a VideoGame, Speedometer's a MobileApplication, the services page a Service for each thing we build, and every
   other page a BreadcrumbList. The wikis get theirs from `tools/build-wiki.mjs`, with each wiki's `metaTitle`,
   `metaDescription` and `product.parent` from its `wiki.json`, and each entry is also an Article about its product (the

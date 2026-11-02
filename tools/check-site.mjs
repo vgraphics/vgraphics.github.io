@@ -19,7 +19,7 @@ import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
-import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
+import { companyFoot, isCompanyPage, isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
@@ -214,7 +214,8 @@ for (const [what, seen] of [['title', seoTitles], ['description', seoDescription
 
 // The company pages (every page on /assets/vgraphics.css) share the home page's header and footer, word for word.
 // Only aria-current may differ, and it may only mark the page's own menu item. A product's screen on it (the hub's
-// pages) has the footer with the short legal line (tools/lib/legal.mjs productFoot).
+// pages) has the footer with the product's legal line, and the company page with the company's details
+// (tools/lib/legal.mjs productFoot, companyFoot).
 const chrome = (html) => ({
   head: html.match(/<header class="site-head">[\s\S]*?<\/header>/)?.[0],
   foot: html.match(/<footer class="site-foot">[\s\S]*?<\/footer>/)?.[0],
@@ -234,8 +235,9 @@ for (const file of pages) {
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
   const screen = isProductScreen(urlPath(file))
-  if (plain(foot) !== plain(screen ? productFoot(home.foot) : home.foot)) {
-    report(file, 'menu', screen ? "footer differs from the home page's with the product's legal line, \"© <year> VGraphics\"" : "footer differs from the home page's")
+  const company = isCompanyPage(urlPath(file))
+  if (plain(foot) !== plain(company ? companyFoot(home.foot) : screen ? productFoot(home.foot) : home.foot)) {
+    report(file, 'menu', company ? "footer differs from the home page's with the company's legal line" : screen ? "footer differs from the home page's with the product's legal line, \"© <year> VGraphics\"" : "footer differs from the home page's")
   }
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
@@ -532,11 +534,12 @@ for (const [file, text] of sheets) {
   }
 }
 
-// The legal line (tools/lib/legal.mjs; George, 29 Oct 2026: "These are only required at the website not in the apps.
-// Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
-// above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
-// screens (its play, TV, join and demo pages, the hub, the try pages). A Unity page's own rules (above) hold it to the
-// product's line wherever it is.
+// The legal line (tools/lib/legal.mjs; George, 31 Oct 2026: "These are required only at company page at vgraphics.gr.
+// Remove from everywhere else."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the
+// cursors above: the company's details on /company/ alone; "© <year> VGraphics. All rights reserved" with the company,
+// privacy and terms links on the website's other pages, where a privacy policy may name the company only in its
+// data-controller sentence; "© <year> VGraphics" on a product's screens (its play, TV, join and demo pages, the hub, the
+// try pages). A Unity page's own rules (above) hold it to the product's line wherever it is.
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
   for (const m of legalProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'legal-footer', m)

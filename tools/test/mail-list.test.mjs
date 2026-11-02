@@ -12,7 +12,7 @@ import { headerHelpProblems, helpLink, helpMailProblems, mailList } from '../lib
 import { footer, header } from '../lib/partials.mjs'
 import { loadProduct } from '../lib/product.mjs'
 
-const LEGAL = '<p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373</p>'
+const LEGAL = '<p>© 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>'
 /** The company footer as index.html has it: the sign-up for VGraphics news and the Help link. */
 const companyFoot = `<footer class="site-foot"><div class="wrap foot-news">${mailList(null)}</div><nav><a href="/hub/support/">Help and ideas</a></nav><div class="wrap legal">${LEGAL}</div></footer>`
 /** A product page's footer as the template writes it. */
