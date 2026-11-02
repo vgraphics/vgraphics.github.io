@@ -44,6 +44,10 @@
     "a": "Open Play with friends and create a room: you get a 6-character code. 2 to 8 players join by typing it, scanning the invite's QR code or opening its link, in the app or in the browser. Everyone races on the same boards, and the fastest clear scores the most. <a href=\"/exitwise/wiki/rooms/\">More about rooms</a>."
   },
   {
+    "q": "How do I add a friend?",
+    "a": "Tap a player on any leaderboard, the global boards or a map's creator, then Add friend on their profile. They get your request on <a href=\"/hub/friends/\">VHub</a> and in their notifications, and once they accept you are friends in every VGraphics game. You can also add friends by name or friend code on VHub. Sign in first: as a guest you can accept a request, but not send one."
+  },
+  {
     "q": "How do I delete my data?",
     "a": "In Settings, Profile, \"Delete my Exitwise data\" takes you off the boards and removes your results, stats, cloud save and published maps, and what you earned in Exitwise on VHub; your VGraphics name and picture stay. In Settings, \"Delete my VGraphics account\" removes your account in every VGraphics game, name and picture too. Either way the progress on your device stays. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
   },
