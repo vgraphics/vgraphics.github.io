@@ -43,16 +43,20 @@ const ICON = {
   hud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg>',
 }
 
-// HUD mode's parts (the hud option): its button and layouts in the panel, and the layer over the phone's screen.
+// HUD mode's parts (the hud option): its button and layouts in the panel, and the layer over the phone's screen. Each
+// brings its own line break, so a page without HUD mode gets no blank lines.
 const hudButton = (hud) => (hud
-  ? `<button class="btn try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
+  ? `
+              <button class="btn try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
   : '')
 const hudLayouts = (hud) => (hud
-  ? `<div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(hud.label)}">${hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div>
+  ? `
+            <div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(hud.label)}">${hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div>
             <p class="try-note try-hud-note">${esc(hud.note)}</p>`
   : '')
 const hudLayer = (hud) => (hud
-  ? `<div class="try-hud-layer" hidden>
+  ? `
+                <div class="try-hud-layer" hidden>
                   <p class="try-hud-tip" hidden>${esc(hud.brightness)}</p>
                   <div class="try-hud-controls" hidden>
                     <button type="button" class="try-hud-exit" data-hud="exit">${esc(hud.exit)}</button>
@@ -107,8 +111,7 @@ export function tryBlock(b, page) {
             <div class="try-device" data-orientation="portrait">
               <div class="try-screen" role="img" aria-label="${esc(l.screen ?? `${page.site.name}, live`)}">
                 ${HOME_ICONS}
-                <div class="try-busy" hidden><span></span></div>
-                ${hudLayer(b.hud)}
+                <div class="try-busy" hidden><span></span></div>${hudLayer(b.hud)}
               </div>
             </div>
             <div class="try-tools">
@@ -124,10 +127,8 @@ export function tryBlock(b, page) {
             ${config.layouts ? '<p class="try-shared" hidden></p>\n            ' : ''}<p class="try-hint">${l.gauge ?? 'Tap the big gauge to switch what it shows, as on your phone.'}</p>
             <div class="try-quick">
               <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
-              <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>
-              ${hudButton(b.hud)}
-            </div>
-            ${hudLayouts(b.hud)}
+              <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>${hudButton(b.hud)}
+            </div>${hudLayouts(b.hud)}
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             ${styles}
