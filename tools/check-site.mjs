@@ -130,6 +130,9 @@ for (const file of files.filter((f) => TEXT.test(f))) {
   if (/kafkasou|καυκ[άα]σου/i.test(text)) report(file, 'no-street', 'contains the street address')
   if (GMAIL.test(text)) report(file, 'no-gmail', NO_GMAIL)
   if (file.endsWith('.svg') && GREEK.test(text)) report(file, 'english', 'Greek letters in a picture the English pages show')
+  // Speedometer's market counts are counted live (George, 31 Oct 2026: "Shouldnt it just count the layouts?"): no page
+  // reads the stored count, which went stale (5 shown while 8 were live).
+  if (/\.(html|js|mjs)$/.test(file) && text.includes('marketStats')) report(file, 'live-counts', 'reads marketStats, a stored count that goes stale: count the live layouts (speedometer-wallpaper/market/market.js stats())')
 }
 
 // Search results and link previews (George, 27 Oct 2026: "SEO all my pages"): every page search engines may index (no
