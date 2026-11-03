@@ -1266,7 +1266,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   text-align: center;
 }
 .panel h2 { font-size: var(--h2-size); }
-.panel p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+.panel > p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; } /* its own line, not the sign-up's */
 
 /* Footer, centred and compact (George picked layout B, 22 Oct 2026): the product's logo, one row of links with quiet
    dots between them, round buttons for its stores and the studio's channels, then the legal line. Styled like the
@@ -1543,10 +1543,54 @@ html.screen .top { position: relative; flex: none; }
 .mail-list { display: grid; gap: 6px; justify-items: center; width: min(100%, 30rem); margin: 18px auto 6px; text-align: center; }
 .mail-list-title { font-weight: 700; }
 .mail-list-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
-.mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 44px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
+.mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 48px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
 .mail-list-row input:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
-.mail-list-row .btn { min-height: 44px; }
+/* Its Sign up is the product's play button (.play-cta, above: --play, else --sb, with --play-ink), a little smaller to
+   sit beside the field (George's "Keep" marks on the mail review page, 3 Nov 2026: Speedometer's was its yellow --cta
+   in the chunky .btn, Exitwise's shape). No colours here: check-site's sign-up-look rule. */
+.mail-list .play-cta { min-height: 48px; padding: 0 24px; border: 0; font-size: 1.02rem; cursor: var(--cursor-link, pointer); }
+.mail-list .play-cta:disabled { opacity: 0.75; transform: none; cursor: var(--cursor, default); }
 .mail-list-fine { font-size: 0.85rem; opacity: 0.86; }
+/* On a card (What's new, the closing card) the field takes the page's colours, ringed by its rule; over the footer's
+   art it stays white. */
+:is(.mail-list-news, .mail-list-close) .mail-list-row input { border-color: var(--line); background: var(--page); color: var(--ink); }
+/* The slim row that ends What's new (tools/lib/news.mjs): an envelope in the play colour, "Get the next update by email"
+   and its fine print, then the field and Sign up, beside them on a wide screen and under them on a phone, on a dashed
+   tint of the play colour, close under the update card. Once signed up, the card after the press stands alone. */
+.mail-list-news {
+  --block-gap: 14px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: stretch;
+  gap: 14px 16px;
+  width: 100%;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1.5px dashed color-mix(in srgb, var(--play, var(--sb)) 45%, var(--line));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--play, var(--sb)) 9%, var(--surface));
+  text-align: left;
+}
+.mail-list-news.is-done { padding: 0; border: 0; background: none; }
+.mail-list-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--play, var(--sb)); color: var(--play-ink, var(--page)); }
+.mail-list-mark svg { width: 22px; height: 22px; }
+.mail-list-text { display: grid; gap: 2px; min-width: 0; }
+.mail-list-news .mail-list-title { font: var(--label-weight) 1.05rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.mail-list-news .mail-list-fine { color: var(--muted); opacity: 1; }
+.mail-list-news > :is(.mail-list-row, .mail-list-said, .mail-list-done, .mail-state) { grid-column: 1 / -1; }
+.mail-list-news .mail-list-row { justify-content: flex-start; }
+@media (min-width: 760px) {
+  .mail-list-news { grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.25fr); }
+  .mail-list-news > .mail-list-row { grid-column: auto; }
+}
+/* The closing card's sign-up (partials.mjs closing()), under its buttons after a quiet "Not ready yet?" between two
+   rules: for people not ready to play yet, with nothing that pops up. */
+.mail-list-close { width: min(100%, 28rem); margin: 6px auto 0; }
+.mail-list-or {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; width: 100%; color: var(--muted);
+  font: var(--label-weight) 0.9rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking);
+}
+.mail-list-or::before, .mail-list-or::after { content: ""; height: 1px; background: var(--line); }
 .mail-list-said:empty { display: none; }
 /* What the sign-up answers, plain to see (George, 31 Oct 2026: "only a text small confirmation showing. Fix it."). An
    error is a box under the field with a mark, never small grey text; the field is marked too. */

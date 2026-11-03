@@ -8,8 +8,9 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { runInNewContext } from 'node:vm'
 import { productFoot } from '../lib/legal.mjs'
-import { headerHelpProblems, helpLink, helpMailProblems, mailList } from '../lib/mail-list.mjs'
-import { footer, header } from '../lib/partials.mjs'
+import { headerHelpProblems, helpLink, helpMailProblems, mailList, signUpCssProblems, signUpLookProblems, WORDINGS } from '../lib/mail-list.mjs'
+import { news } from '../lib/news.mjs'
+import { closing, footer, header } from '../lib/partials.mjs'
 import { loadProduct } from '../lib/product.mjs'
 
 const LEGAL = '<p>© 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>'
@@ -30,6 +31,9 @@ test("a game's play, TV, join and demo screens carry no sign-up", () => {
   for (const path of ['/palermo/join/', '/palermo/tv/', '/exitwise/play/', '/palermo/demo/screen.html']) {
     assert.deepEqual(helpMailProblems(path, page('<footer class="screen-foot">© 2026 VGraphics</footer>')), [], path)
     assert.equal(helpMailProblems(path, page(productFooter('palermo'))).length, 1, path)
+    // What's new's row and the closing card's sign-up count too.
+    assert.equal(helpMailProblems(path, page(mailList('exitwise', 'news'))).length, 1, path)
+    assert.equal(helpMailProblems(path, page(mailList('exitwise', 'close'))).length, 1, path)
   }
 })
 
@@ -70,6 +74,97 @@ test("every header has Help: the company header, and a product's before its play
 test("the footer's Help link is the product's pill", () => {
   const foot = footer(loadProduct('speedometer-wallpaper'))
   assert.match(foot, /<a class="foot-help" href="\/hub\/support\/\?p=speedometer">Help<\/a>/)
+})
+
+// The sign-up's look and places (George's "Keep" marks on the mail review page, 3 Nov 2026): a product's Sign up is its
+// play button, wherever it stands (the footer, the end of What's new, the closing card); the company's its own .btn.
+test("a product's Sign up is its play button in every place, the company's its own .btn", () => {
+  for (const slug of ['exitwise', 'speedometer-wallpaper', 'palermo']) {
+    for (const place of Object.keys(WORDINGS)) {
+      const form = mailList(slug, place)
+      assert.match(form, /<button class="play-cta" type="submit">Sign up<\/button>/, `${slug} ${place}`)
+      assert.doesNotMatch(form, /class="btn/, `${slug} ${place}`)
+    }
+  }
+  assert.match(mailList(null), /<button class="btn" type="submit">Sign up<\/button>/)
+})
+
+test('each place has its own field, words and words id', () => {
+  assert.deepEqual(WORDINGS, { foot: 'site-footer-1', news: 'site-news-1', close: 'site-closing-1' })
+  const [foot, row, close] = Object.keys(WORDINGS).map((place) => mailList('exitwise', place))
+  assert.deepEqual([foot, row, close].map((f) => f.match(/<input id="([^"]+)"/)[1]), ['ml-exitwise', 'ml-exitwise-news', 'ml-exitwise-close'])
+  assert.deepEqual([foot, row, close].map((f) => f.match(/data-wording="([^"]+)"/)[1]), Object.values(WORDINGS))
+  // The footer's keeps its bare class, which the help-mail rule looks for in a footer.
+  assert.match(foot, /^<form class="mail-list" data-topic="exitwise"/)
+  assert.match(row, /^<form class="mail-list mail-list-news" data-topic="exitwise"/)
+  assert.match(row, /<span class="mail-list-mark" aria-hidden="true"><svg/)
+  assert.match(row, /<label class="mail-list-title" for="ml-exitwise-news">Get the next update by email<\/label><span class="mail-list-fine">One email a month at most, for people aged 16 and over\. <a href="\/privacy\/#website">Privacy<\/a><\/span>/)
+  assert.match(close, /^<form class="mail-list mail-list-close" data-topic="exitwise"/)
+  assert.match(close, /<span class="mail-list-or">Not ready yet\?<\/span>\s*<label class="mail-list-title" for="ml-exitwise-close">Get Exitwise news by email<\/label>/)
+  assert.match(close, /<span class="mail-list-fine">For people aged 16 and over\./)
+  // Palermo Noir's pages offer VGraphics news, and its row says so.
+  assert.match(mailList('palermo', 'news'), /data-topic="vgraphics" data-product="palermo"[\s\S]*>Get VGraphics news by email<\/label>/)
+})
+
+test("What's new ends with the row, after the testers' block too", () => {
+  const soon = news({ entries: [], testers: null }, {}, 'Exitwise', 'exitwise')
+  assert.match(soon, /<form class="mail-list mail-list-news" data-topic="exitwise"[\s\S]*<\/form>$/)
+  const entry = { version: '1.0.1', date: '2026-11-01', title: 'A new world', items: ['A line.'] }
+  const both = news({ entries: [entry], testers: [entry, entry] }, {}, 'Speedometer', 'speedometer-wallpaper')
+  assert.match(both, /data-topic="speedometer"/)
+  assert.ok(both.indexOf('</template>') < both.indexOf('<form class="mail-list mail-list-news"'), "after the testers' block, so the two blocks stay side by side")
+})
+
+test("the closing card's sign-up is the product's own, under its buttons", () => {
+  for (const [slug, id] of [['exitwise', 'exitwise'], ['speedometer-wallpaper', 'speedometer']]) {
+    const html = closing(loadProduct(slug).page)
+    assert.ok(html.indexOf('<div class="badges">') < html.indexOf('<form class="mail-list mail-list-close"'), slug)
+    assert.match(html, new RegExp(`<form class="mail-list mail-list-close" data-topic="${id}" data-product="${id}"`), slug)
+  }
+})
+
+// check-site's sign-up-look rule (tools/lib/mail-list.mjs signUpLookProblems, signUpCssProblems).
+const productPage = (theme, body) => `<!doctype html><html><head><link rel="stylesheet" href="/${theme}/theme/theme.css"><link rel="stylesheet" href="/assets/product.css"></head><body>${body}</body></html>`
+
+test("a product page's sign-ups are the product's own, in its play button's look and tokens", () => {
+  const speedometer = loadProduct('speedometer-wallpaper')
+  const built = productPage('speedometer-wallpaper', `<main>${closing(speedometer.page)}</main>${footer(speedometer)}`)
+  assert.deepEqual(signUpLookProblems('/speedometer-wallpaper/', built), [])
+  assert.deepEqual(signUpLookProblems('/exitwise/', productPage('exitwise', news({ entries: [], testers: null }, {}, 'Exitwise', 'exitwise'))), [])
+  assert.deepEqual(signUpLookProblems('/palermo/wiki/', productPage('palermo', mailList('palermo'))), [])
+  // Speedometer's yellow Sign up as it was: its --cta in the chunky .btn.
+  assert.deepEqual(signUpLookProblems('/speedometer-wallpaper/', built.replace('<button class="play-cta" type="submit">', '<button class="btn" type="submit">')), [
+    `the sign-up ml-speedometer-wallpaper-close: its Sign up isn't the product's play button (class "play-cta")`,
+    'the sign-up ml-speedometer-wallpaper-close: its Sign up carries .btn, the chunky --cta button: the play button\'s look alone',
+  ])
+  // Another product's sign-up, colours of its own, another product's theme.
+  assert.deepEqual(signUpLookProblems('/speedometer-wallpaper/', productPage('speedometer-wallpaper', mailList('exitwise'))), ["the sign-up ml-exitwise is exitwise's, not speedometer's"])
+  assert.deepEqual(signUpLookProblems('/exitwise/', productPage('exitwise', mailList('exitwise').replace('novalidate>', 'novalidate style="--play: #FFB547">'))), [
+    "the sign-up ml-exitwise sets colours of its own (a style attribute): the product's tokens only",
+  ])
+  assert.deepEqual(signUpLookProblems('/exitwise/wiki/', productPage('speedometer-wallpaper', mailList('exitwise'))), [
+    "the page doesn't link /exitwise/theme/theme.css, the product's tokens its sign-up reads",
+    "the page links /speedometer-wallpaper/theme/theme.css, another product's tokens",
+  ])
+})
+
+test("the company pages keep their own Sign up; VHub's pages and pages without a sign-up have nothing to check", () => {
+  assert.deepEqual(signUpLookProblems('/', page(companyFoot)), [])
+  assert.deepEqual(signUpLookProblems('/games/', page(mailList('exitwise'))), ["a company page's sign-up has a product's play button (.play-cta): the company pages keep their own .btn"])
+  assert.deepEqual(signUpLookProblems('/hub/settings/', page(mailList('exitwise'))), [])
+  assert.deepEqual(signUpLookProblems('/exitwise/', page('')), [])
+})
+
+test("product.css gives the sign-up's buttons .play-cta's colours alone", () => {
+  assert.deepEqual(signUpCssProblems(readFileSync(new URL('../../assets/product.css', import.meta.url), 'utf8')), [])
+  assert.deepEqual(signUpCssProblems('.mail-list-row .btn { min-height: 44px; border-bottom: 4px solid var(--cta-edge); }'), [
+    "\".mail-list-row .btn\" reads the chunky button's --cta tokens: the sign-up takes the play button's (--play, --sb, --play-ink)",
+  ])
+  assert.deepEqual(signUpCssProblems('@media (min-width: 760px) { .mail-list .play-cta { background: #FFB547; color: #170A02; } }'), [
+    "\".mail-list .play-cta\" sets the colours of the sign-up's button: .play-cta gives them, from the product's tokens",
+  ])
+  // The sign-up's own parts may have colours, and rules about other things aren't its.
+  assert.deepEqual(signUpCssProblems('.mail-state-actions :is(button, a) { color: var(--ink); background: none; } .foot-cta .btn { background: var(--cta); }'), [])
 })
 
 // What the sign-up says after the press (assets/mail-list.js; George, 31 Oct 2026: "I added my email to news letter but

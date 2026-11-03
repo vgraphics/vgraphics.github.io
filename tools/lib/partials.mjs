@@ -112,6 +112,8 @@ export function actions(page, list, cls = 'badges') {
 
 // The last call to action, the card that stands half in the footer's picture: every page of a product ends with it
 // and the footer, so the two read as one footer. cta is { title, text, badges }: the page's own, else the product's.
+// Under its buttons, a sign-up for news for people not ready to play yet (George's "Keep" marks on the mail review
+// page, 3 Nov 2026), for the product its menu's first page names.
 export function closing(page, cta = page.cta) {
   if (!cta) return ''
   return `<section class="cta-band" aria-labelledby="cta-title">
@@ -120,6 +122,7 @@ export function closing(page, cta = page.cta) {
           <h2 id="cta-title">${cta.title}</h2>
           ${cta.text ? `<p>${demoText(page.site, cta.text)}</p>` : ''}
           ${actions(page, cta.badges)}
+          ${mailList(page.site.nav[0].href.split('/')[1], 'close')}
         </div>
       </div>
     </section>`

@@ -20,7 +20,7 @@ import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { companyFoot, isCompanyPage, isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
-import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
+import { headerHelpProblems, helpMailProblems, signUpCssProblems, signUpLookProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
@@ -828,10 +828,16 @@ for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
 // (tools/lib/mail-list.mjs). A product's play, TV, join and demo screens are the product alone and carry neither: its
 // own menu has them. VHub's pages, /hub/join/ among them, are left to the menu rule, which holds them to the company
 // footer, sign-up included (tools/lib/mail-list.mjs helpMailProblems).
+// The sign-up in its product's style (George's "Keep" marks on the mail review page, 3 Nov 2026): on a product's page
+// every sign-up is that product's own, its Sign up the product's play button (.play-cta) in the tokens of the theme the
+// page links, and assets/product.css gives the sign-up's buttons no colours but .play-cta's; the company pages keep their
+// own button (tools/lib/mail-list.mjs signUpLookProblems, signUpCssProblems).
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
   for (const message of [...helpMailProblems(urlPath(file), html), ...headerHelpProblems(urlPath(file), html)]) report(file, 'help-mail', message)
+  for (const message of signUpLookProblems(urlPath(file), html)) report(file, 'sign-up-look', message)
 }
+for (const message of signUpCssProblems(readFileSync(join(root, 'assets', 'product.css'), 'utf8'))) report(join('assets', 'product.css'), 'sign-up-look', message)
 
 // Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice
 // on a page GitHub Pages serves is the site's switch, a real checkbox that /assets/switch.css draws as a track and a
