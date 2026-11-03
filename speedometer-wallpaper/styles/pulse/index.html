@@ -137,7 +137,7 @@
           <p class="sec-intro">A neon HUD of rings: every reading a ring of light around the big number, magenta on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Pulse's layouts and colours.</p>
         </div>
         <div class="try" data-state="idle">
-          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"pulse","layouts":"/speedometer-wallpaper/market/market.js","hud":{"styles":["horizon","glass","pulse","vector"],"layouts":["number","gauge_arc","fighter","centre_bar"]}}</script>
+          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"pulse","layouts":"/speedometer-wallpaper/market/market.js","hud":{"styles":["horizon","glass","pulse","vector"],"layouts":["number","gauge_arc","fighter","centre_bar"]},"appLinks":{"look":"https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}","layout":"https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"}}</script>
           <div class="try-stage">
             <div class="try-device" data-orientation="portrait">
               <div class="try-screen" role="img" aria-label="Speedometer Live Wallpaper, live: tap the big gauge to switch it">
@@ -169,9 +169,10 @@
             <p class="try-shared" hidden></p>
             <p class="try-hint">Tap the big gauge to switch between power, CPU clock and speed, as on your phone.</p>
             <div class="try-quick">
-              <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Use my real speed</span></button>
+              <button class="try-tool try-gps" type="button" data-action="gps" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Use my real speed</span></button>
               <button class="try-tool" type="button" data-action="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span>Copy a link to this look</span></button>
-              <button class="btn try-hud" type="button" data-action="hud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg><span>HUD mode</span></button>
+              <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h2.6v2.6M20.5 14v.01M14 20.5h.01M17.6 17.6h2.9v2.9h-2.9z"/></svg><span>Show QR for this look</span></button>
+              <button class="try-tool try-hud" type="button" data-action="hud"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg><span>HUD mode</span></button>
             </div>
             <div class="try-hud-layouts try-chips" role="radiogroup" aria-label="HUD mode"><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="number">Number</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="gauge_arc">Gauge arc</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="fighter">Fighter</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="centre_bar">Centre bar</button></div>
             <p class="try-note try-hud-note">Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. Glass, Pulse, Vector and Horizon draw it; Use my real speed first for your GPS speed.</p>
@@ -203,6 +204,17 @@
             <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-where="fallback"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
           </div>
           <noscript><p class="try-noscript">The live demo needs JavaScript. You can still get the app on <a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Google Play</a>.</p></noscript>
+          <dialog class="try-look" aria-labelledby="try-look-title" aria-describedby="try-look-note">
+            <div class="try-look-shade"></div>
+            <div class="try-look-sheet">
+              <button class="try-look-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <p class="try-look-eyebrow">Open this look in the app</p>
+              <h3 class="try-look-name" id="try-look-title">Speedometer Live Wallpaper</h3>
+              <p class="try-look-layout"></p>
+              <div class="try-look-code" role="img" aria-label="A QR code that opens this look in Speedometer Live Wallpaper"></div>
+              <p class="try-look-note" id="try-look-note">Point your phone’s camera at it: the app opens on this look. Without the app, the link offers Google Play.</p>
+            </div>
+          </dialog>
           <div class="try-consent" role="dialog" aria-labelledby="try-consent-title" hidden>
             <h3 id="try-consent-title">Help improve Speedometer Live Wallpaper?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>
