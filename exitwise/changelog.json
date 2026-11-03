@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.8ebfdb35",
+      "version": "1.0.30",
       "date": "2026-11-03",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Help and news in Settings",
