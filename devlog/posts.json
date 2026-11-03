@@ -91,7 +91,7 @@
           "paragraphs": [
             "The line we drew is simple. Everything about you as a player lives in VHub: your name, your picture, your level and XP, your achievements, your friends and the global leaderboards. Everything about a single game stays with that game: your saved progress, the per-level boards, rooms and custom maps live in the game's own database, filed under the same player ID that VHub gave you.",
             "When you sign in, you sign in to VHub, with your Google account. VHub then hands the game a session for that same ID. No game creates players of its own any more, so there is one of you, not one per product. Change your picture once and every game shows the new one.",
-            "Signing in is still optional. Every game and app works without it, and you can sign in later without losing what you have done as a guest."
+            "Signing in is still optional. Every game and app works without it, and the sign-in prompt can always be skipped."
           ]
         },
         {
@@ -111,7 +111,7 @@
           "title": "Moving the players who were already there",
           "paragraphs": [
             "Before the switch we had to decide who to bring across from Exitwise. Most of its accounts turned out to be our own: test runs, automated runs that took store screenshots, and guests who opened the game once and never finished a level. Copying all of them would have filled the new leaderboards with robots.",
-            "So only real players moved: anyone who had played, signed in, chosen a name or held coins. Their names, pictures and places on the boards came with them. A guest who was left out and comes back simply gets a fresh account. Test accounts were deleted, and the list of deletions was checked by hand before anything was removed."
+            "So only real players moved: anyone who had played, signed in, chosen a name or held coins. Their names, pictures and places on the boards came with them. A guest who was left out and comes back simply gets a fresh account. Our own test accounts stayed out, and any deletion of them is checked by hand, from a list, before anything is removed."
           ]
         },
         {
