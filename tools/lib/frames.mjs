@@ -1,11 +1,13 @@
 // The "frame" block (tools/build-pages.mjs): a product's build that a repo of its own serves under vgraphics.gr, framed
 // full screen on the product's page, from the same origin (the master coordinator, 2 Nov 2026: Palermo Noir's Unity
 // WebGL build at /vg--palermo-play/, framed by /palermo/play/, /join/, /tv/ and /demo/, each page made from this
-// template; the Deployer's palermo-unity-web). The page is a screen (page.json "screen"), nothing to scroll: a play or
-// demo page the play-page shell (the header, the frame filling the window, the slim bar with its About link); a TV or
-// join page the frame alone, with no header, menu, avatar or bar ("screen": { "bare": true }; the Palermo coordinator,
-// 2 Nov 2026: a TV page is driven by a remote, and George approved the join door as it is, with its language button
-// and short legal line inside it), the legal line in the build's own page. assets/frame.js points the frame at the
+// template; the Deployer's palermo-unity-web). The page is a screen (page.json "screen"), nothing to scroll, with no
+// site header: the game draws its own, its VHub avatar and its language, so a header would put two avatars on screen,
+// mix the languages and take a phone's room (the master, 3 Nov 2026, from palermo-unity via the Palermo coordinator;
+// "play and try pages are the product alone"). A play or demo page is the frame and the slim bar (← Palermo Noir ·
+// About · Privacy · © 2026 VGraphics); a TV or join page the frame alone, with no bar either ("screen": { "bare": true };
+// the Palermo coordinator, 2 Nov 2026: a TV page is driven by a remote, and George approved the join door as it is,
+// with its language button and short legal line inside it), the legal line in the build's own page. assets/frame.js points the frame at the
 // build with the page's own query and hash, so a room code from a QR or a shared link reaches the game.
 //
 // page.json: { "type": "frame", "src", "title" }
@@ -68,8 +70,24 @@ export function frameProblems(page, name) {
   return out
 }
 
-// A bare frame page as built: no header and no bar (the TV and join pages).
+// A bare frame page as built: no bar (the TV and join pages).
 export const isBare = (html) => /<html\b[^>]*\sclass="(?:[^"]*\s)?bare(?:\s[^"]*)?"/.test(html)
+
+// What is wrong with a frame page's shell, as built: html, its markup; path, its address. A list of [rule, message]:
+// no site header on any (the game draws its own); the slim bar with its About link on a play or demo page; nothing
+// under the frame on a TV or join page.
+export function frameShellProblems(html, path) {
+  const out = []
+  const body = (html.split(/<body\b[^>]*>/i)[1] ?? '').replace(/<!--[\s\S]*?-->/g, '')
+  const bar = body.match(/<footer class="screen-bar">[\s\S]*?<\/footer>/)?.[0]
+  if (/<header\b/i.test(body)) out.push(['play-alone', 'has a site header over the game, which draws its own (its VHub avatar, its language): a frame page is the frame and the slim bar ("play and try pages are the product alone")'])
+  if (isDoor(path)) {
+    if (bar || /<footer\b/i.test(body)) out.push(['play-alone', 'is a TV or join page with a bar under the frame: it is the frame alone ("screen": { "bare": true })'])
+  } else if (!bar || !bar.includes(`href="/${path.split('/')[1]}/about/"`)) {
+    out.push(['play-alone', 'has no slim bar with its About link under the frame (← the product · About · Privacy · © <year> VGraphics): drop "bare"'])
+  }
+  return out
+}
 
 // The legal line's problems on a frame page: a bare one's line is in its build (tools/check-unity-build.mjs holds it
 // there), so only the company's details are refused on the page itself.
@@ -79,7 +97,7 @@ export const frameLegalProblems = (path, html) => legalProblems(path, html, true
 // [rule, message], none when it keeps them (its frame's own are frameProblems'). check-site gets these from its own
 // checks on the pages it serves; a page still waiting in frames/ is held to them here.
 export function framePageProblems(html, path) {
-  const out = []
+  const out = frameShellProblems(html, path)
   for (const m of playPageProblems(html, path.split('/')[1], { template: true, about: !isDoor(path) })) out.push(['play-alone', m])
   for (const m of frameLegalProblems(path, html)) out.push(['legal-footer', m])
   if (!NO_SELECT.test(html)) out.push(['no-select', 'loads neither /assets/menu.js nor /assets/no-select.js, the no-select piece: make the page with the template'])

@@ -53,9 +53,11 @@
 //                                header, its sections' blocks filling the window without their headings, and the slim
 //                                bar (partials.mjs screenBar) in place of the hero, closing card and footer; heading is
 //                                its h1, for screen readers and search. Its words about the product are on its About page.
-//                                bare: true, for a TV or join page that frames its build (tools/lib/frames.mjs): no
-//                                header and no bar either, the frame alone filling the window; the build's page carries
-//                                the legal line, and the page loads the no-select piece itself.
+//                                A screen that frames a build (a "frame" block, tools/lib/frames.mjs) has no header
+//                                either: the game draws its own (its VHub avatar, its language), so it is the frame and
+//                                the slim bar, whose way back names the product; it loads the no-select piece itself.
+//                                bare: true, for a TV or join page: no bar either, the frame alone filling the window;
+//                                the build's page carries the legal line.
 // A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
 // (site.demo.private), as the words in <span data-demo> are.
 // Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
@@ -535,7 +537,7 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
   <link rel="stylesheet" href="${p.intro.demo}.css">` : ''}${beside('css').map((e) => `
   <link rel="stylesheet" href="${e}.css">`).join('')}
 </head>
-<body>${bare ? '' : `
+<body>${framed ? '' : `
   <a class="skip" href="#main">Skip to content</a>
   ${header(product, { current: path })}`}
 
@@ -543,9 +545,9 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
     ${content.join('\n\n    ')}
   </main>
 
-  ${bare ? '' : p.screen ? screenBar(product) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
+  ${bare ? '' : p.screen ? screenBar(product, { framed }) : footer(product)}${existsSync(join(root, 'assets', 'anchors.js')) ? `
   <script src="/assets/anchors.js" defer></script>` : ''}
-  <script src="/assets/product.js" defer></script>${bare ? `
+  <script src="/assets/product.js" defer></script>${framed ? `
   <script src="/assets/no-select.js" defer></script>` : `
   <script src="/assets/menu.js" defer></script>`}${gallery ? `
   <script src="/assets/gallery/gallery.js" defer></script>` : ''}${demoJs ? `
