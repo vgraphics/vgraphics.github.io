@@ -84,6 +84,7 @@ import { faq, faqData, readFaq } from './lib/faq.mjs'
 import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 import { imageSize } from './lib/image-size.mjs'
+import { markPage } from './lib/marks.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
@@ -562,9 +563,10 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
 </body>
 </html>
 `
-  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF.
+  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF. Our names
+  // get their ™ in the headings and at their first mention (tools/lib/marks.mjs; not on the product's screens).
   const file = path.endsWith('/') ? join(path.slice(1), 'index.html') : path.slice(1)
-  return { html: html.replace(/\r\n/g, '\n'), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
+  return { html: markPage(path, html.replace(/\r\n/g, '\n')), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

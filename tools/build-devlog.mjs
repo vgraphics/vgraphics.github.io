@@ -13,6 +13,7 @@
 import { mkdirSync, readFileSync, readdirSync, rmSync, writeFileSync, existsSync } from 'node:fs'
 import { join } from 'node:path'
 import { root } from './lib/product.mjs'
+import { markPage } from './lib/marks.mjs'
 
 const DESCRIPTION_MAX = 160
 const SITE = 'https://vgraphics.gr'
@@ -39,7 +40,8 @@ posts.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.tit
 const organization = { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'VGraphics', url: `${SITE}/` }
 
 function page({ path, title, description, ogTitle, ld, style, main }) {
-  return `<!doctype html>
+  // With ™ after our names in the headings and at their first mention (tools/lib/marks.mjs).
+  return markPage(path, `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -88,7 +90,7 @@ ${main}
 ${footer}
 </body>
 </html>
-`
+`)
 }
 
 const card = (p) => `    <article class="post-card">

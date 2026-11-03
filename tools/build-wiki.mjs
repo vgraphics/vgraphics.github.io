@@ -25,6 +25,7 @@ import { loadProduct, root } from './lib/product.mjs'
 import { anchor, closing, header, footer, iconLinks, quote } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
+import { markPage } from './lib/marks.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -145,7 +146,8 @@ const card = (w, e) => {
 // ---------- The page shell ----------
 function shell(w, product, { title, description, path, body, entry, image, preload = '', script }) {
   const p = w.product
-  return `<!doctype html>
+  // With ™ after our names in the headings and at their first mention (tools/lib/marks.mjs).
+  return markPage(path, `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -188,7 +190,7 @@ ${closing(product.page)}
 ${footer(product)}
 </body>
 </html>
-`
+`)
 }
 
 // ---------- Index ----------

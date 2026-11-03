@@ -25,6 +25,7 @@ import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
+import { markProblems } from './lib/marks.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -552,6 +553,14 @@ for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
   for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
+}
+
+// Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise,
+// Palermo Noir and Quizfall in every heading that names them and at their first mention, on every website page whoever
+// writes it (the template writes them; a hand-made page carries them itself), never on VHub, never ®.
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
+  for (const m of markProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'trademark', m)
 }
 
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
@@ -1417,7 +1426,8 @@ else {
 
 // Rights in the files (README "Rights in the files"): art not on the live site yet should carry our rights mark and,
 // once VGraphics' signing certificate is in place, Content Credentials. A warning on stderr, not a problem (it never
-// fails the check, nor reads as a problem line to the Deployer): node tools/protect-art.mjs adds them.
+// fails the check, nor reads as a problem line to the Deployer): the git hooks in tools/hooks/ add them on every commit
+// and merge, and node tools/protect-art.mjs where they didn't run.
 {
   const s = signer()
   const sign = !!s && !s.test
@@ -1426,7 +1436,11 @@ else {
     return (MARKABLE.test(rel) && !hasRightsMark(b)) || (sign && !hasCredentials(b))
   })
   if (bare.length) {
-    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing`)
+    let hooks = ''
+    try {
+      hooks = execFileSync('git', ['config', '--get', 'core.hooksPath'], { cwd: root, encoding: 'utf8' }).trim()
+    } catch {}
+    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing${hooks === 'tools/hooks' ? '' : ' (and git config core.hooksPath tools/hooks, so the hooks do it on every commit and merge)'}`)
   }
 }
 
