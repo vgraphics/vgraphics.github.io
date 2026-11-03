@@ -51,6 +51,10 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=try_online",
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
+          "appLinks": {
+            "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
+            "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"
+          },
           "prices": { "premium": "€2.39" },
           "qr": { "src": "/speedometer-wallpaper/play/img/play-qr.svg", "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play" },
           "startup": {

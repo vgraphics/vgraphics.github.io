@@ -25,6 +25,11 @@
 //   layouts        a script that reads the product's shared layouts by code (window.VGTryLayouts.resolve, Speedometer's
 //                  market/market.js): a link #layout=<CODE>&style=<id> opens on that market layout, the panel says
 //                  whose it is, and the store links carry the code (the web market design §5.2)
+//   appLinks       { look, layout }: the app's own links (App Links on Android) to the look on show, look with {style}
+//                  and {layout}, and to a market layout, layout with {code}. With them the panel has "Show QR for this
+//                  look" beside "Copy a link to this look" (George, 3 Nov 2026: "another button show qr for this style
+//                  which will be the deeplink to that style in the app"): the link as a QR code to scan with a phone,
+//                  made in the page (assets/try/qr.js), in a sheet that opens and closes as every menu does
 //   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
 import { esc } from './partials.mjs'
 
@@ -36,6 +41,8 @@ const ICON = {
   next: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 5l7 7-7 7"/></svg>',
   gps: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg>',
   share: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg>',
+  qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h2.6v2.6M20.5 14v.01M14 20.5h.01M17.6 17.6h2.9v2.9h-2.9z"/></svg>',
+  close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
 }
 
 // Home screen icons over the wallpaper, as the app's style page shows them: plain shapes, no other app's marks.
@@ -61,6 +68,7 @@ export function tryBlock(b, page) {
     startup: b.startup === false ? false : { base: '/assets/startup/', minMs: 2000, ...b.startup },
     ...(b.style ? { style: b.style } : {}),
     ...(b.layouts ? { layouts: b.layouts } : {}),
+    ...(b.appLinks ? { appLinks: b.appLinks } : {}),
   }
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
@@ -98,8 +106,9 @@ export function tryBlock(b, page) {
             </div>
             ${config.layouts ? '<p class="try-shared" hidden></p>\n            ' : ''}<p class="try-hint">${l.gauge ?? 'Tap the big gauge to switch what it shows, as on your phone.'}</p>
             <div class="try-quick">
-              <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
-              <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>
+              <button class="try-tool try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
+              <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>${config.appLinks ? `
+              <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog">${ICON.qr}<span>Show QR for this look</span></button>` : ''}
             </div>
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
@@ -125,7 +134,18 @@ export function tryBlock(b, page) {
             <p class="try-fallback-text"></p>
             <a class="gp" href="${esc(config.store)}" data-where="fallback"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
           </div>
-          <noscript><p class="try-noscript">The live demo needs JavaScript. You can still get the app on <a href="${esc(config.store)}">Google Play</a>.</p></noscript>${config.measurementId ? `
+          <noscript><p class="try-noscript">The live demo needs JavaScript. You can still get the app on <a href="${esc(config.store)}">Google Play</a>.</p></noscript>${config.appLinks ? `
+          <dialog class="try-look" aria-labelledby="try-look-title" aria-describedby="try-look-note">
+            <div class="try-look-shade"></div>
+            <div class="try-look-sheet">
+              <button class="try-look-close" type="button" aria-label="Close">${ICON.close}</button>
+              <p class="try-look-eyebrow">Open this look in the app</p>
+              <h3 class="try-look-name" id="try-look-title">${esc(page.site.name)}</h3>
+              <p class="try-look-layout"></p>
+              <div class="try-look-code" role="img" aria-label="${esc(`A QR code that opens this look in ${page.site.name}`)}"></div>
+              <p class="try-look-note" id="try-look-note">Point your phone’s camera at it: the app opens on this look. Without the app, the link offers Google Play.</p>
+            </div>
+          </dialog>` : ''}${config.measurementId ? `
           <div class="try-consent" role="dialog" aria-labelledby="try-consent-title" hidden>
             <h3 id="try-consent-title">Help improve ${esc(page.site.name)}?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>

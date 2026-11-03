@@ -7,14 +7,15 @@
 // on it after the install. A style's own page (config.style) opens on that style and has no list of styles; a page
 // without the start-up (config.startup false) draws the wallpaper as soon as the engine is ready. With config.layouts
 // (a script that reads the product's shared layouts), a link #layout=<CODE> opens on that layout, and the store links
-// carry its code instead of the style.
+// carry its code instead of the style. With config.appLinks, "Show QR for this look" shows the app's own link to the
+// look on show (an App Link: /look/?style=…&layout=…, or a market layout's /l/?c=…) as a QR code to scan with a phone.
 //
 // Statistics (Google Analytics 4, the product's web stream) only with a measurement id, and only after the visitor says
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
-// share, fps_low, web_first_frame (ms from the phone coming into view to the wallpaper showing), and exception for the
-// page's and the engine's errors (20 at most). Our own test visits load nothing, whatever the answer (George, 31 Oct
-// 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
+// share, qr_show (style, layout), fps_low, web_first_frame (ms from the phone coming into view to the wallpaper
+// showing), and exception for the page's and the engine's errors (20 at most). Our own test visits load nothing,
+// whatever the answer (George, 31 Oct 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
 // [::1], *.localhost, a file) or a browser a script drives (navigator.webdriver: Playwright, Selenium). The question
 // and the switch stay as they are.
 (function () {
@@ -436,7 +437,110 @@
         var copied = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(link) : Promise.reject(new Error('no clipboard'));
         copied.then(function () { note('share', 'Link copied: ' + link); }, function () { note('share', link); });
         analytics.event('share', { method: 'link', content_type: 'look', item_id: last.style });
+      } else if (action === 'qr') {
+        openLook(button);
       }
+    });
+  }
+
+  // ---- The look's QR (config.appLinks; George, 3 Nov 2026: "show qr for this style which will be the deeplink to that
+  // style in the app"): the app's own link to the look on show, as a QR code made in the page (assets/try/qr.js, loaded
+  // the first time). Scanned, it opens the app on that style and layout (an App Link), or a market layout's page; without
+  // the app, a page that offers Google Play and this look in the browser. The sheet is a modal dialog, so the keyboard
+  // stays in it; Escape, its close button or a tap on the shade closes it. It opens and closes as every menu does
+  // (assets/faq.js's showMenu and hideMenu, as a sheet: it rises as it fades in, and goes back a little faster; under
+  // reduced motion, a short fade), its shade fading with it.
+  var QR_SCRIPT = '/assets/try/qr.js';
+  var QR_DARK = '#0B0B0C';
+  var QR_LIGHT = '#FFFFFF';
+  var EASE = 'cubic-bezier(.2, .8, .2, 1)';
+  var SHADE = { open: 260, close: 200, fadeIn: 150, fadeOut: 100 };
+  var lookBox = $('.try-look');
+  var lookFrom = null;
+  var lookClosing = false;
+  var marketShown = null;
+  var motion = null;
+  if (lookBox) {
+    import('/assets/faq.js').then(function (m) { motion = m; }).catch(function () { /* it opens and closes at once */ });
+  }
+
+  // A link template's {name}s filled in.
+  var linkOf = function (template, values) {
+    return template.replace(/\{(\w+)\}/g, function (m, name) { return encodeURIComponent(values[name] || ''); });
+  };
+  var lookLink = function (values) {
+    if (values.shared && config.appLinks.layout) return linkOf(config.appLinks.layout, { code: values.layout });
+    return linkOf(config.appLinks.look, { style: values.style, layout: values.layout });
+  };
+
+  function moveLook(on, done) {
+    var sheet = lookBox.querySelector('.try-look-sheet');
+    var shade = lookBox.querySelector('.try-look-shade');
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Mid-move, it turns round from where it is.
+    var moving = shade.getAnimations();
+    var from = moving.length ? getComputedStyle(shade).opacity : (on ? 0 : 1);
+    moving.forEach(function (a) { a.cancel(); });
+    shade.animate({ opacity: [from, on ? 1 : 0] }, {
+      duration: still ? (on ? SHADE.fadeIn : SHADE.fadeOut) : (on ? SHADE.open : SHADE.close),
+      easing: EASE,
+      fill: 'forwards'
+    });
+    if (!motion) {
+      if (done) done();
+    } else if (on) {
+      motion.showMenu(sheet, lookFrom, true);
+    } else {
+      motion.hideMenu(sheet, lookFrom, done, true);
+    }
+  }
+
+  function openLook(button) {
+    if (!lookBox || lookBox.open || !app) return;
+    var values = app.values();
+    var style = styleOf(values.style);
+    var link = lookLink(values);
+    loadScript(QR_SCRIPT, 'VGQR').then(function () {
+      lookBox.querySelector('.try-look-code').innerHTML = window.VGQR.svg(link, { dark: QR_DARK, light: QR_LIGHT });
+      lookBox.querySelector('.try-look-name').textContent = style.name;
+      var layout = style.layouts.filter(function (l) { return l.id === values.layout; })[0];
+      var words = '';
+      if (values.shared) words = marketShown ? marketShown.name + ' by ' + marketShown.by : 'A layout from the layout market';
+      else if (layout && style.layouts.length > 1) words = 'Layout: ' + layout.name;
+      lookBox.querySelector('.try-look-layout').textContent = words;
+      lookFrom = button;
+      lookClosing = false;
+      lookBox.showModal();
+      lookBox.querySelector('.try-look-close').focus({ preventScroll: true });
+      moveLook(true);
+      analytics.event('qr_show', { style: values.style, layout: values.layout });
+    }, function (failure) {
+      analytics.error('qr: ' + (failure && failure.reason ? failure.reason : whyOf(failure)));
+      note('share', 'The QR code couldn’t be made just now. Please reload the page.');
+    });
+  }
+
+  function closeLook() {
+    if (!lookBox.open || lookClosing) return;
+    lookClosing = true;
+    moveLook(false, function () { lookBox.close(); });
+  }
+
+  if (lookBox) {
+    lookBox.addEventListener('click', function (event) {
+      if (event.target === lookBox || event.target.matches('.try-look-shade') || event.target.closest('.try-look-close')) closeLook();
+    });
+    // Escape would shut it at once: it closes as the button does.
+    lookBox.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      closeLook();
+    });
+    // However it shut (a second Escape shuts it at once), the shade's fade ends, faq.js ends the sheet's own, and the
+    // keyboard goes back to the button.
+    lookBox.addEventListener('close', function () {
+      lookClosing = false;
+      lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+      if (lookFrom) lookFrom.focus({ preventScroll: true });
     });
   }
 
@@ -519,6 +623,7 @@
 
   // The panel's line under the style's name: whose layout it is, and its page.
   function sharedLine(layout) {
+    marketShown = layout;
     var shared = $('.try-shared');
     if (!shared) return;
     shared.textContent = '';
