@@ -23,6 +23,7 @@ import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
+import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -402,16 +403,23 @@ for (const file of served) {
 // and palermo-web 20261029-164735 (29 Oct 2026).
 const playAlone = (file, message) => report(file, 'play-alone', message)
 const withPlayPages = new Set()
+// A page that frames a product's build (tools/lib/frames.mjs) is held to them at any address, its TV and join pages too.
+const framesBuild = (file) => {
+  const source = join(root, dirname(file), 'page.json')
+  return existsSync(source) && hasFrame(JSON.parse(readFileSync(source, 'utf8')))
+}
 for (const file of served) {
   // A Unity page's own rules (below) hold it to these wherever it is; its TV and join pages need no About page.
   if (unity.has(file)) {
     if (!isDoor(urlPath(file))) withPlayPages.add(file.split('/')[0])
     continue
   }
-  if (!isPlayPage(urlPath(file))) continue
+  const path = urlPath(file)
+  if (!isPlayPage(path) && !framesBuild(file)) continue
   const slug = file.split('/')[0]
-  withPlayPages.add(slug)
-  for (const m of playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template: existsSync(join(root, dirname(file), 'page.json')) })) playAlone(file, m)
+  if (!isDoor(path)) withPlayPages.add(slug)
+  const template = existsSync(join(root, dirname(file), 'page.json'))
+  for (const m of playPageProblems(readFileSync(join(root, file), 'utf8'), slug, { template, about: !isDoor(path) })) playAlone(file, m)
 }
 
 // A Unity WebGL page (tools/lib/unity-pages.mjs: Exitwise's /exitwise/play/; Palermo Noir's play, join, TV and demo
@@ -539,10 +547,11 @@ for (const [file, text] of sheets) {
 // Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
 // above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
 // screens (its play, TV, join and demo pages, the hub, the try pages). A Unity page's own rules (above) hold it to the
-// product's line wherever it is.
+// product's line wherever it is; a bare frame page's line is in the build it frames (tools/lib/frames.mjs).
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
-  for (const m of legalProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'legal-footer', m)
+  const html = readFileSync(join(root, file), 'utf8')
+  for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
 }
 
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
@@ -611,6 +620,47 @@ for (const slug of products()) {
     if (have !== want) report(file, 'template', 'not as tools/build-pages.mjs writes it: edit page.json or the theme pack, then run it')
   }
 }
+// A frame page (tools/lib/frames.mjs; the master coordinator, 2 Nov 2026) is a template screen with one build in it, a
+// build another Pages repo serves under vgraphics.gr (Palermo Noir's Unity WebGL build at /vg--palermo-play/), framed
+// from the same origin on the page's own route, with no site header (the game draws its own), the slim bar under a play
+// or demo page and nothing under a TV or join page, which is kept out of search. A page that a release puts in
+// place waits at <product>/frames/<page>.json until then: it is built here as the page it will be, so it keeps the
+// Unity pages' rules that are a frame page's (play-alone, legal-footer, no-select, noindex) before it goes live, and once
+// in place its page.json is that source. The build keeps the others, checked by tools/check-unity-build.mjs.
+for (const slug of products()) {
+  const waiting = frameSources(join(root, slug, 'frames'))
+  for (const name of waiting) {
+    const source = join(slug, 'frames', `${name}.json`)
+    try {
+      const text = readFileSync(join(root, source), 'utf8').replace(/\r\n/g, '\n')
+      const page = JSON.parse(text)
+      if (!hasFrame(page)) {
+        report(source, 'frames', 'frames nothing: a page waiting here is a screen with a "frame" block')
+        continue
+      }
+      for (const m of frameProblems(page, name)) report(source, 'frames', m)
+      const { html } = render(slug, name, join(root, source))
+      for (const [rule, m] of framePageProblems(html, `/${slug}/${name}/`)) report(source, rule, m)
+      const placed = join(root, slug, name, 'page.json')
+      if (existsSync(placed) && readFileSync(placed, 'utf8').replace(/\r\n/g, '\n') !== text) {
+        report(join(slug, name, 'page.json'), 'frames', `not ${source.split(sep).join('/')}, the page it was put in place from: edit that one, copy it here, then run tools/build-pages.mjs`)
+      }
+    } catch (e) {
+      report(source, 'frames', e.message)
+    }
+  }
+  for (const sub of subpages(slug).filter((s) => !waiting.includes(s))) {
+    const page = JSON.parse(readFileSync(join(root, slug, sub, 'page.json'), 'utf8'))
+    for (const m of frameProblems(page, sub.split('/').pop())) report(join(slug, sub, 'page.json'), 'frames', m)
+  }
+  // A frame page in place (its page.json put there from frames/), as served: no site header, and the slim bar on a play
+  // or demo page, none on a TV or join page. Until then the address is the web pages', which are theirs to check.
+  for (const name of waiting.filter((n) => existsSync(join(root, slug, n, 'page.json')))) {
+    const file = join(slug, name, 'index.html')
+    if (existsSync(join(root, file))) for (const [rule, m] of frameShellProblems(readFileSync(join(root, file), 'utf8'), `/${slug}/${name}/`)) report(file, rule, m)
+  }
+}
+
 // A product's style pages and its landing page's style tiles come from <product>/styles/styles.json
 // (tools/make-style-pages.mjs), each page with its link-preview picture (tools/make-style-cards.py).
 try {

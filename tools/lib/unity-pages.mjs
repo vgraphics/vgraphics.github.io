@@ -1,10 +1,10 @@
-// Unity WebGL pages: a product's screens that its Unity build draws in the browser. Exitwise's /exitwise/play/ is one;
-// Palermo Noir's /palermo/play/, /join/, /tv/ and /demo/ become four (George, 30 Oct 2026: "Unity and browser must use
-// unity too. We dont want to have 2 code bases."; the palermo repo's
-// docs/superpowers/specs/2026-10-30-palermo-one-codebase-design.md). Each comes from its game's WebGL template in the
-// game's repo, and the Deployer copies it here with its build. check-site knows one by Unity's own call,
-// createUnityInstance(), wherever it is served, and holds every one to the same rules, all from here, each from
-// D:\Projects\Mine\CLAUDE.md:
+// Unity WebGL pages: a product's screens that its Unity build draws in the browser. Exitwise's /exitwise/play/ is one
+// (George, 30 Oct 2026: "Unity and browser must use unity too. We dont want to have 2 code bases."). Each comes from its
+// game's WebGL template in the game's repo, and the Deployer copies it here with its build. check-site knows one by
+// Unity's own call, createUnityInstance(), wherever it is served, and holds every one to the same rules, all from here,
+// each from D:\Projects\Mine\CLAUDE.md. A build too big for the site goes to a Pages repo of its own and is framed by
+// the product's pages here (tools/lib/frames.mjs: Palermo Noir's, at /vg--palermo-play/); check-site never sees it, so
+// tools/check-unity-build.mjs holds it to the same rules when the Deployer publishes it ("framed" below).
 // - play-alone ("Play and try pages are the product alone"): nothing to scroll (a <style> gives html or body
 //   overflow: hidden), and, as every play page (tools/lib/play-pages.mjs), no About panel or button to one, no website
 //   footer under it, and its About page linked in its bar. A TV or join page needs no About link.
@@ -48,7 +48,7 @@ function urlOf(js, key) {
 // the site's root): where its analytics and error reports are.
 export const unityFramework = (html) => urlOf(inline(html), 'frameworkUrl')
 
-const NO_SELECT = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>|<script src="\/assets\/menu\.js" defer><\/script>/
+export const NO_SELECT = /<script\b[^>]*\ssrc="\/assets\/no-select\.js"[^>]*><\/script>|<script src="\/assets\/menu\.js" defer><\/script>/
 const BAR_CSS = /<link rel="stylesheet" href="\/assets\/startup\/loading-bar\.css">/
 const BAR_JS = /<script\b[^>]*\ssrc="\/assets\/startup\/loading-bar\.js"[^>]*><\/script>/
 // The bar's parts as classes (.bar-groove, class="bar-track"), not the --vg-bar-* properties that set the shared one's look.
@@ -60,9 +60,12 @@ const SCRIPT = /\.js(?:\.(?:gz|br|unityweb))?$/i
 
 // What is wrong with a Unity page: html, its markup; path, its address (/<product>/play/); text(ref), the text of a
 // file the page names (relative to it, or from the site's root), unpacked, or null when there is none; files, the
-// site's files in the page's folder and its build's (as "exitwise/play/Build/x.loader.js"). A list of [rule, message],
-// none when it keeps every rule.
-export function unityPageProblems(html, path, { text = () => null, files = [] } = {}) {
+// site's files in the page's folder and its build's (as "exitwise/play/Build/x.loader.js"); framed, true for a build
+// another Pages repo serves, which the product's frame pages show (tools/lib/frames.mjs, tools/check-unity-build.mjs):
+// the play and demo pages' bar holds its About link (the TV and join pages need none), and its own address is kept out
+// of search, since players use theirs. Its legal line stays its own: the TV and join pages are the frame alone. A list
+// of [rule, message], none when it keeps every rule.
+export function unityPageProblems(html, path, { text = () => null, files = [], framed = false } = {}) {
   const out = []
   const add = (rule, message) => out.push([rule, message])
   const slug = path.split('/')[1]
@@ -71,7 +74,7 @@ export function unityPageProblems(html, path, { text = () => null, files = [] } 
   const css = [...markup.matchAll(/<style\b[^>]*>([\s\S]*?)<\/style>/gi)].map((m) => m[1].replace(/\/\*[\s\S]*?\*\//g, '')).join('\n')
   const js = inline(html)
 
-  for (const m of playPageProblems(html, slug, { about: !door })) add('play-alone', m)
+  for (const m of playPageProblems(html, slug, { about: !door && !framed })) add('play-alone', m)
   const locked = [...css.matchAll(/([^{}]+)\{([^{}]*)\}/g)]
     .some(([, selectors, body]) => selectors.split(',').some((s) => /^(?:html|body)$/i.test(s.trim())) && /(?:^|[;\s])overflow\s*:\s*(?:hidden|clip)\b/.test(body))
   if (!locked) add('play-alone', 'scrolls: give html and body overflow: hidden in its <style>, so the product fills the window with nothing to scroll ("When we play we play. No scroll needed.")')
@@ -116,6 +119,8 @@ export function unityPageProblems(html, path, { text = () => null, files = [] } 
 
   if (door && !/<meta name="robots" content="[^"]*noindex/i.test(markup)) {
     add('noindex', 'is a TV or join page, which search engines must not list: add <meta name="robots" content="noindex">')
+  } else if (framed && !/<meta name="robots" content="[^"]*noindex/i.test(markup)) {
+    add('noindex', 'is a build its frame pages show, so search lists them, not its own address: add <meta name="robots" content="noindex">')
   }
   return out
 }

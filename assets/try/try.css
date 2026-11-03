@@ -379,3 +379,58 @@
   .try-busy span { animation-duration: 3s; }
   .try-styles button, .try-styles button:hover { transform: none; }
 }
+
+/* HUD mode (Speedometer docs/hud-mode/design.md §9): the phone's screen fills the window on black, also where a
+   browser has no full screen for an element (iPhone Safari); Exit and Flip, each half the screen, fade in on a tap
+   and out after a few seconds, as in the app. */
+.try-chip[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+.try-hud-layouts { margin-top: 2px; }
+.try[data-hud="on"] .try-device {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  aspect-ratio: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+}
+.try[data-hud="on"] .try-screen { border-radius: 0; }
+.try[data-hud="on"] .try-icons, .try[data-hud="on"] .try-busy { display: none; }
+.try-hud-layer { position: absolute; inset: 0; z-index: 2; display: grid; }
+.try-hud-layer[hidden] { display: none; }
+.try-hud-tip {
+  position: absolute;
+  inset: auto 16px 16px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--ink);
+  text-align: center;
+}
+.try-hud-tip[hidden] { display: none; }
+.try-hud-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in;
+}
+.try-hud-controls.is-shown { opacity: 1; pointer-events: auto; transition: opacity 200ms ease-out; }
+.try-hud-controls button {
+  border: 0;
+  border-radius: 28px;
+  font: 700 clamp(1.6rem, 6vw, 3rem)/1 var(--label-font, inherit);
+  cursor: var(--cursor-link, pointer);
+}
+.try-hud-exit { background: var(--ink); color: var(--bg, #000); }
+.try-hud-flip { background: var(--accent); color: var(--on-accent, #000); }
+@media (prefers-reduced-motion: reduce) {
+  .try-hud-controls, .try-hud-controls.is-shown { transition-duration: 80ms; }
+}

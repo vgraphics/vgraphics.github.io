@@ -72,6 +72,20 @@
             "get": "Set it as your wallpaper",
             "getNote": "A browser can’t set your wallpaper. Get the app on Google Play and it opens on this style the first time.",
             "unlock": "Each premium style is €2.39, once, with VAT in most of the euro area (Google Play shows yours). Or get every style and no ads with Speedometer Plus, a monthly or yearly subscription."
+          },
+          "hud": {
+            "label": "HUD mode",
+            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. Glass, Pulse, Vector and Horizon draw it; Use my real speed first for your GPS speed.",
+            "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
+            "exit": "Exit",
+            "flip": "Flip",
+            "styles": ["horizon", "glass", "pulse", "vector"],
+            "layouts": [
+              { "id": "number", "name": "Number" },
+              { "id": "gauge_arc", "name": "Gauge arc" },
+              { "id": "fighter", "name": "Fighter" },
+              { "id": "centre_bar", "name": "Centre bar" }
+            ]
           }
         }
       ]

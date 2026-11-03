@@ -31,10 +31,11 @@ export const subpages = (slug) => folders(join(root, slug)).flatMap((name) => {
 // card, and the product's key art in its hero unless it brings its own ("art": { "wiki": "<slug>", ... } opens on that
 // wiki painting). The landing page's pictures are named from the product's folder, so they are made absolute here. Its
 // address is /<product>/<page>/ unless page.json gives another ("path": "/exitwise/privacy.html", for an address the
-// stores already link to).
-export function loadSubpage(slug, sub) {
+// stores already link to). source: its page.json when that isn't in the page's folder yet (a page waiting in
+// <product>/frames/, tools/lib/frames.mjs).
+export function loadSubpage(slug, sub, source = join(root, slug, sub, 'page.json')) {
   const product = loadProduct(slug)
-  const own = JSON.parse(readFileSync(join(root, slug, sub, 'page.json'), 'utf8'))
+  const own = JSON.parse(readFileSync(source, 'utf8'))
   const p = product.page
   const rebase = (img) => img && { ...img, src: img.src.startsWith('/') ? img.src : `/${slug}/${img.src}` }
   const { wiki, ...given } = own.hero?.art ?? {}
