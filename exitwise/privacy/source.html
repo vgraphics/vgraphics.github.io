@@ -15,7 +15,7 @@
   <div class="head">
     <p class="kicker">Exitwise</p>
     <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 31 October 2026</span>
+    <span class="updated">Last updated: 3 November 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -25,11 +25,12 @@
   <h2 class="short-title" id="short">The short version</h2>
   <ul class="short">
     <li>You don't need to sign in. We never ask for your real name or contact details; if you choose to sign in with a
-      Google account, Google tells our sign-in service your email address and name, and we use them only to sign you
+      Google account, Google tells our sign-in service your email address and name, and if you sign in with Apple, Apple
+      tells it your email address (or a private relay address if you choose to hide yours). We use them only to sign you
       in. You may give us an email address yourself, to get the answers to a help ticket or our newsletter.</li>
     <li>Your progress and settings are saved on your device. If you sign in with Google Play Games or a Google account
-      (Android), with Google on our website, or with your CrazyGames account (CrazyGames), they are also saved to that
-      account so you can continue on another device.</li>
+      (Android), with Apple (iPhone and iPad), with Google on our website, or with your CrazyGames account (CrazyGames),
+      they are also saved to that account so you can continue on another device.</li>
     <li>Your account, username and picture are your VGraphics account, kept by VHub, our account service for every
       VGraphics game, which has <a href="/hub/privacy.html">its own privacy policy</a>.</li>
     <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
@@ -45,7 +46,8 @@
       maps, and any message you add to them, are read only by us.</li>
     <li>You can delete your Exitwise data, or your whole VGraphics account, in the game or at
       <a href="/hub/delete/">vgraphics.gr/hub/delete</a> at any time.</li>
-    <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
+    <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads. On
+      iPhone and iPad they use your device's advertising identifier only if you allow tracking when Apple asks.</li>
     <li>We use Firebase (by Google) to see how the game is played and to receive crash reports. This data doesn't
       include your name or contact details.</li>
   </ul>
@@ -111,12 +113,26 @@
           Google account already belongs to another VGraphics account, the game joins the two accounts into one, with the
           progress of both.
         </p>
+        <p>
+          On iPhone and iPad you can sign in with Apple, in Settings or on the sign-in card. Apple then shares with VHub's
+          sign-in (Google Firebase Authentication) an identifier for your Apple Account that only VGraphics' apps receive,
+          and your email address. If you choose to hide your email, Apple gives us a private relay address instead, which
+          forwards to you; we never see your real one. VHub keeps them with your account. We use them only to sign you in
+          and to show which Apple Account is linked; they are never shown to other players, shared, used for ads or used
+          to track you. The first time you sign in, Apple also gives the game the name you choose to share. It stays on
+          your iPhone or iPad and is never sent to us: the game uses it only to show which account you are signed in as
+          in Settings and to suggest a player name, which becomes public only if you keep it as your username. If your Apple Account already
+          belongs to another VGraphics account, the game offers to join the two accounts into one, with the progress of
+          both, as it does for Google. You can stop using Sign in with Apple for Exitwise at any time in your iPhone's
+          Settings → your name → Sign in with Apple.
+        </p>
       </section>
 
       <section id="cloud">
         <h2>Cloud save</h2>
         <p>
-          On Android, when you sign in with Google Play Games, and on our website when you sign in with Google, a copy of
+          On Android, when you sign in with Google Play Games, on iPhone and iPad when you sign in with Apple, and on our
+          website when you sign in with Google, a copy of
           your saved game (the same information as on your device) is stored in Google Firebase Cloud Firestore under your
           game account, so you can continue on another device. It syncs when the game starts and soon after you play. If
           this device and your account both have progress, the game combines them into one save, with your furthest level,
@@ -295,7 +311,8 @@
           <li><strong>Your whole VGraphics account:</strong> Settings → "Delete my VGraphics account", or
             <a href="/hub/delete/">vgraphics.gr/hub/delete</a>, deletes your account in every VGraphics game: your
             username (freed for others), your picture, stats, achievements, friends and board places, the Google account
-            details linked to it, and everything Exitwise keeps for you as above. The game then signs you out. The
+            or Apple Account details linked to it, and everything Exitwise keeps for you as above. On iPhone and iPad the
+            game also asks Apple to end the game's Sign in with Apple for your Apple Account. The game then signs you out. The
             progress on your device or in your browser stays.</li>
           <li><strong>Older versions of the game</strong> have "Delete my leaderboard data" (your username, picture,
             leaderboard results and stats) and "Delete cloud save" (also your cloud save, drafts, map plays and ratings,
@@ -320,6 +337,13 @@
           language, your approximate country, and in-game events or crash details. We use this only to improve the game,
           never to identify you or to show you ads. See
           <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+        </p>
+        <p>
+          On iPhone and iPad, Firebase also receives the identifier for vendors (IDFV), an identifier Apple gives each app
+          maker on your device. Firebase Analytics reads your device's advertising identifier (IDFA) only if you allow
+          tracking when Apple asks (see "Advertising"), and where Google's EU consent rules apply it treats your consent as
+          refused until you answer Google's consent message. Crashlytics' crash reports hold the place in the game's code
+          where the crash happened, and nothing about you beyond the details above.
         </p>
         <p>
           On the web we use Google Analytics for the same purpose: the same game events, and error reports when something
@@ -371,6 +395,14 @@
           based on your activity in other apps.
         </p>
         <p>
+          On iPhone and iPad, Google's consent message (where the law requires it) comes first, then Apple's tracking
+          prompt; if you refuse consent in Google's message, Apple's prompt isn't shown. Our advertising partners read your
+          device's advertising identifier (IDFA) only if you allow tracking, and may also receive the identifier for vendors
+          (IDFV). You can change your answer at any time in your iPhone's or iPad's Settings → Privacy &amp; Security →
+          Tracking. Ad networks can also learn that one of their ads led to an install through Apple's SKAdNetwork, which
+          works without the advertising identifier; the game passes no information about you for it.
+        </p>
+        <p>
           If you live in a US state with a consumer privacy law (such as California, Colorado, Connecticut, Texas or
           Virginia), you can opt out of the sale or sharing of your personal information for ads at any time. On Android and
           iOS: in the game, open Settings → Ad choices and choose "Don't sell or share my data". On our website: use the "Do
@@ -392,6 +424,13 @@
           or the Apple App Store under their own privacy policies (<a href="https://policies.google.com/privacy">Google</a>,
           <a href="https://www.apple.com/legal/privacy/">Apple</a>). We never see your payment details. The game only
           receives a confirmation that the purchase was made.
+        </p>
+        <p>
+          On iPhone and iPad, Apple gives the game a receipt for each purchase, and the game checks it on your device
+          before it gives you what you bought; the receipt isn't sent to us. Coins you buy go into your saved game, on your
+          device and, if you are signed in, in your cloud save, and "Remove Ads" is remembered there too. After reinstalling
+          the game or on a new iPhone or iPad, Settings → Restore purchases asks Apple for what you bought with your Apple
+          Account, so "Remove Ads" comes back; coins come back with your cloud save when you sign in.
         </p>
       </section>
 
@@ -427,13 +466,7 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>The game is published by, and your data is controlled by:</p>
-        <address class="contact">
-          VGRAPHICS SINGLE MEMBER P.C.<br>
-          Kalamaria, Thessaloniki, Greece<br>
-          G.E.MI. no. 181823306000<br>
-          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
-        </address>
+        <p>The data controller is VGRAPHICS SINGLE MEMBER P.C. (VGraphics). Contact: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a>. Company details: <a href="/company/">vgraphics.gr/company/</a></p>
       </section>
     </div>
   </div>

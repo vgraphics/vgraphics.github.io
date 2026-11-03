@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.0b896083",
+      "date": "2026-11-03",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Skills now count on the leaderboard",
+      "items": [
+        "Win with the prince's skills on and your score now counts on the leaderboard, at full points — the skills are earned by playing, so they no longer keep your win off the board.",
+        "Friend challenges now work with the prince's skills on: you can send one after such a win, and your friend plays it with their own skills and can win it with them on."
+      ],
+      "commit": "0b896083"
+    },
+    {
       "version": "1.0.30",
       "date": "2026-11-03",
       "platforms": [
