@@ -103,7 +103,7 @@
             { "q": "Can every level be solved?", "a": "Yes. Each level is built from a fixed seed, which hands every player the same board, and each one is checked to be solvable before it ships." },
             { "q": "What counts as my best on a level?", "a": "The win with the fewest hearts lost, and between two equal wins, the faster one. Each level keeps its own best, and the panel at the end of a level shows it beside your time." },
             { "q": "Why do the levels after a hard one feel easier?", "a": "On purpose: after each hard level come two slightly smaller boards, a breather before the climb goes on." },
-            { "q": "Can I play on an iPhone or iPad before the app is out?", "a": "Yes, in Safari or any other browser: the web version has the same 600 levels. The App Store app is being made now, and signing in with Google in the browser keeps your progress waiting for it." }
+            { "q": "Can I play on an iPhone or iPad before the app is out?", "a": "Yes, in Safari or any other browser: the web version has the same 600 levels. The App Store app is being made now. It signs you in with Apple, and if you play in the browser with Google, you will be able to link your Apple ID to that same VHub account, so your progress comes along." }
           ]
         }
       ]
