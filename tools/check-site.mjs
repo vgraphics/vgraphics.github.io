@@ -1417,7 +1417,8 @@ else {
 
 // Rights in the files (README "Rights in the files"): art not on the live site yet should carry our rights mark and,
 // once VGraphics' signing certificate is in place, Content Credentials. A warning on stderr, not a problem (it never
-// fails the check, nor reads as a problem line to the Deployer): node tools/protect-art.mjs adds them.
+// fails the check, nor reads as a problem line to the Deployer): the git hooks in tools/hooks/ add them on every commit
+// and merge, and node tools/protect-art.mjs where they didn't run.
 {
   const s = signer()
   const sign = !!s && !s.test
@@ -1426,7 +1427,11 @@ else {
     return (MARKABLE.test(rel) && !hasRightsMark(b)) || (sign && !hasCredentials(b))
   })
   if (bare.length) {
-    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing`)
+    let hooks = ''
+    try {
+      hooks = execFileSync('git', ['config', '--get', 'core.hooksPath'], { cwd: root, encoding: 'utf8' }).trim()
+    } catch {}
+    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing${hooks === 'tools/hooks' ? '' : ' (and git config core.hooksPath tools/hooks, so the hooks do it on every commit and merge)'}`)
   }
 }
 
