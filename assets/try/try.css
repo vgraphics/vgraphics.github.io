@@ -118,8 +118,8 @@
 /* A market layout on show (#layout=<CODE>): its name, its maker and a link to its page. */
 .try-shared { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .try-shared[hidden] { display: none; }
-/* The quick row: Use my real speed, Copy a link to this look and Show QR for this look, pills of one shape and size on
-   one line each. They share a row where it has room and fill it, so a row that wraps (a phone's) ends square. */
+/* The quick row: Use my real speed, Copy a link to this look, Show QR for this look and HUD mode, pills of one shape and
+   size on one line each. They share a row where it has room and fill it, so a row that wraps (a phone's) ends square. */
 .try-quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
 .try-quick > .try-tool { flex: 1 1 auto; justify-content: center; }
 /* Use my real speed (George, 3 Nov 2026: "must match the style of copy a link button but in different color"): that

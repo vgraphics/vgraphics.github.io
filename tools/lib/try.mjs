@@ -51,10 +51,12 @@ const ICON = {
 }
 
 // HUD mode's parts (the hud option): its button and layouts in the panel, and the layer over the phone's screen. Each
-// brings its own line break, so a page without HUD mode gets no blank lines.
+// brings its own line break, so a page without HUD mode gets no blank lines. The button is a pill of the quick row's
+// shape (George, 4 Nov 2026, asked whether the yellow HUD mode button should become a pill like the others: "Yes, make
+// it a pill"): the same outlined .try-tool as Copy a link and Show QR, so only Use my real speed is filled.
 const hudButton = (hud) => (hud
   ? `
-              <button class="btn try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
+              <button class="try-tool try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
   : '')
 const hudLayouts = (hud) => (hud
   ? `
