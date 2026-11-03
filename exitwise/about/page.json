@@ -89,7 +89,7 @@
     {
       "id": "phone",
       "title": "On your phone too",
-      "intro": "Exitwise is free on Android too. Sign in with Google in the browser and on the phone, or with Apple on iPhone and iPad, and your progress, your name and your settings come along.",
+      "intro": "Exitwise is free on Android too. Sign in with Google in the browser and on Android, or with Apple on iPhone and iPad, and your progress, your name and your settings come along. To use both, add the other one to your account on the VHub page.",
       "blocks": [{ "type": "actions", "items": ["google-play", "vhub"] }]
     },
     {
