@@ -559,40 +559,67 @@ a.x-rooms:hover img { transform: rotate(-1.5deg) scale(1.02); }
 .site-foot .mail-list-row .btn:hover { background: #FFFFFF; }
 .mail-list-fine { font-size: 0.85rem; opacity: 0.86; }
 .mail-list-said:empty { display: none; }
-/* What the sign-up answers, plain to see (George, 31 Oct 2026: "only a text small confirmation showing. Fix it."). An
-   error is a box under the field with a mark, never small grey text; the field is marked too. */
-.mail-list-said.is-error {
-  display: flex; align-items: flex-start; gap: 10px; width: 100%; padding: 12px 14px; border: 2px solid #E0442B; border-radius: 14px;
-  background: #FFF1EE; color: #7F1A0B; font-size: 0.95rem; font-weight: 600; line-height: 1.4; text-align: left;
+/* After the press (assets/mail-list.js; George kept "after the press" on the mail review page, 3 Nov 2026: "Keep as
+   designed"): the component of assets/product.css in the company footer's own colours, the night's in both themes, with
+   sun as its tone. An invalid address or the age rule is said under the field with a mark, never in a box. */
+.mail-list { --ml-err: #FFA77A; }
+.mail-list-said.is-error { display: flex; align-items: flex-start; gap: 8px; width: 100%; color: var(--ml-err); font-size: 0.92rem; font-weight: 700; line-height: 1.4; text-align: left; }
+.mail-list-said-mark { display: flex; flex: none; margin-top: 1px; }
+.mail-list-said-mark svg { width: 18px; height: 18px; }
+.mail-list-row input[aria-invalid="true"] { border-color: var(--ml-err); }
+.mail-list.is-done > :not(.mail-state) { display: none; }
+.mail-state {
+  --tone: var(--sun);
+  --tone-ink: #16151B;
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; justify-items: center; gap: 10px; width: 100%; padding: 28px 22px 22px;
+  border: 1px solid var(--night-line); border-radius: var(--r-md); background: var(--night-2); color: var(--night-strong); text-align: center;
 }
-.mail-list-said.is-error::before {
-  content: "!"; display: grid; place-items: center; flex: none; width: 22px; height: 22px; border-radius: 50%;
-  background: #E0442B; color: #FFFFFF; font-size: 0.85rem; font-weight: 800;
+.mail-state::before {
+  content: ""; position: absolute; inset: -40% -20% auto; z-index: -1; height: 220px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--tone) 22%, transparent), transparent);
 }
-.mail-list-row input[aria-invalid="true"] { border-color: #E0442B; }
-/* Success: the form gives way to a card in the product's colours, with a big check mark, "Almost there", where the link
-   went, and "Send again" and "Change address" (assets/mail-list.js animates the change). */
-.mail-list.is-done > :not(.mail-list-done) { display: none; }
-.mail-list-done {
-  display: grid; justify-items: center; gap: 8px; width: 100%; padding: 22px 20px 16px; border-radius: 22px;
-  background: var(--ml-bg); color: var(--ml-ink); text-align: center; box-shadow: 0 18px 40px -22px rgb(0 0 0 / 0.6);
+.mail-state:focus { outline: none; }
+.mail-state:focus-visible { outline: 3px solid var(--tone); outline-offset: 3px; }
+.mail-state.is-error { --tone: var(--ml-err); --tone-ink: var(--night); }
+.mail-state-mark {
+  display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--tone); color: var(--tone-ink);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--tone) 16%, transparent);
 }
-.mail-list-done:focus { outline: none; }
-.mail-list-done:focus-visible { outline: 3px solid var(--ml-ink); outline-offset: 3px; }
-.mail-list-check { display: grid; place-items: center; width: 56px; height: 56px; border-radius: 50%; background: var(--ml-ink); color: var(--ml-bg); }
-.mail-list-done-title { font-size: 1.35rem; font-weight: 800; line-height: 1.2; }
-.mail-list-done-line { font-size: 1rem; line-height: 1.45; overflow-wrap: anywhere; }
-.mail-list-done-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 0 16px; }
-.mail-list-done-actions button {
-  min-height: 44px; padding: 0 6px; border: 0; background: none; color: inherit; font: inherit; font-size: 0.9rem; font-weight: 700;
-  text-decoration: underline; text-underline-offset: 4px; cursor: var(--cursor-link, pointer);
+.mail-state-mark svg { width: 40px; height: 40px; }
+.mail-state.is-quiet .mail-state-mark { background: color-mix(in srgb, var(--tone) 14%, var(--night-2)); color: var(--night-strong); box-shadow: none; }
+.mail-state-title { margin: 0; color: var(--night-strong); font: 800 1.6rem/1.1 var(--display); letter-spacing: -0.02em; text-wrap: balance; }
+.mail-state-line { max-width: 34ch; margin: 0; line-height: 1.5; }
+.mail-state-line b { overflow-wrap: anywhere; }
+.mail-state-topics { display: grid; justify-items: center; gap: 6px; }
+.mail-state-topics-label { color: var(--night-text); font-size: 0.8rem; }
+.mail-state-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.mail-chip {
+  display: inline-flex; align-items: center; gap: 7px; padding: 4px 12px 4px 4px; border: 1px solid var(--night-line); border-radius: 999px;
+  background: var(--night); color: var(--night-strong); font: 700 0.88rem/1 var(--body);
 }
-.mail-list-done-actions button:disabled { opacity: 0.6; text-decoration: none; cursor: var(--cursor, default); }
-.mail-list-done-actions button:focus-visible { outline: 3px solid var(--ml-ink); outline-offset: 2px; border-radius: 6px; }
-.mail-list-done-note { font-size: 0.85rem; line-height: 1.4; }
-.mail-list-done-note:empty { display: none; }
-/* The company's card is sun on the night footer. */
-.mail-list { --ml-bg: var(--sun); --ml-ink: #16151B; }
+.mail-chip img { display: block; width: 24px; height: 24px; border-radius: 7px; }
+.mail-state-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin: 0; }
+.mail-state-actions :is(button, a) {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--night-strong);
+  font: 700 0.92rem/1 var(--body); text-decoration: underline; text-decoration-color: var(--tone); text-decoration-thickness: 2px;
+  text-underline-offset: 5px; cursor: var(--cursor-link, pointer);
+}
+.mail-state-actions button:disabled { color: var(--night-text); text-decoration: none; cursor: var(--cursor, default); }
+.mail-state-actions :is(button, a):focus-visible { outline: 3px solid var(--tone); outline-offset: 2px; border-radius: 6px; }
+.mail-state-note { max-width: 36ch; margin: 0; color: var(--night-text); font-size: 0.84rem; line-height: 1.4; }
+.mail-state-note:empty { display: none; }
+/* Its next step and main button are the footer's sun button, as the Sign up. */
+.mail-state .btn { margin-top: 4px; background: var(--sun); color: #16151B; text-decoration: none; }
+.mail-state .btn:hover { background: #FFFFFF; }
+@media (prefers-reduced-motion: no-preference) {
+  .mail-state.is-signed .mail-state-mark { animation: mail-pop 300ms cubic-bezier(0.2, 0.8, 0.2, 1.2) both; }
+  .mail-state.is-signed .mail-state-mark .draw { stroke-dasharray: 30; stroke-dashoffset: 30; animation: mail-draw 380ms 180ms cubic-bezier(0.3, 0.7, 0.2, 1) forwards; }
+  .mail-state.is-signed > :not(.mail-state-mark) { animation: mail-up 320ms 120ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+}
+@keyframes mail-pop { from { transform: scale(0.6); opacity: 0; } }
+@keyframes mail-draw { to { stroke-dashoffset: 0; } }
+@keyframes mail-up { from { transform: translateY(6px); opacity: 0; } }
 .mail-list-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 .foot-news { padding-block: var(--s4); border-bottom: 1px solid var(--night-line); }
 /* The company footer's Help link, plain to see (George, 31 Oct 2026: "Help menu, I found it. Barely visible."). */

@@ -1,11 +1,12 @@
 // Help and the sign-up for news on every page (tools/lib/mail-list.mjs; VHub's newsletter-and-tickets design, George's
 // "Approve all" of 30 Oct 2026): check-site's help-mail rule by kind of page. VHub's own pages, its /hub/join/ invite
 // page among them, carry the company footer as the menu rule wants, sign-up included; a game's play, TV, join and demo
-// screens carry no sign-up; every other footer links Help and carries the sign-up.
+// screens carry no sign-up; every other footer links Help and carries the sign-up. Then the sign-up's look and places,
+// check-site's sign-up-look rule, and what the sign-up says after the press.
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
-import { readFileSync } from 'node:fs'
+import { existsSync, readFileSync } from 'node:fs'
 import { runInNewContext } from 'node:vm'
 import { productFoot } from '../lib/legal.mjs'
 import { headerHelpProblems, helpLink, helpMailProblems, mailList, signUpCssProblems, signUpLookProblems, WORDINGS } from '../lib/mail-list.mjs'
@@ -167,27 +168,78 @@ test("product.css gives the sign-up's buttons .play-cta's colours alone", () => 
   assert.deepEqual(signUpCssProblems('.mail-state-actions :is(button, a) { color: var(--ink); background: none; } .foot-cta .btn { background: var(--cta); }'), [])
 })
 
-// What the sign-up says after the press (assets/mail-list.js; George, 31 Oct 2026: "I added my email to news letter but
-// only a text small confirmation showing. Fix it."). The script runs here without a page: it hands its words and the
-// meaning of VHub's answers to globalThis.VGMailList and wires nothing.
+// What the sign-up says after the press (assets/mail-list.js; George kept "after the press" on the mail review page,
+// 3 Nov 2026: "Keep as designed"). The script runs here without a page: it hands its words, its cards and the meaning
+// of VHub's answers to globalThis.VGMailList and wires nothing.
 const pageScript = () => {
   const sandbox = {}
   runInNewContext(readFileSync(new URL('../../assets/mail-list.js', import.meta.url), 'utf8'), sandbox)
   return sandbox.VGMailList
 }
 
-test("a sign-up's answer is a card (the link went, or signed up at once) or an error in plain words", () => {
-  const { WORDS, outcome } = pageScript()
-  assert.deepEqual({ ...outcome('pending', WORDS.en) }, { card: true, title: 'Almost there', line: 'We sent a link to {email}. Tap it to confirm.' })
-  assert.equal(outcome('confirmed', WORDS.en).title, "You're signed up")
-  assert.deepEqual({ ...outcome('limit', WORDS.en) }, { card: false, error: 'Too many sign-ups from here right now. Try again in an hour.' })
-  assert.equal(outcome('invalid', WORDS.en).error, "That doesn't look like an email address. Check it and try again.")
-  // Anything VHub didn't mean (no answer, a new result) reads as a failure, never as nothing.
-  assert.equal(outcome(undefined, WORDS.en).error, WORDS.en.failed)
-  assert.equal(outcome('something-new', WORDS.en).error, WORDS.en.failed)
+test("VHub's answer is a card or an error under the field; a typed address gets the inbox card", () => {
+  const { outcome } = pageScript()
+  assert.deepEqual({ ...outcome('pending') }, { card: 'inbox' })
+  assert.deepEqual({ ...outcome('confirmed') }, { card: 'signed' })
+  assert.deepEqual({ ...outcome('limit') }, { card: 'limit' })
+  assert.deepEqual({ ...outcome('invalid') }, { field: 'invalid' })
+  assert.deepEqual({ ...outcome('age') }, { field: 'age' })
+  // Anything VHub didn't mean (no answer, a new result) is the failure card, never nothing.
+  for (const result of [undefined, null, 'something-new']) assert.deepEqual({ ...outcome(result) }, { card: 'failed' }, String(result))
 })
 
-test('the card and the errors in English, and in Greek on a Greek page', () => {
+test('each state has its card, as designed', () => {
+  const { VIEWS } = pageScript()
+  const shape = (kind) => {
+    const v = VIEWS[kind]
+    return { tone: v.tone, mark: v.mark, chips: v.chips ?? null, actions: [...v.actions], note: v.note ?? null, next: !!v.next, main: v.main ?? null }
+  }
+  assert.deepEqual(Object.keys(VIEWS), ['inbox', 'signed', 'already', 'unsub', 'limit', 'failed', 'expired'])
+  assert.deepEqual(shape('inbox'), { tone: 'quiet', mark: 'mail', chips: 'asked', actions: ['again', 'change'], note: 'inboxNote', next: false, main: null })
+  assert.deepEqual(shape('signed'), { tone: 'play', mark: 'check', chips: 'topics', actions: ['manage'], note: null, next: true, main: null })
+  assert.deepEqual(shape('already'), { tone: 'quiet', mark: 'check', chips: 'topics', actions: ['manage'], note: null, next: true, main: null })
+  assert.deepEqual(shape('unsub'), { tone: 'quiet', mark: 'wave', chips: null, actions: ['signUpAgain'], note: null, next: true, main: null })
+  assert.deepEqual(shape('limit'), { tone: 'error', mark: 'bang', chips: null, actions: [], note: null, next: false, main: null })
+  assert.deepEqual(shape('failed'), { tone: 'error', mark: 'bang', chips: null, actions: ['retry'], note: null, next: false, main: null })
+  assert.deepEqual(shape('expired'), { tone: 'error', mark: 'bang', chips: null, actions: [], note: null, next: false, main: 'resend' })
+})
+
+test("every card's words are there, in English and in Greek", () => {
+  const { WORDS, VIEWS, NEXT } = pageScript()
+  for (const lang of ['en', 'el']) {
+    for (const [kind, v] of Object.entries(VIEWS)) {
+      for (const key of [v.title, v.line, v.chips, v.note, v.main, ...v.actions].filter(Boolean)) assert.equal(typeof WORDS[lang][key], 'string', `${lang} ${kind} ${key}`)
+    }
+    for (const { words } of Object.values(NEXT)) assert.equal(typeof WORDS[lang][words], 'string', `${lang} ${words}`)
+    for (const key of ['sending', 'againIn', 'againDone', 'invalid', 'age']) assert.equal(typeof WORDS[lang][key], 'string', `${lang} ${key}`)
+  }
+  // The lines that name the address, the topic or the wait keep their places in both languages.
+  for (const key of ['inboxLine', 'signedLine', 'alreadyLine', 'expiredLine']) assert.ok(WORDS.en[key].includes('{email}') && WORDS.el[key].includes('{email}'), key)
+  assert.ok(WORDS.en.alreadyLine.includes('{topic}') && WORDS.el.alreadyLine.includes('{topic}'))
+  assert.ok(WORDS.en.againIn.includes('{time}') && WORDS.el.againIn.includes('{time}'))
+})
+
+test('the lines fill in, and Send again counts down the 10 minutes', () => {
+  const { say, clock, TOPICS } = pageScript()
+  assert.equal(say('{topic} news already comes to {email}.', { topic: 'Exitwise', email: 'fan@example.com' }), 'Exitwise news already comes to fan@example.com.')
+  assert.equal(say('Τα νέα {topic} έρχονται ήδη.', { topic: TOPICS.exitwise.el }), 'Τα νέα του Exitwise έρχονται ήδη.')
+  assert.equal(say('Send again in {time}'), 'Send again in {time}')
+  assert.equal(clock(10 * 60 * 1000), '10:00')
+  assert.equal(clock(592000), '9:52')
+  assert.equal(clock(1), '0:01')
+  assert.equal(clock(-5), '0:00')
+})
+
+test("each topic's chip has its icon on the site, and each next step leads to a page", () => {
+  const { TOPICS, NEXT } = pageScript()
+  assert.deepEqual(Object.keys(TOPICS).sort(), Object.keys(NEXT).sort())
+  for (const [id, t] of Object.entries(TOPICS)) assert.ok(existsSync(new URL(`../..${t.icon}`, import.meta.url)), `${id} ${t.icon}`)
+  for (const [id, n] of Object.entries(NEXT)) assert.ok(existsSync(new URL(`../..${n.href}index.html`, import.meta.url)), `${id} ${n.href}`)
+  // Every topic a form asks for has its chip: the products with a topic, and VGraphics.
+  for (const slug of ['exitwise', 'speedometer-wallpaper', 'palermo', null]) assert.ok(TOPICS[mailList(slug).match(/data-topic="([^"]+)"/)[1]], String(slug))
+})
+
+test('the words in English, and in Greek on a Greek page', () => {
   const { WORDS, wordsFor } = pageScript()
   assert.equal(wordsFor('el'), WORDS.el)
   assert.equal(wordsFor('el-GR'), WORDS.el)
@@ -196,6 +248,6 @@ test('the card and the errors in English, and in Greek on a Greek page', () => {
   assert.deepEqual(Object.keys(WORDS.el).sort(), Object.keys(WORDS.en).sort())
   for (const [key, text] of Object.entries(WORDS.en)) assert.doesNotMatch(text, /[\u0370-\u03FF]/, `en ${key}`)
   for (const [key, text] of Object.entries(WORDS.el)) assert.match(text, /[\u0370-\u03FF]/, `el ${key}`)
-  assert.equal(WORDS.el.almost, 'Σχεδόν έτοιμο')
-  assert.ok(WORDS.el.sent.includes('{email}'))
+  assert.equal(WORDS.en.inbox, 'Check your inbox')
+  assert.equal(WORDS.el.inbox, 'Έλεγξε τα εισερχόμενά σου')
 })
