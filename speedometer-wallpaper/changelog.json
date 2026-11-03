@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.11",
+      "date": "2026-11-03",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Manage your News by email",
+      "items": [
+        "The News by email switch now shows whether you're signed up, and turning it off unsubscribes you. If you've just signed up, it reminds you to tap the confirmation link in your inbox.",
+        "Sign-up emails now arrive in the app's language — Greek if the app is in Greek, otherwise English."
+      ],
+      "commit": "e7df1f16"
+    },
+    {
       "version": "2.0.10",
       "date": "2026-11-02",
       "platforms": [
