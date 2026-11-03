@@ -1,16 +1,16 @@
 // Frame pages (tools/lib/frames.mjs; the master coordinator, 2 Nov 2026): a template screen with one build in it that
 // another Pages repo serves under vgraphics.gr, framed from the same origin on the page's own route (Palermo Noir's Unity
 // WebGL build at /vg--palermo-play/). What fails a frame, and each of Palermo's waiting pages as the template builds it,
-// with the rules that are its own (the Palermo coordinator, 2 Nov 2026: its title, description and canonical, noindex on
-// the TV and join pages only, its route; the play and demo pages in the play-page shell with the slim bar and its About
-// link, the TV and join pages the frame alone, with no header, menu, avatar or bar, their legal line in the build; no-select
-// on every one).
+// with the rules that are its own (the Palermo coordinator, 2 and 3 Nov 2026: its title, description and canonical; its
+// route; no site header on any, the game drawing its own; the play and demo pages the frame and the slim bar
+// (← Palermo Noir · About · Privacy · © 2026 VGraphics), the TV and join pages the frame alone, their legal line in the
+// build; noindex on all but the demo, the play page's until George's launch call; no-select on every one).
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { join } from 'node:path'
-import { framePageProblems, frameProblems, frameSources, hasFrame, SERVED_ELSEWHERE } from '../lib/frames.mjs'
+import { framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame, SERVED_ELSEWHERE } from '../lib/frames.mjs'
 import { render } from '../build-pages.mjs'
 import { root } from '../lib/product.mjs'
 
@@ -18,12 +18,12 @@ const source = (name) => join(root, 'palermo', 'frames', `${name}.json`)
 const page = (blocks, screen = { heading: 'Play' }) => ({ screen, sections: [{ id: 'game', blocks }] })
 const frame = (src, title = 'Palermo Noir') => ({ type: 'frame', src, title })
 
-// Each page's own words, and whether it is a door (TV or join: out of search, the frame alone).
+// Each page's own words, whether it is a door (TV or join: the frame alone), and whether it is kept out of search.
 const PAGES = {
-  play: { title: 'Play Palermo Noir online: the mafia party game in your browser', door: false },
-  join: { title: 'Join the game · Palermo Noir', door: true },
-  tv: { title: 'Palermo Noir · TV', door: true },
-  demo: { title: 'Palermo Noir demo · Play a guided game online', door: false },
+  play: { title: 'Play Palermo Noir online: the mafia party game in your browser', door: false, noindex: true },
+  join: { title: 'Join the game · Palermo Noir', door: true, noindex: true },
+  tv: { title: 'Palermo Noir · TV', door: true, noindex: true },
+  demo: { title: 'Palermo Noir demo · Play a guided game online', door: false, noindex: false },
 }
 
 test("Palermo's play, join, TV and demo pages wait in palermo/frames/", () => {
@@ -32,7 +32,7 @@ test("Palermo's play, join, TV and demo pages wait in palermo/frames/", () => {
 })
 
 for (const [name, want] of Object.entries(PAGES)) {
-  test(`/palermo/${name}/: its own title, description and canonical, ${want.door ? 'noindex, the frame alone with no header or bar' : 'for search, the play-page shell with the About link'}, the build on ?route=${name}`, () => {
+  test(`/palermo/${name}/: its own title, description and canonical, ${want.noindex ? 'noindex' : 'for search'}, no site header, ${want.door ? 'the frame alone' : 'the frame and the slim bar'}, the build on ?route=${name}`, () => {
     const p = JSON.parse(readFileSync(source(name), 'utf8'))
     assert.equal(hasFrame(p), true)
     assert.deepEqual(frameProblems(p, name), [])
@@ -42,26 +42,29 @@ for (const [name, want] of Object.entries(PAGES)) {
     assert.ok(html.includes(`<title>${want.title}</title>`), html.match(/<title>.*<\/title>/)?.[0])
     assert.ok(html.includes(`<meta name="description" content="${p.description}">`))
     assert.ok(html.includes(`<link rel="canonical" href="https://vgraphics.gr/palermo/${name}/">`))
-    assert.equal(/<meta name="robots" content="noindex">/.test(html), want.door, 'noindex on the TV and join pages only')
+    assert.equal(/<meta name="robots" content="noindex">/.test(html), want.noindex, 'noindex on all but the demo')
     const body = html.split('<body>')[1]
+    // No site header, menu, avatar or skip link on any: the game draws its own. It loads the no-select piece itself.
+    for (const piece of ['<header', '<nav', 'vhub-avatar', 'menu-toggle', 'class="skip"']) assert.ok(!body.includes(piece), `the ${name} page has ${piece}`)
+    assert.ok(!html.includes('<script src="/assets/menu.js" defer></script>'))
+    assert.ok(html.includes('<script src="/assets/no-select.js" defer></script>'), 'it loads the no-select piece itself')
+    const tags = body.match(/<[a-z0-9]+\b/g)
     if (want.door) {
-      // The frame alone: no header, menu, avatar, skip link or bar; the build's page carries the legal line.
+      // The frame alone: no bar either; the build's page carries the legal line.
       assert.match(html, /<html lang="en" class="screen bare">/)
-      for (const piece of ['<header', '<nav', 'vhub-avatar', 'menu-toggle', 'class="skip"', 'screen-bar', '<footer', '/palermo/about/']) {
-        assert.ok(!body.includes(piece), `the ${name} page has ${piece}`)
-      }
-      assert.ok(!html.includes('<script src="/assets/menu.js" defer></script>'))
-      assert.ok(html.includes('<script src="/assets/no-select.js" defer></script>'), 'it loads the no-select piece itself')
-      assert.equal(body.match(/<[a-z]+\b/g).filter((t) => !['<main', '<h1', '<iframe', '<script'].includes(t)).length, 0, 'nothing but the frame, its heading and the scripts')
+      for (const piece of ['screen-bar', '<footer', '/palermo/about/']) assert.ok(!body.includes(piece), `the ${name} page has ${piece}`)
+      assert.deepEqual([...new Set(tags)].sort(), ['<h1', '<iframe', '<main', '<script'], 'nothing but the frame, its heading and the scripts')
     } else {
-      // The play-page shell: the product header and the slim bar with its About link and the short legal line.
+      // The frame and the slim bar: ← Palermo Noir · About · Privacy · © 2026 VGraphics (Company and Terms giving way on phones).
       assert.match(html, /<html lang="en" class="screen">/)
-      assert.match(body, /<header class="top\b/)
-      const bar = html.match(/<footer class="screen-bar">[\s\S]*?<\/footer>/)?.[0] ?? ''
-      assert.ok(bar.includes('href="/palermo/about/"'), 'the About link in the bar')
+      const bar = body.match(/<footer class="screen-bar">[\s\S]*?<\/footer>/)?.[0] ?? ''
+      assert.ok(bar.includes('<a href="/palermo/">&larr; Palermo Noir</a>'), bar)
+      assert.ok(bar.includes('<a href="/palermo/about/">About</a>'), 'the About link in the bar')
+      assert.ok(bar.includes('<a href="/palermo/privacy.html">Privacy</a>'), 'the policy in the bar')
       assert.match(bar, /&copy; 2026 VGraphics/, 'the short legal line')
-      assert.ok(html.includes('<script src="/assets/menu.js" defer></script>'), 'menu.js brings the no-select piece')
+      assert.deepEqual([...new Set(tags)].sort(), ['<a', '<footer', '<h1', '<iframe', '<main', '<script', '<span'], 'nothing but the frame, its heading, the bar and the scripts')
     }
+    assert.deepEqual(frameShellProblems(html, `/palermo/${name}/`), [])
     assert.match(html, /<main id="main" class="screen-main framed">/)
     assert.ok(html.includes(`<iframe class="frame" data-src="/vg--palermo-play/?route=${name}" title="Palermo Noir"`))
     assert.doesNotMatch(html, /<iframe[^>]*\ssrc=/, 'assets/frame.js gives the frame its address, so the build never loads twice')
@@ -113,9 +116,20 @@ test('a frame page keeps play-alone, the short legal line and no-select itself',
   const { html } = render('palermo', 'play', source('play'))
   const rules = (h, path = '/palermo/play/') => [...new Set(framePageProblems(h, path).map(([rule]) => rule))]
   assert.deepEqual(rules(html.replace('&copy; 2026 VGraphics', '')), ['legal-footer'])
-  assert.deepEqual(rules(html.replace('<script src="/assets/menu.js" defer></script>', '')), ['no-select'])
+  assert.deepEqual(rules(html.replace('<script src="/assets/no-select.js" defer></script>', '')), ['no-select'])
   assert.deepEqual(rules(html.replace('<html lang="en" class="screen">', '<html lang="en">')), ['play-alone'])
-  // The menu links the About page as well as the bar, and either will do: without both, it fails.
-  assert.deepEqual(rules(html.replace(/\s*<a href="\/palermo\/about\/">About<\/a>/, '')), [], 'the menu still links it')
-  assert.deepEqual(rules(html.replaceAll('href="/palermo/about/"', 'href="/palermo/"')), ['play-alone'], 'a play page links its About page')
+  assert.deepEqual(rules(html.replace(/\s*<a href="\/palermo\/about\/">About<\/a>/, '')), ['play-alone'], 'a play page links its About page in its bar')
+})
+
+test('no site header on a frame page; the slim bar under a play or demo page, nothing under a TV or join page', () => {
+  const play = render('palermo', 'play', source('play')).html
+  const tv = render('palermo', 'tv', source('tv')).html
+  const found = (html, path) => frameShellProblems(html, path).map(([, m]) => m)
+  const headed = found(play.replace('<main', '<header class="top"><a href="/palermo/">Palermo Noir</a></header>\n  <main'), '/palermo/play/')
+  assert.ok(headed.some((m) => m.includes('site header')), headed.join('\n'))
+  const barless = found(play.replace(/<footer class="screen-bar">[\s\S]*?<\/footer>/, ''), '/palermo/play/')
+  assert.ok(barless.some((m) => m.includes('slim bar')), barless.join('\n'))
+  const barred = found(tv.replace('</main>', '</main>\n  <footer class="screen-bar"><a href="/palermo/about/">About</a></footer>'), '/palermo/tv/')
+  assert.ok(barred.some((m) => m.includes('the frame alone')), barred.join('\n'))
+  assert.deepEqual([...new Set(framePageProblems(play.replace('<main', '<header class="top"></header><main'), '/palermo/play/').map(([rule]) => rule))], ['play-alone'])
 })

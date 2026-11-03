@@ -1,6 +1,7 @@
 {
   "title": "Play Palermo Noir online: the mafia party game in your browser",
   "description": "Play Palermo Noir in your browser: start a room for your table or join one with its code, and a noir narrator runs every night and day. Free, for 6 to 14 friends.",
+  "robots": "noindex",
   "social": {
     "title": "Play Palermo Noir online",
     "description": "The mafia party game in your browser: start a room for the table or join one with its code, and the narrator runs the night.",

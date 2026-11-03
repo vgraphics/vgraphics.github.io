@@ -23,7 +23,7 @@ import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
 import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
-import { frameLegalProblems, framePageProblems, frameProblems, frameSources, hasFrame } from './lib/frames.mjs'
+import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -622,7 +622,8 @@ for (const slug of products()) {
 }
 // A frame page (tools/lib/frames.mjs; the master coordinator, 2 Nov 2026) is a template screen with one build in it, a
 // build another Pages repo serves under vgraphics.gr (Palermo Noir's Unity WebGL build at /vg--palermo-play/), framed
-// from the same origin on the page's own route, a TV or join page kept out of search. A page that a release puts in
+// from the same origin on the page's own route, with no site header (the game draws its own), the slim bar under a play
+// or demo page and nothing under a TV or join page, which is kept out of search. A page that a release puts in
 // place waits at <product>/frames/<page>.json until then: it is built here as the page it will be, so it keeps the
 // Unity pages' rules that are a frame page's (play-alone, legal-footer, no-select, noindex) before it goes live, and once
 // in place its page.json is that source. The build keeps the others, checked by tools/check-unity-build.mjs.
@@ -651,6 +652,12 @@ for (const slug of products()) {
   for (const sub of subpages(slug).filter((s) => !waiting.includes(s))) {
     const page = JSON.parse(readFileSync(join(root, slug, sub, 'page.json'), 'utf8'))
     for (const m of frameProblems(page, sub.split('/').pop())) report(join(slug, sub, 'page.json'), 'frames', m)
+  }
+  // A frame page in place (its page.json put there from frames/), as served: no site header, and the slim bar on a play
+  // or demo page, none on a TV or join page. Until then the address is the web pages', which are theirs to check.
+  for (const name of waiting.filter((n) => existsSync(join(root, slug, n, 'page.json')))) {
+    const file = join(slug, name, 'index.html')
+    if (existsSync(join(root, file))) for (const [rule, m] of frameShellProblems(readFileSync(join(root, file), 'utf8'), `/${slug}/${name}/`)) report(file, rule, m)
   }
 }
 
