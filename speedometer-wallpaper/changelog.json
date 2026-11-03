@@ -20,10 +20,8 @@
       "platforms": [
         "Android"
       ],
-      "title": "Manage your News by email",
       "items": [
-        "The News by email switch now shows whether you're signed up, and turning it off unsubscribes you. If you've just signed up, it reminds you to tap the confirmation link in your inbox.",
-        "Sign-up emails now arrive in the app's language — Greek if the app is in Greek, otherwise English."
+        "New: HUD mode. Lay your phone flat on the dashboard and see your speed on the windscreen, in Horizon (free), Glass, Pulse or Vector, with four layouts, the clock, trip, heading and your own speed warning. Open it from Home, the HUD mode tile, the app icon, or by itself when your car connects."
       ],
       "commit": "e7df1f16"
     },
