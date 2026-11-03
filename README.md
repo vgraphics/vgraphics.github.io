@@ -675,9 +675,9 @@ releases write (`exitwise/play/`, `speedometer-wallpaper/play/app/`, `hub/`), ar
 
 ## Our names as trade marks
 
-™ goes after VGraphics, Exitwise, Palermo Noir and Quizfall, the names the EU trade mark search found free (Games repo
+™ goes after VGraphics, Exitwise and Palermo Noir, the names the trade mark searches found free (Games repo
 `docs/legal/trademarks.md`), on the website's pages (George, 3 Nov 2026: "Yes, add ™"): in every heading that names
-them and at their first mention in the page's text. `tools/lib/marks.mjs` decides where, and the template writes them
+them and at their first mention in the page's text. Quizfall gets none (George, 3 Nov 2026: "Yes, not Quizfall"). `tools/lib/marks.mjs` decides where, and the template writes them
 (`build-pages`, `build-wiki` and `build-devlog` pass every page through it), so a page.json, wiki.json or posts.json
 never types a ™. A hand-made page carries them itself (`node tools/add-marks.mjs [page ...]` writes them in, after a
 merge too); check-site's `trademark` rule holds every page to it.

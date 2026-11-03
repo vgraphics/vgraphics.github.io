@@ -1,14 +1,14 @@
-// Our names as trade marks on the website's pages (George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise,
-// Palermo Noir and Quizfall, the names the EU trade mark search found free (Games repo docs/legal/trademarks.md), in
-// every heading that names them and at their first mention in the page's text. Not VHub (a mark another company
-// registered), never ® (none is registered yet), and nowhere else: not in titles, descriptions, structured data, link
-// labels, buttons, menus, footers or quotes, not on a product's own screens (its play, TV, join and demo pages, the hub,
-// the try pages: the game or app itself), and not in the policies and map rules the products' repos own. The template
-// (tools/build-pages.mjs, build-wiki.mjs, build-devlog.mjs) writes them through markPage; check-site holds every other
-// page to the same (markProblems).
+// Our names as trade marks on the website's pages (George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise
+// and Palermo Noir, the names the trade mark searches found free (Games repo docs/legal/trademarks.md), in
+// every heading that names them and at their first mention in the page's text. Not Quizfall (George, 3 Nov 2026: "Yes,
+// not Quizfall"), not VHub (a mark another company registered), never ® (none is registered yet), and nowhere else: not
+// in titles, descriptions, structured data, link labels, buttons, menus, footers or quotes, not on a product's own
+// screens (its play, TV, join and demo pages, the hub, the try pages: the game or app itself), and not in the policies
+// and map rules the products' repos own. The template (tools/build-pages.mjs, build-wiki.mjs, build-devlog.mjs) writes
+// them through markPage; check-site holds every other page to the same (markProblems).
 import { isProductScreen } from './legal.mjs'
 
-export const MARKS = ['VGraphics', 'Exitwise', 'Palermo Noir', 'Quizfall']
+export const MARKS = ['VGraphics', 'Exitwise', 'Palermo Noir']
 const TM = '™'
 
 /** Whether the page at `path` carries the marks: the website's own pages, not a product's screens or its documents. */
@@ -87,6 +87,7 @@ export function markProblems(path, html) {
   const out = withMarks(path, html).added.map(({ name, where, near }) =>
     `no ™ after "${name}" ${where === 'heading' ? 'in a heading' : 'at its first mention in the text'} ("${near}"): run the page's builder, or node tools/add-marks.mjs for a hand-made page`)
   if (/VHub\s*(™|&trade;|&#8482;)/.test(html)) out.push('"VHub" with ™: another company registered that name, so we never claim it')
+  if (/Quizfall\s*(™|&trade;|&#8482;)/.test(html)) out.push('"Quizfall" with ™: George decided not to claim that name (3 Nov 2026), so it carries no mark')
   if (/(VGraphics|Exitwise|Palermo Noir|Quizfall|VHub)\s*(™|&trade;|&#8482;)?\s*(®|&reg;|&#174;)/.test(html)) out.push('® after one of our names: none is registered, so it is ™ (or nothing), never ®')
   return out
 }

@@ -555,9 +555,9 @@ for (const file of served) {
   for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
 }
 
-// Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise,
-// Palermo Noir and Quizfall in every heading that names them and at their first mention, on every website page whoever
-// writes it (the template writes them; a hand-made page carries them itself), never on VHub, never ®.
+// Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise
+// and Palermo Noir in every heading that names them and at their first mention, on every website page whoever writes
+// it (the template writes them; a hand-made page carries them itself), never on Quizfall or VHub, never ®.
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
   for (const m of markProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'trademark', m)
