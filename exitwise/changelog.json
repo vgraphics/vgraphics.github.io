@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.0b896083",
+      "version": "1.0.31",
       "date": "2026-11-03",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Skills now count on the leaderboard",
