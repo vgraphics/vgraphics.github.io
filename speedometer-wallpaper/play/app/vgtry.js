@@ -21,7 +21,13 @@
  *   app.source("demo" | "gps")   the demo drive's speed, or the visitor's real GPS speed (the browser asks)
  *   app.look(), app.shareUrl()   the shown look as text and as a link to this page
  *   app.pause(), app.resume()    the page pauses it by itself while it is hidden or scrolled away
- *   app.on(event, fn)      "change", "style", "loading", "gps", "fps", "error"; returns a function that stops it
+ *   app.hud.start({ style, layout, flip })   HUD mode (Speedometer docs/hud-mode): the canvas shows a neon style's
+ *                          HUD layout instead of the wallpaper, flipped for the windscreen; the page makes the host full
+ *                          screen around it. app.source("gps") gives it the visitor's real speed.
+ *   app.hud.flip()         the next way the phone lies ("top_to_glass", "top_to_driver", "holder"), which it returns
+ *   app.hud.stop()         back to the wallpaper
+ *   app.on(event, fn)      "change", "style", "loading", "gps", "fps", "error", "hud" ({ flip }), "hudwarning" (the
+ *                          speed has just gone over the limit: the page beeps); returns a function that stops it
  *
  *   const stills = await VGTry.stills({ base, onProgress });   still pictures for a page of cards, with no wallpaper
  *   stills.draw({ style, data, width, height })   one moment of the demo drive with the market layout data in that
@@ -155,6 +161,7 @@
         var isHidden = false;
         var isOffScreen = false;
         var isPausedByPage = false;
+        var isHud = false;
 
         function update() {
             if (isHidden || isOffScreen || isPausedByPage) {
@@ -177,7 +184,8 @@
         // A tap on the big gauge switches its mode, as on the phone. Measured on the canvas, inside any border.
         host.addEventListener('click', function (event) {
             var canvas = host.querySelector('canvas');
-            if (!canvas) {
+            // In HUD mode a tap is the page's (its Exit and Flip), never the wallpaper's.
+            if (!canvas || isHud) {
                 return;
             }
             var box = canvas.getBoundingClientRect();
@@ -220,6 +228,20 @@
             resume: function () {
                 isPausedByPage = false;
                 update();
+            },
+            hud: {
+                start: function (options) {
+                    var chosen = options || {};
+                    isHud = true;
+                    engine.hud(String(chosen.style || 'horizon'), String(chosen.layout || ''), String(chosen.flip || ''));
+                },
+                flip: function () {
+                    return engine.hudFlip();
+                },
+                stop: function () {
+                    isHud = false;
+                    engine.hudStop();
+                }
             },
             on: on
         };
