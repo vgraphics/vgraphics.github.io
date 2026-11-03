@@ -1,6 +1,203 @@
 {
   "posts": [
     {
+      "slug": "speedometer-layout-builder",
+      "date": "2026-11-03",
+      "product": "Speedometer Live Wallpaper",
+      "title": "Build your own dashboard: the Speedometer layout builder",
+      "description": "Speedometer Live Wallpaper now lets you build your own home-screen dashboard from 42 widgets. How snapping, overlaps and readable colours work.",
+      "image": {
+        "src": "/devlog/img/speedometer-layout-builder",
+        "widths": [640, 1280],
+        "width": 1280,
+        "height": 800,
+        "alt": "Speedometer Live Wallpaper on a tablet: the Grand Tour layout in the Vintage style, with a clock, a power gauge and a compass on walnut, and the weather, a trip computer and the song playing below",
+        "caption": "Grand Tour in the Vintage style on a tablet, one of the layouts we made symmetrical during the review in version 2.0.8."
+      },
+      "lede": "Until late October, every layout in Speedometer Live Wallpaper was one we had drawn. Version 2.0.7, out on Google Play on 29 October, hands that job to you: a layout builder where you place the gauges yourself, and a market where you can publish what you make. The next two days went into fixing our own layouts, because the builder made their flaws easy to see. This post covers both.",
+      "sections": [
+        {
+          "title": "One frame for every style",
+          "paragraphs": [
+            "The app has 19 styles, from a walnut dashboard to a jet's head-up display, and a layout has to work in all of them. So every style shares one frame: the screen, minus a thin margin at the sides and top and a deeper one at the bottom, so your row of app icons never sits on top of a gauge. A layout is the same size in every style. You can build it in Vintage, switch to Prism and find every widget where you left it.",
+            "A layout holds up to 16 widgets, each kind once. The builder is part of the Android app; on the web you can open any published layout on the <a href=\"/speedometer-wallpaper/play/\">try page</a> and see it drawn in any style."
+          ]
+        },
+        {
+          "title": "Snapping instead of a grid",
+          "paragraphs": [
+            "We tried to avoid a visible grid, because a dashboard isn't a spreadsheet. While you drag a widget, its centre snaps to the middle of the frame or lines up with the centre of another widget, and a thin amber line shows what it caught on. A widget can't be dragged out of the frame. You resize it with a handle, zoom the stage up to four times to place small pieces precisely, and undo or redo any step. With TalkBack on, every widget has move and size actions, so the builder works without dragging at all."
+          ]
+        },
+        {
+          "title": "Letting widgets overlap",
+          "paragraphs": [
+            "The first version of the builder refused overlaps. A widget dropped onto another turned red and slid to the nearest free space. It looked tidy, and in practice it fought you: real dashboards tuck a small dial into the edge of a big one. So overlaps came back, with Bring to front and Send to back, and a minimum size for each widget so nothing shrinks into an unreadable dot.",
+            "Overlaps brought a new problem: grabbing the widget underneath. That is what Lock is for. A locked widget ignores drags and resizes, wears a small padlock, and lets your finger pass through to whatever lies behind it."
+          ]
+        },
+        {
+          "title": "One widget, nineteen looks",
+          "paragraphs": [
+            "There are 42 kinds of widget: the original 17 and 25 new ones, among them a trip computer, an odometer, a 0–100 widget, a G-force meter, the weather, the moon, your steps, music controls and a second clock. Drawing 42 widgets 19 times by hand wasn't realistic, so each style has a kit. It offers the style's own forms first, cut from its real artwork and never stretched, and then a set of plain forms painted in the style's colours. Every widget has at least one plain form, which is how every style can show every widget.",
+            "The builder's Preview in row redraws your layout in any style, including the ones you haven't bought yet."
+          ]
+        },
+        {
+          "title": "Readable on any background",
+          "paragraphs": [
+            "This was the hardest part. A widget can land anywhere, and the backgrounds run from dark walnut to almost-white glass. In testing, the text of one widget vanished in Rally, and another drew white on nearly white.",
+            "We didn't want shadows or boxes behind every number, so the app now measures the tone of each background and dial. A widget keeps its colour only if it stands out at a contrast of at least 3 to 1. If it doesn't, it falls back, in order, to the colour you picked, the style's colour, the dial's own print colour, the display colour, and finally plain white or black. Panels that text can't be read on are recoloured too."
+          ]
+        },
+        {
+          "title": "Reviewing our own layouts",
+          "paragraphs": [
+            "With a builder in your hands, our built-in layouts became examples, and some were poor ones. An audit of all 52 layouts on 27 October listed 194 problems, big and small, and only two layouts came through clean. Over six review rounds we removed the weakest built-in and ready-made layouts, made Clockmaker, Commute, Road Trip and Grand Tour mirror-symmetric, and added three for tablets and foldables: Grand dash, Wide panel and Fold music. The music card also stopped being one plain box: it is now drawn as each style's own display. All of it shipped in version 2.0.8, released on 30 October.",
+            "We also set a rule for ourselves: a layout we make reaches the market only after it has been reviewed by eye."
+          ]
+        },
+        {
+          "title": "Sharing a layout",
+          "paragraphs": [
+            "Publishing to the market needs a free VHub sign-in. Each published layout gets a six-character code, made only of letters and digits that can't be mistaken for one another, and a link that opens it in the app. Anyone can rate a layout from one to five stars, but only after using it, and never their own. Three open reports hide a layout until we have looked at it. The <a href=\"/speedometer-wallpaper/layouts/\">layouts people have shared</a> are on the site, each drawn by the app itself."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/speedometer-wallpaper/play/", "label": "Try it in your browser" },
+        { "href": "/speedometer-wallpaper/about/", "label": "About Speedometer Live Wallpaper" },
+        { "href": "/speedometer-wallpaper/", "label": "Speedometer Live Wallpaper" }
+      ]
+    },
+    {
+      "slug": "vhub-one-account",
+      "date": "2026-11-03",
+      "product": "VHub",
+      "title": "One account across our games: what we learned building VHub",
+      "description": "Exitwise and Speedometer Live Wallpaper share one VHub account. Why accounts live apart from game data, how an app earns XP, and what broke.",
+      "image": {
+        "src": "/devlog/img/vhub-one-account",
+        "widths": [640, 1280],
+        "width": 1280,
+        "height": 720,
+        "alt": "The 13 VHub rank frames in two rows, each with the level that unlocks it: Wood at level 5, Stone 10, Iron 20, Bronze 30, Silver 45, Gold 60, Platinum 80, Emerald 100, Sapphire 125, Ruby 150, Amethyst 180, Diamond 220 and Mythic 275",
+        "caption": "The 13 rank frames a VHub picture can wear, from Wood at level 5 to Mythic at level 275."
+      },
+      "lede": "Exitwise started life with accounts of its own: its own name screen, its own picture upload, its own leaderboards. That was fine for one game. With Speedometer Live Wallpaper getting sign-in and more games on the way, it meant a player could end up with a different name, picture and history in every product we make. So in October the accounts moved out of the games and into VHub, one player account for all of them. These are our notes from the move.",
+      "sections": [
+        {
+          "title": "What VHub keeps, and what each game keeps",
+          "paragraphs": [
+            "The line we drew is simple. Everything about you as a player lives in VHub: your name, your picture, your level and XP, your achievements, your friends and the global leaderboards. Everything about a single game stays with that game: your saved progress, the per-level boards, rooms and custom maps live in the game's own database, filed under the same player ID that VHub gave you.",
+            "When you sign in, you sign in to VHub, with your Google account. VHub then hands the game a session for that same ID. No game creates players of its own any more, so there is one of you, not one per product. Change your picture once and every game shows the new one.",
+            "Signing in is still optional. Every game and app works without it, and you can sign in later without losing what you have done as a guest."
+          ]
+        },
+        {
+          "title": "XP for a puzzle game, and for a wallpaper",
+          "paragraphs": [
+            "One level across all our products sounds easy until you try to give XP for a live wallpaper. Exitwise is played: you win levels, finish the daily challenge, publish maps and play matches in rooms, and each of those earns XP, 20 for a level won and 40 for a daily challenge, for example. Speedometer Live Wallpaper isn't played in that sense. It sits on your home screen.",
+            "So the wallpaper earns XP for what using it means: a day with the wallpaper on, a style you collect, a layout you build. The daily caps are far apart on purpose: up to 4,000 XP a day from Exitwise, up to 200 from Speedometer, because an evening of hard puzzles and a wallpaper that is simply switched on shouldn't count the same. Every rule is written out on the <a href=\"/hub/boards/\">leaderboards page</a>, because a level means little if nobody can see how it is earned."
+          ]
+        },
+        {
+          "title": "Your level, worn on your picture",
+          "paragraphs": [
+            "A number next to a name is easy to miss, so since 29 October your picture wears a frame that shows your rank, wherever it appears: on leaderboards, player cards, rooms and match history. There are 13 of them, from a plain wooden ring at level 5 to a winged one at level 275. Each unlocks as your level rises, and you choose which one to wear on your VHub profile. Because the picture and the frame both live in VHub, a frame you earn in one product shows up in all of them."
+          ]
+        },
+        {
+          "title": "Moving the players who were already there",
+          "paragraphs": [
+            "Before the switch we had to decide who to bring across from Exitwise. Most of its accounts turned out to be our own: test runs, automated runs that took store screenshots, and guests who opened the game once and never finished a level. Copying all of them would have filled the new leaderboards with robots.",
+            "So only real players moved: anyone who had played, signed in, chosen a name or held coins. Their names, pictures and places on the boards came with them. A guest who was left out and comes back simply gets a fresh account. Test accounts were deleted, and the list of deletions was checked by hand before anything was removed."
+          ]
+        },
+        {
+          "title": "What broke",
+          "paragraphs": [
+            "On 1 November we noticed that for two days the <a href=\"/exitwise/ranking/\">Exitwise ranking</a> had shown none of the new players who had just found the game. The cause was a single name. The Android app asked VHub to sign players in using the full name of the request, and VHub, expecting the short form, didn't recognise it and turned every request away. On the web everything worked, which is why the problem stayed hidden. Android players could still play, but none of them got a VHub account, a row on the boards or their settings synced.",
+            "The fix was small: VHub now accepts both forms, and it was live the same evening, with the missing players added to the boards. The lasting change is a check that follows a brand-new player from sign-in through to every board and the ranking, and compares what the game recorded with what VHub shows. It runs after every change that touches sign-in, saves, scores or profiles, so we no longer rely on spotting an empty ranking by eye."
+          ]
+        },
+        {
+          "title": "Leaving",
+          "paragraphs": [
+            "One account also means one clear way out. Each product's profile has Delete my data for that product alone, which keeps your account, name and picture. Delete my VGraphics account removes everything everywhere and signs you out. Both are explained on the <a href=\"/hub/delete/\">deletion page</a>."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/hub/", "label": "Open VHub" },
+        { "href": "/hub/boards/", "label": "How the leaderboards count" },
+        { "href": "/exitwise/ranking/", "label": "Exitwise global ranking" }
+      ]
+    },
+    {
+      "slug": "exitwise-guardian-clock",
+      "date": "2026-11-03",
+      "product": "Exitwise",
+      "title": "One clock, not two: reworking the guardian fights in Exitwise",
+      "description": "Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.",
+      "image": {
+        "src": "/devlog/img/exitwise-guardian-clock",
+        "widths": [640, 930],
+        "width": 930,
+        "height": 560,
+        "alt": "Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows",
+        "caption": "Level 160 against Puffcap before version 1.0.24: play time counting up at the top left, the curse counting down in the guardian's strip."
+      },
+      "lede": "The last level of every world in Exitwise is a guardian fight. Until the end of October, those fights put two clocks on the screen at the same time. A screenshot of level 160 made the problem plain. This post is about how two clocks became one, and about a lost heart whose real cause wasn't the one we blamed.",
+      "sections": [
+        {
+          "title": "How a guardian fight works",
+          "paragraphs": [
+            "There are 17 <a href=\"/exitwise/wiki/guardians/\">guardians</a>. Bramble waits at the end of the first world, and the last one stands at level 500. You still clear the board by tapping arrows that can fly free, but an arrow that leaves through the top edge also hits the guardian, and the last hit breaks its curse. The curse runs on a clock. Each hit wins a few seconds back, and if the clock runs out, the attempt is lost.",
+            "Across part of the top edge sits the ward, a stone shield. Fly an arrow into it and you lose a heart. After a set number of hits, four for most guardians, the ward moves. Later guardians add their own tricks, such as frost that drops numbered ice onto the board, or ink that hides arrows."
+          ]
+        },
+        {
+          "title": "Two clocks on one screen",
+          "paragraphs": [
+            "Every level in Exitwise has a play timer in the stats row at the top, counting up. Your time decides your stars and your best times. The guardian fights added a second clock inside the guardian's strip, counting down. Both were right, but only one of them could end the fight, and in the screenshot above, the one your eye meets first is the one that can't.",
+            "We drew three ways out. In the first, the curse clock takes the play timer's place in the stats row and the strip loses its clock. In the second, the strip keeps its clock and the timer hides. In the third, play time stays and the curse becomes a burning fuse along the strip. We went with the first. The stats row already counts down in Coin Rush, so players know that spot as the one that can run out, and play time still runs underneath, ready for the pause and win cards, so stars and records didn't change."
+          ]
+        },
+        {
+          "title": "Making one clock say enough",
+          "paragraphs": [
+            "A single clock has to do the work of two, so it changes as time runs low. It turns amber under 30 seconds. Under 10 it turns red and swells a little with every tick you hear. A thin bar under the digits drains as the curse closes in, and every hit throws a small +7 s, or whatever that guardian gives, up above the digits, so you can see the time you just won back. This went out in version 1.0.24 on 28 October."
+          ]
+        },
+        {
+          "title": "Ice that looked the same",
+          "paragraphs": [
+            "The same update fixed something smaller. Ice dropped by frost and spells picks a number, and it often picked one already on the board: one run of level 220 ended up with three blocks reading 12. Blocks that read the same are hard to tell apart, and three in a row looked like a mistake. New ice now keeps its number at least three apart from the ice already in play."
+          ]
+        },
+        {
+          "title": "The heart we blamed on the wrong thing",
+          "paragraphs": [
+            "On level 160 we twice lost a heart in a way that felt unfair. Both times an extra arrow from Double-Shot was involved, so we blamed it, and the first fix was aimed at Double-Shot.",
+            "Before going further, we measured. We ran the real level 300 times with a simulated player and logged every heart lost to the ward. The real cause was timing. A hit that moves the ward can drop it onto the half of the edge you're working in, and the tap you had already lined up flies straight into it. Those 300 runs had 98 taps like that, most of them right after the player's own hit.",
+            "We looked at three answers: warn before the ward moves, stop extra hits from moving it, or let the ward never cost a heart. We chose the warning, in a form that needs no reading ahead: the bump itself is the warning. Since version 1.0.28 on 29 October, your first bump after the ward moves is free. It costs no heart, doesn't count as a mistake or add to the guardian's rage, and your combo keeps going. A short message tells you what happened: “The ward moved! First bump free.” The second bump costs a heart as before."
+          ]
+        },
+        {
+          "title": "What we took from it",
+          "paragraphs": [
+            "Both changes came from playing our own game on a hard level and paying attention to what felt wrong. In both, the feeling was right and our first explanation wasn't. Now, when a level feels unfair, we measure before we fix."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/exitwise/play/", "label": "Play Exitwise in your browser" },
+        { "href": "/exitwise/about/", "label": "About Exitwise" },
+        { "href": "/exitwise/", "label": "Exitwise" }
+      ]
+    },
+    {
       "slug": "speedometer-in-your-browser",
       "date": "2026-10-27",
       "product": "Speedometer Live Wallpaper",
