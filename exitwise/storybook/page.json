@@ -751,6 +751,7 @@
     "text": "Every arrow puzzle you clear brings Prince Arlo closer to the Dawn Door. Free on Android and in your browser.",
     "badges": [
       "google-play",
+      "app-store",
       {
         "href": "/exitwise/play/",
         "label": "Play in your browser",

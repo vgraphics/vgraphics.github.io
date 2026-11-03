@@ -25,7 +25,11 @@
   },
   {
     "q": "Can I play without installing it?",
-    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. There is no App Store version yet."
+    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. The App Store version for iPhone and iPad is on its way."
+  },
+  {
+    "q": "Is Exitwise on iPhone and iPad?",
+    "a": "Soon. Exitwise is coming to the App Store for iPhone and iPad. Until then you can play it free in your browser at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>, on an iPhone or iPad too. Sign in with Google there and your progress is saved with your VGraphics account, ready to carry on in the app when it arrives."
   },
   {
     "q": "Does it work offline?",

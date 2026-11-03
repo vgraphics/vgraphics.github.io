@@ -78,8 +78,22 @@ export const vhubEntry = (chip = false) => `<a class="vhub-entry${chip ? '' : ' 
 // opens. The company header (index.html and its copies) carries the same button, word for word.
 export const VHUB_AVATAR = '<button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>'
 
-// Badges and actions: "google-play", "vhub" (the VHub entry), { href, label, note? } (a pill) or { href, label, icon?,
-// button: true }. A pill to
+// The App Store while its listing isn't live (page.json stores.appStoreSoon, the words it shows: "Coming soon"): a badge
+// of our own beside Google's that leads nowhere, an hourglass where a store's mark would be. Never Apple's logo or a
+// copy of its "Download on the App Store" artwork: Apple allows its badge only as a link to a live App Store page, and
+// its logo only inside that badge. The day stores.appStore holds the listing's address, the build stops until Apple's
+// official badge (from Apple's marketing site) is added and drawn here as that link.
+const HOURGLASS = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="M6.5 3h11M6.5 21h11M8 3v2.4c0 1.9 1 3.3 2.7 4.4L12 10.7l1.3-.9C15 8.7 16 7.3 16 5.4V3M8 21v-2.4c0-1.9 1-3.3 2.7-4.4l1.3-.9 1.3.9c1.7 1.1 2.7 2.5 2.7 4.4V21"/><path class="sand" fill="currentColor" d="M9.4 19.6c.3-1.5 1.2-2.5 2.6-3.3 1.4.8 2.3 1.8 2.6 3.3zM10.2 6.6h3.6c-.4.8-1 1.4-1.8 2-.8-.6-1.4-1.2-1.8-2z"/></svg>'
+const lower = (s) => s.charAt(0).toLowerCase() + s.slice(1)
+function appStoreSoon(page) {
+  const { appStore, appStoreSoon: soon } = page.stores ?? {}
+  if (appStore) throw new Error(`${page.site.name}: stores.appStore is set (${appStore}), but the "app-store" badge has no live state yet. Download Apple's official "Download on the App Store" badge from Apple's marketing site (https://developer.apple.com/app-store/marketing/guidelines/), add it to assets/img/ and draw it in tools/lib/partials.mjs appStoreSoon() as a link to the listing, as "google-play" is drawn; the badge and Apple's logo may only appear as that link.`)
+  if (!soon) throw new Error(`${page.site.name}: the "app-store" badge needs stores.appStoreSoon, the words it shows while the listing isn't live ("Coming soon")`)
+  return `<span class="store-soon" role="img" aria-label="${esc(`${page.site.name} is ${lower(soon)} to the App Store`)}">${HOURGLASS}<span><small>${esc(soon)}</small><b>App Store</b></span></span>`
+}
+
+// Badges and actions: "google-play", "app-store" (appStoreSoon, above), "vhub" (the VHub entry), { href, label, note? }
+// (a pill) or { href, label, icon?, button: true }. A pill to
 // the product's main play or try page (playButtons) is its play button instead, the header's (assets/product.css
 // .play-cta: George, 27 Oct 2026, "A, Clean"), with its note as a small line under the row; a pill to the second is
 // the second button (.demo-cta, or the game's .soon-cta while it is coming soon, without a note), and of the two the
@@ -94,6 +108,7 @@ export function actions(page, list, cls = 'badges') {
   const notes = []
   const items = list.map((b) => {
     if (b === 'google-play') return `<a class="gp" href="${esc(page.stores.googlePlay)}"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a>`
+    if (b === 'app-store') return appStoreSoon(page)
     if (b === 'vhub') return vhubEntry()
     if (b.button) return `<a class="btn" href="${esc(b.href)}">${b.label}${b.icon ? ICONS[b.icon] : ''}</a>`
     if (main && b.href === main.href) {
@@ -181,7 +196,11 @@ export function footer({ page, slug }) {
   const own = new Map(s.nav.slice(1).map((n) => [n.href, n.label]))
   for (const l of s.footer) own.set(l.href, l.label)
   const links = [...own, [s.parent.href, `More ${s.parent.name.toLowerCase()}`], ['/services/', 'Work with us'], helpLink(slug), ['mailto:support@vgraphics.gr', 'Contact']]
-  const play = page.stores?.googlePlay ? '<br>Google Play and the Google Play logo are trademarks of Google LLC.' : ''
+  const marks = [
+    page.stores?.googlePlay && 'Google Play and the Google Play logo are trademarks of Google LLC.',
+    (page.stores?.appStore || page.stores?.appStoreSoon) && 'App Store is a service mark of Apple Inc.',
+  ].filter(Boolean)
+  const play = marks.length ? `<br>${marks.join(' ')}` : ''
   const a = page.footerArt
   // The picture fills the footer, about clamp(170px, 21vw, 420px) of art above the links plus the links themselves
   // (assets/product.css), so it is shown at the width that covers that box.
@@ -246,23 +265,31 @@ function scene(s) {
 }
 
 // The product's stores, as round icon buttons beside the channels: a store appears once page.json's stores names it
-// (googlePlay now, appStore once there is an Apple developer account).
+// (googlePlay; appStore once its listing is live). While only stores.appStoreSoon is set, the App Store keeps its place
+// as a dimmed icon in a dashed ring that leads nowhere, with the hourglass (the "app-store" badge's) for its mark, never
+// Apple's logo: Apple allows that only inside its own badge, as a link to a live listing.
 const STORES = {
   googlePlay: ['on Google Play', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg>'],
   appStore: ['on the App Store', '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M16.4 12.6c0-2.3 1.9-3.4 2-3.5-1.1-1.6-2.8-1.8-3.4-1.8-1.4-.1-2.8.9-3.5.9-.7 0-1.8-.9-3-.8-1.5 0-3 .9-3.8 2.3-1.6 2.8-.4 7 1.2 9.3.8 1.1 1.7 2.4 2.9 2.3 1.2 0 1.6-.7 3-.7s1.8.7 3 .7c1.3 0 2.1-1.1 2.8-2.3.9-1.3 1.3-2.6 1.3-2.6s-2.5-1-2.5-3.8zM14.1 5.8c.6-.8 1.1-1.9 1-3-.9 0-2.1.6-2.7 1.4-.6.7-1.1 1.8-1 2.9 1 .1 2.1-.5 2.7-1.3z"/></svg>'],
 }
 
 function buttons(page) {
-  const stores = Object.entries(STORES).filter(([key]) => page.stores?.[key])
-    .map(([key, [where, icon]]) => `<a href="${esc(page.stores[key])}" aria-label="${esc(page.site.name)} ${where}" title="${esc(page.site.name)} ${where}">${icon}</a>`)
+  const stores = Object.entries(STORES).flatMap(([key, [where, icon]]) => {
+    if (page.stores?.[key]) return `<a href="${esc(page.stores[key])}" aria-label="${esc(page.site.name)} ${where}" title="${esc(page.site.name)} ${where}">${icon}</a>`
+    if (key !== 'appStore' || !page.stores?.appStoreSoon) return []
+    const said = esc(`${page.site.name} ${where}: ${lower(page.stores.appStoreSoon)}`)
+    return `<span class="foot-soon" role="img" aria-label="${said}" title="${said}">${HOURGLASS}</span>`
+  })
   const all = [...stores, ...social(page)]
   return all.length ? `
       <div class="foot-icons">${all.join('')}</div>` : ''
 }
 
 // The studio's channels, as mono icons in the footer: the site-wide ones in tools/lib/site.json, which a product's
-// page.json may override (site.social: { network: { label?, href } }). A network without a link isn't shown, so a
-// channel appears the day its link is set. A new network needs its entry and an icon below.
+// page.json may override (site.social: { network: { label?, href, icon? } }). A network without a link isn't shown, so
+// a channel appears the day its link is set. A new network needs its entry and an icon below. A second link on one
+// network takes a key of its own and that network's icon (Exitwise's gameplay playlist: "youtubeGameplay": { "icon":
+// "youtube", ... }), its label saying where it goes, and sits beside the network's other icons.
 const SITE = JSON.parse(readFileSync(new URL('./site.json', import.meta.url), 'utf8'))
 const SOCIAL_ICONS = {
   youtube: '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg>',
@@ -272,9 +299,12 @@ const LINK_ICON = '<svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none"
 
 function social(page) {
   const own = page.site.social ?? {}
-  return Object.keys({ ...SITE.social, ...own }).map((network) => ({ network, ...SITE.social[network], ...own[network] }))
+  const all = Object.keys({ ...SITE.social, ...own }).map((network) => ({ network, ...SITE.social[network], ...own[network] }))
     .filter((c) => c.href)
-    .map((c) => `<a href="${esc(c.href)}" aria-label="${esc(c.label ?? c.network)}" title="${esc(c.label ?? c.network)}">${SOCIAL_ICONS[c.network] ?? LINK_ICON}</a>`)
+  const icon = (c) => c.icon ?? c.network
+  const order = [...new Set(all.map(icon))]
+  return all.sort((a, b) => order.indexOf(icon(a)) - order.indexOf(icon(b)))
+    .map((c) => `<a href="${esc(c.href)}" aria-label="${esc(c.label ?? c.network)}" title="${esc(c.label ?? c.network)}">${SOCIAL_ICONS[icon(c)] ?? LINK_ICON}</a>`)
 }
 
 // A decorative piece of the theme's art: { src (path without the size and extension), width, height, widths? }.

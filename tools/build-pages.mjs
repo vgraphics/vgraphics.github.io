@@ -21,7 +21,10 @@
 //   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...],
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
-//   stores                       { googlePlay }: the store links the "google-play" badge points at
+//   stores                       { googlePlay, appStoreSoon? }: the store links the "google-play" badge points at, and
+//                                the words ("Coming soon") of the "app-store" badge, which leads nowhere while the App
+//                                Store listing isn't live; appStore (its address) stops the build until Apple's official
+//                                badge is wired in (tools/lib/partials.mjs appStoreSoon)
 //   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
@@ -54,7 +57,8 @@
 //                                its h1, for screen readers and search. Its words about the product are on its About page.
 // A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
 // (site.demo.private), as the words in <span data-demo> are.
-// Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+// Badges and actions are "google-play", "app-store", "vhub", { href, label, note? } (a pill) or { href, label, icon?,
+// button: true }.
 //
 // Every product with a play or try page has an About page, <product>/about/page.json (check-site): what the product is,
 // how to play or use it, what's inside, its store and sign-in, a few questions (a faq block) and the links to its wiki,

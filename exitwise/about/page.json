@@ -37,7 +37,7 @@
     "title": "About Exitwise, the arrow puzzle you can play online",
     "lead": "The arrow puzzle <em>you can play right here.</em>",
     "align": "center",
-    "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "google-play"],
+    "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "google-play", "app-store"],
     "art": {
       "alt": "A road of colourful arrows winding past a jungle, a desert, a candy land, a volcano, a glacier and a crystal cave, a little traveller in a red cape on it and the Tower of Worlds far away",
       "wiki": "about",
@@ -89,8 +89,8 @@
     {
       "id": "phone",
       "title": "On your phone too",
-      "intro": "Exitwise is free on Android too. Sign in with Google in the browser and on the phone, and your progress, your name and your settings come along.",
-      "blocks": [{ "type": "actions", "items": ["google-play", "vhub"] }]
+      "intro": "Exitwise is free on Android too, and on its way to the App Store. Sign in with Google in the browser and on the phone, and your progress, your name and your settings come along.",
+      "blocks": [{ "type": "actions", "items": ["google-play", "app-store", "vhub"] }]
     },
     {
       "id": "questions",
@@ -102,7 +102,8 @@
           "items": [
             { "q": "Can every level be solved?", "a": "Yes. Each level is built from a fixed seed, which hands every player the same board, and each one is checked to be solvable before it ships." },
             { "q": "What counts as my best on a level?", "a": "The win with the fewest hearts lost, and between two equal wins, the faster one. Each level keeps its own best, and the panel at the end of a level shows it beside your time." },
-            { "q": "Why do the levels after a hard one feel easier?", "a": "On purpose: after each hard level come two slightly smaller boards, a breather before the climb goes on." }
+            { "q": "Why do the levels after a hard one feel easier?", "a": "On purpose: after each hard level come two slightly smaller boards, a breather before the climb goes on." },
+            { "q": "Can I play on an iPhone or iPad before the app is out?", "a": "Yes, in Safari or any other browser: the web version has the same 600 levels. The App Store app is being made now, and signing in with Google in the browser keeps your progress waiting for it." }
           ]
         }
       ]
