@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.0.8ebfdb35",
+      "date": "2026-11-03",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Help and news in Settings",
+      "items": [
+        "You can now report a problem or suggest an idea from Settings, follow the replies, and sign up for game news by email.",
+        "The game now downloads a lot less in your browser, so it starts faster.",
+        "New players now go straight into level 1, with a hand pointing to your first move, instead of signing in or reading a tutorial first.",
+        "Signing in works again on Android, so your leaderboards and settings sync."
+      ],
+      "commit": "8ebfdb35"
+    },
+    {
       "version": "1.0.29",
       "date": "2026-10-31",
       "platforms": [
