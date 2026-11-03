@@ -25,8 +25,9 @@
   <h2 class="short-title" id="short">The short version</h2>
   <ul class="short">
     <li>You don't need to sign in. We never ask for your real name or contact details; if you choose to sign in with a
-      Google account or with Apple, Google or Apple tells our sign-in service your email address (with Apple, a private
-      relay address if you choose to hide yours) and name, and we use them only to sign you in. You may give us an email address yourself, to get the answers to a help ticket or our newsletter.</li>
+      Google account, Google tells our sign-in service your email address and name, and if you sign in with Apple, Apple
+      tells it your email address (or a private relay address if you choose to hide yours). We use them only to sign you
+      in. You may give us an email address yourself, to get the answers to a help ticket or our newsletter.</li>
     <li>Your progress and settings are saved on your device. If you sign in with Google Play Games or a Google account
       (Android), with Apple (iPhone and iPad), with Google on our website, or with your CrazyGames account (CrazyGames),
       they are also saved to that account so you can continue on another device.</li>
@@ -114,11 +115,13 @@
         </p>
         <p>
           On iPhone and iPad you can sign in with Apple, in Settings or on the sign-in card. Apple then shares with VHub's
-          sign-in (Google Firebase Authentication) an identifier for your Apple Account that only VGraphics' apps receive
-          and, the first time you sign in, the name and email address you choose to share. If you choose to hide your
-          email, Apple gives us a private relay address instead, which forwards to you; we never see your real one. VHub
-          keeps them with your account. We use them only to sign you in and to show which Apple Account is linked; they
-          are never shown to other players, shared, used for ads or used to track you. If your Apple Account already
+          sign-in (Google Firebase Authentication) an identifier for your Apple Account that only VGraphics' apps receive,
+          and your email address. If you choose to hide your email, Apple gives us a private relay address instead, which
+          forwards to you; we never see your real one. VHub keeps them with your account. We use them only to sign you in
+          and to show which Apple Account is linked; they are never shown to other players, shared, used for ads or used
+          to track you. The first time you sign in, Apple also gives the game the name you choose to share. It stays on
+          your iPhone or iPad and is never sent to us: the game uses it only to show which account you are signed in as
+          in Settings and to suggest a player name, which becomes public only if you keep it as your username. If your Apple Account already
           belongs to another VGraphics account, the game offers to join the two accounts into one, with the progress of
           both, as it does for Google. You can stop using Sign in with Apple for Exitwise at any time in your iPhone's
           Settings → your name → Sign in with Apple.
