@@ -20,6 +20,10 @@
     "a": "No. Join as a guest, or with your free <a href=\"/hub/\">VHub name</a>, which keeps your games, XP and achievements across every VGraphics game. Signed in with a VHub photo, it shows for your seat on the TV and on every phone, the guided demo too, unless you turn on <b>Use my character's picture instead</b> in the phone's menu; without a photo, your character's portrait shows. The VHub button at the top right of the start screen signs you in or opens your profile. The TV signs in as a screen, never as a person."
   },
   {
+    "q": "How do I add a friend?",
+    "a": "In a room's lobby, tap another player, then <b>Add friend</b> on their card. They get your request on <a href=\"/hub/friends/\">VHub</a> and in their notifications, and once they accept you are friends in every VGraphics game. You can also add friends by name or friend code on VHub. On a card, sign in first; as a guest you can still add friends by friend code on VHub."
+  },
+  {
     "q": "Is it for kids?",
     "a": "It's for ages 13 and up. Each phone gives its year of birth once and only an age group is kept, never the year."
   },
