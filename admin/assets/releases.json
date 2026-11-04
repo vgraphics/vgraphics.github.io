@@ -1,0 +1,26 @@
+{
+  "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
+  "releases": [
+    {
+      "sha": "53e3e78e0ec8af307aba4f92b1f28417dd717ec3",
+      "at": "2026-11-04T23:13:41.931Z",
+      "files": [
+        "coming-next-CdSy6-tJ.js",
+        "controls-Jd8tg-zx.js",
+        "firestore-DIzsuikb.js",
+        "index-2-93qDLv.js",
+        "index-B-BbX93U.js",
+        "index-B3Jhu0yD.js",
+        "index-BHYl4UeS.js",
+        "index-BgG_uK3b.js",
+        "index-CChOd2o1.css",
+        "index-CxaVL8s0.js",
+        "index-FcUMK5yl.js",
+        "index-j6EutXnC.css",
+        "index-zSU-_SeS.js",
+        "model-ANo572Vp.js",
+        "model-BhGN2KQT.js"
+      ]
+    }
+  ]
+}
