@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.102a3826",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Add friends from player cards",
+      "items": [
+        "Tap another player to open their card and add them as a friend — in the lobby, at the table, while you play, and after the game ends."
+      ],
+      "commit": "102a3826"
+    },
+    {
       "version": "0.1.c8630753",
       "date": "2026-11-02",
       "platforms": [
