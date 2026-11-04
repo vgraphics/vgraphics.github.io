@@ -692,7 +692,7 @@ merge too); check-site's `trademark` rule holds every page to it.
 - Not on a product's screens (its play, TV, join and demo pages, the hub, the try pages: inside the product), nor in the
   privacy policies and map rules the products' repos own. Not inside the games and apps, nor in store titles.
 - Never on VHub (another company registered that name), and never ® (none of ours is registered yet): check-site fails
-  both. The terms of use list the four as ours (`/terms/#marks`).
+  both. The terms of use list the three as ours, VGraphics, Exitwise and Palermo Noir (`/terms/#marks`).
 
 ## Every picture once
 
