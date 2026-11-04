@@ -289,24 +289,11 @@ h1, h2, h3 {
 /* Store badges and buttons */
 .badges { display: flex; flex-wrap: wrap; gap: 12px; align-items: center; justify-content: center; }
 .foot-left .hero-foot .badges { justify-content: flex-start; }
-/* Google's badge as supplied, its artwork, colours and clear space untouched (the transparent margin, a quarter of its
-   height, is the clear space the brand guidelines ask for), framed in the product's look (George, 4 Nov 2026, on
-   Speedometer's: "can we style them better to match the project style? Not the colors. Only the borders maybe."): a
-   plate around the whole image, so nothing enters the clear space, edged in the product's optional badge-edge token
-   (else its accent mixed into its line colour), with its buttons' corners, lit in the accent on hover and focus. */
-.gp {
-  display: inline-flex;
-  padding: 0 6px;
-  border: 1.5px solid var(--badge-edge, color-mix(in srgb, var(--accent) 45%, var(--line)));
-  border-radius: var(--btn-radius, var(--radius-sm));
-  background: color-mix(in srgb, var(--surface) 82%, transparent);
-  box-shadow: var(--card-shadow);
-  transition: transform 160ms ease-out, border-color 160ms ease-out, box-shadow 160ms ease-out;
-}
-.gp img { display: block; height: 72px; width: auto; }
-.gp:hover { transform: translateY(-2px); border-color: var(--accent); box-shadow: var(--card-lift), 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
-.gp:active { transform: translateY(1px); }
-.gp:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+/* Google's badge as supplied: its transparent margin is the clear space the brand guidelines ask for. */
+.gp { display: inline-flex; margin: -14px -4px; border-radius: 18px; transition: transform 160ms ease-out; }
+.gp img { display: block; height: 84px; width: auto; }
+.gp:hover { transform: translateY(-2px); }
+.gp:focus-visible { outline-offset: -12px; }
 .pill {
   display: inline-flex;
   flex-direction: column;
@@ -1407,7 +1394,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .subnav a { padding: 0 12px; }
   .product-name span { display: none; }
   .product-name img.logo { height: 32px; }
-  .gp img { height: 64px; }
+  .gp img { height: 70px; }
   .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }
   /* The game's cards go two by two, so the steps stay one screen tall. */

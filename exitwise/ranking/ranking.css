@@ -101,6 +101,7 @@
 .ranking .state h3 { margin: 0 0 6px; font-size: 1.55rem; }
 .ranking .state p { max-width: 26em; margin: 0 auto 18px; color: var(--muted); }
 .ranking .stores { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 12px; }
+.ranking .stores .gp { margin: -14px -4px; }
 
 .ranking .count { margin: 0; padding: 10px 20px 16px; border-top: 1px solid var(--line); color: var(--muted); font-size: 0.88rem; }
 .ranking .count[hidden] { display: none; }
