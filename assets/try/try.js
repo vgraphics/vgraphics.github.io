@@ -145,16 +145,19 @@
   // How things come and go here (the design canon, sections 1 and 2): assets/faq.js's menus and boxes, loaded once.
   // Until it is in, or if it can't be, they just show and hide.
   var motion = null;
-  import('/assets/faq.js').then(function (m) { motion = m; }, function () { /* they show and hide at once */ });
+  var motionReady = import('/assets/faq.js').then(function (m) { motion = m; }, function () { /* they show and hide at once */ });
 
   // The question, once per browser, when the demo starts; the "Usage statistics" switch at the panel's foot shows the
   // answer and changes it. It rises in from the window's foot and goes back the same way, as a sheet does.
   var consent = $('.try-consent');
   var statistics = $('.try-statistics input');
+  // It waits for faq.js to be in (or to have failed), so the rise always runs and the question is never lost.
   var askConsent = function () {
-    if (!consent || !consent.hidden) return;
-    consent.hidden = false;
-    if (motion) motion.showMenu(consent, null, true);
+    motionReady.then(function () {
+      if (!consent || !consent.hidden) return;
+      consent.hidden = false;
+      if (motion) motion.showMenu(consent, null, true);
+    });
   };
   var decide = function (value) {
     store(CONSENT_KEY, value);
