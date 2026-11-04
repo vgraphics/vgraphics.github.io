@@ -68,11 +68,27 @@ const hudView = (hud) => {
   return `
               <div class="try-view" role="radiogroup" aria-label="${esc(words.label)}" data-view="original" hidden><button type="button" role="radio" aria-checked="true" tabindex="0" data-hud-view="original">${esc(words.original)}</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-hud-view="hud">${esc(words.hud)}</button></div>`
 }
-const hudLayouts = (hud) => (hud
+const hudNote = (hud) => (hud
   ? `
-            <div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(hud.label)}">${hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div>
             <p class="try-note try-hud-note">${esc(hud.note)}</p>`
   : '')
+// The Layouts menu (George, 4 Nov 2026: "layouts menu must show first built in layouts and their huds somehow ... and
+// then the marketplace"; "The 4 pills below HUD MODE are confusing"): the style's own layouts, then its HUD layouts
+// (only while a HUD style is on show; picking one shows that HUD look through Original | HUD), then the market's most
+// used layouts of the style, tried in the phone, and the market's link. try.js fills and shows each set.
+const layoutSets = (b, level) => {
+  const title = (text, icon = '') => `<h${level} class="try-set-title">${icon}${esc(text)}</h${level}>`
+  const hud = b.hud
+    ? `
+                <div class="try-layout-set try-layout-hud" hidden>${title(`${b.hud.view?.hud ?? 'HUD'} layouts`, ICON.hud)}<div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(b.hud.view?.hud ?? 'HUD')} layouts">${b.hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div></div>`
+    : ''
+  const market = b.layouts
+    ? `
+                <div class="try-layout-set try-layout-market" hidden>${title('From the layout market')}<div class="try-chips"></div>${b.market ? `<a class="try-market-more" href="${esc(b.market)}">See the layout market</a>` : ''}</div>`
+    : ''
+  return `
+                <div class="try-layout-set try-layout-builtin">${title('Built in')}<div class="try-chips"></div></div>${hud}${market}`
+}
 const hudLayer = (hud) => (hud
   ? `
                 <div class="try-hud-layer" hidden>
@@ -117,13 +133,13 @@ export function tryBlock(b, page) {
   // A style's own page shows that style's layouts alone; the try page lists every style, its layouts under the list.
   const styles = config.style
     ? `<section class="try-group try-layouts" hidden aria-labelledby="try-layouts-title">
-              <h3 id="try-layouts-title">Layouts</h3>
-              <div class="try-chips"></div>
+              <h3 id="try-layouts-title">Layouts</h3>${layoutSets(b, 4)}
             </section>`
     : `<section class="try-group" aria-labelledby="try-styles-title">
               <h3 id="try-styles-title">Styles</h3>
               <ul class="try-styles"></ul>
-              <div class="try-layouts" hidden><h4>Layouts</h4><div class="try-chips"></div></div>
+              <div class="try-layouts" hidden><h4>Layouts</h4>${layoutSets(b, 5)}
+              </div>
               ${l.unlock ? `<p class="try-unlock">${l.unlock}</p>` : ''}
             </section>`
   return `<div class="try" data-state="idle">
@@ -150,7 +166,7 @@ export function tryBlock(b, page) {
               <button class="try-tool try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
               <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>${config.appLinks ? `
               <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog">${ICON.qr}<span>Show QR for this look</span></button>` : ''}${hudView(b.hud)}${hudButton(b.hud)}
-            </div>${hudLayouts(b.hud)}
+            </div>${hudNote(b.hud)}
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             ${styles}

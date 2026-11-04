@@ -51,6 +51,7 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=try_online",
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
+          "market": "/speedometer-wallpaper/layouts/",
           "appLinks": {
             "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
             "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"
@@ -75,7 +76,7 @@
           },
           "hud": {
             "label": "HUD mode",
-            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. Glass, Pulse, Vector and Horizon draw it: with one of them on show, switch Original | HUD to see its HUD look right here, and back. Use my real speed first for your GPS speed.",
+            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. The styles marked HUD draw it (Horizon, Glass, Pulse and Vector): with one of them on show, pick one of its HUD layouts under Layouts, or switch Original | HUD, to see its HUD look right here, and back. Use my real speed first for your GPS speed.",
             "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
             "exit": "Exit",
             "flip": "Flip",

@@ -222,6 +222,48 @@
 .try-chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
 .try-unlock { margin: 0; color: var(--muted); }
 
+/* The styles that draw HUD mode wear "HUD" with the HUD icon, lit amber as in the app's style list (George, 4 Nov 2026:
+   "Mark styles with a pill like in the app that suppot hud"). */
+.try-styles button { position: relative; }
+.try-hud-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 6px;
+  border-radius: 999px;
+  background: var(--accent-2, var(--accent));
+  color: var(--page);
+  font: var(--label-weight) 0.72rem/1 var(--label-font);
+  letter-spacing: 0.06em;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
+  pointer-events: none;
+}
+.try-hud-pill svg { width: 13px; height: 13px; }
+
+/* The Layouts menu (try.js fillLayouts): Built in, HUD layouts, From the layout market, each under its own small
+   title. A set fades in as it appears (a HUD style picked, the market's layouts in). */
+.try-layouts { display: grid; gap: 14px; }
+.try-layouts > h4 { margin: 0; }
+.try-layout-set { display: grid; gap: 8px; animation: try-set-in 220ms cubic-bezier(.2, .8, .2, 1); }
+.try-layout-set[hidden] { display: none; }
+.try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.try-layout-set .try-set-title svg { width: 14px; height: 14px; color: var(--accent-2, var(--accent)); }
+.try-market-chip { max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.try-market-chip small { margin-left: 6px; color: var(--muted); font-size: 0.82rem; }
+.try-market-more { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; color: var(--accent); font-weight: 600; }
+/* Only what the phone shows is lit: under HUD the wallpaper's layout keeps just its outline, and under Original so
+   does the HUD layout that HUD mode would open on. */
+.try[data-hud-view="hud"] .try-layouts .try-chip[aria-pressed="true"],
+.try:not([data-hud-view="hud"]) .try-layout-hud .try-chip[aria-checked="true"] { background: var(--surface); }
+@keyframes try-set-in { from { opacity: 0; transform: translateY(6px); } }
+@keyframes try-set-fade { from { opacity: 0; } }
+@media (prefers-reduced-motion: reduce) {
+  .try-layout-set { animation-name: try-set-fade; }
+}
+
 /* Settings, in the app's sections and with the app's words (the engine's catalog). */
 .try-settings { display: grid; gap: 6px; }
 .try-section { margin: 12px 0 2px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--accent); }
@@ -419,7 +461,6 @@
    browser has no full screen for an element (iPhone Safari); Exit and Flip, each half the screen, fade in on a tap
    and out after a few seconds, as in the app. */
 .try-chip[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
-.try-hud-layouts { margin-top: 2px; }
 /* Original | HUD (George, 4 Nov 2026: "Yes, try page and app"): a pill of the quick row's shape split in two, the
    chosen half lit as a pressed pill is (.try-tool[aria-pressed]), the light sliding across when the choice changes. */
 .try-view {
