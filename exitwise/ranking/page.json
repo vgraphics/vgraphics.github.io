@@ -59,6 +59,6 @@
   "cta": {
     "title": "Climb the ranking",
     "text": "Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.",
-    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+    "badges": ["google-play", "app-store", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
   }
 }
