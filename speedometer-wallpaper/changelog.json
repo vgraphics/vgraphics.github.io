@@ -1,6 +1,44 @@
 {
   "entries": [
     {
+      "version": "2.0.87e650c9",
+      "date": "2026-11-03",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New HUD mode",
+      "items": [
+        "New: HUD mode. Lay your phone flat on the dashboard and see your speed on the windscreen, in Horizon (free), Glass, Pulse or Vector, with four layouts, the clock, trip, heading and your own speed warning. Open it from Home, the HUD mode tile, the app icon, or by itself when your car connects.",
+        "The whole app is now in Greek — every screen, gauge and widget — when your phone is set to Greek.",
+        "Report a problem or share an idea from Settings — and read our reply right in the app."
+      ],
+      "commit": "87e650c9"
+    },
+    {
+      "version": "2.0.11",
+      "date": "2026-11-03",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "New: HUD mode. Lay your phone flat on the dashboard and see your speed on the windscreen, in Horizon (free), Glass, Pulse or Vector, with four layouts, the clock, trip, heading and your own speed warning. Open it from Home, the HUD mode tile, the app icon, or by itself when your car connects."
+      ],
+      "commit": "e7df1f16"
+    },
+    {
+      "version": "2.0.10",
+      "date": "2026-11-02",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Report a problem or an idea",
+      "items": [
+        "Report a problem or share an idea from Settings, add up to 3 screenshots, and follow our replies",
+        "Turn on News by email to get our updates, and unsubscribe anytime with one tap"
+      ],
+      "commit": "7e5a237b"
+    },
+    {
       "version": "2.0.9",
       "date": "2026-10-31",
       "platforms": [
@@ -31,8 +69,7 @@
       "version": "2.0.7",
       "date": "2026-10-29",
       "platforms": [
-        "Android",
-        "Web"
+        "Android"
       ],
       "title": "Build your own layout",
       "items": [

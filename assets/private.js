@@ -9,8 +9,9 @@
 // A session's uid is the VHub account. The Palermo repo's web/src/demo/gate.ts opens the demo page the same way: keep
 // the two in step.
 (() => {
-  // The testers' VHub accounts: Garithos, George's (VHub's profiles/{uid} of that name).
-  const TESTERS = ["WVpqEzbUrlWDHUli0vtT5uDeme22"];
+  // The testers' VHub accounts: Garithos, George's (VHub's profiles/{uid} of that name), and dimio7 (George, 30 Oct 2026:
+  // "Give access to demo for dimi user.").
+  const TESTERS = ["WVpqEzbUrlWDHUli0vtT5uDeme22", "14OIX8SPaoMbxLT6wdxEONSPQMT2"];
   const USER = "firebase:authUser:";
   const parts = document.querySelectorAll("template.private");
   if (!parts.length) return;

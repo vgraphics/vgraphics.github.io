@@ -91,6 +91,13 @@
     .text h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); text-wrap: balance; }
     .text p { font-size: 1.08rem; line-height: 1.7; }
     .text .lede { font-size: clamp(1.15rem, 1.6vw, 1.3rem); max-width: none; }
+    .post-art { margin: 0 0 var(--s5); display: grid; gap: 10px; max-width: 1040px; }
+    .post-art img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); }
+    .post-art figcaption { font-size: 0.92rem; color: var(--ink-2); }
+    .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--ink-2); opacity: 0; transition: opacity 150ms ease-out; }
+    .anchor svg { width: 0.5em; max-width: 22px; height: auto; }
+    .text h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
+    @media (hover: none) { .anchor { opacity: 0.7; } }
     .see { display: flex; flex-wrap: wrap; gap: 12px; padding-top: var(--s2); }
     .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
     .more > h2 { font-size: 1.6rem; }
@@ -135,26 +142,26 @@
     </div>
     <div class="text">
       <p class="lede">When we added a way to try Speedometer Live Wallpaper online, there were three options: record a video of it, draw a look-alike for the web, or run the app itself. A video can't be tapped, and a look-alike drifts further from the real thing with every update. So the try page runs the app's own drawing code.</p>
-      <section>
-        <h2>One renderer, two homes</h2>
+      <section id="one-renderer-two-homes" aria-labelledby="one-renderer-two-homes-title">
+        <h2 id="one-renderer-two-homes-title">One renderer, two homes<a class="anchor" href="#one-renderer-two-homes" aria-label="Copy the link to One renderer, two homes"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>Every style in the app, from Classic to Harbour, draws with Android's graphics classes: a canvas, paints, paths and gradients. We moved the styles into a Kotlin Multiplatform module that draws through a thin layer with the same class names. On a phone, that layer hands each call straight to Android. In the browser, it hands it to Skia, the graphics library Chrome itself draws with, compiled to WebAssembly.</p>
         <p>The styles never know which one they are talking to, so there is no second version of them to keep in step.</p>
       </section>
-      <section>
-        <h2>Proving nothing changed</h2>
+      <section id="proving-nothing-changed" aria-labelledby="proving-nothing-changed-title">
+        <h2 id="proving-nothing-changed-title">Proving nothing changed<a class="anchor" href="#proving-nothing-changed" aria-label="Copy the link to Proving nothing changed"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>The app's tests keep reference pictures of the styles in their different states: calibrating, charging, on Wi-Fi, at speed. The rule for the move was strict. Every one of those pictures had to come out byte for byte identical, and a style that shifted by a single pixel meant the move wasn't finished.</p>
       </section>
-      <section>
-        <h2>What a browser can read</h2>
+      <section id="what-a-browser-can-read" aria-labelledby="what-a-browser-can-read-title">
+        <h2 id="what-a-browser-can-read-title">What a browser can read<a class="anchor" href="#what-a-browser-can-read" aria-label="Copy the link to What a browser can read"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>On your phone the wallpaper reads the battery, the charger, the network and the processor. In a browser it uses what the browser is willing to share: your clock, in your time zone and with your 12 or 24-hour setting; the battery level and charging, in browsers that share them, such as Chrome; and, if you tap Use my real speed and allow it, your speed from GPS. Your location never leaves your browser.</p>
         <p>Everything a browser keeps to itself, like the processor's clock or the phone signal, comes from a short recorded drive, the same one the app plays in its own previews.</p>
       </section>
-      <section>
-        <h2>The one thing it can't do</h2>
+      <section id="the-one-thing-it-can-t-do" aria-labelledby="the-one-thing-it-can-t-do-title">
+        <h2 id="the-one-thing-it-can-t-do-title">The one thing it can't do<a class="anchor" href="#the-one-thing-it-can-t-do" aria-label="Copy the link to The one thing it can't do"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>A web page can't set your wallpaper. That last step belongs to the app, so the page shows a QR code and a Google Play link. Every style you try on the page is in the app; the premium ones are a one-time purchase.</p>
       </section>
-      <section>
-        <h2>Why it was worth it</h2>
+      <section id="why-it-was-worth-it" aria-labelledby="why-it-was-worth-it-title">
+        <h2 id="why-it-was-worth-it-title">Why it was worth it<a class="anchor" href="#why-it-was-worth-it" aria-label="Copy the link to Why it was worth it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>You can try a premium style live, with its layouts and colours, before you pay for it. And because the page runs the same code, what you see there is what you get on your home screen.</p>
       </section>
       <div class="see"><a class="btn btn-primary" href="/speedometer-wallpaper/play/">Try it in your browser</a><a class="btn btn-ghost" href="/speedometer-wallpaper/wiki/">How each gauge works</a><a class="btn btn-ghost" href="/devlog/">All posts</a></div>
@@ -164,10 +171,16 @@
     <h2 id="more-title">More from the devlog</h2>
     <div class="posts">
     <article class="post-card">
-      <span class="post-meta">Exitwise · <time datetime="2026-10-27">27 October 2026</time></span>
-      <h2><a href="/devlog/exitwise-board-shapes/">Why Exitwise boards stopped being rectangles</a></h2>
-      <p>In October we found Exitwise far too easy by level 60. Part of the fix was the boards themselves: 49 shapes, no slivers and no easy lines.</p>
-      <a class="btn btn-ghost" href="/devlog/exitwise-board-shapes/" aria-label="Read: Why Exitwise boards stopped being rectangles">Read the post</a>
+      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/speedometer-layout-builder/">Build your own dashboard: the Speedometer layout builder</a></h2>
+      <p>Speedometer Live Wallpaper now lets you build your own home-screen dashboard from 42 widgets. How snapping, overlaps and readable colours work.</p>
+      <a class="btn btn-ghost" href="/devlog/speedometer-layout-builder/" aria-label="Read: Build your own dashboard: the Speedometer layout builder">Read the post</a>
+    </article>
+    <article class="post-card">
+      <span class="post-meta">VHub · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/vhub-one-account/">One account across our games: what we learned building VHub</a></h2>
+      <p>Exitwise and Speedometer Live Wallpaper share one VHub account. Why accounts live apart from game data, how an app earns XP, and what broke.</p>
+      <a class="btn btn-ghost" href="/devlog/vhub-one-account/" aria-label="Read: One account across our games: what we learned building VHub">Read the post</a>
     </article>
     </div>
   </section>
@@ -205,5 +218,6 @@
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>
+<script src="/assets/anchors.js" defer></script>
 </body>
 </html>

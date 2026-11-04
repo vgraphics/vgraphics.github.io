@@ -40,8 +40,8 @@
     "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }, { "href": "/palermo/play/", "label": "Play online" }],
     "art": {
       "alt": "A Palermo piazza at night in gold lines on navy: a café's striped awning and its tables, a fountain between two lit street lamps, balconies hung with washing, a cathedral dome behind and a crescent moon",
-      "wide": { "src": "/palermo/img/about-wide", "widths": [960, 1280, 1920], "width": 1920, "height": 1080, "sizes": "max(100vw, 683px, min(76.8vw, 132.3vh))" },
-      "tall": { "src": "/palermo/img/about-tall", "widths": [480, 720, 780], "width": 780, "height": 1688 },
+      "wide": { "src": "/palermo/img/hero-about-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2195, "sizes": "max(100vw, 672px, min(75.6vw, 130.2vh))" },
+      "tall": { "src": "/palermo/img/hero-about-tall", "widths": [480, 720, 1080, 1317], "width": 1317, "height": 2341 },
       "position": "50% 50%",
       "fade": { "wide": "86%", "tall": "80%" },
       "placeholder": "linear-gradient(#0B1623, #1A2433 60%, #0A090D)"

@@ -48,6 +48,10 @@
     "a": "In Settings, Profile, \"Delete my Exitwise data\" takes you off the boards and removes your results, stats, cloud save and published maps, and what you earned in Exitwise on VHub; your VGraphics name and picture stay. In Settings, \"Delete my VGraphics account\" removes your account in every VGraphics game, name and picture too. Either way the progress on your device stays. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
   },
   {
+    "q": "How do I report a problem or share an idea?",
+    "a": "In the game, open Settings and tap Help and news, then New ticket: say what happened or what you'd like, add a screenshot of the game if you want, and send it. Our answers show up there, with a red dot on Help and news when one is waiting, and by email if you ask for them. Exitwise's news by email, one email a month at most, is there too. On this site, use <a href=\"/hub/support/?p=exitwise\">Help</a> at the foot of any page."
+  },
+  {
     "q": "Do my settings follow me to my other devices?",
     "a": "Yes, once you sign in to VHub, the free VGraphics account. Music, sounds, vibration, tap twice to launch and the story pages follow you to every phone and PC you play on, and you can change them from your VHub picture at the top right of this site too. Without an account they stay on the device. How loud the game plays stays with each device."
   }

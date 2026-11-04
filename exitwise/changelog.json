@@ -1,6 +1,50 @@
 {
   "entries": [
     {
+      "version": "1.0.31",
+      "date": "2026-11-03",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Skills now count on the leaderboard",
+      "items": [
+        "Win with the prince's skills on and your score now counts on the leaderboard, at full points — the skills are earned by playing, so they no longer keep your win off the board.",
+        "Friend challenges now work with the prince's skills on: you can send one after such a win, and your friend plays it with their own skills and can win it with them on."
+      ],
+      "commit": "0b896083"
+    },
+    {
+      "version": "1.0.30",
+      "date": "2026-11-03",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Help and news in Settings",
+      "items": [
+        "You can now report a problem or suggest an idea from Settings, follow the replies, and sign up for game news by email.",
+        "The game now downloads a lot less in your browser, so it starts faster.",
+        "New players now go straight into level 1, with a hand pointing to your first move, instead of signing in or reading a tutorial first.",
+        "Signing in works again on Android, so your leaderboards and settings sync."
+      ],
+      "commit": "8ebfdb35"
+    },
+    {
+      "version": "1.0.29",
+      "date": "2026-10-31",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "One save across your devices",
+      "items": [
+        "The game now syncs your progress the moment it starts and keeps a single save, so switching between the web and your phone no longer asks you to choose a save.",
+        "When you play on more than one device, your progress is now combined correctly, so nothing you've earned gets lost or counted twice."
+      ],
+      "commit": "13e1ed99"
+    },
+    {
       "version": "1.0.28",
       "date": "2026-10-29",
       "platforms": [

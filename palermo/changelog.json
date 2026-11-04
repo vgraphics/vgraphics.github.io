@@ -1,6 +1,42 @@
 {
   "entries": [
     {
+      "version": "0.1.c8630753",
+      "date": "2026-11-02",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Join screen fills wide screens",
+      "items": [
+        "On a wide screen — a laptop, tablet or phone turned sideways — the join screen now fills the full width, with the night artwork spread out behind it.",
+        "The logo keeps its shape instead of stretching."
+      ],
+      "commit": "c8630753"
+    },
+    {
+      "version": "0.1.6a785e59",
+      "date": "2026-11-02",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Behind-the-scenes updates",
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "6a785e59"
+    },
+    {
+      "version": "0.1.d8e968b3",
+      "date": "2026-11-02",
+      "platforms": [
+        "Web"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "d8e968b3"
+    },
+    {
       "version": "0.1.d28ab4e5",
       "date": "2026-10-31",
       "platforms": [

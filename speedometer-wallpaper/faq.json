@@ -1,7 +1,11 @@
 [
   {
     "q": "Does a live wallpaper drain my battery?",
-    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode."
+    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode and in HUD mode, and only to show your speed."
+  },
+  {
+    "q": "Can I see my speed on the windscreen, like a HUD?",
+    "a": "Yes, with HUD mode. Lay your phone flat on the dashboard in front of the wheel, screen up: the app goes full screen at full brightness and draws your speed flipped, so the windscreen reflects it the right way round. Pick Number, Gauge arc, Fighter or Centre bar in Horizon (free), Glass, Pulse or Vector. Set it up while parked, and never touch the phone while you drive; HUD mode has no menus and no ads. It reads best at dusk, at night and on cloudy days. A windscreen shows the picture twice, from its two surfaces; a cheap HUD film on the glass fixes that."
   },
   {
     "q": "How does it know my speed, and how accurate is it?",
@@ -14,6 +18,10 @@
   {
     "q": "Which phones does it work on?",
     "a": "Android phones and tablets with Android 8.0 or newer, of any shape: every style fits the screen upright or on its side, including flip phones' main screens and foldables' cover and inner screens. There's no iPhone version: live wallpapers are an Android feature."
+  },
+  {
+    "q": "Which languages is the app in?",
+    "a": "English and Greek. The app follows your phone's language: on a phone set to Greek, every screen, gauge and caption is in Greek, and in any other language it's in English. The try-online version on this site is in English."
   },
   {
     "q": "How do I set it as my wallpaper?",
@@ -42,5 +50,9 @@
   {
     "q": "Do my settings follow me to my other devices?",
     "a": "Yes, once you sign in to VHub, the free VGraphics account. Your speed unit, clock, seconds, vibration and every style you tweaked follow you to your next phone, and you can change the speed unit, the clock, the seconds and vibration from your VHub picture at the top right of this site too. Without an account they stay on the phone."
+  },
+  {
+    "q": "How do I report a problem or suggest an idea?",
+    "a": "In the app, open Settings → Help → Report a problem or an idea: choose what it's about, write what happened, add a screenshot if it helps, and send. Our answer shows there, and in your inbox if you like, signed in or not. Away from the app, use <a href=\"/hub/support/?p=speedometer\">vgraphics.gr/hub/support</a>. Settings → Help also has News by email: new styles and features, one email a month at most."
   }
 ]

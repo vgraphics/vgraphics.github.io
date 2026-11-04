@@ -745,6 +745,85 @@
       ]
     },
     {
+      "id": "hud",
+      "eyebrow": "HUD mode",
+      "title": "Your speed on the windscreen",
+      "intro": "Lay your phone flat on the dashboard in front of the wheel, screen up, and HUD mode draws your speed flipped, so the windscreen reflects it the right way round. Full screen, full brightness, GPS speed, and nothing to touch while you drive: tap once for Exit and Flip. Four layouts (Number, Gauge arc, Fighter, Centre bar), each drawn by the four neon styles, with the clock, trip, heading and your own speed warning. It reads best at dusk, at night and on cloudy days. <a href=\"/speedometer-wallpaper/play/\">Try HUD mode in your browser</a>.",
+      "blocks": [
+        {
+          "type": "cards",
+          "layout": "media",
+          "items": [
+            {
+              "image": {
+                "src": "img/hud/windscreen-horizon.webp",
+                "alt": "Horizon's Gauge arc HUD on a car's windscreen at night, at 87 km/h with the clock, trip and heading",
+                "width": 1600,
+                "height": 900
+              },
+              "tag": "Free",
+              "title": "Horizon",
+              "text": "A fighter jet’s HUD in green: sliding tapes, chevrons and a tick ladder. Its four HUD looks are free for everyone."
+            },
+            {
+              "image": {
+                "src": "img/hud/windscreen-glass.webp",
+                "alt": "Glass's Gauge arc HUD on a car's windscreen at night, at 87 km/h with the clock, trip and heading",
+                "width": 1600,
+                "height": 900
+              },
+              "tag": "With the style",
+              "title": "Glass",
+              "text": "Smooth cyan sweeps with round ends, the speed in brackets."
+            },
+            {
+              "image": {
+                "src": "img/hud/windscreen-pulse.webp",
+                "alt": "Pulse's Gauge arc HUD on a car's windscreen at night, at 87 km/h with the clock, trip and heading",
+                "width": 1600,
+                "height": 900
+              },
+              "tag": "With the style",
+              "title": "Pulse",
+              "text": "Magenta rings and dots around the speed."
+            },
+            {
+              "image": {
+                "src": "img/hud/windscreen-vector.webp",
+                "alt": "Vector's Gauge arc HUD on a car's windscreen at night, at 87 km/h with the clock, trip and heading",
+                "width": 1600,
+                "height": 900
+              },
+              "tag": "With the style",
+              "title": "Vector",
+              "text": "Violet facets and hexagons with sharp corners."
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "Opens your way",
+              "text": "The HUD button on the app’s home screen, the HUD mode tile in Quick Settings, a long-press on the app icon, or by itself when your phone joins your car’s Bluetooth."
+            },
+            {
+              "title": "Safe and simple",
+              "text": "A short safety card every time it opens, a first-time setup that asks one thing at a time, and no menus and no ads in HUD mode. Set it up while parked, and never touch the phone while you drive."
+            },
+            {
+              "title": "Looks after your phone",
+              "text": "Full brightness and GPS warm a phone up. HUD mode softens the screen as it warms, pauses if it gets too hot, and asks you to plug in when the battery runs low."
+            },
+            {
+              "title": "Free",
+              "text": "HUD mode is free, with Horizon’s HUD looks for everyone. Glass, Pulse and Vector draw it when you have the style, Speedometer Plus or a 24-hour trial."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "layouts",
       "eyebrow": "From the layout market",
       "title": "Layouts made by drivers",
