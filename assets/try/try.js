@@ -504,7 +504,10 @@
         var flip = app.hud.flip();
         store(FLIP_KEY, flip);
         analytics.event('hud_flipped', { to: flip });
-        showControls();
+        // Flip puts Exit and Flip away, as in the app (George, 4 Nov 2026: "When I am at hud, when I press flip close
+        // menu."); a tap on the screen brings them back.
+        clearTimeout(hideTimer);
+        controls.classList.remove('is-shown');
       }
     });
     document.addEventListener('keydown', function (event) {
