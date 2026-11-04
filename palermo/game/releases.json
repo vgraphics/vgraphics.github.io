@@ -2,6 +2,33 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "b4c7957c38a7b3a1f9b885b323687141b9ba3abe",
+      "at": "2026-11-04T10:35:45.010Z",
+      "files": [
+        "app-BNUS1_qM.js",
+        "code-boxes-CnDfrFia.js",
+        "demo-BotSr0jw.js",
+        "demo-CL1uVqQv.css",
+        "demo-screen-C6ViSdM2.css",
+        "demo-screen-C7lnIeTL.js",
+        "door-layout-DXHsjaGe.js",
+        "firestore-DMbCwpZy.js",
+        "index-Cr7dSvuz.js",
+        "join-CCfT8YL1.js",
+        "newsreel-Dcn_PmrL.js",
+        "newsreel-sE5nnSXv.css",
+        "part-BDZ7P5ST.js",
+        "play-CBbB_3Xj.js",
+        "room-screen-Crl1Z-_X.js",
+        "spot-D-JOOHMQ.js",
+        "tv-BQVhiobV.js",
+        "tv-sites-CT-Vuda_.js",
+        "vote-opens-pZfsqa7M.js",
+        "wordmark-CAdFrz14.js",
+        "wordmark-CAn0Nrkf.css"
+      ]
+    },
+    {
       "sha": "102a382619f912bd6388cae4c5659ac57cac5a22",
       "at": "2026-11-04T07:09:16.706Z",
       "files": [
@@ -53,33 +80,6 @@
         "vote-opens-BVPLqj2U.js",
         "wordmark-CTb7pd-X.js",
         "wordmark-DKKxmXQL.css"
-      ]
-    },
-    {
-      "sha": "6a785e59cd8f023473b31de234517e0825f04d76",
-      "at": "2026-11-02T19:42:29.754Z",
-      "files": [
-        "app-D1FdjNYz.js",
-        "code-boxes-COn7nQOM.js",
-        "demo-CL1uVqQv.css",
-        "demo-DKMnmjs9.js",
-        "demo-screen-BTWSsds3.js",
-        "demo-screen-C6ViSdM2.css",
-        "door-layout-DNYmNNZa.js",
-        "firestore-BzDFVRmL.js",
-        "index-BXkKXhhQ.js",
-        "join-D_R5tUQM.js",
-        "newsreel-CuaLhisq.js",
-        "newsreel-sE5nnSXv.css",
-        "part-4Uno4Z8q.js",
-        "play-HUTpYWpS.js",
-        "room-screen-B5I0kJ-N.js",
-        "spot-CMe1rPn5.js",
-        "tv-DZuXd2IL.js",
-        "tv-sites-CEdCQLqa.js",
-        "vote-opens-Bhbzann8.js",
-        "wordmark-CkNbaD0d.js",
-        "wordmark-TZ_vLt_d.css"
       ]
     }
   ]

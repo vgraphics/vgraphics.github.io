@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "0.1.b4c7957c",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your nickname and rename are back",
+      "items": [
+        "Signed in without a name of your own? The nickname box and Change name are back on your phone."
+      ],
+      "commit": "b4c7957c"
+    },
+    {
       "version": "0.1.102a3826",
       "date": "2026-11-04",
       "platforms": [
