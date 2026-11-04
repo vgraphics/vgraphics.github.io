@@ -246,10 +246,11 @@
 .try-hud-pill svg { width: 13px; height: 13px; }
 
 /* The Layouts menu (try.js fillLayouts): Built in, HUD layouts, From the layout market, each under its own small
-   title. A set fades in as it appears (a HUD style picked, the market's layouts in). */
+   title. A set, and the menu itself, grows in as it appears (a HUD style picked, the market's layouts in) and shrinks
+   away as it goes (assets/faq.js showBox and hideBox). */
 .try-layouts { display: grid; gap: 14px; }
 .try-layouts > h4 { margin: 0; }
-.try-layout-set { display: grid; gap: 8px; animation: try-set-in 220ms cubic-bezier(.2, .8, .2, 1); }
+.try-layout-set { display: grid; gap: 8px; }
 .try-layout-set[hidden] { display: none; }
 .try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
 .try-layout-set .try-set-title svg { width: 14px; height: 14px; color: var(--accent-2, var(--accent)); }
@@ -260,11 +261,6 @@
    does the HUD layout that HUD mode would open on. */
 .try[data-hud-view="hud"] .try-layouts .try-chip[aria-pressed="true"],
 .try:not([data-hud-view="hud"]) .try-layout-hud .try-chip[aria-checked="true"] { background: var(--surface); }
-@keyframes try-set-in { from { opacity: 0; transform: translateY(6px); } }
-@keyframes try-set-fade { from { opacity: 0; } }
-@media (prefers-reduced-motion: reduce) {
-  .try-layout-set { animation-name: try-set-fade; }
-}
 
 /* Settings, in the app's sections and with the app's words (the engine's catalog). */
 .try-settings { display: grid; gap: 6px; }
@@ -345,7 +341,7 @@
 /* The look's QR (try.js openLook): a modal sheet over a shade, in the middle of the window, on a phone at its foot. The
    code is dark modules on white with the standard's margin of 4 modules, as large as the window lets it be up to
    300px, so a phone reads it off a laptop's screen. A window too short for it (a phone on its side) scrolls the sheet
-   alone, never the page. */
+   alone, never the page. Shut, it falls away over the page (is-closing) without taking a tap. */
 .try-look {
   position: fixed;
   inset: 0;
@@ -361,7 +357,8 @@
   overflow: auto;
   overscroll-behavior: contain;
 }
-.try-look[open] { display: grid; place-items: center; }
+.try-look[open], .try-look.is-closing { display: grid; place-items: center; }
+.try-look.is-closing { z-index: 1000; pointer-events: none; }
 .try-look::backdrop { background: transparent; }
 .try-look-shade { position: fixed; inset: 0; background: color-mix(in srgb, var(--page) 82%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .try-look-sheet {
@@ -424,7 +421,7 @@
   .try-qr { display: none; }
   .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
   .try-look { padding: 8px; }
-  .try-look[open] { place-items: end center; }
+  .try-look[open], .try-look.is-closing { place-items: end center; }
   .try-look-sheet { width: 100%; padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
 }
 

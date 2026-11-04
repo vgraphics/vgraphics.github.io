@@ -22,6 +22,8 @@
 // has already handled (preventDefault) is left to it.
 // Menus open and close the same way (George, 29 Oct 2026, asked whether menus should too: "Yes, animate menus"):
 // showMenu() and hideMenu() below, which the header's folded menu (menu.js) and the VHub avatar's (account.js) call.
+// A box a page shows and hides as it changes (the try page's layout sets) grows and shrinks as a row does: showBox()
+// and hideBox() below.
 // menu.js loads this on every page; tools/check-site.mjs ([faq-js]) holds every page with an expandable to it, fails
 // any other kind of expandable until this file drives it, and any site script that opens a menu without these two.
 const EASE = "cubic-bezier(.2, .8, .2, 1)";
@@ -248,6 +250,84 @@ for (const tour of document.querySelectorAll(".tour")) {
     }
   });
 }
+
+// A box that comes and goes as its page changes (the try page's layout sets as the style changes; the design canon,
+// section 1): showBox() unhides it and grows it from nothing to its full height as it fades in, hideBox() shrinks it
+// back the same way as it fades out, a little faster, and hides it at the end (then done() runs), with the rows' times
+// and ease; under reduced motion it only fades. The gap before it in its grid grows and shrinks with it, so nothing
+// jumps. Called again while it moves, it turns round from where it is (and the earlier done() never runs); called for
+// a box already shown, or already going, it does nothing. A box whose list isn't on screen just shows or hides. The
+// page never scrolls for it (canon 1.3): nothing holds a head or scrolls by, and scroll anchoring is off on its list and
+// on what scrolls around it while boxes move, so what lies below simply moves with the heights.
+const boxes = new Map();
+const anchors = new Set();
+
+// What scrolls around an element: the nearest box that scrolls on its own, else the page.
+function scrollBoxOf(el) {
+  for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
+    const y = getComputedStyle(p).overflowY;
+    if (y === "auto" || y === "scroll") return p;
+  }
+  return document.body;
+}
+
+// The gap the box's grid (or flex column) leaves before it, which only shows while something is shown before it.
+function gapBefore(el) {
+  let prev = el.previousElementSibling;
+  while (prev && !prev.getClientRects().length) prev = prev.previousElementSibling;
+  return prev ? parseFloat(getComputedStyle(el.parentElement).rowGap) || 0 : 0;
+}
+
+function moveBox(el, on, done) {
+  if (on ? !el.hidden && !closing(el) : el.hidden || closing(el)) return;
+  // Where it stands: mid-move, where its animation has it; else shut, or open.
+  const now = boxes.has(el) ? getComputedStyle(el) : null;
+  const from = now && { height: el.getBoundingClientRect().height, margin: parseFloat(now.marginTop), opacity: +now.opacity };
+  boxes.get(el)?.cancel();
+  boxes.delete(el);
+  el.classList.remove("faq-moving");
+  el.classList.toggle("faq-closing", !on);
+  el.hidden = false;
+  if (!el.getClientRects().length) {
+    el.classList.remove("faq-closing");
+    el.hidden = !on;
+    done?.();
+    return;
+  }
+  const margin = parseFloat(getComputedStyle(el).marginTop) || 0;
+  const shut = { height: 0, margin: margin - gapBefore(el), opacity: 0 };
+  const full = { height: el.getBoundingClientRect().height, margin, opacity: 1 };
+  const [start, end] = on ? [from ?? shut, full] : [from ?? full, shut];
+  for (const a of [el.parentElement, scrollBoxOf(el)]) {
+    a.style.overflowAnchor = "none";
+    anchors.add(a);
+  }
+  const frames = still.matches
+    ? { opacity: [start.opacity, end.opacity] }
+    : { height: [`${start.height}px`, `${end.height}px`], marginTop: [`${start.margin}px`, `${end.margin}px`], opacity: [start.opacity, end.opacity] };
+  const timing = still.matches ? (on ? FADE_IN : FADE_OUT) : on ? OPEN : CLOSE;
+  el.classList.add("faq-moving");
+  const anim = el.animate(frames, { ...timing, fill: "forwards" });
+  boxes.set(el, anim);
+  anim.finished.then(
+    () => {
+      if (boxes.get(el) !== anim) return;
+      boxes.delete(el);
+      el.classList.remove("faq-moving", "faq-closing");
+      if (!on) el.hidden = true;
+      anim.cancel();
+      if (!boxes.size) {
+        for (const a of anchors) a.style.overflowAnchor = "";
+        anchors.clear();
+      }
+      done?.();
+    },
+    () => {} // cancelled: a newer move took over
+  );
+}
+
+export const showBox = (el) => moveBox(el, true);
+export const hideBox = (el, done) => moveBox(el, false, done);
 
 // A menu: a drop-down grows from its button (from the button's middle, at the menu's top) as it fades in, and closes
 // the same way back, a little faster; a sheet (the avatar's menu on a phone) rises from the screen's foot the same way.

@@ -142,16 +142,24 @@
     analytics.error('Unhandled rejection: ' + (reason && reason.message ? reason.message : String(reason)), reason && reason.stack);
   });
 
+  // How things come and go here (the design canon, sections 1 and 2): assets/faq.js's menus and boxes, loaded once.
+  // Until it is in, or if it can't be, they just show and hide.
+  var motion = null;
+  import('/assets/faq.js').then(function (m) { motion = m; }, function () { /* they show and hide at once */ });
+
   // The question, once per browser, when the demo starts; the "Usage statistics" switch at the panel's foot shows the
-  // answer and changes it.
+  // answer and changes it. It rises in from the window's foot and goes back the same way, as a sheet does.
   var consent = $('.try-consent');
   var statistics = $('.try-statistics input');
   var askConsent = function () {
-    if (consent) consent.hidden = false;
+    if (!consent || !consent.hidden) return;
+    consent.hidden = false;
+    if (motion) motion.showMenu(consent, null, true);
   };
   var decide = function (value) {
     store(CONSENT_KEY, value);
-    consent.hidden = true;
+    if (!consent.hidden && motion) motion.hideMenu(consent, null, function () { consent.hidden = true; }, true);
+    else consent.hidden = true;
     statistics.checked = value === 'granted';
     analytics.answer(value);
   };
@@ -435,6 +443,18 @@
     return chip;
   };
 
+  // A set, and the whole menu, comes and goes as the style changes: it grows in from nothing as it fades in, and shrinks
+  // away the same way (assets/faq.js's showBox and hideBox), with the page and the panel never scrolling for it. The
+  // first fill, and any before faq.js is in, just shows what there is. A set on its way out keeps its chips until it has
+  // gone.
+  var layoutsDrawn = false;
+  var reveal = function (el, on) {
+    if (!el) return;
+    if (!layoutsDrawn || !motion) el.hidden = !on;
+    else if (on) motion.showBox(el);
+    else motion.hideBox(el);
+  };
+
   function fillLayouts(style, values) {
     var layouts = $('.try-layouts');
     if (!layouts) return;
@@ -442,18 +462,22 @@
     var hud = layouts.querySelector('.try-layout-hud');
     var market = layouts.querySelector('.try-layout-market');
     var rows = market ? marketRowsOf(style.id) : [];
-    if (hud) hud.hidden = !isHudStyle(style.id);
-    if (market) market.hidden = !rows.length;
-    layouts.hidden = style.layouts.length < 2 && !isHudStyle(style.id) && !rows.length;
+    var showing = style.layouts.length > 1 || isHudStyle(style.id) || rows.length > 0;
+    reveal(hud, isHudStyle(style.id));
+    reveal(market, rows.length > 0);
+    reveal(layouts, showing);
+    layoutsDrawn = true;
 
-    var builtIn = layouts.querySelector('.try-layout-builtin .try-chips');
-    builtIn.textContent = '';
-    style.layouts.forEach(function (layout) {
-      builtIn.appendChild(layoutChip(layout.name, '', layout.id === values.layout, 'layout:' + layout.id, function () {
-        app.set('layout', layout.id);
-      }));
-    });
-    if (market) {
+    if (showing) {
+      var builtIn = layouts.querySelector('.try-layout-builtin .try-chips');
+      builtIn.textContent = '';
+      style.layouts.forEach(function (layout) {
+        builtIn.appendChild(layoutChip(layout.name, '', layout.id === values.layout, 'layout:' + layout.id, function () {
+          app.set('layout', layout.id);
+        }));
+      });
+    }
+    if (market && rows.length) {
       var chips = market.querySelector('.try-chips');
       chips.textContent = '';
       rows.forEach(function (row) {
@@ -785,7 +809,9 @@
   // the app, a page that offers Google Play and this look in the browser. The sheet is a modal dialog, so the keyboard
   // stays in it; Escape, its close button or a tap on the shade closes it. It opens and closes as every menu does
   // (assets/faq.js's showMenu and hideMenu, as a sheet: it rises as it fades in, and goes back a little faster; under
-  // reduced motion, a short fade), its shade fading with it.
+  // reduced motion, a short fade), its shade fading with it. The dialog shuts as its close starts, so the page is live
+  // again at once: the sheet goes on falling over it (is-closing, which takes no taps), and the QR button pressed
+  // meanwhile turns it round from where it is.
   var QR_SCRIPT = '/assets/try/qr.js';
   var QR_DARK = '#0B0B0C';
   var QR_LIGHT = '#FFFFFF';
@@ -793,12 +819,7 @@
   var SHADE = { open: 260, close: 200, fadeIn: 150, fadeOut: 100 };
   var lookBox = $('.try-look');
   var lookFrom = null;
-  var lookClosing = false;
   var marketShown = null;
-  var motion = null;
-  if (lookBox) {
-    import('/assets/faq.js').then(function (m) { motion = m; }).catch(function () { /* it opens and closes at once */ });
-  }
 
   // A link template's {name}s filled in.
   var linkOf = function (template, values) {
@@ -837,6 +858,7 @@
     var style = styleOf(values.style);
     var link = lookLink(values);
     loadScript(QR_SCRIPT, 'VGQR').then(function () {
+      if (lookBox.open) return;
       lookBox.querySelector('.try-look-code').innerHTML = window.VGQR.svg(link, { dark: QR_DARK, light: QR_LIGHT });
       lookBox.querySelector('.try-look-name').textContent = style.name;
       var layout = style.layouts.filter(function (l) { return l.id === values.layout; })[0];
@@ -845,7 +867,8 @@
       else if (layout && style.layouts.length > 1) words = 'Layout: ' + layout.name;
       lookBox.querySelector('.try-look-layout').textContent = words;
       lookFrom = button;
-      lookClosing = false;
+      lookBox.classList.remove('is-closing');
+      lookBox.inert = false;
       lookBox.showModal();
       lookBox.querySelector('.try-look-close').focus({ preventScroll: true });
       moveLook(true);
@@ -947,9 +970,15 @@
   }
 
   function closeLook() {
-    if (!lookBox.open || lookClosing) return;
-    lookClosing = true;
-    moveLook(false, function () { lookBox.close(); });
+    if (!lookBox.open) return;
+    lookBox.classList.add('is-closing');
+    lookBox.inert = true;
+    lookBox.close();
+    moveLook(false, function () {
+      lookBox.classList.remove('is-closing');
+      lookBox.inert = false;
+      lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+    });
   }
 
   if (lookBox) {
@@ -961,11 +990,12 @@
       event.preventDefault();
       closeLook();
     });
-    // However it shut (a second Escape shuts it at once), the shade's fade ends, faq.js ends the sheet's own, and the
-    // keyboard goes back to the button.
+    // However it shut, the keyboard goes back to the button. Shut by closeLook, it goes on falling (is-closing) and the
+    // shade's fade ends with it; shut any other way, the shade's fade ends now.
     lookBox.addEventListener('close', function () {
-      lookClosing = false;
-      lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+      if (!lookBox.classList.contains('is-closing')) {
+        lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+      }
       if (lookFrom) lookFrom.focus({ preventScroll: true });
     });
   }

@@ -254,12 +254,17 @@
       document.documentElement.classList.add('g-lock')
       this.dlg.showModal()
       this.set(i, 0)
-      if (motion.matches) return
-      this.dlg.animate([{ opacity: 0 }, {}], { duration: 320, easing: 'ease-out', pseudoElement: '::backdrop' })
-      for (const e of [this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint]) {
-        e.animate([{ opacity: 0 }, {}], { duration: 300, delay: 140, easing: 'ease-out', fill: 'backwards' })
+      // The design canon, section 4: it flies out of the phone's screen in 460 ms as the shade fades in, and its
+      // buttons fade in once the flight is under way; under reduced motion nothing flies, it fades in over 150 ms.
+      if (motion.matches) {
+        for (const o of [{}, { pseudoElement: '::backdrop' }]) this.dlg.animate([{ opacity: 0 }, {}], { duration: 150, ...o })
+        return
       }
-      this.pic.animate([{ transform: this.flight(g, this.i) }, { transform: 'none' }], { duration: 440, easing: 'cubic-bezier(.2,.8,.2,1)' })
+      this.dlg.animate([{ opacity: 0 }, {}], { duration: 460, easing: 'ease-out', pseudoElement: '::backdrop' })
+      for (const e of [this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint]) {
+        e.animate([{ opacity: 0 }, {}], { duration: 320, delay: 140, easing: 'ease-out', fill: 'backwards' })
+      }
+      this.pic.animate([{ transform: this.flight(g, this.i) }, { transform: 'none' }], { duration: 460, easing: 'cubic-bezier(.2,.8,.2,1)' })
     },
 
     // From the picture's place in the lightbox to the phone's screen it came from (the same picture, so they meet
@@ -270,21 +275,28 @@
       return `translate(${s.left + s.width / 2 - (p.left + p.width / 2)}px, ${s.top + s.height / 2 - (p.top + p.height / 2)}px) scale(${s.width / p.width})`
     },
 
+    // It flies back into the phone's screen in 340 ms as the shade fades out (the design canon, section 4); under
+    // reduced motion it fades out over 100 ms. Every fade holds its end until the dialog shuts in the same task.
     async shut() {
       if (!this.dlg.open || this.closing) return
-      if (!motion.matches) {
-        this.closing = true
+      this.closing = true
+      let anims
+      if (motion.matches) {
+        anims = [{}, { pseudoElement: '::backdrop' }].map((o) => this.dlg.animate([{}, { opacity: 0 }], { duration: 100, fill: 'forwards', ...o }))
+      } else {
         this.reset()
         const to = this.flight(this.g, this.i)
-        await Promise.all([
-          this.dlg.animate([{}, { opacity: 0 }], { duration: 300, easing: 'ease-in', pseudoElement: '::backdrop' }).finished,
-          ...[this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint].map((e) => e.animate([{}, { opacity: 0 }], { duration: 160, fill: 'forwards' }).finished),
-          to ? this.pic.animate([{ transform: 'none' }, { transform: to }], { duration: 320, easing: 'cubic-bezier(.4,0,.7,.2)', fill: 'forwards' }).finished
-            : this.pic.animate([{}, { opacity: 0, transform: 'scale(0.94)' }], { duration: 220, easing: 'ease-in', fill: 'forwards' }).finished,
-        ].map((p) => p.catch(() => {})))
-        this.closing = false
-        this.dlg.getAnimations({ subtree: true }).forEach((a) => a.cancel())
+        anims = [
+          this.dlg.animate([{}, { opacity: 0 }], { duration: 340, easing: 'ease-in', fill: 'forwards', pseudoElement: '::backdrop' }),
+          ...[this.closeBtn, this.dlg.querySelector('.g-box-bar'), this.hint].map((e) => e.animate([{}, { opacity: 0 }], { duration: 160, fill: 'forwards' })),
+          to ? this.pic.animate([{ transform: 'none' }, { transform: to }], { duration: 340, easing: 'cubic-bezier(.4,0,.7,.2)', fill: 'forwards' })
+            : this.pic.animate([{}, { opacity: 0, transform: 'scale(0.94)' }], { duration: 220, easing: 'ease-in', fill: 'forwards' }),
+        ]
       }
+      await Promise.all(anims.map((a) => a.finished.catch(() => {})))
+      this.closing = false
+      anims.forEach((a) => a.cancel())
+      this.dlg.getAnimations({ subtree: true }).forEach((a) => a.cancel())
       this.dlg.close()
     },
 
@@ -413,7 +425,7 @@
         if (pts.size) return
         pinch = null
         const dx = e.clientX - x0, dy = e.clientY - y0
-        if (!moved) return this.scale > 1 ? this.reset() : this.zoomAt({ x: e.clientX, y: e.clientY }, 2.4)
+        if (!moved) return this.scale > 1 ? this.reset() : this.zoomAt({ x: e.clientX, y: e.clientY }, 2.5)
         if (this.scale > 1) return
         if (dx < -60 && Math.abs(dx) > Math.abs(dy)) this.set(this.i + 1, 1)
         else if (dx > 60 && Math.abs(dx) > Math.abs(dy)) this.set(this.i - 1, -1)
