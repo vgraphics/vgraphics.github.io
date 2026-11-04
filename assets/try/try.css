@@ -385,6 +385,55 @@
    and out after a few seconds, as in the app. */
 .try-chip[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
 .try-hud-layouts { margin-top: 2px; }
+/* Original | HUD (George, 4 Nov 2026: "Yes, try page and app"): a pill of the quick row's shape split in two, the
+   chosen half lit as a pressed pill is (.try-tool[aria-pressed]), the light sliding across when the choice changes. */
+.try-view {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 3px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--surface);
+  isolation: isolate;
+}
+.try-view[hidden] { display: none; }
+.try-view::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3px auto 3px 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+  box-shadow: inset 0 0 0 1px var(--accent);
+  transition: transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.try-view[data-view="hud"]::before { transform: translateX(100%); }
+.try-view button {
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font: var(--label-weight) 0.95rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  cursor: var(--cursor-link, pointer);
+  transition: color 160ms ease-out;
+}
+.try-view button:hover { color: var(--ink); }
+.try-view button[aria-checked="true"] { color: var(--ink); cursor: var(--cursor, default); }
+.try-view button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The HUD look has no home screen around it. */
+.try[data-hud-view="hud"] .try-icons { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .try-view::before { transition: opacity 80ms linear; }
+}
 .try[data-hud="on"] .try-device {
   position: fixed;
   inset: 0;

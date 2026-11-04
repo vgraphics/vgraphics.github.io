@@ -397,12 +397,20 @@
   // phone's screen fills the window, flipped for the windscreen, the screen kept on, with the visitor's real GPS speed
   // when they chose it and the demo drive's otherwise. A browser can't raise the brightness, so it asks. Tap once for
   // Exit and Flip, as in the app; Esc or leaving full screen ends it.
+  //
+  // Original | HUD (George, 4 Nov 2026: "Yes, try page and app"): while one of the HUD styles is on show, the switch
+  // turns the phone on its side and draws that style's HUD look in it, read straight (the engine's app.hud, flip
+  // "holder"); the layout chips change it there and then. Original puts the wallpaper back as it was, orientation
+  // included; so does another style. HUD mode opened from the HUD look comes back to it. Counted as hud_view.
   function wireHud() {
     if (!config.hud) return;
     var layer = $('.try-hud-layer');
     var tip = $('.try-hud-tip');
     var controls = $('.try-hud-controls');
     var chips = root.querySelectorAll('[data-hud-layout]');
+    var view = $('.try-view');
+    var viewButtons = view ? view.querySelectorAll('[data-hud-view]') : [];
+    var PREVIEW_FLIP = 'holder';
     var FLIP_KEY = 'vgtry.' + config.product + '.hudFlip';
     var CONTROLS_MS = 4000;
     var TIP_MS = 6000;
@@ -417,11 +425,52 @@
     var hideTimer = 0;
     var tipTimer = 0;
     var sound = null;
+    // The HUD look in the phone (Original | HUD on HUD): the style it draws and the orientation to give back.
+    var previewStyle = '';
+    var orientationBeforePreview = 'portrait';
 
     var markLayout = function () {
       Array.prototype.forEach.call(chips, function (chip) {
         chip.setAttribute('aria-checked', String(chip.getAttribute('data-hud-layout') === layout));
       });
+    };
+    var isHudStyle = function (id) { return config.hud.styles.indexOf(id) >= 0; };
+    var showPreview = function () {
+      app.hud.start({ style: previewStyle, layout: layout, flip: PREVIEW_FLIP });
+    };
+    var markView = function () {
+      if (!view) return;
+      var shown = previewStyle ? 'hud' : 'original';
+      view.setAttribute('data-view', shown);
+      Array.prototype.forEach.call(viewButtons, function (button) {
+        var on = button.getAttribute('data-hud-view') === shown;
+        button.setAttribute('aria-checked', String(on));
+        button.tabIndex = on ? 0 : -1;
+      });
+    };
+    // HUD: the phone turns on its side and draws the style on show's HUD look. Original: the wallpaper, as it was.
+    var setView = function (shown) {
+      if ((shown === 'hud') === !!previewStyle) return;
+      if (shown === 'hud') {
+        if (!isHudStyle(last.style)) return;
+        previewStyle = last.style;
+        orientationBeforePreview = device.getAttribute('data-orientation') || 'portrait';
+        device.setAttribute('data-orientation', 'landscape');
+        root.setAttribute('data-hud-view', 'hud');
+        showPreview();
+      } else {
+        previewStyle = '';
+        root.removeAttribute('data-hud-view');
+        app.hud.stop();
+        device.setAttribute('data-orientation', orientationBeforePreview);
+      }
+      markView();
+      analytics.event('hud_view', { view: shown, style: last.style, layout: layout });
+    };
+    // The switch shows while a HUD style is on show; another style puts the wallpaper back.
+    var syncView = function () {
+      if (previewStyle && last.style !== previewStyle) setView('original');
+      if (view) view.hidden = !isHudStyle(last.style);
     };
     // The style on show when it draws HUD mode; Horizon (free in the app) otherwise.
     var style = function () {
@@ -470,6 +519,8 @@
       tip.hidden = false;
       clearTimeout(tipTimer);
       tipTimer = setTimeout(function () { tip.hidden = true; }, TIP_MS);
+      // From the HUD look (read straight), a fresh start: HUD mode lies as last flipped, or as it starts in the app.
+      if (previewStyle) app.hud.stop();
       app.hud.start({ style: style(), layout: layout, flip: stored(FLIP_KEY) || '' });
       if (document.fullscreenEnabled && device.requestFullscreen) {
         device.requestFullscreen().then(function () {
@@ -491,7 +542,9 @@
       root.removeAttribute('data-hud');
       layer.hidden = true;
       controls.classList.remove('is-shown');
-      app.hud.stop();
+      // Opened from the HUD look, it goes back to it; otherwise to the wallpaper.
+      if (previewStyle) showPreview();
+      else app.hud.stop();
       device.setAttribute('data-orientation', orientationBefore);
       unlockOrientation();
       if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
@@ -505,8 +558,24 @@
       chip.addEventListener('click', function () {
         layout = chip.getAttribute('data-hud-layout');
         markLayout();
+        if (previewStyle) showPreview();
       });
     });
+    if (view) {
+      Array.prototype.forEach.call(viewButtons, function (button) {
+        button.addEventListener('click', function () { setView(button.getAttribute('data-hud-view')); });
+      });
+      // A radio pair: the arrow keys move the choice, as in any radio group.
+      view.addEventListener('keydown', function (event) {
+        if (['ArrowLeft', 'ArrowRight', 'ArrowUp', 'ArrowDown'].indexOf(event.key) < 0) return;
+        event.preventDefault();
+        setView(previewStyle ? 'original' : 'hud');
+        var chosen = view.querySelector('[aria-checked="true"]');
+        if (chosen) chosen.focus();
+      });
+      app.on('change', syncView);
+      syncView();
+    }
     root.addEventListener('click', function (event) {
       if (event.target.closest && event.target.closest('[data-action="hud"]')) start();
     });

@@ -90,7 +90,7 @@
       "id": "live",
       "eyebrow": "Live",
       "title": "Vector, live",
-      "intro": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Vector's layouts and colours.",
+      "intro": "A neon HUD in hexagons: a faceted sweep that thickens as it climbs and crisp thin digits, violet on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Vector's layouts and colours. Switch Original | HUD to see Vector's HUD mode look.",
       "blocks": [
         {
           "type": "try",
@@ -113,7 +113,7 @@
           },
           "hud": {
             "label": "HUD mode",
-            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. Glass, Pulse, Vector and Horizon draw it; Use my real speed first for your GPS speed.",
+            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. Glass, Pulse, Vector and Horizon draw it: with one of them on show, switch Original | HUD to see its HUD look right here, and back. Use my real speed first for your GPS speed.",
             "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
             "exit": "Exit",
             "flip": "Flip",
