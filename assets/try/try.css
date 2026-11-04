@@ -423,6 +423,7 @@
   transition: opacity 150ms ease-in;
 }
 .try-hud-controls.is-shown { opacity: 1; pointer-events: auto; transition: opacity 200ms ease-out; }
+.try-hud-controls[hidden] { display: none; }
 .try-hud-controls button {
   border: 0;
   border-radius: 28px;
