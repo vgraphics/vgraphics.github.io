@@ -1,15 +1,16 @@
 // The pieces every page of a product shares, for tools/build-pages.mjs and the wikis: the header with only the
-// product's own logo top left (George's rule, 22 Oct 2026), the closing card and the footer with the company's legal
+// product's own logo top left (George's rule, 22 Oct 2026), the closing card and the footer with the website's legal
 // line (the same on every page, George, 23 Oct 2026: "The foother must be same on all pages"; a product's screens, its
-// try page, carry the short one, tools/lib/legal.mjs), the store badges and buttons, and the theme's decorative
-// ornaments. Text from page.json is trusted HTML from this repo; esc() is for attribute values.
+// try page, carry the product's, and only /company/ the company's details, tools/lib/legal.mjs), the store badges and
+// buttons, and the theme's decorative ornaments. Text from page.json is trusted HTML from this repo; esc() is for
+// attribute values.
 import { readFileSync } from 'node:fs'
-import { isProductScreen, PRODUCT_LEGAL } from './legal.mjs'
+import { isProductScreen, PRODUCT_LEGAL, SITE_LEGAL } from './legal.mjs'
 import { helpLink, mailList } from './mail-list.mjs'
 
 export const esc =(s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 
-export const LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a>'
+export const LEGAL = SITE_LEGAL
 
 export const ICONS = {
   down: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 5v14M6 13l6 6 6-6"/></svg>',
@@ -111,6 +112,8 @@ export function actions(page, list, cls = 'badges') {
 
 // The last call to action, the card that stands half in the footer's picture: every page of a product ends with it
 // and the footer, so the two read as one footer. cta is { title, text, badges }: the page's own, else the product's.
+// Under its buttons, a sign-up for news for people not ready to play yet (George's "Keep" marks on the mail review
+// page, 3 Nov 2026), for the product its menu's first page names.
 export function closing(page, cta = page.cta) {
   if (!cta) return ''
   return `<section class="cta-band" aria-labelledby="cta-title">
@@ -119,6 +122,7 @@ export function closing(page, cta = page.cta) {
           <h2 id="cta-title">${cta.title}</h2>
           ${cta.text ? `<p>${demoText(page.site, cta.text)}</p>` : ''}
           ${actions(page, cta.badges)}
+          ${mailList(page.site.nav[0].href.split('/')[1], 'close')}
         </div>
       </div>
     </section>`

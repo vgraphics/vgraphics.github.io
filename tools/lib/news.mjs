@@ -28,6 +28,7 @@
 // it says), the line (else the default one) and a link ({ href, label }: the try page, say), a soft call to action.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { mailList } from './mail-list.mjs'
 import { esc, ICONS } from './partials.mjs'
 import { root } from './product.mjs'
 
@@ -179,10 +180,13 @@ function soon(empty) {
         </div>`
 }
 
-// The block: readNews' { entries, testers }, the page.json block (its empty) and the product's name (page.json
-// site.name). The testers' block follows everybody's, in a private template.
-export function news({ entries, testers }, { empty } = {}, name) {
+// The block: readNews' { entries, testers }, the page.json block (its empty), the product's name (page.json
+// site.name) and folder. The testers' block follows everybody's, in a private template, so the two stay side by side
+// when it opens (assets/product.css hides the first). The chapter ends with a slim sign-up for the product's news,
+// "Get the next update by email" (tools/lib/mail-list.mjs; George's "Keep" marks on the mail review page, 3 Nov 2026).
+export function news({ entries, testers }, { empty } = {}, name, slug) {
   const everybody = entries.length ? block(entries, 'news-all', name) : soon(empty)
-  return testers ? `${everybody}
-        <template class="private">${block(testers, 'news-all-testers', name)}</template>` : everybody
+  return `${testers ? `${everybody}
+        <template class="private">${block(testers, 'news-all-testers', name)}</template>` : everybody}
+        ${mailList(slug, 'news')}`
 }

@@ -344,7 +344,7 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
-  news: (b, { dir, page }) => news(readNews(b, dir, page.site), b, page.site.name),
+  news: (b, { dir, page, slug }) => news(readNews(b, dir, page.site), b, page.site.name, slug),
 
   // The game's own storybook (b.book: the folder of its storybook.json and HTML reader, the web game's
   // StreamingAssets/Storybook), read where it stands: the page holds the first chapter's lines and the chapter list as

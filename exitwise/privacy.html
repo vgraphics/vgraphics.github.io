@@ -103,7 +103,7 @@
       <div class="wrap">
         <div class="document">
 <div class="head">
-    <span class="updated">Last updated: 31 October 2026</span>
+    <span class="updated">Last updated: 3 November 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Exitwise</strong> (the "game") on
       Android, iOS or the web. The game is made by VGraphics ("we", "us").
@@ -113,11 +113,12 @@
   <h2 class="short-title" id="short">The short version</h2>
   <ul class="short">
     <li>You don't need to sign in. We never ask for your real name or contact details; if you choose to sign in with a
-      Google account, Google tells our sign-in service your email address and name, and we use them only to sign you
-      in.</li>
+      Google account, Google tells our sign-in service your email address and name, and if you sign in with Apple, Apple
+      tells it your email address (or a private relay address if you choose to hide yours). We use them only to sign you
+      in. You may give us an email address yourself, to get the answers to a help ticket or our newsletter.</li>
     <li>Your progress and settings are saved on your device. If you sign in with Google Play Games or a Google account
-      (Android), with Google on our website, or with your CrazyGames account (CrazyGames), they are also saved to that
-      account so you can continue on another device.</li>
+      (Android), with Apple (iPhone and iPad), with Google on our website, or with your CrazyGames account (CrazyGames),
+      they are also saved to that account so you can continue on another device.</li>
     <li>Your account, username and picture are your VGraphics account, kept by VHub, our account service for every
       VGraphics game, which has <a href="/hub/privacy.html">its own privacy policy</a>.</li>
     <li>Every level has a leaderboard. Your best time and hearts lost on each level are shown there to other
@@ -133,7 +134,8 @@
       maps, and any message you add to them, are read only by us.</li>
     <li>You can delete your Exitwise data, or your whole VGraphics account, in the game or at
       <a href="/hub/delete/">vgraphics.gr/hub/delete</a> at any time.</li>
-    <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads.</li>
+    <li>The free game shows ads. Our advertising partners may collect device information to show and measure ads. On
+      iPhone and iPad they use your device's advertising identifier only if you allow tracking when Apple asks.</li>
     <li>We use Firebase (by Google) to see how the game is played and to receive crash reports. This data doesn't
       include your name or contact details.</li>
   </ul>
@@ -150,6 +152,7 @@
         <li><a href="#pictures">Profile pictures</a></li>
         <li><a href="#maps">Custom maps</a></li>
         <li><a href="#reports">Reports &amp; blocking</a></li>
+        <li><a href="#help">Help &amp; newsletter</a></li>
         <li><a href="#delete">Deleting your data</a></li>
         <li><a href="#analytics">Analytics &amp; crash reports</a></li>
         <li><a href="#ads">Advertising</a></li>
@@ -198,12 +201,26 @@
           Google account already belongs to another VGraphics account, the game joins the two accounts into one, with the
           progress of both.
         </p>
+        <p>
+          On iPhone and iPad you can sign in with Apple, in Settings or on the sign-in card. Apple then shares with VHub's
+          sign-in (Google Firebase Authentication) an identifier for your Apple Account that only VGraphics' apps receive,
+          and your email address. If you choose to hide your email, Apple gives us a private relay address instead, which
+          forwards to you; we never see your real one. VHub keeps them with your account. We use them only to sign you in
+          and to show which Apple Account is linked; they are never shown to other players, shared, used for ads or used
+          to track you. The first time you sign in, Apple also gives the game the name you choose to share. It stays on
+          your iPhone or iPad and is never sent to us: the game uses it only to show which account you are signed in as
+          in Settings and to suggest a player name, which becomes public only if you keep it as your username. If your Apple Account already
+          belongs to another VGraphics account, the game offers to join the two accounts into one, with the progress of
+          both, as it does for Google. You can stop using Sign in with Apple for Exitwise at any time in your iPhone's
+          Settings → your name → Sign in with Apple.
+        </p>
       </section>
 
       <section id="cloud">
         <h2>Cloud save</h2>
         <p>
-          On Android, when you sign in with Google Play Games, and on our website when you sign in with Google, a copy of
+          On Android, when you sign in with Google Play Games, on iPhone and iPad when you sign in with Apple, and on our
+          website when you sign in with Google, a copy of
           your saved game (the same information as on your device) is stored in Google Firebase Cloud Firestore under your
           game account, so you can continue on another device. It syncs when the game starts and soon after you play. If
           this device and your account both have progress, the game combines them into one save, with your furthest level,
@@ -355,6 +372,21 @@
         </p>
       </section>
 
+      <section id="help">
+        <h2>Help tickets and the newsletter</h2>
+        <p>
+          In Settings → Help and news you can report a problem or send us an idea, and sign up for news about Exitwise by
+          email. VHub keeps them for us: a ticket holds your message, the screenshot of the game if you add one, the email
+          address you give (if any), your VGraphics account identifier when you are signed in, and the details of the game
+          and device listed under the form (the game's version, the system, the device model, the screen size and the
+          language). Only we read tickets. The newsletter keeps your address, the topics you chose and a record of your
+          consent; nothing is sent until you confirm it, and every email has an unsubscribe link. On CrazyGames there is no
+          newsletter, and a ticket asks for no email address. See the
+          <a href="/hub/privacy.html#help">VHub privacy policy's Help tickets and Newsletter sections</a> for how long
+          they are kept and how to delete them.
+        </p>
+      </section>
+
       <section id="delete" class="delete">
         <h2>Deleting your data</h2>
         <ul>
@@ -367,7 +399,8 @@
           <li><strong>Your whole VGraphics account:</strong> Settings → "Delete my VGraphics account", or
             <a href="/hub/delete/">vgraphics.gr/hub/delete</a>, deletes your account in every VGraphics game: your
             username (freed for others), your picture, stats, achievements, friends and board places, the Google account
-            details linked to it, and everything Exitwise keeps for you as above. The game then signs you out. The
+            or Apple Account details linked to it, and everything Exitwise keeps for you as above. On iPhone and iPad the
+            game also asks Apple to end the game's Sign in with Apple for your Apple Account. The game then signs you out. The
             progress on your device or in your browser stays.</li>
           <li><strong>Older versions of the game</strong> have "Delete my leaderboard data" (your username, picture,
             leaderboard results and stats) and "Delete cloud save" (also your cloud save, drafts, map plays and ratings,
@@ -392,6 +425,13 @@
           language, your approximate country, and in-game events or crash details. We use this only to improve the game,
           never to identify you or to show you ads. See
           <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+        </p>
+        <p>
+          On iPhone and iPad, Firebase also receives the identifier for vendors (IDFV), an identifier Apple gives each app
+          maker on your device. Firebase Analytics reads your device's advertising identifier (IDFA) only if you allow
+          tracking when Apple asks (see "Advertising"), and where Google's EU consent rules apply it treats your consent as
+          refused until you answer Google's consent message. Crashlytics' crash reports hold the place in the game's code
+          where the crash happened, and nothing about you beyond the details above.
         </p>
         <p>
           On the web we use Google Analytics for the same purpose: the same game events, and error reports when something
@@ -443,6 +483,14 @@
           based on your activity in other apps.
         </p>
         <p>
+          On iPhone and iPad, Google's consent message (where the law requires it) comes first, then Apple's tracking
+          prompt; if you refuse consent in Google's message, Apple's prompt isn't shown. Our advertising partners read your
+          device's advertising identifier (IDFA) only if you allow tracking, and may also receive the identifier for vendors
+          (IDFV). You can change your answer at any time in your iPhone's or iPad's Settings → Privacy &amp; Security →
+          Tracking. Ad networks can also learn that one of their ads led to an install through Apple's SKAdNetwork, which
+          works without the advertising identifier; the game passes no information about you for it.
+        </p>
+        <p>
           If you live in a US state with a consumer privacy law (such as California, Colorado, Connecticut, Texas or
           Virginia), you can opt out of the sale or sharing of your personal information for ads at any time. On Android and
           iOS: in the game, open Settings → Ad choices and choose "Don't sell or share my data". On our website: use the "Do
@@ -464,6 +512,13 @@
           or the Apple App Store under their own privacy policies (<a href="https://policies.google.com/privacy">Google</a>,
           <a href="https://www.apple.com/legal/privacy/">Apple</a>). We never see your payment details. The game only
           receives a confirmation that the purchase was made.
+        </p>
+        <p>
+          On iPhone and iPad, Apple gives the game a receipt for each purchase, and the game checks it on your device
+          before it gives you what you bought; the receipt isn't sent to us. Coins you buy go into your saved game, on your
+          device and, if you are signed in, in your cloud save, and "Remove Ads" is remembered there too. After reinstalling
+          the game or on a new iPhone or iPad, Settings → Restore purchases asks Apple for what you bought with your Apple
+          Account, so "Remove Ads" comes back; coins come back with your cloud save when you sign in.
         </p>
       </section>
 
@@ -499,13 +554,7 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>The game is published by, and your data is controlled by:</p>
-        <address class="contact">
-          VGRAPHICS SINGLE MEMBER P.C.<br>
-          Kalamaria, Thessaloniki, Greece<br>
-          G.E.MI. no. 181823306000<br>
-          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
-        </address>
+        <p>The data controller is VGRAPHICS SINGLE MEMBER P.C. (VGraphics). Contact: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a>. Company details: <a href="/company/">vgraphics.gr/company/</a></p>
       </section>
     </div>
   </div>
@@ -520,6 +569,14 @@
           <h2 id="cta-title">Your first board is waiting</h2>
           <p>Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.</p>
           <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="play-cta" href="/exitwise/play/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Play in your browser</span></a><a class="vhub-entry pill" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg></span><span class="vhub-words"><b class="vhub-name">Get your VHub name</b><small class="vhub-note">Your name in every room</small></span></a><small class="play-note">Play now, free</small></div>
+          <form class="mail-list mail-list-close" data-topic="exitwise" data-product="exitwise" data-wording="site-closing-1" novalidate>
+        <span class="mail-list-or">Not ready yet?</span>
+        <label class="mail-list-title" for="ml-exitwise-close">Get Exitwise news by email</label>
+        <span class="mail-list-row"><input id="ml-exitwise-close" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
         </div>
       </div>
     </section>
@@ -543,13 +600,13 @@
       </nav>
       <form class="mail-list" data-topic="exitwise" data-product="exitwise" data-wording="site-footer-1" novalidate>
         <label class="mail-list-title" for="ml-exitwise">Get Exitwise news by email</label>
-        <span class="mail-list-row"><input id="ml-exitwise" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-row"><input id="ml-exitwise" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
         <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
         <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
         <span class="mail-list-said" role="status"></span>
       </form>
       <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" aria-label="Exitwise on Google Play" title="Exitwise on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
-      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+      <p class="legal">&copy; 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </footer>
   <script src="/assets/anchors.js" defer></script>

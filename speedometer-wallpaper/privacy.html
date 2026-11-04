@@ -101,19 +101,19 @@
       <div class="wrap">
         <div class="document">
 <div class="head">
-    <p class="updated">Last updated <span class="lcd">27.10.2026</span></p>
+    <p class="updated">Last updated <span class="lcd">04.11.2026</span></p>
     <p class="intro">This policy explains what happens to your information when you use <strong>Speedometer Live Wallpaper</strong>
       (the "app") on Android. The app is made by VGraphics ("we", "us").</p>
   </div>
 
   <h2 class="short-title" id="short">The short version</h2>
   <ul class="short">
-    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><b>Account optional</b><span>Nothing needs a VHub sign-in. Without one, we never ask for your name, email or other contact details.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><b>Account optional</b><span>Nothing needs a VHub sign-in. Without one, we never ask for your name or contact details, except an email you choose to give for help answers or our news.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></svg></span><b>Readings stay on your phone</b><span>Battery, CPU, memory, signal, Wi-Fi, Bluetooth and your step count are used to draw the wallpaper and never sent anywhere.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Location only for speed and widgets</b><span>Only while on screen and never stored. Only the Weather widget sends a rough location (about 10 km) for its forecast.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><b>Music &amp; calls stay on your phone</b><span>Future design only, with your permission: never stored or sent.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15h18"/></svg></span><b>Ads on menus only</b><span>A small banner on the app's menu screens, and a short video only when you ask for a 24-hour style trial. Never on the wallpaper.</span></li>
-    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>Crash reports &amp; analytics</b><span>Firebase, without your name, location or readings.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>Crash reports &amp; analytics</b><span>Firebase, without your name, location or exact readings.</span></li>
   </ul>
 
   <div class="layout">
@@ -121,12 +121,14 @@
       <p>On this page</p>
       <ol>
         <li><a href="#readings">Readings from your phone</a></li>
-        <li><a href="#location">Location (GPS mode)</a></li>
+        <li><a href="#location">Location (GPS and HUD mode)</a></li>
+        <li><a href="#hud">HUD mode and your car</a></li>
         <li><a href="#widgets">Widgets you add</a></li>
         <li><a href="#notifications">Music, calls &amp; messages</a></li>
         <li><a href="#device">Stored on your device</a></li>
         <li><a href="#vhub">Your VHub account</a></li>
         <li><a href="#market">The layout market</a></li>
+        <li><a href="#help">Help &amp; newsletter</a></li>
         <li><a href="#analytics">Analytics &amp; crash reports</a></li>
         <li><a href="#ads">Advertising</a></li>
         <li><a href="#purchases">In-app purchases</a></li>
@@ -149,14 +151,28 @@
       </section>
 
       <section id="location">
-        <h2>Location (GPS mode only)</h2>
+        <h2>Location (GPS mode and HUD mode)</h2>
         <p>
           The big gauge can show your speed using GPS. This is off until you choose GPS mode in Settings. The app then asks
           for location permission "while using the app", which Android also grants while the wallpaper is on your screen.
+          HUD mode, which shows your speed on the windscreen, always takes that speed from GPS, and only while HUD mode
+          is open: if you haven't allowed location yet, it asks on its own screen.
           The app never asks for location in the background. Your position is used on your phone only to work out your
           speed; it is not stored, not sent to us and not shared with anyone, including our advertising partner. You can
-          switch GPS mode off, or take the permission away in your phone's settings, at any time. Some widgets use your
+          switch GPS mode off, close HUD mode, or take the permission away in your phone's settings, at any time. Some widgets use your
           location too; see <a href="#widgets">Widgets you add</a>.
+        </p>
+      </section>
+
+      <section id="hud">
+        <h2>HUD mode and your car</h2>
+        <p>
+          HUD mode draws your speed flipped, full screen, so a phone lying on the dashboard reflects it in the windscreen.
+          Its speed comes from GPS, as described under Location, and only while it is open. If you turn on "Open by itself
+          in my car", Android's own device picker lets you choose your car, and the app asks for the "Nearby devices"
+          permission only then, so that it can notice when your phone joins that car's Bluetooth and open HUD mode. The
+          car's name and Bluetooth address are saved on your phone only, and the permission is used for nothing else.
+          Turn the setting off, or take the permission away in your phone's settings, at any time.
         </p>
       </section>
 
@@ -214,7 +230,8 @@
         <p>
           The app saves your settings (gauge mode, units, which date, time and lights to show), which designs you own, and
           which design you're trying for 24 hours and when that trial began, and what your widgets keep: the odometer,
-          your best 0&ndash;100 time, today's steps, the tilt's level and the last weather forecast. This stays in the
+          your best 0&ndash;100 time, today's steps, the tilt's level and the last weather forecast, and for HUD mode how your phone lies on the dashboard and, if you
+          link your car, its name and Bluetooth address. This stays in the
           app's storage on your phone. Uninstalling the app deletes it.
         </p>
       </section>
@@ -264,6 +281,28 @@
         </p>
       </section>
 
+      <section id="help">
+        <h2>Help tickets and the newsletter (optional)</h2>
+        <p>
+          In Settings → Help you can send us a ticket: a problem, a bug, a purchase that went wrong or an idea. It carries
+          what you write, any screenshots you add, your email address if you give one (signed in, the address of your
+          account, only if you leave "Email me the answers" on), the style the wallpaper shows, and the phone's details:
+          the app version, the Android version, the phone's maker and model, its screen size and its language. Signed in,
+          the ticket also carries your VHub account id; signed out, the app keeps a private key on your phone that opens
+          the ticket again. Only we read tickets, to answer you.
+        </p>
+        <p>
+          News by email, also in Settings → Help, signs your email address up for Speedometer's news (and new VGraphics
+          games and apps, if you turn that on). It's for people aged 16 and over, it starts only once you confirm it from
+          the email we send (your account's own address is confirmed at once), and every email has a one-tap
+          unsubscribe.
+        </p>
+        <p>
+          VHub keeps both for us: see the Help tickets and Newsletter sections of
+          <a href="https://vgraphics.gr/hub/privacy.html#help">VHub's privacy policy</a> for how long and where.
+        </p>
+      </section>
+
       <section id="analytics">
         <h2>Analytics and crash reports</h2>
         <p>
@@ -271,7 +310,7 @@
           settings are used, when the wallpaper is first set, and on which days it's on your screen, so we can improve
           the app. Crashlytics sends a report when the app crashes, so we can fix it.
           They collect an app instance identifier, your device model, operating system and language, your approximate
-          country, and in-app events or crash details. They don't receive your location or your phone's readings. We use
+          country, and in-app events or crash details. They don't receive your location or your phone's readings: for HUD mode they get how long it was open, how many speed warnings it gave and your top speed in one of four bands (under 50, 50&ndash;90, 90&ndash;130 or over 130 km/h), never the speed itself. We use
           this only to improve the app, never to identify you or to show you ads. Your ad choices (below) also tell
           Firebase whether these events may be used to measure our own ads for the app on Google (Google's consent mode);
           where you haven't answered yet in the European Economic Area, the UK or Switzerland, they count as not allowed.
@@ -338,7 +377,8 @@
       <section id="rights">
         <h2>Your rights</h2>
         <p>
-          Unless you sign in to VHub (above), we don't hold your name or contact details. We never hold your location,
+          Unless you sign in to VHub or give us an email for help or our news (above), we don't hold your name or contact
+          details. We never hold your location,
           and analytics data isn't tied to any of them. If you have a
           question about your data or would like anything deleted, email us and we'll help as far as we can. For data
           collected by our advertising partner, use the links above or your device's ad settings.
@@ -354,13 +394,7 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>The app is published by, and your data is controlled by:</p>
-        <address class="contact">
-          VGRAPHICS SINGLE MEMBER P.C.<br>
-          Kalamaria, Thessaloniki, Greece<br>
-          G.E.MI. no. 181823306000<br>
-          Email: <a href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
-        </address>
+        <p>The data controller is VGRAPHICS SINGLE MEMBER P.C. (VGraphics). Contact: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a>. Company details: <a href="/company/">vgraphics.gr/company/</a></p>
       </section>
     </div>
   </div>
@@ -375,6 +409,14 @@
           <h2 id="cta-title">Put the dashboard on your phone</h2>
           <p>Free on Google Play, for Android phones and tablets.</p>
           <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="play-cta" href="/speedometer-wallpaper/play/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try it in your browser</span></a><a class="vhub-entry pill" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg></span><span class="vhub-words"><b class="vhub-name">Get your VHub name</b><small class="vhub-note">Your name in every room</small></span></a><small class="play-note">Live demo, no install</small></div>
+          <form class="mail-list mail-list-close" data-topic="speedometer" data-product="speedometer" data-wording="site-closing-1" novalidate>
+        <span class="mail-list-or">Not ready yet?</span>
+        <label class="mail-list-title" for="ml-speedometer-wallpaper-close">Get Speedometer news by email</label>
+        <span class="mail-list-row"><input id="ml-speedometer-wallpaper-close" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
         </div>
       </div>
     </section>
@@ -396,13 +438,13 @@
       </nav>
       <form class="mail-list" data-topic="speedometer" data-product="speedometer" data-wording="site-footer-1" novalidate>
         <label class="mail-list-title" for="ml-speedometer-wallpaper">Get Speedometer news by email</label>
-        <span class="mail-list-row"><input id="ml-speedometer-wallpaper" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-row"><input id="ml-speedometer-wallpaper" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
         <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
         <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
         <span class="mail-list-said" role="status"></span>
       </form>
       <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" aria-label="Speedometer Live Wallpaper on Google Play" title="Speedometer Live Wallpaper on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
-      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+      <p class="legal">&copy; 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </footer>
   <script src="/assets/anchors.js" defer></script>

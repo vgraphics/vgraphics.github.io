@@ -91,6 +91,13 @@
     .text h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); text-wrap: balance; }
     .text p { font-size: 1.08rem; line-height: 1.7; }
     .text .lede { font-size: clamp(1.15rem, 1.6vw, 1.3rem); max-width: none; }
+    .post-art { margin: 0 0 var(--s5); display: grid; gap: 10px; max-width: 1040px; }
+    .post-art img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); }
+    .post-art figcaption { font-size: 0.92rem; color: var(--ink-2); }
+    .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--ink-2); opacity: 0; transition: opacity 150ms ease-out; }
+    .anchor svg { width: 0.5em; max-width: 22px; height: auto; }
+    .text h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
+    @media (hover: none) { .anchor { opacity: 0.7; } }
     .see { display: flex; flex-wrap: wrap; gap: 12px; padding-top: var(--s2); }
     .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
     .more > h2 { font-size: 1.6rem; }
@@ -135,21 +142,21 @@
     </div>
     <div class="text">
       <p class="lede">In October we played Exitwise™ up to level 60 and had to admit it: it was far too easy. The arrows were fine. A big part of the problem was the boards. A rectangle full of arrows reads quickly: you sweep along the edges, find the arrows pointing out, and the rest falls into place.</p>
-      <section>
-        <h2>Shapes change how you read a board</h2>
+      <section id="shapes-change-how-you-read-a-board" aria-labelledby="shapes-change-how-you-read-a-board-title">
+        <h2 id="shapes-change-how-you-read-a-board-title">Shapes change how you read a board<a class="anchor" href="#shapes-change-how-you-read-a-board" aria-label="Copy the link to Shapes change how you read a board"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>So the boards stopped being mostly rectangles. Exitwise now has 49 board shapes, up from 20: 18 plain ones that fill the screen, from hexagons to spirals, and 31 pictures that hold their own proportions, from a rocket to a castle. Many worlds have pictures of their own, such as Volcano's flame and gem or Glacier's snowflake.</p>
         <p>Only the first four levels are plain rectangles, to learn the rules on, and after that only a few. A shaped board has no tidy edge to sweep along, so you read each arrow's path instead.</p>
       </section>
-      <section>
-        <h2>No slivers</h2>
+      <section id="no-slivers" aria-labelledby="no-slivers-title">
+        <h2 id="no-slivers-title">No slivers<a class="anchor" href="#no-slivers" aria-label="Copy the link to No slivers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>Cutting a picture out of a square grid leaves stray single cells along its edges. Every shape is cleaned so that each cell belongs to a solid two-by-two block, and only the largest piece is kept, so a shape reads as a shape.</p>
       </section>
-      <section>
-        <h2>No easy lines</h2>
+      <section id="no-easy-lines" aria-labelledby="no-easy-lines-title">
+        <h2 id="no-easy-lines-title">No easy lines<a class="anchor" href="#no-easy-lines" aria-label="Copy the link to No easy lines"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>Sometimes the generator left a string of short arrows nose to tail, each starting right in front of the one before and pointing the same way. Each one frees only the next, so the whole string clears in a row of easy taps. A level may now have at most three in a row; one with more is built again from another seed.</p>
       </section>
-      <section>
-        <h2>The same puzzle for everyone</h2>
+      <section id="the-same-puzzle-for-everyone" aria-labelledby="the-same-puzzle-for-everyone-title">
+        <h2 id="the-same-puzzle-for-everyone-title">The same puzzle for everyone<a class="anchor" href="#the-same-puzzle-for-everyone" aria-label="Copy the link to The same puzzle for everyone"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>Every level comes from a fixed seed, so every player gets the same board and the leaderboards compare like with like, and every level is tested to be solvable. Every 10th level is a hard level: about one and a half times the size of the levels around it, always a picture, and played at night.</p>
       </section>
       <div class="see"><a class="btn btn-primary" href="/exitwise/play/">Play Exitwise in your browser</a><a class="btn btn-ghost" href="/exitwise/wiki/board-shapes/">Every shape in the wiki</a><a class="btn btn-ghost" href="/devlog/">All posts</a></div>
@@ -159,10 +166,16 @@
     <h2 id="more-title">More from the devlog</h2>
     <div class="posts">
     <article class="post-card">
-      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-10-27">27 October 2026</time></span>
-      <h2><a href="/devlog/speedometer-in-your-browser/">The real Speedometer, running in your browser</a></h2>
-      <p>How the try page runs Speedometer Live Wallpaper's own drawing code in a browser, with Kotlin Multiplatform and Skia, and what a browser can read.</p>
-      <a class="btn btn-ghost" href="/devlog/speedometer-in-your-browser/" aria-label="Read: The real Speedometer, running in your browser">Read the post</a>
+      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/speedometer-layout-builder/">Build your own dashboard: the Speedometer layout builder</a></h2>
+      <p>Speedometer Live Wallpaper now lets you build your own home-screen dashboard from 42 widgets. How snapping, overlaps and readable colours work.</p>
+      <a class="btn btn-ghost" href="/devlog/speedometer-layout-builder/" aria-label="Read: Build your own dashboard: the Speedometer layout builder">Read the post</a>
+    </article>
+    <article class="post-card">
+      <span class="post-meta">VHub · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/vhub-one-account/">One account across our games: what we learned building VHub</a></h2>
+      <p>Exitwise and Speedometer Live Wallpaper share one VHub account. Why accounts live apart from game data, how an app earns XP, and what broke.</p>
+      <a class="btn btn-ghost" href="/devlog/vhub-one-account/" aria-label="Read: One account across our games: what we learned building VHub">Read the post</a>
     </article>
     </div>
   </section>
@@ -196,9 +209,10 @@
     <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a class="foot-help" href="/hub/support/">Help and ideas</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
   </div>
   <div class="wrap legal">
-    <p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>© 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
     <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
   </div>
 </footer>
+<script src="/assets/anchors.js" defer></script>
 </body>
 </html>

@@ -1,0 +1,237 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>One clock, not two: reworking the guardian fights in Exitwise · VGraphics devlog</title>
+  <meta name="description" content="Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.">
+  <link rel="canonical" href="https://vgraphics.gr/devlog/exitwise-guardian-clock/">
+  <link rel="icon" href="/img/vgraphics-logo.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:title" content="One clock, not two: reworking the guardian fights in Exitwise">
+  <meta property="og:description" content="Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.">
+  <meta property="og:url" content="https://vgraphics.gr/devlog/exitwise-guardian-clock/">
+  <meta property="og:image" content="https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg">
+  <meta property="og:image:width" content="930">
+  <meta property="og:image:height" content="560">
+  <meta property="og:image:alt" content="Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "One clock, not two: reworking the guardian fights in Exitwise",
+        "description": "Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.",
+        "datePublished": "2026-11-03",
+        "url": "https://vgraphics.gr/devlog/exitwise-guardian-clock/",
+        "mainEntityOfPage": "https://vgraphics.gr/devlog/exitwise-guardian-clock/",
+        "image": "https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg",
+        "inLanguage": "en",
+        "author": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "@id": "https://vgraphics.gr/devlog/#blog",
+          "name": "VGraphics devlog"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Devlog",
+            "item": "https://vgraphics.gr/devlog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "One clock, not two: reworking the guardian fights in Exitwise",
+            "item": "https://vgraphics.gr/devlog/exitwise-guardian-clock/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* The devlog: a calm reading column on the company pages' paper, the post's product as its kicker. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.2rem, 5.4vw, 3.8rem); max-width: 18em; text-wrap: balance; }
+    .text { display: grid; gap: var(--s4); max-width: 42em; padding-bottom: var(--s6); }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); text-wrap: balance; }
+    .text p { font-size: 1.08rem; line-height: 1.7; }
+    .text .lede { font-size: clamp(1.15rem, 1.6vw, 1.3rem); max-width: none; }
+    .post-art { margin: 0 0 var(--s5); display: grid; gap: 10px; max-width: 1040px; }
+    .post-art img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); }
+    .post-art figcaption { font-size: 0.92rem; color: var(--ink-2); }
+    .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--ink-2); opacity: 0; transition: opacity 150ms ease-out; }
+    .anchor svg { width: 0.5em; max-width: 22px; height: auto; }
+    .text h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
+    @media (hover: none) { .anchor { opacity: 0.7; } }
+    .see { display: flex; flex-wrap: wrap; gap: 12px; padding-top: var(--s2); }
+    .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
+    .more > h2 { font-size: 1.6rem; }
+    .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; padding-bottom: var(--s7); }
+    .post-card { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 26px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+    .post-card h2 { font-size: 1.4rem; text-wrap: balance; }
+    .post-card h2 a { color: inherit; text-decoration: none; }
+    .post-card p { color: var(--ink-2); }
+    .post-card .btn { margin-top: auto; }
+    .post-meta { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-help" href="/hub/support/">Help</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <article class="post">
+    <div class="intro">
+      <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Devlog · Exitwise</span>
+      <h1>One clock, not two: reworking the guardian fights in Exitwise™</h1>
+      <p class="chip"><time datetime="2026-11-03">3 November 2026</time></p>
+    </div>
+    <figure class="post-art" style="max-width: 930px">
+      <picture>
+        <source type="image/avif" srcset="/devlog/img/exitwise-guardian-clock-640.avif 640w, /devlog/img/exitwise-guardian-clock-930.avif 930w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <source type="image/webp" srcset="/devlog/img/exitwise-guardian-clock-640.webp 640w, /devlog/img/exitwise-guardian-clock-930.webp 930w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <img src="/devlog/img/exitwise-guardian-clock-930.jpg" srcset="/devlog/img/exitwise-guardian-clock-640.jpg 640w, /devlog/img/exitwise-guardian-clock-930.jpg 930w" sizes="(min-width: 1100px) 1040px, 100vw" width="930" height="560" alt="Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows">
+      </picture>
+      <figcaption>Level 160 against Puffcap before version 1.0.24: play time counting up at the top left, the curse counting down in the guardian's strip.</figcaption>
+    </figure>
+    <div class="text">
+      <p class="lede">The last level of every world in Exitwise™ is a guardian fight. Until the end of October, those fights put two clocks on the screen at the same time. A screenshot of level 160 made the problem plain. This post is about how two clocks became one, and about a lost heart whose real cause wasn't the one we blamed.</p>
+      <section id="how-a-guardian-fight-works" aria-labelledby="how-a-guardian-fight-works-title">
+        <h2 id="how-a-guardian-fight-works-title">How a guardian fight works<a class="anchor" href="#how-a-guardian-fight-works" aria-label="Copy the link to How a guardian fight works"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>There are 17 <a href="/exitwise/wiki/guardians/">guardians</a>. Bramble waits at the end of the first world, and the last one stands at level 500. You still clear the board by tapping arrows that can fly free, but an arrow that leaves through the top edge also hits the guardian, and the last hit breaks its curse. The curse runs on a clock. Each hit wins a few seconds back, and if the clock runs out, the attempt is lost.</p>
+        <p>Across part of the top edge sits the ward, a stone shield. Fly an arrow into it and you lose a heart. After a set number of hits, four for most guardians, the ward moves. Later guardians add their own tricks, such as frost that drops numbered ice onto the board, or ink that hides arrows.</p>
+      </section>
+      <section id="two-clocks-on-one-screen" aria-labelledby="two-clocks-on-one-screen-title">
+        <h2 id="two-clocks-on-one-screen-title">Two clocks on one screen<a class="anchor" href="#two-clocks-on-one-screen" aria-label="Copy the link to Two clocks on one screen"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>Every level in Exitwise has a play timer in the stats row at the top, counting up. Your time decides your stars and your best times. The guardian fights added a second clock inside the guardian's strip, counting down. Both were right, but only one of them could end the fight, and in the screenshot above, the one your eye meets first is the one that can't.</p>
+        <p>We drew three ways out. In the first, the curse clock takes the play timer's place in the stats row and the strip loses its clock. In the second, the strip keeps its clock and the timer hides. In the third, play time stays and the curse becomes a burning fuse along the strip. We went with the first. The stats row already counts down in Coin Rush, so players know that spot as the one that can run out, and play time still runs underneath, ready for the pause and win cards, so stars and records didn't change.</p>
+      </section>
+      <section id="making-one-clock-say-enough" aria-labelledby="making-one-clock-say-enough-title">
+        <h2 id="making-one-clock-say-enough-title">Making one clock say enough<a class="anchor" href="#making-one-clock-say-enough" aria-label="Copy the link to Making one clock say enough"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>A single clock has to do the work of two, so it changes as time runs low. It turns amber under 30 seconds. Under 10 it turns red and swells a little with every tick you hear. A thin bar under the digits drains as the curse closes in, and every hit throws a small +7 s, or whatever that guardian gives, up above the digits, so you can see the time you just won back. This went out in version 1.0.24 on 28 October.</p>
+      </section>
+      <section id="ice-that-looked-the-same" aria-labelledby="ice-that-looked-the-same-title">
+        <h2 id="ice-that-looked-the-same-title">Ice that looked the same<a class="anchor" href="#ice-that-looked-the-same" aria-label="Copy the link to Ice that looked the same"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>The same update fixed something smaller. Ice dropped by frost and spells picks a number, and it often picked one already on the board: one run of level 220 ended up with three blocks reading 12. Blocks that read the same are hard to tell apart, and three in a row looked like a mistake. New ice now keeps its number at least three apart from the ice already in play.</p>
+      </section>
+      <section id="the-heart-we-blamed-on-the-wrong-thing" aria-labelledby="the-heart-we-blamed-on-the-wrong-thing-title">
+        <h2 id="the-heart-we-blamed-on-the-wrong-thing-title">The heart we blamed on the wrong thing<a class="anchor" href="#the-heart-we-blamed-on-the-wrong-thing" aria-label="Copy the link to The heart we blamed on the wrong thing"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>On level 160 we twice lost a heart in a way that felt unfair. Both times an extra arrow from Double-Shot was involved, so we blamed it, and the first fix was aimed at Double-Shot.</p>
+        <p>Before going further, we measured. We ran the real level 300 times with a simulated player and logged every heart lost to the ward. The real cause was timing. A hit that moves the ward can drop it onto the half of the edge you're working in, and the tap you had already lined up flies straight into it. Those 300 runs had 98 taps like that, most of them right after the player's own hit.</p>
+        <p>We looked at three answers: warn before the ward moves, stop extra hits from moving it, or let the ward never cost a heart. We chose the warning, in a form that needs no reading ahead: the bump itself is the warning. Since version 1.0.28 on 29 October, your first bump after the ward moves is free. It costs no heart, doesn't count as a mistake or add to the guardian's rage, and your combo keeps going. A short message tells you what happened: “The ward moved! First bump free.” The second bump costs a heart as before.</p>
+      </section>
+      <section id="what-we-took-from-it" aria-labelledby="what-we-took-from-it-title">
+        <h2 id="what-we-took-from-it-title">What we took from it<a class="anchor" href="#what-we-took-from-it" aria-label="Copy the link to What we took from it"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>Both changes came from playing our own game on a hard level and paying attention to what felt wrong. In both, the feeling was right and our first explanation wasn't. Now, when a level feels unfair, we measure before we fix.</p>
+      </section>
+      <div class="see"><a class="btn btn-primary" href="/exitwise/play/">Play Exitwise in your browser</a><a class="btn btn-ghost" href="/exitwise/about/">About Exitwise</a><a class="btn btn-ghost" href="/exitwise/">Exitwise</a><a class="btn btn-ghost" href="/devlog/">All posts</a></div>
+    </div>
+  </article>
+  <section class="more" aria-labelledby="more-title">
+    <h2 id="more-title">More from the devlog</h2>
+    <div class="posts">
+    <article class="post-card">
+      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/speedometer-layout-builder/">Build your own dashboard: the Speedometer layout builder</a></h2>
+      <p>Speedometer Live Wallpaper now lets you build your own home-screen dashboard from 42 widgets. How snapping, overlaps and readable colours work.</p>
+      <a class="btn btn-ghost" href="/devlog/speedometer-layout-builder/" aria-label="Read: Build your own dashboard: the Speedometer layout builder">Read the post</a>
+    </article>
+    <article class="post-card">
+      <span class="post-meta">VHub · <time datetime="2026-11-03">3 November 2026</time></span>
+      <h2><a href="/devlog/vhub-one-account/">One account across our games: what we learned building VHub</a></h2>
+      <p>Exitwise and Speedometer Live Wallpaper share one VHub account. Why accounts live apart from game data, how an app earns XP, and what broke.</p>
+      <a class="btn btn-ghost" href="/devlog/vhub-one-account/" aria-label="Read: One account across our games: what we learned building VHub">Read the post</a>
+    </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-news">
+      <form class="mail-list" data-topic="vgraphics" data-product="vgraphics" data-wording="site-footer-1" novalidate>
+        <label class="mail-list-title" for="ml-vgraphics">Get VGraphics news by email</label>
+        <span class="mail-list-row"><input id="ml-vgraphics" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a class="foot-help" href="/hub/support/">Help and ideas</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/anchors.js" defer></script>
+</body>
+</html>
