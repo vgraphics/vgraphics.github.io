@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "2.0.12",
+      "date": "2026-11-04",
+      "platforms": [
+        "Android"
+      ],
+      "title": "See your speed on the windscreen",
+      "items": [
+        "HUD mode puts your speed on the windscreen — and it's now front and centre on your home screen and in Styles.",
+        "Share a look as a QR code or link that opens its style and layout straight in the app.",
+        "In the layout builder, drag the layers to change which gauges sit in front."
+      ],
+      "commit": "4b9694b1"
+    },
+    {
       "version": "2.0.87e650c9",
       "date": "2026-11-03",
       "platforms": [
