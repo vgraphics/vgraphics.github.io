@@ -25,7 +25,9 @@
 }
 .try-device[data-orientation="landscape"] { height: auto; width: min(100%, 940px); aspect-ratio: 2340 / 1080; }
 .try:has(.try-device[data-orientation="landscape"]) { grid-template-columns: minmax(0, 1fr); }
-.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; }
+/* Turned on its side the phone is as wide as its stage and no wider (George, 4 Nov 2026: the try page is a screen with
+   nothing cut off): the stage has one column of its own width, so nothing the phone's size suggests can stretch it. */
+.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; grid-template-columns: minmax(0, 1fr); }
 .try-screen {
   position: relative;
   width: 100%;
@@ -369,7 +371,9 @@
 /* Phones: the wallpaper fills the screen as the real one does, without the bezel; the panel follows under it. */
 @media (max-width: 560px) {
   .try-device { width: 100%; height: calc(100svh - 160px); min-height: 440px; aspect-ratio: auto; padding: 0; border-radius: 24px; background: none; }
-  .try-device[data-orientation="landscape"] { width: 100%; height: auto; aspect-ratio: 2340 / 1080; }
+  /* On its side it is wide and short: the upright phone's 440px minimum must not follow it. With the aspect ratio that
+     minimum made the box 950px wide, far past a phone's screen, and its stage with it. */
+  .try-device[data-orientation="landscape"] { width: 100%; height: auto; min-height: 0; aspect-ratio: 2340 / 1080; }
   .try-screen { border-radius: 24px; }
   .try-tool span { display: none; }
   .try-tool { width: 48px; justify-content: center; padding: 0; }
@@ -400,7 +404,9 @@
 .screen .try-stage { position: static; align-self: center; }
 .screen .try-panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 4px 14px 24px 2px; }
 .screen .try:has(.try-device[data-orientation="landscape"]) { grid-template-rows: auto minmax(0, 1fr); }
-.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, calc((100dvh - 380px) * 2340 / 1080)); }
+/* Turned on its side the phone fits its stage's width and the window's height (the 380px is what the header, the bar, the
+   tools and a strip of the panel keep), never narrower than 240px, so a short window can't shrink it to nothing. */
+.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, max(240px, calc((100dvh - 380px) * 2340 / 1080))); }
 .screen .try-fallback { grid-column: -2; grid-row: -2; align-self: end; }
 @media (max-width: 900px) {
   .screen .try { grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
