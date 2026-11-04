@@ -13,8 +13,9 @@
 //   head fades in, and closes the same way back, a little faster; both ease out, and the chevron turns with it
 //   (assets/product.css);
 // - a click while a row moves turns it round from where it is;
-// - opening one closes any other open one in its list, with its own close, and the head being opened stays where it is
-//   on the screen while the rows above it close;
+// - opening one closes any other open one in its list, with its own close, at the same time;
+// - the page never scrolls by itself: opening or closing leaves the page's scroll and every box's where it is, and the
+//   rows under it simply move with the heights (unanchor);
 // - under prefers-reduced-motion nothing slides: what lies under the head comes and goes with a short fade.
 // For a details the browser keeps the rest: the open state screen readers announce (a closing row keeps it until its
 // close ends), find-in-page opening a row (which then closes the others in its list), and all of it without script.
@@ -47,7 +48,8 @@ function show(item, on) {
 const closing = (item) => item.classList.contains("faq-closing");
 const isOpen = (item) => shown(item) && !closing(item);
 
-// Each moving row's animations; a row is in here from the start of its move to its end.
+// Each moving row's animations; a row is in here from the start of its move to its end, so scroll anchoring stays off
+// for as long as any row moves.
 const moving = new Map();
 
 function stop(item) {
@@ -60,6 +62,7 @@ function stop(item) {
 // screen: its height, and how far what lies under its head shows. Clipped, a last child's margin stays inside the row
 // as it will while it moves (What's new's rows have one).
 function lift(item) {
+  unanchor(item);
   const [first] = bodyOf(item);
   const fade = shown(item) && first ? +getComputedStyle(first).opacity : 0;
   const mid = moving.has(item) ? item.getBoundingClientRect().height : null;
@@ -78,11 +81,9 @@ function play(item, steps, done) {
       if (moving.get(item) !== anims) return;
       stop(item);
       done();
-      keep();
     },
     () => {} // cancelled: a newer move took over
   );
-  if (held) tick();
 }
 
 function open(item) {
@@ -122,63 +123,49 @@ function close(item) {
   return from - to;
 }
 
-// The head just clicked stays where it is on the screen while rows above it close: each frame what it scrolls in (the
-// page, or a box that scrolls on its own, as What's new's big card does) scrolls by as much as they moved it there (so
-// a visitor's own scrolling is left alone). The browser's scroll anchoring would move it as well, so it is off
-// meanwhile.
-let held = null;
-let box = null;
-let heldTop = 0;
-let owed = 0;
-const topIn = (el) => el.getBoundingClientRect().top + (box ? box.scrollTop : scrollY);
+// The page never scrolls by itself (design-canon.md 1.3; George, 4 Nov 2026, on the hub's Quick answers: "The quick
+// answers animation work but also scrolls my page. Its weird behavior."): opening or closing a row leaves the page's
+// scroll and every box's where it is, and nothing here scrolls to keep a head in place. The browser's scroll anchoring
+// would scroll to keep what it shows in place as the heights change, so each move turns it off first, before it
+// measures anything, on what the row scrolls in (a box that scrolls on its own, as What's new's big card does, or the
+// page, through its body). It comes back, as it was, once a frame has been drawn with nothing moving, so the last
+// change (a closed row's body put away) is laid out with it still off. (The hub's expand.ts, noAnchoring, does the
+// same.)
+const unanchored = new Map();
+let watching = false;
+let quiet = false;
 
-// The nearest box around an element that scrolls on its own, or null for the page.
+// The nearest box around an element that scrolls on its own, else the body, for the page.
 function scrollerOf(el) {
   for (let p = el.parentElement; p && p !== document.body; p = p.parentElement) {
     const y = getComputedStyle(p).overflowY;
     if ((y === "auto" || y === "scroll") && p.scrollHeight > p.clientHeight) return p;
   }
-  return null;
+  return document.body;
 }
 
-function hold(head) {
-  if (box) box.style.overflowAnchor = "";
-  held = head;
-  box = scrollerOf(head);
-  heldTop = topIn(head);
-  owed = 0;
-  (box ?? document.body).style.overflowAnchor = "none";
-}
-
-function keep() {
-  if (!held) return;
-  const top = topIn(held);
-  owed += top - heldTop;
-  heldTop = top;
-  if (Math.abs(owed) >= 0.5) {
-    const y = box ? box.scrollTop : scrollY;
-    (box ?? window).scrollBy({ top: owed, behavior: "instant" });
-    owed -= (box ? box.scrollTop : scrollY) - y;
+function unanchor(item) {
+  const scroller = scrollerOf(item);
+  if (!unanchored.has(scroller)) {
+    unanchored.set(scroller, scroller.style.overflowAnchor);
+    scroller.style.overflowAnchor = "none";
   }
+  quiet = false;
+  if (watching) return;
+  watching = true;
+  requestAnimationFrame(watch);
 }
 
-// Every frame while rows move; then the head is let go and scroll anchoring comes back.
-let ticking = false;
-function tick() {
-  if (ticking) return;
-  ticking = true;
-  const frame = () => {
-    keep();
-    if (moving.size) {
-      requestAnimationFrame(frame);
-      return;
-    }
-    ticking = false;
-    held = null;
-    (box ?? document.body).style.overflowAnchor = "";
-    box = null;
-  };
-  requestAnimationFrame(frame);
+// Each frame while it's off: the first frame with nothing moving is drawn with it still off, the next puts it back.
+function watch() {
+  if (moving.size || !quiet) {
+    quiet = moving.size === 0;
+    requestAnimationFrame(watch);
+    return;
+  }
+  watching = false;
+  for (const [scroller, was] of unanchored) scroller.style.overflowAnchor = was;
+  unanchored.clear();
 }
 
 // The details in a list where one is open at a time (questions and answers, What's new's updates); null for any other.
@@ -193,7 +180,6 @@ document.addEventListener("click", (e) => {
   if (control && head.contains(control)) return;
   e.preventDefault();
   const list = listOf(item);
-  if (list) hold(head);
   if (isOpen(item)) {
     close(item);
   } else {
@@ -209,7 +195,6 @@ document.addEventListener(
     const item = e.target;
     const list = item instanceof HTMLDetailsElement && listOf(item);
     if (!list || !item.open || closing(item) || !list.some((o) => o !== item && isOpen(o))) return;
-    hold(headOf(item));
     for (const other of list) if (other !== item && isOpen(other)) close(other);
   },
   true
@@ -234,7 +219,6 @@ for (const tour of document.querySelectorAll(".tour")) {
     const part = button && parts.find((p) => idOf(p) === button.getAttribute("aria-controls"));
     if (!part || isOpen(part)) return;
     const head = headOf(part);
-    if (button === head) hold(head);
     mark(idOf(part));
     let lost = 0;
     for (const other of parts) {
