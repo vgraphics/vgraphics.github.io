@@ -608,7 +608,8 @@
     document.addEventListener('visibilitychange', function () {
       if (isOn && !document.hidden) keepAwake();
     });
-    app.on('hudwarning', beep);
+    // Only HUD mode beeps: the HUD look in the page stays quiet.
+    app.on('hudwarning', function () { if (isOn) beep(); });
   }
 
   function wire() {
