@@ -10,8 +10,8 @@ import { loadProduct, loadSubpage } from '../lib/product.mjs'
 
 const FULL = '<p>© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>'
 
-test('a product\'s play, TV, join and demo pages, the hub and the try pages are product screens', () => {
-  for (const path of ['/exitwise/play/', '/speedometer-wallpaper/play/', '/palermo/tv/', '/palermo/join/', '/palermo/demo/',
+test('a product\'s play, TV, join, demo and look pages, the hub and the try pages are product screens', () => {
+  for (const path of ['/exitwise/play/', '/speedometer-wallpaper/play/', '/speedometer-wallpaper/look/', '/palermo/tv/', '/palermo/join/', '/palermo/demo/',
     '/palermo/demo/screen.html', '/hub/', '/hub/settings/', '/hub/delete/']) {
     assert.equal(isProductScreen(path), true, path)
   }
@@ -52,4 +52,7 @@ test('the template writes the full line on a landing page and the short one in a
   const play = screenBar(loadSubpage('speedometer-wallpaper', 'play'))
   assert.ok(play.includes(`<span class="legal">${PRODUCT_LEGAL}`) && !play.includes('G.E.MI.'))
   assert.deepEqual(legalProblems('/speedometer-wallpaper/play/', play), [])
+  const look = screenBar(loadSubpage('speedometer-wallpaper', 'look'))
+  assert.ok(look.includes('href="/speedometer-wallpaper/about/"') && !look.includes('G.E.MI.'))
+  assert.deepEqual(legalProblems('/speedometer-wallpaper/look/', look), [])
 })
