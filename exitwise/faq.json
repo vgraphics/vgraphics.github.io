@@ -33,7 +33,7 @@
   },
   {
     "q": "How do I keep my progress on a new phone, or in the browser?",
-    "a": "Sign in with Google: tap the VHub button at the top right of the map, or Sign in in Settings, on Android and on vgraphics.gr. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
+    "a": "Sign in with Google: tap the VHub button at the top right of the map, or Sign in on the account card in Settings, on Android and on vgraphics.gr. The first time you sign in from the game, you get 100 coins. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
   },
   {
     "q": "How do coins and hints work?",
@@ -44,12 +44,16 @@
     "a": "Open Play with friends and create a room: you get a 6-character code. 2 to 8 players join by typing it, scanning the invite's QR code or opening its link, in the app or in the browser. Everyone races on the same boards, and the fastest clear scores the most. <a href=\"/exitwise/wiki/rooms/\">More about rooms</a>."
   },
   {
+    "q": "How do I add a friend?",
+    "a": "Tap a player on any leaderboard, the global boards, a map's creator, a room or your match history, then Add friend on their profile. They get your request on <a href=\"/hub/friends/\">VHub</a> and in their notifications, and once they accept you are friends in every VGraphics game. You can also add friends by name or friend code on VHub. On a profile, sign in first; as a guest you can still add friends by friend code on VHub."
+  },
+  {
     "q": "How do I delete my data?",
-    "a": "In Settings, Profile, \"Delete my Exitwise data\" takes you off the boards and removes your results, stats, cloud save and published maps, and what you earned in Exitwise on VHub; your VGraphics name and picture stay. In Settings, \"Delete my VGraphics account\" removes your account in every VGraphics game, name and picture too. Either way the progress on your device stays. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
+    "a": "In Settings, tap your account card to open your profile: \"Delete my Exitwise data\" there takes you off the boards and removes your results, stats, cloud save and published maps, and what you earned in Exitwise on VHub; your VGraphics name and picture stay. \"Delete my VGraphics account\", in the small print at the foot of Settings, removes your account in every VGraphics game, name and picture too; it asks for a second tap first. Either way the progress on your device stays. The <a href=\"/exitwise/privacy.html\">privacy policy</a> has the details."
   },
   {
     "q": "How do I report a problem or share an idea?",
-    "a": "In the game, open Settings and tap Help and news, then New ticket: say what happened or what you'd like, add a screenshot of the game if you want, and send it. Our answers show up there, with a red dot on Help and news when one is waiting, and by email if you ask for them. Exitwise's news by email, one email a month at most, is there too. On this site, use <a href=\"/hub/support/?p=exitwise\">Help</a> at the foot of any page."
+    "a": "In the game, open Settings and switch to its Help and news tab, then tap New ticket: say what happened or what you'd like, add a screenshot of the game if you want, and send it. Your tickets and our answers are listed on that tab, with a red dot on Help and news when one is waiting, and come by email too if you ask. Exitwise's news by email, one email a month at most, is a switch on the same tab. On this site, use <a href=\"/hub/support/?p=exitwise\">Help</a> at the foot of any page."
   },
   {
     "q": "Do my settings follow me to my other devices?",
