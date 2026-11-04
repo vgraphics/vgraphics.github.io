@@ -1,0 +1,6 @@
+#!/bin/sh
+# Our rights go into the art a commit adds, by themselves (README "Rights in the files"; George, 3 Nov 2026: Content
+# Credentials on new art only, with no manual step): the rights mark, and VGraphics' Content Credentials once its
+# signer is live. It never stops a commit: what it couldn't do, check-site warns about before the push.
+node tools/protect-art.mjs --staged || echo "protect-art: this commit's new art went in without all its rights; check-site says which (README \"Rights in the files\")" >&2
+exit 0

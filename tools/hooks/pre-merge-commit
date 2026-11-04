@@ -1,0 +1,4 @@
+#!/bin/sh
+# A merge brings a branch's new art in: the same as the pre-commit hook, so art committed before the hooks (or where
+# they didn't run) gets its rights in the merge commit, before the push publishes it. Git takes what the hook staged.
+exec "$(dirname "$0")/pre-commit"

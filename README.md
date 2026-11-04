@@ -649,21 +649,29 @@ songs so nobody else copies them?"), as well as the terms of use (`/terms/`):
   art was made with which tool; art not listed there (screenshots, the apps' renders, cards drawn in code, voices) gets
   no such claim.
 
-`node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since `origin/main`, or
-new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do those instead, or
-`--all` for every picture and song of ours; `--check` only lists what is missing. Run it before publishing new art, as
-check-site reminds you: it warns (on stderr, without failing) about new art without them. The mark goes in first, since
-signing seals the file. Pictures of 256 px or smaller, and what other repos' releases write (`exitwise/play/`,
-`speedometer-wallpaper/play/app/`, `hub/`), are left alone.
+**It runs by itself, on new art only** (George, 3 Nov 2026): the git hooks in `tools/hooks/` run
+`node tools/protect-art.mjs --staged` on every commit (`pre-commit`) and every merge commit (`pre-merge-commit`, so a
+branch's art committed before the hooks gets its rights in the merge, before the push publishes it). It marks the
+pictures the commit adds or changes and, while the signer is live, signs them, and stages them again. It never stops a
+commit: what it couldn't do (no signer, no network for the timestamp), check-site warns about. The hooks are on in
+every checkout and worktree of this repo where `git config core.hooksPath tools/hooks` is set (this PC's clone has it;
+a new clone needs that one line), and `tools/hooks/*` stay LF (`.gitattributes`), since sh runs them.
+
+By hand: `node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since
+`origin/main`, or new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do
+those instead; `--check` only lists what is missing. check-site warns (on stderr, without failing) about new art
+without them. The mark goes in first, since signing seals the file. Pictures of 256 px or smaller, and what other repos'
+releases write (`exitwise/play/`, `speedometer-wallpaper/play/app/`, `hub/`), are left alone.
 
 - **The signer** stays in the Deployer's private secrets, never here: `D:/Projects/Deployer/secrets/c2pa/signer.json`
   (`C2PA_SIGNER` for another) with the certificate chain and key it names. One marked `"test": true` signs only files
-  outside this repo. Which certificate to use is George's choice (the Deployer's `secrets/c2pa/README.md`).
+  outside this repo (the hooks then only mark). George chose (3 Nov 2026) a trusted certificate through the C2PA
+  Conformance Program and SSL.com's free one, and our own CA's certificate until it comes; changing to it is
+  `signer.json` alone (the Deployer's `secrets/c2pa/README.md`).
 - **c2patool** comes from its GitHub release (contentauth/c2patool), checked against the release's SHA-256 pinned in
   `protect-art.mjs`, into the Deployer's `state/tools/` (`C2PATOOL=<c2patool.exe>` for another).
-- **The existing art isn't marked or signed yet:** rewriting the 2,900 or so served pictures adds about their size
-  (some 560 MB) to this public repo's history each time, so they get one pass, mark and signature together, once George
-  has chosen the certificate (`node tools/protect-art.mjs --all --sign`).
+- **The art already on the site is never marked or signed** (George, 3 Nov 2026: new art only): rewriting the 2,900 or
+  so served pictures would add about their size (some 560 MB) to this public repo's history. So no `--all` pass.
 
 ## Every picture once
 
