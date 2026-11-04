@@ -117,7 +117,7 @@
       <li>What you're playing, and a room you're in, is shown to your friends only, and you can turn that off.</li>
       <li>Photos are checked automatically before anyone sees them. Players can report names and pictures, and block each other.</li>
       <li>VHub shows no ads, sells nothing about you, and runs no analytics or tracking of its own.</li>
-      <li>Help tickets you send us (with any screenshots, and your email if you give one) are read only by VGraphics.</li>
+      <li>Help tickets you send us (with any screenshots, and your email if you give one) are read only by VGraphics, with an AI assistant that may draft our answers.</li>
       <li>Our newsletter comes only after you confirm it, every issue has a one-tap unsubscribe, and we don't track opens or clicks.</li>
       <li>The data is kept with Google Firebase. The database and pictures are in the EU (Belgium).</li>
       <li>You can download a copy of your data and delete your account at any time: <a href="/hub/delete/">vgraphics.gr/hub/delete</a>.</li>
@@ -205,6 +205,7 @@
           <li>Pictures are checked by Google Cloud Vision before they are stored.</li>
           <li>Notifications to phones are delivered by Firebase Cloud Messaging.</li>
           <li>Emails (answers to help tickets, the newsletter's confirmation and its issues) are sent from our mailbox at Hostinger, our email provider, which processes them on our behalf.</li>
+          <li>To draft some answers to help tickets, the words of a ticket may be given to Claude, an AI assistant made by Anthropic (see Help tickets).</li>
         </ul>
         <p>See <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a> for how Google handles this data.</p>
       </section>
@@ -227,7 +228,7 @@
       <section id="safety">
         <h2>Names, pictures and safety</h2>
         <ul>
-          <li>Names are checked against a list of rude and reserved words when you choose them. A name is for good once saved; if there is a real problem with yours, write to us.</li>
+          <li>Every account starts with an automatic name, made of two words and three digits from our own lists (no part of it comes from you or your Google or Apple account); players under 13 get none. You can change it once. Names are checked against a list of rude and reserved words when you choose them. A name you choose is for good once saved; if there is a real problem with yours, write to us.</li>
           <li>Photos can be uploaded only from accounts that can be held to account: Google and Apple accounts, and while Exitwise moves to VHub, its Google Play Games accounts. The picture is cut to a square, copied without its hidden details (such as where and with which camera it was taken) at two small sizes, and checked by Google Cloud Vision SafeSearch for nudity, violence and similar content. Only pictures that pass are stored and shown. You can remove yours at any time.</li>
           <li>Other players can report a name or a picture. When enough players with established accounts report the same one (three today), it is removed. An uploader who loses two pictures this way can't upload any more.</li>
           <li>Names and pictures from CrazyGames are moderated by CrazyGames.</li>
@@ -240,9 +241,11 @@
         <p>You can open a help ticket in any VGraphics game or app (Settings, Help) and at <a href="/hub/support/">vgraphics.gr/hub/support</a>, to report a problem, a bug or a purchase that went wrong, or to send an idea, and follow our answers there.</p>
         <ul>
           <li><strong>What it holds:</strong> what you write, the screenshots you choose to add (copied without their hidden details, such as where they were taken), your email address if you give one, and details of the device sent with it, which the form lists: the game or app and its version, the system and its version, the device model (on the web, the browser), the screen size and the language. Signed in, it is linked to your VHub id; without an account, a private key kept on your device (and in the link we email you) opens it.</li>
-          <li><strong>Who reads it:</strong> only VGraphics. Other players never see it.</li>
+          <li><strong>Who reads it:</strong> only VGraphics, and Claude when it drafts an answer for us (below). Other players never see it.</li>
           <li><strong>How we tell you:</strong> in the game or app, by a notification on Android phones, and by email if you asked for answers by email.</li>
           <li><strong>Limits:</strong> to stop abuse, we count tickets per account, and per network with a one-way code made from your IP address that we can't turn back into it and that changes every day.</li>
+          <li><strong>Ideas and fixes we plan:</strong> when we plan to build an idea or fix a problem you sent, we link your ticket to that item in our own list, and other tickets asking the same thing join it. For some games the item also gets a card on our Trello board, which holds only a short title we write and the item's number, never your words or details. When a release delivers it, your ticket closes with that version, you see it in the game or app and on your ticket's page, and, if you asked for answers by email, you get one email saying it's in, which quotes what you wrote and says how many other players asked for it too (never who). "Stop emails about this ticket" stops that email as well.</li>
+          <li><strong>Answers drafted with help:</strong> to answer faster, we may ask Claude, an AI assistant made by Anthropic, to draft a reply. It gets only the ticket's words, its game or app, its kind and language, and our latest release notes, never your email address, your VHub id or your device's details. We read and edit every answer before we send it.</li>
         </ul>
       </section>
 
@@ -270,7 +273,7 @@
           <li>Match history: 12 months.</li>
           <li>Daily and monthly leaderboards: 60 days.</li>
           <li>Server logs: up to 30 days.</li>
-          <li>Help tickets: until you delete them or your account, and at most one year after they close.</li>
+          <li>Help tickets: until you delete them or your account, and at most one year after they close. A ticket linked to an idea or fix we plan is kept until the item ships or we drop it, then up to one more year.</li>
           <li>The newsletter: until you unsubscribe; a sign-up never confirmed is deleted after 7 days.</li>
           <li>Moderation records stay after an account is deleted (see below).</li>
         </ul>
