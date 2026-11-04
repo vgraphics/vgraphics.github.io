@@ -431,6 +431,7 @@
     };
     var showControls = function () {
       controls.hidden = false;
+      void controls.offsetWidth; // from display: none, so the first fade-in still runs
       controls.classList.add('is-shown');
       clearTimeout(hideTimer);
       hideTimer = setTimeout(function () { controls.classList.remove('is-shown'); }, CONTROLS_MS);
@@ -493,7 +494,8 @@
       if (event.target.closest && event.target.closest('[data-action="hud"]')) start();
     });
     layer.addEventListener('click', function (event) {
-      var button = event.target.closest && event.target.closest('[data-hud]');
+      // Only the buttons: start() puts data-hud="on" on the block itself, which a tap on the bare screen would find.
+      var button = event.target.closest && event.target.closest('button[data-hud]');
       if (!button) {
         showControls();
         return;
