@@ -69,6 +69,7 @@
   var analytics = (function () {
     var id = config.measurementId;
     var loaded = false;
+    var off = false;
     var answered = false;
     var waiting = [];
     var errorsLeft = MAX_ERRORS;
@@ -96,22 +97,28 @@
     var event = function (name, params) {
       if (!id) return;
       params = params || {};
-      if (loaded) send(name, params);
+      if (loaded) { if (!off) send(name, params); }
       else if (!answered && waiting.length < MAX_WAITING) waiting.push([name, params]);
+    };
+    // Withdrawn after loading: gtag stops storing and sending at once, in place. The page used to reload without it,
+    // and the reload put the visitor back lower down, on the next section (George, 4 Nov 2026: "Clicking usage
+    // statistics moves me to About Vintage"): the panel above is still empty when the browser restores the scroll.
+    // ga-disable stops even the cookieless pings that consent mode sends; a yes again lifts both.
+    var pause = function (stop) {
+      off = stop;
+      window['ga-disable-' + id] = stop;
+      window.gtag('consent', 'update', { analytics_storage: stop ? 'denied' : 'granted' });
     };
     return {
       on: !!id,
       answer: function (value) {
         answered = true;
-        if (value === 'granted') load();
-        else {
+        if (value === 'granted') {
+          if (loaded) pause(false);
+          else load();
+        } else {
           waiting = [];
-          // Withdrawn after loading: gtag stops storing and sending at once, and the page reloads without it, as the
-          // web games' pages do.
-          if (loaded) {
-            window.gtag('consent', 'update', { analytics_storage: 'denied' });
-            location.reload();
-          }
+          if (loaded) pause(true);
         }
       },
       event: event,
@@ -585,7 +592,14 @@
       } else if (action === 'share') {
         var link = app.shareUrl();
         var copied = navigator.clipboard && navigator.clipboard.writeText ? navigator.clipboard.writeText(link) : Promise.reject(new Error('no clipboard'));
-        copied.then(function () { note('share', 'Link copied: ' + link); }, function () { note('share', link); });
+        copied.then(function () {
+          note('share', '');
+          showToast('Link copied', lookWords());
+        }, function () {
+          // No clipboard here: the link (this page with the look after #) goes in the address bar, to copy from there.
+          if (history.replaceState) history.replaceState(history.state, '', link);
+          showToast('Couldn’t copy the link', 'It’s in the address bar: copy it from there', true);
+        });
         analytics.event('share', { method: 'link', content_type: 'look', item_id: last.style });
       } else if (action === 'qr') {
         openLook(button);
@@ -668,6 +682,96 @@
       analytics.error('qr: ' + (failure && failure.reason ? failure.reason : whyOf(failure)));
       note('share', 'The QR code couldn’t be made just now. Please reload the page.');
     });
+  }
+
+  // ---- "Link copied" as a toast (George, 4 Nov 2026: "The link copied must be improved as ui."): a tick, "Link copied"
+  // and what the link opens (the style and its layout, or the market layout and its maker), never the address. It sits
+  // at the screen's foot over the statistics question and the try page's bar (assets/try/try.css), takes no tap and no
+  // focus, and goes after 3 s; another copy keeps it up. It rises as it fades in and drops a little faster as it goes
+  // (a short fade under reduced motion). A screen reader hears it from a polite status line, made before it is needed.
+  var TOAST_MS = 3000;
+  var TICK = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7.5"/></svg>';
+  var BANG = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M12 6.5v7M12 17.5h.01"/></svg>';
+  var toastBox = null;
+  var toastUp = false;
+  var toastTimer = 0;
+  var toastTurn = 0;
+  var toastSay = document.createElement('p');
+  toastSay.className = 'sr-only';
+  toastSay.setAttribute('role', 'status');
+  document.body.appendChild(toastSay);
+
+  function lookWords() {
+    var values = app.values();
+    var style = styleOf(values.style);
+    if (values.shared) return style.name + ' · ' + (marketShown ? marketShown.name + ' by ' + marketShown.by : 'a market layout');
+    var layout = style.layouts.filter(function (l) { return l.id === values.layout; })[0];
+    return layout && style.layouts.length > 1 ? style.name + ' · ' + layout.name : style.name;
+  }
+
+  // Lifted over whatever shows at the screen's foot.
+  function toastLift() {
+    var lift = 0;
+    Array.prototype.forEach.call(document.querySelectorAll('.try-consent:not([hidden]), .screen-bar'), function (el) {
+      var box = el.getBoundingClientRect();
+      if (box.height && box.top < window.innerHeight && box.bottom > 0) lift = Math.max(lift, window.innerHeight - box.top);
+    });
+    return lift;
+  }
+
+  function moveToast(on, done) {
+    if (!toastBox.animate) {
+      if (done) done();
+      return;
+    }
+    var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    // Mid-move, it turns round from where it is.
+    var moving = toastBox.getAnimations();
+    var from = moving.length ? getComputedStyle(toastBox).opacity : (on ? 0 : 1);
+    moving.forEach(function (a) { a.cancel(); });
+    var frames = still ? { opacity: [from, on ? 1 : 0] }
+      : on ? { opacity: [from, 1], transform: ['translateY(12px) scale(0.96)', 'none'] }
+      : { opacity: [from, 0], transform: ['none', 'translateY(8px) scale(0.98)'] };
+    var move = toastBox.animate(frames, {
+      duration: still ? (on ? 120 : 90) : (on ? 220 : 150),
+      easing: on ? EASE : 'cubic-bezier(.4, 0, 1, 1)',
+      fill: on ? 'none' : 'forwards'
+    });
+    if (done) move.onfinish = done;
+  }
+
+  function showToast(title, detail, warn) {
+    if (!toastBox) {
+      toastBox = document.createElement('div');
+      toastBox.className = 'try-toast';
+      toastBox.hidden = true;
+      toastBox.setAttribute('aria-hidden', 'true');
+      toastBox.innerHTML = '<span class="try-toast-icon"></span><span class="try-toast-text"><b></b><small></small></span>';
+      document.body.appendChild(toastBox);
+    }
+    var turn = ++toastTurn;
+    toastBox.setAttribute('data-tone', warn ? 'warn' : 'ok');
+    toastBox.querySelector('.try-toast-icon').innerHTML = warn ? BANG : TICK;
+    toastBox.querySelector('b').textContent = title;
+    toastBox.querySelector('small').textContent = detail || '';
+    toastBox.style.setProperty('--try-toast-lift', toastLift() + 'px');
+    // Said afresh each time, so a second copy is heard too.
+    toastSay.textContent = '';
+    setTimeout(function () { toastSay.textContent = title + (detail ? '. ' + detail : ''); }, 60);
+    if (!toastUp) {
+      toastUp = true;
+      toastBox.hidden = false;
+      moveToast(true);
+    }
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(function () {
+      toastUp = false;
+      moveToast(false, function () {
+        if (turn !== toastTurn) return;
+        toastBox.hidden = true;
+        toastBox.getAnimations().forEach(function (a) { a.cancel(); });
+      });
+    }, TOAST_MS);
   }
 
   function closeLook() {
