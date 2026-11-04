@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "2.0.13",
+      "date": "2026-11-04",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Preview the HUD look",
+      "items": [
+        "Horizon, Glass, Pulse and Vector now have an Original | HUD switch on their page: see each one's HUD look before you drive, and switch back with one tap."
+      ],
+      "commit": "e4c8950f"
+    },
+    {
       "version": "2.0.12",
       "date": "2026-11-04",
       "platforms": [
