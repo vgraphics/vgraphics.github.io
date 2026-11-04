@@ -20,6 +20,7 @@ import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
 import { companyFoot, isCompanyPage, isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
+import { adminProblems } from './lib/admin.mjs'
 import { headerHelpProblems, helpMailProblems, signUpCssProblems, signUpLookProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
@@ -559,6 +560,14 @@ for (const file of served) {
   for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
 }
 
+// George's admin page (/admin/, VHub's admin app, which only the Deployer's vhub-admin writes; tools/lib/admin.mjs):
+// every page GitHub Pages serves in it is kept out of search, noindex and nofollow. It is a product's screen with the
+// short legal line (above), its scripts are built elsewhere, sitemap.xml never lists it (tools/build-sitemap.mjs), and
+// robots.txt leaves it alone, so search engines can read the noindex.
+for (const file of served) {
+  for (const m of adminProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'admin', m)
+}
+
 // Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise
 // and Palermo Noir in every heading that names them and at their first mention, on every website page whoever writes
 // it (the template writes them; a hand-made page carries them itself), never on Quizfall or VHub, never ®.
@@ -728,13 +737,13 @@ for (const slug of products()) {
 //   header's folded menu (menu.js) and the VHub avatar's (account.js) do. A script that marks a menu open without them
 //   would snap it open and shut;
 // - no served page has a popover (the popover attribute), which the browser opens and shuts at once.
-// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Unity games' pages and builds,
-// the Speedometer engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is
-// read. Without faq.js the rows still open, but jump, and several stay open.
+// The scripts other repos build (VHub's hub and admin page, Palermo Noir's game on the party kit, the Unity games'
+// pages and builds, the Speedometer engine) animate theirs with their own shared piece, whose tests hold it; here only
+// their markup is read. Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
 const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
-const BUILT_ELSEWHERE = /^(?:hub|speedometer-wallpaper\/play\/app|palermo\/game)\//
+const BUILT_ELSEWHERE = /^(?:hub|admin|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
 else if (!['showMenu', 'hideMenu'].every((name) => new RegExp(`^export const ${name} =`, 'm').test(readFileSync(join(root, 'assets', 'faq.js'), 'utf8')))) {
   faqJs(join('assets', 'faq.js'), "does not export showMenu and hideMenu, which open and close every menu with the expandables' animation")
@@ -908,11 +917,11 @@ for (const message of signUpCssProblems(readFileSync(join(root, 'assets', 'produ
 // checkboxes in a page's markup and for those the site's own scripts make (the try page's settings, assets/try/try.js):
 // each `type = 'checkbox'` there gives the input the "switch" class and role in the lines that follow, and every page
 // that loads such a script links switch.css. A choice of a few is a segmented control or option cards, never a row of
-// checkboxes. The scripts other repos build (VHub's hub, the Unity games, the Speedometer engine) draw their own
-// switch in their repo, whose tests hold it; here only their markup is read.
+// checkboxes. The scripts other repos build (VHub's hub and admin page, the Unity games, the Speedometer engine) draw
+// their own switch in their repo, whose tests hold it; here only their markup is read.
 const switchRule = (file, message) => report(file, 'switch', message)
 const SWITCH_CSS = /<link rel="stylesheet" href="\/assets\/switch\.css">/
-const BUILT = /^(?:hub|speedometer-wallpaper\/play\/app)\//
+const BUILT = /^(?:hub|admin|speedometer-wallpaper\/play\/app)\//
 const isSwitch = (tag) => /\srole="switch"/.test(tag) && /\sclass="(?:[^"]*\s)?switch(?:\s[^"]*)?"/.test(tag)
 if (!existsSync(join(root, 'assets', 'switch.css'))) switchRule(join('assets', 'switch.css'), 'missing')
 // The site's own scripts that make checkboxes, by their address.

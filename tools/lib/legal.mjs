@@ -20,8 +20,10 @@ export const CONTROLLER = 'The data controller is VGRAPHICS SINGLE MEMBER P.C. (
 // A product's screens on the site: a game's or app's play page (an app's is its try page), a game's TV, join and demo
 // pages (/<product>/play/, /<product>/tv/, /<product>/join/, /<product>/demo/, and the pages in those folders), the page
 // a look's QR code opens (/<product>/look/: Speedometer's, one screen with its Play and try-it links, the master's call
-// of 4 Nov 2026), and VHub's web app, the hub (/hub/), all but its privacy policy (/hub/privacy.html), a website page.
-export const isProductScreen = (path) => /^\/[^/]+\/(play|tv|join|demo|look)\//.test(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html')
+// of 4 Nov 2026), VHub's web app, the hub (/hub/), all but its privacy policy (/hub/privacy.html), a website page, and
+// George's admin page (/admin/, VHub's admin app: tools/lib/admin.mjs), whose footer is only "© 2026 VGraphics".
+export const isProductScreen = (path) =>
+  /^\/[^/]+\/(play|tv|join|demo|look)\//.test(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html') || path.startsWith('/admin/')
 
 /** The company page, the one page with the company's details. */
 export const isCompanyPage = (path) => path === '/company/'
