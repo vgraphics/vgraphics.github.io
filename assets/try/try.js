@@ -412,6 +412,8 @@
     var isOn = false;
     var openedAt = 0;
     var wakeLock = null;
+    var orientationBefore = 'portrait';
+    var orientationLocked = false;
     var hideTimer = 0;
     var tipTimer = 0;
     var sound = null;
@@ -428,6 +430,12 @@
     var keepAwake = function () {
       if (!navigator.wakeLock || !navigator.wakeLock.request) return;
       navigator.wakeLock.request('screen').then(function (lock) { wakeLock = lock; }, function () {});
+    };
+    // The lock HUD mode took on the real screen's orientation, given back (leaving full screen drops it too).
+    var unlockOrientation = function () {
+      if (!orientationLocked) return;
+      orientationLocked = false;
+      try { window.screen.orientation.unlock(); } catch (e) {}
     };
     var showControls = function () {
       controls.hidden = false;
@@ -454,6 +462,9 @@
       isOn = true;
       openedAt = now();
       root.setAttribute('data-hud', 'on');
+      // The phone is turned for the windscreen; stop() turns it back (George, 4 Nov 2026: "Getting to hud mode can not
+      // return to original mode.").
+      orientationBefore = device.getAttribute('data-orientation') || 'portrait';
       device.setAttribute('data-orientation', 'landscape');
       layer.hidden = false;
       tip.hidden = false;
@@ -463,7 +474,11 @@
       if (document.fullscreenEnabled && device.requestFullscreen) {
         device.requestFullscreen().then(function () {
           var orientation = window.screen.orientation;
-          if (orientation && orientation.lock) orientation.lock('landscape').catch(function () {});
+          if (!orientation || !orientation.lock) return;
+          orientation.lock('landscape').then(function () {
+            orientationLocked = true;
+            if (!isOn) unlockOrientation();
+          }, function () {});
         }, function () {});
       }
       keepAwake();
@@ -477,6 +492,8 @@
       layer.hidden = true;
       controls.classList.remove('is-shown');
       app.hud.stop();
+      device.setAttribute('data-orientation', orientationBefore);
+      unlockOrientation();
       if (document.fullscreenElement) document.exitFullscreen().catch(function () {});
       if (wakeLock) wakeLock.release().catch(function () {});
       wakeLock = null;
