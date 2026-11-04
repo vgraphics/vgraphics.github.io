@@ -52,7 +52,7 @@
   pointer-events: none;
 }
 .try-icons[hidden] { display: none; }
-.try-icons-row, .try-icons-dock { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10%; }
+.try-icons-dock { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10%; }
 .try-icons i {
   display: block;
   aspect-ratio: 1;
@@ -63,6 +63,9 @@
 }
 .try-icons-search { aspect-ratio: 7.5 / 1; border-radius: 999px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); }
 .try-device[data-orientation="landscape"] .try-icons { padding-inline: 28%; }
+/* A HUD shows no home screen, so no switch for its icons either (George, 4 Nov 2026: "hide that button for hud mode"):
+   not while the HUD runs full screen, nor on a HUD style's HUD view (data-hud-view, the Original | HUD switch). */
+.try[data-hud="on"] .try-tool[data-action="icons"], .try[data-hud-view="hud"] .try-tool[data-action="icons"] { display: none; }
 
 /* A style's art on its way (a premium style's first look): a quiet spinner over the screen. */
 .try-busy { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; background: rgba(10, 9, 13, 0.35); pointer-events: none; }
@@ -144,6 +147,38 @@
 .try-gps[aria-pressed="true"] svg { color: var(--pb); }
 .try-note { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .try-note[hidden] { display: none; }
+
+/* "Link copied" (assets/try/try.js showToast; George, 4 Nov 2026: "The link copied must be improved as ui."): a toast
+   centred at the screen's foot, in the product's look, lifted over the statistics question and the try page's bar
+   (--try-toast-lift, set as it shows). It takes no tap: whatever is under it stays usable. Its motion is in try.js. */
+.try-toast {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(calc(16px + env(safe-area-inset-bottom, 0px)), calc(var(--try-toast-lift, 0px) + 12px));
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: min(420px, calc(100vw - 32px));
+  margin-inline: auto;
+  padding: 8px 22px 8px 8px;
+  border: var(--card-border);
+  border-radius: var(--btn-radius, var(--radius-sm));
+  background: var(--surface-2);
+  color: var(--ink);
+  box-shadow: var(--card-lift);
+  pointer-events: none;
+}
+.try-toast[hidden] { display: none; }
+.try-toast-icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-3, var(--accent)); color: var(--page); }
+.try-toast[data-tone="warn"] .try-toast-icon { background: var(--accent-2, var(--accent)); }
+.try-toast-icon svg { width: 20px; height: 20px; }
+.try-toast-text { display: grid; min-width: 0; gap: 2px; }
+.try-toast-text b { font: var(--label-weight) 1.05rem/1.1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.try-toast-text small { overflow: hidden; color: var(--muted); font-size: 0.86rem; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; }
+.try-toast-text small:empty { display: none; }
 
 .try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
 .try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }

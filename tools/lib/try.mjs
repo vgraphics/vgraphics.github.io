@@ -84,9 +84,10 @@ const hudLayer = (hud) => (hud
                 </div>`
   : '')
 
-// Home screen icons over the wallpaper, as the app's style page shows them: plain shapes, no other app's marks.
+// Home screen icons over the wallpaper, as the app's style page shows them: plain shapes, no other app's marks. The
+// search bar and the dock only: a row above them sat on the gauge (George, 4 Nov 2026: "For home screen icons remove
+// top line of icons").
 const HOME_ICONS = `<div class="try-icons" hidden aria-hidden="true">
-                  <div class="try-icons-row">${'<i></i>'.repeat(4)}</div>
                   <div class="try-icons-search"></div>
                   <div class="try-icons-dock">${'<i></i>'.repeat(4)}</div>
                 </div>`

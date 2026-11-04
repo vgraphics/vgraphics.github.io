@@ -31,6 +31,7 @@
   --lead-size: clamp(1.9rem, 3.6vw, 3.4rem);
   --radius: 24px;
   --radius-sm: 14px;
+  --btn-radius: 999px;
   --card-bg: linear-gradient(180deg, #1F1F22, #161618);
   --card-border: 1px solid #34343A;
   --card-shadow: 0 20px 40px -24px #000;
