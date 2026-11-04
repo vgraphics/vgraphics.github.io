@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "1.0.939dce0d",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Add friends by tapping players",
+      "items": [
+        "Tap another player in the leaderboards, rooms or match history to open their card and send them a friend request.",
+        "You now get a username automatically (like 'SwiftArrow482'), so you show up on the leaderboards right away—and you can change it once to a name of your own.",
+        "Settings has a cleaner new look, organised into two tabs: 'Settings' and 'Help and news'."
+      ],
+      "commit": "939dce0d"
+    },
+    {
       "version": "1.0.31",
       "date": "2026-11-03",
       "platforms": [
