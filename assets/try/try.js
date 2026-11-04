@@ -288,6 +288,18 @@
     return row;
   }
 
+  // The styles that draw HUD mode wear "HUD" with the HUD icon on their card, as in the app's style list (George, 4 Nov
+  // 2026: "Mark styles with a pill like in the app that suppot hud").
+  var HUD_ICON = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg>';
+  var isHudStyle = function (id) { return !!config.hud && config.hud.styles.indexOf(id) >= 0; };
+  var hudPill = function () {
+    var pill = document.createElement('span');
+    pill.className = 'try-hud-pill';
+    pill.innerHTML = HUD_ICON;
+    pill.appendChild(document.createTextNode('HUD'));
+    return pill;
+  };
+
   function buildStyles() {
     var list = $('.try-styles');
     if (!list) return;
@@ -317,6 +329,7 @@
       b.appendChild(img);
       b.appendChild(name);
       b.appendChild(tag);
+      if (isHudStyle(style.id)) b.appendChild(hudPill());
       b.addEventListener('click', function () { show(style.id); });
       item.appendChild(b);
       list.appendChild(item);
@@ -347,20 +360,7 @@
       b.setAttribute('aria-current', String(b.getAttribute('data-style') === style.id));
     });
 
-    var layouts = $('.try-layouts');
-    var chips = layouts.querySelector('.try-chips');
-    chips.textContent = '';
-    layouts.hidden = style.layouts.length < 2;
-    style.layouts.forEach(function (layout) {
-      var chip = document.createElement('button');
-      chip.type = 'button';
-      chip.className = 'try-chip';
-      chip.textContent = layout.name;
-      chip.setAttribute('aria-pressed', String(layout.id === values.layout));
-      chip.setAttribute('data-focus', 'layout:' + layout.id);
-      chip.addEventListener('click', function () { app.set('layout', layout.id); });
-      chips.appendChild(chip);
-    });
+    fillLayouts(style, values);
 
     // Rebuilt on every change: the control that had the keyboard keeps it.
     var focused = focusKey(document.activeElement);
@@ -398,6 +398,107 @@
     else if (values.layout !== last.layout) analytics.event('layout_view', { style: style.id, layout: values.layout });
     if (last.mode && mode && mode !== last.mode) analytics.event('mode_change', { mode: mode, style: style.id });
     last = { style: style.id, layout: values.layout, mode: mode };
+  }
+
+  // The Layouts menu (tools/lib/try.mjs layoutSets; George, 4 Nov 2026: "layouts menu must show first built in layouts
+  // and their huds somehow ... and then the marketplace"): Built in, the style's own layouts; HUD layouts, while a HUD
+  // style is on show, each shown through Original | HUD; From the layout market, the style's most used live layouts,
+  // tried in the phone. Only what the phone shows is lit: a built-in or market layout under Original, a HUD layout
+  // under HUD (try.css).
+  var MARKET_MOST = 4;
+  var marketRows = {};
+  var marketScript = null;
+
+  // Original | HUD, as a tap on the switch would make it (wireHud keeps the state).
+  var viewAs = function (shown) {
+    if ((root.getAttribute('data-hud-view') === 'hud') === (shown === 'hud')) return;
+    var button = root.querySelector('.try-view [data-hud-view="' + shown + '"]');
+    if (button) button.click();
+  };
+
+  var layoutChip = function (name, by, pressed, key, pick) {
+    var chip = document.createElement('button');
+    chip.type = 'button';
+    chip.className = by ? 'try-chip try-market-chip' : 'try-chip';
+    chip.textContent = name;
+    if (by) {
+      var who = document.createElement('small');
+      who.textContent = 'by ' + by;
+      chip.appendChild(who);
+    }
+    chip.setAttribute('aria-pressed', String(pressed));
+    chip.setAttribute('data-focus', key);
+    chip.addEventListener('click', function () {
+      viewAs('original');
+      pick();
+    });
+    return chip;
+  };
+
+  function fillLayouts(style, values) {
+    var layouts = $('.try-layouts');
+    if (!layouts) return;
+    var focused = layouts.contains(document.activeElement) ? focusKey(document.activeElement) : '';
+    var hud = layouts.querySelector('.try-layout-hud');
+    var market = layouts.querySelector('.try-layout-market');
+    var rows = market ? marketRowsOf(style.id) : [];
+    if (hud) hud.hidden = !isHudStyle(style.id);
+    if (market) market.hidden = !rows.length;
+    layouts.hidden = style.layouts.length < 2 && !isHudStyle(style.id) && !rows.length;
+
+    var builtIn = layouts.querySelector('.try-layout-builtin .try-chips');
+    builtIn.textContent = '';
+    style.layouts.forEach(function (layout) {
+      builtIn.appendChild(layoutChip(layout.name, '', layout.id === values.layout, 'layout:' + layout.id, function () {
+        app.set('layout', layout.id);
+      }));
+    });
+    if (market) {
+      var chips = market.querySelector('.try-chips');
+      chips.textContent = '';
+      rows.forEach(function (row) {
+        chips.appendChild(layoutChip(row.name, row.by, !!values.shared && values.layout === row.code, 'market:' + row.code, function () {
+          sharedLine(row);
+          showMarketLayout(row, style.id);
+        }));
+      });
+    }
+    if (focused) {
+      var again = layouts.querySelector('[data-focus="' + focused.replace(/"/g, '') + '"]');
+      if (again) again.focus();
+    }
+  }
+
+  // A style's market layouts, read once a visit: none until they are in (the set shows then), none when the style has
+  // none, and none when the market can't be read, which is reported.
+  function marketRowsOf(styleId) {
+    if (marketRows[styleId]) return marketRows[styleId];
+    marketRows[styleId] = [];
+    marketScript = marketScript || loadScript(config.layouts, 'VGTryLayouts');
+    marketScript.then(function () {
+      var market = window.SpeedoMarket;
+      return market.byStyle(styleId, MARKET_MOST).then(function (found) {
+        return market.profiles(found.map(function (layout) { return layout.creatorUid; })).then(function (people) {
+          return found.map(function (layout) {
+            var person = people.get(layout.creatorUid);
+            return { code: layout.code, data: layout.data, madeWith: layout.madeWith, name: layout.name, by: person ? person.name : '', href: market.layoutUrl(layout.code) };
+          });
+        });
+      });
+    }).then(function (found) {
+      marketRows[styleId] = found;
+      if (found.length && last.style === styleId) fillLayouts(styleOf(styleId), app.values());
+    }, function (failure) {
+      analytics.error('market layouts of ' + styleId + ': ' + whyOf(failure), failure && failure.stack);
+    });
+    return marketRows[styleId];
+  }
+
+  // A HUD layout picked under Original shows its HUD look (wireHud has set the layout by then).
+  function wireLayouts() {
+    Array.prototype.forEach.call(root.querySelectorAll('.try-layout-hud [data-hud-layout]'), function (chip) {
+      chip.addEventListener('click', function () { viewAs('hud'); });
+    });
   }
 
   // HUD mode (Speedometer docs/hud-mode/design.md §9; George, card 12 A: "A real HUD mode on the try page"): the
@@ -644,6 +745,7 @@
       analytics.event('fps_low', { fps: data.fps, style: last.style });
     });
     wireHud();
+    wireLayouts();
 
     root.addEventListener('click', function (event) {
       var button = event.target.closest && event.target.closest('[data-action]');
