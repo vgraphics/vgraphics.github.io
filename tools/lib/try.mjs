@@ -32,9 +32,12 @@
 //                  made in the page (assets/try/qr.js), in a sheet that opens and closes as every menu does
 //   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
 //   hud            Speedometer's HUD mode (Games SpeedometerWallpaper/docs/hud-mode/design.md §9), or left out:
-//                  { label, note, brightness, exit, flip, styles: [ids], layouts: [{ id, name }] }. A HUD mode button
-//                  and its layouts in the panel; the phone's screen then fills the window, flipped for the windscreen,
-//                  with the visitor's real GPS speed where the browser shares it. Tap once for Exit and Flip; Esc leaves.
+//                  { label, note, brightness, exit, flip, styles: [ids], layouts: [{ id, name }], view }. A HUD mode
+//                  button and its layouts in the panel; the phone's screen then fills the window, flipped for the
+//                  windscreen, with the visitor's real GPS speed where the browser shares it. Tap once for Exit and
+//                  Flip; Esc leaves. While one of the styles is on show, an Original | HUD switch beside it turns the
+//                  phone between the wallpaper and that style's HUD look, back and forth (George, 4 Nov 2026: "Yes,
+//                  try page and app"); view: { label, original, hud } are its words ("Original", "HUD" left out).
 import { esc } from './partials.mjs'
 
 const ICON = {
@@ -58,6 +61,13 @@ const hudButton = (hud) => (hud
   ? `
               <button class="try-tool try-hud" type="button" data-action="hud">${ICON.hud}<span>${esc(hud.label)}</span></button>`
   : '')
+// Original | HUD: a radio pair of the quick row's pill shape, hidden until one of the HUD styles is on show (try.js).
+const hudView = (hud) => {
+  if (!hud) return ''
+  const words = { label: 'Show this style as', original: 'Original', hud: 'HUD', ...hud.view }
+  return `
+              <div class="try-view" role="radiogroup" aria-label="${esc(words.label)}" data-view="original" hidden><button type="button" role="radio" aria-checked="true" tabindex="0" data-hud-view="original">${esc(words.original)}</button><button type="button" role="radio" aria-checked="false" tabindex="-1" data-hud-view="hud">${esc(words.hud)}</button></div>`
+}
 const hudLayouts = (hud) => (hud
   ? `
             <div class="try-hud-layouts try-chips" role="radiogroup" aria-label="${esc(hud.label)}">${hud.layouts.map((layout) => `<button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="${esc(layout.id)}">${esc(layout.name)}</button>`).join('')}</div>
@@ -139,7 +149,7 @@ export function tryBlock(b, page) {
             <div class="try-quick">
               <button class="try-tool try-gps" type="button" data-action="gps" aria-pressed="false">${ICON.gps}<span>${esc(config.gpsLabel)}</span></button>
               <button class="try-tool" type="button" data-action="share">${ICON.share}<span>Copy a link to this look</span></button>${config.appLinks ? `
-              <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog">${ICON.qr}<span>Show QR for this look</span></button>` : ''}${hudButton(b.hud)}
+              <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog">${ICON.qr}<span>Show QR for this look</span></button>` : ''}${hudView(b.hud)}${hudButton(b.hud)}
             </div>${hudLayouts(b.hud)}
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>

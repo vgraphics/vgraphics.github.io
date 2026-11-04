@@ -748,7 +748,7 @@
       "id": "hud",
       "eyebrow": "HUD mode",
       "title": "Your speed on the windscreen",
-      "intro": "Lay your phone flat on the dashboard in front of the wheel, screen up, and HUD mode draws your speed flipped, so the windscreen reflects it the right way round. Full screen, full brightness, GPS speed, and nothing to touch while you drive: tap once for Exit and Flip. Four layouts (Number, Gauge arc, Fighter, Centre bar), each drawn by the four neon styles, with the clock, trip, heading and your own speed warning. It reads best at dusk, at night and on cloudy days. <a href=\"/speedometer-wallpaper/play/\">Try HUD mode in your browser</a>.",
+      "intro": "Lay your phone flat on the dashboard in front of the wheel, screen up, and HUD mode draws your speed flipped, so the windscreen reflects it the right way round. Full screen, full brightness, GPS speed, and nothing to touch while you drive: tap once for Exit and Flip. Four layouts (Number, Gauge arc, Fighter, Centre bar), each drawn by the four neon styles, with the clock, trip, heading and your own speed warning. It reads best at dusk, at night and on cloudy days. Each of the four styles has an Original | HUD switch on its page, in the app and online, to see its HUD look first. <a href=\"/speedometer-wallpaper/play/\">Try HUD mode in your browser</a>.",
       "blocks": [
         {
           "type": "cards",
