@@ -805,7 +805,7 @@
           "items": [
             {
               "title": "Opens your way",
-              "text": "The HUD button on the app’s home screen, the HUD mode tile in Quick Settings, a long-press on the app icon, or by itself when your phone joins your car’s Bluetooth."
+              "text": "HUD mode’s own strip on the app’s home screen, its row in Styles with all four HUD styles, the HUD mode tile in Quick Settings, a long-press on the app icon, or by itself when your phone joins your car’s Bluetooth."
             },
             {
               "title": "Safe and simple",
