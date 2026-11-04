@@ -25,7 +25,9 @@
 }
 .try-device[data-orientation="landscape"] { height: auto; width: min(100%, 940px); aspect-ratio: 2340 / 1080; }
 .try:has(.try-device[data-orientation="landscape"]) { grid-template-columns: minmax(0, 1fr); }
-.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; }
+/* Turned on its side the phone is as wide as its stage and no wider (George, 4 Nov 2026: the try page is a screen with
+   nothing cut off): the stage has one column of its own width, so nothing the phone's size suggests can stretch it. */
+.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; grid-template-columns: minmax(0, 1fr); }
 .try-screen {
   position: relative;
   width: 100%;
@@ -369,7 +371,9 @@
 /* Phones: the wallpaper fills the screen as the real one does, without the bezel; the panel follows under it. */
 @media (max-width: 560px) {
   .try-device { width: 100%; height: calc(100svh - 160px); min-height: 440px; aspect-ratio: auto; padding: 0; border-radius: 24px; background: none; }
-  .try-device[data-orientation="landscape"] { width: 100%; height: auto; aspect-ratio: 2340 / 1080; }
+  /* On its side it is wide and short: the upright phone's 440px minimum must not follow it. With the aspect ratio that
+     minimum made the box 950px wide, far past a phone's screen, and its stage with it. */
+  .try-device[data-orientation="landscape"] { width: 100%; height: auto; min-height: 0; aspect-ratio: 2340 / 1080; }
   .try-screen { border-radius: 24px; }
   .try-tool span { display: none; }
   .try-tool { width: 48px; justify-content: center; padding: 0; }
@@ -400,7 +404,9 @@
 .screen .try-stage { position: static; align-self: center; }
 .screen .try-panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 4px 14px 24px 2px; }
 .screen .try:has(.try-device[data-orientation="landscape"]) { grid-template-rows: auto minmax(0, 1fr); }
-.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, calc((100dvh - 380px) * 2340 / 1080)); }
+/* Turned on its side the phone fits its stage's width and the window's height (the 380px is what the header, the bar, the
+   tools and a strip of the panel keep), never narrower than 240px, so a short window can't shrink it to nothing. */
+.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, max(240px, calc((100dvh - 380px) * 2340 / 1080))); }
 .screen .try-fallback { grid-column: -2; grid-row: -2; align-self: end; }
 @media (max-width: 900px) {
   .screen .try { grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
@@ -420,6 +426,55 @@
    and out after a few seconds, as in the app. */
 .try-chip[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
 .try-hud-layouts { margin-top: 2px; }
+/* Original | HUD (George, 4 Nov 2026: "Yes, try page and app"): a pill of the quick row's shape split in two, the
+   chosen half lit as a pressed pill is (.try-tool[aria-pressed]), the light sliding across when the choice changes. */
+.try-view {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 3px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--surface);
+  isolation: isolate;
+}
+.try-view[hidden] { display: none; }
+.try-view::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3px auto 3px 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+  box-shadow: inset 0 0 0 1px var(--accent);
+  transition: transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.try-view[data-view="hud"]::before { transform: translateX(100%); }
+.try-view button {
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font: var(--label-weight) 0.95rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  cursor: var(--cursor-link, pointer);
+  transition: color 160ms ease-out;
+}
+.try-view button:hover { color: var(--ink); }
+.try-view button[aria-checked="true"] { color: var(--ink); cursor: var(--cursor, default); }
+.try-view button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The HUD look has no home screen around it. */
+.try[data-hud-view="hud"] .try-icons { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .try-view::before { transition: opacity 80ms linear; }
+}
 .try[data-hud="on"] .try-device {
   position: fixed;
   inset: 0;
