@@ -8,6 +8,10 @@
     "a": "Yes, with HUD mode. Lay your phone flat on the dashboard in front of the wheel, screen up: the app goes full screen at full brightness and draws your speed flipped, so the windscreen reflects it the right way round. Pick Number, Gauge arc, Fighter or Centre bar in Horizon (free), Glass, Pulse or Vector. Set it up while parked, and never touch the phone while you drive; HUD mode has no menus and no ads. It reads best at dusk, at night and on cloudy days. A windscreen shows the picture twice, from its two surfaces; a cheap HUD film on the glass fixes that."
   },
   {
+    "q": "Can I make my own HUD?",
+    "a": "Yes. In HUD settings, Make your own HUD opens the layout builder on the phone lying on its side: drag the speed (a gauge arc, big digits, Fighter's tapes or the centre bar), the heading, the clock and the trip where you want them, turn the speed warning on or off, and see it on the glass before you save. A new layout can start as a HUD, and a wallpaper layout can be made into one. Your own HUD is free in Horizon; in Glass, Pulse or Vector it comes with that style. It stays on your phone and in your VHub backup."
+  },
+  {
     "q": "How does it know my speed, and how accurate is it?",
     "a": "From your phone's GPS, so it needs a view of the sky: in a tunnel or a car park the gauge waits for a new fix. It shows your speed in km/h or mph, and a red mark keeps the top speed of the drive. It isn't a certified speedometer, so go by your car's own. It's for passengers: never handle your phone while driving."
   },
