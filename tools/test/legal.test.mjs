@@ -12,8 +12,8 @@ import { loadProduct, loadSubpage } from '../lib/product.mjs'
 const FULL = `<p>${COMPANY_LEGAL.replace('&copy;', '©')}</p>`
 const SHORT = `<p>${SITE_LEGAL.replace('&copy;', '©')}</p>`
 
-test('a product\'s play, TV, join and demo pages, the hub and the try pages are product screens', () => {
-  for (const path of ['/exitwise/play/', '/speedometer-wallpaper/play/', '/palermo/tv/', '/palermo/join/', '/palermo/demo/',
+test('a product\'s play, TV, join, demo and look pages, the hub and the try pages are product screens', () => {
+  for (const path of ['/exitwise/play/', '/speedometer-wallpaper/play/', '/speedometer-wallpaper/look/', '/palermo/tv/', '/palermo/join/', '/palermo/demo/',
     '/palermo/demo/screen.html', '/hub/', '/hub/settings/', '/hub/delete/']) {
     assert.equal(isProductScreen(path), true, path)
   }
@@ -89,4 +89,7 @@ test('the template writes the website\'s line on a landing page and the product\
   const play = screenBar(loadSubpage('speedometer-wallpaper', 'play'))
   assert.ok(play.includes(`<span class="legal">${PRODUCT_LEGAL}`) && !play.includes('G.E.MI.'))
   assert.deepEqual(legalProblems('/speedometer-wallpaper/play/', play), [])
+  const look = screenBar(loadSubpage('speedometer-wallpaper', 'look'))
+  assert.ok(look.includes('href="/speedometer-wallpaper/about/"') && !look.includes('G.E.MI.'))
+  assert.deepEqual(legalProblems('/speedometer-wallpaper/look/', look), [])
 })

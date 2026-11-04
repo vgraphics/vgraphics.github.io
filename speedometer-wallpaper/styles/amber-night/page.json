@@ -100,6 +100,10 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
+          "appLinks": {
+            "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
+            "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"
+          },
           "prices": {
             "premium": "€2.39"
           },

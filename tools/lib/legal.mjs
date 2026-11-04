@@ -18,9 +18,10 @@ export const COMPANY_LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All right
 export const CONTROLLER = 'The data controller is VGRAPHICS SINGLE MEMBER P.C. (VGraphics). Contact: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a>. Company details: <a href="/company/">vgraphics.gr/company/</a>'
 
 // A product's screens on the site: a game's or app's play page (an app's is its try page), a game's TV, join and demo
-// pages (/<product>/play/, /<product>/tv/, /<product>/join/, /<product>/demo/, and the pages in those folders), and
-// VHub's web app, the hub (/hub/), all but its privacy policy (/hub/privacy.html), a website page.
-export const isProductScreen = (path) => /^\/[^/]+\/(play|tv|join|demo)\//.test(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html')
+// pages (/<product>/play/, /<product>/tv/, /<product>/join/, /<product>/demo/, and the pages in those folders), the page
+// a look's QR code opens (/<product>/look/: Speedometer's, one screen with its Play and try-it links, the master's call
+// of 4 Nov 2026), and VHub's web app, the hub (/hub/), all but its privacy policy (/hub/privacy.html), a website page.
+export const isProductScreen = (path) => /^\/[^/]+\/(play|tv|join|demo|look)\//.test(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html')
 
 /** The company page, the one page with the company's details. */
 export const isCompanyPage = (path) => path === '/company/'
