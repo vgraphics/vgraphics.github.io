@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.15",
+      "date": "2026-11-05",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Help tickets read like a chat",
+      "items": [
+        "Fixed a crash on some phones when the mobile signal could not be read.",
+        "Help tickets now read like a chat, with a clear status badge and your screenshots right in the thread."
+      ],
+      "commit": "7a0226d4"
+    },
+    {
       "version": "2.0.14",
       "date": "2026-11-04",
       "platforms": [
