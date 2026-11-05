@@ -1,0 +1,1 @@
+import{Z as l,u as e,_ as a,P as o}from"./index-Dgzot3IU.js";function t({section:n}){const r=l(n);return e(o,{icon:r.icon,title:r.label,children:e("p",{class:"pnl-pad quiet",children:["Coming next. Search (",e(a,{children:"Ctrl"})," ",e(a,{children:"K"}),") and Force reload already work here."]})})}function c(n){return e(t,{section:"players"})}export{c as default};
