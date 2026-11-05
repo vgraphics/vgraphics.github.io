@@ -749,7 +749,7 @@
 
   function wire() {
     catalog = app.catalog();
-    if (catalog.api !== API_VERSION) analytics.error('catalog api ' + catalog.api + ', the page knows ' + API_VERSION);
+    if (catalog.api < API_VERSION) analytics.error('catalog api ' + catalog.api + ', the page knows ' + API_VERSION);
     buildStyles();
     render();
     app.on('change', render);
