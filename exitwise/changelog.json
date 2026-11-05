@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.0.a0a80710",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Guardian stones slide into place",
+      "items": [
+        "Guardian stones now wait for your arrow to pass through, then slide to their new spot.",
+        "Finish a lesson in How to play and you'll see your progress through all 21 and a button to the next one.",
+        "Pop-up dialogs, the How to play bubble and the support form now match the refreshed Settings look, with tidier spacing.",
+        "When you sign in, you may be asked for your birth year to finish setting up your account—or just tap 'Not now'."
+      ],
+      "commit": "a0a80710"
+    },
+    {
       "version": "1.0.342418ea",
       "date": "2026-11-05",
       "platforms": [
