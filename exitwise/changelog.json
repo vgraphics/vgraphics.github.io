@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.0.342418ea",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Smoother menus and dialogs",
+      "items": [
+        "Menus, pop-ups and expanding sections now open and close with smooth, consistent motion, and opening a quick answer no longer scrolls the page on its own.",
+        "Cloud save works again — if your progress had stopped syncing with a 'newer version' message, it now loads and saves to the cloud as before.",
+        "The Help and news screen is tidier: your support messages now sit on cards, each with its own title and chat-style bubbles, and the coin counter no longer overlaps the tabs.",
+        "On Android, the Back button now closes Settings, and closes any panel open on top of it first.",
+        "In Settings, your account card now shows your profile name — the same name on your profile and the boards — instead of the sign-in gamertag."
+      ],
+      "commit": "342418ea"
+    },
+    {
       "version": "1.0.939dce0d",
       "date": "2026-11-04",
       "platforms": [
