@@ -1,0 +1,1405 @@
+cluster__badge_cpu	CPU
+cluster__badge_power	ΙΣΧΥΣ
+cluster__badge_speed	ΤΑΧ
+cluster__format_battery	ΜΠΑΤ %1$d%%
+cluster__format_percent	%1$d%%
+cluster__format_signal	ΣΗΜΑ %1$d%%
+cluster__format_temperature	ΘΕΡΜ %1$d%%
+cluster__format_wifi	WIFI %1$d%%
+cluster__fuel_empty	E
+cluster__fuel_empty_digit	0
+cluster__fuel_full	F
+cluster__fuel_full_digit	1
+cluster__label_date	ΗΜ/ΝΙΑ
+cluster__label_mbps	MBPS
+cluster__label_ram_percent	RAM %
+cluster__label_ram_tens	RAM × 10%
+cluster__label_signal	ΣΗΜΑ
+cluster__label_time	ΩΡΑ
+cluster__label_wifi	WI-FI
+cluster__mode_cpu	CPU
+cluster__mode_power	ΙΣΧ
+cluster__mode_speed	ΤΑΧ
+cluster__temperature_cold	C
+cluster__temperature_hot	H
+component__hidden_creators_sheet__body	Οι διατάξεις τους δεν σου εμφανίζονται στην αγορά.
+component__hidden_creators_sheet__button_show__label	Εμφάνιση ξανά
+component__hidden_creators_sheet__empty	Δεν υπάρχουν κρυμμένοι δημιουργοί.
+component__hidden_creators_sheet__title	Κρυμμένοι δημιουργοί
+component__hud_showcase__content_description	Το HUD του %1$s σε παρμπρίζ τη νύχτα
+component__market_creator_sheet__hide__label	Απόκρυψη διατάξεων αυτού του δημιουργού
+component__market_creator_sheet__hide__subtitle	Τις επαναφέρεις από Ρυθμίσεις › Απόρρητο › Κρυμμένοι δημιουργοί.
+component__market_creator_sheet__report__subtitle	Το VHub ελέγχει τα ονόματα και τις εικόνες σε κάθε εφαρμογή της VGraphics.
+component__market_creator_sheet__report_name__label	Αναφορά ονόματος
+component__market_creator_sheet__report_picture__label	Αναφορά εικόνας
+component__market_offer_sheet__body	Σου αρέσει; Πάρε το στιλ ή όλα τα στιλ με το Κοντέρ Plus.
+component__market_offer_sheet__button_buy__label	%1$s · %2$s εφάπαξ
+component__market_offer_sheet__button_buy_no_price__label	Αγορά του %1$s
+component__market_offer_sheet__close__content_description	Κλείσιμο προεπισκόπησης
+component__market_offer_sheet__pass__label	Όλα τα στιλ με το Κοντέρ Plus
+component__market_offer_sheet__title	%1$s με αυτή τη διάταξη
+component__market_report_sheet__body	Δεν θα την ξαναδείς. Με τρεις αναφορές αφαιρείται μέχρι να την ελέγξουμε.
+component__market_report_sheet__button_send__label	Αποστολή αναφοράς
+component__market_report_sheet__message__count	%1$d / %2$d
+component__market_report_sheet__message__label	Πες μας περισσότερα (προαιρετικό)
+component__market_report_sheet__reason_broken	Δεν λειτουργεί
+component__market_report_sheet__reason_name	Προσβλητικό όνομα
+component__market_report_sheet__reason_other	Κάτι άλλο
+component__market_report_sheet__reason_spam	Ανεπιθύμητο περιεχόμενο ή αντίγραφο άλλης διάταξης
+component__market_report_sheet__title	Αναφορά διάταξης
+component__pass_sheet__body	Όλα τα στιλ, τώρα και στο μέλλον, χωρίς διαφημίσεις. Τα στιλ που αγόρασες μένουν δικά σου.
+component__pass_sheet__button_monthly__label	%1$s τον μήνα
+component__pass_sheet__button_monthly_no_price__label	Μηνιαία
+component__pass_sheet__button_yearly__label	%1$s τον χρόνο · 2 μήνες δωρεάν
+component__pass_sheet__button_yearly_no_price__label	Ετήσια · 2 μήνες δωρεάν
+component__pass_sheet__fine_print	Η χρέωση γίνεται από το Google Play και η συνδρομή ανανεώνεται μέχρι να την ακυρώσεις. Ακύρωσέ την όποτε θέλεις στο Google Play. Με σύνδεση στο VHub, την έχουν όλες οι συσκευές του λογαριασμού σου.
+component__pass_sheet__title	Κοντέρ Plus
+component__status_badge__content_description	Κατάσταση: %1$s
+component__trial_end__body	Η ταπετσαρία σου γύρισε στο δικό σου στιλ. Κράτα το %1$s για πάντα, πάρε όλα τα στιλ με το Κοντέρ Plus ή δες άλλο ένα βίντεο για 24 ώρες ακόμα.
+component__trial_end__button_buy__label	Αγορά του %1$s · %2$s
+component__trial_end__button_buy_no_price__label	Αγορά του %1$s
+component__trial_end__button_not_now__label	Όχι τώρα
+component__trial_end__button_watch_again__label	Δες ξανά
+component__trial_end__title	Τελείωσαν οι 24 ώρες σου με το %1$s
+component__update_bar__button_restart__label	Επανεκκίνηση
+component__update_bar__message	Μια ενημέρωση είναι έτοιμη για εγκατάσταση.
+design__amber_night__name	Amber Night
+design__aura__name	Aura
+design__carbon__name	Carbon
+design__circuit__name	Circuit
+design__classic__name	Classic
+design__cockpit__name	Cockpit
+design__future__name	Future
+design__glass__name	Glass
+design__graphite__name	Graphite
+design__harbour__name	Harbour
+design__horizon__name	Horizon
+design__prism__name	Prism
+design__pulse__name	Pulse
+design__rally__name	Rally
+design__steel__name	Steel
+design__torque__name	Torque
+design__track_night__name	Track Night
+design__vector__name	Vector
+design__vintage__name	Vintage
+design_look__choice_accent__label	Κύριο χρώμα
+design_look__choice_amber__label	Κεχριμπαρί
+design_look__choice_black__label	Μαύρο
+design_look__choice_black_chrome__label	Μαύρο χρώμιο
+design_look__choice_black_facets__label	Μαύρες έδρες
+design_look__choice_blue__label	Μπλε
+design_look__choice_champagne__label	Σαμπανί
+design_look__choice_chrome__label	Χρώμιο
+design_look__choice_clear__label	Διάφανο
+design_look__choice_crimson__label	Βυσσινί
+design_look__choice_cyan__label	Κυανό
+design_look__choice_deep__label	Βαθύ
+design_look__choice_design__label	Αρχικό
+design_look__choice_dimmed__label	Σκουρότερο
+design_look__choice_ember__label	Χόβολη
+design_look__choice_emerald__label	Σμαραγδί
+design_look__choice_gold__label	Χρυσό
+design_look__choice_graphite_facets__label	Γραφιτί έδρες
+design_look__choice_graphite_leather__label	Γραφιτί δέρμα
+design_look__choice_green__label	Πράσινο
+design_look__choice_gunmetal__label	Σκούρο μεταλλικό
+design_look__choice_high__label	Υψηλή
+design_look__choice_ice_blue__label	Παγωμένο μπλε
+design_look__choice_ice_white__label	Παγωμένο λευκό
+design_look__choice_ivory__label	Ιβουάρ
+design_look__choice_light_edge__label	Φωτεινή άκρη
+design_look__choice_lime__label	Λάιμ
+design_look__choice_low__label	Χαμηλή
+design_look__choice_luminous__label	Φωσφορίζον
+design_look__choice_magenta__label	Ματζέντα
+design_look__choice_midnight__label	Μεσάνυχτα
+design_look__choice_mocha_leather__label	Δέρμα μόκα
+design_look__choice_navy_suede__label	Μπλε καστόρι
+design_look__choice_needle__label	Βελόνα
+design_look__choice_night_suede__label	Νυχτερινό καστόρι
+design_look__choice_normal__label	Κανονική
+design_look__choice_orange__label	Πορτοκαλί
+design_look__choice_purple__label	Μωβ
+design_look__choice_race_red__label	Αγωνιστικό κόκκινο
+design_look__choice_red__label	Κόκκινο
+design_look__choice_same_as_speed__label	Ίδιο με την ταχύτητα
+design_look__choice_silver__label	Ασημί
+design_look__choice_smoked__label	Φιμέ
+design_look__choice_sweep_color__label	Χρώμα τόξων
+design_look__choice_track_blue__label	Μπλε πίστας
+design_look__choice_violet__label	Βιολετί
+design_look__choice_white__label	Λευκό
+design_look__option_accent__label	Κύριο χρώμα
+design_look__option_background__label	Φόντο
+design_look__option_glass__label	Γυαλί
+design_look__option_glow__label	Λάμψη
+design_look__option_glow_color__label	Χρώμα λάμψης
+design_look__option_leading_line__label	Μπροστινή γραμμή
+design_look__option_needle__label	Βελόνα
+design_look__option_pointer__label	Τρόπος ένδειξης
+design_look__option_ram_panel__label	Πάνελ RAM
+design_look__option_rings__label	Δακτύλιοι
+design_look__option_shift_light__label	Φως αλλαγής ταχύτητας
+design_look__option_speed_panel__label	Πάνελ ταχύτητας
+design_look__option_sweep__label	Τόξα
+dialog__market_unpublish__body	Φεύγει οριστικά από την αγορά. Όσοι τη χρησιμοποιούν την κρατούν.
+dialog__market_unpublish__button_cancel__label	Κράτησέ τη
+dialog__market_unpublish__button_confirm__label	Απόσυρση
+dialog__market_unpublish__title	Απόσυρση αυτής της διάταξης;
+dialog__trial_replace__button_confirm__label	Δες το βίντεο
+dialog__trial_replace__button_dismiss__label	Κράτα το %1$s
+dialog__trial_replace__message	Σταματάς τη δοκιμή του %1$s και ξεκινάς το %2$s;
+dialog__trial_replace__title	Μία δοκιμή κάθε φορά
+editor__element__annunciator__name	Πίνακας ενδείξεων
+editor__element__battery__name	Μπαταρία
+editor__element__big__name	Κύριος δείκτης
+editor__element__clock__name	Ρολόι
+editor__element__console__name	Κονσόλα
+editor__element__counts__name	Κλήσεις και μηνύματα
+editor__element__date__name	Ημερομηνία
+editor__element__display__name	Οθόνη
+editor__element__lamps__name	Προειδοποιητικές λυχνίες
+editor__element__link_speed__name	Ταχύτητα σύνδεσης
+editor__element__low_battery__name	Λυχνία χαμηλής μπαταρίας
+editor__element__meters__name	Δείκτες με μπάρες
+editor__element__music__name	Μουσική
+editor__element__plate__name	Πλάκα
+editor__element__ram__name	RAM
+editor__element__shift_lights__name	Φώτα αλλαγής ταχύτητας
+editor__element__signal__name	Σήμα
+editor__element__status__name	Κατάσταση
+editor__element__strip__name	Λωρίδα πληροφοριών
+editor__element__temperature__name	Θερμοκρασία
+editor__element__warnings__name	Προειδοποιητικές λυχνίες
+editor__element__wifi__name	Wi-Fi
+gauge__battery__temperature_percent	ΘΕΡΜ %1$d%%
+gauge__battery__word_low	ΧΑΜΗΛΗ
+gauge__big__label_cpu	CPU %
+gauge__big__label_kmh	km/h
+gauge__big__label_mph	mph
+gauge__big__label_no_gps	ΟΧΙ GPS
+gauge__big__label_power	ΒΑΤ
+gauge__captions__bluetooth	BLUETOOTH
+gauge__captions__high_temperature	ΥΨΗΛΗ ΘΕΡΜ
+gauge__captions__low_battery	ΧΑΜΗΛΗ ΜΠΑΤ
+gauge__captions__low_temperature	ΧΑΜΗΛΗ ΘΕΡΜ
+gauge__counts__off	ΧΩΡΙΣ ΚΛΗΣΕΙΣ ΚΑΙ ΜΗΝΥΜΑΤΑ
+gauge__future__calls#one	ΚΛΗΣΗ
+gauge__future__calls#other	ΚΛΗΣΕΙΣ
+gauge__future__cold	C
+gauge__future__fuel_empty	E
+gauge__future__fuel_full	F
+gauge__future__hot	H
+gauge__future__label_signal	ΣΗΜΑ
+gauge__future__messages#one	ΜΗΝΥΜΑ
+gauge__future__messages#other	ΜΗΝΥΜ.
+gauge__future__music_off_subtitle	Άνοιξέ τα στην εφαρμογή
+gauge__future__music_off_title	ΧΩΡΙΣ ΜΟΥΣΙΚΗ ΚΑΙ ΚΛΗΣΕΙΣ
+gauge__future__music_plate	ΜΟΥΣΙΚΗ
+gauge__future__nothing_playing	ΔΕΝ ΠΑΙΖΕΙ ΤΙΠΟΤΑ
+gauge__generic__percent	%1$d%%
+gauge__generic__unavailable	--
+gauge__meters__label_battery	ΜΠΑΤ
+gauge__meters__label_ram	RAM
+gauge__meters__label_signal	ΣΗΜΑ
+gauge__meters__label_temperature	ΘΕΡΜ
+gauge__meters__label_wifi	WIFI
+gauge__rally__button_mode	ΛΕΙΤ
+gauge__rally__button_reset	ΜΗΔΕΝ
+gauge__rings__label_battery	ΜΠΑΤΑΡΙΑ
+gauge__rings__label_ram	RAM
+gauge__rings__label_signal	ΣΗΜΑ
+gauge__rings__label_wifi	WI-FI
+gauge__tape__label_ram	RAM %
+gauge__wifi__link_speed	%1$d MBPS
+gauge__wifi__status_connected	ΣΥΝΔΕΘΗΚΕ
+gauge__wifi__status_disabled	ΑΝΕΝΕΡΓΟ
+gauge__wifi__status_mobile_data	ΔΕΔΟΜΕΝΑ
+gauge__wifi__status_no_network	ΧΩΡΙΣ ΔΙΚΤΥΟ
+gauge__wifi__word_on	ΕΝΕΡΓΟ
+generic__app_name	Κοντέρ: ζωντανή ταπετσαρία
+generic__button_back__content_description	Πίσω
+generic__button_cancel__label	Ακύρωση
+generic__button_ok__label	OK
+generic__market_status_hidden	Κρυμμένη
+generic__market_status_live	Ενεργή
+generic__market_status_removed	Αφαιρεμένη
+generic__orientation_any	Όλοι οι προσανατολισμοί
+generic__orientation_landscape	Οριζόντια
+generic__orientation_portrait	Κάθετα
+generic__shape_any	Όλα τα σχήματα
+generic__shape_foldable	Αναδιπλούμενο
+generic__shape_phone	Κινητό
+generic__shape_tablet	Τάμπλετ
+generic__shape_tall	Ψηλό / με καπάκι
+hud__battery__plug_in	ΦΟΡΤΙΣΕ
+hud__caption__heading	ΠΟΡΕΙΑ
+hud__caption__time	ΩΡΑ
+hud__gps__lost	ΧΩΡΙΣ GPS
+hud__heat__back	Θα ξεκινήσει ξανά μόνη της.
+hud__heat__paused	Η λειτουργία HUD σταμάτησε για να κρυώσει.
+hud__heat__title	Το κινητό ζεστάθηκε
+hud__speed__none	– –
+layouts__asks__activity	Ζητά πρόσβαση στη σωματική δραστηριότητα.
+layouts__asks__calendar	Ζητά να διαβάζει το ημερολόγιό σου.
+layouts__asks__location	Ζητά την τοποθεσία σου.
+layouts__asks__weather	Ζητά την κατά προσέγγιση τοποθεσία σου και χρησιμοποιεί το ίντερνετ.
+layouts__form__analog__name	Αναλογικό
+layouts__form__annunciator__name	Λυχνίες με λεζάντα
+layouts__form__arc__name	Τόξο
+layouts__form__badges__name	Ετικέτες
+layouts__form__bar__name	Μπάρα
+layouts__form__bars__name	Μπάρες
+layouts__form__card__name	Κάρτα
+layouts__form__compass__name	Πυξίδα
+layouts__form__console__name	Κονσόλα
+layouts__form__controls__name	Κουμπιά
+layouts__form__counter__name	Μετρητής
+layouts__form__dial__name	Καντράν
+layouts__form__digits__name	Ψηφία
+layouts__form__event__name	Εικονίδιο και ώρα
+layouts__form__g_ball__name	Μπίλια G
+layouts__form__icon_row__name	Εικονίδια
+layouts__form__icon_text__name	Εικονίδιο και κείμενο
+layouts__form__lamp_row__name	Σειρά λυχνιών
+layouts__form__led_bar__name	Μπάρα LED
+layouts__form__level__name	Αλφάδι
+layouts__form__meters__name	Μπάρες μέτρησης
+layouts__form__moon__name	Φεγγάρι
+layouts__form__none__name	Κανένα
+layouts__form__pair__name	Δύο γραμμές
+layouts__form__panel__name	Πάνελ
+layouts__form__plate__name	Πλάκα
+layouts__form__ring__name	Δακτύλιος
+layouts__form__single_lamp__name	Μία λυχνία
+layouts__form__small_dial__name	Μικρό καντράν
+layouts__form__strip__name	Λωρίδα
+layouts__form__style__name	Όπως το στιλ
+layouts__form__sun_arc__name	Τόξο ηλίου
+layouts__form__tape__name	Ταινία
+layouts__form__text__name	Κείμενο
+layouts__form__text_thumbnail__name	Κείμενο με εξώφυλλο
+layouts__form__ticker__name	Κυλιόμενο κείμενο
+layouts__form__weather__name	Ουρανός και θερμοκρασία
+layouts__group__day	Η μέρα σου
+layouts__group__drive	Στον δρόμο
+layouts__group__gauges	Δείκτες
+layouts__group__phone	Το κινητό
+layouts__group__place	Πού είσαι
+layouts__ready__column	Στήλη
+layouts__ready__fold_music	Μουσική για Fold
+layouts__ready__grand_dash	Μεγάλο ταμπλό
+layouts__ready__music_drive	Οδήγηση με μουσική
+layouts__ready__night_table	Κομοδίνο
+layouts__ready__six_pack	Εξάδα
+layouts__ready__wide_panel	Φαρδύ πάνελ
+layouts__shape__foldable	Αναδιπλούμενο
+layouts__shape__foldable__plural	αναδιπλούμενα
+layouts__shape__phone	Κινητό
+layouts__shape__phone__plural	κινητά
+layouts__shape__tablet	Τάμπλετ
+layouts__shape__tablet__plural	τάμπλετ
+layouts__shape__tall	Ψηλό / Flip
+layouts__shape__tall__plural	ψηλά κινητά και Flip
+layouts__widget__air_pressure__description	Η ατμοσφαιρική πίεση και αν ανεβαίνει ή πέφτει. Τα κινητά χωρίς αισθητήρα πίεσης δείχνουν παύλες.
+layouts__widget__air_pressure__name	Ατμοσφαιρική πίεση
+layouts__widget__altitude__description	Πόσο ψηλά είσαι πάνω από τη θάλασσα.
+layouts__widget__altitude__name	Υψόμετρο
+layouts__widget__average_speed__description	Η μέση ταχύτητά σου σε αυτή τη διαδρομή, χωρίς τις στάσεις.
+layouts__widget__average_speed__name	Μέση ταχύτητα
+layouts__widget__backplate__description	Αυτό πάνω στο οποίο κάθονται τα καντράν: πλάκα ή κονσόλα.
+layouts__widget__backplate__name	Βάση
+layouts__widget__battery__description	Η στάθμη μπαταρίας, ο δείκτης καυσίμου.
+layouts__widget__battery__name	Μπαταρία
+layouts__widget__battery_time__description	Ο χρόνος ως την πλήρη φόρτιση όσο φορτίζει, αλλιώς ο χρόνος που απομένει.
+layouts__widget__battery_time__name	Χρόνος μπαταρίας
+layouts__widget__climb_rate__description	Πόσο γρήγορα ανεβαίνεις ή κατεβαίνεις σε ανηφόρα ή κατηφόρα.
+layouts__widget__climb_rate__name	Ρυθμός ανόδου
+layouts__widget__clock__description	Η ώρα.
+layouts__widget__clock__name	Ρολόι
+layouts__widget__counts__description	Αναπάντητες κλήσεις και αδιάβαστα μηνύματα.
+layouts__widget__counts__name	Κλήσεις και μηνύματα
+layouts__widget__data_speed__description	Πόσα δεδομένα κατεβάζει και ανεβάζει το κινητό αυτή τη στιγμή.
+layouts__widget__data_speed__name	Ταχύτητα δεδομένων
+layouts__widget__date__description	Η ημερομηνία, μόνη της.
+layouts__widget__date__name	Ημερομηνία
+layouts__widget__display__description	Ένα πάνελ με ώρα, ημερομηνία, Wi-Fi και μετρήσεις.
+layouts__widget__display__name	Οθόνη πληροφοριών
+layouts__widget__drive_time__description	Πόση ώρα οδηγείς. Νέα διαδρομή ξεκινά μετά από 30 λεπτά ακινησίας.
+layouts__widget__drive_time__name	Χρόνος οδήγησης
+layouts__widget__g_force__description	Μια κουκκίδα που γλιστρά όταν φρενάρεις, επιταχύνεις ή παίρνεις στροφή, με το μέγιστό σου. Ακριβής όταν το κινητό είναι σε βάση.
+layouts__widget__g_force__name	Δύναμη G
+layouts__widget__heading__description	Προς τα πού πας: η κατεύθυνση από το GPS όσο κινείσαι, η πυξίδα όσο δεν κινείσαι.
+layouts__widget__heading__name	Κατεύθυνση
+layouts__widget__lights__description	Λυχνίες για χαμηλή μπαταρία, Bluetooth, θερμοκρασία και φόρτιση.
+layouts__widget__lights__name	Προειδοποιητικές λυχνίες
+layouts__widget__link_speed__description	Πόσο γρήγορη είναι η σύνδεση Wi-Fi.
+layouts__widget__link_speed__name	Ταχύτητα σύνδεσης
+layouts__widget__main__description	Η μεγάλη ένδειξη: ισχύς, συχνότητα επεξεργαστή ή ταχύτητα GPS.
+layouts__widget__main__name	Κύριος δείκτης
+layouts__widget__moon__description	Η αποψινή φάση του φεγγαριού και το όνομά της.
+layouts__widget__moon__name	Φεγγάρι
+layouts__widget__music_controls__description	Προηγούμενο, αναπαραγωγή ή παύση, και επόμενο, πάνω στην ταπετσαρία. Μη βάζεις εικονίδια εφαρμογών πάνω τους.
+layouts__widget__music_controls__name	Κουμπιά μουσικής
+layouts__widget__next_alarm__description	Το επόμενο ξυπνητήρι που έχεις ορίσει.
+layouts__widget__next_alarm__name	Επόμενο ξυπνητήρι
+layouts__widget__next_event__description	Το επόμενο συμβάν του ημερολογίου σου: το όνομα και η ώρα του. Διαβάζεται στο κινητό και δεν στέλνεται πουθενά.
+layouts__widget__next_event__name	Επόμενο συμβάν
+layouts__widget__now_playing__description	Το τραγούδι που παίζει, με το εξώφυλλό του.
+layouts__widget__now_playing__name	Τώρα παίζει
+layouts__widget__odometer__description	Κάθε χιλιόμετρο που οδήγησες με την ταπετσαρία ενεργή, αποθηκευμένο στο κινητό.
+layouts__widget__odometer__name	Χιλιομετρητής
+layouts__widget__ram__description	Η μνήμη σε χρήση, το στροφόμετρο.
+layouts__widget__ram__name	RAM
+layouts__widget__second_clock__description	Η ώρα κάπου αλλού: UTC ή μια πόλη που διαλέγεις στις Ρυθμίσεις.
+layouts__widget__second_clock__name	Δεύτερο ρολόι
+layouts__widget__shift_lights__description	Μια σειρά από LED που ανάβουν με τη RAM, κόκκινα κοντά στο μέγιστο.
+layouts__widget__shift_lights__name	Φώτα αλλαγής ταχύτητας
+layouts__widget__signal__description	Η ένταση του σήματος κινητής.
+layouts__widget__signal__name	Σήμα
+layouts__widget__status__description	Εικονίδια Bluetooth και Wi-Fi.
+layouts__widget__status__name	Κατάσταση
+layouts__widget__steps__description	Τα σημερινά σου βήματα, σε έναν δακτύλιο προς τον στόχο σου.
+layouts__widget__steps__name	Βήματα σήμερα
+layouts__widget__storage__description	Πόσο γεμάτο είναι το κινητό.
+layouts__widget__storage__name	Αποθηκευτικός χώρος
+layouts__widget__strip__description	Μια γραμμή με τη λειτουργία και την μπαταρία.
+layouts__widget__strip__name	Λωρίδα πληροφοριών
+layouts__widget__sun__description	Οι σημερινές ώρες, με τον ήλιο πάνω σε ένα τόξο, υπολογισμένες στο κινητό.
+layouts__widget__sun__name	Ανατολή και δύση
+layouts__widget__temperature__description	Η θερμοκρασία της μπαταρίας.
+layouts__widget__temperature__name	Θερμοκρασία
+layouts__widget__tilt__description	Πόσο γέρνει το αυτοκίνητο, και αν η μύτη του κοιτά πάνω ή κάτω στις ανηφόρες. Μηδένισέ τη στις Ρυθμίσεις, με το κινητό στη βάση του.
+layouts__widget__tilt__name	Κλίση
+layouts__widget__top_speed__description	Η μεγαλύτερη ταχύτητα που έπιασες σε αυτή τη διαδρομή.
+layouts__widget__top_speed__name	Μέγιστη ταχύτητα
+layouts__widget__trip__description	Πόση απόσταση έχεις διανύσει σε αυτή τη διαδρομή.
+layouts__widget__trip__name	Απόσταση διαδρομής
+layouts__widget__trip_computer__description	Απόσταση διαδρομής, μέση ταχύτητα και χρόνος οδήγησης σε ένα πάνελ.
+layouts__widget__trip_computer__name	Υπολογιστής διαδρομής
+layouts__widget__volume__description	Η ένταση της μουσικής.
+layouts__widget__volume__name	Ένταση
+layouts__widget__weather__description	Η θερμοκρασία έξω και μια μικρή εικόνα του ουρανού, από το MET Norway, κάθε 30 λεπτά.
+layouts__widget__weather__name	Καιρός
+layouts__widget__wifi__description	Η ένταση του Wi-Fi και αν είσαι σε δεδομένα κινητής.
+layouts__widget__wifi__name	Wi-Fi
+layouts__widget__zero_to_100__description	Χρονομετρά κάθε επιτάχυνση από στάση ως τα 100 km/h (60 mph) και κρατά το καλύτερό σου.
+layouts__widget__zero_to_100__name	Χρονόμετρο 0–100
+notification__hud_car__channel	Λειτουργία HUD στο αυτοκίνητο
+notification__hud_car__text	Πάτα για λειτουργία HUD
+notification__hud_car__title	Το αυτοκίνητό σου συνδέθηκε
+preview__future__song_artist	VGraphics
+preview__future__song_title	Night Drive
+screen__access__body	Το Future δείχνει το τραγούδι που παίζει, με το εξώφυλλό του και την ένταση, και πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει.\n\nΓια αυτό, το Android πρέπει να δώσει σε αυτή την εφαρμογή πρόσβαση στις ειδοποιήσεις. Το Android θα σε προειδοποιήσει ότι η εφαρμογή θα μπορούσε να διαβάσει όλες τις ειδοποιήσεις σου: διαβάζει μόνο το τραγούδι που παίζει και μετράει τις αναπάντητες κλήσεις και τα μηνύματα.\n\nΤίποτα δεν φεύγει από το κινητό σου. Μπορείς να κλείσεις την πρόσβαση όποτε θέλεις από τις ρυθμίσεις του Android.
+screen__access__button_allowed__label	Επιτρέπεται
+screen__access__button_done__label	Τέλος
+screen__access__button_later__label	Όχι τώρα
+screen__access__button_open__label	Άνοιγμα ρυθμίσεων Android
+screen__access__hero__body	Το Future μπορεί να δείχνει το τραγούδι που παίζει, πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει. Πρώτα πρέπει να το επιτρέψει το Android.
+screen__access__hero__subtitle	Για το στιλ Future
+screen__access__message_no_settings	Αυτό το κινητό δεν έχει σελίδα για την πρόσβαση στις ειδοποιήσεις.
+screen__access__row_counts__subtitle	Μόνο πόσα είναι, ποτέ από ποιον ή τι γράφουν
+screen__access__row_counts__title	Αναπάντητες κλήσεις και αδιάβαστα μηνύματα
+screen__access__row_privacy__subtitle	Κλείσ' το όποτε θέλεις στις ρυθμίσεις του Android
+screen__access__row_privacy__title	Τίποτα δεν φεύγει από το κινητό σου
+screen__access__row_song__subtitle	Τον τίτλο του, το εξώφυλλο και την ένταση
+screen__access__row_song__title	Το τραγούδι που παίζει
+screen__access__section_reads__label	Τι διαβάζει
+screen__access__status_on	Ενεργοποιήθηκε. Το Future δείχνει τώρα τη μουσική, τις κλήσεις και τα μηνύματά σου.
+screen__access__title	Μουσική, κλήσεις και μηνύματα
+screen__access__top_bar__title	Πρόσβαση στις ειδοποιήσεις
+screen__access__warning__body	Το Android θα σε προειδοποιήσει ότι η εφαρμογή μπορεί να διαβάζει όλες τις ειδοποιήσεις σου. Διαβάζει μόνο το τραγούδι και μετράει τις αναπάντητες κλήσεις και τα αδιάβαστα μηνύματα.
+screen__account__bonus_line	Συνδέσου και διάλεξε δωρεάν ένα στιλ επί πληρωμή
+screen__account__delete_wrong_account__message	Αυτός είναι άλλος λογαριασμός Google. Ο λογαριασμός σου στο VHub συνδέεται με τον λογαριασμό %1$s: διάλεξε αυτόν.
+screen__account__delete_wrong_account_no_email__message	Αυτός είναι άλλος λογαριασμός Google. Διάλεξε τον λογαριασμό Google με τον οποίο συνδέεται ο λογαριασμός σου στο VHub.
+screen__account__failed__message	Δεν έγινε. Δοκίμασε ξανά.
+screen__account__free_style__button	Κράτα το %1$s
+screen__account__free_style__chip	Δωρεάν για σένα
+screen__account__free_style__note	Δικό σου σε κάθε κινητό όπου συνδέεσαι. Τα στιλ που έχεις ήδη δεν εμφανίζονται εδώ.
+screen__account__free_style__title	Διάλεξε το δωρεάν στιλ σου
+screen__account__gift_claimed__message	Το %1$s είναι δικό σου.
+screen__account__level_line	Επίπεδο VHub %1$d · %2$s
+screen__account__loading_gifts__title	Φορτώνουν τα δώρα σου…
+screen__account__message_free_month_started	Ο δωρεάν μήνας σου στο Κοντέρ Plus ξεκίνησε.
+screen__account__name_saved__message	Το όνομά σου στο VHub είναι %1$s.
+screen__account__no_browser__message	Δεν υπάρχει πρόγραμμα περιήγησης σε αυτό το κινητό για να ανοίξει το προφίλ σου στο VHub.
+screen__account__offer__bonus_month	Έναν δωρεάν μήνα με όλες τις διατάξεις, όταν ανοίξουν οι διατάξεις
+screen__account__offer__bonus_settings	Τις ρυθμίσεις σου σε κάθε κινητό όπου συνδέεσαι
+screen__account__offer__bonus_style	Ένα στιλ επί πληρωμή της επιλογής σου, δωρεάν
+screen__account__offer__bonus_xp	XP και εμβλήματα στο προφίλ σου στο VHub
+screen__account__offer__intro	Η ταπετσαρία σου είναι ενεργή. Συνδέσου με Google και πάρε:
+screen__account__offer__title	Κράτα το με το VHub
+screen__account__row_also_on__subtitle	%1$s · το επίπεδό σου μετράει παντού
+screen__account__row_also_on__title	Επίσης στο VHub
+screen__account__row_free_month__start__label	Έναρξη
+screen__account__row_free_month__subtitle	Όλα τα στιλ και καμία διαφήμιση για 30 ημέρες. Ξεκίνα τον όποτε θέλεις
+screen__account__row_free_month__title	Ένας δωρεάν μήνας Κοντέρ Plus
+screen__account__row_free_month_running__subtitle	Όλα τα στιλ χωρίς διαφημίσεις έως %1$s
+screen__account__row_free_month_used__subtitle	Χρησιμοποιήθηκε
+screen__account__row_free_style__subtitle	Το δώρο σου για τη σύνδεση
+screen__account__row_free_style__title	Δωρεάν στιλ
+screen__account__row_name__subtitle	+50 XP · για πάντα
+screen__account__row_settings_sync__subtitle	Σε κάθε κινητό όπου συνδέεσαι και στο μενού VHub σου στο vgraphics.gr
+screen__account__row_settings_sync__title	Οι ρυθμίσεις σου σε ακολουθούν
+screen__account__section_account__title	Ο λογαριασμός σου
+screen__account__section_gifts__title	Τα δώρα σου για τη σύνδεση
+screen__account__section_settings__title	Ρυθμίσεις
+screen__account__section_vhub__title	Το Κοντέρ στο VHub
+screen__account__strip__text	Διάλεξε δωρεάν ένα στιλ επί πληρωμή
+screen__account__tile_days__label	Ημέρες σε χρήση
+screen__account__tile_layouts__label	Διατάξεις
+screen__account__tile_styles__label	Στιλ
+screen__account__title	Λογαριασμός
+screen__account__title_welcome	Καλώς ήρθες
+screen__app_settings__ad_choices_failed__message	Οι επιλογές διαφημίσεων δεν άνοιξαν. Δοκίμασε ξανά.
+screen__app_settings__clock__format_follow_phone	Όπως το κινητό
+screen__app_settings__clock__format_h12	12ωρο
+screen__app_settings__clock__format_h24	24ωρο
+screen__app_settings__clock__summary_seconds_off	χωρίς δευτερόλεπτα
+screen__app_settings__clock__summary_seconds_on	με δευτερόλεπτα
+screen__app_settings__clock_format_sheet__subtitle	Πώς δείχνουν την ώρα τα νέα στιλ.
+screen__app_settings__clock_format_sheet__title	Ρολόι
+screen__app_settings__clock_seconds_sheet__option_off	Απόκρυψη δευτερολέπτων
+screen__app_settings__clock_seconds_sheet__option_on	Εμφάνιση δευτερολέπτων
+screen__app_settings__clock_seconds_sheet__subtitle	Αν τα νέα στιλ δείχνουν τα δευτερόλεπτα.
+screen__app_settings__clock_seconds_sheet__title	Δευτερόλεπτα
+screen__app_settings__copied__message	Όλα τα στιλ έχουν τώρα τις ρυθμίσεις του %1$s.
+screen__app_settings__copy_confirm__button_copy__label	Αντιγραφή
+screen__app_settings__copy_confirm__message	Όλα τα στιλ παίρνουν τον μεγάλο δείκτη, τις μονάδες, το ρολόι, τις λυχνίες και την κίνηση βελόνας του %1$s. Κάθε στιλ κρατά τη δική του διάταξη και εμφάνιση.
+screen__app_settings__copy_confirm__title	Αντιγραφή σε όλα τα στιλ;
+screen__app_settings__copy_source_sheet__subtitle	Διάλεξε το στιλ που θα δώσει τις ρυθμίσεις του σε όλα τα στιλ.
+screen__app_settings__copy_source_sheet__title	Αντιγραφή ρυθμίσεων από
+screen__app_settings__foot__no_version	© VGraphics
+screen__app_settings__foot__version	Έκδοση %1$s · © VGraphics
+screen__app_settings__gps_blocked__button_open_settings__label	Άνοιγμα ρυθμίσεων
+screen__app_settings__gps_blocked__message	Η τοποθεσία είναι απενεργοποιημένη για αυτή την εφαρμογή. Επίτρεψε την ακριβή τοποθεσία στις ρυθμίσεις της εφαρμογής για να χρησιμοποιήσεις την ταχύτητα GPS.
+screen__app_settings__gps_needs_precise__message	Η ταχύτητα GPS χρειάζεται ακριβή τοποθεσία. Διάλεξε "Ακριβής" όταν σε ρωτήσει το Android.
+screen__app_settings__gps_rationale__button_continue__label	Συνέχεια
+screen__app_settings__gps_rationale__message	Η ταχύτητα GPS χρειάζεται την ακριβή τοποθεσία σου όσο η ταπετσαρία φαίνεται στην οθόνη. Χρησιμοποιείται μόνο για να διαβάσει την ταχύτητά σου και δεν φεύγει ποτέ από το κινητό.
+screen__app_settings__gps_rationale__title	Ταχύτητα GPS
+screen__app_settings__level_failed__message	Η βαθμονόμηση δεν έγινε. Στήσε το κινητό όρθιο στη βάση του και δοκίμασε ξανά.
+screen__app_settings__level_set__message	Έγινε. Το στοιχείο «Κλίση» δείχνει τώρα ίσιο στη θέση που βρίσκεται το κινητό.
+screen__app_settings__licence_barlow__title	Barlow Condensed · SIL Open Font License 1.1
+screen__app_settings__licence_dseg__title	DSEG7 · SIL Open Font License 1.1
+screen__app_settings__licence_roboto__title	Roboto · Apache License 2.0
+screen__app_settings__licences_sheet__subtitle	Οι γραμματοσειρές της εφαρμογής και οι άδειες χρήσης τους.
+screen__app_settings__licences_sheet__title	Άδειες χρήσης
+screen__app_settings__motion__balanced	Ισορροπημένη
+screen__app_settings__motion__balanced_note	60 καρέ το δευτερόλεπτο όσο κινείται μια βελόνα, τίποτα όσο μένουν ακίνητες. Η Εξοικονόμηση μπαταρίας του Android περνά στην Οικονομική.
+screen__app_settings__motion__saver	Οικονομική
+screen__app_settings__motion__saver_note	30 καρέ το δευτερόλεπτο όσο κινείται μια βελόνα, τίποτα όσο μένουν ακίνητες. Η πιο ελαφριά για την μπαταρία σου.
+screen__app_settings__motion__smooth	Ομαλή
+screen__app_settings__motion__smooth_note	Ο πλήρης ρυθμός της οθόνης σου όσο κινείται μια βελόνα, τίποτα όσο μένουν ακίνητες. Η Εξοικονόμηση μπαταρίας του Android περνά στην Οικονομική.
+screen__app_settings__motion__title	Κίνηση και μπαταρία
+screen__app_settings__news_confirmed__message	Έχεις εγγραφεί. Το πολύ ένα email τον μήνα.
+screen__app_settings__news_off__message	Για να σταματήσουν τα email, πάτα τον σύνδεσμο διαγραφής σε οποιοδήποτε από αυτά.
+screen__app_settings__news_pending__message	Δες τα εισερχόμενά σου: πάτα τον σύνδεσμο για να επιβεβαιώσεις.
+screen__app_settings__news_unsubscribe_failed__message	Η διαγραφή δεν έγινε. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.
+screen__app_settings__news_unsubscribed__message	Η εγγραφή σου διαγράφηκε. Δεν θα λαμβάνεις πια νέα της VGraphics με email.
+screen__app_settings__no_browser__message	Καμία εφαρμογή σε αυτό το κινητό δεν μπορεί να ανοίξει αυτή τη σελίδα.
+screen__app_settings__pass_not_on_sale__message	Το Κοντέρ Plus δεν διατίθεται ακόμα στο Google Play. Δοκίμασε ξανά αργότερα.
+screen__app_settings__pass_on__message	Το Κοντέρ Plus είναι ενεργό. Όλα τα στιλ είναι δικά σου.
+screen__app_settings__pass_pending__message	Η πληρωμή εκκρεμεί. Το Κοντέρ Plus ξεκινά μόλις ολοκληρωθεί.
+screen__app_settings__play_unavailable__message	Το Google Play δεν είναι διαθέσιμο αυτή τη στιγμή.
+screen__app_settings__purchase_failed__message	Η αγορά δεν ολοκληρώθηκε.
+screen__app_settings__restore_failed__message	Η επαναφορά των αγορών σου δεν έγινε. Δοκίμασε ξανά.
+screen__app_settings__restored__message	Οι αγορές επανήλθαν από το Google Play.
+screen__app_settings__row_access__off	Πρόσβαση στις ειδοποιήσεις · ανενεργή
+screen__app_settings__row_access__on	Πρόσβαση στις ειδοποιήσεις · ενεργή
+screen__app_settings__row_access__title	Μουσική, κλήσεις και μηνύματα
+screen__app_settings__row_ad_choices__subtitle	Άλλαξε ό,τι συμφώνησες για τις διαφημίσεις
+screen__app_settings__row_ad_choices__title	Επιλογές διαφημίσεων
+screen__app_settings__row_clock__summary	%1$s · %2$s
+screen__app_settings__row_clock__title	Ρολόι
+screen__app_settings__row_company__subtitle	Στοιχεία της εταιρείας VGraphics και επικοινωνία
+screen__app_settings__row_company__title	Εταιρεία
+screen__app_settings__row_copy__subtitle	Οι ρυθμίσεις ενός στιλ παντού
+screen__app_settings__row_copy__title	Αντιγραφή ρυθμίσεων σε όλα τα στιλ
+screen__app_settings__row_gps__allowed	Ακριβής τοποθεσία · επιτρέπεται
+screen__app_settings__row_gps__off	Ακριβής τοποθεσία · ανενεργή
+screen__app_settings__row_gps__title	Ταχύτητα GPS
+screen__app_settings__row_guide__subtitle	Τι δείχνει κάθε δείκτης και κάθε λυχνία
+screen__app_settings__row_guide__title	Οδηγός
+screen__app_settings__row_help__subtitle	Κάτι δεν πάει καλά, ένα σφάλμα ή μια ιδέα; Πες μας και δες τις απαντήσεις μας
+screen__app_settings__row_help__subtitle_answered	Η VGraphics σου απάντησε
+screen__app_settings__row_help__title	Ανέφερε ένα πρόβλημα ή μια ιδέα
+screen__app_settings__row_hidden_creators__subtitle#one	%d δημιουργός
+screen__app_settings__row_hidden_creators__subtitle#other	%d δημιουργοί
+screen__app_settings__row_hidden_creators__title	Κρυμμένοι δημιουργοί
+screen__app_settings__row_hidden_creators_none__subtitle	Κανένας
+screen__app_settings__row_hud__subtitle	Δες την ταχύτητά σου στο παρμπρίζ
+screen__app_settings__row_level__button_set__label	Ορισμός
+screen__app_settings__row_level__subtitle	Βάλε το κινητό στη βάση του και πάτα Ορισμός. Από εκεί και πέρα, αυτή η θέση είναι το ίσιο για το στοιχείο «Κλίση».
+screen__app_settings__row_level__title	Βαθμονόμηση κλίσης
+screen__app_settings__row_licences__title	Άδειες χρήσης
+screen__app_settings__row_news__subtitle_off	Νέα του Speedometer, το πολύ ένα email τον μήνα
+screen__app_settings__row_news__subtitle_on	Έχεις εγγραφεί · το πολύ ένα email τον μήνα
+screen__app_settings__row_news__subtitle_pending	Δες τα εισερχόμενά σου: πάτα τον σύνδεσμο που σου στείλαμε για επιβεβαίωση
+screen__app_settings__row_news__title	Νέα με email
+screen__app_settings__row_pass__active	Ενεργό
+screen__app_settings__row_pass__pending	Σε εκκρεμότητα
+screen__app_settings__row_pass__subtitle	Όλα τα στιλ χωρίς διαφημίσεις, τώρα και στο μέλλον
+screen__app_settings__row_pass__title	Κοντέρ Plus
+screen__app_settings__row_pass_account__subtitle	Ενεργό μέσω του λογαριασμού σου στο VHub
+screen__app_settings__row_pass_play__subtitle	Ενεργό. Πάτα για διαχείριση στο Google Play
+screen__app_settings__row_previews__subtitle	Τα στιλ κινούνται στη συλλογή και στις σελίδες τους
+screen__app_settings__row_previews__title	Ζωντανές προεπισκοπήσεις
+screen__app_settings__row_privacy_policy__subtitle	vgraphics.gr
+screen__app_settings__row_privacy_policy__title	Πολιτική απορρήτου
+screen__app_settings__row_rate__title	Βαθμολόγησε στο Google Play
+screen__app_settings__row_restore__subtitle	Φέρε πίσω τα στιλ που αγόρασες με αυτόν τον λογαριασμό Google
+screen__app_settings__row_restore__title	Επαναφορά αγορών
+screen__app_settings__row_second_clock__title	Δεύτερο ρολόι
+screen__app_settings__row_step_goal__summary	%1$s βήματα την ημέρα
+screen__app_settings__row_step_goal__title	Στόχος βημάτων
+screen__app_settings__row_style_in_use__title	Στιλ σε χρήση
+screen__app_settings__row_tile__button_add__label	Προσθήκη
+screen__app_settings__row_tile__subtitle	Άλλαξε τη λειτουργία από τις Γρήγορες ρυθμίσεις
+screen__app_settings__row_tile__subtitle_manual	Επεξεργάσου τις Γρήγορες ρυθμίσεις και σύρε μέσα το πλακίδιο «Μεγάλος δείκτης»
+screen__app_settings__row_tile__title	Πλακίδιο μεγάλου δείκτη
+screen__app_settings__row_vibration__subtitle	Ένα ελαφρύ τικ στα κουμπιά και στους διακόπτες
+screen__app_settings__row_vibration__title	Δόνηση
+screen__app_settings__row_website__title	vgraphics.gr
+screen__app_settings__save_failed__message	Η ρύθμιση δεν αποθηκεύτηκε. Δοκίμασε ξανά.
+screen__app_settings__second_clock_sheet__subtitle	Η πόλη της οποίας την ώρα δείχνει το στοιχείο «Δεύτερο ρολόι».
+screen__app_settings__second_clock_sheet__title	Δεύτερο ρολόι
+screen__app_settings__section_about__title	Σχετικά
+screen__app_settings__section_account__title	Λογαριασμός
+screen__app_settings__section_every_style__title	Όλα τα στιλ
+screen__app_settings__section_help__title	Βοήθεια
+screen__app_settings__section_permissions__title	Άδειες
+screen__app_settings__section_previews__title	Προεπισκοπήσεις και ανάδραση
+screen__app_settings__section_privacy__title	Απόρρητο
+screen__app_settings__section_purchases__title	Αγορές
+screen__app_settings__section_wallpaper__title	Ταπετσαρία
+screen__app_settings__section_widgets__title	Στοιχεία
+screen__app_settings__speed_unit__kmh	km/h
+screen__app_settings__speed_unit__mph	mph
+screen__app_settings__speed_unit__title	Μονάδα ταχύτητας
+screen__app_settings__step_goal_sheet__subtitle	Πόσα βήματα γεμίζουν το στοιχείο «Βήματα».
+screen__app_settings__step_goal_sheet__title	Στόχος βημάτων
+screen__app_settings__tile_add_failed__message	Το πλακίδιο δεν προστέθηκε. Επεξεργάσου τις Γρήγορες ρυθμίσεις και σύρε μέσα το «Μεγάλος δείκτης».
+screen__app_settings__tile_added__message	Το πλακίδιο προστέθηκε. Σύρε προς τα κάτω και πάτα «Μεγάλος δείκτης» για να αλλάξεις λειτουργία.
+screen__app_settings__tile_already_added__message	Το πλακίδιο «Μεγάλος δείκτης» είναι ήδη στις Γρήγορες ρυθμίσεις σου.
+screen__app_settings__title	Ρυθμίσεις
+screen__designs__amber_night__description	Νυχτερινή πολυτέλεια: ένα μεγάλο καντράν με πορτοκαλί φωτισμό πάνω από οθόνη πληροφοριών με κουκκίδες.
+screen__designs__aura__description	Πολυτελή σπορ καντράν: χρωμιωμένοι δακτύλιοι, ζεστή λάμψη πίσω από λευκούς αριθμούς και μεγάλα ψηφιακά νούμερα, πάνω σε γραφιτί δέρμα.
+screen__designs__carbon__description	Αγωνιστικό ταμπλό: φώτα αλλαγής ταχύτητας, η τιμή τεράστια σε αγωνιστική οθόνη με μπάρα στροφών, και δείκτες με μπάρες.
+screen__designs__circuit__description	Η εμφάνιση της πίστας: φωτεινά μπλε τόξα σε βαθύ μαύρο, τρεις μικροί στρογγυλοί δείκτες ανάμεσα στο τόξο στροφών και στο καντράν, και καθαρά, λεπτά ψηφία.
+screen__designs__classic__description	Το ταμπλό του 2016: πέντε δείκτες, ψηφιακό ρολόι και προειδοποιητικές λυχνίες.
+screen__designs__cockpit__description	Πίνακας αεροσκάφους: φωτιζόμενες ετικέτες, φωτεινοί κυλινδρικοί μετρητές και ρολόι σε πλάκα με πριτσίνια.
+screen__designs__future__description	Ο πίνακας οργάνων Future του 2016: χρωμιωμένο καντράν, το τραγούδι που παίζει, αναπάντητες κλήσεις και μηνύματα.
+screen__designs__glass__description	Προβολή στο παρμπρίζ: φωτεινά γαλάζια τόξα και λεπτά ψηφία που αιωρούνται μέσα σε αγκύλες, χωρίς στρογγυλούς δείκτες.
+screen__designs__graphite__description	Το Classic, λιτό: σατινέ στεφάνη γύρω από απλό καντράν γραφίτη σε σκούρο φόντο.
+screen__designs__harbour__description	Ναυτικά όργανα σε τρεις εμφανίσεις: ορείχαλκος και ναυτικό μπλε σε τικ, αγωνιστικό ατσάλι και μπλε του ωκεανού σε πανί, ή μπρούντζινα φινιστρίνια σε χαλκό με πράσινη πατίνα.
+screen__designs__horizon__description	Η οθόνη προβολής ενός μαχητικού αεροσκάφους: κυλιόμενες ταινίες, η τιμή σε πλαίσιο ανάμεσά τους και μια λωρίδα ώρας, πράσινο σε μαύρο.
+screen__designs__prism__description	Γωνιώδης, τεχνολογικός πίνακας οργάνων: δύο λοξά πάνελ από γυαλί με έδρες, μπλε για την ένδειξη και κόκκινο για τις στροφές, με γερτές κλίμακες από μπάρες και λεπτό περίγραμμα νέον.
+screen__designs__pulse__description	Νέον προβολή από δακτυλίους: κάθε μέτρηση είναι ένας δακτύλιος φωτός γύρω από τον μεγάλο αριθμό, ματζέντα σε μαύρο.
+screen__designs__rally__description	Αγώνες: ένα μεγάλο λευκό στροφόμετρο, η ανακλαστική οθόνη ενός υπολογιστή ράλι και μια σειρά από μικρά καντράν.
+screen__designs__steel__description	Το Classic, πιο εκλεπτυσμένο: σατινέ χρώμιο γύρω από βουρτσισμένο γραφίτη και ψηφιακή οθόνη σε παγωμένο λευκό.
+screen__designs__torque__description	Ταμπλό κλασικού αμερικάνικου σπορ αυτοκινήτου: καμπύλο τόξο στροφών με κόκκινη ζώνη, μεγάλο στρογγυλό καντράν σε σκούρο μεταλλικό γκρι, η ώρα σε πλαίσιο σαν ένδειξη ταχύτητας κιβωτίου, και τόξα καυσίμου και θερμοκρασίας.
+screen__designs__track_night__description	Αγωνιστική οθόνη: σκάλα στροφών, η τιμή τεράστια σε ηλεκτρίκ μπλε λωρίδα, και φώτα αλλαγής ταχύτητας που κλείνουν κι από τις δύο πλευρές.
+screen__designs__vector__description	Νέον προβολή σε εξάγωνα: ένα τόξο με έδρες που φαρδαίνει όσο ανεβαίνει και καθαρά, λεπτά ψηφία, μωβ σε μαύρο.
+screen__designs__vintage__description	Ταμπλό της δεκαετίας του 1960: κρεμ κοντέρ και ρολόι στο ίδιο ύφος, σε κονσόλα από ξύλο καρυδιάς με χρωμιωμένο πλαίσιο.
+screen__guide__battery__body	Πόσο γεμάτη είναι η μπαταρία σου. Η ένδειξη χαμηλής μπαταρίας ανάβει όταν η στάθμη φτάσει στο όριο, και ο πράσινος κεραυνός όσο φορτίζει το κινητό.
+screen__guide__battery__title	Μπαταρία
+screen__guide__big_gauge__content_description	Ο μεγάλος δείκτης δείχνει: %1$s
+screen__guide__big_gauge__readout	Τα ψηφία πάνω από τη βελόνα δείχνουν την ίδια τιμή. Η συχνότητα επεξεργαστή λειτουργεί μόνο σε κινητά που επιτρέπουν στις εφαρμογές να τη διαβάζουν.
+screen__guide__big_gauge__switch	Διάλεξε τη λειτουργία στις ρυθμίσεις του στιλ ή με το πλακίδιο «Μεγάλος δείκτης». Σε πολλά κινητά την αλλάζεις και πατώντας τον δείκτη, αλλά όχι στην αρχική οθόνη της Samsung.
+screen__guide__chapter_big_gauge__title	Μεγάλος δείκτης
+screen__guide__chapter_clock__title	Ημερομηνία και ώρα
+screen__guide__chapter_hud__title	Λειτουργία HUD
+screen__guide__chapter_lamps__title	Προειδοποιητικές λυχνίες
+screen__guide__chapter_music__title	Μουσική, κλήσεις και μηνύματα
+screen__guide__chapter_small_gauges__title	Μικροί δείκτες
+screen__guide__chapter_tile__title	Πλακίδιο μεγάλου δείκτη
+screen__guide__chapter_widgets__title	Στοιχεία
+screen__guide__chip_big_gauge__label	Μεγάλος δείκτης
+screen__guide__chip_clock__label	Ρολόι
+screen__guide__chip_hud__label	Λειτουργία HUD
+screen__guide__chip_lamps__label	Λυχνίες
+screen__guide__chip_music__label	Μουσική
+screen__guide__chip_small_gauges__label	Μικροί δείκτες
+screen__guide__chip_tile__label	Πλακίδιο
+screen__guide__chip_widgets__label	Στοιχεία
+screen__guide__clock__body	Η οθόνη LCD κάτω από τον μεγάλο δείκτη δείχνει την ημερομηνία και την ώρα. Διάλεξε τη μορφή της ώρας, τη σειρά της ημερομηνίας, τα διαχωριστικά και τα δευτερόλεπτα στις ρυθμίσεις του στιλ.
+screen__guide__hud__body	Βάλε το κινητό ξαπλωμένο στο ταμπλό μπροστά από το τιμόνι, με την οθόνη προς τα πάνω, και ρύθμισέ το με το αυτοκίνητο σταματημένο. Το τζάμι το δείχνει σωστά γυρισμένο. Φαίνεται καλύτερα το σούρουπο, τη νύχτα και με συννεφιά· πάτα μία φορά για Έξοδο και Αναστροφή.
+screen__guide__hud__row_subtitle	Πάτα Λειτουργία HUD στην αρχική ή στα Στιλ, το πλακίδιο Λειτουργία HUD ή κράτα πατημένο το εικονίδιο
+screen__guide__hud__row_title	Η ταχύτητά σου στο παρμπρίζ
+screen__guide__lamp_bluetooth__subtitle	Όσο το Bluetooth είναι ανοιχτό
+screen__guide__lamp_bluetooth__title	Bluetooth
+screen__guide__lamp_charging__subtitle	Ο κεραυνός στον δείκτη μπαταρίας, όσο φορτίζει το κινητό
+screen__guide__lamp_charging__title	Φόρτιση
+screen__guide__lamp_high_temperature__subtitle	Μπαταρία πάνω από %1$d °C, αν δεν το αλλάξεις
+screen__guide__lamp_high_temperature__title	Υψηλή θερμοκρασία
+screen__guide__lamp_low_battery__subtitle	Στο %1$d %% ή λιγότερο, αν δεν το αλλάξεις
+screen__guide__lamp_low_battery__title	Χαμηλή μπαταρία
+screen__guide__lamp_low_temperature__subtitle	Μπαταρία κάτω από %1$d °C, αν δεν το αλλάξεις
+screen__guide__lamp_low_temperature__title	Χαμηλή θερμοκρασία
+screen__guide__lamps__body	Κάθε λυχνία ανάβει μόνο όταν έχει κάτι να σου πει. Κλείσε όποια θέλεις ή άλλαξε πότε ανάβει, στις ρυθμίσεις του στιλ.
+screen__guide__mode_cpu_clock__body	Πόσο γρήγορα δουλεύει ο επεξεργαστής, ως ποσοστό της μέγιστης συχνότητάς του
+screen__guide__mode_gps_speed__body	Η ταχύτητά σου, με ένα κόκκινο σημάδι στη μέγιστη ταχύτητα της διαδρομής
+screen__guide__mode_power__body	Τα βατ που μπαίνουν στην μπαταρία ή, με ένα μείον μπροστά, όσα βγαίνουν από αυτήν
+screen__guide__music__access	Γι' αυτό, το Android πρέπει να δώσει στην εφαρμογή πρόσβαση στις ειδοποιήσεις. Άνοιξέ την στις Ρυθμίσεις εφαρμογής, στις Άδειες. Τίποτα δεν φεύγει από το κινητό σου.
+screen__guide__music__body	Το στιλ Future δείχνει το τραγούδι που παίζει, και πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει.
+screen__guide__music_counts__subtitle	Μόνο πόσα είναι, ποτέ ποιος ή τι
+screen__guide__music_counts__title	Αναπάντητες κλήσεις και μηνύματα
+screen__guide__music_song__subtitle	Με το εξώφυλλό του και την ένταση
+screen__guide__music_song__title	Το τραγούδι που παίζει
+screen__guide__ram__body	Πάνω δεξιά: πόση από τη μνήμη του κινητού είναι σε χρήση.
+screen__guide__ram__title	RAM
+screen__guide__signal__body	Πάνω αριστερά: το σήμα κινητής σου, από 0 έως 4 γραμμές.
+screen__guide__signal__title	Σήμα
+screen__guide__tile__body	Πρόσθεσε το πλακίδιο από τις Ρυθμίσεις εφαρμογής ή επεξεργάσου τις Γρήγορες ρυθμίσεις και σύρε εκεί το «Μεγάλος δείκτης».
+screen__guide__tile__row_subtitle	Ισχύς, συχνότητα επεξεργαστή και ταχύτητα GPS εναλλάσσονται
+screen__guide__tile__row_title	Σύρε προς τα κάτω και πάτα «Μεγάλος δείκτης»
+screen__guide__top_bar__title	Οδηγός
+screen__guide__widgets__body	Πρόσθεσε στοιχεία σε κάθε στιλ όταν φτιάχνεις τη διάταξή του: τη διαδρομή σου, τη μέγιστη ταχύτητα και το 0–100, την πυξίδα και το υψόμετρο, τον ήλιο, το φεγγάρι και τον καιρό, τα βήματά σου, το επόμενο ξυπνητήρι και άλλα. Το καθένα παίρνει μετρήσεις μόνο όσο βρίσκεται στην ταπετσαρία σου.
+screen__guide__widgets__credit	Δεδομένα καιρού από το MET Norway (api.met.no), με την άδεια Norwegian Licence for Open Government Data και την CC BY 4.0.
+screen__guide__widgets__settings	Διάλεξε την πόλη του δεύτερου ρολογιού, τον στόχο βημάτων σου και το μηδέν της κλίσης στις Ρυθμίσεις εφαρμογής, στα Στοιχεία. Πάτα τα κουμπιά μουσικής στην αρχική οθόνη σου για αναπαραγωγή, παύση ή επόμενο τραγούδι, και στην αρχική οθόνη της Samsung. Μην έχεις εικονίδια εφαρμογών πάνω τους, για να μην ανοίγει μια εφαρμογή όταν τα πατάς.
+screen__guide__widgets_day__subtitle	Διαβάζονται στο κινητό σου και δεν στέλνονται πουθενά
+screen__guide__widgets_day__title	Βήματα, ξυπνητήρι και ημερολόγιο
+screen__guide__widgets_drive__subtitle	Από το GPS, όπως η ταχύτητα GPS. Τίποτα δεν φεύγει από το κινητό σου.
+screen__guide__widgets_drive__title	Διαδρομή, ταχύτητα και κατεύθυνση
+screen__guide__widgets_weather__subtitle	Η κατά προσέγγιση τοποθεσία σου, στρογγυλεμένη στα 10 km περίπου, πηγαίνει στο MET Norway για την πρόγνωση
+screen__guide__widgets_weather__title	Καιρός
+screen__guide__wifi__body	Πόσο δυνατό είναι το σήμα Wi-Fi σου. Η γραμμή από κάτω δείχνει αν έχεις σύνδεση, μαζί με την ταχύτητά της, αν δεν υπάρχει δίκτυο, αν είσαι σε δεδομένα κινητής ή αν το Wi-Fi είναι κλειστό.
+screen__guide__wifi__lamp	Η λυχνία του ανάβει πράσινη με Wi-Fi και κίτρινη με δεδομένα κινητής.
+screen__guide__wifi__title	Wi-Fi
+screen__help__button_send__label	Αποστολή
+screen__help__device__app	Speedometer %1$s
+screen__help__device__line	Στέλνεται μαζί: %1$s
+screen__help__input_email__helper	Εκεί στέλνουμε τις απαντήσεις. Χωρίς αυτό, παρακολουθείς το αίτημα μόνο σε αυτό το κινητό.
+screen__help__input_email__label	Το email σου (προαιρετικό)
+screen__help__input_text__counter	%1$d / %2$d
+screen__help__input_text__label_idea	Τι θα ήθελες;
+screen__help__input_text__label_problem	Τι συνέβη;
+screen__help__kind__label	Τι αφορά;
+screen__help__kind_bug__help	Κάτι χάλασε, κόλλησε ή φαίνεται λάθος.
+screen__help__kind_bug__title	Ένα σφάλμα
+screen__help__kind_idea__help	Κάτι που θα ήθελες να προσθέσουμε ή να αλλάξουμε.
+screen__help__kind_idea__title	Μια ιδέα
+screen__help__kind_other__help	Οτιδήποτε άλλο θέλεις να μας πεις.
+screen__help__kind_other__title	Κάτι άλλο
+screen__help__kind_problem__help	Δεν λειτουργεί όπως θα έπρεπε.
+screen__help__kind_problem__title	Κάτι δεν πάει καλά
+screen__help__kind_purchase__help	Ένα στιλ, το Speedometer Plus ή μια επαναφορά που δεν πήγε καλά.
+screen__help__kind_purchase__title	Μια αγορά
+screen__help__no_browser__message	Καμία εφαρμογή σε αυτό το κινητό δεν μπορεί να ανοίξει το στιγμιότυπο.
+screen__help__problem_blocked	Δεν μπορούμε να δεχτούμε αιτήματα από εδώ. Γράψε στο %1$s.
+screen__help__problem_invalid	Πες μας λίγα περισσότερα: τουλάχιστον %1$d χαρακτήρες, και ένα email που λειτουργεί (ή κανένα).
+screen__help__problem_limit	Αυτά είναι τα περισσότερα αιτήματα προς το παρόν. Δοκίμασε ξανά σε μία ώρα ή γράψε στο %1$s.
+screen__help__problem_no_kind	Διάλεξε τι αφορά.
+screen__help__problem_offline	Δεν στάλθηκε. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.
+screen__help__problem_too_short	Πες μας λίγα περισσότερα: τουλάχιστον %1$d χαρακτήρες.
+screen__help__reason_done	Έγινε
+screen__help__reason_duplicate	Διπλότυπο
+screen__help__reason_fixed	Διορθώθηκε
+screen__help__reason_no_reply	Χωρίς απάντηση
+screen__help__reason_planned	Προγραμματίστηκε
+screen__help__reason_wont_do	Δεν θα γίνει
+screen__help__row_email_answers__subtitle	Στο %1$s. Μπορείς πάντα να το παρακολουθείς και εδώ.
+screen__help__row_email_answers__subtitle_no_address	Στη διεύθυνση με την οποία συνδέθηκες. Μπορείς πάντα να το παρακολουθείς και εδώ.
+screen__help__row_email_answers__title	Στείλε μου τις απαντήσεις με email
+screen__help__section_new__title	Νέο αίτημα
+screen__help__section_tickets__title	Τα αιτήματά σου
+screen__help__sent__body	Διαβάζουμε κάθε αίτημα. Η απάντησή μας εμφανίζεται εδώ, και στα εισερχόμενά σου αν το ζήτησες.
+screen__help__sent__title	Ευχαριστούμε: το αίτημα %1$s άνοιξε
+screen__help__shot__content_description	Στιγμιότυπο %1$d
+screen__help__shot_failed__message	Αυτή η εικόνα δεν διαβάστηκε. Δοκίμασε άλλη.
+screen__help__shots__button_add__label	Προσθήκη στιγμιότυπου
+screen__help__shots__label	Στιγμιότυπα οθόνης (έως %1$d, προαιρετικά)
+screen__help__shots__remove__content_description	Αφαίρεση στιγμιότυπου %1$d
+screen__help__status_answered	Απαντήθηκε
+screen__help__status_closed	Κλειστό
+screen__help__status_in_version	%1$s στην έκδοση %2$s
+screen__help__status_new_answer	Νέα απάντηση
+screen__help__status_open	Ανοιχτό
+screen__help__ticket__meta	%1$s · %2$s · %3$s
+screen__help__tickets__button_retry__label	Ξανά
+screen__help__tickets_empty	Κανένα αίτημα ακόμα.
+screen__help__tickets_empty_signed_out	Κανένα αίτημα σε αυτό το κινητό ακόμα. Με σύνδεση, τα αιτήματά σου σε ακολουθούν σε κάθε συσκευή.
+screen__help__tickets_failed	Τα αιτήματά σου δεν φορτώθηκαν.
+screen__help__tickets_loading	Φόρτωση των αιτημάτων σου…
+screen__help__title	Βοήθεια
+screen__help_ticket__button_close__label	Κλείσιμο αιτήματος
+screen__help_ticket__button_send__label	Αποστολή
+screen__help_ticket__closed_for_good	Αυτό το αίτημα έχει κλείσει. Κάτι καινούργιο; Άνοιξε νέο αίτημα.
+screen__help_ticket__closed_note	Έκλεισε. Μια απάντηση μέσα σε 30 ημέρες το ανοίγει ξανά.
+screen__help_ticket__face__vgraphics	V
+screen__help_ticket__failed	Αυτό το αίτημα δεν φορτώθηκε.
+screen__help_ticket__from_vgraphics	VGraphics · %1$s
+screen__help_ticket__from_you	Εσύ · %1$s
+screen__help_ticket__input_reply__label	Η απάντησή σου
+screen__help_ticket__input_reply__label_closed	Κάτι ακόμα; Μια απάντηση το ανοίγει ξανά.
+screen__help_ticket__loading	Φόρτωση του αιτήματος…
+screen__help_ticket__missing__body	Ίσως ανήκει σε άλλον λογαριασμό ή σε άλλο κινητό.
+screen__help_ticket__missing__title	Δεν βρίσκουμε αυτό το αίτημα
+screen__help_ticket__problem_closed	Αυτό το αίτημα έχει κλείσει. Άνοιξε νέο.
+screen__help_ticket__problem_invalid	Δεν στάλθηκε.
+screen__help_ticket__problem_limit	Αυτές είναι οι περισσότερες απαντήσεις προς το παρόν. Δοκίμασε ξανά σε μία ώρα.
+screen__help_ticket__reply_sent	Στάλθηκε. Θα απαντήσουμε εδώ.
+screen__help_ticket__section_reopen__title	Άνοιξέ το ξανά
+screen__help_ticket__section_reply__title	Απάντηση
+screen__help_ticket__shot__button_close__content_description	Κλείσιμο του στιγμιοτύπου
+screen__help_ticket__shot__label	Στιγμιότυπο %1$d
+screen__help_ticket__status_closed	Έκλεισε.
+screen__help_ticket__status_closed_by_player	Έκλεισες αυτό το αίτημα.
+screen__help_ticket__status_closed_done	Έκλεισε: έγινε.
+screen__help_ticket__status_closed_done_in	Έκλεισε: έγινε στην έκδοση %1$s.
+screen__help_ticket__status_closed_duplicate	Έκλεισε: υπάρχει ήδη σε άλλο αίτημα.
+screen__help_ticket__status_closed_fixed	Έκλεισε: διορθώθηκε.
+screen__help_ticket__status_closed_fixed_in	Έκλεισε: διορθώθηκε στην έκδοση %1$s.
+screen__help_ticket__status_closed_no_reply	Έκλεισε χωρίς απάντηση.
+screen__help_ticket__status_closed_planned	Έκλεισε: είναι στα σχέδιά μας.
+screen__help_ticket__status_closed_wont_do	Έκλεισε: δεν θα το κάνουμε.
+screen__help_ticket__status_opened_again	Άνοιξε ξανά.
+screen__help_ticket__status_other	Το αίτημα ενημερώθηκε.
+screen__help_ticket__title	Αίτημα %1$s
+screen__home__account_button__content_description	Λογαριασμός VHub
+screen__home__button_customize__label	Προσαρμογή
+screen__home__button_designs__subtitle	Classic, Future και άλλα
+screen__home__button_designs__title	ΣΤΙΛ
+screen__home__button_guide__content_description	Οδηγός
+screen__home__button_info__subtitle	Τι δείχνει κάθε δείκτης
+screen__home__button_info__title	ΠΛΗΡΟΦΟΡΙΕΣ
+screen__home__button_set_wallpaper__label	Ορισμός ως ταπετσαρία
+screen__home__button_set_wallpaper__subtitle	Κάν' το ζωντανή ταπετσαρία σου
+screen__home__button_set_wallpaper__title	ΟΡΙΣΜΟΣ ΤΑΠΕΤΣΑΡΙΑΣ
+screen__home__button_settings__content_description	Ρυθμίσεις
+screen__home__button_settings__subtitle	Δείκτες, ημερομηνία, ώρα και λυχνίες
+screen__home__button_settings__title	ΡΥΘΜΙΣΕΙΣ
+screen__home__button_styles__label	Στιλ
+screen__home__button_wallpaper_on__label	Στην αρχική οθόνη σου
+screen__home__card_hud__close__content_description	Κλείσιμο
+screen__home__card_hud__text	Βάλε το κινητό στο ταμπλό και δες την ταχύτητά σου στο παρμπρίζ.
+screen__home__card_hud__title	Νέο: λειτουργία HUD
+screen__home__footer	© VGraphics
+screen__home__logo__content_description	Κοντέρ: ζωντανή ταπετσαρία από τη VGraphics
+screen__home__now_showing__click_label	Άνοιξε αυτό το στιλ
+screen__home__now_showing__live	· ζωντανά
+screen__home__picker_missing__message	Αυτό το κινητό δεν έχει επιλογέα ζωντανής ταπετσαρίας. Όρισέ τη από τις ρυθμίσεις ταπετσαρίας της αρχικής οθόνης σου.
+screen__hud__badge_free__label	Δωρεάν
+screen__hud__badge_locked__label	Ξεκλείδωμα
+screen__hud__button_exit__label	Έξοδος
+screen__hud__button_flip__label	Αναστροφή
+screen__hud__color__amber	Κεχριμπαρί
+screen__hud__color__cyan	Κυανό
+screen__hud__color__ice_white	Παγωμένο λευκό
+screen__hud__color__lime	Λάιμ
+screen__hud__color__style	Του στιλ
+screen__hud__color__violet	Βιολετί
+screen__hud__flip__holder	Όρθιο σε βάση
+screen__hud__flip__holder__hint	Όρθιο σε βάση, διαβάζεται κανονικά χωρίς αναστροφή.
+screen__hud__flip__top_to_driver	Πάνω πλευρά προς εσένα
+screen__hud__flip__top_to_driver__hint	Ξαπλωμένο, με την οθόνη προς τα πάνω και την πάνω πλευρά προς εσένα.
+screen__hud__flip__top_to_glass	Πάνω πλευρά προς το τζάμι
+screen__hud__flip__top_to_glass__hint	Ξαπλωμένο, με την οθόνη προς τα πάνω και την πάνω πλευρά προς το παρμπρίζ.
+screen__hud__gps__button_allow__label	Να επιτρέπεται
+screen__hud__gps__button_close__label	Όχι τώρα
+screen__hud__gps__message	Η ταχύτητά σου έρχεται από το GPS όσο είναι ανοιχτή η λειτουργία HUD. Δεν φεύγει ποτέ από το κινητό.
+screen__hud__gps__title	Η λειτουργία HUD χρειάζεται την τοποθεσία σου
+screen__hud__layout__centre_bar	Κεντρική μπάρα
+screen__hud__layout__fighter	Μαχητικό
+screen__hud__layout__gauge_arc	Τόξο
+screen__hud__layout__number	Αριθμός
+screen__hud__name	Λειτουργία HUD
+screen__hud__safety__button_ok__label	Εντάξει
+screen__hud__safety__hands	Μην αγγίζεις το κινητό ενώ οδηγείς.
+screen__hud__safety__law	Έλεγξε ότι η χώρα σου επιτρέπει κινητό πάνω στο ταμπλό.
+screen__hud__safety__park	Ρύθμισε τη λειτουργία HUD με το αυτοκίνητο σταματημένο.
+screen__hud__safety__place	Βάλε το κινητό σε σημείο που δεν γλιστράει, μακριά από τους αερόσακους.
+screen__hud__safety__title	Πριν ξεκινήσεις
+screen__hud_settings__button_open__label	Άνοιγμα λειτουργίας HUD
+screen__hud_settings__car__label	Άνοιγμα μόνο του στο αυτοκίνητο
+screen__hud_settings__car__linked	Συνδεδεμένο: %1$s
+screen__hud_settings__car__summary	Διάλεξε το αυτοκίνητό σου μία φορά. Η λειτουργία HUD ανοίγει όταν το κινητό συνδεθεί στο Bluetooth του.
+screen__hud_settings__car__title	Το αυτοκίνητό σου
+screen__hud_settings__car__unknown_name	το αυτοκίνητό σου
+screen__hud_settings__clock__label	Ρολόι
+screen__hud_settings__color__title	Χρώμα
+screen__hud_settings__extras__title	Στο τζάμι
+screen__hud_settings__film__text	Το παρμπρίζ έχει δύο επιφάνειες, γι' αυτό η εικόνα φαίνεται διπλή. Μια φτηνή μεμβράνη HUD στο τζάμι το διορθώνει.
+screen__hud_settings__film__title	Το βλέπεις διπλό;
+screen__hud_settings__flip__title	Τοποθέτηση κινητού
+screen__hud_settings__heading__label	Πορεία
+screen__hud_settings__look__title	Εμφάνιση
+screen__hud_settings__more__title	Περισσότερα
+screen__hud_settings__safety__label	Διάβασε την κάρτα ασφάλειας
+screen__hud_settings__setup__label	Ρύθμιση από την αρχή
+screen__hud_settings__trip__label	Διαδρομή
+screen__hud_settings__warning__label	Προειδοποίηση ταχύτητας
+screen__hud_settings__warning__summary	Πάνω από το όριό σου η ταχύτητα γίνεται κόκκινη και το κινητό κάνει ένα μπιπ. Η εφαρμογή δεν ξέρει το όριο του δρόμου.
+screen__hud_settings__warning_limit__higher__content_description	Ανέβασε το όριο
+screen__hud_settings__warning_limit__label	Το όριό σου: %1$d %2$s
+screen__hud_settings__warning_limit__lower__content_description	Χαμήλωσε το όριο
+screen__hud_setup__button_back__label	Πίσω
+screen__hud_setup__button_next__label	Επόμενο
+screen__hud_setup__button_skip__label	Παράλειψη
+screen__hud_setup__button_start__label	Έναρξη λειτουργίας HUD
+screen__hud_setup__lie__hint	Η λειτουργία HUD δουλεύει καλύτερα το σούρουπο, τη νύχτα και με συννεφιά. Στον δυνατό ήλιο η αντανάκλαση είναι αμυδρή.
+screen__hud_setup__lie__title	Πώς είναι τοποθετημένο το κινητό;
+screen__hud_setup__look__hint	Έτσι φαίνεται στο παρμπρίζ σου τη νύχτα.
+screen__hud_setup__look__title	Διάλεξε εμφάνιση
+screen__hud_setup__step	Βήμα %1$d από %2$d
+screen__info__led_bluetooth__body	Bluetooth: ανάβει όσο το Bluetooth είναι ανοιχτό.
+screen__info__led_high_temperature__body	Υψηλή θερμοκρασία: ανάβει όταν η μπαταρία είναι πιο ζεστή από την υψηλή θερμοκρασία, 45 °C αν δεν την αλλάξεις.
+screen__info__led_low_battery__body	Χαμηλή μπαταρία: ανάβει όταν η μπαταρία φτάσει ή πέσει κάτω από το όριο χαμηλής μπαταρίας, 15 % αν δεν το αλλάξεις.
+screen__info__led_low_temperature__body	Χαμηλή θερμοκρασία: ανάβει όταν η μπαταρία είναι πιο κρύα από τη χαμηλή θερμοκρασία, 0 °C αν δεν την αλλάξεις.
+screen__info__picture_cpu_clock__caption	Συχνότητα επεξεργαστή
+screen__info__picture_gps_speed__caption	Ταχύτητα GPS
+screen__info__picture_mobile_data__caption	Σε δεδομένα κινητής
+screen__info__picture_power__caption	Ισχύς
+screen__info__picture_wifi__caption	Σε Wi-Fi
+screen__info__section_battery__body	Ο δείκτης μπαταρίας δείχνει πόσο γεμάτη είναι η μπαταρία σου.
+screen__info__section_battery__charging	Ο πράσινος κεραυνός ανάβει όσο φορτίζει το κινητό.
+screen__info__section_battery__low	Η λυχνία LOW ανάβει στο όριο χαμηλής μπαταρίας.
+screen__info__section_battery__temperature	Το μικρό καντράν δείχνει τη θερμοκρασία της μπαταρίας, από τη χαμηλή θερμοκρασία (C) ως την υψηλή (H).
+screen__info__section_battery__title	ΜΠΑΤΑΡΙΑ
+screen__info__section_big_gauge__body	Ο μεγάλος δείκτης δείχνει ένα από τρία πράγματα. Διάλεξέ το στις Ρυθμίσεις ή με το πλακίδιο «Μεγάλος δείκτης» στις Γρήγορες ρυθμίσεις. Σε πολλά κινητά τον αλλάζεις και πατώντας τον στην αρχική οθόνη (η αρχική οθόνη της Samsung δεν περνάει τα πατήματα στις ταπετσαρίες).
+screen__info__section_big_gauge__modes	• Ισχύς: τα βατ που μπαίνουν στην μπαταρία (προς τα δεξιά) ή βγαίνουν από αυτήν (προς τα αριστερά, με μείον).\n• Συχνότητα επεξεργαστή: πόσο γρήγορα δουλεύει ο επεξεργαστής, ως ποσοστό της μέγιστης ταχύτητάς του. Μόνο σε κινητά που επιτρέπουν να τη διαβάσεις.\n• Ταχύτητα GPS: η ταχύτητά σου σε km/h ή mph. Ένα κόκκινο σημάδι δείχνει τη μέγιστη ταχύτητα της τρέχουσας διαδρομής.\n\nΤα ψηφία πάνω από τη βελόνα δείχνουν την ίδια τιμή.
+screen__info__section_big_gauge__title	ΜΕΓΑΛΟΣ ΔΕΙΚΤΗΣ
+screen__info__section_date_time__body	Η ψηφιακή οθόνη κάτω από τον μεγάλο δείκτη δείχνει την ημερομηνία και την ώρα. Η μορφή ώρας, η σειρά ημερομηνίας, τα διαχωριστικά και τα δευτερόλεπτα ρυθμίζονται όλα στις Ρυθμίσεις.
+screen__info__section_date_time__title	ΗΜΕΡΟΜΗΝΙΑ ΚΑΙ ΩΡΑ
+screen__info__section_leds__body	Ο μεγάλος δείκτης έχει τέσσερις προειδοποιητικές λυχνίες. Μπορείς να κλείσεις την καθεμία στις Ρυθμίσεις.
+screen__info__section_leds__title	ΠΡΟΕΙΔΟΠΟΙΗΤΙΚΕΣ ΛΥΧΝΙΕΣ
+screen__info__section_ram__body	Ο μικρός δείκτης πάνω δεξιά δείχνει πόση από τη μνήμη του κινητού είναι σε χρήση.
+screen__info__section_ram__title	RAM
+screen__info__section_signal__body	Ο μικρός δείκτης πάνω αριστερά δείχνει το σήμα κινητής, από 0 έως 4 γραμμές.
+screen__info__section_signal__title	ΣΗΜΑ
+screen__info__section_wifi__body	Ο δείκτης Wi-Fi δείχνει πόσο δυνατό είναι το σήμα Wi-Fi σου.
+screen__info__section_wifi__led	Η λυχνία ON είναι πράσινη σε Wi-Fi και κίτρινη σε δεδομένα κινητής.
+screen__info__section_wifi__status	Από κάτω, μια γραμμή κατάστασης γράφει ΣΥΝΔΕΘΗΚΕ, ΧΩΡΙΣ ΔΙΚΤΥΟ, ΔΕΔΟΜΕΝΑ ή ΑΝΕΝΕΡΓΟ. Όταν είναι συνδεδεμένο, δείχνει και την ταχύτητα σύνδεσης σε Mbps.
+screen__info__section_wifi__title	WI-FI
+screen__info__title	Πληροφορίες
+screen__intro__key_art__content_description	Κοντέρ: ζωντανή ταπετσαρία. Το ταμπλό σε ένα κινητό μέσα σε αυτοκίνητο, τη νύχτα
+screen__intro__logo__content_description	VGraphics
+screen__intro__skip__label	Παράλειψη
+screen__layout_builder__add__body	Κάθε στιλ το σχεδιάζει με τον δικό του τρόπο.
+screen__layout_builder__add__body_style	Το καθένα όπως το σχεδιάζει το στιλ %1$s, σε μια δοκιμαστική διαδρομή. Κάθε στιλ τα σχεδιάζει με τον δικό του τρόπο.
+screen__layout_builder__add__card__action	Προσθήκη
+screen__layout_builder__add__needs_access	Χρειάζεται πρόσβαση στις ειδοποιήσεις.
+screen__layout_builder__add__title	Πρόσθεσε ένα στοιχείο
+screen__layout_builder__button_add__label	Προσθήκη στοιχείου
+screen__layout_builder__button_back__content_description	Μεταφορά πίσω
+screen__layout_builder__button_delete__content_description	Διαγραφή διάταξης
+screen__layout_builder__button_front__content_description	Μεταφορά μπροστά
+screen__layout_builder__button_remove__content_description	Αφαίρεση στοιχείου
+screen__layout_builder__button_zoom_fit__content_description	Εμφάνιση όλης της διάταξης
+screen__layout_builder__button_zoom_in__content_description	Μεγέθυνση
+screen__layout_builder__button_zoom_out__content_description	Σμίκρυνση
+screen__layout_builder__default_name	Η διάταξή μου
+screen__layout_builder__delete__body	Τα στιλ που τη χρησιμοποιούν επιστρέφουν στη δική τους διάταξη.
+screen__layout_builder__delete__button_delete__label	Διαγραφή
+screen__layout_builder__delete__button_keep__label	Κράτησέ τη
+screen__layout_builder__delete__title	Να διαγραφεί αυτή η διάταξη;
+screen__layout_builder__delete_failed__message	Η διάταξη δεν διαγράφηκε. Δοκίμασε ξανά.
+screen__layout_builder__deleted__message	Η διάταξη διαγράφηκε.
+screen__layout_builder__full__message	Αυτή η διάταξη έχει ήδη όσα στοιχεία χωράει.
+screen__layout_builder__hint	Πάτα ένα στοιχείο για να το επιλέξεις. Σύρε το για να το μετακινήσεις ή σύρε την κόκκινη λαβή του για να αλλάξεις το μέγεθός του. Τσίμπησε για ζουμ.
+screen__layout_builder__layers__back	Πίσω
+screen__layout_builder__layers__front	Μπροστά
+screen__layout_builder__layers__move_back__action	Μια θέση πίσω
+screen__layout_builder__layers__move_forward__action	Μια θέση μπροστά
+screen__layout_builder__lock__content_description	Κλείδωμα στη θέση του
+screen__layout_builder__made_for_other	Φτιαγμένη για %1$s, ίσως φαίνεται μικρή εδώ.
+screen__layout_builder__not_found__message	Αυτή η διάταξη δεν υπάρχει σε αυτό το κινητό.
+screen__layout_builder__preview_in__label	Προεπισκόπηση σε
+screen__layout_builder__preview_in__locked__content_description	%1$s, δεν είναι ακόμη δικό σου
+screen__layout_builder__save__name__label	Όνομα
+screen__layout_builder__save__publish__label	Αποθήκευση και δημοσίευση στην αγορά
+screen__layout_builder__save__shapes__label	Φτιαγμένη για
+screen__layout_builder__save__title	Αποθήκευση διάταξης
+screen__layout_builder__save__use_now	Χρησιμοποίησέ τη τώρα στο %1$s
+screen__layout_builder__saved__message	Αποθηκεύτηκε στις διατάξεις σου.
+screen__layout_builder__subtitle	Στο στιλ %1$s
+screen__layout_builder__subtitle_not_owned	Στο στιλ %1$s · δεν είναι ακόμη δικό σου
+screen__layout_builder__title_new	Νέα διάταξη
+screen__layout_editor__bigger__label	Μεγαλύτερο
+screen__layout_editor__button_redo__content_description	Επανάληψη
+screen__layout_editor__button_save__label	Αποθήκευση διάταξης
+screen__layout_editor__button_undo__content_description	Αναίρεση
+screen__layout_editor__discard__body	Η νέα σου διάταξη δεν έχει αποθηκευτεί ακόμη.
+screen__layout_editor__discard__button_discard__label	Απόρριψη
+screen__layout_editor__discard__button_keep__label	Συνέχισε την επεξεργασία
+screen__layout_editor__discard__title	Απόρριψη αλλαγών;
+screen__layout_editor__element__content_description	%1$s, μετακίνηση
+screen__layout_editor__element__locked__content_description	%1$s, κλειδωμένο στοιχείο
+screen__layout_editor__element__select__label	Επιλογή
+screen__layout_editor__move_down__label	Μετακίνηση κάτω
+screen__layout_editor__move_left__label	Μετακίνηση αριστερά
+screen__layout_editor__move_right__label	Μετακίνηση δεξιά
+screen__layout_editor__move_up__label	Μετακίνηση πάνω
+screen__layout_editor__save_failed__message	Η διάταξη δεν αποθηκεύτηκε. Δοκίμασε ξανά.
+screen__layout_editor__saved__message	Η διάταξη αποθηκεύτηκε. Το στιλ %1$s τη χρησιμοποιεί τώρα.
+screen__layout_editor__smaller__label	Μικρότερο
+screen__market__button_publish__label	Δημοσίευση διάταξης
+screen__market__button_retry__label	Δοκίμασε ξανά
+screen__market__button_sign_in__label	Σύνδεση
+screen__market__card_featured	Διάταξη της εβδομάδας
+screen__market__card_made_with	Φτιαγμένη με το %1$s
+screen__market__card_meta	%1$s · %2$s
+screen__market__card_no_ratings	Χωρίς βαθμολογίες ακόμα
+screen__market__card_rating	%1$s ★ · %2$s
+screen__market__card_ratings#one	%d βαθμολογία
+screen__market__card_ratings#other	%d βαθμολογίες
+screen__market__card_unreadable	Δεν μπορεί να εμφανιστεί
+screen__market__card_uses#one	%d χρήση
+screen__market__card_uses#other	%d χρήσεις
+screen__market__empty__body	Δοκίμασε άλλο σχήμα ή δημοσίευσε εσύ την πρώτη.
+screen__market__empty__title	Δεν υπάρχουν ακόμα διατάξεις εδώ
+screen__market__empty_mine__title	Δεν έχεις δημοσιεύσει ακόμα διάταξη
+screen__market__empty_search__title	Τίποτα με αυτό το όνομα ή τον κωδικό
+screen__market__filter_now_playing__label	Τώρα παίζει
+screen__market__message_creator_hidden	Δεν θα βλέπεις πια τις διατάξεις αυτού του δημιουργού. Τις επαναφέρεις από Ρυθμίσεις › Απόρρητο.
+screen__market__message_creator_reported	Ευχαριστούμε. Το VHub θα το εξετάσει.
+screen__market__message_needs_style	Απόκτησε πρώτα το %1$s για να το χρησιμοποιήσεις με αυτή τη διάταξη.
+screen__market__message_offline	Δεν είναι δυνατή η σύνδεση με την αγορά. Δοκίμασε ξανά αργότερα.
+screen__market__message_rate_failed	Η βαθμολογία δεν αποθηκεύτηκε. Δοκίμασε ξανά αργότερα.
+screen__market__message_rate_use_first	Χρησιμοποίησέ τη μία φορά πριν τη βαθμολογήσεις.
+screen__market__message_rated	Ευχαριστούμε για τη βαθμολογία.
+screen__market__message_report_failed	Η αναφορά δεν στάλθηκε. Δοκίμασε ξανά αργότερα.
+screen__market__message_reported	Ευχαριστούμε. Δεν θα ξαναδείς αυτή τη διάταξη.
+screen__market__message_sign_in	Συνδέσου πρώτα με το VHub.
+screen__market__message_unpublish_failed	Η απόσυρση δεν έγινε. Δοκίμασε ξανά αργότερα.
+screen__market__message_unpublished	Η διάταξή σου αποσύρθηκε από την αγορά.
+screen__market__message_unreadable	Αυτή η διάταξη δεν διαβάζεται. Δοκίμασε να ενημερώσεις την εφαρμογή.
+screen__market__message_used	Η διάταξη είναι στην ταπετσαρία σου. Τώρα μπορείς να τη βαθμολογήσεις.
+screen__market__message_used_not_counted	Η διάταξη είναι στην ταπετσαρία σου.
+screen__market__message_used_offline	Η διάταξη είναι στην ταπετσαρία σου. Θα μετρηθεί μόλις έχεις σύνδεση.
+screen__market__message_used_own	Η διάταξή σου μπήκε στην ταπετσαρία.
+screen__market__message_used_signed_out	Η διάταξη είναι στην ταπετσαρία σου. Συνδέσου με το VHub για να τη βαθμολογήσεις.
+screen__market__mine_signed_out__body	Συνδέσου με το VHub για να δημοσιεύεις τις διατάξεις σου και να τις βρίσκεις εδώ.
+screen__market__offline__body	Έλεγξε τη σύνδεση και δοκίμασε ξανά.
+screen__market__offline__title	Δεν είναι δυνατή η σύνδεση με την αγορά
+screen__market__search__label	Αναζήτηση με όνομα ή κωδικό
+screen__market__search_clear__content_description	Καθαρισμός αναζήτησης
+screen__market__sheet_orientation__title	Προσανατολισμός
+screen__market__sheet_shape__title	Σχήμα συσκευής
+screen__market__tab_mine__label	Δικές μου
+screen__market__tab_new__label	Νέες
+screen__market__tab_popular__label	Δημοφιλείς
+screen__market__tab_top_rated__label	Κορυφαίες
+screen__market__title	Αγορά διατάξεων
+screen__market_layout__button_creator__content_description	Περισσότερα για %1$s
+screen__market_layout__button_in_use__label	Στην ταπετσαρία σου
+screen__market_layout__button_report__label	Αναφορά
+screen__market_layout__button_share__label	Κοινοποίηση
+screen__market_layout__button_unpublish__label	Απόσυρση
+screen__market_layout__button_use__label	Χρήση με το %1$s
+screen__market_layout__by	από %1$s
+screen__market_layout__code	Κωδικός %1$s
+screen__market_layout__fit_note	Φτιαγμένη για: %1$s. Εδώ μπορεί να φαίνεται μικρή.
+screen__market_layout__not_found	Αυτή η διάταξη δεν είναι πια στην αγορά.
+screen__market_layout__own_note	Η διάταξή σου. Οι άλλοι τη βλέπουν στο δικό τους στιλ.
+screen__market_layout__rate__title	Η βαθμολογία σου
+screen__market_layout__rate_sign_in	Συνδέσου με το VHub για να τη βαθμολογήσεις.
+screen__market_layout__rate_use_first	Χρησιμοποίησέ τη μία φορά για να τη βαθμολογήσεις.
+screen__market_layout__section_styles__label	Προεπισκόπηση σε στιλ
+screen__market_layout__share__chooser	Κοινοποίηση διάταξης
+screen__market_layout__share__text	"%1$s", μια διάταξη για την εφαρμογή «Κοντέρ: ζωντανή ταπετσαρία»: %2$s (κωδικός %3$s)
+screen__market_layout__star__content_description	%1$d από 5 αστέρια
+screen__market_layout__status_hidden_by_moderator_note	Κρύφτηκε από τη VGraphics: %1$s
+screen__market_layout__status_hidden_note	Κρυμμένη από την αγορά μέχρι να ελεγχθεί.
+screen__market_layout__status_removed_by_moderator_note	Αφαιρέθηκε από τη VGraphics: %1$s
+screen__market_layout__status_removed_note	Αφαιρέθηκε από την αγορά.
+screen__market_layout__style_locked__content_description	%1$s, δεν είναι ακόμα δικό σου
+screen__market_layout__title	Διάταξη
+screen__news_sheet__button_sign_up__label	Εγγραφή
+screen__news_sheet__error_age	Τα νέα με email είναι για άτομα 16 ετών και άνω.
+screen__news_sheet__error_invalid	Αυτή η διεύθυνση δεν φαίνεται σωστή.
+screen__news_sheet__error_limit	Αυτές είναι οι περισσότερες εγγραφές από εδώ προς το παρόν. Δοκίμασε ξανά σε μία ώρα.
+screen__news_sheet__error_no_email	Γράψε τη διεύθυνση email σου.
+screen__news_sheet__error_offline	Δεν στάλθηκε. Έλεγξε τη σύνδεσή σου και δοκίμασε ξανά.
+screen__news_sheet__input_email__helper	Σου στέλνουμε email με σύνδεσμο επιβεβαίωσης. Τίποτε άλλο δεν έρχεται μέχρι να τον πατήσεις.
+screen__news_sheet__input_email__helper_signed_in	Η διεύθυνση με την οποία συνδέθηκες εγγράφεται αμέσως. Για οποιαδήποτε άλλη στέλνουμε email με σύνδεσμο επιβεβαίωσης.
+screen__news_sheet__input_email__label	Το email σου
+screen__news_sheet__row_vgraphics__subtitle	Όταν κυκλοφορούμε κάτι καινούργιο
+screen__news_sheet__row_vgraphics__title	Και νέα παιχνίδια και εφαρμογές της VGraphics
+screen__news_sheet__subtitle	Νέα στιλ, στοιχεία και δυνατότητες στο Speedometer. Για άτομα 16 ετών και άνω. Το πολύ ένα email τον μήνα. Διαγραφή με ένα πάτημα.
+screen__news_sheet__title	Νέα με email
+screen__publish_layout__allowed	%1$d από %2$d σε 24 ώρες · %3$d από %4$d στην αγορά
+screen__publish_layout__banned	Ο λογαριασμός σου δεν μπορεί να δημοσιεύει διατάξεις.
+screen__publish_layout__button_publish__label	Δημοσίευση
+screen__publish_layout__live_full	Έχεις %1$d διατάξεις στην αγορά. Απόσυρε πρώτα μία.
+screen__publish_layout__message_failed	Η δημοσίευση δεν έγινε. Δοκίμασε ξανά αργότερα.
+screen__publish_layout__name__count	%1$d / %2$d
+screen__publish_layout__name__hint	3 έως 24 γράμματα, ψηφία και απλά σημεία στίξης
+screen__publish_layout__name__label	Όνομα στην αγορά
+screen__publish_layout__none	Δεν έχεις ακόμα δικές σου διατάξεις. Φτιάξε μία στο εργαλείο διατάξεων και μετά δημοσίευσέ τη εδώ.
+screen__publish_layout__offline	Δεν είναι δυνατή η σύνδεση με την αγορά. Δοκίμασε ξανά αργότερα.
+screen__publish_layout__pick__label	Διάλεξε μία από τις διατάξεις σου
+screen__publish_layout__problem_empty	Πρόσθεσε πρώτα ένα στοιχείο.
+screen__publish_layout__problem_name_characters	Ξεκίνα με γράμμα ή ψηφίο και χρησιμοποίησε μόνο γράμματα, ψηφία, κενά και . , ! ? ' & ( ) : -
+screen__publish_layout__problem_name_double_space	Όχι δύο κενά στη σειρά.
+screen__publish_layout__problem_name_not_allowed	Αυτό το όνομα δεν επιτρέπεται.
+screen__publish_layout__problem_name_too_long	Το πολύ 24 χαρακτήρες.
+screen__publish_layout__problem_name_too_short	Τουλάχιστον 3 χαρακτήρες.
+screen__publish_layout__problem_no_shapes	Ενεργοποίησε τουλάχιστον ένα σχήμα.
+screen__publish_layout__problem_too_large	Είναι πολύ μεγάλη για την αγορά. Δοκίμασε με λιγότερα στοιχεία.
+screen__publish_layout__public_note	Το όνομά σου στο VHub φαίνεται πάνω της, και όλοι μπορούν να τη χρησιμοποιήσουν, να τη βαθμολογήσουν και να την αναφέρουν.
+screen__publish_layout__rules__label	Διάβασα τους κανόνες για τις διατάξεις
+screen__publish_layout__rules_link__label	Κανόνες διατάξεων
+screen__publish_layout__shapes__hint	Ενεργοποίησε κάθε σχήμα στο οποίο δείχνει σωστά. Στα υπόλοιπα προσαρμόζεται, χωρίς ποτέ να τεντώνεται.
+screen__publish_layout__shapes__label	Φτιαγμένη για
+screen__publish_layout__signed_out	Συνδέσου με το VHub για να δημοσιεύεις τις διατάξεις σου.
+screen__publish_layout__title	Δημοσίευση διάταξης
+screen__publish_layout__window_full	Δημοσίευσες %1$d σε 24 ώρες. Την επόμενη μπορείς να τη δημοσιεύσεις στις %2$s.
+screen__settings__ad_choices_failed__message	Οι επιλογές διαφημίσεων δεν άνοιξαν. Δοκίμασε ξανά.
+screen__settings__bluetooth_led__title	Λυχνία Bluetooth
+screen__settings__celsius__value	%1$d °C
+screen__settings__charging_led__title	Λυχνία φόρτισης
+screen__settings__date_order__day_month_year	Ημέρα, μήνας, έτος (%1$s)
+screen__settings__date_order__month_day_year	Μήνας, ημέρα, έτος (%1$s)
+screen__settings__date_order__title	Σειρά ημερομηνίας
+screen__settings__date_order__year_month_day	Έτος, μήνας, ημέρα (%1$s)
+screen__settings__date_separator__dash	Παύλα (%1$s)
+screen__settings__date_separator__dot	Τελεία (%1$s)
+screen__settings__date_separator__none	Κανένα (%1$s)
+screen__settings__date_separator__title	Διαχωριστικό ημερομηνίας
+screen__settings__gps_blocked__button_open_settings__label	Άνοιγμα ρυθμίσεων
+screen__settings__gps_blocked__message	Η τοποθεσία είναι κλειστή για αυτή την εφαρμογή. Επίτρεψε την ακριβή τοποθεσία στις ρυθμίσεις της εφαρμογής για να έχεις ταχύτητα GPS.
+screen__settings__gps_needs_precise__message	Η ταχύτητα GPS χρειάζεται ακριβή τοποθεσία. Διάλεξε "Ακριβής" όταν σε ρωτήσει το Android.
+screen__settings__gps_rationale__button_continue__label	Συνέχεια
+screen__settings__gps_rationale__message	Η ταχύτητα GPS χρειάζεται την ακριβή τοποθεσία σου όσο η ταπετσαρία φαίνεται στην οθόνη. Χρησιμοποιείται μόνο για να διαβάσει την ταχύτητά σου και δεν φεύγει ποτέ από το κινητό.
+screen__settings__gps_rationale__title	Ταχύτητα GPS
+screen__settings__group_design__title	Στιλ
+screen__settings__high_temperature__title	Υψηλή θερμοκρασία
+screen__settings__high_temperature_led__title	Λυχνία υψηλής θερμοκρασίας
+screen__settings__low_battery_led__title	Λυχνία χαμηλής μπαταρίας
+screen__settings__low_battery_level__title	Όριο χαμηλής μπαταρίας
+screen__settings__low_temperature__title	Χαμηλή θερμοκρασία
+screen__settings__low_temperature_led__title	Λυχνία χαμηλής θερμοκρασίας
+screen__settings__mode__cpu_clock	Συχνότητα επεξεργαστή
+screen__settings__mode__gps_speed	Ταχύτητα GPS
+screen__settings__mode__power	Ισχύς
+screen__settings__mode__title	Λειτουργία
+screen__settings__no_browser__message	Καμία εφαρμογή σε αυτό το κινητό δεν μπορεί να ανοίξει την πολιτική απορρήτου.
+screen__settings__percent__value	%1$d %%
+screen__settings__row_access__off	Ανενεργό
+screen__settings__row_access__on	Ενεργό
+screen__settings__row_access__title	Μουσική, κλήσεις και μηνύματα
+screen__settings__row_ad_choices__subtitle	Άλλαξε πώς μπορούν οι διαφημίσεις να χρησιμοποιούν τα δεδομένα σου
+screen__settings__row_ad_choices__title	Επιλογές διαφημίσεων
+screen__settings__row_design__title	Στιλ
+screen__settings__row_privacy_policy__subtitle	Ανοίγει το vgraphics.gr στο πρόγραμμα περιήγησης
+screen__settings__row_privacy_policy__title	Πολιτική απορρήτου
+screen__settings__save_failed__message	Η ρύθμιση δεν αποθηκεύτηκε. Δοκίμασε ξανά.
+screen__settings__section_big_gauge__title	Μεγάλος δείκτης
+screen__settings__section_date_time__title	Ημερομηνία και ώρα
+screen__settings__section_leds__title	Λυχνίες
+screen__settings__section_privacy__title	Απόρρητο
+screen__settings__show_seconds__title	Εμφάνιση δευτερολέπτων
+screen__settings__speed_unit__kmh	km/h
+screen__settings__speed_unit__mph	mph
+screen__settings__speed_unit__title	Μονάδα ταχύτητας
+screen__settings__tile__subtitle	Πρόσθεσε το πλακίδιο «Μεγάλος δείκτης» για να αλλάζεις λειτουργία από το πάνελ που σέρνεις προς τα κάτω
+screen__settings__tile__title	Πλακίδιο στις Γρήγορες ρυθμίσεις
+screen__settings__tile_add_failed__message	Το πλακίδιο δεν προστέθηκε. Επεξεργάσου τις Γρήγορες ρυθμίσεις και σύρε μέσα το «Μεγάλος δείκτης».
+screen__settings__tile_added__message	Το πλακίδιο προστέθηκε. Σύρε προς τα κάτω και πάτα «Μεγάλος δείκτης» για να αλλάξεις λειτουργία.
+screen__settings__tile_already_added__message	Το πλακίδιο «Μεγάλος δείκτης» είναι ήδη στις Γρήγορες ρυθμίσεις σου.
+screen__settings__time_format__follow_phone	Όπως το κινητό
+screen__settings__time_format__h12	12ωρη
+screen__settings__time_format__h24	24ωρη
+screen__settings__time_format__title	Μορφή ώρας
+screen__settings__time_separator__colon	Άνω-κάτω τελεία (%1$s)
+screen__settings__time_separator__dash	Παύλα (%1$s)
+screen__settings__time_separator__dot	Τελεία (%1$s)
+screen__settings__time_separator__none	Κανένα (%1$s)
+screen__settings__time_separator__title	Διαχωριστικό ώρας
+screen__settings__title	Ρυθμίσεις
+screen__style__button_buy__label	Αγορά %1$s
+screen__style__button_buy_no_price__label	Αγορά
+screen__style__button_edit_layout__label	Επεξεργασία διάταξης
+screen__style__button_full_screen__content_description	Πλήρης οθόνη
+screen__style__button_home_grid__content_description	Προβολή αρχικής οθόνης
+screen__style__button_in_use__label	Σε χρήση
+screen__style__button_next__content_description	Επόμενο στιλ
+screen__style__button_pass__label	Όλα τα στιλ · %1$s τον μήνα
+screen__style__button_pass_no_price__label	Όλα τα στιλ με το Plus
+screen__style__button_pause__content_description	Παύση επίδειξης
+screen__style__button_pending__label	Πληρωμή σε αναμονή
+screen__style__button_play__content_description	Αναπαραγωγή επίδειξης
+screen__style__button_previous__content_description	Προηγούμενο στιλ
+screen__style__button_trial__label	Δοκιμή 24 ωρών · δες ένα σύντομο βίντεο
+screen__style__button_trial_other__label	Δοκιμή %1$s: %2$d ώ. ακόμα
+screen__style__button_try__label	Δοκίμασέ το
+screen__style__button_use__label	Χρήση αυτού του στιλ
+screen__style__button_use_layout__label	Χρήση αυτής της διάταξης
+screen__style__full_screen__button_close__content_description	Κλείσιμο πλήρους οθόνης
+screen__style__layouts__badge_editable__content_description	Μπορείς να την αλλάξεις
+screen__style__layouts__badge_fixed__content_description	Σταθερή διάταξη
+screen__style__layouts__card__content_description	Διάταξη %1$s, ζωντανά
+screen__style__layouts__group_market	Από την αγορά
+screen__style__layouts__group_mine	Δικές μου
+screen__style__layouts__group_ready	Έτοιμες
+screen__style__layouts__make_your_own	Φτιάξε τη δική σου
+screen__style__layouts__new_layout	Νέα διάταξη
+screen__style__layouts__note_custom	Η δική σου διάταξη, φτιαγμένη με την Επεξεργασία διάταξης.
+screen__style__layouts__note_editable	Μετακίνησε τα καντράν του %1$s και άλλαξέ τους μέγεθος με την Επεξεργασία διάταξης.
+screen__style__layouts__note_fixed	Η διάταξη %1$s είναι σταθερή: τα καντράν της μένουν εκεί που τα βάζει το στιλ.
+screen__style__layouts__note_mine	Η δική σου διάταξη: με την Επεξεργασία διάταξης την αλλάζεις σε όλα τα στιλ.
+screen__style__layouts__note_shared	Κάθε στιλ τη σχεδιάζει με τον δικό του τρόπο. Η Επεξεργασία διάταξης φτιάχνει δικό σου αντίγραφο.
+screen__style__layouts__title	Διατάξεις · %1$d
+screen__style__message_layout_used	Το %1$s χρησιμοποιεί τώρα αυτή τη διάταξη.
+screen__style__mode_cpu__label	CPU
+screen__style__mode_power__label	Ισχύς
+screen__style__mode_speed__label	Ταχύτητα
+screen__style__position	%1$d / %2$d
+screen__style__preview__content_description	Το %1$s σε δοκιμαστική διαδρομή
+screen__style__preview_hud__content_description	Η όψη HUD του %1$s, όπως τη δείχνει η λειτουργία HUD
+screen__style__trial_note	Σε δοκιμή: %1$d ώ. ακόμα. Αγόρασέ το για να το κρατήσεις.
+screen__style__view_hud__label	HUD
+screen__style__view_original__label	Αρχικό
+screen__style_settings__access__off	Ανενεργή
+screen__style_settings__access__on	Ενεργή
+screen__style_settings__access__subtitle	Επιτρέπει στο %1$s να δείχνει τη μουσική, τις κλήσεις και τα μηνύματά σου
+screen__style_settings__access__title	Πρόσβαση στις ειδοποιήσεις
+screen__style_settings__button_reset__label	Επαναφορά στις προεπιλογές του %1$s
+screen__style_settings__celsius__value	%1$d °C
+screen__style_settings__date__title	Ημερομηνία
+screen__style_settings__date_order__day_month_year	Ημέρα, μήνας, έτος
+screen__style_settings__date_order__month_day_year	Μήνας, ημέρα, έτος
+screen__style_settings__date_order__year_month_day	Έτος, μήνας, ημέρα
+screen__style_settings__full_screen__button_close__content_description	Κλείσιμο πλήρους οθόνης
+screen__style_settings__gps_blocked__button_open_settings__label	Άνοιγμα ρυθμίσεων
+screen__style_settings__gps_blocked__message	Η τοποθεσία είναι απενεργοποιημένη για αυτή την εφαρμογή. Επίτρεψε την ακριβή τοποθεσία στις ρυθμίσεις της εφαρμογής για να χρησιμοποιήσεις την ταχύτητα GPS.
+screen__style_settings__gps_needs_precise__message	Η ταχύτητα GPS χρειάζεται ακριβή τοποθεσία. Διάλεξε "Ακριβής" όταν σε ρωτήσει το Android.
+screen__style_settings__gps_rationale__button_continue__label	Συνέχεια
+screen__style_settings__gps_rationale__message	Η ταχύτητα GPS χρειάζεται την ακριβή τοποθεσία σου όσο η ταπετσαρία φαίνεται στην οθόνη. Χρησιμοποιείται μόνο για να διαβάσει την ταχύτητά σου και δεν φεύγει ποτέ από το κινητό.
+screen__style_settings__gps_rationale__title	Ταχύτητα GPS
+screen__style_settings__lamp_bluetooth__subtitle	Ανάβει όσο είναι ανοιχτό το Bluetooth
+screen__style_settings__lamp_bluetooth__title	Bluetooth
+screen__style_settings__lamp_charging__subtitle	Ανάβει όσο φορτίζει το κινητό
+screen__style_settings__lamp_charging__title	Φόρτιση
+screen__style_settings__lamp_high_temperature__level	Όριο υψηλής θερμοκρασίας
+screen__style_settings__lamp_high_temperature__subtitle	Μπαταρία πιο ζεστή από
+screen__style_settings__lamp_high_temperature__title	Υψηλή θερμοκρασία
+screen__style_settings__lamp_low_battery__level	Όριο χαμηλής μπαταρίας
+screen__style_settings__lamp_low_battery__subtitle	Ανάβει στο όριο ή κάτω από αυτό
+screen__style_settings__lamp_low_battery__title	Χαμηλή μπαταρία
+screen__style_settings__lamp_low_temperature__level	Όριο χαμηλής θερμοκρασίας
+screen__style_settings__lamp_low_temperature__subtitle	Μπαταρία πιο κρύα από
+screen__style_settings__lamp_low_temperature__title	Χαμηλή θερμοκρασία
+screen__style_settings__mode__cpu	CPU
+screen__style_settings__mode__cpu_unavailable	Η συχνότητα επεξεργαστή δεν είναι διαθέσιμη: αυτό το κινητό δεν επιτρέπει στις εφαρμογές να τη διαβάσουν.
+screen__style_settings__mode__gps_speed	Ταχύτητα GPS
+screen__style_settings__mode__power	Ισχύς
+screen__style_settings__needle_feel__calm	Ήρεμη
+screen__style_settings__needle_feel__smooth	Ομαλή
+screen__style_settings__needle_feel__sporty	Σπορ
+screen__style_settings__needle_feel__title	Κίνηση βελόνας
+screen__style_settings__percent__value	%1$d %%
+screen__style_settings__reset_done__button_undo__label	Αναίρεση
+screen__style_settings__reset_done__message	Το %1$s επανήλθε στις προεπιλογές του.
+screen__style_settings__save_failed__message	Η ρύθμιση δεν αποθηκεύτηκε. Δοκίμασε ξανά.
+screen__style_settings__seconds__title	Δευτερόλεπτα
+screen__style_settings__section_big_gauge__title	Μεγάλος δείκτης
+screen__style_settings__section_clock__title	Ρολόι
+screen__style_settings__section_infotainment__title	Μουσική, κλήσεις και μηνύματα
+screen__style_settings__section_lamps__title	Προειδοποιητικές λυχνίες
+screen__style_settings__section_look__title	Εμφάνιση
+screen__style_settings__section_units__title	Μονάδες
+screen__style_settings__separator__colon	Άνω κάτω τελεία
+screen__style_settings__separator__dash	Παύλα
+screen__style_settings__separator__dot	Τελεία
+screen__style_settings__separator__none	Κανένα
+screen__style_settings__separators__title	Διαχωριστικά
+screen__style_settings__separators__value	%1$s · %2$s
+screen__style_settings__sheet_date_order__subtitle	Πώς γράφεται η ημερομηνία στο %1$s.
+screen__style_settings__sheet_date_order__title	Σειρά ημερομηνίας
+screen__style_settings__sheet_date_separator__subtitle	Ανάμεσα σε ημέρα, μήνα και έτος.
+screen__style_settings__sheet_date_separator__title	Διαχωριστικό ημερομηνίας
+screen__style_settings__sheet_separators__date	Ημερομηνία
+screen__style_settings__sheet_separators__subtitle	Τι χωρίζει τα ψηφία της ώρας και της ημερομηνίας στο %1$s.
+screen__style_settings__sheet_separators__time	Ώρα
+screen__style_settings__sheet_time_separator__subtitle	Ανάμεσα σε ώρες, λεπτά και δευτερόλεπτα.
+screen__style_settings__sheet_time_separator__title	Διαχωριστικό ώρας
+screen__style_settings__stage__button_full_screen__label	Πλήρης οθόνη
+screen__style_settings__stage__hint	Οι αλλαγές φαίνονται εδώ αμέσως και αποθηκεύονται αυτόματα.
+screen__style_settings__stage__in_use	Σε χρήση
+screen__style_settings__stage__label	Ρυθμίσεις στιλ
+screen__style_settings__stage__preview__content_description	%1$s, ζωντανή προεπισκόπηση
+screen__style_settings__startup_sweep__subtitle	Οι βελόνες πάνε στο τέρμα και επιστρέφουν όταν ξεκλειδώνεις το κινητό
+screen__style_settings__startup_sweep__title	Σάρωση εκκίνησης
+screen__style_settings__time_format__h12	12ωρο
+screen__style_settings__time_format__h24	24ωρο
+screen__style_settings__time_format__phone	Κινητό
+screen__style_settings__top_speed_mark__subtitle	Κόκκινο σημάδι στη μέγιστη ταχύτητα της διαδρομής
+screen__style_settings__top_speed_mark__title	Σημάδι μέγιστης ταχύτητας
+screen__style_settings__unit__kmh	km/h
+screen__style_settings__unit__mph	mph
+screen__style_settings__units__every_style	Η μονάδα ταχύτητας, το 12ωρο ή 24ωρο και τα δευτερόλεπτα είναι ίδια σε κάθε στιλ.
+screen__styles__button_customize__label	Προσαρμογή
+screen__styles__chip_free__label	Δωρεάν
+screen__styles__chip_hud__label	HUD
+screen__styles__chip_in_use__label	Σε χρήση
+screen__styles__chip_layouts__label#one	%1$d διάταξη
+screen__styles__chip_layouts__label#other	%1$d διατάξεις
+screen__styles__chip_live__label	Ζωντανά
+screen__styles__chip_locked__label	Κλειδωμένο
+screen__styles__chip_owned__label	Δικό σου
+screen__styles__chip_pending__label	Σε αναμονή
+screen__styles__chip_trial__label	Δοκιμή · %1$d ώ.
+screen__styles__count#one	%1$d στιλ
+screen__styles__count#other	%1$d στιλ
+screen__styles__hero__kicker	Στην ταπετσαρία σου
+screen__styles__market__button_browse__label	Εξερεύνηση
+screen__styles__market__subtitle	Διατάξεις που έφτιαξαν άλλοι χρήστες, σε όποιο στιλ θέλεις
+screen__styles__market__title	Αγορά διατάξεων
+screen__styles__message_failed	Η αγορά δεν ολοκληρώθηκε.
+screen__styles__message_not_on_sale	Το %1$s δεν πωλείται ακόμα στο Google Play. Δοκίμασε ξανά αργότερα.
+screen__styles__message_pass_not_on_sale	Το Κοντέρ Plus δεν διατίθεται ακόμα στο Google Play. Δοκίμασε ξανά αργότερα.
+screen__styles__message_pass_on	Το Κοντέρ Plus είναι ενεργό: όλα τα στιλ είναι δικά σου.
+screen__styles__message_pass_on_style	Το Κοντέρ Plus είναι ενεργό. Το %1$s είναι στην ταπετσαρία σου.
+screen__styles__message_pass_pending	Η πληρωμή εκκρεμεί. Το Κοντέρ Plus ξεκινά μόλις ολοκληρωθεί.
+screen__styles__message_pending	Η πληρωμή εκκρεμεί. Το %1$s θα ξεκλειδώσει μόλις ολοκληρωθεί.
+screen__styles__message_play_unavailable	Το Google Play δεν είναι διαθέσιμο αυτή τη στιγμή.
+screen__styles__message_selected	Το %1$s είναι στην ταπετσαρία σου.
+screen__styles__message_trial_closed	Το βίντεο έκλεισε νωρίς, οπότε η δοκιμή δεν ξεκίνησε.
+screen__styles__message_trial_failed	Η δοκιμή δεν ξεκίνησε. Δοκίμασε ξανά.
+screen__styles__message_trial_no_video	Δεν υπάρχει βίντεο αυτή τη στιγμή. Δοκίμασε ξανά σε λίγο.
+screen__styles__message_trial_started	Το %1$s είναι δικό σου για 24 ώρες. Είναι ήδη στην ταπετσαρία σου.
+screen__styles__message_use_failed	Η αλλαγή στο %1$s δεν έγινε. Δοκίμασε ξανά.
+screen__styles__pass__button_no_price__label	Δες τις συνδρομές
+screen__styles__pass__subtitle	Όλα τα στιλ χωρίς διαφημίσεις, τώρα και στο μέλλον
+screen__styles__pass__title	Κοντέρ Plus
+screen__styles__section_hud__label#one	Λειτουργία HUD · %1$d στιλ
+screen__styles__section_hud__label#other	Λειτουργία HUD · %1$d στιλ
+screen__styles__section_more__label	Περισσότερα στιλ
+screen__styles__section_yours__label	Τα στιλ σου
+screen__styles__title	Στιλ
+shortcut__hud__long_label	Άνοιγμα λειτουργίας HUD
+shortcut__hud__short_label	Λειτουργία HUD
+tile__big_gauge__label	Μεγάλος δείκτης
+tile__big_gauge__label_with_mode	Μεγάλος δείκτης: %1$s
+tile__big_gauge__mode_cpu_clock	Συχνότητα επεξεργαστή
+tile__big_gauge__mode_gps_speed	Ταχύτητα GPS
+tile__big_gauge__mode_power	Ισχύς
+tile__hud__label	Λειτουργία HUD
+variation__amber_classic__name	Κλασικό
+variation__amber_cluster__name	Πίνακας οργάνων
+variation__amber_night__name	Πολυτελής πίνακας
+variation__aura_tower__name	Πύργος
+variation__aura_twin__name	Διπλό
+variation__carbon__name	Αγωνιστικό ταμπλό
+variation__carbon_classic__name	Κλασικό
+variation__carbon_pods__name	Αγωνιστικές κάψουλες
+variation__circuit_stack__name	Στοίβα
+variation__circuit_wide__name	Φαρδύ
+variation__classic__name	Κλασικό
+variation__cockpit__name	Πάνελ οργάνων
+variation__cockpit_pair__name	Ζεύγος ορίζοντα
+variation__custom__name	Η διάταξή σου
+variation__future__name	Future
+variation__glass__name	Προβολή
+variation__glass_column__name	Στήλη
+variation__glass_wide__name	Φαρδύ
+variation__graphite__name	Κλασικό
+variation__graphite_helm__name	Τιμόνι
+variation__graphite_pair__name	Κοντέρ και ρολόι
+variation__harbour_bridge__name	Γέφυρα γιοτ
+variation__harbour_helm__name	Τιμόνι γιοτ
+variation__harbour_porthole_bridge__name	Γέφυρα με φινιστρίνια
+variation__harbour_porthole_helm__name	Τιμόνι με φινιστρίνια
+variation__harbour_regatta_bridge__name	Γέφυρα ρεγκάτας
+variation__harbour_regatta_helm__name	Τιμόνι ρεγκάτας
+variation__horizon_hud__name	Προβολή μαχητικού
+variation__prism_twin__name	Διπλό
+variation__prism_wide__name	Φαρδύ
+variation__pulse_rings__name	Δακτύλιοι
+variation__rally__name	Υπολογιστής ράλι
+variation__rally_classic__name	Κλασικό
+variation__steel__name	Κλασικό
+variation__steel_six__name	Έξι δείκτες
+variation__torque_stack__name	Στοίβα
+variation__torque_wide__name	Φαρδύ
+variation__track_pods__name	Κάψουλες
+variation__track_screen__name	Οθόνη
+variation__vector_hexagons__name	Εξάγωνα
+variation__vintage_classic__name	Κλασικό
+variation__vintage_cluster__name	Πίνακας οργάνων
+variation__vintage_pair__name	Κοντέρ και ρολόι
+variation__vintage_six__name	Έξι δείκτες
+wallpaper__speedometer__description	Ζωντανή ταπετσαρία με ταμπλό αυτοκινήτου: ισχύς, συχνότητα επεξεργαστή ή ταχύτητα GPS, με δείκτες για μπαταρία, Wi-Fi, σήμα και RAM.
+widgets__compass__e	Α
+widgets__compass__n	Β
+widgets__compass__ne	ΒΑ
+widgets__compass__nw	ΒΔ
+widgets__compass__s	Ν
+widgets__compass__se	ΝΑ
+widgets__compass__sw	ΝΔ
+widgets__compass__w	Δ
+widgets__day__1	ΔΕΥ
+widgets__day__2	ΤΡΙ
+widgets__day__3	ΤΕΤ
+widgets__day__4	ΠΕΜ
+widgets__day__5	ΠΑΡ
+widgets__day__6	ΣΑΒ
+widgets__day__7	ΚΥΡ
+widgets__label__alarm	ΞΥΠΝΗΜΑ
+widgets__label__all_day	ΟΛΟΗΜΕΡΟ
+widgets__label__altitude	ΥΨΟΜΕΤΡΟ
+widgets__label__average	ΜΕΣΗ
+widgets__label__average_short	ΜΕΣ
+widgets__label__battery_left	ΜΕΝΟΥΝ
+widgets__label__battery_to_full	ΩΣ ΓΕΜΑΤΗ
+widgets__label__best	ΡΕΚΟΡ
+widgets__label__climb	ΑΝΟΔΟΣ
+widgets__label__down	ΛΗΨΗ
+widgets__label__drive_time	ΟΔΗΓΗΣΗ
+widgets__label__falling	ΚΑΘΟΔΙΚΗ
+widgets__label__lean_left	ΑΡΙΣΤ
+widgets__label__lean_right	ΔΕΞΙΑ
+widgets__label__level	ΕΠΙΠΕΔΟ
+widgets__label__no_alarm	ΧΩΡΙΣ ΞΥΠΝΗΜΑ
+widgets__label__no_events	ΧΩΡΙΣ ΣΥΜΒΑΝΤΑ
+widgets__label__nose_down	ΚΑΤΗΦΟΡΑ
+widgets__label__nose_up	ΑΝΗΦΟΡΑ
+widgets__label__odometer	ΟΔΟΜΕΤΡΟ
+widgets__label__peak	ΜΕΓ
+widgets__label__pressure	ΠΙΕΣΗ ΑΕΡΑ
+widgets__label__rising	ΑΝΟΔΙΚΗ
+widgets__label__steady	ΣΤΑΘΕΡΗ
+widgets__label__steps	ΒΗΜΑΤΑ
+widgets__label__storage	ΧΩΡΟΣ
+widgets__label__sunrise	ΑΝΑΤΟΛΗ
+widgets__label__sunset	ΔΥΣΗ
+widgets__label__time_short	ΧΡΟΝΟΣ
+widgets__label__today	ΣΗΜΕΡΑ
+widgets__label__tomorrow	ΑΥΡΙΟ
+widgets__label__top_speed	ΜΕΓΙΣΤΗ
+widgets__label__trip	ΔΙΑΔΡ
+widgets__label__up	ΑΠΟΣΤ
+widgets__label__volume	ΕΝΤΑΣΗ
+widgets__label__zero_to_100	0–100
+widgets__label__zero_to_60	0–60
+widgets__moon__first_quarter	ΠΡΩΤΟ ΤΕΤΑΡΤΟ
+widgets__moon__full	ΠΑΝΣΕΛΗΝΟΣ
+widgets__moon__last_quarter	ΤΡΙΤΟ ΤΕΤΑΡΤΟ
+widgets__moon__new	ΝΕΑ ΣΕΛΗΝΗ
+widgets__moon__waning_crescent	ΦΘΙΝΩΝ ΜΗΝΙΣΚΟΣ
+widgets__moon__waning_gibbous	ΦΘΙΝΟΥΣΑ ΣΕΛΗΝΗ
+widgets__moon__waxing_crescent	ΑΥΞΩΝ ΜΗΝΙΣΚΟΣ
+widgets__moon__waxing_gibbous	ΑΥΞΟΥΣΑ ΣΕΛΗΝΗ
+widgets__sky__clear	ΑΙΘΡΙΟΣ
+widgets__sky__cloudy	ΣΥΝΝΕΦΙΑ
+widgets__sky__fog	ΟΜΙΧΛΗ
+widgets__sky__partly_cloudy	ΛΙΓΑ ΣΥΝΝΕΦΑ
+widgets__sky__rain	ΒΡΟΧΗ
+widgets__sky__sleet	ΧΙΟΝΟΝΕΡΟ
+widgets__sky__snow	ΧΙΟΝΙ
+widgets__sky__thunder	ΚΑΤΑΙΓΙΔΑ
+widgets__unit__ft	FT
+widgets__unit__ft_min	FT/MIN
+widgets__unit__gb	GB
+widgets__unit__hpa	HPA
+widgets__unit__kbps	kb/s
+widgets__unit__km	KM
+widgets__unit__kmh	KM/H
+widgets__unit__m	M
+widgets__unit__m_min	M/MIN
+widgets__unit__mbps	Mb/s
+widgets__unit__mi	MI
+widgets__unit__mph	MPH
+widgets__unit__seconds	S

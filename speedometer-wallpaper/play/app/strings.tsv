@@ -26,6 +26,7 @@ component__hidden_creators_sheet__body	Their layouts don't show in the market fo
 component__hidden_creators_sheet__button_show__label	Show again
 component__hidden_creators_sheet__empty	No hidden creators.
 component__hidden_creators_sheet__title	Hidden creators
+component__hud_showcase__content_description	%1$s's HUD on a windscreen at night
 component__market_creator_sheet__hide__label	Hide this creator's layouts
 component__market_creator_sheet__hide__subtitle	Settings › Privacy › Hidden creators brings them back.
 component__market_creator_sheet__report__subtitle	VHub looks after names and pictures in every VGraphics app.
@@ -53,6 +54,7 @@ component__pass_sheet__button_yearly__label	%1$s a year · 2 months free
 component__pass_sheet__button_yearly_no_price__label	Yearly · 2 months free
 component__pass_sheet__fine_print	Billed by Google Play, and renews until you cancel. Cancel anytime in Google Play. Signed in to VHub, every device of your account gets it.
 component__pass_sheet__title	Speedometer Plus
+component__status_badge__content_description	Status: %1$s
 component__trial_end__body	Your wallpaper went back to your own style. Keep %1$s for good, get every style with Speedometer Plus, or watch another video for 24 more hours.
 component__trial_end__button_buy__label	Buy %1$s · %2$s
 component__trial_end__button_buy_no_price__label	Buy %1$s
@@ -623,7 +625,7 @@ screen__guide__chip_tile__label	Tile
 screen__guide__chip_widgets__label	Widgets
 screen__guide__clock__body	The LCD under the big gauge shows the date and time. Pick the time format, date order, separators and seconds in the style's settings.
 screen__guide__hud__body	Lay the phone flat on the dashboard in front of the wheel, screen up, and set it up while parked. The glass reflects it the right way round. It reads best at dusk, at night and on cloudy days; tap once for Exit and Flip.
-screen__guide__hud__row_subtitle	Tap HUD on Home, the HUD mode tile, or long-press the app icon
+screen__guide__hud__row_subtitle	Tap HUD mode on Home or in Styles, the HUD mode tile, or long-press the app icon
 screen__guide__hud__row_title	Your speed on the windscreen
 screen__guide__lamp_bluetooth__subtitle	While Bluetooth is on
 screen__guide__lamp_bluetooth__title	Bluetooth
@@ -714,7 +716,7 @@ screen__help__status_closed	Closed
 screen__help__status_in_version	%1$s in %2$s
 screen__help__status_new_answer	New answer
 screen__help__status_open	Open
-screen__help__ticket__meta	%1$s · %2$s
+screen__help__ticket__meta	%1$s · %2$s · %3$s
 screen__help__tickets__button_retry__label	Try again
 screen__help__tickets_empty	No tickets yet.
 screen__help__tickets_empty_signed_out	No tickets on this phone yet. Signed in, your tickets follow you on every device.
@@ -725,6 +727,7 @@ screen__help_ticket__button_close__label	Close this ticket
 screen__help_ticket__button_send__label	Send
 screen__help_ticket__closed_for_good	This ticket is closed. Something new? Open a new ticket.
 screen__help_ticket__closed_note	Closed. A reply within 30 days opens it again.
+screen__help_ticket__face__vgraphics	V
 screen__help_ticket__failed	This ticket didn't load.
 screen__help_ticket__from_vgraphics	VGraphics · %1$s
 screen__help_ticket__from_you	You · %1$s
@@ -733,21 +736,32 @@ screen__help_ticket__input_reply__label_closed	Something more? A reply opens it 
 screen__help_ticket__loading	Loading the ticket…
 screen__help_ticket__missing__body	It may belong to another account, or to another phone.
 screen__help_ticket__missing__title	We can't find this ticket
-screen__help_ticket__opened	Opened %1$s
 screen__help_ticket__problem_closed	This ticket is closed. Open a new one.
 screen__help_ticket__problem_invalid	That didn't send.
 screen__help_ticket__problem_limit	That's the most replies for now. Try again in an hour.
 screen__help_ticket__reply_sent	Sent. We'll answer here.
 screen__help_ticket__section_reopen__title	Open it again
 screen__help_ticket__section_reply__title	Reply
+screen__help_ticket__shot__button_close__content_description	Close the screenshot
 screen__help_ticket__shot__label	Screenshot %1$d
+screen__help_ticket__status_closed	Closed.
+screen__help_ticket__status_closed_by_player	You closed this ticket.
+screen__help_ticket__status_closed_done	Closed: done.
+screen__help_ticket__status_closed_done_in	Closed: done in %1$s.
+screen__help_ticket__status_closed_duplicate	Closed: already in another ticket.
+screen__help_ticket__status_closed_fixed	Closed: fixed.
+screen__help_ticket__status_closed_fixed_in	Closed: fixed in %1$s.
+screen__help_ticket__status_closed_no_reply	Closed after no reply.
+screen__help_ticket__status_closed_planned	Closed: it's in our plans.
+screen__help_ticket__status_closed_wont_do	Closed: we won't do this one.
+screen__help_ticket__status_opened_again	Opened again.
+screen__help_ticket__status_other	Ticket updated.
 screen__help_ticket__title	Ticket %1$s
 screen__home__account_button__content_description	VHub account
 screen__home__button_customize__label	Customize
 screen__home__button_designs__subtitle	Classic, Future and more
 screen__home__button_designs__title	DESIGNS
 screen__home__button_guide__content_description	Guide
-screen__home__button_hud__label	HUD
 screen__home__button_info__subtitle	What every gauge shows
 screen__home__button_info__title	INFO
 screen__home__button_set_wallpaper__label	Set as wallpaper
@@ -886,6 +900,8 @@ screen__layout_builder__full__message	This layout already holds every widget it 
 screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it. Pinch to zoom.
 screen__layout_builder__layers__back	Back
 screen__layout_builder__layers__front	Front
+screen__layout_builder__layers__move_back__action	Move back
+screen__layout_builder__layers__move_forward__action	Move forward
 screen__layout_builder__lock__content_description	Lock in place
 screen__layout_builder__made_for_other	Made for %1$s; may look small here.
 screen__layout_builder__not_found__message	This layout isn't on this phone.
@@ -984,7 +1000,9 @@ screen__market_layout__section_styles__label	Preview in style
 screen__market_layout__share__chooser	Share layout
 screen__market_layout__share__text	"%1$s", a layout for Speedometer Live Wallpaper: %2$s (code %3$s)
 screen__market_layout__star__content_description	%1$d of 5 stars
+screen__market_layout__status_hidden_by_moderator_note	Hidden by VGraphics: %1$s
 screen__market_layout__status_hidden_note	Hidden from the market until it's reviewed.
+screen__market_layout__status_removed_by_moderator_note	Removed by VGraphics: %1$s
 screen__market_layout__status_removed_note	Taken off the market.
 screen__market_layout__style_locked__content_description	%1$s, not yours yet
 screen__market_layout__title	Layout
@@ -1094,6 +1112,7 @@ screen__settings__title	Settings
 screen__style__button_buy__label	Buy %1$s
 screen__style__button_buy_no_price__label	Buy
 screen__style__button_edit_layout__label	Edit layout
+screen__style__button_full_screen__content_description	Full screen
 screen__style__button_home_grid__content_description	Home screen view
 screen__style__button_in_use__label	In use
 screen__style__button_next__content_description	Next style
@@ -1108,6 +1127,7 @@ screen__style__button_trial_other__label	%1$s trial: %2$d h left
 screen__style__button_try__label	Try it
 screen__style__button_use__label	Use this style
 screen__style__button_use_layout__label	Use this layout
+screen__style__full_screen__button_close__content_description	Close full screen
 screen__style__layouts__badge_editable__content_description	You can edit it
 screen__style__layouts__badge_fixed__content_description	Fixed layout
 screen__style__layouts__card__content_description	%1$s layout, running live
@@ -1128,7 +1148,10 @@ screen__style__mode_power__label	Power
 screen__style__mode_speed__label	Speed
 screen__style__position	%1$d / %2$d
 screen__style__preview__content_description	%1$s running a demo drive
+screen__style__preview_hud__content_description	%1$s's HUD look, as HUD mode draws it
 screen__style__trial_note	On trial: %1$d h left. Buy it to keep it.
+screen__style__view_hud__label	HUD
+screen__style__view_original__label	Original
 screen__style_settings__access__off	Off
 screen__style_settings__access__on	On
 screen__style_settings__access__subtitle	Lets %1$s show your music, calls and messages
@@ -1222,6 +1245,7 @@ screen__styles__chip_trial__label	Trial · %1$d h
 screen__styles__count#one	%1$d style
 screen__styles__count#other	%1$d styles
 screen__styles__hero__kicker	On your wallpaper
+screen__styles__market__button_browse__label	Browse
 screen__styles__market__subtitle	Layouts made by players, in any style
 screen__styles__market__title	Layout market
 screen__styles__message_failed	The purchase didn't go through.
@@ -1241,6 +1265,8 @@ screen__styles__message_use_failed	Couldn't switch to %1$s. Try again.
 screen__styles__pass__button_no_price__label	See plans
 screen__styles__pass__subtitle	Every style and no ads, now and later
 screen__styles__pass__title	Speedometer Plus
+screen__styles__section_hud__label#one	HUD mode · %1$d style
+screen__styles__section_hud__label#other	HUD mode · %1$d styles
 screen__styles__section_more__label	More styles
 screen__styles__section_yours__label	Your styles
 screen__styles__title	Styles
