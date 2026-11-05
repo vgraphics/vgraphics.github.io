@@ -53,6 +53,10 @@
     let muted = false;
     let fader = null; // the song's fades, from its first play
     let halting = false; // a pause on its way down
+    // Where the selected track begins: its 0:00, or a place picked on its waveform before then. Null once it has begun:
+    // until then whatever the <audio> still does belongs to the track before it, and moves nothing here.
+    let cue = 0;
+    let turn = 0; // counts the plays and pauses: a skip's fade-out begins the picked track only if none came after it
 
     // Last in the page: fixed to the screen whatever its ancestors do, and last in the tab order.
     document.body.append(mini);
@@ -145,21 +149,24 @@
       both("dur").forEach((el) => (el.textContent = clock(track().dataset.duration)));
       bars.forEach(({ range }) => (range.max = track().dataset.duration));
       draw();
+      cue = 0; // a picked track starts from its beginning
       show(0);
       if (started) describe();
     }
 
     function start() {
       halting = false;
+      const mine = ++turn;
       if (!fader && fades) {
         fader = fades.fader(audio, { tail: TAIL, music: true });
         fader.volume = volume;
       }
       fades?.resume();
-      // Another track picked while one plays: that one fades out first
-      if (fader && !audio.paused && !loaded()) {
+      // Another track picked while one plays (or the playing one picked again): that one fades out first. Then the picked
+      // one begins, whatever else moved the fade meanwhile, unless another pick or a pause came after this one.
+      if (fader && !audio.paused && cue !== null) {
         state("loading");
-        fader.to(0, SKIP).then((done) => done && begin());
+        fader.to(0, SKIP).then(() => mine === turn && begin());
         return;
       }
       begin();
@@ -167,16 +174,18 @@
 
     function begin() {
       if (!loaded() || audio.error) {
-        const from = Number(bars[0].range.value); // a place picked on the waveform before the track loaded
+        // From its start, a place picked on its waveform before it loaded, or where a load that failed had got to
+        const from = cue ?? Number(bars[0].range.value);
         audio.src = track().dataset.src;
         if (from) audio.currentTime = from;
         live.textContent = "Now playing: " + title();
-      }
+      } else if (cue !== null) audio.currentTime = cue; // the track already in the player, picked again: from its start
+      cue = null; // from here the bars follow it
       main("label").textContent = "Track " + (at + 1) + " of " + rows.length;
       started = true;
       describe();
       place();
-      // Played again while a pause was taking it down: it comes back up from where it is
+      // Played again while a pause was taking it down, or picked again while it faded out: it comes back up
       if (!audio.paused) {
         state("playing");
         fader?.to(1, IN);
@@ -189,9 +198,13 @@
       });
     }
 
-    // A pause that fades out first; the buttons show it at once
+    // A pause that fades out first; the buttons show it at once. A track picked and still on its way stays out.
     function halt() {
-      if (!fader || audio.paused) return audio.pause();
+      turn++;
+      if (!fader || audio.paused) {
+        state("paused");
+        return audio.pause();
+      }
       halting = true;
       state("paused");
       fader.to(0, OUT).then((done) => done && audio.pause());
@@ -210,7 +223,8 @@
 
     function seek(t) {
       t = Math.max(0, Math.min(length(), t));
-      if (loaded() && audio.readyState) audio.currentTime = t; // otherwise start() takes it from the bar
+      if (cue !== null) cue = t; // a track not begun yet: it begins there
+      else if (loaded() && audio.readyState) audio.currentTime = t; // otherwise start() takes it from the bar
       show(t);
     }
 
@@ -266,14 +280,16 @@
       mini.classList.toggle("on", on);
     }
 
+    // While a picked track waits to begin (cue isn't null), the one fading out can't bring itself back up, move the bars
+    // or move on at its end: the picked one begins as planned.
     audio.addEventListener("playing", () => {
-      if (halting) return;
+      if (halting || cue !== null) return;
       state("playing");
       fader?.to(1, IN);
     });
     audio.addEventListener("waiting", () => halting || state("loading"));
     audio.addEventListener("pause", () => state("paused"));
-    audio.addEventListener("timeupdate", () => dragging || show(audio.currentTime));
+    audio.addEventListener("timeupdate", () => dragging || cue !== null || show(audio.currentTime));
     audio.addEventListener("loadedmetadata", () => {
       bars.forEach(({ range }) => (range.max = audio.duration));
       both("dur").forEach((el) => (el.textContent = clock(audio.duration)));
@@ -281,6 +297,7 @@
     });
     audio.addEventListener("seeked", position);
     audio.addEventListener("ended", () => {
+      if (cue !== null) return;
       if (loop === "one") start();
       else if (at < rows.length - 1 || loop === "all") {
         select(at + 1);
@@ -306,8 +323,23 @@
         localStorage.setItem("ost-loop", loop);
       } catch (e) {}
     });
-    rows.forEach((row, i) => row.addEventListener("click", () => (i === at ? toggle() : (select(i), start()))));
-    songs.forEach((b) => b.addEventListener("click", () => rows[Number(b.dataset.ostSong)]?.click()));
+    // A track's row (or a chapter's song button) plays it from its start. The current track's own row pauses it, but only
+    // while it plays out loud and not at a double-click's second click: while it is still on its way in (the track
+    // before fading out, loading) a click keeps it coming.
+    function pick(i, e) {
+      if (i !== at) {
+        select(i);
+        start();
+      } else if (audio.paused || halting) start();
+      else if (root.dataset.state === "playing" && !(e.detail > 1)) halt();
+    }
+    rows.forEach((row, i) => row.addEventListener("click", (e) => pick(i, e)));
+    songs.forEach((b) =>
+      b.addEventListener("click", (e) => {
+        const i = Number(b.dataset.ostSong);
+        if (rows[i]) pick(i, e);
+      }),
+    );
 
     for (const bar of bars) {
       const { box, range } = bar;
