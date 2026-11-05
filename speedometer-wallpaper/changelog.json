@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "2.0.16",
+      "date": "2026-11-05",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Screens now use the whole height",
+      "items": [
+        "Signed-in players without a birth year on their VHub account can now add it in one step, so friends and names work.",
+        "Screens now use the whole height: no more empty band at the bottom.",
+        "Smoother wallpaper and previews, and fixes for rare crashes when going back after saving a layout and during purchases."
+      ],
+      "commit": "5dd7fefb"
+    },
+    {
       "version": "2.0.15",
       "date": "2026-11-05",
       "platforms": [
