@@ -76,6 +76,8 @@ const hudNote = (hud) => (hud
 // then the marketplace"; "The 4 pills below HUD MODE are confusing"): the style's own layouts, then its HUD layouts
 // (only while a HUD style is on show; picking one shows that HUD look through Original | HUD), then the market's most
 // used layouts of the style, tried in the phone, and the market's link. try.js fills and shows each set.
+// The Layouts menu's group of the layouts VHub ships; the app's picker calls it the same (screen__style__layouts__group_ready).
+const READY_TITLE = 'Ready-made'
 const layoutSets = (b, level) => {
   const title = (text, icon = '') => `<h${level} class="try-set-title">${icon}${esc(text)}</h${level}>`
   const hud = b.hud
@@ -86,8 +88,12 @@ const layoutSets = (b, level) => {
     ? `
                 <div class="try-layout-set try-layout-market" hidden>${title('From the layout market')}<div class="try-chips"></div>${b.market ? `<a class="try-market-more" href="${esc(b.market)}">See the layout market</a>` : ''}</div>`
     : ''
+  const ready = b.layouts
+    ? `
+                <div class="try-layout-set try-layout-ready" hidden>${title(READY_TITLE)}<div class="try-chips"></div></div>`
+    : ''
   return `
-                <div class="try-layout-set try-layout-builtin">${title('Built in')}<div class="try-chips"></div></div>${hud}${market}`
+                <div class="try-layout-set try-layout-builtin">${title('Built in')}<div class="try-chips"></div></div>${ready}${hud}${market}`
 }
 const hudLayer = (hud) => (hud
   ? `
