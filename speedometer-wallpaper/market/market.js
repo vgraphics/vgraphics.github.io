@@ -57,12 +57,14 @@ window.SpeedoMarket = (() => {
   // The app's words for the four screens (DeviceShape) and the report reasons (MarketReportReason).
   const SHAPES = { phone: "Phone", tall: "Tall / Flip", foldable: "Foldable", tablet: "Tablet" };
   const REASONS = { name: "Rude name", spam: "Spam or a copy", broken: "Broken", other: "Something else" };
-  // The 42 widgets in the app's words (logic_resources strings_layouts.xml, layouts__widget__<kind>__name).
+  // The 44 widgets in the app's words (logic_resources strings_layouts.xml, layouts__widget__<kind>__name). The info
+  // display is retired (6 Nov 2026), split into the date and time and the phone's status meters; layouts saved before
+  // still name it, so it keeps its name here.
   const WIDGETS = {
     main: "Main gauge", ram: "RAM", signal: "Signal", wifi: "Wi-Fi", link_speed: "Link speed", battery: "Battery",
     temperature: "Temperature", clock: "Clock", date: "Date", lights: "Warning lights", now_playing: "Now Playing",
     counts: "Calls and messages", status: "Status", shift_lights: "Shift lights", display: "Info display",
-    strip: "Info strip", backplate: "Backplate", trip: "Trip distance", average_speed: "Average speed",
+    date_time: "Date and time", phone_meters: "Phone status meters", strip: "Info strip", backplate: "Backplate", trip: "Trip distance", average_speed: "Average speed",
     top_speed: "Top speed", drive_time: "Drive time", trip_computer: "Trip computer", zero_to_100: "0–100 timer",
     g_force: "G-force", odometer: "Odometer", climb_rate: "Climb rate", heading: "Heading", altitude: "Altitude",
     tilt: "Tilt", sun: "Sunrise and sunset", moon: "Moon", weather: "Weather", air_pressure: "Air pressure",
