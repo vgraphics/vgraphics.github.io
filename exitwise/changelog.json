@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.debd4d25",
+      "version": "1.0.35",
       "date": "2026-11-06",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "The guardian waits for your arrow",
