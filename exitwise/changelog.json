@@ -1,6 +1,22 @@
 {
   "entries": [
     {
+      "version": "1.0.debd4d25",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "The guardian waits for your arrow",
+      "items": [
+        "The guardian now stays put until your arrow has passed through, then slides to its new spot.",
+        "In How to play, clearing a lesson now shows your progress — the lessons you've done so far and the next one up.",
+        "Settings, the contact form and pop-up dialogs now share a cleaner, more consistent look.",
+        "Your coins now show the first time you open the game, not just after visiting Settings.",
+        "If you sign in and we don't have your birth year, we'll now ask for it."
+      ],
+      "commit": "debd4d25"
+    },
+    {
       "version": "1.0.a0a80710",
       "date": "2026-11-05",
       "platforms": [
