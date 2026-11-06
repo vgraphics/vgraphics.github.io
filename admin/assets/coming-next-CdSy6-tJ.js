@@ -1,1 +1,0 @@
-import{s as i,u as e,K as r,P as l}from"./index-B3Jhu0yD.js";function c({section:a}){const n=i(a);return e(l,{icon:n.icon,title:n.label,children:e("p",{class:"pnl-pad quiet",children:["Coming next. Search (",e(r,{children:"Ctrl"})," ",e(r,{children:"K"}),") and Force reload already work here."]})})}export{c as C};
