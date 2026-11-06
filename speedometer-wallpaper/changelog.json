@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "2.0.7999f34d",
+      "version": "2.0.17",
       "date": "2026-11-06",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Styles show their full look",
