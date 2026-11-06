@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "2.0.a4cc51e2",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Every style draws every gauge",
+      "items": [
+        "Every style now draws the full set of gauges — dials, HUD arcs, Wi-Fi rings, the analog clock and the date — in its own colours."
+      ],
+      "commit": "a4cc51e2"
+    },
+    {
       "version": "2.0.17",
       "date": "2026-11-06",
       "platforms": [
