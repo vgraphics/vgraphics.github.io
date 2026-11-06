@@ -2,6 +2,35 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "ad410ecefefcac2bf7f1c0450af022cf3f588a38",
+      "at": "2026-11-06T16:11:15.133Z",
+      "files": [
+        "badge-D2nyEqG5.js",
+        "controls-CcyoZ-FY.js",
+        "fields-CXnKUnk2.js",
+        "fields-Efj49ROr.css",
+        "firestore-mek52uwL.js",
+        "index-BC1obDZr.js",
+        "index-BLMviTBU.js",
+        "index-BP_ikwQ1.js",
+        "index-C-vYU6yp.js",
+        "index-CMYjyT_o.js",
+        "index-CgRe8ati.css",
+        "index-DF2SaEQe.css",
+        "index-DFae-t7n.js",
+        "index-DlJ9D5OT.js",
+        "index-DlOlpBqU.css",
+        "index-E6e97B4a.js",
+        "index-VCQLnYQV.css",
+        "index-mN8sNhPB.css",
+        "model-BMFi_GpK.js",
+        "model-BhGN2KQT.js",
+        "picture-preview-CiaE2v-8.js",
+        "picture-preview-tU52PGzs.css",
+        "power-dialog-BWSQuzPq.js"
+      ]
+    },
+    {
       "sha": "0251fa8b1b1cd26e88076fb4a929371b163b271f",
       "at": "2026-11-06T15:23:41.583Z",
       "files": [
