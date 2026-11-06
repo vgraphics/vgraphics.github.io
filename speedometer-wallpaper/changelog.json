@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "2.0.7999f34d",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Styles show their full look",
+      "items": [
+        "Styles that rearrange a gauge now show its full look — background, readouts and warning lamps — when you try them in the browser"
+      ],
+      "commit": "7999f34d"
+    },
+    {
       "version": "2.0.9fbae0ad",
       "date": "2026-11-06",
       "platforms": [
