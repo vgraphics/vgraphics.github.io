@@ -889,6 +889,7 @@ screen__layout_builder__button_remove__content_description	Remove widget
 screen__layout_builder__button_zoom_fit__content_description	Show the whole layout
 screen__layout_builder__button_zoom_in__content_description	Zoom in
 screen__layout_builder__button_zoom_out__content_description	Zoom out
+screen__layout_builder__clashes__message	A layout whose widgets overlap can't be published. Move them apart first.
 screen__layout_builder__default_name	My layout
 screen__layout_builder__delete__body	Styles that use it go back to their own layout.
 screen__layout_builder__delete__button_delete__label	Delete

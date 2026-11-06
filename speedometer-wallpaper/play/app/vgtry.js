@@ -13,7 +13,8 @@
  *   app.catalog()          styles, layouts and settings to build the picker and settings from (WebCatalog.kt)
  *   app.values()           { style, layout, shared, source, values: { key: value } } for the shown style; while a
  *                          market layout shows, shared is true and layout is its code
- *   app.addLayout(code, data)    keeps a market layout under its code; false when its data can't be read
+ *   app.addLayout(code, data)    keeps a market layout under its code; false when its data can't be read;
+ *                                code "replaces.<variationId>" keeps VHub's version of that style layout instead
  *   app.show(style, layout?)     layout: one of the style's own, or an added market layout's code; left out, a market
  *                                layout on show stays and is drawn in the new style
  *   app.set(key, value), app.mode("power" | "cpu_clock" | "gps_speed")   set("layout", <the style's own>) leaves

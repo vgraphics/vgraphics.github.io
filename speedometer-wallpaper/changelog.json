@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.9fbae0ad",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Layouts that fit your screen",
+      "items": [
+        "Styles now come with a landscape layout, and the preview shows the arrangement that fits your screen.",
+        "When a style is updated, its newest version now shows in your browser."
+      ],
+      "commit": "9fbae0ad"
+    },
+    {
       "version": "2.0.16",
       "date": "2026-11-05",
       "platforms": [
