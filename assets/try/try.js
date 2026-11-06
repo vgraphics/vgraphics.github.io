@@ -421,6 +421,7 @@
   // public Firestore index. Only the version out for everyone (`live`), never a candidate or a tester's copy.
   var READY_SHAPE = 'phone';
   var READY_CODE = 'ready-';
+  var REPLACES_CODE = 'replaces.';
   var READY_TIMEOUT_MS = 8000;
   var FIRESTORE_SPEEDOMETER = 'https://firestore.googleapis.com/v1/projects/speedometer-wallpaper/databases/(default)/documents/';
   var readyRows = null;
@@ -551,7 +552,7 @@
         return readFirestore('shippedLayoutVersions/' + encodeURIComponent(entry.live)).then(function (version) {
           var layout = JSON.parse(version.data);
           var names = layout.names || {};
-          return { id: entry.id, data: version.data, layout: layout, name: names.en || layout.name || entry.id };
+          return { id: entry.id, data: version.data, layout: layout, replaces: entry.replaces || '', name: names.en || layout.name || entry.id };
         }).catch(function (failure) {
           analytics.error('ready-made layout ' + entry.id + ': ' + whyOf(failure));
           return null;
@@ -559,7 +560,13 @@
       }));
     }).then(function (found) {
       var byStyle = {};
+      var replaced = {};
       found.filter(Boolean).forEach(function (item) {
+        // A version of a style's own layout is that layout's Built in row, never a Ready-made one.
+        if (item.replaces) {
+          if (typeof app.addLayout === 'function' && app.addLayout(REPLACES_CODE + item.replaces, item.data)) replaced[item.replaces] = true;
+          return;
+        }
         if (item.layout.shapes && item.layout.shapes.indexOf(READY_SHAPE) < 0) return;
         catalog.styles.forEach(function (style) {
           if (item.layout.styles && item.layout.styles.indexOf(style.id) < 0) return;
@@ -567,7 +574,9 @@
         });
       });
       readyRows = byStyle;
-      if (last.style && (byStyle[last.style] || []).length) fillLayouts(styleOf(last.style), app.values());
+      var shown = app.values();
+      if (last.style && !shown.shared && replaced[shown.layout]) app.show(last.style, shown.layout);
+      else if (last.style && (byStyle[last.style] || []).length) fillLayouts(styleOf(last.style), shown);
     }, function (failure) {
       analytics.error('ready-made layouts: ' + whyOf(failure), failure && failure.stack);
     });
