@@ -431,6 +431,7 @@ h1, h2, h3 {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  overflow: clip; /* clip, not hidden: a hidden box scrolls on its own, and its art couldn't stick (below) */
   display: grid;
   justify-items: center;
   gap: clamp(14px, 2vw, 22px);
@@ -440,8 +441,17 @@ h1, h2, h3 {
   color: var(--on-art);
   box-shadow: var(--card-shadow);
 }
-.scene-art, .scene-art img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; }
-.scene-art img { object-fit: cover; object-position: var(--stage-at, 50% 50%); }
+/* The stage's picture is never stretched past one screen (George, 5 Nov 2026, on the ranking's 100 rows: "Leaderboard
+   background image is too blurry and pixelated. Need a better resolution its a long table."). The picture spans the
+   scene, but its image is at most a screen tall and sticks to the screen's top while a longer scene scrolls past, so
+   cover scales it to the screen, never to the page: the sources only need the screen's resolution (stageArt's sizes).
+   A scene shorter than the screen shows it whole, as before. position: fixed would load every stage at once. */
+.scene-art { position: absolute; inset: 0; z-index: -2; display: block; }
+.scene-art img {
+  position: sticky; top: 0;
+  display: block; width: 100%; height: min(100%, 100vh);
+  object-fit: cover; object-position: var(--stage-at, 50% 50%);
+}
 .scene::before {
   content: "";
   position: absolute;

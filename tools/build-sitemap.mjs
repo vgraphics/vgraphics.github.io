@@ -1,7 +1,8 @@
 // Writes sitemap.xml from the pages: the canonical address of every page search engines may index, with the day it last
 // changed.
 // Usage: node tools/build-sitemap.mjs   (after adding, moving or removing a page; check-site fails until you do)
-// A page is left out when it has <meta name="robots" content="noindex"> (the 404 page, the room invite page).
+// A page is left out when it has <meta name="robots" content="noindex"> (the 404 page, the room invite page), and the
+// admin page always, whatever its markup says (tools/lib/admin.mjs).
 // <lastmod> is the date of the last commit that changed the page's file, or today while it has changes not committed
 // yet, so a page built and committed on the same day keeps its date through the commit and the merge. Run it again
 // after pages change (the Deployer's hub and party releases do); check-site checks which pages are listed, and that each
@@ -11,6 +12,7 @@ import { execFileSync } from 'node:child_process'
 import { readdirSync, readFileSync, statSync, writeFileSync } from 'node:fs'
 import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import { inAdminFolder } from './lib/admin.mjs'
 import { pieces } from './lib/product.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -44,6 +46,9 @@ function lastChanged() {
   return (file) => dates.get(file.split(sep).join('/')) ?? today
 }
 
+// Whether the page in `file` (its path in the repo) goes in the sitemap: not when it is noindex, and never the admin page.
+export const listed = (file, html) => !inAdminFolder(file) && !/<meta name="robots" content="[^"]*noindex/i.test(html)
+
 // sitemap.xml as it should be now. check-site compares the file with it.
 export function sitemap() {
   // The pieces the template sets into pages (a policy's copy, a page's markup) aren't pages themselves.
@@ -52,7 +57,7 @@ export function sitemap() {
   const urls = walk(root)
     .filter((f) => f.endsWith('.html') && !skip.has(f))
     .map((f) => [f, readFileSync(join(root, f), 'utf8')])
-    .filter(([, html]) => !/<meta name="robots" content="[^"]*noindex/i.test(html))
+    .filter(([f, html]) => listed(f, html))
     .map(([f, html]) => [html.match(/<link rel="canonical" href="([^"]*)"/)?.[1], changed(f)])
     .filter(([url]) => url)
     .sort(([a], [b]) => (a < b ? -1 : a > b ? 1 : 0))

@@ -1,6 +1,51 @@
 {
   "entries": [
     {
+      "version": "1.0.a0a80710",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Guardian stones slide into place",
+      "items": [
+        "Guardian stones now wait for your arrow to pass through, then slide to their new spot.",
+        "Finish a lesson in How to play and you'll see your progress through all 21 and a button to the next one.",
+        "Pop-up dialogs, the How to play bubble and the support form now match the refreshed Settings look, with tidier spacing.",
+        "When you sign in, you may be asked for your birth year to finish setting up your account—or just tap 'Not now'."
+      ],
+      "commit": "a0a80710"
+    },
+    {
+      "version": "1.0.342418ea",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Smoother menus and dialogs",
+      "items": [
+        "Menus, pop-ups and expanding sections now open and close with smooth, consistent motion, and opening a quick answer no longer scrolls the page on its own.",
+        "Cloud save works again — if your progress had stopped syncing with a 'newer version' message, it now loads and saves to the cloud as before.",
+        "The Help and news screen is tidier: your support messages now sit on cards, each with its own title and chat-style bubbles, and the coin counter no longer overlaps the tabs.",
+        "On Android, the Back button now closes Settings, and closes any panel open on top of it first.",
+        "In Settings, your account card now shows your profile name — the same name on your profile and the boards — instead of the sign-in gamertag."
+      ],
+      "commit": "342418ea"
+    },
+    {
+      "version": "1.0.939dce0d",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Add friends by tapping players",
+      "items": [
+        "Tap another player in the leaderboards, rooms or match history to open their card and send them a friend request.",
+        "You now get a username automatically (like 'SwiftArrow482'), so you show up on the leaderboards right away—and you can change it once to a name of your own.",
+        "Settings has a cleaner new look, organised into two tabs: 'Settings' and 'Help and news'."
+      ],
+      "commit": "939dce0d"
+    },
+    {
       "version": "1.0.31",
       "date": "2026-11-03",
       "platforms": [

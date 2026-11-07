@@ -115,12 +115,14 @@ function hero(p, overview) {
 
 // A stage: a picture from the key art's world behind a section's content, as the intro's demo, the gallery and the
 // soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll. { "wiki": "<slug>" } stands
-// on that wiki entry's painting, in the sizes it has.
+// on that wiki entry's painting, in the sizes it has. Its image is at most a screen tall (product.css, .scene-art), so
+// it is the scene's width, or wider where a screen's height asks for more (the ranking's long scene): sizes says so.
 function stageArt(st, slug) {
   if (!st) return ''
   if (st.wiki) st = wikiArt(slug, st.wiki, st)
   const sources = (img, media, sizes) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${set(img, ext, img.widths)}" sizes="${sizes}">`).join('')
-  return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', '100vw')}${sources(st.wide, '', '(max-width: 1160px) 100vw, 1120px')}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
+  const vh = (img) => `${+(100 * img.width / img.height).toFixed(1)}vh`
+  return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', `max(100vw, ${vh(st.tall)})`)}${sources(st.wide, '', `max(min(100vw, 1120px), ${vh(st.wide)})`)}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
 }
 const stageAt = (st) => (st?.position ? ` style="${esc(`--stage-at: ${st.position}`)}"` : '')
 

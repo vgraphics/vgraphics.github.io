@@ -189,7 +189,9 @@
       }
       #consent { position: fixed; inset: 0; z-index: 900; display: none; align-items: flex-end; justify-content: center; padding: 16px;
                  padding-bottom: calc(var(--bar) + var(--ad) + 16px); background: rgba(59, 51, 85, 0.25); }
-      #consent.open { display: flex; }
+      /* Shown (open) and while it goes (closing): it rises and sinks as every VGraphics sheet does (the script below). */
+      #consent.open, #consent.closing { display: flex; }
+      #consent.closing { pointer-events: none; }
       #consent .card { width: 100%; max-width: 420px; box-sizing: border-box; padding: 20px 20px 16px; border-radius: 20px;
                        background: var(--card); box-shadow: 0 18px 50px rgba(46, 42, 36, 0.28); }
       #consent h2 { margin: 0 0 6px; font-size: 18px; }
@@ -436,11 +438,42 @@
       (function () {
         var KEY = "exitwise.analytics";
         var dialog = document.getElementById("consent");
+        // The card is a sheet, so it moves as the design canon says (.vgraphics/design-canon.md, section 2; vgraphics.gr's
+        // assets/faq.js, the game's Reveal.cs): the dim fades in as the card rises from 24 px below its place, 260 ms on
+        // cubic-bezier(.2, .8, .2, 1), and both go back the same way a little faster (200 ms). Shown again while it goes, it
+        // turns round from where it is. Under reduced motion only the fade, 150 ms in and 100 ms out. "open" says it is
+        // wanted (the loading bar's lift reads it) from the moment it starts to open, and goes as it starts to close.
+        var EASE = "cubic-bezier(.2, .8, .2, 1)";
+        var still = window.matchMedia ? window.matchMedia("(prefers-reduced-motion: reduce)") : { matches: false };
+        var sheet = dialog.querySelector(".card");
+        var moving = null;
+        var move = function (on) {
+          if (dialog.classList.contains("open") === on) return;
+          var from = moving ? [getComputedStyle(dialog).opacity, getComputedStyle(sheet).transform] : on ? ["0", "translateY(24px)"] : ["1", "none"];
+          if (moving) moving.forEach(function (a) { a.cancel(); });
+          moving = null;
+          dialog.classList.toggle("open", on);
+          dialog.classList.toggle("closing", !on);
+          if (!dialog.animate) {
+            dialog.classList.remove("closing");
+            return;
+          }
+          var timing = { duration: still.matches ? (on ? 150 : 100) : (on ? 260 : 200), easing: EASE, fill: "forwards" };
+          var anims = [dialog.animate({ opacity: [from[0], on ? "1" : "0"] }, timing)];
+          if (!still.matches) anims.push(sheet.animate({ transform: [from[1], on ? "none" : "translateY(24px)"] }, timing));
+          moving = anims;
+          Promise.all(anims.map(function (a) { return a.finished; })).then(function () {
+            if (moving !== anims) return;
+            moving = null;
+            if (!on) dialog.classList.remove("closing");
+            anims.forEach(function (a) { a.cancel(); });
+          }, function () {});
+        };
         var stored = function () { try { return window.localStorage.getItem(KEY); } catch (e) { return null; } };
         var answer = function (value) {
           var before = stored();
           try { window.localStorage.setItem(KEY, value); } catch (e) {}
-          dialog.classList.remove("open");
+          move(false);
           window.dispatchEvent(new CustomEvent("exitwise-analytics-consent", { detail: value }));
           // Withdrawn after Google Analytics loaded: reload so nothing of it stays on the page.
           if (before === "granted" && value === "denied") window.location.reload();
@@ -451,7 +484,7 @@
         // Statistics and Ad choices are in the bar.
         var each = function (selector, then) { Array.prototype.forEach.call(document.querySelectorAll(selector), then); };
         each("[data-statistics]", function (button) {
-          button.addEventListener("click", function () { dialog.classList.add("open"); });
+          button.addEventListener("click", function () { move(true); });
         });
         var ads = window.exitwiseAds;
         each("[data-ad-choices]", function (choices) { choices.hidden = !ads.privacyOptionsRequired(); });
@@ -464,7 +497,7 @@
           // Already answered in Google's message: don't ask twice.
           var google = ads.analyticsAnswer();
           if (google) answer(google);
-          else dialog.classList.add("open");
+          else move(true);
         });
       })();
     </script>
@@ -812,7 +845,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.0b896083",
+        productVersion: "1.0.a0a80710",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
