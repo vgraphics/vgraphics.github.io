@@ -24,6 +24,7 @@
   <ul class="short">
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 21c1-4 4-6 8-6s7 2 8 6"/></svg></span><b>Account optional</b><span>Nothing needs a VHub sign-in. Without one, we never ask for your name or contact details, except an email you choose to give for help answers or our news.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 14l4-4"/><path d="M3.3 19a10 10 0 1 1 17.4 0"/></svg></span><b>Readings stay on your phone</b><span>Battery, CPU, memory, signal, Wi-Fi, Bluetooth and your step count are used to draw the wallpaper and never sent anywhere.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2"/><circle cx="8.5" cy="8.5" r="1.5"/><path d="M21 15l-5-5L5 21"/></svg></span><b>Your photos stay on your phone</b><span>A photo you put on a photo widget is kept in the app's own storage, never uploaded, backed up or shared.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Location only for speed and widgets</b><span>Only while on screen and never stored. Only the Weather widget sends a rough location (about 10 km) for its forecast.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><b>Music &amp; calls stay on your phone</b><span>Future design only, with your permission: never stored or sent.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15h18"/></svg></span><b>Ads on menus only</b><span>A small banner on the app's menu screens, and a short video only when you ask for a 24-hour style trial. Never on the wallpaper.</span></li>
@@ -117,6 +118,18 @@
             notification access described below.</li>
         </ul>
         <p>
+          <strong>Photo widgets.</strong> The Photo frame, Instant print and Round photo widgets show a photo you choose.
+          From the gallery, you pick it in Android's own photo picker, so the app never asks to read your photos and sees
+          only the one you pick. With the camera, your camera app takes the picture and hands it to us; the app doesn't ask
+          for the camera permission. We keep a copy in the app's own storage, made smaller (at most 2048 pixels on its long
+          side) and saved again without its metadata, so the copy holds no location, date or camera details. The photo,
+          where it sits, how far it's zoomed and the instant print's caption never leave your phone. They aren't uploaded,
+          aren't in the copy of your layouts kept in your VHub account, a layout you share or one you publish, aren't in
+          Android's backups or a transfer to a new phone, and are never logged. On the app's try page in your browser, a
+          photo you add is read and drawn in the page itself. It's never uploaded or saved, and reloading the page forgets
+          it.
+        </p>
+        <p>
           Apart from the Weather widget's rough location, none of this leaves your phone. It is not sent to us and not
           shared with anyone, including our analytics and advertising partners.
         </p>
@@ -144,9 +157,11 @@
         <p>
           The app saves your settings (gauge mode, units, which date, time and lights to show), which designs you own, and
           which design you're trying for 24 hours and when that trial began, and what your widgets keep: the odometer,
-          your best 0&ndash;100 time, today's steps, the tilt's level and the last weather forecast, and for HUD mode how your phone lies on the dashboard and, if you
+          your best 0&ndash;100 time, today's steps, the tilt's level, the last weather forecast, and the photos on your photo
+          widgets, with where each sits, its zoom and its caption, and for HUD mode how your phone lies on the dashboard and, if you
           link your car, its name and Bluetooth address. This stays in the
-          app's storage on your phone. Uninstalling the app deletes it.
+          app's storage on your phone. Taking a photo off, removing its widget, or deleting its layout deletes the copy,
+          unless another of your layouts still shows it. Uninstalling the app deletes it.
         </p>
       </section>
 
@@ -164,7 +179,8 @@
         </p>
         <p>
           Signed in, the app also keeps a small record for you: the free style you picked as your sign-in gift, your free
-          month of layouts, and a copy of your settings and your own layouts, so a new phone gets them back. VHub also
+          month of layouts, and a copy of your settings and your own layouts, so a new phone gets them back. That copy never
+          includes the photos on your photo widgets: on another phone, those widgets wait for a photo of their own. VHub also
           keeps a record of your Speedometer Plus purchase, monthly, yearly or forever: the plan, whether it's active and its dates,
           never your payment details, so Plus works on every device you sign in to (see In-app purchases). These records
           and your VHub account are kept with Google Firebase (VHub's database is in the European Union) until you delete your
@@ -185,7 +201,8 @@
           Publishing a layout, rating one and reporting one need a VHub sign-in. A published layout is public: its name,
           the layout itself (which widgets go where), the screen shapes and the style it was made for, its share code, your
           VHub account id, and how many players used it and their star ratings can be seen by anyone in the app, with your
-          VHub name and picture. You can unpublish your layouts at any time.
+          VHub name and picture. Photo widgets are published empty: your photo is never part of a published layout, and
+          anyone who uses it adds their own. You can unpublish your layouts at any time.
         </p>
         <p>
           When you use, rate or report a layout while signed in, we keep a record with your VHub account id (that you used
@@ -229,7 +246,7 @@
           settings are used, when the wallpaper is first set, and on which days it's on your screen, so we can improve
           the app. Crashlytics sends a report when the app crashes, so we can fix it.
           They collect an app instance identifier, your device model, operating system and language, your approximate
-          country, and in-app events or crash details. They don't receive your location or your phone's readings: for HUD mode they get how long it was open, how many speed warnings it gave and your top speed in one of four bands (under 50, 50&ndash;90, 90&ndash;130 or over 130 km/h), never the speed itself. We use
+          country, and in-app events or crash details. They don't receive your location or your phone's readings: for HUD mode they get how long it was open, how many speed warnings it gave and your top speed in one of four bands (under 50, 50&ndash;90, 90&ndash;130 or over 130 km/h), never the speed itself. For the photo widgets we count only that a photo was added (from the gallery or the camera) and that a photo widget was removed, never anything about the photo itself. We use
           this only to improve the app, never to identify you or to show you ads. Your ad choices (below) also tell
           Firebase whether these events may be used to measure our own ads for the app on Google (Google's consent mode);
           where you haven't answered yet in the European Economic Area, the UK or Switzerland, they count as not allowed.

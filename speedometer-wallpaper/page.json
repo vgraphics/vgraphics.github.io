@@ -718,7 +718,7 @@
     {
       "id": "widgets",
       "eyebrow": "Widgets",
-      "title": "42 widgets for any style",
+      "title": "46 widgets for any style",
       "intro": "Every style shows every widget, each in its own look. Add the ones you want in the <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">layout builder</a>: each one reads only while it's on your wallpaper, and only the weather sends anything, your rough location, rounded to about 10 km, to MET Norway for the forecast.",
       "blocks": [
         {
@@ -739,6 +739,10 @@
             {
               "title": "Your day and your phone",
               "text": "The clock, the date and a second clock, your next alarm and event, Now Playing with music buttons and volume, calls and messages, steps today, battery time, data speed and storage."
+            },
+            {
+              "title": "Your photos",
+              "text": "A photo from your gallery or camera on your dashboard, in a frame (square or rounded), as an instant print (straight or tilted, with a line you write under it) or cut to a circle (plain or with a ring). Move it and zoom it in the builder. It stays on your phone."
             }
           ]
         }

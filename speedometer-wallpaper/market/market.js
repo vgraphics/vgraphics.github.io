@@ -69,6 +69,8 @@ window.SpeedoMarket = (() => {
     battery_time: "Battery time", data_speed: "Data speed", storage: "Storage", steps: "Steps today",
     next_alarm: "Next alarm", next_event: "Next event", music_controls: "Music buttons", volume: "Volume",
     second_clock: "Second clock",
+    // Your photos (7 Nov 2026): a published layout carries these widgets empty, never the photo.
+    photo_frame: "Photo frame", photo_print: "Instant print", photo_round: "Round photo",
   };
   const TABS = { popular: "uses", new: "createdAt", top: "topRated" };
   const numbers = new Intl.NumberFormat("en");

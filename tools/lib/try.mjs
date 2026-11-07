@@ -51,7 +51,47 @@ const ICON = {
   hud: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg>',
   qr: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h2.6v2.6M20.5 14v.01M14 20.5h.01M17.6 17.6h2.9v2.9h-2.9z"/></svg>',
   close: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg>',
+  gallery: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg>',
+  camera: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3.5l2-3h5l2 3H20a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="3.8"/></svg>',
+  remove: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/></svg>',
 }
+
+// The photo widgets (Games SpeedometerWallpaper/docs/try-online/README.md, "Photo widgets"; George, 6 Nov 2026: "Add a
+// widget where I can put a photo from my gallery or my camera"): while the layout on show holds one, "Your photos" lists
+// it, and its sheet takes a photo from the visitor's files (or the camera, on a phone) and places it, in the app's words
+// (strings_layouts.xml, screen__layout_builder__photo__*). try.js shows them only for an engine whose catalog marks the
+// kind photo (api 3); the photo stays in the page's memory, never uploaded or saved.
+const PHOTOS = `
+            <section class="try-group try-photos" hidden aria-labelledby="try-photos-title">
+              <h3 id="try-photos-title">Your photos</h3>
+              <div class="try-chips try-photo-list"></div>
+              <p class="try-note">Tap one to put a photo of yours on it. It stays in this page.</p>
+            </section>`
+const PHOTO_SHEET = `
+          <dialog class="try-photo" aria-labelledby="try-photo-title" aria-describedby="try-photo-note">
+            <div class="try-look-shade"></div>
+            <div class="try-look-sheet try-photo-sheet">
+              <button class="try-look-close" type="button" aria-label="Close">${ICON.close}</button>
+              <p class="try-look-eyebrow try-photo-kind"></p>
+              <h3 class="try-look-name" id="try-photo-title">Your photo</h3>
+              <p class="try-look-note" id="try-photo-note">It’s read and drawn in this page alone: never uploaded or saved, and reloading the page forgets it.</p>
+              <div class="try-photo-pick">
+                <button class="try-tool" type="button" data-photo="gallery">${ICON.gallery}<span>Gallery</span></button>
+                <button class="try-tool" type="button" data-photo="camera" hidden>${ICON.camera}<span>Camera</span></button>
+                <button class="try-tool" type="button" data-photo="remove" hidden>${ICON.remove}<span>Remove photo</span></button>
+                <input type="file" accept="image/*" data-photo-input="gallery" hidden>
+                <input type="file" accept="image/*" capture="environment" data-photo-input="camera" hidden>
+              </div>
+              <p class="try-note try-photo-failed" role="alert" hidden>Couldn’t open that photo.</p>
+              <div class="try-photo-place" hidden>
+                <div class="try-setting"><span>Zoom</span><span class="try-level"><input type="range" min="100" max="400" value="100" aria-label="Zoom" data-place="zoom"><output></output></span></div>
+                <div class="try-setting"><span>Left and right</span><span class="try-level"><input type="range" min="0" max="100" value="50" aria-label="Left and right" data-place="focusX"><output></output></span></div>
+                <div class="try-setting"><span>Up and down</span><span class="try-level"><input type="range" min="0" max="100" value="50" aria-label="Up and down" data-place="focusY"><output></output></span></div>
+              </div>
+              <label class="try-photo-caption" hidden><span>Caption</span><input type="text" maxlength="32" placeholder="A few words under the photo" autocomplete="off" data-place="caption"></label>
+              <button class="try-photo-done" type="button">Done</button>
+            </div>
+          </dialog>`
 
 // HUD mode's parts (the hud option): its button and layouts in the panel, and the layer over the phone's screen. Each
 // brings its own line break, so a page without HUD mode gets no blank lines. The button is a pill of the quick row's
@@ -169,7 +209,7 @@ export function tryBlock(b, page) {
             </div>${hudNote(b.hud)}
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
-            ${styles}
+            ${styles}${PHOTOS}
             <section class="try-group" aria-labelledby="try-settings-title">
               <h3 id="try-settings-title">Settings</h3>
               <div class="try-settings"></div>
@@ -202,7 +242,7 @@ export function tryBlock(b, page) {
               <div class="try-look-code" role="img" aria-label="${esc(`A QR code that opens this look in ${page.site.name}`)}"></div>
               <p class="try-look-note" id="try-look-note">Point your phone’s camera at it: the app opens on this look. Without the app, the link offers Google Play.</p>
             </div>
-          </dialog>` : ''}${config.measurementId ? `
+          </dialog>` : ''}${PHOTO_SHEET}${config.measurementId ? `
           <div class="try-consent" role="dialog" aria-labelledby="try-consent-title" hidden>
             <h3 id="try-consent-title">Help improve ${esc(page.site.name)}?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>

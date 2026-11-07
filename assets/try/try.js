@@ -13,8 +13,9 @@
 // Statistics (Google Analytics 4, the product's web stream) only with a measurement id, and only after the visitor says
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
-// share, qr_show (style, layout), fps_low, web_first_frame (ms from the phone coming into view to the wallpaper
-// showing), and exception for the page's and the engine's errors (20 at most). Our own test visits load nothing,
+// share, qr_show (style, layout), widget_photo_picked (kind, source: gallery or camera; never anything about the photo
+// itself), fps_low, web_first_frame (ms from the phone coming into view to the wallpaper showing), and exception for
+// the page's and the engine's errors (20 at most). Our own test visits load nothing,
 // whatever the answer (George, 31 Oct 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
 // [::1], *.localhost, a file) or a browser a script drives (navigator.webdriver: Playwright, Selenium). The question
 // and the switch stay as they are.
@@ -372,6 +373,7 @@
     });
 
     fillLayouts(style, values);
+    fillPhotos(style, values);
 
     // Rebuilt on every change: the control that had the keyboard keeps it.
     var focused = focusKey(document.activeElement);
@@ -833,15 +835,16 @@
     return linkOf(config.appLinks.look, { style: values.style, layout: values.layout });
   };
 
-  function moveLook(on, done) {
-    var sheet = lookBox.querySelector('.try-look-sheet');
-    var shade = lookBox.querySelector('.try-look-shade');
+  // A sheet (the look's QR, a photo widget's photo) coming in or going away, from the button that opened it.
+  function moveSheet(box, from, on, done) {
+    var sheet = box.querySelector('.try-look-sheet');
+    var shade = box.querySelector('.try-look-shade');
     var still = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     // Mid-move, it turns round from where it is.
     var moving = shade.getAnimations();
-    var from = moving.length ? getComputedStyle(shade).opacity : (on ? 0 : 1);
+    var start = moving.length ? getComputedStyle(shade).opacity : (on ? 0 : 1);
     moving.forEach(function (a) { a.cancel(); });
-    shade.animate({ opacity: [from, on ? 1 : 0] }, {
+    shade.animate({ opacity: [start, on ? 1 : 0] }, {
       duration: still ? (on ? SHADE.fadeIn : SHADE.fadeOut) : (on ? SHADE.open : SHADE.close),
       easing: EASE,
       fill: 'forwards'
@@ -849,9 +852,9 @@
     if (!motion) {
       if (done) done();
     } else if (on) {
-      motion.showMenu(sheet, lookFrom, true);
+      motion.showMenu(sheet, from, true);
     } else {
-      motion.hideMenu(sheet, lookFrom, done, true);
+      motion.hideMenu(sheet, from, done, true);
     }
   }
 
@@ -874,7 +877,7 @@
       lookBox.inert = false;
       lookBox.showModal();
       lookBox.querySelector('.try-look-close').focus({ preventScroll: true });
-      moveLook(true);
+      moveSheet(lookBox, lookFrom, true);
       analytics.event('qr_show', { style: values.style, layout: values.layout });
     }, function (failure) {
       analytics.error('qr: ' + (failure && failure.reason ? failure.reason : whyOf(failure)));
@@ -972,34 +975,219 @@
     }, TOAST_MS);
   }
 
-  function closeLook() {
-    if (!lookBox.open) return;
-    lookBox.classList.add('is-closing');
-    lookBox.inert = true;
-    lookBox.close();
-    moveLook(false, function () {
-      lookBox.classList.remove('is-closing');
-      lookBox.inert = false;
-      lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+  function closeSheet(box, from) {
+    if (!box.open) return;
+    box.classList.add('is-closing');
+    box.inert = true;
+    box.close();
+    moveSheet(box, from, false, function () {
+      box.classList.remove('is-closing');
+      box.inert = false;
+      box.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+    });
+  }
+  function closeLook() { closeSheet(lookBox, lookFrom); }
+
+  // A tap beside the sheet, on the shade or on its close button closes it. [fromOf] is the button it goes back to.
+  function wireSheet(box, close, fromOf) {
+    box.addEventListener('click', function (event) {
+      if (event.target === box || event.target.matches('.try-look-shade') || event.target.closest('.try-look-close')) close();
+    });
+    // Escape would shut it at once: it closes as the button does.
+    box.addEventListener('cancel', function (event) {
+      event.preventDefault();
+      close();
+    });
+    // However it shut, the keyboard goes back to the button. Shut by closeSheet, it goes on falling (is-closing) and the
+    // shade's fade ends with it; shut any other way, the shade's fade ends now.
+    box.addEventListener('close', function () {
+      if (!box.classList.contains('is-closing')) {
+        box.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+      }
+      var from = fromOf();
+      if (from) from.focus({ preventScroll: true });
+    });
+  }
+  if (lookBox) wireSheet(lookBox, closeLook, function () { return lookFrom; });
+
+  // ---- The photo widgets (Games SpeedometerWallpaper/docs/try-online/README.md, "Photo widgets", VGTry version 4,
+  // catalog api 3): while the layout on show holds a kind the catalog marks photo, "Your photos" lists it, and its sheet
+  // takes a photo from the visitor's files (or, on a phone, the camera) for the engine to draw, and places it: zoom, left
+  // and right, up and down, and the instant print's caption, in the app's words. Against an engine without photos (api
+  // 2) the list never shows. The photo stays in the page's memory: never uploaded, never stored here (no storage,
+  // cookies or IndexedDB), never in the look or a link; reloading forgets it. Analytics hears only that one was added.
+  var PHOTO_PRINT = 'photo_print';
+  var CAPTION_MAX = 32;
+  var photoBox = $('.try-photo');
+  var photoFrom = null;
+  var photoKind = '';
+  // kind -> { on, focusX, focusY, zoom, caption }: what the engine draws for it, so the sheet opens on it.
+  var photos = {};
+  var photoOf = function (kind) {
+    if (!photos[kind]) photos[kind] = { on: false, focusX: 0.5, focusY: 0.5, zoom: 1, caption: '' };
+    return photos[kind];
+  };
+  var canPhoto = function () { return !!app && typeof app.photo === 'function' && !!catalog && Array.isArray(catalog.widgets); };
+  var widgetOf = function (kind) { return catalog.widgets.filter(function (w) { return w.id === kind; })[0]; };
+  var widgetName = function (widget) { return widget ? (widget.names && widget.names.en) || widget.id : ''; };
+  // A phone's camera: on a desktop the camera input opens the same file picker as Gallery, so it shows on touch alone.
+  var hasCamera = function () { return !!(window.matchMedia && window.matchMedia('(pointer: coarse)').matches); };
+
+  // The layout on show, as its format-1 JSON text: a market layout's from the market, the style's own from the catalog.
+  function layoutText(style, values) {
+    var data = '';
+    if (values.shared) data = marketShown && marketShown.code === values.layout ? marketShown.data : '';
+    else {
+      var own = style.layouts.filter(function (l) { return l.id === values.layout; })[0];
+      data = own ? own.data : '';
+    }
+    if (!data) return '';
+    return typeof data === 'string' ? data : JSON.stringify(data);
+  }
+
+  // The photo kinds the layout on show holds, in the catalog's order.
+  function photoKindsShown(style, values) {
+    if (!canPhoto()) return [];
+    var text = layoutText(style, values);
+    if (!text) return [];
+    return catalog.widgets.filter(function (w) {
+      return w.photo === true && !w.retired && new RegExp('"kind"\\s*:\\s*"' + w.id + '"').test(text);
     });
   }
 
-  if (lookBox) {
-    lookBox.addEventListener('click', function (event) {
-      if (event.target === lookBox || event.target.matches('.try-look-shade') || event.target.closest('.try-look-close')) closeLook();
+  function fillPhotos(style, values) {
+    var group = $('.try-photos');
+    if (!group || !photoBox) return;
+    var kinds = photoKindsShown(style, values);
+    reveal(group, kinds.length > 0);
+    if (!kinds.length) return;
+    var list = group.querySelector('.try-photo-list');
+    var focused = list.contains(document.activeElement) ? focusKey(document.activeElement) : '';
+    list.textContent = '';
+    kinds.forEach(function (widget) {
+      var chip = document.createElement('button');
+      chip.type = 'button';
+      chip.className = 'try-chip try-photo-chip';
+      chip.textContent = widgetName(widget);
+      chip.setAttribute('aria-haspopup', 'dialog');
+      chip.setAttribute('data-focus', 'photo:' + widget.id);
+      if (photoOf(widget.id).on) chip.setAttribute('data-has-photo', '');
+      chip.addEventListener('click', function () { openPhoto(widget.id, chip); });
+      list.appendChild(chip);
     });
-    // Escape would shut it at once: it closes as the button does.
-    lookBox.addEventListener('cancel', function (event) {
-      event.preventDefault();
-      closeLook();
+    if (focused) {
+      var again = list.querySelector('[data-focus="' + focused.replace(/"/g, '') + '"]');
+      if (again) again.focus();
+    }
+  }
+
+  // Shows or hides a part of the open sheet as every box does (assets/faq.js); shut, it is just set.
+  function revealInSheet(el, on) {
+    if (!photoBox.open || !motion) el.hidden = !on;
+    else if (on) motion.showBox(el);
+    else motion.hideBox(el);
+  }
+
+  // The sheet's controls, from what the engine draws for [photoKind].
+  function fillPhotoSheet() {
+    var state = photoOf(photoKind);
+    photoBox.querySelector('.try-photo-kind').textContent = widgetName(widgetOf(photoKind));
+    photoBox.querySelector('[data-photo="camera"]').hidden = !hasCamera();
+    revealInSheet(photoBox.querySelector('[data-photo="remove"]'), state.on);
+    revealInSheet(photoBox.querySelector('.try-photo-place'), state.on);
+    revealInSheet(photoBox.querySelector('.try-photo-caption'), photoKind === PHOTO_PRINT);
+    Array.prototype.forEach.call(photoBox.querySelectorAll('input[type="range"][data-place]'), function (range) {
+      var value = Math.round(state[range.getAttribute('data-place')] * 100);
+      range.value = value;
+      range.nextElementSibling.textContent = value + '%';
     });
-    // However it shut, the keyboard goes back to the button. Shut by closeLook, it goes on falling (is-closing) and the
-    // shade's fade ends with it; shut any other way, the shade's fade ends now.
-    lookBox.addEventListener('close', function () {
-      if (!lookBox.classList.contains('is-closing')) {
-        lookBox.querySelector('.try-look-shade').getAnimations().forEach(function (a) { a.cancel(); });
+    photoBox.querySelector('input[data-place="caption"]').value = state.caption;
+  }
+
+  function placePhoto(kind) {
+    var state = photoOf(kind);
+    app.photoPlace(kind, { focusX: state.focusX, focusY: state.focusY, zoom: state.zoom, caption: state.caption });
+  }
+
+  function openPhoto(kind, button) {
+    if (!photoBox || photoBox.open || !canPhoto()) return;
+    photoKind = kind;
+    photoFrom = button;
+    photoBox.querySelector('.try-photo-failed').hidden = true;
+    fillPhotoSheet();
+    photoBox.classList.remove('is-closing');
+    photoBox.inert = false;
+    photoBox.showModal();
+    photoBox.querySelector('.try-look-close').focus({ preventScroll: true });
+    moveSheet(photoBox, photoFrom, true);
+  }
+  // The list is drawn anew as photos come and go: the sheet goes back to its kind's button as it is now.
+  function photoChip() {
+    return root.querySelector('.try-photo-list [data-focus="photo:' + photoKind + '"]') || photoFrom;
+  }
+  function closePhoto() {
+    photoFrom = photoChip();
+    closeSheet(photoBox, photoFrom);
+  }
+
+  // A photo from the visitor's files or camera, read in this page and handed to the engine; null takes it off.
+  function givePhoto(file, source) {
+    var kind = photoKind;
+    var failed = photoBox.querySelector('.try-photo-failed');
+    failed.hidden = true;
+    app.photo(kind, file).then(function (shown) {
+      var state = photoOf(kind);
+      if (file && !shown) {
+        failed.hidden = false;
+        return;
       }
-      if (lookFrom) lookFrom.focus({ preventScroll: true });
+      state.on = !!file;
+      // A new photo starts centred and not zoomed; its caption stays (the engine does the same).
+      if (file) {
+        state.focusX = 0.5;
+        state.focusY = 0.5;
+        state.zoom = 1;
+        analytics.event('widget_photo_picked', { kind: kind, source: source });
+      }
+      if (photoBox.open && photoKind === kind) fillPhotoSheet();
+      var values = app.values();
+      fillPhotos(styleOf(values.style), values);
+    }, function () {
+      if (file) failed.hidden = false;
+    });
+  }
+
+  if (photoBox) {
+    wireSheet(photoBox, closePhoto, photoChip);
+    photoBox.addEventListener('click', function (event) {
+      var button = event.target.closest && event.target.closest('[data-photo], .try-photo-done');
+      if (!button || !app) return;
+      var which = button.getAttribute('data-photo');
+      if (!which) closePhoto();
+      else if (which === 'remove') givePhoto(null, '');
+      else photoBox.querySelector('[data-photo-input="' + which + '"]').click();
+    });
+    Array.prototype.forEach.call(photoBox.querySelectorAll('[data-photo-input]'), function (input) {
+      input.addEventListener('change', function () {
+        var file = input.files && input.files[0];
+        // Let go at once, so picking the same file again is a change too; the engine has its own copy.
+        input.value = '';
+        if (file && app) givePhoto(file, input.getAttribute('data-photo-input'));
+      });
+    });
+    Array.prototype.forEach.call(photoBox.querySelectorAll('input[type="range"][data-place]'), function (range) {
+      range.addEventListener('input', function () {
+        if (!app) return;
+        photoOf(photoKind)[range.getAttribute('data-place')] = range.value / 100;
+        range.nextElementSibling.textContent = range.value + '%';
+        placePhoto(photoKind);
+      });
+    });
+    var captionInput = photoBox.querySelector('input[data-place="caption"]');
+    captionInput.addEventListener('input', function () {
+      if (!app) return;
+      photoOf(photoKind).caption = captionInput.value.substring(0, CAPTION_MAX);
+      placePhoto(photoKind);
     });
   }
 

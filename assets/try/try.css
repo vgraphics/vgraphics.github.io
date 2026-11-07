@@ -341,8 +341,9 @@
 /* The look's QR (try.js openLook): a modal sheet over a shade, in the middle of the window, on a phone at its foot. The
    code is dark modules on white with the standard's margin of 4 modules, as large as the window lets it be up to
    300px, so a phone reads it off a laptop's screen. A window too short for it (a phone on its side) scrolls the sheet
-   alone, never the page. Shut, it falls away over the page (is-closing) without taking a tap. */
-.try-look {
+   alone, never the page. Shut, it falls away over the page (is-closing) without taking a tap. The photo widgets' sheet
+   (.try-photo, try.js openPhoto) is the same sheet. */
+.try-look, .try-photo {
   position: fixed;
   inset: 0;
   width: 100%;
@@ -357,9 +358,9 @@
   overflow: auto;
   overscroll-behavior: contain;
 }
-.try-look[open], .try-look.is-closing { display: grid; place-items: center; }
-.try-look.is-closing { z-index: 1000; pointer-events: none; }
-.try-look::backdrop { background: transparent; }
+.try-look[open], .try-look.is-closing, .try-photo[open], .try-photo.is-closing { display: grid; place-items: center; }
+.try-look.is-closing, .try-photo.is-closing { z-index: 1000; pointer-events: none; }
+.try-look::backdrop, .try-photo::backdrop { background: transparent; }
 .try-look-shade { position: fixed; inset: 0; background: color-mix(in srgb, var(--page) 82%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
 .try-look-sheet {
   --qr: clamp(180px, min(72vw, calc(100dvh - 300px)), 300px);
@@ -401,6 +402,39 @@
 .try-look-close:hover { border-color: var(--accent); }
 .try-look-close svg { width: 20px; height: 20px; }
 
+/* The photo widgets: "Your photos" in the panel while the layout on show holds one (a chip per widget, lit once it has
+   a photo), and its sheet: Gallery, Camera (phones) and Remove photo, then where the photo sits and the print's caption,
+   each shown as the photo comes and goes (assets/faq.js's boxes). */
+.try-photos[hidden] { display: none; }
+.try-photo-chip[data-has-photo] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+.try-photo-pick { display: flex; flex-wrap: wrap; justify-content: center; gap: 10px; margin-top: 4px; }
+.try-photo-place { display: grid; gap: 2px; justify-self: stretch; text-align: left; }
+.try-photo-place[hidden], .try-photo-caption[hidden], .try-photo-failed[hidden] { display: none; }
+.try-photo-place .try-level input { width: min(180px, 40vw); }
+.try-photo-caption { display: grid; gap: 6px; justify-self: stretch; text-align: left; }
+.try-photo-caption input {
+  min-height: 44px;
+  padding: 0 14px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  color: var(--ink);
+  font: inherit;
+}
+.try-photo-caption input:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+.try-photo-done {
+  min-height: 44px;
+  margin-top: 6px;
+  padding: 0 26px;
+  border: 1px solid var(--cta-edge, var(--cta));
+  border-radius: 999px;
+  background: var(--cta);
+  color: var(--cta-ink);
+  font: inherit;
+  font-weight: 700;
+  cursor: var(--cursor-link, pointer);
+}
+
 /* The style shown and its arrows stay with the phone on narrow windows: under the screen. */
 @media (max-width: 900px) {
   .try { grid-template-columns: minmax(0, 1fr); gap: 20px; }
@@ -420,9 +454,11 @@
   .try-quick .try-tool span { display: inline; }
   .try-qr { display: none; }
   .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
-  .try-look { padding: 8px; }
-  .try-look[open], .try-look.is-closing { place-items: end center; }
+  .try-look, .try-photo { padding: 8px; }
+  .try-look[open], .try-look.is-closing, .try-photo[open], .try-photo.is-closing { place-items: end center; }
   .try-look-sheet { width: 100%; padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
+  .try-photo-pick .try-tool { width: auto; padding: 0 14px; }
+  .try-photo-pick .try-tool span { display: inline; }
 }
 
 /* On a screen (html.screen: the try page, the app alone with nothing to scroll; tools/lib/try.mjs): the block fills the

@@ -176,6 +176,11 @@
               </div>
               <p class="try-unlock">Each premium style is €2.39, once, with VAT in most of the euro area (Google Play shows yours). Or get every style and no ads with Speedometer Plus: monthly, yearly, or once with Plus forever.</p>
             </section>
+            <section class="try-group try-photos" hidden aria-labelledby="try-photos-title">
+              <h3 id="try-photos-title">Your photos</h3>
+              <div class="try-chips try-photo-list"></div>
+              <p class="try-note">Tap one to put a photo of yours on it. It stays in this page.</p>
+            </section>
             <section class="try-group" aria-labelledby="try-settings-title">
               <h3 id="try-settings-title">Settings</h3>
               <div class="try-settings"></div>
@@ -207,6 +212,30 @@
               <p class="try-look-layout"></p>
               <div class="try-look-code" role="img" aria-label="A QR code that opens this look in Speedometer Live Wallpaper"></div>
               <p class="try-look-note" id="try-look-note">Point your phone’s camera at it: the app opens on this look. Without the app, the link offers Google Play.</p>
+            </div>
+          </dialog>
+          <dialog class="try-photo" aria-labelledby="try-photo-title" aria-describedby="try-photo-note">
+            <div class="try-look-shade"></div>
+            <div class="try-look-sheet try-photo-sheet">
+              <button class="try-look-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <p class="try-look-eyebrow try-photo-kind"></p>
+              <h3 class="try-look-name" id="try-photo-title">Your photo</h3>
+              <p class="try-look-note" id="try-photo-note">It’s read and drawn in this page alone: never uploaded or saved, and reloading the page forgets it.</p>
+              <div class="try-photo-pick">
+                <button class="try-tool" type="button" data-photo="gallery"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="3" width="18" height="18" rx="2.5"/><circle cx="8.5" cy="8.5" r="1.6"/><path d="M21 15l-5-5L5 21"/></svg><span>Gallery</span></button>
+                <button class="try-tool" type="button" data-photo="camera" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 18a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V9a2 2 0 0 1 2-2h3.5l2-3h5l2 3H20a2 2 0 0 1 2 2z"/><circle cx="12" cy="13" r="3.8"/></svg><span>Camera</span></button>
+                <button class="try-tool" type="button" data-photo="remove" hidden><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 7h16M9.5 7V4.5h5V7M6.5 7l1 13h9l1-13"/></svg><span>Remove photo</span></button>
+                <input type="file" accept="image/*" data-photo-input="gallery" hidden>
+                <input type="file" accept="image/*" capture="environment" data-photo-input="camera" hidden>
+              </div>
+              <p class="try-note try-photo-failed" role="alert" hidden>Couldn’t open that photo.</p>
+              <div class="try-photo-place" hidden>
+                <div class="try-setting"><span>Zoom</span><span class="try-level"><input type="range" min="100" max="400" value="100" aria-label="Zoom" data-place="zoom"><output></output></span></div>
+                <div class="try-setting"><span>Left and right</span><span class="try-level"><input type="range" min="0" max="100" value="50" aria-label="Left and right" data-place="focusX"><output></output></span></div>
+                <div class="try-setting"><span>Up and down</span><span class="try-level"><input type="range" min="0" max="100" value="50" aria-label="Up and down" data-place="focusY"><output></output></span></div>
+              </div>
+              <label class="try-photo-caption" hidden><span>Caption</span><input type="text" maxlength="32" placeholder="A few words under the photo" autocomplete="off" data-place="caption"></label>
+              <button class="try-photo-done" type="button">Done</button>
             </div>
           </dialog>
           <div class="try-consent" role="dialog" aria-labelledby="try-consent-title" hidden>
