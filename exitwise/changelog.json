@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.78586fa9",
+      "date": "2026-11-07",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Guardians' ink spell comes alive",
+      "items": [
+        "The guardians' ink spell now spreads across the board as a real ink splat that puffs in, drifts softly, and shrinks away as you free each trapped arrow."
+      ],
+      "commit": "78586fa9"
+    },
+    {
       "version": "1.0.2",
       "date": "2026-11-07",
       "platforms": [
