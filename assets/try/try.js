@@ -14,7 +14,8 @@
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
 // share, qr_show (style, layout), fps_low, web_first_frame (ms from the phone coming into view to the wallpaper
-// showing), and exception for the page's and the engine's errors (20 at most). Our own test visits load nothing,
+// showing), help_prompt_shown (opening) and help_prompt_open (the help offer, with config.help), and exception for the
+// page's and the engine's errors (20 at most). Our own test visits load nothing,
 // whatever the answer (George, 31 Oct 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
 // [::1], *.localhost, a file) or a browser a script drives (navigator.webdriver: Playwright, Selenium). The question
 // and the switch stay as they are.
@@ -153,6 +154,8 @@
   var statistics = $('.try-statistics input');
   // It waits for faq.js to be in (or to have failed), so the rise always runs and the question is never lost.
   var askConsent = function () {
+    // This opening's prompt: the help offer waits for another one (design-canon.md §13, never two in one opening).
+    consentAsked = true;
     motionReady.then(function () {
       if (!consent || !consent.hidden) return;
       consent.hidden = false;
@@ -174,6 +177,64 @@
     var answer = stored(CONSENT_KEY);
     statistics.checked = answer === 'granted';
     if (answer === 'granted' || answer === 'denied') analytics.answer(answer);
+  }
+
+  // Ask for a rating, then offer help (George, 7 Nov 2026; design-canon.md §13). The web has no store card, so only the
+  // help offer, and only with config.help (the try page, not a style's own page). Each page load that gets the demo
+  // running is an opening, counted in this browser (OPENS_KEY; a private window counts nothing and offers nothing). At
+  // the 6th opening (else the 7th), after a good moment (a style or a layout the visitor picked) and with nothing else
+  // on show (the QR sheet, HUD mode, full screen), "Need help or have an idea?" rises in from the corner, once ever:
+  // "Open a ticket" opens the ticket desk (config.help), "Not now" closes it. An opening that asked the statistics
+  // question has had its prompt.
+  var OPENS_KEY = 'vgtry.' + config.product + '.opens';
+  var HELP_ASKED_KEY = 'vgtry.' + config.product + '.help_asked';
+  var HELP_OPENINGS = [6, 7];
+  var HELP_SETTLE_MS = 1200;
+  var offer = config.help ? $('.try-offer') : null;
+  var opening = 0;
+  var consentAsked = false;
+  var offerTimer = null;
+  var countOpening = function () {
+    if (!offer || opening) return;
+    var opens = parseInt(stored(OPENS_KEY), 10);
+    opening = (opens > 0 ? opens : 0) + 1;
+    store(OPENS_KEY, String(opening));
+  };
+  var isInUse = function () {
+    var look = root.querySelector('.try-look');
+    return root.getAttribute('data-hud') === 'on' || !!document.fullscreenElement || !!(look && look.open) || document.hidden;
+  };
+  var offerHelp = function () {
+    if (!opening || consentAsked || HELP_OPENINGS.indexOf(opening) < 0 || stored(HELP_ASKED_KEY)) return;
+    // In use: the offer waits for the next pick.
+    if (isInUse()) return;
+    store(HELP_ASKED_KEY, '1');
+    motionReady.then(function () {
+      if (!offer.hidden) return;
+      offer.hidden = false;
+      if (motion) motion.showMenu(offer, null, true);
+      analytics.event('help_prompt_shown', { opening: opening });
+    });
+  };
+  var helpMoment = function () {
+    if (!offer || !opening) return;
+    clearTimeout(offerTimer);
+    offerTimer = setTimeout(offerHelp, HELP_SETTLE_MS);
+  };
+  var closeOffer = function (done) {
+    var closed = function () {
+      offer.hidden = true;
+      if (done) done();
+    };
+    if (!offer.hidden && motion) motion.hideMenu(offer, null, closed, true);
+    else closed();
+  };
+  if (offer) {
+    offer.querySelector('[data-offer="later"]').addEventListener('click', function () { closeOffer(); });
+    offer.querySelector('[data-offer="open"]').addEventListener('click', function () {
+      analytics.event('help_prompt_open');
+      closeOffer(function () { window.location.assign(config.help); });
+    });
   }
 
   var app = null;
@@ -408,6 +469,8 @@
     if (style.id !== last.style) analytics.event('style_view', { style: style.id, free: style.free });
     else if (values.layout !== last.layout) analytics.event('layout_view', { style: style.id, layout: values.layout });
     if (last.mode && mode && mode !== last.mode) analytics.event('mode_change', { mode: mode, style: style.id });
+    // A style or a layout picked, not the look the page opened on: a good moment for the help offer.
+    if (last.style && (style.id !== last.style || values.layout !== last.layout)) helpMoment();
     last = { style: style.id, layout: values.layout, mode: mode };
   }
 
@@ -1273,6 +1336,7 @@
       if (first.layout) showMarketLayout(first.layout, styleIn(first.look));
       wire();
       setState('running');
+      countOpening();
       analytics.event('web_ready', { ms: app.info.ms, bytes: app.info.bytes, files: app.info.files, style: last.style });
       return startup ? startup.ready() : null;
     }).then(function (shown) {

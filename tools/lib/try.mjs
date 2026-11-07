@@ -30,7 +30,10 @@
 //                  look" beside "Copy a link to this look" (George, 3 Nov 2026: "another button show qr for this style
 //                  which will be the deeplink to that style in the app"): the link as a QR code to scan with a phone,
 //                  made in the page (assets/try/qr.js), in a sheet that opens and closes as every menu does
-//   labels         { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
+//   help           the product's ticket desk ("/hub/support/?p=speedometer"), or left out: Settings › Help › "Help &
+//                  ideas" in the panel, and "Need help or have an idea?" once, at the 6th opening (else the 7th) of the
+//                  demo in this browser (design-canon.md §13; the web has no rating card). The try page only
+//   labels        { screen, gauge, gps, get, getNote, unlock }: the page's words that name the product's things
 //   hud            Speedometer's HUD mode (Games SpeedometerWallpaper/docs/hud-mode/design.md §9), or left out:
 //                  { label, note, brightness, exit, flip, styles: [ids], layouts: [{ id, name }], view }. A HUD mode
 //                  button and its layouts in the panel; the phone's screen then fills the window, flipped for the
@@ -132,6 +135,8 @@ export function tryBlock(b, page) {
     ...(b.layouts ? { layouts: b.layouts } : {}),
     ...(b.hud ? { hud: { styles: b.hud.styles, layouts: b.hud.layouts.map((layout) => layout.id) } } : {}),
     ...(b.appLinks ? { appLinks: b.appLinks } : {}),
+    // The product's ticket desk: the "Help & ideas" row and the help offer at the 6th opening (design-canon.md §13).
+    ...(b.help ? { help: b.help } : {}),
   }
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
@@ -178,7 +183,9 @@ export function tryBlock(b, page) {
             ${styles}
             <section class="try-group" aria-labelledby="try-settings-title">
               <h3 id="try-settings-title">Settings</h3>
-              <div class="try-settings"></div>
+              <div class="try-settings"></div>${config.help ? `
+              <h4 class="try-section">Help</h4>
+              <a class="try-setting try-help" href="${esc(config.help)}"><span>Help &amp; ideas<small>A problem, a bug or an idea: send us a ticket and follow our answer</small></span></a>` : ''}
             </section>
             <section class="try-group try-get" aria-labelledby="try-get-title">
               <h3 id="try-get-title">${l.get ?? 'Set it as your wallpaper'}</h3>
@@ -213,6 +220,11 @@ export function tryBlock(b, page) {
             <h3 id="try-consent-title">Help improve ${esc(page.site.name)}?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>
             <div class="try-consent-buttons"><button type="button" data-answer="denied">No, thanks</button><button class="allow" type="button" data-answer="granted">Yes</button></div>
+          </div>` : ''}${config.help ? `
+          <div class="try-offer" role="dialog" aria-labelledby="try-offer-title" aria-describedby="try-offer-text" hidden>
+            <h3 id="try-offer-title">Need help or have an idea?</h3>
+            <p id="try-offer-text">Found a problem, a bug, or something you’d love us to add? Tell us. We read every ticket.</p>
+            <div class="try-consent-buttons"><button type="button" data-offer="later">Not now</button><button class="allow" type="button" data-offer="open">Open a ticket</button></div>
           </div>` : ''}
         </div>`
 }
