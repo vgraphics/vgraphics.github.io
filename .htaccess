@@ -57,8 +57,9 @@ Header unset X-Powered-By
 # Any site may read our public files, as GitHub Pages allowed (nothing here uses cookies).
 Header set Access-Control-Allow-Origin "*"
 
-# Types.
+# Types. Scripts as text/javascript: LiteSpeed's own type for .js is application/x-javascript.
 <IfModule mod_mime.c>
+  AddType text/javascript .js .mjs
   AddType application/wasm .wasm
   AddType application/octet-stream .unityweb .data .pmtiles
   AddType application/manifest+json .webmanifest
@@ -87,31 +88,33 @@ Header set Access-Control-Allow-Origin "*"
 
 # Text is compressed (LiteSpeed and the CDN do it by themselves; these lines are for Apache).
 <IfModule mod_deflate.c>
-  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/tab-separated-values application/javascript application/json application/xml application/manifest+json image/svg+xml
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/tab-separated-values text/javascript application/javascript application/json application/xml application/manifest+json image/svg+xml
 </IfModule>
 <IfModule mod_brotli.c>
-  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml text/tab-separated-values application/javascript application/json application/xml application/manifest+json image/svg+xml
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml text/tab-separated-values text/javascript application/javascript application/json application/xml application/manifest+json image/svg+xml
 </IfModule>
 
-# Caching. Anything not named below: ten minutes, as GitHub Pages served everything.
-Header set Cache-Control "public, max-age=600"
+# Caching. Every value says no-transform: without it Hostinger's CDN re-encodes images (JPEGs grow, WebP is sent to
+# browsers that take it, and the art's XMP rights are stripped) and minifies text, so files stop being what the repo
+# holds. Anything not named below: ten minutes, as GitHub Pages served everything.
+Header set Cache-Control "public, max-age=600, no-transform"
 # Pages and data revalidate on every visit (a 304 when nothing changed).
 <FilesMatch "\.(html|json|txt|xml|tsv|webmanifest)$">
-  Header set Cache-Control "no-cache"
+  Header set Cache-Control "no-cache, no-transform"
 </FilesMatch>
 # Unity builds keep their file names from release to release, so they revalidate too.
 <FilesMatch "(\.(unityweb|wasm|br|gz)|\.loader\.js)$">
-  Header set Cache-Control "no-cache"
+  Header set Cache-Control "no-cache, no-transform"
 </FilesMatch>
 # A content hash in the name never changes: name.1a2b3c4d.ext (the Palermo media), 658820f72b4617efb380.wasm. (Vite's
 # index-B3Jhu0yD.js names can't be told from a hand-named menu-vertical.js by name alone: they keep the ten minutes.)
 <FilesMatch "(\.[0-9a-f]{8,}|^[0-9a-f]{16,})\.[A-Za-z0-9]+$">
-  Header set Cache-Control "public, max-age=31536000, immutable"
+  Header set Cache-Control "public, max-age=31536000, immutable, no-transform"
 </FilesMatch>
 # Map tiles (/tiles/, one versioned .pmtiles file per map): long cache, Range requests, read by our own pages only.
 # Plain "set", as the "*" above is: the same header in Apache's two tables would be sent twice.
 <FilesMatch "\.pmtiles$">
-  Header set Cache-Control "public, max-age=31536000, immutable"
+  Header set Cache-Control "public, max-age=31536000, immutable, no-transform"
   Header set Access-Control-Allow-Origin "https://vgraphics.gr"
   Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
   Header set Access-Control-Allow-Headers "Range"
