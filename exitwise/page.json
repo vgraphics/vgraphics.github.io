@@ -1,6 +1,6 @@
 {
-  "title": "Exitwise: Free Arrow Puzzle Game, Online and on Android",
-  "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online or on Android.",
+  "title": "Exitwise: Free Arrow Puzzle Game, Online, iPhone and Android",
+  "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online, on iPhone and Android.",
   "social": {
     "title": "Exitwise: Arrow Escape Puzzle",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
@@ -25,20 +25,29 @@
           "https://vgraphics.gr/exitwise/img/4-portals.webp"
         ],
         "genre": ["Puzzle", "Logic puzzle"],
-        "gamePlatform": ["Android", "Web browser"],
-        "operatingSystem": "Android, Web browser",
+        "gamePlatform": ["Android", "iOS", "Web browser"],
+        "operatingSystem": "Android, iOS, Web browser",
         "applicationCategory": "GameApplication",
         "playMode": ["SinglePlayer", "MultiPlayer"],
         "numberOfPlayers": { "@type": "QuantitativeValue", "minValue": 1, "maxValue": 8 },
-        "offers": {
-          "@type": "Offer",
-          "price": "0",
-          "priceCurrency": "EUR",
-          "availability": "https://schema.org/InStock",
-          "url": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"
-        },
-        "installUrl": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise",
-        "sameAs": ["https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"],
+        "offers": [
+          {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"
+          },
+          {
+            "@type": "Offer",
+            "price": "0",
+            "priceCurrency": "EUR",
+            "availability": "https://schema.org/InStock",
+            "url": "https://apps.apple.com/app/id6830097641"
+          }
+        ],
+        "installUrl": ["https://apps.apple.com/app/id6830097641", "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"],
+        "sameAs": ["https://apps.apple.com/app/id6830097641", "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"],
         "potentialAction": { "@type": "PlayAction", "target": "https://vgraphics.gr/exitwise/play/" },
         "author": { "@id": "https://vgraphics.gr/#organization" },
         "publisher": { "@id": "https://vgraphics.gr/#organization" }
@@ -81,12 +90,12 @@
       "youtubeGameplay": { "icon": "youtube", "label": "Exitwise gameplay and trailers on YouTube", "href": "https://www.youtube.com/playlist?list=PLaZLDmy6xgR4" }
     }
   },
-  "stores": { "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise", "appStoreSoon": "Coming soon" },
+  "stores": { "appStore": "https://apps.apple.com/app/id6830097641", "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
   "hero": {
     "title": "Exitwise: the arrow escape puzzle game",
     "lead": "Arrow Escape Puzzle",
     "align": "center",
-    "badges": ["google-play", "app-store", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
+    "badges": ["app-store", "google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
     "art": {
       "alt": "Exitwise: a tower of colorful worlds rising from a green meadow, through candy land, desert, a volcano and ice to purple crystals, with a glowing door at the top under the title, balloons in a starry sky and a river winding past forests",
       "tall": { "src": "img/key-art-tall", "widths": [480, 720, 1080, 1440], "jpeg": [1080], "width": 1440, "height": 2560 },
@@ -255,7 +264,7 @@
     {
       "id": "whats-new",
       "title": "What's new",
-      "intro": "Every update to the game, newest first, on Android and in your browser.",
+      "intro": "Every update to the game, newest first, on iPhone and iPad, on Android and in your browser.",
       "blocks": [{ "type": "news" }]
     },
     {
@@ -268,8 +277,8 @@
   ],
   "cta": {
     "title": "Your first board is waiting",
-    "text": "Free on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.",
-    "badges": ["google-play", "app-store", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }, "vhub"]
+    "text": "Free on iPhone and iPad, on Android and in your browser: 600 levels in 17 worlds, and a new twist every few worlds.",
+    "badges": ["app-store", "google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }, "vhub"]
   },
   "footerArt": { "src": "/exitwise/img/footer", "widths": [960, 1440, 1920, 2560, 3200, 4096], "width": 4096, "height": 1311, "position": "50% 50%" }
 }

@@ -1,7 +1,7 @@
 [
   {
     "q": "Is Exitwise free?",
-    "a": "Yes, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
+    "a": "Yes, on iPhone and iPad, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
   },
   {
     "q": "How do I play?",
@@ -25,11 +25,11 @@
   },
   {
     "q": "Can I play without installing it?",
-    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. The App Store version for iPhone and iPad is on its way."
+    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. To install the app, download it from the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> on iPhone and iPad, or get it from <a href=\"https://play.google.com/store/apps/details?id=com.vgraphics.exitwise\">Google Play</a> on Android."
   },
   {
     "q": "Is Exitwise on iPhone and iPad?",
-    "a": "Soon. Exitwise is coming to the App Store for iPhone and iPad. Until then you can play it free in your browser at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>, on an iPhone or iPad too. In the app you sign in with Apple, and your progress is kept with your free VGraphics account (VHub). If you play in the browser with Google, you will be able to link your Apple ID to that same account on the <a href=\"/hub/\">VHub page</a>, and your progress comes along to the app."
+    "a": "Yes: Exitwise is free on the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> for iPhone and iPad. In the app you sign in with Apple, and your progress is kept with your free VGraphics account (VHub). If you play in the browser with Google, link your Apple ID to that same account on the <a href=\"/hub/\">VHub page</a>, and your progress comes along to the app. You can also play it free in Safari at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>."
   },
   {
     "q": "Does it work offline?",

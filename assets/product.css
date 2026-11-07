@@ -294,6 +294,14 @@ h1, h2, h3 {
 .gp img { display: block; height: 84px; width: auto; }
 .gp:hover { transform: translateY(-2px); }
 .gp:focus-visible { outline-offset: -12px; }
+/* Apple's "Download on the App Store" badge, once the listing is live (partials.mjs appStoreBadge, stores.appStore): the
+   black badge as Apple supplies it, which has no clear space of its own, drawn as tall as what shows of the Play badge
+   (56px, 47px on phones), so the two read as a pair. Its 2px margin and the row's 12px gap keep the quarter of its
+   height clear around it that Apple asks for (14px), and beside it the Play PNG's own clear space adds to that. Apple's
+   rules (the badge unchanged, first in the row, at least 40px tall) are in partials.mjs. */
+.as { display: inline-flex; flex: none; margin: 2px; border-radius: 7px; transition: transform 160ms ease-out; }
+.as img { display: block; height: 56px; width: auto; }
+.as:hover { transform: translateY(-2px); }
 /* The App Store while its listing isn't live (partials.mjs appStoreSoon, "app-store" with stores.appStoreSoon): our own
    badge, never Apple's logo or artwork, drawn to pair with Google's: what shows of the Play badge (its PNG at 84px, 70px
    on phones, less its clear space) is black with a grey hairline, 56px tall (47px), its corners about a ninth of that,
@@ -1445,6 +1453,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .product-name span { display: none; }
   .product-name img.logo { height: 32px; }
   .gp img { height: 70px; }
+  .as img { height: 47px; }
   .store-soon { --h: 47px; }
   .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }

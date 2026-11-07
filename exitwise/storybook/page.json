@@ -118,7 +118,7 @@
       "id": "book",
       "eyebrow": "The storybook",
       "title": "A fairy tale in 17 worlds",
-      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Read how Prince Arlo and Pip the owl climb the tower, one painted page at a time. The prologue is open to everyone; each world's chapter opens as you reach it in the arrow puzzle game, in your browser or on Android, and its last pages once you free its guardian.",
+      "intro": "The Duskweaver has knotted the Dawn Door shut and tangled every world with his arrows. Read how Prince Arlo and Pip the owl climb the tower, one painted page at a time. The prologue is open to everyone; each world's chapter opens as you reach it in the arrow puzzle game, in the app or in your browser, and its last pages once you free its guardian.",
       "blocks": [
         {
           "type": "storybook",
@@ -748,10 +748,10 @@
   ],
   "cta": {
     "title": "Free the next world",
-    "text": "Every arrow puzzle you clear brings Prince Arlo closer to the Dawn Door. Free on Android and in your browser.",
+    "text": "Every arrow puzzle you clear brings Prince Arlo closer to the Dawn Door. Free on iPhone and iPad, on Android and in your browser.",
     "badges": [
-      "google-play",
       "app-store",
+      "google-play",
       {
         "href": "/exitwise/play/",
         "label": "Play in your browser",

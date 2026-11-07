@@ -1,6 +1,23 @@
 {
   "entries": [
     {
+      "version": "1.0.2",
+      "date": "2026-11-07",
+      "platforms": [
+        "iOS"
+      ],
+      "title": "Exitwise is now on the App Store for iPhone and iPad",
+      "items": [
+        "The same free arrow puzzle as on Android and in your browser: 600 levels in 17 worlds.",
+        "Sign in with Apple, and your progress is kept with your free VHub account.",
+        "On a new iPhone or iPad, open Settings and tap Restore purchases to get Remove Ads back."
+      ],
+      "link": {
+        "href": "https://apps.apple.com/app/id6830097641",
+        "label": "Exitwise on the App Store"
+      }
+    },
+    {
       "version": "1.0.a0a80710",
       "date": "2026-11-05",
       "platforms": [
