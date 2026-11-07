@@ -29,6 +29,7 @@ export const HTACCESS_RULES = [
   { what: "Unity's gzip files", lines: ['<FilesMatch "\\.gz$">', 'Header set Content-Encoding gzip'] },
   { what: "Unity's compressed WebAssembly and scripts typed", lines: ['<FilesMatch "\\.wasm\\.(br|gz)$">', 'ForceType application/wasm', '<FilesMatch "\\.js\\.(br|gz)$">', 'ForceType application/javascript'] },
   { what: 'pages revalidated on every visit', lines: ['<FilesMatch "\\.(html|json|txt|xml|tsv|webmanifest)$">', 'Header set Cache-Control "no-cache"'] },
+  { what: "Unity's files revalidated (their names stay the same)", lines: ['<FilesMatch "(\\.(unityweb|wasm|br|gz)|\\.loader\\.js)$">'] },
   { what: 'hashed files cached for a year', lines: ['<FilesMatch "(\\.[0-9a-f]{8,}|^[0-9a-f]{16,})\\.[A-Za-z0-9]+$">', 'Header set Cache-Control "public, max-age=31536000, immutable"'] },
   {
     what: "the map tiles' cache and CORS for Range requests",

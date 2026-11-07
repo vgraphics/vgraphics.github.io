@@ -100,7 +100,7 @@ Header set Cache-Control "public, max-age=600"
   Header set Cache-Control "no-cache"
 </FilesMatch>
 # Unity builds keep their file names from release to release, so they revalidate too.
-<FilesMatch "\.(unityweb|wasm|br|gz)$">
+<FilesMatch "(\.(unityweb|wasm|br|gz)|\.loader\.js)$">
   Header set Cache-Control "no-cache"
 </FilesMatch>
 # A content hash in the name never changes: name.1a2b3c4d.ext (the Palermo media), 658820f72b4617efb380.wasm. (Vite's
