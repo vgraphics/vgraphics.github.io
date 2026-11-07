@@ -417,6 +417,14 @@
   // tried in the phone. Only what the phone shows is lit: a built-in or market layout under Original, a HUD layout
   // under HUD (try.css).
   var MARKET_MOST = 4;
+  // The Ready-made group (the app's picker group of the same name): the layouts VHub ships, read live from Speedometer's
+  // public Firestore index. Only the version out for everyone (`live`), never a candidate or a tester's copy.
+  var READY_SHAPE = 'phone';
+  var READY_CODE = 'ready-';
+  var REPLACES_CODE = 'replaces.';
+  var READY_TIMEOUT_MS = 8000;
+  var FIRESTORE_SPEEDOMETER = 'https://firestore.googleapis.com/v1/projects/speedometer-wallpaper/databases/(default)/documents/';
+  var readyRows = null;
   var marketRows = {};
   var marketScript = null;
 
@@ -464,9 +472,12 @@
     var focused = layouts.contains(document.activeElement) ? focusKey(document.activeElement) : '';
     var hud = layouts.querySelector('.try-layout-hud');
     var market = layouts.querySelector('.try-layout-market');
+    var ready = layouts.querySelector('.try-layout-ready');
     var rows = market ? marketRowsOf(style.id) : [];
-    var showing = style.layouts.length > 1 || isHudStyle(style.id) || rows.length > 0;
+    var readies = ready ? readyRowsOf(style.id) : [];
+    var showing = style.layouts.length > 1 || isHudStyle(style.id) || rows.length > 0 || readies.length > 0;
     reveal(hud, isHudStyle(style.id));
+    reveal(ready, readies.length > 0);
     reveal(market, rows.length > 0);
     reveal(layouts, showing);
     layoutsDrawn = true;
@@ -477,6 +488,16 @@
       style.layouts.forEach(function (layout) {
         builtIn.appendChild(layoutChip(layout.name, '', layout.id === values.layout, 'layout:' + layout.id, function () {
           app.set('layout', layout.id);
+        }));
+      });
+    }
+    if (ready && readies.length) {
+      var readyChips = ready.querySelector('.try-chips');
+      readyChips.textContent = '';
+      readies.forEach(function (row) {
+        readyChips.appendChild(layoutChip(row.name, '', !!values.shared && values.layout === row.code, 'ready:' + row.code, function () {
+          sharedLine(row);
+          showMarketLayout(row, style.id);
         }));
       });
     }
@@ -494,6 +515,72 @@
       var again = layouts.querySelector('[data-focus="' + focused.replace(/"/g, '') + '"]');
       if (again) again.focus();
     }
+  }
+
+  var firestoreValue = function (v) {
+    if (!v) return null;
+    if ('stringValue' in v) return v.stringValue;
+    if ('integerValue' in v) return Number(v.integerValue);
+    if ('booleanValue' in v) return v.booleanValue;
+    if ('arrayValue' in v) return (v.arrayValue.values || []).map(firestoreValue);
+    if ('mapValue' in v) return firestoreFields(v.mapValue.fields);
+    return null;
+  };
+  var firestoreFields = function (fields) {
+    var out = {};
+    Object.keys(fields || {}).forEach(function (key) { out[key] = firestoreValue(fields[key]); });
+    return out;
+  };
+  var readFirestore = function (path) {
+    var controller = new AbortController();
+    var timer = setTimeout(function () { controller.abort(); }, READY_TIMEOUT_MS);
+    return fetch(FIRESTORE_SPEEDOMETER + path, { signal: controller.signal }).then(function (r) {
+      if (!r.ok) throw new Error('HTTP ' + r.status);
+      return r.json();
+    }).then(function (doc) { return firestoreFields(doc.fields); }).finally(function () { clearTimeout(timer); });
+  };
+
+  // The ready-made layouts of a style, read once a visit: the live version of every layout the index offers (status
+  // live), kept when its styles and shapes fit this phone. Any failed read leaves the built-in copies alone.
+  function readyRowsOf(styleId) {
+    if (readyRows) return readyRows[styleId] || [];
+    readyRows = {};
+    readFirestore('shippedLayouts/index').then(function (index) {
+      var entries = (index.layouts || []).filter(function (entry) { return entry && entry.status === 'live' && entry.live; });
+      entries.sort(function (a, b) { return (a.order || 0) - (b.order || 0); });
+      return Promise.all(entries.map(function (entry) {
+        return readFirestore('shippedLayoutVersions/' + encodeURIComponent(entry.live)).then(function (version) {
+          var layout = JSON.parse(version.data);
+          var names = layout.names || {};
+          return { id: entry.id, data: version.data, layout: layout, replaces: entry.replaces || '', name: names.en || layout.name || entry.id };
+        }).catch(function (failure) {
+          analytics.error('ready-made layout ' + entry.id + ': ' + whyOf(failure));
+          return null;
+        });
+      }));
+    }).then(function (found) {
+      var byStyle = {};
+      var replaced = {};
+      found.filter(Boolean).forEach(function (item) {
+        // A version of a style's own layout is that layout's Built in row, never a Ready-made one.
+        if (item.replaces) {
+          if (typeof app.addLayout === 'function' && app.addLayout(REPLACES_CODE + item.replaces, item.data)) replaced[item.replaces] = true;
+          return;
+        }
+        if (item.layout.shapes && item.layout.shapes.indexOf(READY_SHAPE) < 0) return;
+        catalog.styles.forEach(function (style) {
+          if (item.layout.styles && item.layout.styles.indexOf(style.id) < 0) return;
+          (byStyle[style.id] = byStyle[style.id] || []).push({ code: READY_CODE + item.id, data: item.data, madeWith: style.id, name: item.name });
+        });
+      });
+      readyRows = byStyle;
+      var shown = app.values();
+      if (last.style && !shown.shared && replaced[shown.layout]) app.show(last.style, shown.layout);
+      else if (last.style && (byStyle[last.style] || []).length) fillLayouts(styleOf(last.style), shown);
+    }, function (failure) {
+      analytics.error('ready-made layouts: ' + whyOf(failure), failure && failure.stack);
+    });
+    return [];
   }
 
   // A style's market layouts, read once a visit: none until they are in (the set shows then), none when the style has
