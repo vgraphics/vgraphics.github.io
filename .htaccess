@@ -1,0 +1,120 @@
+# vgraphics.gr on Hostinger (LiteSpeed, behind Hostinger's CDN). It does what GitHub Pages did for the site, and
+# hardens it (George, 7 Nov 2026: "Dont forget to do any security improvements to our new server hosting.").
+# The Deployer checks these rules live after every upload (its src/integrations/hostinger.ts) and rolls a release
+# back when one fails; tools/check-site.mjs fails when this file loses one (tools/lib/htaccess.mjs).
+
+Options -Indexes
+DirectoryIndex index.html
+ErrorDocument 404 /404.html
+AddDefaultCharset utf-8
+
+RewriteEngine On
+
+# HTTPS. The CDN redirects at its edge too; X-Forwarded-Proto keeps this rule from looping behind it, and the
+# certificate's HTTP challenges stay on HTTP.
+RewriteCond %{HTTPS} !=on
+RewriteCond %{HTTP:X-Forwarded-Proto} !https
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
+
+# One address for the site: www goes to the bare domain.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+
+# Never served: dotfiles (but /.well-known/), the site's own tools, and source or secret files. The site is static, so
+# no PHP either (index.php/ is a folder of old WordPress addresses, served as pages).
+RewriteCond %{REQUEST_URI} !^/\.well-known/
+RewriteRule (^|/)\. - [F]
+RewriteRule ^tools(/|$) - [F]
+RewriteRule \.(md|py|pyc|sh|ps1|bat|cmd|ts|tsx|map|env|ini|cfg|conf|log|bak|old|orig|swp|sql|sqlite|db|pem|key|crt|csr|p12|pfx|jks|keystore|php\d?|phtml|phar)$ - [NC,F]
+
+# Unity's pre-compressed files are sent as they are: never compressed a second time.
+RewriteRule \.(br|gz)$ - [E=no-gzip:1,E=no-brotli:1]
+
+# Map tiles: the browser's CORS preflight for a Range request.
+RewriteCond %{REQUEST_METHOD} =OPTIONS
+RewriteRule \.pmtiles$ - [R=204,L]
+
+# Addresses without .html, as on GitHub Pages: /x serves x.html (before a folder of the same name), /dir goes to /dir/.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.html -f
+RewriteRule ^(.*[^/])$ $1.html [L]
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteRule ^(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,NE]
+
+# Security headers, on every answer.
+Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"
+Header always set X-Content-Type-Options "nosniff"
+Header always set Referrer-Policy "strict-origin-when-cross-origin"
+# Geolocation: the Speedometer try page reads GPS speed. Fullscreen: the Unity games and the try pages. The Unity
+# frameworks carry motion, camera and microphone code, but no game or page uses them.
+Header always set Permissions-Policy "geolocation=(self), fullscreen=(self), camera=(), microphone=(), accelerometer=(), gyroscope=(), magnetometer=()"
+# Only our own pages may frame ours (the Palermo pages frame /vg--palermo-play/).
+Header always set X-Frame-Options "SAMEORIGIN"
+Header always set Content-Security-Policy "frame-ancestors 'self'"
+Header always unset X-Powered-By
+Header unset X-Powered-By
+# Any site may read our public files, as GitHub Pages allowed (nothing here uses cookies).
+Header set Access-Control-Allow-Origin "*"
+
+# Types.
+<IfModule mod_mime.c>
+  AddType application/wasm .wasm
+  AddType application/octet-stream .unityweb .data .pmtiles
+  AddType application/manifest+json .webmanifest
+  AddCharset utf-8 .js .mjs .css .json .svg .xml .txt .tsv .webmanifest
+</IfModule>
+
+# Unity builds without decompression fallback: .br and .gz files the browser unpacks itself. (Today's builds are
+# .unityweb, decompressed by Unity's loader, and served as plain files.)
+<FilesMatch "\.br$">
+  Header set Content-Encoding br
+  Header append Vary Accept-Encoding
+</FilesMatch>
+<FilesMatch "\.gz$">
+  Header set Content-Encoding gzip
+  Header append Vary Accept-Encoding
+</FilesMatch>
+<FilesMatch "\.wasm\.(br|gz)$">
+  ForceType application/wasm
+</FilesMatch>
+<FilesMatch "\.js\.(br|gz)$">
+  ForceType application/javascript
+</FilesMatch>
+<FilesMatch "\.(data|symbols\.json)\.(br|gz)$">
+  ForceType application/octet-stream
+</FilesMatch>
+
+# Text is compressed (LiteSpeed and the CDN do it by themselves; these lines are for Apache).
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html text/css text/plain text/xml text/tab-separated-values application/javascript application/json application/xml application/manifest+json image/svg+xml
+</IfModule>
+<IfModule mod_brotli.c>
+  AddOutputFilterByType BROTLI_COMPRESS text/html text/css text/plain text/xml text/tab-separated-values application/javascript application/json application/xml application/manifest+json image/svg+xml
+</IfModule>
+
+# Caching. Anything not named below: ten minutes, as GitHub Pages served everything.
+Header set Cache-Control "public, max-age=600"
+# Pages and data revalidate on every visit (a 304 when nothing changed).
+<FilesMatch "\.(html|json|txt|xml|tsv|webmanifest)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+# Unity builds keep their file names from release to release, so they revalidate too.
+<FilesMatch "\.(unityweb|wasm|br|gz)$">
+  Header set Cache-Control "no-cache"
+</FilesMatch>
+# A content hash in the name never changes: name.1a2b3c4d.ext (the Palermo media), 658820f72b4617efb380.wasm. (Vite's
+# index-B3Jhu0yD.js names can't be told from a hand-named menu-vertical.js by name alone: they keep the ten minutes.)
+<FilesMatch "(\.[0-9a-f]{8,}|^[0-9a-f]{16,})\.[A-Za-z0-9]+$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+</FilesMatch>
+# Map tiles (/tiles/, one versioned .pmtiles file per map): long cache, Range requests, read by our own pages only.
+# Plain "set", as the "*" above is: the same header in Apache's two tables would be sent twice.
+<FilesMatch "\.pmtiles$">
+  Header set Cache-Control "public, max-age=31536000, immutable"
+  Header set Access-Control-Allow-Origin "https://vgraphics.gr"
+  Header set Access-Control-Allow-Methods "GET, HEAD, OPTIONS"
+  Header set Access-Control-Allow-Headers "Range"
+  Header set Access-Control-Expose-Headers "Content-Range, Content-Length, ETag"
+  Header set Access-Control-Max-Age "86400"
+</FilesMatch>

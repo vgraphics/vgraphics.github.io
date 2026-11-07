@@ -27,6 +27,7 @@ import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mj
 import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 import { markProblems } from './lib/marks.mjs'
+import { htaccessProblems } from './lib/htaccess.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -1345,6 +1346,10 @@ else {
 
 const cname = join(root, 'CNAME')
 if (existsSync(cname) && readFileSync(cname, 'utf8').trim() !== 'vgraphics.gr') report('CNAME', 'cname', 'is not exactly vgraphics.gr')
+
+// The site on Hostinger reads .htaccess for what GitHub Pages did and for its security headers (tools/lib/htaccess.mjs).
+const htaccess = join(root, '.htaccess')
+for (const m of htaccessProblems(existsSync(htaccess) ? readFileSync(htaccess, 'utf8') : undefined)) report('.htaccess', 'hosting', m)
 
 const appAds = join(root, 'app-ads.txt')
 if (!existsSync(appAds)) report('app-ads.txt', 'app-ads', 'missing')
