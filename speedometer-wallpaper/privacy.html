@@ -250,8 +250,10 @@
         </p>
         <p>
           Signed in, the app also keeps a small record for you: the free style you picked as your sign-in gift, your free
-          month of layouts, and a copy of your settings and your own layouts, so a new phone gets them back. The record and
-          your VHub account are kept with Google Firebase (VHub's database is in the European Union) until you delete your
+          month of layouts, and a copy of your settings and your own layouts, so a new phone gets them back. VHub also
+          keeps a record of your Speedometer Plus purchase, monthly, yearly or forever: the plan, whether it's active and its dates,
+          never your payment details, so Plus works on every device you sign in to (see In-app purchases). These records
+          and your VHub account are kept with Google Firebase (VHub's database is in the European Union) until you delete your
           account. Your phone's readings, your location, and your music, calls and messages never go to VHub.
         </p>
         <p>
@@ -371,8 +373,12 @@
           Plus forever is Speedometer Plus for a single payment: every design and no ads, with no end date. Like a design,
           it is a one-time purchase handled entirely by Google Play: the app only receives Google Play's confirmation of
           the purchase (its product id and purchase token), and Settings → Restore purchases brings it back on a new phone
-          with the same Google account. Buying it doesn't end a subscription you already have: cancel that in Google
-          Play, and the app shows you where.
+          with the same Google account. When you're signed in to VHub, the app sends its receipt to VHub too, as it does
+          for the subscription. VHub checks it with Google Play and keeps only its state (the product, whether it's
+          active, and when you bought it), so Plus forever also works on every device you sign in to with VHub. If Google
+          Play refunds it, VHub ends it too. Deleting your VHub account deletes this record; the purchase itself stays
+          with your Google account. Buying it doesn't end a subscription you already have: cancel that in Google Play,
+          and the app shows you where.
         </p>
       </section>
 
