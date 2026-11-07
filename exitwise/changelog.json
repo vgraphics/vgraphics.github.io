@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.37",
+      "date": "2026-11-07",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Rate the game and share ideas",
+      "items": [
+        "You can now rate Exitwise right inside the game, no trip to the store needed.",
+        "Every so often we'll check in to ask if you need a hand or have an idea to share."
+      ],
+      "commit": "06a040f1"
+    },
+    {
       "version": "1.0.36",
       "date": "2026-11-07",
       "platforms": [
