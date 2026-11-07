@@ -732,3 +732,23 @@ No hero, section or card shows a picture that is shown anywhere else on the site
 - `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
   passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
   taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
+
+## Hosting
+
+The site moves from GitHub Pages to Hostinger's web hosting (George, 7 Nov 2026: "You have to migrate everything from
+github pages to hostinger ... We pay for the best hosting, get most out of it please."). This repo stays the source:
+the Deployer still pushes here, then uploads what changed to Hostinger over SSH, swaps it in whole and checks it live
+(its `site-hostinger` project copies the whole site; every other site project uploads its own change). Nothing is ever
+uploaded by hand.
+
+- `.htaccess` does there what Pages did: HTTPS, `404.html` for a missing page, `/x` serving `x.html` (before a folder
+  of the same name) and `/dir` going to `/dir/`. It adds the security headers (HSTS, nosniff, the referrer and
+  permissions policies, framing by our own pages only), keeps dotfiles (but `/.well-known/`), `tools/`, source and
+  secret files and PHP off the web, types Unity's files, and sets the caching: pages and data revalidate, names with a
+  content hash cache for a year, the rest ten minutes as on Pages. check-site fails when it is missing or lost a rule
+  (`tools/lib/htaccess.mjs`); change both together.
+- `assets/hosting-check/` holds four tiny pre-compressed files (`.js.br`, `.js.gz`, `.wasm.br`, `.data.gz`) that the
+  Deployer's live check reads after every upload, to prove the Brotli and gzip rules work before a Unity build needs
+  them. Linked from no page.
+- Unity's builds today are `.unityweb` (decompression fallback): served as plain files, unpacked by Unity's loader,
+  revalidated on every visit, since their names stay the same from release to release.

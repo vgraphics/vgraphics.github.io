@@ -1,2 +1,5 @@
 # The git hooks run under sh, which reads a carriage return as part of the line.
 tools/hooks/* text eol=lf
+# Pre-compressed files (Unity's .br and .gz, the hosting checks in assets/hosting-check/) go in as they are.
+*.br binary
+*.gz binary
