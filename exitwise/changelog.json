@@ -4,7 +4,8 @@
       "version": "1.0.37",
       "date": "2026-11-07",
       "platforms": [
-        "Android"
+        "Android",
+        "Web"
       ],
       "title": "Rate the game and share ideas",
       "items": [
