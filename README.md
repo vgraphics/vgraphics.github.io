@@ -747,6 +747,10 @@ uploaded by hand.
   secret files and PHP off the web, types Unity's files, and sets the caching: pages and data revalidate, names with a
   content hash cache for a year, the rest ten minutes as on Pages. check-site fails when it is missing or lost a rule
   (`tools/lib/htaccess.mjs`); change both together.
+- Every `Cache-Control` says `no-transform`: Hostinger's CDN (hcdn) rewrites images unless the response says so (it
+  re-encodes JPEGs, sends WebP to browsers that take it and strips the art's XMP rights) and minifies text. check-site
+  fails on a `Cache-Control` without it. Scripts are typed `text/javascript`, since LiteSpeed's own type for `.js` is
+  `application/x-javascript`.
 - `assets/hosting-check/` holds four tiny pre-compressed files (`.js.br`, `.js.gz`, `.wasm.br`, `.data.gz`) that the
   Deployer's live check reads after every upload, to prove the Brotli and gzip rules work before a Unity build needs
   them. Linked from no page.

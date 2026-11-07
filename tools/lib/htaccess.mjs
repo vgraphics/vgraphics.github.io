@@ -24,13 +24,15 @@ export const HTACCESS_RULES = [
   { what: 'framing by our own pages only', lines: ['Header always set X-Frame-Options "SAMEORIGIN"', 'Header always set Content-Security-Policy "frame-ancestors \'self\'"'] },
   { what: 'no X-Powered-By', lines: ['Header always unset X-Powered-By'] },
   { what: 'public files readable from other sites, as on GitHub Pages', lines: ['Header set Access-Control-Allow-Origin "*"'] },
+  { what: 'scripts as text/javascript (LiteSpeed would send application/x-javascript)', lines: ['AddType text/javascript .js .mjs'] },
   { what: 'the WebAssembly type', lines: ['AddType application/wasm .wasm'] },
   { what: "Unity's Brotli files", lines: ['<FilesMatch "\\.br$">', 'Header set Content-Encoding br'] },
   { what: "Unity's gzip files", lines: ['<FilesMatch "\\.gz$">', 'Header set Content-Encoding gzip'] },
   { what: "Unity's compressed WebAssembly and scripts typed", lines: ['<FilesMatch "\\.wasm\\.(br|gz)$">', 'ForceType application/wasm', '<FilesMatch "\\.js\\.(br|gz)$">', 'ForceType application/javascript'] },
-  { what: 'pages revalidated on every visit', lines: ['<FilesMatch "\\.(html|json|txt|xml|tsv|webmanifest)$">', 'Header set Cache-Control "no-cache"'] },
+  { what: 'everything else cached ten minutes, as on Pages', lines: ['Header set Cache-Control "public, max-age=600, no-transform"'] },
+  { what: 'pages revalidated on every visit', lines: ['<FilesMatch "\\.(html|json|txt|xml|tsv|webmanifest)$">', 'Header set Cache-Control "no-cache, no-transform"'] },
   { what: "Unity's files revalidated (their names stay the same)", lines: ['<FilesMatch "(\\.(unityweb|wasm|br|gz)|\\.loader\\.js)$">'] },
-  { what: 'hashed files cached for a year', lines: ['<FilesMatch "(\\.[0-9a-f]{8,}|^[0-9a-f]{16,})\\.[A-Za-z0-9]+$">', 'Header set Cache-Control "public, max-age=31536000, immutable"'] },
+  { what: 'hashed files cached for a year', lines: ['<FilesMatch "(\\.[0-9a-f]{8,}|^[0-9a-f]{16,})\\.[A-Za-z0-9]+$">', 'Header set Cache-Control "public, max-age=31536000, immutable, no-transform"'] },
   {
     what: "the map tiles' cache and CORS for Range requests",
     lines: [
@@ -50,9 +52,19 @@ export const directives = (text) =>
     .map((l) => l.trim().replace(/\s+/g, ' '))
     .filter((l) => l && !l.startsWith('#'))
 
-/** What is wrong with the site's .htaccess (`text`, undefined when there is none): one line per rule it lost. */
+/** A Cache-Control the file sets. Hostinger's CDN rewrites what isn't marked no-transform: it re-encodes images (and
+ * strips their XMP rights) and minifies text, so the files served stop being the repo's. */
+const CACHE_CONTROL = /^Header (?:always |onsuccess )?(?:set|append|merge|add|setifempty) Cache-Control (.+)$/i
+
+/** What is wrong with the site's .htaccess (`text`, undefined when there is none): one line per rule it lost, and one
+ * per Cache-Control without no-transform. */
 export function htaccessProblems(text) {
   if (text === undefined) return ['missing: the site on Hostinger needs it for HTTPS, its 404 page, addresses without .html, its security headers, Unity and caching']
-  const have = new Set(directives(text))
-  return HTACCESS_RULES.filter((r) => r.lines.some((l) => !have.has(l))).map((r) => `lost ${r.what}: ${r.lines.filter((l) => !have.has(l)).join(' | ')}`)
+  const lines = directives(text)
+  const have = new Set(lines)
+  const lost = HTACCESS_RULES.filter((r) => r.lines.some((l) => !have.has(l))).map((r) => `lost ${r.what}: ${r.lines.filter((l) => !have.has(l)).join(' | ')}`)
+  const transformable = lines
+    .filter((l) => CACHE_CONTROL.test(l) && !/\bno-transform\b/i.test(l.match(CACHE_CONTROL)[1]))
+    .map((l) => `a Cache-Control without no-transform (Hostinger's CDN would re-encode images and minify text): ${l}`)
+  return [...lost, ...transformable]
 }
