@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.78586fa9",
+      "version": "1.0.36",
       "date": "2026-11-07",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Guardians' ink spell comes alive",
