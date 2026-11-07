@@ -1051,7 +1051,7 @@ for (const file of served) {
 const ART_TODO = join('tools', 'art-once-todo.json')
 const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
 const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
-const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'as', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
 const TILE = new Set(['g-screen', 'album-item'])
 const ICON = 256
 const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')

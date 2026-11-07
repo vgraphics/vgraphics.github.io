@@ -1,7 +1,7 @@
 [
   {
     "q": "Is Exitwise free?",
-    "a": "Yes, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
+    "a": "Yes, on iPhone and iPad, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
   },
   {
     "q": "How do I play?",
@@ -25,7 +25,11 @@
   },
   {
     "q": "Can I play without installing it?",
-    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. On Android, get it from Google Play. There is no App Store version yet."
+    "a": "Yes: <a href=\"/exitwise/play/\">play Exitwise in your browser</a>, on a computer, a tablet or an iPhone. To install the app, download it from the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> on iPhone and iPad, or get it from <a href=\"https://play.google.com/store/apps/details?id=com.vgraphics.exitwise\">Google Play</a> on Android."
+  },
+  {
+    "q": "Is Exitwise on iPhone and iPad?",
+    "a": "Yes: Exitwise is free on the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> for iPhone and iPad. In the app you sign in with Apple, and your progress is kept with your free VGraphics account (VHub). If you play in the browser with Google, link your Apple ID to that same account on the <a href=\"/hub/\">VHub page</a>, and your progress comes along to the app. You can also play it free in Safari at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>."
   },
   {
     "q": "Does it work offline?",
@@ -33,11 +37,15 @@
   },
   {
     "q": "How do I keep my progress on a new phone, or in the browser?",
-    "a": "Sign in with Google: tap the VHub button at the top right of the map, or Sign in on the account card in Settings, on Android and on vgraphics.gr. The first time you sign in from the game, you get 100 coins. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser. Without signing in, your progress stays on the device."
+    "a": "Sign in to VHub, the free VGraphics account: tap the VHub button at the top right of the map, or Sign in on the account card in Settings. On Android and in the browser you sign in with Google, and on iPhone and iPad with Apple; on vgraphics.gr you can also sign in with Apple on the <a href=\"/hub/\">VHub page</a>, and the game in your browser then uses that account too. If you play with Google, link your Apple ID to that same VHub account on the VHub page (or Google to your Apple account), and either one opens it. The first time you sign in from the game, you get 100 coins. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser, signed in to the same account. Without signing in, your progress stays on the device."
   },
   {
     "q": "How do coins and hints work?",
     "a": "Every level pays 10 coins, a hard level 30, and a perfect clear 5 more. The <a href=\"/exitwise/wiki/daily-challenge/\">daily challenge</a> and other players' maps pay too. Spend coins on hints, a continue or powerups. You get 3 free hints; after that a hint costs 30 coins, or on Android a short video."
+  },
+  {
+    "q": "What can I buy, and do I keep it on a new phone?",
+    "a": "The shop sells four coin packs, from 300 coins for €0.99 to 5,000 for €9.99, and Remove Ads, which takes away the banner and the video every 10 levels. You pay through Google Play on Android and through the App Store on iPhone and iPad, and we never see your payment details. Bought coins never expire. They are saved with your game, so sign in to keep them on every device. Remove Ads comes back by itself on Android; on iPhone and iPad, open Settings and tap Restore purchases."
   },
   {
     "q": "How do I play with friends?",

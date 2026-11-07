@@ -294,6 +294,42 @@ h1, h2, h3 {
 .gp img { display: block; height: 84px; width: auto; }
 .gp:hover { transform: translateY(-2px); }
 .gp:focus-visible { outline-offset: -12px; }
+/* Apple's "Download on the App Store" badge, once the listing is live (partials.mjs appStoreBadge, stores.appStore): the
+   black badge as Apple supplies it, which has no clear space of its own, drawn as tall as what shows of the Play badge
+   (56px, 47px on phones), so the two read as a pair. Its 2px margin and the row's 12px gap keep the quarter of its
+   height clear around it that Apple asks for (14px), and beside it the Play PNG's own clear space adds to that. Apple's
+   rules (the badge unchanged, first in the row, at least 40px tall) are in partials.mjs. */
+.as { display: inline-flex; flex: none; margin: 2px; border-radius: 7px; transition: transform 160ms ease-out; }
+.as img { display: block; height: 56px; width: auto; }
+.as:hover { transform: translateY(-2px); }
+/* The App Store while its listing isn't live (partials.mjs appStoreSoon, "app-store" with stores.appStoreSoon): our own
+   badge, never Apple's logo or artwork, drawn to pair with Google's: what shows of the Play badge (its PNG at 84px, 70px
+   on phones, less its clear space) is black with a grey hairline, 56px tall (47px), its corners about a ninth of that,
+   a small line over a big one. This one keeps that shape and colour in the product's own fonts, with an hourglass where
+   a store's mark would be, its sand in the product's colour. It leads nowhere: no hover, no lift, the page's pointer.
+   Beside the Play badge it moves in over the PNG's clear space, so the two read as a pair. */
+.store-soon {
+  --h: 56px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: calc(var(--h) * 0.15);
+  height: var(--h);
+  padding: 0 calc(var(--h) * 0.3) 0 calc(var(--h) * 0.2);
+  border: 1px solid #A6A6A6;
+  border-radius: calc(var(--h) * 0.115);
+  background: #000000;
+  color: #FFFFFF;
+  text-align: left;
+  text-shadow: none;
+  white-space: nowrap;
+}
+.gp + .store-soon { margin-left: -6px; }
+.store-soon svg { flex: none; width: calc(var(--h) * 0.46); height: calc(var(--h) * 0.46); }
+.store-soon .sand { fill: color-mix(in srgb, var(--accent) 60%, #FFFFFF); }
+.store-soon > span { display: grid; gap: calc(var(--h) * 0.05); }
+.store-soon small { font: var(--label-weight) max(9px, calc(var(--h) * 0.18))/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
+.store-soon b { font: var(--display-weight) calc(var(--h) * 0.38)/1 var(--font-display); text-transform: none; letter-spacing: normal; }
 .pill {
   display: inline-flex;
   flex-direction: column;
@@ -1331,6 +1367,18 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 }
 .foot-icons a:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--foot-ink, var(--ink)) 10%, transparent); }
 .foot-icons svg { width: 22px; height: 22px; }
+/* A store on its way (partials.mjs buttons: the App Store while only stores.appStoreSoon is set): its place in the row,
+   dimmed in a dashed ring, as the site's other "coming soon" chips are, and leading nowhere, so no hover. */
+.foot-icons .foot-soon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--foot-ink, var(--ink)) 30%, transparent);
+  color: var(--foot-ink, var(--ink));
+  opacity: 0.6;
+}
 .foot .legal { max-width: 60em; margin: 4px 0 0; font: 500 0.85rem/1.55 var(--font-body); }
 .foot .legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .foot.has-art {
@@ -1405,6 +1453,8 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .product-name span { display: none; }
   .product-name img.logo { height: 32px; }
   .gp img { height: 70px; }
+  .as img { height: 47px; }
+  .store-soon { --h: 47px; }
   .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }
   /* The game's cards go two by two, so the steps stay one screen tall. */

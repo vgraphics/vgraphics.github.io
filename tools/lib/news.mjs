@@ -14,7 +14,8 @@
 //   { "entries": [{ version, date, platforms?, title?, items, link?, commit? }] }, newest first
 //   version     what the release calls itself: "1.0.17", or a web build's "1.0.4f5d9766"
 //   date        the day it reached players, YYYY-MM-DD
-//   platforms   where it shipped: "Android", "Web"
+//   platforms   where it shipped: "Android", "iOS", "Web" (the Deployer writes Android and Web; an iOS release's
+//               entry is added by hand until it writes those too)
 //   title       its headline in one line ("17 new styles"); without one, its first line stands in (cut near 60
 //               characters), and its lines then start at the second; the Deployer's notes give every VGraphics
 //               release one, and Speedometer's are by hand (Games docs/superpowers/specs/2026-10-26-speedometer-web-

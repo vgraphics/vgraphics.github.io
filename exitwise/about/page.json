@@ -3,7 +3,7 @@
   "description": "How Exitwise works: tap each arrow off the board in the right order. 600 levels in 17 worlds, a hard level every tenth, a daily board and rooms with friends.",
   "social": {
     "title": "About Exitwise, the arrow puzzle you can play online",
-    "description": "How to play, what's inside and a few questions answered: 600 levels in 17 worlds, free in your browser and on Android.",
+    "description": "How to play, what's inside and a few questions answered: 600 levels in 17 worlds, free in your browser, on iPhone and on Android.",
     "image": "/exitwise/img/card-1200x630.jpg",
     "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
   },
@@ -37,7 +37,7 @@
     "title": "About Exitwise, the arrow puzzle you can play online",
     "lead": "The arrow puzzle <em>you can play right here.</em>",
     "align": "center",
-    "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "google-play"],
+    "badges": [{ "href": "/exitwise/play/", "label": "Play online", "note": "Free, in your browser" }, "app-store", "google-play"],
     "art": {
       "alt": "A road of colourful arrows winding past a jungle, a desert, a candy land, a volcano, a glacier and a crystal cave, a little traveller in a red cape on it and the Tower of Worlds far away",
       "wiki": "about",
@@ -89,8 +89,8 @@
     {
       "id": "phone",
       "title": "On your phone too",
-      "intro": "Exitwise is free on Android too. Sign in with Google in the browser and on the phone, and your progress, your name and your settings come along.",
-      "blocks": [{ "type": "actions", "items": ["google-play", "vhub"] }]
+      "intro": "Exitwise is free on the App Store for iPhone and iPad, and on Google Play for Android. Sign in with Google in the browser and on Android, or with Apple on iPhone and iPad, and your progress, your name and your settings come along. If you play with Google, link your Apple ID to that same VHub account on the VHub page.",
+      "blocks": [{ "type": "actions", "items": ["app-store", "google-play", "vhub"] }]
     },
     {
       "id": "questions",
@@ -102,7 +102,8 @@
           "items": [
             { "q": "Can every level be solved?", "a": "Yes. Each level is built from a fixed seed, which hands every player the same board, and each one is checked to be solvable before it ships." },
             { "q": "What counts as my best on a level?", "a": "The win with the fewest hearts lost, and between two equal wins, the faster one. Each level keeps its own best, and the panel at the end of a level shows it beside your time." },
-            { "q": "Why do the levels after a hard one feel easier?", "a": "On purpose: after each hard level come two slightly smaller boards, a breather before the climb goes on." }
+            { "q": "Why do the levels after a hard one feel easier?", "a": "On purpose: after each hard level come two slightly smaller boards, a breather before the climb goes on." },
+            { "q": "Can I play on an iPhone or iPad?", "a": "Yes, in the app from the App Store, or in Safari or any other browser: both have the same 600 levels. The app signs you in with Apple, and if you play in the browser with Google, link your Apple ID to that same VHub account, so your progress comes along." }
           ]
         }
       ]
