@@ -271,6 +271,7 @@ layouts__form__pair__name	Two lines
 layouts__form__panel__name	Panel
 layouts__form__plate__name	Plate
 layouts__form__ring__name	Ring
+layouts__form__rings__name	Rings
 layouts__form__single_lamp__name	One lamp
 layouts__form__small_dial__name	Small dial
 layouts__form__strip__name	Strip
@@ -323,6 +324,8 @@ layouts__widget__data_speed__description	What the phone is downloading and uploa
 layouts__widget__data_speed__name	Data speed
 layouts__widget__date__description	The date, on its own.
 layouts__widget__date__name	Date
+layouts__widget__date_time__description	The time and the date together.
+layouts__widget__date_time__name	Date and time
 layouts__widget__display__description	One panel with the time, date, Wi-Fi and readings.
 layouts__widget__display__name	Info display
 layouts__widget__drive_time__description	How long you have been driving. A new drive starts after 30 minutes standing still.
@@ -349,6 +352,8 @@ layouts__widget__now_playing__description	The song that's playing, with its cove
 layouts__widget__now_playing__name	Now Playing
 layouts__widget__odometer__description	Every km you have driven with the wallpaper on, kept on the phone.
 layouts__widget__odometer__name	Odometer
+layouts__widget__phone_meters__description	Signal, RAM, Wi-Fi, battery and temperature.
+layouts__widget__phone_meters__name	Phone status meters
 layouts__widget__ram__description	Memory in use, the rev counter.
 layouts__widget__ram__name	RAM
 layouts__widget__second_clock__description	The time somewhere else: UTC or a city you pick in Settings.
@@ -1135,7 +1140,6 @@ screen__style__layouts__card__content_description	%1$s layout, running live
 screen__style__layouts__group_market	From the market
 screen__style__layouts__group_mine	Mine
 screen__style__layouts__group_ready	Ready-made
-screen__style__layouts__make_your_own	Make your own
 screen__style__layouts__new_layout	New layout
 screen__style__layouts__note_custom	Your own arrangement, made in the layout editor.
 screen__style__layouts__note_editable	Move and resize %1$s's dials with Edit layout.
@@ -1147,6 +1151,11 @@ screen__style__message_layout_used	%1$s now uses this layout.
 screen__style__mode_cpu__label	CPU
 screen__style__mode_power__label	Power
 screen__style__mode_speed__label	Speed
+screen__style__new_layout_sheet__blank__help	Start with the main gauge alone
+screen__style__new_layout_sheet__blank__label	Blank
+screen__style__new_layout_sheet__from_this_layout__help	Start with the layout the preview shows
+screen__style__new_layout_sheet__from_this_layout__label	From this layout
+screen__style__new_layout_sheet__title	New layout
 screen__style__position	%1$d / %2$d
 screen__style__preview__content_description	%1$s running a demo drive
 screen__style__preview_hud__content_description	%1$s's HUD look, as HUD mode draws it

@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.2002e3f1",
+      "date": "2026-11-07",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Split the info display in two",
+      "items": [
+        "Add the date and time, and your phone's status meters, as two separate pieces in any style.",
+        "A New layout card now sits at the end of the layouts — tap it to build your own, starting from the current layout or from scratch."
+      ],
+      "commit": "2002e3f1"
+    },
+    {
       "version": "2.0.a4cc51e2",
       "date": "2026-11-06",
       "platforms": [

@@ -271,6 +271,7 @@ layouts__form__pair__name	Δύο γραμμές
 layouts__form__panel__name	Πάνελ
 layouts__form__plate__name	Πλάκα
 layouts__form__ring__name	Δακτύλιος
+layouts__form__rings__name	Δακτύλιοι
 layouts__form__single_lamp__name	Μία λυχνία
 layouts__form__small_dial__name	Μικρό καντράν
 layouts__form__strip__name	Λωρίδα
@@ -323,6 +324,8 @@ layouts__widget__data_speed__description	Πόσα δεδομένα κατεβά�
 layouts__widget__data_speed__name	Ταχύτητα δεδομένων
 layouts__widget__date__description	Η ημερομηνία, μόνη της.
 layouts__widget__date__name	Ημερομηνία
+layouts__widget__date_time__description	Η ώρα και η ημερομηνία μαζί.
+layouts__widget__date_time__name	Ημερομηνία και ώρα
 layouts__widget__display__description	Ένα πάνελ με ώρα, ημερομηνία, Wi-Fi και μετρήσεις.
 layouts__widget__display__name	Οθόνη πληροφοριών
 layouts__widget__drive_time__description	Πόση ώρα οδηγείς. Νέα διαδρομή ξεκινά μετά από 30 λεπτά ακινησίας.
@@ -349,6 +352,8 @@ layouts__widget__now_playing__description	Το τραγούδι που παίζ�
 layouts__widget__now_playing__name	Τώρα παίζει
 layouts__widget__odometer__description	Κάθε χιλιόμετρο που οδήγησες με την ταπετσαρία ενεργή, αποθηκευμένο στο κινητό.
 layouts__widget__odometer__name	Χιλιομετρητής
+layouts__widget__phone_meters__description	Σήμα, RAM, Wi-Fi, μπαταρία και θερμοκρασία.
+layouts__widget__phone_meters__name	Μετρητές κατάστασης
 layouts__widget__ram__description	Η μνήμη σε χρήση, το στροφόμετρο.
 layouts__widget__ram__name	RAM
 layouts__widget__second_clock__description	Η ώρα κάπου αλλού: UTC ή μια πόλη που διαλέγεις στις Ρυθμίσεις.
@@ -1134,7 +1139,6 @@ screen__style__layouts__card__content_description	Διάταξη %1$s, ζωντ�
 screen__style__layouts__group_market	Από την αγορά
 screen__style__layouts__group_mine	Δικές μου
 screen__style__layouts__group_ready	Έτοιμες
-screen__style__layouts__make_your_own	Φτιάξε τη δική σου
 screen__style__layouts__new_layout	Νέα διάταξη
 screen__style__layouts__note_custom	Η δική σου διάταξη, φτιαγμένη με την Επεξεργασία διάταξης.
 screen__style__layouts__note_editable	Μετακίνησε τα καντράν του %1$s και άλλαξέ τους μέγεθος με την Επεξεργασία διάταξης.
@@ -1146,6 +1150,11 @@ screen__style__message_layout_used	Το %1$s χρησιμοποιεί τώρα �
 screen__style__mode_cpu__label	CPU
 screen__style__mode_power__label	Ισχύς
 screen__style__mode_speed__label	Ταχύτητα
+screen__style__new_layout_sheet__blank__help	Ξεκίνα μόνο με τον κύριο δείκτη
+screen__style__new_layout_sheet__blank__label	Κενή
+screen__style__new_layout_sheet__from_this_layout__help	Ξεκίνα με τη διάταξη που δείχνει η προεπισκόπηση
+screen__style__new_layout_sheet__from_this_layout__label	Από αυτή τη διάταξη
+screen__style__new_layout_sheet__title	Νέα διάταξη
 screen__style__position	%1$d / %2$d
 screen__style__preview__content_description	Το %1$s σε δοκιμαστική διαδρομή
 screen__style__preview_hud__content_description	Η όψη HUD του %1$s, όπως τη δείχνει η λειτουργία HUD
