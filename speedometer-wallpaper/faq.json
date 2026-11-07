@@ -29,7 +29,11 @@
   },
   {
     "q": "Which styles are free?",
-    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, a monthly or yearly subscription that also turns the app's ads off. On a new phone with the same Google account, the styles you bought come back by themselves."
+    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, and no ads in the app with Speedometer Plus: €0.99 a month, €9.99 a year, or €29.99 once with Plus forever, which never ends. On a new phone with the same Google account, open the app once and your styles and Plus come back; if one is missing, Plus forever included, tap Settings → Restore purchases."
+  },
+  {
+    "q": "I already pay for Plus monthly or yearly. Can I switch to Plus forever?",
+    "a": "Yes. Buy Plus forever in the app, then cancel your subscription in Google Play, under Payments & subscriptions → Subscriptions, or with the app's Manage subscription button, which it shows you right after the purchase. Buying Plus forever doesn't end the subscription by itself, so cancel it to stop the monthly or yearly payments. Plus forever stays yours with no end date, on the same Google account."
   },
   {
     "q": "Do I need an account?",

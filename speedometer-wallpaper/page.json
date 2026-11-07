@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with Speedometer Plus, monthly, yearly or once with Plus forever.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -440,7 +440,7 @@
       "id": "styles",
       "eyebrow": "Styles",
       "title": "19 dashboards to choose from",
-      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus, a monthly or yearly subscription for every style, including the styles still to come, and no ads. Each style brings its own layouts. Tap one to try it live in your browser.",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus: every style, including the styles still to come, and no ads, for €0.99 a month, €9.99 a year, or €29.99 once with Plus forever, which never ends. Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
