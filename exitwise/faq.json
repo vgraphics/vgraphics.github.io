@@ -12,6 +12,10 @@
     "a": "You start every level with three hearts, and tapping a blocked arrow costs one. Out of hearts, you can continue once with 100 coins for three hearts, or on Android watch a video for full hearts. Or tap Retry and start the level again. A run with a continue doesn't go on the leaderboard."
   },
   {
+    "q": "How does the score work?",
+    "a": "Every level you win earns 650 points plus 10 for each arrow you drive off the board, so bigger levels are worth more. Each heart lost costs 25, the time taken costs a little, each hint or powerup costs 100 and each continue 200, and a win never earns less than 100. Each level keeps the most you have earned on it, so a replay can only raise your score: the total of every level you've won, which the <a href=\"/exitwise/ranking/\">global ranking</a> orders players by. <a href=\"/exitwise/wiki/leaderboards/\">More about the boards</a>."
+  },
+  {
     "q": "How many levels are there?",
     "a": "600, in 17 worlds from the Meadow to Starlight, harder all the way, with a <a href=\"/exitwise/wiki/hard-levels/\">hard level</a> every 10th. A new obstacle arrives every 20 to 30 levels, each on an easy level built to teach it. Boards come in 49 shapes and grow up to 100 cells a side."
   },
