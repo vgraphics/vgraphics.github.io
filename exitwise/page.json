@@ -90,7 +90,11 @@
       "youtubeGameplay": { "icon": "youtube", "label": "Exitwise gameplay and trailers on YouTube", "href": "https://www.youtube.com/playlist?list=PLaZLDmy6xgR4" }
     }
   },
-  "stores": { "appStore": "https://apps.apple.com/app/id6830097641", "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
+  "stores": {
+    "appStore": "https://apps.apple.com/app/id6830097641",
+    "appStoreNote": "Not in EU App Stores yet: <a href=\"https://testflight.apple.com/join/T96CNFyP\">play the iPhone beta</a>",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"
+  },
   "hero": {
     "title": "Exitwise: the arrow escape puzzle game",
     "lead": "Arrow Escape Puzzle",
