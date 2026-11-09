@@ -107,7 +107,7 @@
           "type": "steps",
           "items": [
             "<b>Open a room.</b> The host taps <a href=\"/palermo/play/\">Play online</a> in their phone's browser and creates a room.",
-            "<b>Put the town on the TV.</b> Tap Show on TV on any phone in the room, then open vgraphics.gr/tv in the TV's browser and type the TV code it gives. Friends scan the QR code on the screen to join. A TV whose browser can't keep up gets a lighter page by itself.",
+            "<b>Put the town on the TV.</b> Tap Show on TV on any phone in the room, then open vgraphics.gr/tv in the TV's browser and type the TV code it gives. Friends scan the QR code on the screen to join. Other TVs may still play on a lighter page, which opens by itself.",
             "<b>Choose the rules.</b> Classic, Quick or Full house, or your own: the host picks the roles and the timers, and the TV shows the roles in play.",
             "<b>Hold to see your card.</b> Everyone gets a secret role. Your card shows only while you hold it, and every card has the same frame."
           ]
@@ -244,7 +244,7 @@
           "items": [
             { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same two taps at night, and your card shows only while you hold it.", "wiki": "the-night", "more": "How the night plays" },
             { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen.", "wiki": "a-round", "more": "How a round plays" },
-            { "title": "Nothing to install", "text": "The browser on the phones you already have, and on a smart TV from 2022 on, an Android TV or a laptop on the TV.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
+            { "title": "Nothing to install", "text": "The browser on the phones you already have, and on a Samsung or LG TV from 2022 on, an Android TV or a laptop on the TV.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
           ]
         }
       ]
