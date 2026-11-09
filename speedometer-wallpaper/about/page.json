@@ -1,6 +1,6 @@
 {
-  "title": "About Speedometer Live Wallpaper: a car dashboard for Android",
-  "description": "What the Speedometer live wallpaper does: a working car dashboard on your Android home screen, with GPS speed, battery power and CPU gauges. How to try it and use it.",
+  "title": "About Speedometer Live Wallpaper: car dashboard and HUD",
+  "description": "What the Speedometer live wallpaper does: a car dashboard on your Android home screen, a HUD on your windscreen, GPS speed, battery and CPU gauges. How to try it.",
   "social": {
     "title": "About Speedometer Live Wallpaper",
     "description": "A working car dashboard behind your Android icons: what it reads, what's free, how to try it in your browser and a few questions answered.",
@@ -34,7 +34,7 @@
     ]
   },
   "hero": {
-    "title": "About Speedometer Live Wallpaper, the car dashboard for your Android home screen",
+    "title": "About Speedometer Live Wallpaper, the car dashboard and windscreen HUD for your Android phone",
     "lead": "Your home screen, <em>a working dashboard.</em>",
     "align": "left",
     "badges": [{ "href": "/speedometer-wallpaper/play/", "label": "Try online", "note": "The real app, in your browser" }, "google-play"],
