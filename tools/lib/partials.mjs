@@ -126,6 +126,10 @@ export function actions(page, list, cls = 'badges') {
     }
     return own(b, `<a class="pill" href="${esc(b.href)}"><b>${b.label}</b>${b.note ? `<small>${b.note}</small>` : ''}</a>`)
   })
+  // stores.appStoreNote (HTML): a line under a row with the live App Store badge, for the storefronts that don't carry
+  // the app yet (Exitwise, 9 Nov 2026: EU storefronts wait for Apple to verify the DSA trader status, so EU visitors
+  // get Apple's error page). Remove it from page.json once the listing opens there.
+  if (page.stores?.appStore && page.stores.appStoreNote && list.includes('app-store')) notes.push(`<small class="store-note">${page.stores.appStoreNote}</small>`)
   return `<div class="${cls}">${items.join('')}${notes.join('')}</div>`
 }
 
