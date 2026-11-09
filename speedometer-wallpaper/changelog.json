@@ -1,15 +1,144 @@
 {
   "entries": [
     {
+      "version": "2.0.2002e3f1",
+      "date": "2026-11-07",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Split the info display in two",
+      "items": [
+        "Add the date and time, and your phone's status meters, as two separate pieces in any style.",
+        "A New layout card now sits at the end of the layouts — tap it to build your own, starting from the current layout or from scratch."
+      ],
+      "commit": "2002e3f1"
+    },
+    {
+      "version": "2.0.a4cc51e2",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Every style draws every gauge",
+      "items": [
+        "Every style now draws the full set of gauges — dials, HUD arcs, Wi-Fi rings, the analog clock and the date — in its own colours."
+      ],
+      "commit": "a4cc51e2"
+    },
+    {
+      "version": "2.0.17",
+      "date": "2026-11-06",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Styles show their full look",
+      "items": [
+        "Styles that rearrange a gauge now show its full look — background, readouts and warning lamps — when you try them in the browser"
+      ],
+      "commit": "7999f34d"
+    },
+    {
+      "version": "2.0.9fbae0ad",
+      "date": "2026-11-06",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Layouts that fit your screen",
+      "items": [
+        "Styles now come with a landscape layout, and the preview shows the arrangement that fits your screen.",
+        "When a style is updated, its newest version now shows in your browser."
+      ],
+      "commit": "9fbae0ad"
+    },
+    {
+      "version": "2.0.16",
+      "date": "2026-11-05",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Screens now use the whole height",
+      "items": [
+        "Signed-in players without a birth year on their VHub account can now add it in one step, so friends and names work.",
+        "Screens now use the whole height: no more empty band at the bottom.",
+        "Smoother wallpaper and previews, and fixes for rare crashes when going back after saving a layout and during purchases."
+      ],
+      "commit": "5dd7fefb"
+    },
+    {
+      "version": "2.0.15",
+      "date": "2026-11-05",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Help tickets read like a chat",
+      "items": [
+        "Fixed a crash on some phones when the mobile signal could not be read.",
+        "Help tickets now read like a chat, with a clear status badge and your screenshots right in the thread."
+      ],
+      "commit": "7a0226d4"
+    },
+    {
+      "version": "2.0.14",
+      "date": "2026-11-04",
+      "platforms": [
+        "Android"
+      ],
+      "title": "One smooth motion everywhere",
+      "items": [
+        "Cards, menus and previews now open and close with one smooth motion everywhere in the app.",
+        "If a layout you shared is taken off the market, you now see the moderator's note saying why."
+      ],
+      "commit": "5202bdae"
+    },
+    {
+      "version": "2.0.13",
+      "date": "2026-11-04",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Preview the HUD look",
+      "items": [
+        "Horizon, Glass, Pulse and Vector now have an Original | HUD switch on their page: see each one's HUD look before you drive, and switch back with one tap."
+      ],
+      "commit": "e4c8950f"
+    },
+    {
+      "version": "2.0.12",
+      "date": "2026-11-04",
+      "platforms": [
+        "Android"
+      ],
+      "title": "See your speed on the windscreen",
+      "items": [
+        "HUD mode puts your speed on the windscreen — and it's now front and centre on your home screen and in Styles.",
+        "Share a look as a QR code or link that opens its style and layout straight in the app.",
+        "In the layout builder, drag the layers to change which gauges sit in front."
+      ],
+      "commit": "4b9694b1"
+    },
+    {
+      "version": "2.0.87e650c9",
+      "date": "2026-11-03",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New HUD mode",
+      "items": [
+        "New: HUD mode. Lay your phone flat on the dashboard and see your speed on the windscreen, in Horizon (free), Glass, Pulse or Vector, with four layouts, the clock, trip, heading and your own speed warning. Open it from Home, the HUD mode tile, the app icon, or by itself when your car connects.",
+        "The whole app is now in Greek — every screen, gauge and widget — when your phone is set to Greek.",
+        "Report a problem or share an idea from Settings — and read our reply right in the app."
+      ],
+      "commit": "87e650c9"
+    },
+    {
       "version": "2.0.11",
       "date": "2026-11-03",
       "platforms": [
         "Android"
       ],
-      "title": "Manage your News by email",
       "items": [
-        "The News by email switch now shows whether you're signed up, and turning it off unsubscribes you. If you've just signed up, it reminds you to tap the confirmation link in your inbox.",
-        "Sign-up emails now arrive in the app's language — Greek if the app is in Greek, otherwise English."
+        "New: HUD mode. Lay your phone flat on the dashboard and see your speed on the windscreen, in Horizon (free), Glass, Pulse or Vector, with four layouts, the clock, trip, heading and your own speed warning. Open it from Home, the HUD mode tile, the app icon, or by itself when your car connects."
       ],
       "commit": "e7df1f16"
     },

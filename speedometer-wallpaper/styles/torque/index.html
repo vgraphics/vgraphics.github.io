@@ -137,12 +137,11 @@
           <p class="sec-intro">A muscle-car dash: a curved rev arc with a red shift zone, a big round dial on gunmetal, the time as a framed gear number, and fuel and temperature arcs. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Torque's layouts and colours.</p>
         </div>
         <div class="try" data-state="idle">
-          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"torque","layouts":"/speedometer-wallpaper/market/market.js"}</script>
+          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"torque","layouts":"/speedometer-wallpaper/market/market.js","appLinks":{"look":"https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}","layout":"https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"}}</script>
           <div class="try-stage">
             <div class="try-device" data-orientation="portrait">
               <div class="try-screen" role="img" aria-label="Speedometer Live Wallpaper, live: tap the big gauge to switch it">
                 <div class="try-icons" hidden aria-hidden="true">
-                  <div class="try-icons-row"><i></i><i></i><i></i><i></i></div>
                   <div class="try-icons-search"></div>
                   <div class="try-icons-dock"><i></i><i></i><i></i><i></i></div>
                 </div>
@@ -162,14 +161,17 @@
             <p class="try-shared" hidden></p>
             <p class="try-hint">Tap the big gauge to switch between power, CPU clock and speed, as on your phone.</p>
             <div class="try-quick">
-              <button class="btn try-gps" type="button" data-action="gps" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Use my real speed</span></button>
+              <button class="try-tool try-gps" type="button" data-action="gps" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Use my real speed</span></button>
               <button class="try-tool" type="button" data-action="share"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span>Copy a link to this look</span></button>
+              <button class="try-tool" type="button" data-action="qr" aria-haspopup="dialog"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="14" y="3.5" width="6.5" height="6.5" rx="1.2"/><rect x="3.5" y="14" width="6.5" height="6.5" rx="1.2"/><path d="M14 14h2.6v2.6M20.5 14v.01M14 20.5h.01M17.6 17.6h2.9v2.9h-2.9z"/></svg><span>Show QR for this look</span></button>
             </div>
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             <section class="try-group try-layouts" hidden aria-labelledby="try-layouts-title">
               <h3 id="try-layouts-title">Layouts</h3>
-              <div class="try-chips"></div>
+                <div class="try-layout-set try-layout-builtin"><h4 class="try-set-title">Built in</h4><div class="try-chips"></div></div>
+                <div class="try-layout-set try-layout-ready" hidden><h4 class="try-set-title">Ready-made</h4><div class="try-chips"></div></div>
+                <div class="try-layout-set try-layout-market" hidden><h4 class="try-set-title">From the layout market</h4><div class="try-chips"></div><a class="try-market-more" href="/speedometer-wallpaper/layouts/">See the layout market</a></div>
             </section>
             <section class="try-group" aria-labelledby="try-settings-title">
               <h3 id="try-settings-title">Settings</h3>
@@ -193,6 +195,17 @@
             <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-where="fallback"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
           </div>
           <noscript><p class="try-noscript">The live demo needs JavaScript. You can still get the app on <a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper">Google Play</a>.</p></noscript>
+          <dialog class="try-look" aria-labelledby="try-look-title" aria-describedby="try-look-note">
+            <div class="try-look-shade"></div>
+            <div class="try-look-sheet">
+              <button class="try-look-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <p class="try-look-eyebrow">Open this look in the app</p>
+              <h3 class="try-look-name" id="try-look-title">Speedometer Live Wallpaper</h3>
+              <p class="try-look-layout"></p>
+              <div class="try-look-code" role="img" aria-label="A QR code that opens this look in Speedometer Live Wallpaper"></div>
+              <p class="try-look-note" id="try-look-note">Point your phone’s camera at it: the app opens on this look. Without the app, the link offers Google Play.</p>
+            </div>
+          </dialog>
           <div class="try-consent" role="dialog" aria-labelledby="try-consent-title" hidden>
             <h3 id="try-consent-title">Help improve Speedometer Live Wallpaper?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>
@@ -269,6 +282,14 @@
           <h2 id="cta-title">Put the dashboard on your phone</h2>
           <p>Free on Google Play, for Android phones and tablets.</p>
           <div class="badges"><a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250"></a><a class="play-cta" href="/speedometer-wallpaper/play/"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M8 5.6v12.8a1.1 1.1 0 0 0 1.7.93l10-6.4a1.1 1.1 0 0 0 0-1.86l-10-6.4A1.1 1.1 0 0 0 8 5.6z"/></svg><span>Try it in your browser</span></a><a class="vhub-entry pill" href="/hub/" data-vhub><span class="vhub-face" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="8.5" r="3.8"/><path d="M4.5 20.5a7.5 7.5 0 0 1 15 0"/></svg></span><span class="vhub-words"><b class="vhub-name">Get your VHub name</b><small class="vhub-note">Your name in every room</small></span></a><small class="play-note">Live demo, no install</small></div>
+          <form class="mail-list mail-list-close" data-topic="speedometer" data-product="speedometer" data-wording="site-closing-1" novalidate>
+        <span class="mail-list-or">Not ready yet?</span>
+        <label class="mail-list-title" for="ml-speedometer-wallpaper-close">Get Speedometer news by email</label>
+        <span class="mail-list-row"><input id="ml-speedometer-wallpaper-close" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
         </div>
       </div>
     </section>
@@ -290,13 +311,13 @@
       </nav>
       <form class="mail-list" data-topic="speedometer" data-product="speedometer" data-wording="site-footer-1" novalidate>
         <label class="mail-list-title" for="ml-speedometer-wallpaper">Get Speedometer news by email</label>
-        <span class="mail-list-row"><input id="ml-speedometer-wallpaper" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-row"><input id="ml-speedometer-wallpaper" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="play-cta" type="submit">Sign up</button></span>
         <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
         <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
         <span class="mail-list-said" role="status"></span>
       </form>
       <div class="foot-icons"><a href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" aria-label="Speedometer Live Wallpaper on Google Play" title="Speedometer Live Wallpaper on Google Play"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M6 9.5h12V18a1 1 0 0 1-1 1h-1v2.5a1.5 1.5 0 0 1-3 0V19h-2v2.5a1.5 1.5 0 0 1-3 0V19H7a1 1 0 0 1-1-1zM3.5 9.5A1.5 1.5 0 0 1 5 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zm17 0A1.5 1.5 0 0 1 22 11v4.5a1.5 1.5 0 0 1-3 0V11a1.5 1.5 0 0 1 1.5-1.5zM6.2 8.5a6 6 0 0 1 3.1-4.6l-1-1.8a.4.4 0 0 1 .7-.4l1 1.8a6.5 6.5 0 0 1 4 0l1-1.8a.4.4 0 0 1 .7.4l-1 1.8a6 6 0 0 1 3.1 4.6zM9.5 6.3a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6zm5 0a.8.8 0 1 0 0 1.6.8.8 0 0 0 0-1.6z"/></svg></a><a href="https://www.youtube.com/@vgraphics_gr" aria-label="VGraphics on YouTube" title="VGraphics on YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" fill-rule="evenodd" d="M23 7.2a3 3 0 0 0-2.1-2.1C19 4.6 12 4.6 12 4.6s-7 0-8.9.5A3 3 0 0 0 1 7.2 31 31 0 0 0 .5 12a31 31 0 0 0 .5 4.8 3 3 0 0 0 2.1 2.1c1.9.5 8.9.5 8.9.5s7 0 8.9-.5a3 3 0 0 0 2.1-2.1 31 31 0 0 0 .5-4.8 31 31 0 0 0-.5-4.8zM9.75 15.1V8.9L15.6 12z"/></svg></a><a href="https://soundcloud.com/vgraphics" aria-label="VGraphics on SoundCloud" title="VGraphics on SoundCloud"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M23.999 14.165c-.052 1.796-1.612 3.169-3.4 3.169h-8.18a.68.68 0 0 1-.675-.683V7.862a.747.747 0 0 1 .452-.724s.75-.513 2.333-.513a5.364 5.364 0 0 1 2.763.755 5.433 5.433 0 0 1 2.57 3.54c.282-.08.574-.121.868-.12.884 0 1.73.358 2.347.992s.948 1.49.922 2.373ZM10.721 8.421c.247 2.98.427 5.697 0 8.672a.264.264 0 0 1-.53 0c-.395-2.946-.22-5.718 0-8.672a.264.264 0 0 1 .53 0ZM9.072 9.448c.285 2.659.37 4.986-.006 7.655a.277.277 0 0 1-.55 0c-.331-2.63-.256-5.02 0-7.655a.277.277 0 0 1 .556 0Zm-1.663-.257c.27 2.726.39 5.171 0 7.904a.266.266 0 0 1-.532 0c-.38-2.69-.257-5.21 0-7.904a.266.266 0 0 1 .532 0Zm-1.647.77a26.108 26.108 0 0 1-.008 7.147.272.272 0 0 1-.542 0 27.955 27.955 0 0 1 0-7.147.275.275 0 0 1 .55 0Zm-1.67 1.769c.421 1.865.228 3.5-.029 5.388a.257.257 0 0 1-.514 0c-.21-1.858-.398-3.549 0-5.389a.272.272 0 0 1 .543 0Zm-1.655-.273c.388 1.897.26 3.508-.01 5.412-.026.28-.514.283-.54 0-.244-1.878-.347-3.54-.01-5.412a.283.283 0 0 1 .56 0Zm-1.668.911c.4 1.268.257 2.292-.026 3.572a.257.257 0 0 1-.514 0c-.241-1.262-.354-2.312-.023-3.572a.283.283 0 0 1 .563 0Z"/></svg></a></div>
-      <p class="legal">&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+      <p class="legal">&copy; 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a><br>Google Play and the Google Play logo are trademarks of Google LLC.</p>
     </div>
   </footer>
   <script src="/assets/anchors.js" defer></script>

@@ -19,12 +19,15 @@ import { readFaq } from './lib/faq.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
-import { isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
-import { headerHelpProblems, helpMailProblems } from './lib/mail-list.mjs'
+import { companyFoot, isCompanyPage, isProductScreen, legalProblems, productFoot } from './lib/legal.mjs'
+import { adminProblems } from './lib/admin.mjs'
+import { headerHelpProblems, helpMailProblems, signUpCssProblems, signUpLookProblems } from './lib/mail-list.mjs'
 import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
+import { markProblems } from './lib/marks.mjs'
+import { htaccessProblems } from './lib/htaccess.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -218,7 +221,8 @@ for (const [what, seen] of [['title', seoTitles], ['description', seoDescription
 
 // The company pages (every page on /assets/vgraphics.css) share the home page's header and footer, word for word.
 // Only aria-current may differ, and it may only mark the page's own menu item. A product's screen on it (the hub's
-// pages) has the footer with the short legal line (tools/lib/legal.mjs productFoot).
+// pages) has the footer with the product's legal line, and the company page with the company's details
+// (tools/lib/legal.mjs productFoot, companyFoot).
 const chrome = (html) => ({
   head: html.match(/<header class="site-head">[\s\S]*?<\/header>/)?.[0],
   foot: html.match(/<footer class="site-foot">[\s\S]*?<\/footer>/)?.[0],
@@ -238,8 +242,9 @@ for (const file of pages) {
   const { head, foot } = chrome(html)
   if (plain(head) !== plain(home.head)) report(file, 'menu', "header differs from the home page's")
   const screen = isProductScreen(urlPath(file))
-  if (plain(foot) !== plain(screen ? productFoot(home.foot) : home.foot)) {
-    report(file, 'menu', screen ? "footer differs from the home page's with the product's legal line, \"© <year> VGraphics\"" : "footer differs from the home page's")
+  const company = isCompanyPage(urlPath(file))
+  if (plain(foot) !== plain(company ? companyFoot(home.foot) : screen ? productFoot(home.foot) : home.foot)) {
+    report(file, 'menu', company ? "footer differs from the home page's with the company's legal line" : screen ? "footer differs from the home page's with the product's legal line, \"© <year> VGraphics\"" : "footer differs from the home page's")
   }
   for (const [tag] of (head ?? '').matchAll(/<a\b[^>]*aria-current="page"[^>]*>/g)) {
     const href = tag.match(/href="([^"]*)"/)?.[1]
@@ -543,15 +548,33 @@ for (const [file, text] of sheets) {
   }
 }
 
-// The legal line (tools/lib/legal.mjs; George, 29 Oct 2026: "These are only required at the website not in the apps.
-// Apps just can say VGraphics."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the cursors
-// above: the full one on the website's pages, "© <year> VGraphics" and none of the company's numbers on a product's
-// screens (its play, TV, join and demo pages, the hub, the try pages). A Unity page's own rules (above) hold it to the
-// product's line wherever it is; a bare frame page's line is in the build it frames (tools/lib/frames.mjs).
+// The legal line (tools/lib/legal.mjs; George, 31 Oct 2026: "These are required only at company page at vgraphics.gr.
+// Remove from everywhere else."), on every page GitHub Pages serves, whoever writes it, as the phone menu and the
+// cursors above: the company's details on /company/ alone; "© <year> VGraphics. All rights reserved" with the company,
+// privacy and terms links on the website's other pages, where a privacy policy may name the company only in its
+// data-controller sentence; "© <year> VGraphics" on a product's screens (its play, TV, join and demo pages, the hub, the
+// try pages). A Unity page's own rules (above) hold it to the product's line wherever it is; a bare frame page's line is
+// in the build it frames (tools/lib/frames.mjs).
 for (const file of served) {
   if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
   const html = readFileSync(join(root, file), 'utf8')
   for (const m of framesBuild(file) ? frameLegalProblems(urlPath(file), html) : legalProblems(urlPath(file), html)) report(file, 'legal-footer', m)
+}
+
+// George's admin page (/admin/, VHub's admin app, which only the Deployer's vhub-admin writes; tools/lib/admin.mjs):
+// every page GitHub Pages serves in it is kept out of search, noindex and nofollow. It is a product's screen with the
+// short legal line (above), its scripts are built elsewhere, sitemap.xml never lists it (tools/build-sitemap.mjs), and
+// robots.txt leaves it alone, so search engines can read the noindex.
+for (const file of served) {
+  for (const m of adminProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'admin', m)
+}
+
+// Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise
+// and Palermo Noir in every heading that names them and at their first mention, on every website page whoever writes
+// it (the template writes them; a hand-made page carries them itself), never on Quizfall or VHub, never ®.
+for (const file of served) {
+  if (notPages.has(file) || PARTIAL.test(file) || unity.has(file)) continue
+  for (const m of markProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'trademark', m)
 }
 
 // The chapter stepper (George, 24 Oct 2026: "... a stepper that updated during scroll. I can click any bullet. ... One
@@ -715,13 +738,13 @@ for (const slug of products()) {
 //   header's folded menu (menu.js) and the VHub avatar's (account.js) do. A script that marks a menu open without them
 //   would snap it open and shut;
 // - no served page has a popover (the popover attribute), which the browser opens and shuts at once.
-// The scripts other repos build (VHub's hub, Palermo Noir's game on the party kit, the Unity games' pages and builds,
-// the Speedometer engine) animate theirs with their own shared piece, whose tests hold it; here only their markup is
-// read. Without faq.js the rows still open, but jump, and several stay open.
+// The scripts other repos build (VHub's hub and admin page, Palermo Noir's game on the party kit, the Unity games'
+// pages and builds, the Speedometer engine) animate theirs with their own shared piece, whose tests hold it; here only
+// their markup is read. Without faq.js the rows still open, but jump, and several stay open.
 const faqJs = (file, message) => report(file, 'faq-js', message)
 const FAQ_JS = /<script type="module" src="\/assets\/faq\.js"><\/script>/
 const EXPANDABLE = /<details\b|<div class="tour"|\saria-expanded=/
-const BUILT_ELSEWHERE = /^(?:hub|speedometer-wallpaper\/play\/app|palermo\/game)\//
+const BUILT_ELSEWHERE = /^(?:hub|admin|speedometer-wallpaper\/play\/app|palermo\/game)\//
 if (!existsSync(join(root, 'assets', 'faq.js'))) faqJs(join('assets', 'faq.js'), 'missing')
 else if (!['showMenu', 'hideMenu'].every((name) => new RegExp(`^export const ${name} =`, 'm').test(readFileSync(join(root, 'assets', 'faq.js'), 'utf8')))) {
   faqJs(join('assets', 'faq.js'), "does not export showMenu and hideMenu, which open and close every menu with the expandables' animation")
@@ -878,10 +901,16 @@ for (const [file, css] of sheets) if (file.endsWith('.css')) wraps(file, css)
 // (tools/lib/mail-list.mjs). A product's play, TV, join and demo screens are the product alone and carry neither: its
 // own menu has them. VHub's pages, /hub/join/ among them, are left to the menu rule, which holds them to the company
 // footer, sign-up included (tools/lib/mail-list.mjs helpMailProblems).
+// The sign-up in its product's style (George's "Keep" marks on the mail review page, 3 Nov 2026): on a product's page
+// every sign-up is that product's own, its Sign up the product's play button (.play-cta) in the tokens of the theme the
+// page links, and assets/product.css gives the sign-up's buttons no colours but .play-cta's; the company pages keep their
+// own button (tools/lib/mail-list.mjs signUpLookProblems, signUpCssProblems).
 for (const file of pages) {
   const html = readFileSync(join(root, file), 'utf8')
   for (const message of [...helpMailProblems(urlPath(file), html), ...headerHelpProblems(urlPath(file), html)]) report(file, 'help-mail', message)
+  for (const message of signUpLookProblems(urlPath(file), html)) report(file, 'sign-up-look', message)
 }
+for (const message of signUpCssProblems(readFileSync(join(root, 'assets', 'product.css'), 'utf8'))) report(join('assets', 'product.css'), 'sign-up-look', message)
 
 // Switches, never checkboxes (George, 26 Oct 2026: "I hate checkboxes. I always prefer toggles."): every on/off choice
 // on a page GitHub Pages serves is the site's switch, a real checkbox that /assets/switch.css draws as a track and a
@@ -889,11 +918,11 @@ for (const file of pages) {
 // checkboxes in a page's markup and for those the site's own scripts make (the try page's settings, assets/try/try.js):
 // each `type = 'checkbox'` there gives the input the "switch" class and role in the lines that follow, and every page
 // that loads such a script links switch.css. A choice of a few is a segmented control or option cards, never a row of
-// checkboxes. The scripts other repos build (VHub's hub, the Unity games, the Speedometer engine) draw their own
-// switch in their repo, whose tests hold it; here only their markup is read.
+// checkboxes. The scripts other repos build (VHub's hub and admin page, the Unity games, the Speedometer engine) draw
+// their own switch in their repo, whose tests hold it; here only their markup is read.
 const switchRule = (file, message) => report(file, 'switch', message)
 const SWITCH_CSS = /<link rel="stylesheet" href="\/assets\/switch\.css">/
-const BUILT = /^(?:hub|speedometer-wallpaper\/play\/app)\//
+const BUILT = /^(?:hub|admin|speedometer-wallpaper\/play\/app)\//
 const isSwitch = (tag) => /\srole="switch"/.test(tag) && /\sclass="(?:[^"]*\s)?switch(?:\s[^"]*)?"/.test(tag)
 if (!existsSync(join(root, 'assets', 'switch.css'))) switchRule(join('assets', 'switch.css'), 'missing')
 // The site's own scripts that make checkboxes, by their address.
@@ -1023,7 +1052,7 @@ for (const file of served) {
 const ART_TODO = join('tools', 'art-once-todo.json')
 const PICTURE = /\.(png|jpe?g|webp|avif|gif|svg)$/i
 const VOIDS = new Set(['area', 'base', 'br', 'col', 'embed', 'hr', 'img', 'input', 'link', 'meta', 'source', 'track', 'wbr'])
-const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
+const ART_FREE = new Set(['logo', 'product-name', 'foot-brand', 'brand', 'gp', 'as', 'ost-cover', 'ost-disc', 'ost-mini-show', 'try-qr'])
 const TILE = new Set(['g-screen', 'album-item'])
 const ICON = 256
 const artOf = (f) => f.replace(/-\d+\.(avif|webp|jpe?g|png|gif)$/i, '').replace(PICTURE, '')
@@ -1318,6 +1347,10 @@ else {
 const cname = join(root, 'CNAME')
 if (existsSync(cname) && readFileSync(cname, 'utf8').trim() !== 'vgraphics.gr') report('CNAME', 'cname', 'is not exactly vgraphics.gr')
 
+// The site on Hostinger reads .htaccess for what GitHub Pages did and for its security headers (tools/lib/htaccess.mjs).
+const htaccess = join(root, '.htaccess')
+for (const m of htaccessProblems(existsSync(htaccess) ? readFileSync(htaccess, 'utf8') : undefined)) report('.htaccess', 'hosting', m)
+
 const appAds = join(root, 'app-ads.txt')
 if (!existsSync(appAds)) report('app-ads.txt', 'app-ads', 'missing')
 else {
@@ -1417,7 +1450,8 @@ else {
 
 // Rights in the files (README "Rights in the files"): art not on the live site yet should carry our rights mark and,
 // once VGraphics' signing certificate is in place, Content Credentials. A warning on stderr, not a problem (it never
-// fails the check, nor reads as a problem line to the Deployer): node tools/protect-art.mjs adds them.
+// fails the check, nor reads as a problem line to the Deployer): the git hooks in tools/hooks/ add them on every commit
+// and merge, and node tools/protect-art.mjs where they didn't run.
 {
   const s = signer()
   const sign = !!s && !s.test
@@ -1426,7 +1460,11 @@ else {
     return (MARKABLE.test(rel) && !hasRightsMark(b)) || (sign && !hasCredentials(b))
   })
   if (bare.length) {
-    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing`)
+    let hooks = ''
+    try {
+      hooks = execFileSync('git', ['config', '--get', 'core.hooksPath'], { cwd: root, encoding: 'utf8' }).trim()
+    } catch {}
+    console.warn(`warning: ${bare.length} new picture(s) or song(s) without our rights in the file (${bare.slice(0, 3).join(', ')}${bare.length > 3 ? ', ...' : ''}); run node tools/protect-art.mjs${sign ? ' --sign' : ''} before publishing${hooks === 'tools/hooks' ? '' : ' (and git config core.hooksPath tools/hooks, so the hooks do it on every commit and merge)'}`)
   }
 }
 

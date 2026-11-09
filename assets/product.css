@@ -294,12 +294,48 @@ h1, h2, h3 {
 .gp img { display: block; height: 84px; width: auto; }
 .gp:hover { transform: translateY(-2px); }
 .gp:focus-visible { outline-offset: -12px; }
+/* Apple's "Download on the App Store" badge, once the listing is live (partials.mjs appStoreBadge, stores.appStore): the
+   black badge as Apple supplies it, which has no clear space of its own, drawn as tall as what shows of the Play badge
+   (56px, 47px on phones), so the two read as a pair. Its 2px margin and the row's 12px gap keep the quarter of its
+   height clear around it that Apple asks for (14px), and beside it the Play PNG's own clear space adds to that. Apple's
+   rules (the badge unchanged, first in the row, at least 40px tall) are in partials.mjs. */
+.as { display: inline-flex; flex: none; margin: 2px; border-radius: 7px; transition: transform 160ms ease-out; }
+.as img { display: block; height: 56px; width: auto; }
+.as:hover { transform: translateY(-2px); }
+/* The App Store while its listing isn't live (partials.mjs appStoreSoon, "app-store" with stores.appStoreSoon): our own
+   badge, never Apple's logo or artwork, drawn to pair with Google's: what shows of the Play badge (its PNG at 84px, 70px
+   on phones, less its clear space) is black with a grey hairline, 56px tall (47px), its corners about a ninth of that,
+   a small line over a big one. This one keeps that shape and colour in the product's own fonts, with an hourglass where
+   a store's mark would be, its sand in the product's colour. It leads nowhere: no hover, no lift, the page's pointer.
+   Beside the Play badge it moves in over the PNG's clear space, so the two read as a pair. */
+.store-soon {
+  --h: 56px;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: calc(var(--h) * 0.15);
+  height: var(--h);
+  padding: 0 calc(var(--h) * 0.3) 0 calc(var(--h) * 0.2);
+  border: 1px solid #A6A6A6;
+  border-radius: calc(var(--h) * 0.115);
+  background: #000000;
+  color: #FFFFFF;
+  text-align: left;
+  text-shadow: none;
+  white-space: nowrap;
+}
+.gp + .store-soon { margin-left: -6px; }
+.store-soon svg { flex: none; width: calc(var(--h) * 0.46); height: calc(var(--h) * 0.46); }
+.store-soon .sand { fill: color-mix(in srgb, var(--accent) 60%, #FFFFFF); }
+.store-soon > span { display: grid; gap: calc(var(--h) * 0.05); }
+.store-soon small { font: var(--label-weight) max(9px, calc(var(--h) * 0.18))/1 var(--label-font); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
+.store-soon b { font: var(--display-weight) calc(var(--h) * 0.38)/1 var(--font-display); text-transform: none; letter-spacing: normal; }
 .pill {
   display: inline-flex;
   flex-direction: column;
   min-width: 150px;
   padding: 9px 18px 8px;
-  border-radius: var(--radius-sm);
+  border-radius: var(--btn-radius, var(--radius-sm)); /* a pill where the theme sets btn-radius, as .btn below */
   border: var(--card-border);
   background: var(--surface);
   color: var(--ink);
@@ -330,6 +366,10 @@ h1, h2, h3 {
 .play-cta svg { flex: none; width: 17px; height: 17px; }
 .badges .play-note { flex-basis: 100%; margin-top: -2px; text-align: center; font: var(--label-weight) 0.78rem/1.3 var(--label-font); text-transform: uppercase; letter-spacing: 0.08em; opacity: 0.85; }
 .foot-left .hero-foot .badges .play-note, .intro .sec-head .badges .play-note { text-align: left; }
+/* stores.appStoreNote (partials.mjs actions): where the App Store doesn't carry the app yet, and what to play instead. */
+.badges .store-note { flex-basis: 100%; margin-top: -4px; text-align: center; font: var(--body-weight) 0.86rem/1.35 var(--font-body); opacity: 0.9; }
+.badges .store-note a { color: inherit; text-decoration: underline; text-underline-offset: 2px; font-weight: 700; }
+.foot-left .hero-foot .badges .store-note, .intro .sec-head .badges .store-note { text-align: left; }
 /* The second button beside it (partials.mjs playButtons, the header's .play-soon and .demo-link above), as big: the
    game while it is coming soon, a chip that leads nowhere, its tag "Coming soon"; once it opens, the demo, ringed in
    the button's colour. */
@@ -378,7 +418,9 @@ h1, h2, h3 {
   padding: 0 24px;
   border: 0;
   border-bottom: 4px solid var(--cta-edge);
-  border-radius: var(--radius-sm);
+  /* A product's buttons can be pills (George, 4 Nov 2026, on Speedometer's "See the layout market": "Make all these
+     button pills."): its theme.json sets the optional token btn-radius, 999px; without it they keep radius-sm. */
+  border-radius: var(--btn-radius, var(--radius-sm));
   background: var(--cta);
   color: var(--cta-ink);
   font: var(--label-weight) 1.1rem/1 var(--label-font);
@@ -401,6 +443,7 @@ h1, h2, h3 {
   position: relative;
   isolation: isolate;
   overflow: hidden;
+  overflow: clip; /* clip, not hidden: a hidden box scrolls on its own, and its art couldn't stick (below) */
   display: grid;
   justify-items: center;
   gap: clamp(14px, 2vw, 22px);
@@ -410,8 +453,17 @@ h1, h2, h3 {
   color: var(--on-art);
   box-shadow: var(--card-shadow);
 }
-.scene-art, .scene-art img { position: absolute; inset: 0; z-index: -2; display: block; width: 100%; height: 100%; }
-.scene-art img { object-fit: cover; object-position: var(--stage-at, 50% 50%); }
+/* The stage's picture is never stretched past one screen (George, 5 Nov 2026, on the ranking's 100 rows: "Leaderboard
+   background image is too blurry and pixelated. Need a better resolution its a long table."). The picture spans the
+   scene, but its image is at most a screen tall and sticks to the screen's top while a longer scene scrolls past, so
+   cover scales it to the screen, never to the page: the sources only need the screen's resolution (stageArt's sizes).
+   A scene shorter than the screen shows it whole, as before. position: fixed would load every stage at once. */
+.scene-art { position: absolute; inset: 0; z-index: -2; display: block; }
+.scene-art img {
+  position: sticky; top: 0;
+  display: block; width: 100%; height: min(100%, 100vh);
+  object-fit: cover; object-position: var(--stage-at, 50% 50%);
+}
 .scene::before {
   content: "";
   position: absolute;
@@ -1266,7 +1318,7 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   text-align: center;
 }
 .panel h2 { font-size: var(--h2-size); }
-.panel p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; }
+.panel > p { max-width: 34em; margin: 0; color: var(--muted); font-size: 1.1rem; } /* its own line, not the sign-up's */
 
 /* Footer, centred and compact (George picked layout B, 22 Oct 2026): the product's logo, one row of links with quiet
    dots between them, round buttons for its stores and the studio's channels, then the legal line. Styled like the
@@ -1282,7 +1334,8 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   color: var(--foot-muted, var(--muted));
   text-align: center;
 }
-.foot a { color: var(--foot-ink, var(--ink)); text-decoration: none; }
+/* Its links in the footer's ink, the play buttons left out (the sign-up's next step after the press keeps its own). */
+.foot a:where(:not(.play-cta)) { color: var(--foot-ink, var(--ink)); text-decoration: none; }
 .foot-brand { display: inline-flex; align-items: center; gap: 12px; font: var(--display-weight) 1.7rem/1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); }
 .foot-brand img { width: 48px; height: 48px; border-radius: 13px; box-shadow: 0 6px 16px -8px rgb(0 0 0 / 0.5); }
 .foot-links { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; }
@@ -1318,6 +1371,18 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
 }
 .foot-icons a:hover { transform: translateY(-2px); background: color-mix(in srgb, var(--foot-ink, var(--ink)) 10%, transparent); }
 .foot-icons svg { width: 22px; height: 22px; }
+/* A store on its way (partials.mjs buttons: the App Store while only stores.appStoreSoon is set): its place in the row,
+   dimmed in a dashed ring, as the site's other "coming soon" chips are, and leading nowhere, so no hover. */
+.foot-icons .foot-soon {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  border: 1.5px dashed color-mix(in srgb, var(--foot-ink, var(--ink)) 30%, transparent);
+  color: var(--foot-ink, var(--ink));
+  opacity: 0.6;
+}
 .foot .legal { max-width: 60em; margin: 4px 0 0; font: 500 0.85rem/1.55 var(--font-body); }
 .foot .legal a { color: inherit; text-decoration: underline; text-underline-offset: 2px; }
 .foot.has-art {
@@ -1392,6 +1457,8 @@ body:has(.foot.has-art) .cta-band { position: relative; z-index: 2; padding-bott
   .product-name span { display: none; }
   .product-name img.logo { height: 32px; }
   .gp img { height: 70px; }
+  .as img { height: 47px; }
+  .store-soon { --h: 47px; }
   .scene { margin-inline: calc(50% - 50vw + 10px); border-radius: 24px; }
   .steps.n4, .features, .features.n4 { grid-template-columns: 1fr; }
   /* The game's cards go two by two, so the steps stay one screen tall. */
@@ -1547,11 +1614,123 @@ html.screen .top { position: relative; flex: none; }
 .mail-list { display: grid; gap: 6px; justify-items: center; width: min(100%, 30rem); margin: 18px auto 6px; text-align: center; }
 .mail-list-title { font-weight: 700; }
 .mail-list-row { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; width: 100%; }
-.mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 44px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
+.mail-list-row input { flex: 1 1 14rem; min-width: 0; min-height: 48px; padding: 0 16px; border: 2px solid transparent; border-radius: 999px; background: rgb(255 255 255 / 0.94); color: #16151B; font: inherit; }
 .mail-list-row input:focus-visible { outline: 3px solid currentColor; outline-offset: 2px; }
-.mail-list-row .btn { min-height: 44px; }
-.mail-list-fine, .mail-list-said { font-size: 0.85rem; opacity: 0.86; }
+/* Its Sign up is the product's play button (.play-cta, above: --play, else --sb, with --play-ink), a little smaller to
+   sit beside the field (George's "Keep" marks on the mail review page, 3 Nov 2026: Speedometer's was its yellow --cta
+   in the chunky .btn, Exitwise's shape). No colours here: check-site's sign-up-look rule. */
+.mail-list .play-cta { min-height: 48px; padding: 0 24px; border: 0; font-size: 1.02rem; cursor: var(--cursor-link, pointer); }
+.mail-list .play-cta:disabled { opacity: 0.75; transform: none; cursor: var(--cursor, default); }
+.mail-list-fine { font-size: 0.85rem; opacity: 0.86; }
+/* On a card (What's new, the closing card) the field takes the page's colours, ringed by its rule; over the footer's
+   art it stays white. */
+:is(.mail-list-news, .mail-list-close) .mail-list-row input { border-color: var(--line); background: var(--page); color: var(--ink); }
+/* The slim row that ends What's new (tools/lib/news.mjs): an envelope in the play colour, "Get the next update by email"
+   and its fine print, then the field and Sign up, beside them on a wide screen and under them on a phone, on a dashed
+   tint of the play colour, close under the update card. Once signed up, the card after the press stands alone. */
+.mail-list-news {
+  --block-gap: 14px;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  justify-items: stretch;
+  gap: 14px 16px;
+  width: 100%;
+  margin: 0;
+  padding: 16px 18px;
+  border: 1.5px dashed color-mix(in srgb, var(--play, var(--sb)) 45%, var(--line));
+  border-radius: var(--radius);
+  background: color-mix(in srgb, var(--play, var(--sb)) 9%, var(--surface));
+  text-align: left;
+}
+.mail-list-news.is-done { padding: 0; border: 0; background: none; }
+.mail-list-mark { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--play, var(--sb)); color: var(--play-ink, var(--page)); }
+.mail-list-mark svg { width: 22px; height: 22px; }
+.mail-list-text { display: grid; gap: 2px; min-width: 0; }
+.mail-list-news .mail-list-title { font: var(--label-weight) 1.05rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.mail-list-news .mail-list-fine { color: var(--muted); opacity: 1; }
+.mail-list-news > :is(.mail-list-row, .mail-list-said, .mail-state) { grid-column: 1 / -1; }
+.mail-list-news .mail-list-row { justify-content: flex-start; }
+@media (min-width: 760px) {
+  .mail-list-news { grid-template-columns: auto minmax(0, 1fr) minmax(0, 1.25fr); }
+  .mail-list-news > .mail-list-row { grid-column: auto; }
+}
+/* The closing card's sign-up (partials.mjs closing()), under its buttons after a quiet "Not ready yet?" between two
+   rules: for people not ready to play yet, with nothing that pops up. */
+.mail-list-close { width: min(100%, 28rem); margin: 6px auto 0; }
+.mail-list-or {
+  display: grid; grid-template-columns: 1fr auto 1fr; gap: 12px; align-items: center; width: 100%; color: var(--muted);
+  font: var(--label-weight) 0.9rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking);
+}
+.mail-list-or::before, .mail-list-or::after { content: ""; height: 1px; background: var(--line); }
 .mail-list-said:empty { display: none; }
+/* After the press (assets/mail-list.js; George kept "after the press" on the mail review page, 3 Nov 2026: "Keep as
+   designed"). An invalid address or the age rule is said under the field, in the error colour of the page's scheme with
+   a mark, never in a box; the field is marked too. */
+.mail-list { --ml-err: light-dark(#B42318, #FF8A75); }
+.mail-list-said.is-error { display: flex; align-items: flex-start; gap: 8px; width: 100%; color: var(--ml-err); font-size: 0.92rem; font-weight: 700; line-height: 1.4; text-align: left; }
+.mail-list-said-mark { display: flex; flex: none; margin-top: 1px; }
+.mail-list-said-mark svg { width: 18px; height: 18px; }
+.mail-list-row input[aria-invalid="true"] { border-color: var(--ml-err); }
+/* Otherwise one centred card takes the form's place, in the page's own colours (the same component as VHub's
+   /hub/email/): a mark in the play colour, filled once signed up with a check that draws itself, a tint for the rest
+   (in the error colour for a refusal); the title in the display face, the line, the topic chips with the products'
+   icons, the actions as words underlined in the tone, a note, and the next step as the product's play button. */
+.mail-list.is-done > :not(.mail-state) { display: none; }
+.mail-state {
+  --tone: var(--play, var(--sb));
+  --tone-ink: var(--play-ink, var(--page));
+  position: relative; isolation: isolate; overflow: hidden;
+  display: grid; justify-items: center; gap: 10px; width: 100%; padding: 28px 22px 22px;
+  border: 1px solid var(--line); border-radius: var(--radius); background: var(--surface); color: var(--ink);
+  text-align: center; box-shadow: var(--card-shadow);
+}
+.mail-state::before {
+  content: ""; position: absolute; inset: -40% -20% auto; z-index: -1; height: 220px;
+  background: radial-gradient(closest-side, color-mix(in srgb, var(--tone) 22%, transparent), transparent);
+}
+.mail-state:focus { outline: none; }
+.mail-state:focus-visible { outline: 3px solid var(--tone); outline-offset: 3px; }
+.mail-state.is-error { --tone: var(--ml-err); --tone-ink: var(--surface); }
+.mail-state-mark {
+  display: grid; place-items: center; width: 76px; height: 76px; border-radius: 50%; background: var(--tone); color: var(--tone-ink);
+  box-shadow: 0 0 0 8px color-mix(in srgb, var(--tone) 16%, transparent);
+}
+.mail-state-mark svg { width: 40px; height: 40px; }
+/* The quiet states' tint: the mark in the tone on a light page, in the ink on a dark one, where a red or a gold line
+   reads poorly on its own tint. */
+.mail-state.is-quiet .mail-state-mark { background: color-mix(in srgb, var(--tone) 14%, var(--surface)); color: light-dark(var(--tone), var(--ink)); box-shadow: none; }
+.mail-state-title { margin: 0; font: var(--display-weight) 1.6rem/1.1 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); text-wrap: balance; }
+.mail-state-line { max-width: 34ch; margin: 0; line-height: 1.5; }
+.mail-state-line b { overflow-wrap: anywhere; }
+.mail-state-topics { display: grid; justify-items: center; gap: 6px; }
+.mail-state-topics-label { color: var(--muted); font-size: 0.8rem; }
+.mail-state-chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 6px; }
+.mail-chip {
+  display: inline-flex; align-items: center; gap: 7px; padding: 4px 12px 4px 4px; border: 1px solid var(--line); border-radius: 999px;
+  background: var(--surface-2); color: var(--ink); font: 700 0.88rem/1 var(--font-body);
+}
+.mail-chip img { display: block; width: 24px; height: 24px; border-radius: 7px; }
+.mail-state-actions { display: flex; flex-wrap: wrap; justify-content: center; gap: 4px 18px; margin: 0; }
+.mail-state-actions :is(button, a) {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 4px; border: 0; background: none; color: var(--ink);
+  font: 700 0.92rem/1 var(--font-body); text-decoration: underline; text-decoration-color: var(--tone); text-decoration-thickness: 2px;
+  text-underline-offset: 5px; cursor: var(--cursor-link, pointer);
+}
+.mail-state-actions button:disabled { color: var(--muted); text-decoration: none; cursor: var(--cursor, default); }
+.mail-state-actions :is(button, a):focus-visible { outline: 3px solid var(--tone); outline-offset: 2px; border-radius: 6px; }
+.mail-state-note { max-width: 36ch; margin: 0; color: var(--muted); font-size: 0.84rem; line-height: 1.4; }
+.mail-state-note:empty { display: none; }
+.mail-state :is(.mail-state-next, .mail-state-main) { margin-top: 4px; }
+/* Signed up: the mark pops in, its check draws itself once, and the rest rises after it. Under reduced motion the card
+   only fades in (assets/mail-list.js), so all of this waits for motion. */
+@media (prefers-reduced-motion: no-preference) {
+  .mail-state.is-signed .mail-state-mark { animation: mail-pop 300ms cubic-bezier(0.2, 0.8, 0.2, 1.2) both; }
+  .mail-state.is-signed .mail-state-mark .draw { stroke-dasharray: 30; stroke-dashoffset: 30; animation: mail-draw 380ms 180ms cubic-bezier(0.3, 0.7, 0.2, 1) forwards; }
+  .mail-state.is-signed > :not(.mail-state-mark) { animation: mail-up 320ms 120ms cubic-bezier(0.2, 0.8, 0.2, 1) both; }
+}
+@keyframes mail-pop { from { transform: scale(0.6); opacity: 0; } }
+@keyframes mail-draw { to { stroke-dashoffset: 0; } }
+@keyframes mail-up { from { transform: translateY(6px); opacity: 0; } }
 .mail-list-trap { position: absolute; left: -10000px; width: 1px; height: 1px; overflow: hidden; }
 /* The footer's Help link, plain to see (George, 31 Oct 2026: "Help menu, I found it. Barely visible."): a pill in the
    product's play colours, as its play button, over the footer's art. */

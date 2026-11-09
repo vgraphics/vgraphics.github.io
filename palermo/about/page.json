@@ -37,7 +37,7 @@
     "title": "About Palermo Noir, the mafia party game for phones and a TV",
     "lead": "Every phone hides a secret card. <em>The TV runs the town.</em>",
     "align": "center",
-    "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }, { "href": "/palermo/play/", "label": "Play online" }],
+    "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }],
     "art": {
       "alt": "A Palermo piazza at night in gold lines on navy: a café's striped awning and its tables, a fountain between two lit street lamps, balconies hung with washing, a cathedral dome behind and a crescent moon",
       "wide": { "src": "/palermo/img/hero-about-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2195, "sizes": "max(100vw, 672px, min(75.6vw, 130.2vh))" },
@@ -124,7 +124,7 @@
       "id": "rooms",
       "title": "Rooms and your VHub name",
       "intro": "When rooms open, on the web first and then on Android, anyone can join as a guest. Sign in with a free VHub name and your games, your XP and your achievements stay with you, here and in every other VGraphics game.",
-      "blocks": [{ "type": "actions", "items": [{ "href": "/palermo/play/", "label": "Play online" }, "vhub"] }]
+      "blocks": [{ "type": "actions", "items": ["vhub"] }]
     },
     {
       "id": "questions",

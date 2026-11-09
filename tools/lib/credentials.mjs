@@ -25,9 +25,10 @@ export const AUDIO = /\.(m4a|mp3)$/i
 export const MARKABLE = /\.(jpe?g|png|webp)$/i
 /**
  * Served files that aren't this repo's to mark: what a release of another repo writes (the Exitwise game, Speedometer's
- * engine, VHub's hub: each gets its credentials where it's built) and other companies' pictures.
+ * engine, VHub's hub: each gets its credentials where it's built) and other companies' pictures. img/mail/ is left out
+ * too: these are images for emails (VHub's mails load them from here), not page art.
  */
-const NOT_OURS = [/^exitwise\/play\//, /^speedometer-wallpaper\/play\/app\//, /^hub\//, /^assets\/img\/google-play-badge\./]
+const NOT_OURS = [/^exitwise\/play\//, /^speedometer-wallpaper\/play\/app\//, /^hub\//, /^assets\/img\/google-play-badge\./, /^img\/mail\//]
 
 /**
  * What made each kind of picture or song: the AI tool its first draft came from, which we then edited by hand (the

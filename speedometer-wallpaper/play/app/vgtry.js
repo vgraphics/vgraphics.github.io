@@ -13,7 +13,8 @@
  *   app.catalog()          styles, layouts and settings to build the picker and settings from (WebCatalog.kt)
  *   app.values()           { style, layout, shared, source, values: { key: value } } for the shown style; while a
  *                          market layout shows, shared is true and layout is its code
- *   app.addLayout(code, data)    keeps a market layout under its code; false when its data can't be read
+ *   app.addLayout(code, data)    keeps a market layout under its code; false when its data can't be read;
+ *                                code "replaces.<variationId>" keeps VHub's version of that style layout instead
  *   app.show(style, layout?)     layout: one of the style's own, or an added market layout's code; left out, a market
  *                                layout on show stays and is drawn in the new style
  *   app.set(key, value), app.mode("power" | "cpu_clock" | "gps_speed")   set("layout", <the style's own>) leaves
@@ -21,13 +22,23 @@
  *   app.source("demo" | "gps")   the demo drive's speed, or the visitor's real GPS speed (the browser asks)
  *   app.look(), app.shareUrl()   the shown look as text and as a link to this page
  *   app.pause(), app.resume()    the page pauses it by itself while it is hidden or scrolled away
- *   app.on(event, fn)      "change", "style", "loading", "gps", "fps", "error"; returns a function that stops it
+ *   app.hud.start({ style, layout, flip })   HUD mode (Speedometer docs/hud-mode): the canvas shows a neon style's
+ *                          HUD layout instead of the wallpaper, flipped for the windscreen; the page makes the host full
+ *                          screen around it. app.source("gps") gives it the visitor's real speed.
+ *   app.hud.flip()         the next way the phone lies ("top_to_glass", "top_to_driver", "holder"), which it returns
+ *   app.hud.stop()         back to the wallpaper
+ *   app.on(event, fn)      "change", "style", "loading", "gps", "fps", "error", "hud" ({ flip }), "hudwarning" (the
+ *                          speed has just gone over the limit: the page beeps); returns a function that stops it
  *
  *   const stills = await VGTry.stills({ base, onProgress });   still pictures for a page of cards, with no wallpaper
  *   stills.draw({ style, data, width, height })   one moment of the demo drive with the market layout data in that
  *                          style, width x height device pixels: resolves with the address of a PNG (revoke it with
  *                          URL.revokeObjectURL when the card goes), rejects when the layout can't be drawn
  *   stills.catalog()       as app.catalog()
+ *
+ *   const editor = await VGTry.editor({ host, base, style, data, variantKey, moment, playing, onProgress });
+ *                          (version 3) the layout editor's live engine; see docs/try-online/README.md, "Editor API".
+ *                          One per page; rejects with an Error saying why. stills() may run beside it.
  *
  * start() and stills() reject when the engine can't run here (no WebAssembly GC: Safari before 18.2) or fails to load;
  * the page then shows its fallback. One engine serves a page: a page may start a wallpaper and draw stills too.
@@ -155,6 +166,7 @@
         var isHidden = false;
         var isOffScreen = false;
         var isPausedByPage = false;
+        var isHud = false;
 
         function update() {
             if (isHidden || isOffScreen || isPausedByPage) {
@@ -177,7 +189,8 @@
         // A tap on the big gauge switches its mode, as on the phone. Measured on the canvas, inside any border.
         host.addEventListener('click', function (event) {
             var canvas = host.querySelector('canvas');
-            if (!canvas) {
+            // In HUD mode a tap is the page's (its Exit and Flip), never the wallpaper's.
+            if (!canvas || isHud) {
                 return;
             }
             var box = canvas.getBoundingClientRect();
@@ -221,6 +234,20 @@
                 isPausedByPage = false;
                 update();
             },
+            hud: {
+                start: function (options) {
+                    var chosen = options || {};
+                    isHud = true;
+                    engine.hud(String(chosen.style || 'horizon'), String(chosen.layout || ''), String(chosen.flip || ''));
+                },
+                flip: function () {
+                    return engine.hudFlip();
+                },
+                stop: function () {
+                    isHud = false;
+                    engine.hudStop();
+                }
+            },
             on: on
         };
     }
@@ -260,6 +287,183 @@
         return stillsLoad;
     }
 
+    var editorActive = false;
+    var MOMENTS = ['city', 'highway', 'charging', 'night'];
+    var UNITS = ['kmh', 'mph'];
+    var LOCALES = ['en', 'el'];
+    var DIMS = ['none', 'night', 'aod'];
+    var SCREENS = ['home', 'lock'];
+
+    /**
+     * The layout editor's engine (docs/try-online, "Editor API"): one live engine in options.host, the layout in
+     * options.data drawn in options.style. Resolves with the editor once its first frame is drawn; rejects with an Error
+     * saying why (no WebAssembly GC, files not loaded or started within 45 s, an unknown style or unreadable data, an
+     * editor already running). One editor per page; stills() may run beside it and shares the loaded files.
+     */
+    function editor(options) {
+        if (editorActive) {
+            return Promise.reject(new Error('An editor is already running on this page: destroy() it first'));
+        }
+        if (!isSupported()) {
+            return Promise.reject(new Error('This browser has no WebAssembly GC'));
+        }
+        if (!options || !options.host || typeof options.style !== 'string' || typeof options.data !== 'string') {
+            return Promise.reject(new Error('editor() needs a host, a style id and the layout data'));
+        }
+        editorActive = true;
+        var host = options.host;
+        var base = options.base || '';
+        var offs = [];
+        var timer = null;
+        var engineRef = null;
+        var isStarted = false;
+
+        function cleanUp() {
+            clearTimeout(timer);
+            offs.splice(0).forEach(function (off) {
+                off();
+            });
+        }
+
+        return new Promise(function (resolve, reject) {
+            function fail(error) {
+                cleanUp();
+                if (engineRef && isStarted) {
+                    engineRef.editorStop();
+                }
+                editorActive = false;
+                reject(error);
+            }
+
+            timer = setTimeout(function () {
+                fail(new Error('The editor did not start within 45 s'));
+            }, ENGINE_TIMEOUT_MS);
+            if (options.onProgress) {
+                offs.push(on('progress', options.onProgress));
+            }
+            load(base).then(function (engine) {
+                engineRef = engine;
+                offs.push(on('error', function (data) {
+                    fail(new Error(data.message || 'The engine failed'));
+                }));
+                offs.push(on('editorready', function () {
+                    cleanUp();
+                    resolve(editorApi(engine));
+                }));
+                isStarted = true;
+                engine.editorStart(
+                    host,
+                    base,
+                    options.style,
+                    options.data,
+                    String(options.variantKey || ''),
+                    options.moment || 'city',
+                    options.playing !== false
+                );
+            }, fail);
+        });
+    }
+
+    function editorApi(engine) {
+        var isDestroyed = false;
+        var waiting = [];
+        var offReport = on('editorreport', function (data) {
+            waiting.splice(0).forEach(function (wait) {
+                wait.resolve(data);
+            });
+        });
+
+        function pick(value, allowed, fallback) {
+            return allowed.indexOf(value) >= 0 ? value : fallback;
+        }
+
+        return {
+            setLayout: function (data, variantKey) {
+                if (isDestroyed || typeof data !== 'string') {
+                    return false;
+                }
+                return engine.editorSetLayout(data, String(variantKey || ''));
+            },
+            style: function (id) {
+                return !isDestroyed && engine.editorStyle(String(id));
+            },
+            moment: function (moment) {
+                if (!isDestroyed && MOMENTS.indexOf(moment) >= 0) {
+                    engine.editorMoment(moment);
+                }
+            },
+            pause: function () {
+                if (!isDestroyed) {
+                    engine.pause();
+                }
+            },
+            resume: function () {
+                if (!isDestroyed) {
+                    engine.resume();
+                }
+            },
+            units: function (units) {
+                if (!isDestroyed) {
+                    engine.editorUnits(pick(units, UNITS, 'kmh'));
+                }
+            },
+            locale: function (locale) {
+                if (!isDestroyed) {
+                    engine.editorLocale(pick(locale, LOCALES, 'en'));
+                }
+            },
+            dim: function (dim) {
+                if (!isDestroyed) {
+                    engine.editorDim(pick(dim, DIMS, 'none'));
+                }
+            },
+            screen: function (screen) {
+                if (!isDestroyed) {
+                    engine.editorScreen(pick(screen, SCREENS, 'home'));
+                }
+            },
+            pixelRatio: function (ratio) {
+                if (!isDestroyed && typeof ratio === 'number') {
+                    engine.editorPixelRatio(ratio);
+                }
+            },
+            report: function () {
+                if (isDestroyed) {
+                    return Promise.reject(new Error('The editor was destroyed'));
+                }
+                return new Promise(function (resolve, reject) {
+                    waiting.push({ resolve: resolve, reject: reject });
+                    engine.editorReport();
+                });
+            },
+            catalog: function () {
+                return JSON.parse(engine.catalog());
+            },
+            on: function (event, listener) {
+                if (event !== 'error') {
+                    return function () {};
+                }
+                return on('error', function (data) {
+                    if (!isDestroyed) {
+                        listener({ message: data.message || 'The engine failed' });
+                    }
+                });
+            },
+            destroy: function () {
+                if (isDestroyed) {
+                    return;
+                }
+                isDestroyed = true;
+                offReport();
+                waiting.splice(0).forEach(function (wait) {
+                    wait.reject(new Error('The editor was destroyed'));
+                });
+                engine.editorStop();
+                editorActive = false;
+            }
+        };
+    }
+
     function stillsApi(engine) {
         var lastId = 0;
         var waiting = {};
@@ -296,10 +500,11 @@
     }
 
     window.VGTry = {
-        version: 2,
+        version: 3,
         isSupported: isSupported,
         start: start,
         stills: stills,
+        editor: editor,
         load: load,
         on: on
     };

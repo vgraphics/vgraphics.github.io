@@ -21,7 +21,12 @@
 //   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...],
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
-//   stores                       { googlePlay }: the store links the "google-play" badge points at
+//   stores                       { googlePlay, appStore?, appStoreSoon?, appStoreNote? }: the store links the
+//                                "google-play" and "app-store" badges point at (appStore: the App Store listing, drawn as
+//                                Apple's official badge, listed before "google-play" as Apple asks), or, while the App
+//                                Store listing isn't live, the words ("Coming soon") of an "app-store" badge that leads
+//                                nowhere (tools/lib/partials.mjs appStoreBadge); appStoreNote (HTML): a line under every
+//                                row with the live badge, for storefronts that don't carry the app yet
 //   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
@@ -60,7 +65,8 @@
 //                                the build's page carries the legal line.
 // A section with "demo": true speaks of the product's guided demo: it is left out while the demo is private
 // (site.demo.private), as the words in <span data-demo> are.
-// Badges and actions are "google-play", { href, label, note? } (a pill) or { href, label, icon?, button: true }.
+// Badges and actions are "google-play", "app-store", "vhub", { href, label, note? } (a pill) or { href, label, icon?,
+// button: true }.
 //
 // Every product with a play or try page has an About page, <product>/about/page.json (check-site): what the product is,
 // how to play or use it, what's inside, its store and sign-in, a few questions (a faq block) and the links to its wiki,
@@ -84,6 +90,7 @@ import { faq, faqData, readFaq } from './lib/faq.mjs'
 import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 import { imageSize } from './lib/image-size.mjs'
+import { markPage } from './lib/marks.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
@@ -110,12 +117,14 @@ function hero(p, overview) {
 
 // A stage: a picture from the key art's world behind a section's content, as the intro's demo, the gallery and the
 // soundtrack have theirs; the tall one on narrow screens; lazy, so it waits for the scroll. { "wiki": "<slug>" } stands
-// on that wiki entry's painting, in the sizes it has.
+// on that wiki entry's painting, in the sizes it has. Its image is at most a screen tall (product.css, .scene-art), so
+// it is the scene's width, or wider where a screen's height asks for more (the ranking's long scene): sizes says so.
 function stageArt(st, slug) {
   if (!st) return ''
   if (st.wiki) st = wikiArt(slug, st.wiki, st)
   const sources = (img, media, sizes) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${set(img, ext, img.widths)}" sizes="${sizes}">`).join('')
-  return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', '100vw')}${sources(st.wide, '', '(max-width: 1160px) 100vw, 1120px')}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
+  const vh = (img) => `${+(100 * img.width / img.height).toFixed(1)}vh`
+  return `<picture class="scene-art" aria-hidden="true">${sources(st.tall, '(max-width: 899px)', `max(100vw, ${vh(st.tall)})`)}${sources(st.wide, '', `max(min(100vw, 1120px), ${vh(st.wide)})`)}<img src="${st.wide.src}-${st.wide.widths.at(-1)}.webp" alt="" width="${st.wide.width}" height="${st.wide.height}" loading="lazy" decoding="async"></picture>`
 }
 const stageAt = (st) => (st?.position ? ` style="${esc(`--stage-at: ${st.position}`)}"` : '')
 
@@ -343,7 +352,7 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
-  news: (b, { dir, page }) => news(readNews(b, dir, page.site), b, page.site.name),
+  news: (b, { dir, page, slug }) => news(readNews(b, dir, page.site), b, page.site.name, slug),
 
   // The game's own storybook (b.book: the folder of its storybook.json and HTML reader, the web game's
   // StreamingAssets/Storybook), read where it stands: the page holds the first chapter's lines and the chapter list as
@@ -562,9 +571,10 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
 </body>
 </html>
 `
-  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF.
+  // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF. Our names
+  // get their ™ in the headings and at their first mention (tools/lib/marks.mjs; not on the product's screens).
   const file = path.endsWith('/') ? join(path.slice(1), 'index.html') : path.slice(1)
-  return { html: html.replace(/\r\n/g, '\n'), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
+  return { html: markPage(path, html.replace(/\r\n/g, '\n')), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -49,8 +49,10 @@ function stylePage(slug, data, landing, demo, i) {
   }
   const next = [1, 2, 3, 4].map((n) => data.styles[(i + n) % data.styles.length])
   const priced = s.free ? w.free : w.paid
-  const { type, startup, labels, ...given } = demo
+  const { type, startup, labels, hud, ...given } = demo
   const { unlock, ...words } = labels ?? {}
+  // HUD mode's button only on the pages of the styles that draw it (Speedometer's neon styles).
+  const hudOption = hud?.styles.includes(s.id) ? { hud } : {}
   const robots = data.published ? (s.robots !== undefined ? s.robots : data.robots) : 'noindex'
   return {
     title,
@@ -102,8 +104,9 @@ function stylePage(slug, data, landing, demo, i) {
         id: 'live',
         eyebrow: 'Live',
         title: `${s.name}, live`,
-        intro: `${s.tagline} ${fill(w.liveIntro, values)}`,
-        blocks: [{ type, ...given, referrer: data.referrer, startup: false, style: s.id, labels: words }],
+        // A HUD style's page also says its Original | HUD switch is there (George, 4 Nov 2026: "Yes, try page and app").
+        intro: `${s.tagline} ${fill(w.liveIntro, values)}${hudOption.hud && w.liveIntroHud ? ` ${fill(w.liveIntroHud, values)}` : ''}`,
+        blocks: [{ type, ...given, ...hudOption, referrer: data.referrer, startup: false, style: s.id, labels: words }],
       },
       {
         id: 'look',

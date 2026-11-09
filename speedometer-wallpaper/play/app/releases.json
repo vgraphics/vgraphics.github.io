@@ -2,27 +2,35 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
-      "sha": "ed7f38714ecf762558403fcc45b7d2913e71ef23",
-      "at": "2026-10-30T22:56:10.736Z",
+      "sha": "2002e3f160628221b0d120b7d9d42cc3cebf8527",
+      "at": "2026-11-07T10:59:44.909Z",
       "files": [
         "658820f72b4617efb380.wasm",
-        "7da242df09472382bc6e.wasm"
+        "779ef04f63ad71b39006.wasm"
       ]
     },
     {
-      "sha": "74dd09e3604a904f8eee67cd76c24a9d7908a8c5",
-      "at": "2026-10-30T21:11:16.902Z",
+      "sha": "a4cc51e2da9555d80ec232fecc6ad939ba983574",
+      "at": "2026-11-06T17:01:38.588Z",
       "files": [
         "658820f72b4617efb380.wasm",
-        "a90b7d7ba7af6181f2bc.wasm"
+        "b0b3f8fc0211e77647f0.wasm"
       ]
     },
     {
-      "sha": "de8b08be9b6dedbad13c7cd79b4211dd63c296f1",
-      "at": "2026-10-29T15:00:44.730Z",
+      "sha": "7999f34d80fa175d8a34cb3b5e9b27f1717eadfd",
+      "at": "2026-11-06T11:12:00.558Z",
       "files": [
         "658820f72b4617efb380.wasm",
-        "d96d3540d8c554dda80a.wasm"
+        "7108ecb3ffc42c4200f7.wasm"
+      ]
+    },
+    {
+      "sha": "9fbae0ad9040f36c3fa8d939f21dacead70bb6d0",
+      "at": "2026-11-06T10:22:31.179Z",
+      "files": [
+        "3b777cf8ec140a14789b.wasm",
+        "658820f72b4617efb380.wasm"
       ]
     }
   ]

@@ -1,0 +1,92 @@
+{
+  "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
+  "releases": [
+    {
+      "sha": "4ff9a05e026a8a97c3a51d349e656c791f7981f1",
+      "at": "2026-11-08T00:15:30.697Z",
+      "files": [
+        "badge-BAyL352H.js",
+        "controls-CyK_zIZE.js",
+        "fields--TNgA5HO.js",
+        "fields-Efj49ROr.css",
+        "firestore-C8_coslU.js",
+        "index-B3uB2Z1N.js",
+        "index-B8Y0KCAA.js",
+        "index-BWuBV3G7.js",
+        "index-ByrZoL7F.js",
+        "index-Cd3r50hz.css",
+        "index-CgRe8ati.css",
+        "index-CoETncJd.js",
+        "index-DEGYR0lg.js",
+        "index-DF2SaEQe.css",
+        "index-Du4Oy3ck.js",
+        "index-VCQLnYQV.css",
+        "index-anUQnMKN.js",
+        "index-dzKo85_2.css",
+        "model-B7FzR4YU.js",
+        "model-BhGN2KQT.js",
+        "picture-preview-Cb7e9XBg.js",
+        "picture-preview-tU52PGzs.css",
+        "power-dialog-DDu6Q6Yh.js"
+      ]
+    },
+    {
+      "sha": "644a79ffb0ffa716895934255a871b8ab1c10fc5",
+      "at": "2026-11-07T12:53:27.917Z",
+      "files": [
+        "badge-CHZ-5lbT.js",
+        "controls-BqFotCy_.js",
+        "fields-CzZFY5Zb.js",
+        "fields-Efj49ROr.css",
+        "firestore-g8RXcaG0.js",
+        "index-BRa66-AZ.js",
+        "index-BzlxO3YE.js",
+        "index-Cd3r50hz.css",
+        "index-CgRe8ati.css",
+        "index-DF2SaEQe.css",
+        "index-DWycK0dc.js",
+        "index-DpdNJnw1.js",
+        "index-Duh6gUcb.js",
+        "index-DyG3YWPA.js",
+        "index-Dz_zmJjB.js",
+        "index-H37up0Og.js",
+        "index-VCQLnYQV.css",
+        "index-ggw9uvlQ.css",
+        "model-BhGN2KQT.js",
+        "model-yJ83IupL.js",
+        "picture-preview-DuOgquo6.js",
+        "picture-preview-tU52PGzs.css",
+        "power-dialog-DwC6P7XG.js"
+      ]
+    },
+    {
+      "sha": "6fce787e8a57147644ce72350659f49ceffed6fa",
+      "at": "2026-11-06T17:09:11.231Z",
+      "files": [
+        "badge-R_0GWCB-.js",
+        "controls-D1AviT-K.js",
+        "fields-CMOto6kA.js",
+        "fields-Efj49ROr.css",
+        "firestore-BhjkN9SU.js",
+        "index-B0POxGc-.js",
+        "index-BtC1X33r.js",
+        "index-CJ1gbOJX.js",
+        "index-Cd3r50hz.css",
+        "index-CeA0h4Ar.js",
+        "index-CgRe8ati.css",
+        "index-DF2SaEQe.css",
+        "index-DHcvwc0F.js",
+        "index-DSmn3oyd.js",
+        "index-IQ0AL4fx.js",
+        "index-VCQLnYQV.css",
+        "index-Ya30RGpA.css",
+        "index-h3CALHS-.js",
+        "model-BhGN2KQT.js",
+        "model-DXNhT43H.js",
+        "picture-preview-C7qSMFq8.js",
+        "picture-preview-tU52PGzs.css",
+        "power-dialog-CJP9VoSE.js"
+      ]
+    }
+  ]
+}

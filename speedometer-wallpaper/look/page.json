@@ -1,0 +1,18 @@
+{
+  "title": "Open a Speedometer look: Speedometer Live Wallpaper",
+  "description": "A Speedometer Live Wallpaper look from the try page: get the app on Google Play and it opens on this style, or try the look in your browser.",
+  "robots": "noindex",
+  "social": {
+    "title": "A Speedometer Live Wallpaper look",
+    "description": "A car dashboard look from the Speedometer Live Wallpaper try page. Get the app on Google Play, or try it in your browser.",
+    "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
+    "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
+  },
+  "screen": { "heading": "Open a Speedometer Live Wallpaper look" },
+  "sections": [
+    {
+      "id": "look",
+      "blocks": [{ "type": "embed", "src": "look" }]
+    }
+  ]
+}

@@ -25,7 +25,9 @@
 }
 .try-device[data-orientation="landscape"] { height: auto; width: min(100%, 940px); aspect-ratio: 2340 / 1080; }
 .try:has(.try-device[data-orientation="landscape"]) { grid-template-columns: minmax(0, 1fr); }
-.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; }
+/* Turned on its side the phone is as wide as its stage and no wider (George, 4 Nov 2026: the try page is a screen with
+   nothing cut off): the stage has one column of its own width, so nothing the phone's size suggests can stretch it. */
+.try:has(.try-device[data-orientation="landscape"]) .try-stage { position: static; grid-template-columns: minmax(0, 1fr); }
 .try-screen {
   position: relative;
   width: 100%;
@@ -52,7 +54,7 @@
   pointer-events: none;
 }
 .try-icons[hidden] { display: none; }
-.try-icons-row, .try-icons-dock { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10%; }
+.try-icons-dock { display: grid; grid-template-columns: repeat(4, 1fr); column-gap: 10%; }
 .try-icons i {
   display: block;
   aspect-ratio: 1;
@@ -63,6 +65,9 @@
 }
 .try-icons-search { aspect-ratio: 7.5 / 1; border-radius: 999px; background: rgba(255, 255, 255, 0.2); backdrop-filter: blur(8px); }
 .try-device[data-orientation="landscape"] .try-icons { padding-inline: 28%; }
+/* A HUD shows no home screen, so no switch for its icons either (George, 4 Nov 2026: "hide that button for hud mode"):
+   not while the HUD runs full screen, nor on a HUD style's HUD view (data-hud-view, the Original | HUD switch). */
+.try[data-hud="on"] .try-tool[data-action="icons"], .try[data-hud-view="hud"] .try-tool[data-action="icons"] { display: none; }
 
 /* A style's art on its way (a premium style's first look): a quiet spinner over the screen. */
 .try-busy { position: absolute; inset: 0; z-index: 3; display: grid; place-items: center; background: rgba(10, 9, 13, 0.35); pointer-events: none; }
@@ -84,8 +89,9 @@
   font: var(--label-weight) 0.95rem/1 var(--label-font);
   text-transform: var(--label-case);
   letter-spacing: 0.06em;
+  white-space: nowrap;
   cursor: var(--cursor-link, pointer);
-  transition: border-color 160ms ease-out, background 160ms ease-out;
+  transition: border-color 160ms ease-out, background 160ms ease-out, color 160ms ease-out, box-shadow 160ms ease-out;
 }
 .try-tool svg { width: 18px; height: 18px; flex: none; }
 .try-tool:hover { border-color: var(--accent); }
@@ -117,10 +123,64 @@
 /* A market layout on show (#layout=<CODE>): its name, its maker and a link to its page. */
 .try-shared { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .try-shared[hidden] { display: none; }
+/* The quick row: Use my real speed, Copy a link to this look, Show QR for this look and HUD mode, pills of one shape and
+   size on one line each. They share a row where it has room and fill it, so a row that wraps (a phone's) ends square. */
 .try-quick { display: flex; flex-wrap: wrap; gap: 10px; align-items: center; }
-.try-gps[aria-pressed="true"] { filter: saturate(0.6) brightness(0.9); }
+.try-quick > .try-tool { flex: 1 1 auto; justify-content: center; }
+/* Use my real speed (George, 3 Nov 2026: "must match the style of copy a link button but in different color"): that
+   pill in the product's brand colour, the play button's (--play, else its scrollbars', --sb; assets/product.css), its
+   words in --play-ink. On ("Back to the demo drive"), it turns to an outline of that colour on a tint of it, its icon
+   lit in it, so the switch reads as pressed at a glance. */
+.try-gps {
+  --pb: var(--play, var(--sb, var(--accent)));
+  border-color: var(--pb);
+  background: var(--pb);
+  color: var(--play-ink, var(--page));
+  box-shadow: inset 0 0 0 1px rgb(255 255 255 / 0.16), 0 8px 18px -10px color-mix(in srgb, var(--pb) 85%, #000000);
+}
+.try-gps:hover { border-color: var(--pb); background: color-mix(in srgb, var(--pb) 86%, #FFFFFF); }
+.try-gps:active { background: color-mix(in srgb, var(--pb) 86%, #000000); }
+.try-gps[aria-pressed="true"] {
+  border-color: var(--pb);
+  background: color-mix(in srgb, var(--pb) 24%, var(--surface));
+  color: var(--ink);
+  box-shadow: inset 0 0 0 1px var(--pb);
+}
+.try-gps[aria-pressed="true"] svg { color: var(--pb); }
 .try-note { margin: 0; color: var(--muted); font-size: 0.95rem; }
 .try-note[hidden] { display: none; }
+
+/* "Link copied" (assets/try/try.js showToast; George, 4 Nov 2026: "The link copied must be improved as ui."): a toast
+   centred at the screen's foot, in the product's look, lifted over the statistics question and the try page's bar
+   (--try-toast-lift, set as it shows). It takes no tap: whatever is under it stays usable. Its motion is in try.js. */
+.try-toast {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: max(calc(16px + env(safe-area-inset-bottom, 0px)), calc(var(--try-toast-lift, 0px) + 12px));
+  z-index: 60;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  max-width: min(420px, calc(100vw - 32px));
+  margin-inline: auto;
+  padding: 8px 22px 8px 8px;
+  border: var(--card-border);
+  border-radius: var(--btn-radius, var(--radius-sm));
+  background: var(--surface-2);
+  color: var(--ink);
+  box-shadow: var(--card-lift);
+  pointer-events: none;
+}
+.try-toast[hidden] { display: none; }
+.try-toast-icon { flex: none; display: grid; place-items: center; width: 36px; height: 36px; border-radius: 50%; background: var(--accent-3, var(--accent)); color: var(--page); }
+.try-toast[data-tone="warn"] .try-toast-icon { background: var(--accent-2, var(--accent)); }
+.try-toast-icon svg { width: 20px; height: 20px; }
+.try-toast-text { display: grid; min-width: 0; gap: 2px; }
+.try-toast-text b { font: var(--label-weight) 1.05rem/1.1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.try-toast-text small { overflow: hidden; color: var(--muted); font-size: 0.86rem; line-height: 1.3; white-space: nowrap; text-overflow: ellipsis; }
+.try-toast-text small:empty { display: none; }
 
 .try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
 .try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
@@ -163,6 +223,44 @@
 }
 .try-chip[aria-pressed="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
 .try-unlock { margin: 0; color: var(--muted); }
+
+/* The styles that draw HUD mode wear "HUD" with the HUD icon, lit amber as in the app's style list (George, 4 Nov 2026:
+   "Mark styles with a pill like in the app that suppot hud"). */
+.try-styles button { position: relative; }
+.try-hud-pill {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 4px 8px 4px 6px;
+  border-radius: 999px;
+  background: var(--accent-2, var(--accent));
+  color: var(--page);
+  font: var(--label-weight) 0.72rem/1 var(--label-font);
+  letter-spacing: 0.06em;
+  box-shadow: 0 2px 8px rgb(0 0 0 / 0.45);
+  pointer-events: none;
+}
+.try-hud-pill svg { width: 13px; height: 13px; }
+
+/* The Layouts menu (try.js fillLayouts): Built in, HUD layouts, From the layout market, each under its own small
+   title. A set, and the menu itself, grows in as it appears (a HUD style picked, the market's layouts in) and shrinks
+   away as it goes (assets/faq.js showBox and hideBox). */
+.try-layouts { display: grid; gap: 14px; }
+.try-layouts > h4 { margin: 0; }
+.try-layout-set { display: grid; gap: 8px; }
+.try-layout-set[hidden] { display: none; }
+.try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.try-layout-set .try-set-title svg { width: 14px; height: 14px; color: var(--accent-2, var(--accent)); }
+.try-market-chip { max-width: 100%; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.try-market-chip small { margin-left: 6px; color: var(--muted); font-size: 0.82rem; }
+.try-market-more { display: inline-flex; align-items: center; justify-self: start; min-height: 44px; color: var(--accent); font-weight: 600; }
+/* Only what the phone shows is lit: under HUD the wallpaper's layout keeps just its outline, and under Original so
+   does the HUD layout that HUD mode would open on. */
+.try[data-hud-view="hud"] .try-layouts .try-chip[aria-pressed="true"],
+.try:not([data-hud-view="hud"]) .try-layout-hud .try-chip[aria-checked="true"] { background: var(--surface); }
 
 /* Settings, in the app's sections and with the app's words (the engine's catalog). */
 .try-settings { display: grid; gap: 6px; }
@@ -240,6 +338,69 @@
 .try-consent button { min-height: 44px; padding: 0 18px; border: var(--card-border); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; cursor: var(--cursor-link, pointer); }
 .try-consent button.allow { background: var(--cta); border-color: var(--cta-edge, var(--cta)); color: var(--cta-ink); }
 
+/* The look's QR (try.js openLook): a modal sheet over a shade, in the middle of the window, on a phone at its foot. The
+   code is dark modules on white with the standard's margin of 4 modules, as large as the window lets it be up to
+   300px, so a phone reads it off a laptop's screen. A window too short for it (a phone on its side) scrolls the sheet
+   alone, never the page. Shut, it falls away over the page (is-closing) without taking a tap. */
+.try-look {
+  position: fixed;
+  inset: 0;
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  max-height: none;
+  margin: 0;
+  padding: 16px;
+  border: 0;
+  background: transparent;
+  color: var(--ink);
+  overflow: auto;
+  overscroll-behavior: contain;
+}
+.try-look[open], .try-look.is-closing { display: grid; place-items: center; }
+.try-look.is-closing { z-index: 1000; pointer-events: none; }
+.try-look::backdrop { background: transparent; }
+.try-look-shade { position: fixed; inset: 0; background: color-mix(in srgb, var(--page) 82%, transparent); -webkit-backdrop-filter: blur(6px); backdrop-filter: blur(6px); }
+.try-look-sheet {
+  --qr: clamp(180px, min(72vw, calc(100dvh - 300px)), 300px);
+  position: relative;
+  display: grid;
+  justify-items: center;
+  gap: 10px;
+  width: min(100%, 400px);
+  padding: 26px 24px 22px;
+  border: var(--card-border);
+  border-radius: var(--radius);
+  background: var(--card-bg, var(--surface-2, var(--surface)));
+  box-shadow: var(--card-lift);
+  text-align: center;
+}
+.try-look-eyebrow { margin: 0; padding-inline: 48px; color: var(--accent); font: var(--label-weight) 0.85rem/1.1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.try-look-name { margin: 0; font: var(--display-weight) clamp(1.7rem, 4vw, 2.3rem)/1 var(--font-display); text-transform: var(--display-case); overflow-wrap: anywhere; }
+.try-look-layout { margin: -2px 0 0; color: var(--muted); font-size: 0.95rem; }
+.try-look-layout:empty { display: none; }
+.try-look-code { width: var(--qr); aspect-ratio: 1; margin: 6px 0 4px; border-radius: 14px; overflow: hidden; background: #FFFFFF; box-shadow: 0 0 0 1px var(--line), 0 18px 34px -18px #000; }
+.try-look-code svg { display: block; width: 100%; height: 100%; }
+.try-look-note { margin: 0; max-width: 30em; color: var(--muted); font-size: 0.95rem; }
+.try-look-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: var(--card-border);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--ink);
+  cursor: var(--cursor-link, pointer);
+  transition: border-color 160ms ease-out;
+}
+.try-look-close:hover { border-color: var(--accent); }
+.try-look-close svg { width: 20px; height: 20px; }
+
 /* The style shown and its arrows stay with the phone on narrow windows: under the screen. */
 @media (max-width: 900px) {
   .try { grid-template-columns: minmax(0, 1fr); gap: 20px; }
@@ -249,7 +410,9 @@
 /* Phones: the wallpaper fills the screen as the real one does, without the bezel; the panel follows under it. */
 @media (max-width: 560px) {
   .try-device { width: 100%; height: calc(100svh - 160px); min-height: 440px; aspect-ratio: auto; padding: 0; border-radius: 24px; background: none; }
-  .try-device[data-orientation="landscape"] { width: 100%; height: auto; aspect-ratio: 2340 / 1080; }
+  /* On its side it is wide and short: the upright phone's 440px minimum must not follow it. With the aspect ratio that
+     minimum made the box 950px wide, far past a phone's screen, and its stage with it. */
+  .try-device[data-orientation="landscape"] { width: 100%; height: auto; min-height: 0; aspect-ratio: 2340 / 1080; }
   .try-screen { border-radius: 24px; }
   .try-tool span { display: none; }
   .try-tool { width: 48px; justify-content: center; padding: 0; }
@@ -257,6 +420,9 @@
   .try-quick .try-tool span { display: inline; }
   .try-qr { display: none; }
   .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
+  .try-look { padding: 8px; }
+  .try-look[open], .try-look.is-closing { place-items: end center; }
+  .try-look-sheet { width: 100%; padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
 }
 
 /* On a screen (html.screen: the try page, the app alone with nothing to scroll; tools/lib/try.mjs): the block fills the
@@ -277,7 +443,9 @@
 .screen .try-stage { position: static; align-self: center; }
 .screen .try-panel { min-height: 0; overflow-y: auto; overscroll-behavior: contain; align-content: start; padding: 4px 14px 24px 2px; }
 .screen .try:has(.try-device[data-orientation="landscape"]) { grid-template-rows: auto minmax(0, 1fr); }
-.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, calc((100dvh - 380px) * 2340 / 1080)); }
+/* Turned on its side the phone fits its stage's width and the window's height (the 380px is what the header, the bar, the
+   tools and a strip of the panel keep), never narrower than 240px, so a short window can't shrink it to nothing. */
+.screen .try-device[data-orientation="landscape"] { width: min(100%, 940px, max(240px, calc((100dvh - 380px) * 2340 / 1080))); }
 .screen .try-fallback { grid-column: -2; grid-row: -2; align-self: end; }
 @media (max-width: 900px) {
   .screen .try { grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
@@ -290,4 +458,108 @@
 @media (prefers-reduced-motion: reduce) {
   .try-busy span { animation-duration: 3s; }
   .try-styles button, .try-styles button:hover { transform: none; }
+}
+
+/* HUD mode (Speedometer docs/hud-mode/design.md §9): the phone's screen fills the window on black, also where a
+   browser has no full screen for an element (iPhone Safari); Exit and Flip, each half the screen, fade in on a tap
+   and out after a few seconds, as in the app. */
+.try-chip[aria-checked="true"] { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 20%, var(--surface)); }
+/* Original | HUD (George, 4 Nov 2026: "Yes, try page and app"): a pill of the quick row's shape split in two, the
+   chosen half lit as a pressed pill is (.try-tool[aria-pressed]), the light sliding across when the choice changes. */
+.try-view {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: 1fr 1fr;
+  flex: 1 1 auto;
+  min-height: 44px;
+  padding: 3px;
+  border: var(--card-border);
+  border-radius: 999px;
+  background: var(--surface);
+  isolation: isolate;
+}
+.try-view[hidden] { display: none; }
+.try-view::before {
+  content: '';
+  position: absolute;
+  z-index: -1;
+  inset: 3px auto 3px 3px;
+  width: calc(50% - 3px);
+  border-radius: 999px;
+  background: color-mix(in srgb, var(--accent) 22%, var(--surface));
+  box-shadow: inset 0 0 0 1px var(--accent);
+  transition: transform 220ms cubic-bezier(.2, .8, .2, 1);
+}
+.try-view[data-view="hud"]::before { transform: translateX(100%); }
+.try-view button {
+  min-height: 36px;
+  padding: 0 16px;
+  border: 0;
+  border-radius: 999px;
+  background: none;
+  color: var(--muted);
+  font: var(--label-weight) 0.95rem/1 var(--label-font);
+  text-transform: var(--label-case);
+  letter-spacing: 0.06em;
+  white-space: nowrap;
+  cursor: var(--cursor-link, pointer);
+  transition: color 160ms ease-out;
+}
+.try-view button:hover { color: var(--ink); }
+.try-view button[aria-checked="true"] { color: var(--ink); cursor: var(--cursor, default); }
+.try-view button:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* The HUD look has no home screen around it. */
+.try[data-hud-view="hud"] .try-icons { display: none; }
+@media (prefers-reduced-motion: reduce) {
+  .try-view::before { transition: opacity 80ms linear; }
+}
+.try[data-hud="on"] .try-device {
+  position: fixed;
+  inset: 0;
+  z-index: 1000;
+  width: 100vw;
+  height: 100dvh;
+  max-width: none;
+  aspect-ratio: auto;
+  padding: 0;
+  border: 0;
+  border-radius: 0;
+  background: #000;
+}
+.try[data-hud="on"] .try-screen { border-radius: 0; }
+.try[data-hud="on"] .try-icons, .try[data-hud="on"] .try-busy { display: none; }
+.try-hud-layer { position: absolute; inset: 0; z-index: 2; display: grid; }
+.try-hud-layer[hidden] { display: none; }
+.try-hud-tip {
+  position: absolute;
+  inset: auto 16px 16px;
+  margin: 0;
+  padding: 10px 14px;
+  border-radius: 12px;
+  background: color-mix(in srgb, var(--surface) 88%, transparent);
+  color: var(--ink);
+  text-align: center;
+}
+.try-hud-tip[hidden] { display: none; }
+.try-hud-controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 16px;
+  padding: 24px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 150ms ease-in;
+}
+.try-hud-controls.is-shown { opacity: 1; pointer-events: auto; transition: opacity 200ms ease-out; }
+.try-hud-controls[hidden] { display: none; }
+.try-hud-controls button {
+  border: 0;
+  border-radius: 28px;
+  font: 700 clamp(1.6rem, 6vw, 3rem)/1 var(--label-font, inherit);
+  cursor: var(--cursor-link, pointer);
+}
+.try-hud-exit { background: var(--ink); color: var(--bg, #000); }
+.try-hud-flip { background: var(--accent); color: var(--on-accent, #000); }
+@media (prefers-reduced-motion: reduce) {
+  .try-hud-controls, .try-hud-controls.is-shown { transition-duration: 80ms; }
 }

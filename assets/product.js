@@ -332,22 +332,29 @@
       return `translate(${t.left + t.width / 2 - (f.left + f.width / 2)}px, ${t.top + t.height / 2 - (f.top + f.height / 2)}px) scale(${t.width / f.width})`;
     };
     const chrome = () => [cap, count, prevBtn, nextBtn, closeBtn];
+    // It flies back into its tile in 340 ms as the shade fades out; under reduced motion nothing flies, it fades out
+    // over 100 ms (the design canon, section 4)
     const close = async () => {
       if (box.hidden || box.classList.contains("closing")) return;
-      if (!still.matches) {
-        box.classList.add("closing");
+      box.classList.add("closing");
+      let fade = null;
+      if (still.matches) {
+        fade = box.animate({ opacity: [1, 0] }, { duration: 100, fill: "forwards" });
+        await fade.finished.catch(() => {});
+      } else {
         const tile = items[at]?.querySelector("img"), r = tile?.getBoundingClientRect();
         const back = r && r.bottom > 0 && r.top < innerHeight;
         await Promise.all([
-          box.animate([{}, { backgroundColor: "transparent", backdropFilter: "blur(0px)" }], { duration: 300, easing: "ease-in" }).finished,
+          box.animate([{}, { backgroundColor: "transparent", backdropFilter: "blur(0px)" }], { duration: 340, easing: "ease-in" }).finished,
           ...chrome().map((e) => e.animate([{}, { opacity: 0 }], { duration: 160, fill: "forwards" }).finished),
-          back ? frame.animate([{ transform: "none" }, { transform: flight(tile) }], { duration: 320, easing: "cubic-bezier(.4,0,.7,.2)" }).finished
-            : frame.animate([{}, { opacity: 0, transform: "scale(0.94)" }], { duration: 220, easing: "ease-in" }).finished,
+          back ? frame.animate([{ transform: "none" }, { transform: flight(tile) }], { duration: 340, easing: "cubic-bezier(.4,0,.7,.2)" }).finished
+            : frame.animate([{}, { opacity: 0, transform: "scale(0.94)" }], { duration: 340, easing: "ease-in" }).finished,
         ].map((p) => p.catch(() => {})));
-        box.classList.remove("closing");
         chrome().forEach((e) => e.getAnimations().forEach((a) => a.cancel()));
       }
+      box.classList.remove("closing");
       box.hidden = true;
+      fade?.cancel();
       document.documentElement.classList.remove("card-open");
       items[at]?.focus({ preventScroll: true });
     };
@@ -358,10 +365,13 @@
         show(items.indexOf(b));
         document.documentElement.classList.add("card-open");
         frame.focus({ preventScroll: true });
-        if (still.matches) return;
-        box.animate([{ backgroundColor: "transparent", backdropFilter: "blur(0px)" }, {}], { duration: 320, easing: "ease-out" });
+        // It flies out of its tile in 460 ms as the shade fades in, and its buttons and caption fade in once the flight
+        // is under way, landing with it; under reduced motion nothing flies, it fades in over 150 ms (the design canon,
+        // section 4)
+        if (still.matches) return void box.animate({ opacity: [0, 1] }, { duration: 150 });
+        box.animate([{ backgroundColor: "transparent", backdropFilter: "blur(0px)" }, {}], { duration: 460, easing: "ease-out" });
         chrome().forEach((e) => e.animate([{ opacity: 0 }, {}], { duration: 320, delay: 140, easing: "ease-out", fill: "backwards" }));
-        frame.animate([{ transform: flight(b.querySelector("img")) }, { transform: "none" }], { duration: 440, easing: "cubic-bezier(.2,.8,.2,1)" });
+        frame.animate([{ transform: flight(b.querySelector("img")) }, { transform: "none" }], { duration: 460, easing: "cubic-bezier(.2,.8,.2,1)" });
       });
     }
     prevBtn.addEventListener("click", () => show(at - 1));

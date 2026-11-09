@@ -51,13 +51,13 @@
       { "label": "About", "href": "/palermo/about/" },
       { "label": "Wiki", "href": "/palermo/wiki/" },
       { "label": "Gallery", "href": "/palermo/gallery/" },
-      { "label": "Map", "href": "/palermo/map/" },
       { "label": "Privacy", "href": "/palermo/privacy.html", "wide": true }
     ],
+    "navWhenReady": [{ "label": "Map", "href": "/palermo/map/" }],
     "footer": [
       { "label": "Privacy policy", "href": "/palermo/privacy.html" }
     ],
-    "play": { "label": "Play online", "href": "/palermo/play/", "soon": "Coming soon" },
+    "playWhenOpen": { "label": "Play online", "href": "/palermo/play/" },
     "demo": { "label": "Try the demo", "href": "/palermo/demo/", "private": true }
   },
   "hero": {
@@ -65,8 +65,7 @@
     "lead": "Hidden roles on your phones. <em>The town on your TV.</em>",
     "align": "center",
     "badges": [
-      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
-      { "href": "/palermo/play/", "label": "Play online" }
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }
     ],
     "art": {
       "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
@@ -277,7 +276,6 @@
     "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.<span data-demo> Until then, the demo seats you at a table of bots.</span>",
     "badges": [
       { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
-      { "href": "/palermo/play/", "label": "Play online" },
       "vhub"
     ]
   },

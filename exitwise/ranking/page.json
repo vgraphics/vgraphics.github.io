@@ -32,7 +32,7 @@
     {
       "id": "boards",
       "title": "The best players, live",
-      "intro": "The best players on Android and the web, on the same four boards as the game's Global tab. Win a level and you're on.",
+      "intro": "The best players in the app and on the web, on the same four boards as the game's Global tab. Win a level and you're on.",
       "stage": {
         "wiki": "ranking-stage",
         "position": "50% 20%"
@@ -59,6 +59,6 @@
   "cta": {
     "title": "Climb the ranking",
     "text": "Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.",
-    "badges": ["google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
+    "badges": ["app-store", "google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
   }
 }

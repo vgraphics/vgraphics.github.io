@@ -14,7 +14,8 @@
 //   { "entries": [{ version, date, platforms?, title?, items, link?, commit? }] }, newest first
 //   version     what the release calls itself: "1.0.17", or a web build's "1.0.4f5d9766"
 //   date        the day it reached players, YYYY-MM-DD
-//   platforms   where it shipped: "Android", "Web"
+//   platforms   where it shipped: "Android", "iOS", "Web" (the Deployer writes Android and Web; an iOS release's
+//               entry is added by hand until it writes those too)
 //   title       its headline in one line ("17 new styles"); without one, its first line stands in (cut near 60
 //               characters), and its lines then start at the second; the Deployer's notes give every VGraphics
 //               release one, and Speedometer's are by hand (Games docs/superpowers/specs/2026-10-26-speedometer-web-
@@ -28,6 +29,7 @@
 // it says), the line (else the default one) and a link ({ href, label }: the try page, say), a soft call to action.
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { mailList } from './mail-list.mjs'
 import { esc, ICONS } from './partials.mjs'
 import { root } from './product.mjs'
 
@@ -179,10 +181,13 @@ function soon(empty) {
         </div>`
 }
 
-// The block: readNews' { entries, testers }, the page.json block (its empty) and the product's name (page.json
-// site.name). The testers' block follows everybody's, in a private template.
-export function news({ entries, testers }, { empty } = {}, name) {
+// The block: readNews' { entries, testers }, the page.json block (its empty), the product's name (page.json
+// site.name) and folder. The testers' block follows everybody's, in a private template, so the two stay side by side
+// when it opens (assets/product.css hides the first). The chapter ends with a slim sign-up for the product's news,
+// "Get the next update by email" (tools/lib/mail-list.mjs; George's "Keep" marks on the mail review page, 3 Nov 2026).
+export function news({ entries, testers }, { empty } = {}, name, slug) {
   const everybody = entries.length ? block(entries, 'news-all', name) : soon(empty)
-  return testers ? `${everybody}
-        <template class="private">${block(testers, 'news-all-testers', name)}</template>` : everybody
+  return `${testers ? `${everybody}
+        <template class="private">${block(testers, 'news-all-testers', name)}</template>` : everybody}
+        ${mailList(slug, 'news')}`
 }

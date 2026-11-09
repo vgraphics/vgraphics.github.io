@@ -1,0 +1,1 @@
+import{O as t,G as m,R as p,u as r}from"./private-BiWhG1pK.js";import{D as s}from"./newsreel-DsGKJc_h.js";import{TvApp as e}from"./app-CorhPia-.js";import"./door-layout-BUgj9zMh.js";import"./vote-opens-CAfj_Kf9.js";t(m);s();const o=document.getElementById("app");o&&p(r(e,{}),o);

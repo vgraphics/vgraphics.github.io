@@ -19,8 +19,10 @@ import { join } from 'node:path'
 import { anchor } from './lib/partials.mjs'
 import { srcset } from './lib/hero.mjs'
 import { root } from './lib/product.mjs'
+import { markPage } from './lib/marks.mjs'
 
 const DESCRIPTION_MAX = 160
+const TITLE_MAX = 65
 const SITE = 'https://vgraphics.gr'
 const CARD = `${SITE}/assets/img/vgraphics-card-1200x630.jpg`
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -58,7 +60,8 @@ const organization = { '@type': 'Organization', '@id': `${SITE}/#organization`, 
 function page({ path, title, description, ogTitle, ld, style, main, image }) {
   const og = image ? { src: largest(image), width: image.widths.at(-1), height: Math.round((image.widths.at(-1) * image.height) / image.width), alt: image.alt }
     : { src: CARD, width: 1200, height: 630, alt: 'VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.' }
-  return `<!doctype html>
+  // With ™ after our names in the headings and at their first mention (tools/lib/marks.mjs).
+  return markPage(path, `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
@@ -66,7 +69,9 @@ function page({ path, title, description, ogTitle, ld, style, main, image }) {
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
   <link rel="canonical" href="${SITE}${path}">
-  <link rel="icon" href="/img/vgraphics-logo.png">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="${path === '/devlog/' ? 'website' : 'article'}">
@@ -108,7 +113,7 @@ ${footer}${path === '/devlog/' ? '' : `
 <script src="/assets/anchors.js" defer></script>`}
 </body>
 </html>
-`
+`)
 }
 
 const card = (p) => `    <article class="post-card">
@@ -203,7 +208,11 @@ ${others.map(card).join('\n')}
     .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
     .more > h2 { font-size: 1.6rem; }
 ${CARD_STYLE}`
-  return page({ path, title: `${p.title} · VGraphics devlog`, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
+  // The blog's name follows the post's title only while the whole stays about 60 characters (README, "Search engines"):
+  // search results cut a longer one off.
+  const named = `${p.title} · VGraphics devlog`
+  const title = strip(named).length <= TITLE_MAX ? named : p.title
+  return page({ path, title, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
 }
 
 function indexPage() {

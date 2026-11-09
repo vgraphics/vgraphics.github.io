@@ -26,6 +26,7 @@ component__hidden_creators_sheet__body	Their layouts don't show in the market fo
 component__hidden_creators_sheet__button_show__label	Show again
 component__hidden_creators_sheet__empty	No hidden creators.
 component__hidden_creators_sheet__title	Hidden creators
+component__hud_showcase__content_description	%1$s's HUD on a windscreen at night
 component__market_creator_sheet__hide__label	Hide this creator's layouts
 component__market_creator_sheet__hide__subtitle	Settings › Privacy › Hidden creators brings them back.
 component__market_creator_sheet__report__subtitle	VHub looks after names and pictures in every VGraphics app.
@@ -53,6 +54,7 @@ component__pass_sheet__button_yearly__label	%1$s a year · 2 months free
 component__pass_sheet__button_yearly_no_price__label	Yearly · 2 months free
 component__pass_sheet__fine_print	Billed by Google Play, and renews until you cancel. Cancel anytime in Google Play. Signed in to VHub, every device of your account gets it.
 component__pass_sheet__title	Speedometer Plus
+component__status_badge__content_description	Status: %1$s
 component__trial_end__body	Your wallpaper went back to your own style. Keep %1$s for good, get every style with Speedometer Plus, or watch another video for 24 more hours.
 component__trial_end__button_buy__label	Buy %1$s · %2$s
 component__trial_end__button_buy_no_price__label	Buy %1$s
@@ -230,6 +232,14 @@ generic__shape_foldable	Foldable
 generic__shape_phone	Phone
 generic__shape_tablet	Tablet
 generic__shape_tall	Tall / Flip
+hud__battery__plug_in	PLUG IN
+hud__caption__heading	HEADING
+hud__caption__time	TIME
+hud__gps__lost	NO GPS
+hud__heat__back	It comes back by itself.
+hud__heat__paused	HUD mode is paused to let it cool down.
+hud__heat__title	The phone is hot
+hud__speed__none	– –
 layouts__asks__activity	Asks for physical activity.
 layouts__asks__calendar	Asks to read your calendar.
 layouts__asks__location	Asks for your location.
@@ -261,6 +271,7 @@ layouts__form__pair__name	Two lines
 layouts__form__panel__name	Panel
 layouts__form__plate__name	Plate
 layouts__form__ring__name	Ring
+layouts__form__rings__name	Rings
 layouts__form__single_lamp__name	One lamp
 layouts__form__small_dial__name	Small dial
 layouts__form__strip__name	Strip
@@ -313,6 +324,8 @@ layouts__widget__data_speed__description	What the phone is downloading and uploa
 layouts__widget__data_speed__name	Data speed
 layouts__widget__date__description	The date, on its own.
 layouts__widget__date__name	Date
+layouts__widget__date_time__description	The time and the date together.
+layouts__widget__date_time__name	Date and time
 layouts__widget__display__description	One panel with the time, date, Wi-Fi and readings.
 layouts__widget__display__name	Info display
 layouts__widget__drive_time__description	How long you have been driving. A new drive starts after 30 minutes standing still.
@@ -339,6 +352,8 @@ layouts__widget__now_playing__description	The song that's playing, with its cove
 layouts__widget__now_playing__name	Now Playing
 layouts__widget__odometer__description	Every km you have driven with the wallpaper on, kept on the phone.
 layouts__widget__odometer__name	Odometer
+layouts__widget__phone_meters__description	Signal, RAM, Wi-Fi, battery and temperature.
+layouts__widget__phone_meters__name	Phone status meters
 layouts__widget__ram__description	Memory in use, the rev counter.
 layouts__widget__ram__name	RAM
 layouts__widget__second_clock__description	The time somewhere else: UTC or a city you pick in Settings.
@@ -375,6 +390,9 @@ layouts__widget__wifi__description	Wi-Fi strength and whether you're on mobile d
 layouts__widget__wifi__name	Wi-Fi
 layouts__widget__zero_to_100__description	Times every run from a stop to 100 km/h (60 mph) and keeps your best.
 layouts__widget__zero_to_100__name	0–100 timer
+notification__hud_car__channel	HUD mode in your car
+notification__hud_car__text	Tap for HUD mode
+notification__hud_car__title	Your car is connected
 preview__future__song_artist	VGraphics
 preview__future__song_title	Night Drive
 screen__access__body	Future shows the song that's playing, with its cover and the volume, and how many calls you missed and messages you haven't read.\n\nFor that, Android has to give this app notification access. Android will warn that the app could read all your notifications: it only reads the song that's playing and counts missed calls and messages.\n\nNothing leaves your phone. You can turn the access off any time in Android's settings.
@@ -479,6 +497,11 @@ screen__app_settings__motion__saver_note	30 frames a second while a needle moves
 screen__app_settings__motion__smooth	Smooth
 screen__app_settings__motion__smooth_note	Your screen's full rate while a needle moves, nothing while they're still. Android's Battery saver switches to Saver.
 screen__app_settings__motion__title	Motion and battery
+screen__app_settings__news_confirmed__message	You're signed up. One email a month at most.
+screen__app_settings__news_off__message	To stop the emails, tap Unsubscribe in any of them.
+screen__app_settings__news_pending__message	Check your inbox: tap the link to confirm.
+screen__app_settings__news_unsubscribe_failed__message	Couldn't unsubscribe. Check your connection and try again.
+screen__app_settings__news_unsubscribed__message	Unsubscribed. No more VGraphics news by email.
 screen__app_settings__no_browser__message	No app on this phone can open that page.
 screen__app_settings__pass_not_on_sale__message	Speedometer Plus isn't on sale on Google Play yet. Try again later.
 screen__app_settings__pass_on__message	Speedometer Plus is on. Every style is yours.
@@ -503,14 +526,22 @@ screen__app_settings__row_gps__off	Precise location · off
 screen__app_settings__row_gps__title	GPS speed
 screen__app_settings__row_guide__subtitle	What every gauge and lamp shows
 screen__app_settings__row_guide__title	Guide
+screen__app_settings__row_help__subtitle	Something wrong, a bug or an idea? Tell us and follow our answers
+screen__app_settings__row_help__subtitle_answered	VGraphics answered you
+screen__app_settings__row_help__title	Report a problem or an idea
 screen__app_settings__row_hidden_creators__subtitle#one	%d creator
 screen__app_settings__row_hidden_creators__subtitle#other	%d creators
 screen__app_settings__row_hidden_creators__title	Hidden creators
 screen__app_settings__row_hidden_creators_none__subtitle	None
+screen__app_settings__row_hud__subtitle	See your speed on the windscreen
 screen__app_settings__row_level__button_set__label	Set
 screen__app_settings__row_level__subtitle	Put the phone in its mount, then tap Set. The Tilt widget reads level from there.
 screen__app_settings__row_level__title	Tilt level
 screen__app_settings__row_licences__title	Licences
+screen__app_settings__row_news__subtitle_off	Speedometer news, one email a month at most
+screen__app_settings__row_news__subtitle_on	Signed up · one email a month at most
+screen__app_settings__row_news__subtitle_pending	Check your inbox: tap the link we sent to confirm
+screen__app_settings__row_news__title	News by email
 screen__app_settings__row_pass__active	Active
 screen__app_settings__row_pass__pending	Pending
 screen__app_settings__row_pass__subtitle	Every style and no ads, now and later
@@ -541,6 +572,7 @@ screen__app_settings__second_clock_sheet__title	Second clock
 screen__app_settings__section_about__title	About
 screen__app_settings__section_account__title	Account
 screen__app_settings__section_every_style__title	Every style
+screen__app_settings__section_help__title	Help
 screen__app_settings__section_permissions__title	Permissions
 screen__app_settings__section_previews__title	Previews and feedback
 screen__app_settings__section_privacy__title	Privacy
@@ -582,6 +614,7 @@ screen__guide__big_gauge__readout	The digits above the needle show the same valu
 screen__guide__big_gauge__switch	Pick the mode in the style's settings or with the Big gauge tile. On many phones a tap on the gauge switches it too, but not on Samsung's home screen.
 screen__guide__chapter_big_gauge__title	Big gauge
 screen__guide__chapter_clock__title	Date and time
+screen__guide__chapter_hud__title	HUD mode
 screen__guide__chapter_lamps__title	Warning lamps
 screen__guide__chapter_music__title	Music, calls and messages
 screen__guide__chapter_small_gauges__title	Small gauges
@@ -589,12 +622,16 @@ screen__guide__chapter_tile__title	Big gauge tile
 screen__guide__chapter_widgets__title	Widgets
 screen__guide__chip_big_gauge__label	Big gauge
 screen__guide__chip_clock__label	Clock
+screen__guide__chip_hud__label	HUD mode
 screen__guide__chip_lamps__label	Lamps
 screen__guide__chip_music__label	Music
 screen__guide__chip_small_gauges__label	Small gauges
 screen__guide__chip_tile__label	Tile
 screen__guide__chip_widgets__label	Widgets
 screen__guide__clock__body	The LCD under the big gauge shows the date and time. Pick the time format, date order, separators and seconds in the style's settings.
+screen__guide__hud__body	Lay the phone flat on the dashboard in front of the wheel, screen up, and set it up while parked. The glass reflects it the right way round. It reads best at dusk, at night and on cloudy days; tap once for Exit and Flip.
+screen__guide__hud__row_subtitle	Tap HUD mode on Home or in Styles, the HUD mode tile, or long-press the app icon
+screen__guide__hud__row_title	Your speed on the windscreen
 screen__guide__lamp_bluetooth__subtitle	While Bluetooth is on
 screen__guide__lamp_bluetooth__title	Bluetooth
 screen__guide__lamp_charging__subtitle	The bolt on the battery gauge, while the phone charges
@@ -635,6 +672,96 @@ screen__guide__widgets_weather__title	Weather
 screen__guide__wifi__body	How strong your Wi-Fi signal is. The line under it reads CONNECTED with the link speed, NO NETWORK, MOBILE DATA or DISABLED.
 screen__guide__wifi__lamp	Its ON lamp is green on Wi-Fi and yellow on mobile data.
 screen__guide__wifi__title	Wi-Fi
+screen__help__button_send__label	Send
+screen__help__device__app	Speedometer %1$s
+screen__help__device__line	Sent with it: %1$s
+screen__help__input_email__helper	We send the answers there. Without one, you can follow this ticket only on this phone.
+screen__help__input_email__label	Your email (optional)
+screen__help__input_text__counter	%1$d / %2$d
+screen__help__input_text__label_idea	What would you like?
+screen__help__input_text__label_problem	What happened?
+screen__help__kind__label	What is it about?
+screen__help__kind_bug__help	Something broke, froze or looks wrong.
+screen__help__kind_bug__title	A bug
+screen__help__kind_idea__help	Something you'd like us to add or change.
+screen__help__kind_idea__title	An idea
+screen__help__kind_other__help	Anything else you want to tell us.
+screen__help__kind_other__title	Something else
+screen__help__kind_problem__help	It doesn't work the way it should.
+screen__help__kind_problem__title	Something's wrong
+screen__help__kind_purchase__help	A style, Speedometer Plus or a restore that went wrong.
+screen__help__kind_purchase__title	A purchase
+screen__help__no_browser__message	No app on this phone can open the screenshot.
+screen__help__problem_blocked	We can't take tickets from here. Email %1$s.
+screen__help__problem_invalid	Tell us a little more: at least %1$d characters, and an email address that works (or none).
+screen__help__problem_limit	That's the most tickets for now. Try again in an hour, or email %1$s.
+screen__help__problem_no_kind	Choose what it's about.
+screen__help__problem_offline	It didn't send. Check your connection and try again.
+screen__help__problem_too_short	Tell us a little more: at least %1$d characters.
+screen__help__reason_done	Done
+screen__help__reason_duplicate	Duplicate
+screen__help__reason_fixed	Fixed
+screen__help__reason_no_reply	No reply
+screen__help__reason_planned	Planned
+screen__help__reason_wont_do	Won't do
+screen__help__row_email_answers__subtitle	To %1$s. You can always follow it here too.
+screen__help__row_email_answers__subtitle_no_address	To the address you signed in with. You can always follow it here too.
+screen__help__row_email_answers__title	Email me the answers
+screen__help__section_new__title	Open a ticket
+screen__help__section_tickets__title	Your tickets
+screen__help__sent__body	We read every ticket. Our answer shows here, and in your inbox if you asked for it.
+screen__help__sent__title	Thanks: ticket %1$s is open
+screen__help__shot__content_description	Screenshot %1$d
+screen__help__shot_failed__message	That picture couldn't be read. Try another one.
+screen__help__shots__button_add__label	Add a screenshot
+screen__help__shots__label	Screenshots (up to %1$d, optional)
+screen__help__shots__remove__content_description	Remove screenshot %1$d
+screen__help__status_answered	Answered
+screen__help__status_closed	Closed
+screen__help__status_in_version	%1$s in %2$s
+screen__help__status_new_answer	New answer
+screen__help__status_open	Open
+screen__help__ticket__meta	%1$s · %2$s · %3$s
+screen__help__tickets__button_retry__label	Try again
+screen__help__tickets_empty	No tickets yet.
+screen__help__tickets_empty_signed_out	No tickets on this phone yet. Signed in, your tickets follow you on every device.
+screen__help__tickets_failed	Your tickets didn't load.
+screen__help__tickets_loading	Loading your tickets…
+screen__help__title	Help
+screen__help_ticket__button_close__label	Close this ticket
+screen__help_ticket__button_send__label	Send
+screen__help_ticket__closed_for_good	This ticket is closed. Something new? Open a new ticket.
+screen__help_ticket__closed_note	Closed. A reply within 30 days opens it again.
+screen__help_ticket__face__vgraphics	V
+screen__help_ticket__failed	This ticket didn't load.
+screen__help_ticket__from_vgraphics	VGraphics · %1$s
+screen__help_ticket__from_you	You · %1$s
+screen__help_ticket__input_reply__label	Your reply
+screen__help_ticket__input_reply__label_closed	Something more? A reply opens it again.
+screen__help_ticket__loading	Loading the ticket…
+screen__help_ticket__missing__body	It may belong to another account, or to another phone.
+screen__help_ticket__missing__title	We can't find this ticket
+screen__help_ticket__problem_closed	This ticket is closed. Open a new one.
+screen__help_ticket__problem_invalid	That didn't send.
+screen__help_ticket__problem_limit	That's the most replies for now. Try again in an hour.
+screen__help_ticket__reply_sent	Sent. We'll answer here.
+screen__help_ticket__section_reopen__title	Open it again
+screen__help_ticket__section_reply__title	Reply
+screen__help_ticket__shot__button_close__content_description	Close the screenshot
+screen__help_ticket__shot__label	Screenshot %1$d
+screen__help_ticket__status_closed	Closed.
+screen__help_ticket__status_closed_by_player	You closed this ticket.
+screen__help_ticket__status_closed_done	Closed: done.
+screen__help_ticket__status_closed_done_in	Closed: done in %1$s.
+screen__help_ticket__status_closed_duplicate	Closed: already in another ticket.
+screen__help_ticket__status_closed_fixed	Closed: fixed.
+screen__help_ticket__status_closed_fixed_in	Closed: fixed in %1$s.
+screen__help_ticket__status_closed_no_reply	Closed after no reply.
+screen__help_ticket__status_closed_planned	Closed: it's in our plans.
+screen__help_ticket__status_closed_wont_do	Closed: we won't do this one.
+screen__help_ticket__status_opened_again	Opened again.
+screen__help_ticket__status_other	Ticket updated.
+screen__help_ticket__title	Ticket %1$s
 screen__home__account_button__content_description	VHub account
 screen__home__button_customize__label	Customize
 screen__home__button_designs__subtitle	Classic, Future and more
@@ -650,11 +777,77 @@ screen__home__button_settings__subtitle	Gauges, date, time and leds
 screen__home__button_settings__title	SETTINGS
 screen__home__button_styles__label	Styles
 screen__home__button_wallpaper_on__label	On your home screen
+screen__home__card_hud__close__content_description	Close
+screen__home__card_hud__text	Lay the phone on the dashboard and see your speed on the windscreen.
+screen__home__card_hud__title	New: HUD mode
 screen__home__footer	© VGraphics
 screen__home__logo__content_description	Speedometer Live Wallpaper by VGraphics
 screen__home__now_showing__click_label	Open this style
 screen__home__now_showing__live	· live
 screen__home__picker_missing__message	This phone has no live wallpaper picker. Set it from your launcher's wallpaper settings.
+screen__hud__badge_free__label	Free
+screen__hud__badge_locked__label	Unlock
+screen__hud__button_exit__label	Exit
+screen__hud__button_flip__label	Flip
+screen__hud__color__amber	Amber
+screen__hud__color__cyan	Cyan
+screen__hud__color__ice_white	Ice white
+screen__hud__color__lime	Lime
+screen__hud__color__style	Style's own
+screen__hud__color__violet	Violet
+screen__hud__flip__holder	Upright in a holder
+screen__hud__flip__holder__hint	Standing in a holder, read straight with no flip.
+screen__hud__flip__top_to_driver	Top edge to you
+screen__hud__flip__top_to_driver__hint	Lying flat, screen up, its top edge towards you.
+screen__hud__flip__top_to_glass	Top edge to the glass
+screen__hud__flip__top_to_glass__hint	Lying flat, screen up, its top edge towards the windscreen.
+screen__hud__gps__button_allow__label	Allow
+screen__hud__gps__button_close__label	Not now
+screen__hud__gps__message	Your speed comes from GPS while HUD mode is open. It never leaves the phone.
+screen__hud__gps__title	HUD mode needs your location
+screen__hud__layout__centre_bar	Centre bar
+screen__hud__layout__fighter	Fighter
+screen__hud__layout__gauge_arc	Gauge arc
+screen__hud__layout__number	Number
+screen__hud__name	HUD mode
+screen__hud__safety__button_ok__label	Got it
+screen__hud__safety__hands	Don't touch the phone while driving.
+screen__hud__safety__law	Check that your country allows a phone on the dashboard.
+screen__hud__safety__park	Set HUD mode up while parked.
+screen__hud__safety__place	Lay the phone where it can't slide, clear of airbags.
+screen__hud__safety__title	Before you drive
+screen__hud_settings__button_open__label	Open HUD mode
+screen__hud_settings__car__label	Open by itself in my car
+screen__hud_settings__car__linked	Linked: %1$s
+screen__hud_settings__car__summary	Pick your car once. HUD mode opens when the phone joins its Bluetooth.
+screen__hud_settings__car__title	Your car
+screen__hud_settings__car__unknown_name	your car
+screen__hud_settings__clock__label	Clock
+screen__hud_settings__color__title	Colour
+screen__hud_settings__extras__title	On the glass
+screen__hud_settings__film__text	A windscreen has two surfaces, so the picture shows twice. A cheap HUD film on the glass fixes it.
+screen__hud_settings__film__title	Seeing it twice?
+screen__hud_settings__flip__title	How the phone lies
+screen__hud_settings__heading__label	Heading
+screen__hud_settings__look__title	Look
+screen__hud_settings__more__title	More
+screen__hud_settings__safety__label	Read the safety card
+screen__hud_settings__setup__label	Run setup again
+screen__hud_settings__trip__label	Trip
+screen__hud_settings__warning__label	Speed warning
+screen__hud_settings__warning__summary	Above your limit the speed turns red and the phone beeps once. The app doesn't know the road's limit.
+screen__hud_settings__warning_limit__higher__content_description	Raise the limit
+screen__hud_settings__warning_limit__label	Your limit: %1$d %2$s
+screen__hud_settings__warning_limit__lower__content_description	Lower the limit
+screen__hud_setup__button_back__label	Back
+screen__hud_setup__button_next__label	Next
+screen__hud_setup__button_skip__label	Skip
+screen__hud_setup__button_start__label	Start HUD mode
+screen__hud_setup__lie__hint	HUD mode works best at dusk, at night and on cloudy days. In bright sun the reflection is faint.
+screen__hud_setup__lie__title	How does the phone lie?
+screen__hud_setup__look__hint	This is how it shows on your windscreen at night.
+screen__hud_setup__look__title	Pick your look
+screen__hud_setup__step	Step %1$d of %2$d
 screen__info__led_bluetooth__body	Bluetooth: lights while Bluetooth is on.
 screen__info__led_high_temperature__body	High temperature: lights when the battery is hotter than the high temperature, 45 °C unless you change it.
 screen__info__led_low_battery__body	Low battery: lights when the battery is at or below the low battery level, 15 % unless you change it.
@@ -701,6 +894,7 @@ screen__layout_builder__button_remove__content_description	Remove widget
 screen__layout_builder__button_zoom_fit__content_description	Show the whole layout
 screen__layout_builder__button_zoom_in__content_description	Zoom in
 screen__layout_builder__button_zoom_out__content_description	Zoom out
+screen__layout_builder__clashes__message	A layout whose widgets overlap can't be published. Move them apart first.
 screen__layout_builder__default_name	My layout
 screen__layout_builder__delete__body	Styles that use it go back to their own layout.
 screen__layout_builder__delete__button_delete__label	Delete
@@ -712,6 +906,8 @@ screen__layout_builder__full__message	This layout already holds every widget it 
 screen__layout_builder__hint	Tap a widget to choose it. Drag it to move it, or drag its red handle to resize it. Pinch to zoom.
 screen__layout_builder__layers__back	Back
 screen__layout_builder__layers__front	Front
+screen__layout_builder__layers__move_back__action	Move back
+screen__layout_builder__layers__move_forward__action	Move forward
 screen__layout_builder__lock__content_description	Lock in place
 screen__layout_builder__made_for_other	Made for %1$s; may look small here.
 screen__layout_builder__not_found__message	This layout isn't on this phone.
@@ -810,10 +1006,25 @@ screen__market_layout__section_styles__label	Preview in style
 screen__market_layout__share__chooser	Share layout
 screen__market_layout__share__text	"%1$s", a layout for Speedometer Live Wallpaper: %2$s (code %3$s)
 screen__market_layout__star__content_description	%1$d of 5 stars
+screen__market_layout__status_hidden_by_moderator_note	Hidden by VGraphics: %1$s
 screen__market_layout__status_hidden_note	Hidden from the market until it's reviewed.
+screen__market_layout__status_removed_by_moderator_note	Removed by VGraphics: %1$s
 screen__market_layout__status_removed_note	Taken off the market.
 screen__market_layout__style_locked__content_description	%1$s, not yours yet
 screen__market_layout__title	Layout
+screen__news_sheet__button_sign_up__label	Sign me up
+screen__news_sheet__error_age	The newsletter is for people aged 16 and over.
+screen__news_sheet__error_invalid	That address doesn't look right.
+screen__news_sheet__error_limit	That's the most sign-ups from here for now. Try again in an hour.
+screen__news_sheet__error_no_email	Enter your email address.
+screen__news_sheet__error_offline	It didn't go. Check your connection and try again.
+screen__news_sheet__input_email__helper	We email you a link to confirm. Nothing else comes until you tap it.
+screen__news_sheet__input_email__helper_signed_in	The address you signed in with is signed up at once. Any other gets a mail with a link to confirm.
+screen__news_sheet__input_email__label	Your email
+screen__news_sheet__row_vgraphics__subtitle	When we release something new
+screen__news_sheet__row_vgraphics__title	New VGraphics games and apps too
+screen__news_sheet__subtitle	New styles, widgets and features in Speedometer. For people aged 16 and over. One email a month at most. Unsubscribe in one tap.
+screen__news_sheet__title	News by email
 screen__publish_layout__allowed	%1$d of %2$d in 24 hours · %3$d of %4$d in the market
 screen__publish_layout__banned	Your account can't publish layouts.
 screen__publish_layout__button_publish__label	Publish
@@ -907,6 +1118,7 @@ screen__settings__title	Settings
 screen__style__button_buy__label	Buy %1$s
 screen__style__button_buy_no_price__label	Buy
 screen__style__button_edit_layout__label	Edit layout
+screen__style__button_full_screen__content_description	Full screen
 screen__style__button_home_grid__content_description	Home screen view
 screen__style__button_in_use__label	In use
 screen__style__button_next__content_description	Next style
@@ -921,13 +1133,13 @@ screen__style__button_trial_other__label	%1$s trial: %2$d h left
 screen__style__button_try__label	Try it
 screen__style__button_use__label	Use this style
 screen__style__button_use_layout__label	Use this layout
+screen__style__full_screen__button_close__content_description	Close full screen
 screen__style__layouts__badge_editable__content_description	You can edit it
 screen__style__layouts__badge_fixed__content_description	Fixed layout
 screen__style__layouts__card__content_description	%1$s layout, running live
 screen__style__layouts__group_market	From the market
 screen__style__layouts__group_mine	Mine
 screen__style__layouts__group_ready	Ready-made
-screen__style__layouts__make_your_own	Make your own
 screen__style__layouts__new_layout	New layout
 screen__style__layouts__note_custom	Your own arrangement, made in the layout editor.
 screen__style__layouts__note_editable	Move and resize %1$s's dials with Edit layout.
@@ -939,9 +1151,17 @@ screen__style__message_layout_used	%1$s now uses this layout.
 screen__style__mode_cpu__label	CPU
 screen__style__mode_power__label	Power
 screen__style__mode_speed__label	Speed
+screen__style__new_layout_sheet__blank__help	Start with the main gauge alone
+screen__style__new_layout_sheet__blank__label	Blank
+screen__style__new_layout_sheet__from_this_layout__help	Start with the layout the preview shows
+screen__style__new_layout_sheet__from_this_layout__label	From this layout
+screen__style__new_layout_sheet__title	New layout
 screen__style__position	%1$d / %2$d
 screen__style__preview__content_description	%1$s running a demo drive
+screen__style__preview_hud__content_description	%1$s's HUD look, as HUD mode draws it
 screen__style__trial_note	On trial: %1$d h left. Buy it to keep it.
+screen__style__view_hud__label	HUD
+screen__style__view_original__label	Original
 screen__style_settings__access__off	Off
 screen__style_settings__access__on	On
 screen__style_settings__access__subtitle	Lets %1$s show your music, calls and messages
@@ -1023,6 +1243,7 @@ screen__style_settings__unit__mph	mph
 screen__style_settings__units__every_style	Speed, 12 or 24 hours and seconds are the same in every style.
 screen__styles__button_customize__label	Customize
 screen__styles__chip_free__label	Free
+screen__styles__chip_hud__label	HUD
 screen__styles__chip_in_use__label	In use
 screen__styles__chip_layouts__label#one	%1$d layout
 screen__styles__chip_layouts__label#other	%1$d layouts
@@ -1034,6 +1255,7 @@ screen__styles__chip_trial__label	Trial · %1$d h
 screen__styles__count#one	%1$d style
 screen__styles__count#other	%1$d styles
 screen__styles__hero__kicker	On your wallpaper
+screen__styles__market__button_browse__label	Browse
 screen__styles__market__subtitle	Layouts made by players, in any style
 screen__styles__market__title	Layout market
 screen__styles__message_failed	The purchase didn't go through.
@@ -1053,14 +1275,19 @@ screen__styles__message_use_failed	Couldn't switch to %1$s. Try again.
 screen__styles__pass__button_no_price__label	See plans
 screen__styles__pass__subtitle	Every style and no ads, now and later
 screen__styles__pass__title	Speedometer Plus
+screen__styles__section_hud__label#one	HUD mode · %1$d style
+screen__styles__section_hud__label#other	HUD mode · %1$d styles
 screen__styles__section_more__label	More styles
 screen__styles__section_yours__label	Your styles
 screen__styles__title	Styles
+shortcut__hud__long_label	Open HUD mode
+shortcut__hud__short_label	HUD mode
 tile__big_gauge__label	Big gauge
 tile__big_gauge__label_with_mode	Big gauge: %1$s
 tile__big_gauge__mode_cpu_clock	CPU clock
 tile__big_gauge__mode_gps_speed	GPS speed
 tile__big_gauge__mode_power	Power
+tile__hud__label	HUD mode
 variation__amber_classic__name	Classic
 variation__amber_cluster__name	Car cluster
 variation__amber_night__name	Luxury cluster

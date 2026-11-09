@@ -7,6 +7,7 @@
     "titleTail": "Speedometer Live Wallpaper",
     "descriptionTail": "A car dashboard live wallpaper for Android: power, CPU clock or GPS speed.",
     "liveIntro": "This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try {name}'s layouts and colours.",
+    "liveIntroHud": "Switch Original | HUD to see {name}'s HUD mode look.",
     "lookEyebrow": "The look",
     "free": { "title": "Free", "text": "{name} is free, like {others}." },
     "paid": { "title": "{price}, once", "text": "Buy {name} once on Google Play and it's yours. On a new phone with the same Google account, it comes back by itself." },

@@ -12,12 +12,14 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `services/index.html` | Services for clients: what we build, each with the real thing on this site, how we work, contact |
 | `multiplayer/index.html` | Multiplayer & community: Exitwise's rooms, live leaderboards (read like the ranking page), profiles, moderation and custom maps; VHub (open now) and the TV party games next |
 | `hub/` | VHub, the web app: the VHub repo's `hub/` build. It has `index.html` and one page per route, `assets/` (its scripts and styles), `privacy.html` (VHub's privacy policy) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-hub` project writes it, after `vhub-backend`. It is an app page (see the rules below). Until its first release it holds only the "coming soon" `index.html`. |
+| `admin/` | George's admin page for every game and app: the VHub repo's `admin/` build, `index.html`, `assets/` (its scripts and styles) and `deployed.txt` (the commit it came from). Only the Deployer's `vhub-admin` project writes it, after `vhub-backend`; until its first release there is no folder. It is an app page (see the rules below), kept out of search: noindex and nofollow, never in `sitemap.xml`, and no `robots.txt` rule (`tools/lib/admin.mjs`). It has no `page.json`, so it is no product. |
 | `company/index.html` | About VGraphics: the studio, what we make and how we work, then the legal details from the General Commercial Registry (G.E.MI.). It is the site's About page (AdSense's review, 27 Oct 2026, looks for one); the footer still calls it "Company information". |
 | `devlog/` | The devlog: notes from the studio on how the games and apps are made, one page per post at `devlog/<slug>/`. `devlog/posts.json` holds the posts; `tools/build-devlog.mjs` writes the pages with the home page's header and footer, so run it after adding a post or changing the home page's header or footer, then `build-sitemap`. Only real work goes in a post, no filler. |
 | `privacy/index.html` | The site's privacy policy: hosting, the live ranking, the web games' ads and statistics, VHub, and VGraphics Deployer's Google sign-in. Its address, https://vgraphics.gr/privacy/, is on the Deployer's Google OAuth consent screen, so it never moves. Update it and its "Last updated" date whenever the ads, the statistics or the Deployer's Google access change. |
 | `terms/index.html` | The site's terms of use (George, 27 Oct 2026: "How can we protect our art and songs so nobody else copies them?"): everything on the site is VGraphics' (or licensed), what visitors may do, no copying, re-uploading, scraping or AI training, our trademarks, how to ask for a licence and how to report a copy (support@vgraphics.gr). Its "Scraping and AI training" chapter (`#ai`) holds the site's text and data mining reservation (EU Directive 2019/790, Article 4(3)), which `robots.txt` and `.well-known/tdmrep.json` state in machine-readable form. Update its "Last updated" date with any change. |
 | `404.html` | Not-found page |
 | `assets/` | The VGraphics look shared by the company pages (`vgraphics.css`), the self-hosted fonts (OFL), `podium.js` (the live top 3 on the home and services pages), `vhub.js` (the products' VHub entry: "Get your VHub name", or a signed-in player's own VHub name and picture from the hub's session on this site and VHub's public profile) and `img/` (Play badge, Exitwise shots, the party game and VHub illustrations, and `vgraphics-card-1200x630.jpg`, the link preview of the home, services, multiplayer and VHub pages) |
+| `img/mail/` | The images VHub's emails load from the site, not page art: the VGraphics mark, tile and avatar, each product's logo and icon (the icons are also the topic chips after a sign-up, `assets/mail-list.js`), and each one's art, its link-preview card cut to 568x298 (JPEG quality 70). check-site's rights warning leaves them out (`tools/lib/credentials.mjs`) |
 | `<product>/index.html` | Each game's or app's landing page in its own look: description, screenshots, store and portal links (they say "Coming soon" until the listings are live). Exitwise's has a small playable board. |
 | `<product>/img/`, `<product>/fonts/` | That product's images and self-hosted fonts |
 | `<product>/changelog.json`, `<product>/faq.json` | The landing page's "What's new" (every release players got, which the Deployer adds to) and "Questions and answers" (see "What's new and Questions and answers" below) |
@@ -41,7 +43,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `ads.txt` | The sellers of the ads on vgraphics.gr itself (Google AdSense, for the web games). Apps read `app-ads.txt` instead. It must stay at the root. |
 | `assets/web-ads.js` | The ad switch of every web game: see "Ads on the web games" below |
 | `assets/audio-fade.js` | The fades of every song and voice on the product pages (George, 28 Oct 2026: "Music must always start and end with fading"): `soundtrack.js` and `product.js` import it, so the songs fade in, out and under a voice, and the voices fade in and out, from one piece |
-| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark). `loading-bar.js` and `loading-bar.css` are that bar as a piece of its own, which every Unity WebGL page loads ("The shared loading bar" below) |
+| `assets/startup/` | The start-up the web versions share (George's start-up rule): the dark launch, the VGraphics intro (its films are the games' `brand-intro/` copies), the product's welcome art for at least 2 s and the squishy loading bar, in the product's colours and with the product's own mark at its head (the try block's `startup.tip`: `dial` for Speedometer, `arrow` for Exitwise; without one, a round knob, never another product's mark). `loading-bar.js` and `loading-bar.css` are that bar as a piece of its own, which every Unity WebGL page loads ("The shared loading bar" below), and `brand-intro.js` is the intro as a piece of its own, with the 720 and 1080 films beside it ("The shared VGraphics intro" below) |
 | `assets/try/` | The try pages' shell (the template's "try" block, `tools/lib/try.mjs`): the phone and its tools, the panel built from the engine's catalog, the share link, the store links with the style shown, and the statistics question |
 | `CNAME` | The custom domain, `vgraphics.gr` |
 | `sitemap.xml`, `robots.txt` | For search engines: every page to index, and where the sitemap is. `tools/build-sitemap.mjs` writes the sitemap. `robots.txt` also keeps the crawlers that gather pages for AI training out (GPTBot, ClaudeBot, CCBot, Google-Extended and the rest of check-site's `AI_CRAWLERS`), while every search engine may list every page: the terms of use reserve the site from AI training. |
@@ -49,7 +51,7 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/check-unity-build.mjs` | Holds a Unity WebGL build another Pages repo serves to the Unity pages' rules, as the page it will be: `node tools/check-unity-build.mjs <folder> <path>` ("Frame pages" below). The Deployer's `palermo-unity-web` runs it on every build before it publishes it to `vgraphics/vg--palermo-play`. |
 | `tools/check-site.mjs` | The site's content rules (legal footer with the copyright line and the terms link on the website's pages, the short line "© <year> VGraphics" on the products' screens, the AI-training reservation in robots.txt and tdmrep.json, English only, links, no trackers, company details, structured data, sitemap and robots.txt, app-ads.txt, ads.txt, the ad switch, one header and footer, the phone menu, one-line menu items, the cursors, the chapter stepper, no text selection and the play button on every served page, "What's new" and "Questions and answers" on every landing page, with the answers' animation, the policies' sources, the wiki boards' arrows (each head points the way its body runs, as in the game), every picture's stated size matching its file, so none is shown stretched, no rule for a box's links or buttons that outranks a button's own colours or type (`tools/lib/buttons.mjs`: the ranking's Try again drew its words in the colour of its face, 29 Oct 2026), play and try pages that are the product alone, each product with one having its About page (`tools/lib/play-pages.mjs`, "Play and try pages" below), frame pages and the pages waiting in a product's `frames/` (`tools/lib/frames.mjs`, "Frame pages" below), and no file a blocker would drop) |
 | `tools/blocker-rules.txt`, `tools/lib/blockers.mjs`, `tools/update-blocker-rules.mjs` | No file the pages load may be dropped by an ad, cookie-notice or privacy blocker (George, 27 Oct 2026: Palermo's demo shipped `consent-banner-<hash>.js`, which Fanboy's cookie-notice list blocks, and stuck at 5% for players with Brave, AdGuard or uBlock's annoyance filters). `blocker-rules.txt` is check-site's copy of the rules of ten lists (EasyList, EasyPrivacy, Fanboy's Cookie Monster and Annoyance, uBlock's, AdGuard's) that could reach vgraphics.gr's own addresses; `node tools/update-blocker-rules.mjs` refreshes it, never by hand. A file check-site names gets another name: a built piece is named after its module, so rename the module or set the build's chunk names |
-| `tools/test/` | Unit tests of the site's own scripts, with no DOM and no packages: `node --test tools/test/*.test.mjs` (Node 24 reads a bare `tools/test/` as a module and fails). `blockers.test.mjs` holds the blocker rule's matching (patterns, kinds, other sites' rules, exceptions) and that the copy still drops `consent-banner-*.js`. `vhub-games.test.mjs` holds the VHub avatar menu's game and app rows (`assets/vhub-games.js`): the store icon from VHub's catalog in a rounded 40 px tile for every product, then the name. `stepper.test.mjs` holds the chapter stepper's bookkeeping (`assets/stepper.js`): one stepper kept while the chapters stay, drawn anew when they change, none below two. `vhub-avatars.test.mjs` holds the VHub pictures' rank frames (`assets/vhub-avatars.js`): a framed picture's box paints no disc or ring behind the frame, a redraw without one gives the box back, the drawing sized from the avatar also when it is drawn before the avatar is on the page, the frame the level shows, and every `hub/frames/` drawing a WebP with its alpha channel. `vhub-header-frame.test.mjs` holds the header avatar's rank frame (`assets/account.js`): the profile read brings the frame, the avatar is drawn in it at a reach that stays inside every header bar and clear of the buttons beside it, and the frame takes the ring's place with no disc behind it. `vhub-menu-level.test.mjs` holds the avatar menu's level line (`assets/account.js`): the XP still to go and the next level's number, never the XP that level starts at, in English and Greek. `legal.test.mjs` holds the legal line by kind of page (`tools/lib/legal.mjs`): which addresses are a product's screens, what each kind must and must not show, the company footer's product version, the template's footer on a landing page and a try page's bar. `mail-list.test.mjs` holds the help-mail rule by kind of page (`tools/lib/mail-list.mjs`): VHub's pages, its /hub/join/ invite page too, keep the company footer with its sign-up; a game's play, TV, join and demo screens carry no sign-up; every other footer links Help and carries the sign-up; every company and product header has Help (a product's before its play button), and the footer's Help is the product's pill. `play-pages.test.mjs` holds the play and try pages and the About pages (`tools/lib/play-pages.mjs`): the game alone with its About link passes; the panels of 27 Oct (`#about`, `.demo-about`, "About this game", "Back to the game"), the website's footer under the product, a template page that isn't a screen and a missing About link fail, what a script, a template or a comment holds aside; the try page as built is a screen with its bar and no hero, sections or closing card; an About page needs questions of its own (no FAQPage data, none its landing page asks); and the three About pages are built with an h1 and AboutPage data, no FAQPage, linked from their menus and landing pages, Palermo Noir's demo section out while the demo is private. `buttons.test.mjs` holds the buttons' own colours (`tools/lib/buttons.mjs`): selector weights as the browser counts them, the buttons a page's markup holds and those its scripts write into it, a box's rule for its links or buttons that outranks a button's own failing and one that leaves the buttons out passing, and the ranking page's Try again and the avatar menu's reset as they are. `loading-bar.test.mjs` holds the shared squishy loading bar (`assets/startup/loading-bar.js`) against a pretend page and clock, as the Games repo's test held Exitwise's copy: empty under the intro, one glide across the welcome art's 2 s and full as the game may come in, never ahead of the download nor back, the gulps, sparkles and hop, still under reduced motion; the product's mark at its head (the round knob for any other), its colour, and a rule in `loading-bar.css` for every part. `unity-pages.test.mjs` holds the Unity WebGL pages (`tools/lib/unity-pages.mjs`): which pages are Unity's and where their framework is; a page on the shared pieces passes, and each rule fails with its own name (play-alone, legal-footer, no-select, analytics, loading-bar, source-maps, noindex); Exitwise's play page as served keeps all but the shared bar. `frames.test.mjs` holds the frame pages (`tools/lib/frames.mjs`), one test per Palermo Noir page: its own title, description and canonical, noindex on all but the demo, no site header, menu, avatar or skip link on any (no-select loaded itself), the frame alone on the TV and join pages, the frame and the slim bar (← Palermo Noir, About, Privacy, the short legal line) on the play and demo pages, nothing else on the page, the build framed on its own route as a screen with the frame alone (no `src` until `assets/frame.js` gives it one), its script and no-select, keeping the frame page's rules; and a frame off a screen, of another site, of a folder no other Pages repo serves, on another route or none, without a title, two of them, a door without noindex or not bare, or a bare play page, fail, as do a site header on a frame page, a play page without its bar and a TV page with one, as does a frame page without its legal line (but a bare one, whose line is its build's, which still may not show the company's details), no-select, its screen or a play page's About link. `check-unity-build.test.mjs` holds a build another Pages repo serves (`tools/check-unity-build.mjs`): a framed build at `/vg--palermo-play/` and its preview passes with its own legal line and no About link; each rule fails by its name (noindex, source maps, analytics, the loading bar, no-select, scrolling, the company's details, a missing legal line); the same page served on the site unframed needs its About link. `boards.test.mjs` holds Exitwise's boards without VHub's pictures (`exitwise/ranking/boards.js`): the board loads and names its players while `/assets/vhub-avatars.js` fails, the ranking page draws its rows and trophies with plain discs, each later draw asks for the script again past the cache, and the pictures fill in when it comes. |
+| `tools/test/` | Unit tests of the site's own scripts, with no DOM and no packages: `node --test tools/test/*.test.mjs` (Node 24 reads a bare `tools/test/` as a module and fails). `blockers.test.mjs` holds the blocker rule's matching (patterns, kinds, other sites' rules, exceptions) and that the copy still drops `consent-banner-*.js`. `vhub-games.test.mjs` holds the VHub avatar menu's game and app rows (`assets/vhub-games.js`): the store icon from VHub's catalog in a rounded 40 px tile for every product, then the name. `stepper.test.mjs` holds the chapter stepper's bookkeeping (`assets/stepper.js`): one stepper kept while the chapters stay, drawn anew when they change, none below two. `vhub-avatars.test.mjs` holds the VHub pictures' rank frames (`assets/vhub-avatars.js`): a framed picture's box paints no disc or ring behind the frame, a redraw without one gives the box back, the drawing sized from the avatar also when it is drawn before the avatar is on the page, the frame the level shows, and every `hub/frames/` drawing a WebP with its alpha channel. `vhub-header-frame.test.mjs` holds the header avatar's rank frame (`assets/account.js`): the profile read brings the frame, the avatar is drawn in it at a reach that stays inside every header bar and clear of the buttons beside it, and the frame takes the ring's place with no disc behind it. `vhub-menu-level.test.mjs` holds the avatar menu's level line (`assets/account.js`): the XP still to go and the next level's number, never the XP that level starts at, in English and Greek. `admin.test.mjs` holds the admin page (`tools/lib/admin.mjs`): a page kept out of search passes as a product's screen with the short legal line and no trade marks, one search engines may index or follow fails, and `sitemap.xml` never lists it, noindex or not. `legal.test.mjs` holds the legal line by kind of page (`tools/lib/legal.mjs`): which addresses are a product's screens, what each kind must and must not show, the company footer's product version, the template's footer on a landing page and a try page's bar. `mail-list.test.mjs` holds the help-mail rule by kind of page (`tools/lib/mail-list.mjs`): VHub's pages, its /hub/join/ invite page too, keep the company footer with its sign-up; a game's play, TV, join and demo screens carry no sign-up; every other footer links Help and carries the sign-up; every company and product header has Help (a product's before its play button), and the footer's Help is the product's pill; a product's Sign up is its play button (`.play-cta`) in the footer, at the end of What's new and in the closing card, each place with its own field and words id, the company's its own `.btn`; check-site's sign-up-look rule (a product page's sign-ups are the product's own, with its theme, and `product.css` gives their buttons `.play-cta`'s colours alone); and what the sign-up says after the press (`assets/mail-list.js`, run without a page): VHub's answers as cards (inbox, signed, limit, failed) or errors under the field (invalid, age), every card's parts and words, in English and in Greek, the countdown of Send again, and each topic's chip icon and next step on the site. `play-pages.test.mjs` holds the play and try pages and the About pages (`tools/lib/play-pages.mjs`): the game alone with its About link passes; the panels of 27 Oct (`#about`, `.demo-about`, "About this game", "Back to the game"), the website's footer under the product, a template page that isn't a screen and a missing About link fail, what a script, a template or a comment holds aside; the try page as built is a screen with its bar and no hero, sections or closing card; an About page needs questions of its own (no FAQPage data, none its landing page asks); and the three About pages are built with an h1 and AboutPage data, no FAQPage, linked from their menus and landing pages, Palermo Noir's demo section out while the demo is private. `buttons.test.mjs` holds the buttons' own colours (`tools/lib/buttons.mjs`): selector weights as the browser counts them, the buttons a page's markup holds and those its scripts write into it, a box's rule for its links or buttons that outranks a button's own failing and one that leaves the buttons out passing, and the ranking page's Try again and the avatar menu's reset as they are. `loading-bar.test.mjs` holds the shared squishy loading bar (`assets/startup/loading-bar.js`) against a pretend page and clock, as the Games repo's test held Exitwise's copy: empty under the intro, one glide across the welcome art's 2 s and full as the game may come in, never ahead of the download nor back, the gulps, sparkles and hop, still under reduced motion; the product's mark at its head (the round knob for any other), its colour, and a rule in `loading-bar.css` for every part. `brand-intro.test.mjs` holds the shared intro (`assets/startup/brand-intro.js`) against a pretend page and clock, as the Games repo's test held Exitwise's copy: the welcome art on screen at least 2 s whenever the product is ready and never held longer, a tap or key skipping the film but not the art's 2 s, the still lockup under reduced motion, the bar's window, the films by absolute address (the 1080 MP4 alone on a TV) and on the site, `data-under`, `playing()`, `vgintro:done` once, `no-intro`, `no-film`, and ES5 alone. `unity-pages.test.mjs` holds the Unity WebGL pages (`tools/lib/unity-pages.mjs`): which pages are Unity's and where their framework is; a page on the shared pieces passes, and each rule fails with its own name (play-alone, legal-footer, no-select, analytics, loading-bar, source-maps, noindex); Exitwise's play page as served keeps all but the shared bar. `frames.test.mjs` holds the frame pages (`tools/lib/frames.mjs`), one test per Palermo Noir page: its own title, description and canonical, noindex on all but the demo, no site header, menu, avatar or skip link on any (no-select loaded itself), the frame alone on the TV and join pages, the frame and the slim bar (← Palermo Noir, About, Privacy, the short legal line) on the play and demo pages, nothing else on the page, the build framed on its own route as a screen with the frame alone (no `src` until `assets/frame.js` gives it one), its script and no-select, keeping the frame page's rules; and a frame off a screen, of another site, of a folder no other Pages repo serves, on another route or none, without a title, two of them, a door without noindex or not bare, or a bare play page, fail, as do a site header on a frame page, a play page without its bar and a TV page with one, as does a frame page without its legal line (but a bare one, whose line is its build's, which still may not show the company's details), no-select, its screen or a play page's About link. `check-unity-build.test.mjs` holds a build another Pages repo serves (`tools/check-unity-build.mjs`): a framed build at `/vg--palermo-play/` and its preview passes with its own legal line and no About link; each rule fails by its name (noindex, source maps, analytics, the loading bar, no-select, scrolling, the company's details, a missing legal line); the same page served on the site unframed needs its About link. `boards.test.mjs` holds Exitwise's boards without VHub's pictures (`exitwise/ranking/boards.js`): the board loads and names its players while `/assets/vhub-avatars.js` fails, the ranking page draws its rows and trophies with plain discs, each later draw asks for the script again past the cache, and the pictures fill in when it comes. `soundtrack.test.mjs` holds the soundtrack player's switching between tracks (`assets/soundtrack.js`, with the real `assets/audio-fade.js`) against a pretend page, `<audio>` and clock: a track picked while another plays begins at 0:00 (or at a place picked on its own waveform) once the other has faded out, and it plays through a double-click, a second click while it loads, two quick picks, Next twice on the mini-bar, a pick back of the track fading out, and the old song stalling or ending meanwhile; a pause keeps the picked track out until play, and a single click on the playing track's row still pauses it. |
 | `tools/protect-art.mjs`, `tools/lib/credentials.mjs` | Write our rights into our pictures and songs before they are published: the rights mark (XMP) and, signed as VGraphics, Content Credentials (see "Rights in the files" below) |
 | `tools/build-sitemap.mjs` | Writes `sitemap.xml` from the pages: `node tools/build-sitemap.mjs` after adding, moving or removing a page |
 | `tools/build-pages.mjs`, `tools/build-wiki.mjs` | Write every product page from its `page.json` and theme pack, and the wikis from `wiki/wiki.json`, with one header, closing card and footer on every page: run them after changing any of those, the template (`tools/lib/`, `assets/product.css`) or a policy's source |
@@ -69,13 +71,16 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/art-prints.py`, `tools/art-once-todo.json` | Fingerprints pictures so check-site can find copies under other names (check-site runs it; Python with Pillow). The list of reuses still waiting for their own picture (see "Every picture once" below). |
 | `tools/make-speedometer-renders.py` | Writes `speedometer-wallpaper/img/renders/`: the app's real renders (its screenshot goldens in the Games repo and frames of the Promo demo drive) that the gallery, `/apps/`, the home page and the wiki's medals show, each place its own: `python tools/make-speedometer-renders.py`, then `python tools/make-gallery-images.py speedometer-wallpaper` (Python with Pillow) |
 
-Rules for every page: the legal footer line. The website's pages (landing, wiki, gallery, company, privacy, terms and
-the like, the company's `/tv/` and `/join/` doors too) carry the full one: the copyright line "© 2026 VGRAPHICS SINGLE
-MEMBER P.C. All rights reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373", links to `/company/`, `/privacy/`
-and `/terms/`. A product's screens (its `/play/`, `/tv/`, `/join/` and `/demo/` pages, the hub but its policy, the try
-pages) say only "© <year> VGraphics" and never the company's numbers (George, 29 Oct 2026: "These are only required at
-the website not in the apps. Apps just can say VGraphics."); `tools/lib/legal.mjs` decides which is which, and the
-template's try pages, VHub's hub and the games' web pages write the short line. Then: a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
+Rules for every page: the legal footer line. Only the company page, `/company/`, carries the company's details:
+"© 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved", "G.E.MI. no. 181823306000", "VAT no. EL802736373",
+Kalamaria (George, 31 Oct 2026: "These are required only at company page at vgraphics.gr. Remove from everywhere
+else."). Every other website page (landing, wiki, gallery, privacy, terms and the like, the company's `/tv/` and
+`/join/` doors too) says "© 2026 VGraphics. All rights reserved" with links to `/company/`, `/privacy/` and `/terms/`,
+and a privacy policy names the data controller in one sentence, "The data controller is VGRAPHICS SINGLE MEMBER P.C.
+(VGraphics). Contact: info@vgraphics.gr. Company details: vgraphics.gr/company/", the company's name without its
+numbers or town. A product's screens (its `/play/`, `/tv/`, `/join/` and `/demo/` pages, the hub but its policy, the
+try pages) say only "© <year> VGraphics". `tools/lib/legal.mjs` decides which is which, and the template, VHub's hub
+and the games' web pages write their lines. Then: a canonical URL on `https://vgraphics.gr/…`, no cookies, analytics or third-party scripts
 and fonts on the static pages, and no phone number or street address. The contact address is support@vgraphics.gr (an
 alias of the info@vgraphics.gr mailbox at Hostinger); George's Gmail address never appears on anything the site serves,
 `tools/` and this README included. The site is in English: no Greek letters on its
@@ -96,6 +101,13 @@ The app pages are the exceptions to "no third-party scripts":
   the player's account in VHub's Firebase project. `check-site.mjs` checks the hub's pages like every other page. It
   isn't a product landing page, though: its `privacy.html` is VHub's policy, which comes with each release, so it needs
   no `page.json`. Each release also runs `tools/build-sitemap.mjs`, so `sitemap.xml` lists the hub's pages.
+- `admin/`, George's admin page, which only the Deployer's `vhub-admin` project writes, after `vhub-backend`. Its markup
+  loads nothing from another site, and its scripts sign in to VHub as the hub's do; only the studio's account passes
+  VHub's server, and the page names no address of George's. It is a product's screen, with only "© 2026 VGraphics" under
+  it, and its scripts are built elsewhere. It stays out of search engines: `check-site.mjs` holds every page in it to
+  `<meta name="robots" content="noindex, nofollow">`, `tools/build-sitemap.mjs` never lists it whatever its markup
+  says, and `robots.txt` has no rule for it (a Disallow would keep search engines from reading the noindex, and they
+  could still list the address). A release runs no sitemap tool.
 
 Every company page ends with `<script src="/assets/vhub-me.js" defer>` (the hub's pages too, from the VHub repo): when
 someone is signed in to VHub, it shows their little picture in the header's VHub link (George, 23 Oct 2026), in the
@@ -393,6 +405,36 @@ lists the Unity pages that still draw a bar of their own until their template mo
 Exitwise's, until its `WebGLTemplates/Portfolio` does and exitwise-web releases it. An entry whose page uses the shared
 bar fails, so the list only shrinks.
 
+### The shared VGraphics intro
+
+The VGraphics 3D logo intro (George's start-up rule, step 2: 2.8 s, the same film in every product; a tap skips it to
+the next screen, not past it) is one script on the site: `assets/startup/brand-intro.js`, with its films beside it
+(`vgraphics-intro-720.webm` and `.mp4`, and the TVs' `vgraphics-intro-1080.mp4`, an MP4 alone). It joins the party
+games' copy (`/tv/start-up/brand-intro.js`, from VHub's party kit) and Exitwise's (`exitwise/play/brand-intro/`, from
+its WebGL template) into one file (the master, 3 Nov 2026; the palermo repo's WebGL design, open question 17). Palermo
+Noir's WebGL template loads it on every route, and the other two take it in their own repos. A page puts it right after
+the loading screen it covers:
+
+```html
+<div id="loader"> ... the welcome art, given the class with-art once it can be drawn, and the bar ... </div>
+<script src="/assets/startup/brand-intro.js" data-under="loader" data-film="720"></script>
+```
+
+- `data-under`: the id of the element it covers, which must be positioned (`loader` by default); `data-film`: `1080`
+  on a TV, `720` by default. The films load by absolute address, so the page may sit at any folder of the site.
+- `no-intro` on `<html>`: nothing at all (a join link goes straight in); `no-film`: the film never plays (a TV that
+  vgraphics.gr/tv sent, which played it already), and the welcome art still has its 2 s.
+- `VGIntro.gameReady(then)`: the product is ready; the intro gives way at once (300 ms) if it is still on, and `then`
+  runs once the welcome art has been on screen 2 s. `VGIntro.welcomeMs()` is that time so far (for `splash_shown`),
+  `VGIntro.welcomeWindow(bar.pace)` hands the shared bar its window, `VGIntro.playing()` says whether it is still on,
+  and the document gets `vgintro:done` the moment it starts to fade.
+- Reduced motion: the film's last frame, the still lockup, for 1 s. No frame within 1 s, or a film that can't play: it
+  gives way at once. Never longer than 4 s.
+- ES5 alone, so it parses on any TV. Like every script of the site's own (`loading-bar.js`, `no-select.js`), it ships
+  as written: this repo is public, and the publish has no minify step (its `no-transform` keeps Hostinger's CDN from
+  minifying too). It names no source map.
+- `tools/test/brand-intro.test.mjs` holds its timing ("a timer enforces it, a test proves it").
+
 ### The shared loading bar
 
 The squishy, chubby loading bar (George's start-up rule: "web and Unity loaders show the squishy, chubby loading bar
@@ -563,8 +605,9 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
   data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
   same title or the same description. The canonical address is checked on every page.
-- **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: legal name,
-  logo, G.E.MI. and VAT numbers, Kalamaria, the Google Play developer page and GitHub) and the WebSite. Exitwise's page
+- **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: name, logo,
+  the Google Play developer page and GitHub; its legal name, G.E.MI. and VAT numbers and town are the company page's)
+  and the WebSite. Exitwise's page
   has a VideoGame, Speedometer's a MobileApplication, the services page a Service for each thing we build, and every
   other page a BreadcrumbList. The wikis get theirs from `tools/build-wiki.mjs`, with each wiki's `metaTitle`,
   `metaDescription` and `product.parent` from its `wiki.json`, and each entry is also an Article about its product (the
@@ -649,21 +692,45 @@ songs so nobody else copies them?"), as well as the terms of use (`/terms/`):
   art was made with which tool; art not listed there (screenshots, the apps' renders, cards drawn in code, voices) gets
   no such claim.
 
-`node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since `origin/main`, or
-new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do those instead, or
-`--all` for every picture and song of ours; `--check` only lists what is missing. Run it before publishing new art, as
-check-site reminds you: it warns (on stderr, without failing) about new art without them. The mark goes in first, since
-signing seals the file. Pictures of 256 px or smaller, and what other repos' releases write (`exitwise/play/`,
-`speedometer-wallpaper/play/app/`, `hub/`), are left alone.
+**It runs by itself, on new art only** (George, 3 Nov 2026): the git hooks in `tools/hooks/` run
+`node tools/protect-art.mjs --staged` on every commit (`pre-commit`) and every merge commit (`pre-merge-commit`, so a
+branch's art committed before the hooks gets its rights in the merge, before the push publishes it). It marks the
+pictures the commit adds or changes and, while the signer is live, signs them, and stages them again. It never stops a
+commit: what it couldn't do (no signer, no network for the timestamp), check-site warns about. The hooks are on in
+every checkout and worktree of this repo where `git config core.hooksPath tools/hooks` is set (this PC's clone has it;
+a new clone needs that one line), and `tools/hooks/*` stay LF (`.gitattributes`), since sh runs them.
+
+By hand: `node tools/protect-art.mjs` adds the mark to our art that isn't on the live site yet (changed since
+`origin/main`, or new), and `--sign` adds the credentials too; give it files or folders (a masters repo's too) to do
+those instead; `--check` only lists what is missing. check-site warns (on stderr, without failing) about new art
+without them. The mark goes in first, since signing seals the file. Pictures of 256 px or smaller, and what other repos'
+releases write (`exitwise/play/`, `speedometer-wallpaper/play/app/`, `hub/`), are left alone.
 
 - **The signer** stays in the Deployer's private secrets, never here: `D:/Projects/Deployer/secrets/c2pa/signer.json`
   (`C2PA_SIGNER` for another) with the certificate chain and key it names. One marked `"test": true` signs only files
-  outside this repo. Which certificate to use is George's choice (the Deployer's `secrets/c2pa/README.md`).
+  outside this repo (the hooks then only mark). George chose (3 Nov 2026) a trusted certificate through the C2PA
+  Conformance Program and SSL.com's free one, and our own CA's certificate until it comes; changing to it is
+  `signer.json` alone (the Deployer's `secrets/c2pa/README.md`).
 - **c2patool** comes from its GitHub release (contentauth/c2patool), checked against the release's SHA-256 pinned in
   `protect-art.mjs`, into the Deployer's `state/tools/` (`C2PATOOL=<c2patool.exe>` for another).
-- **The existing art isn't marked or signed yet:** rewriting the 2,900 or so served pictures adds about their size
-  (some 560 MB) to this public repo's history each time, so they get one pass, mark and signature together, once George
-  has chosen the certificate (`node tools/protect-art.mjs --all --sign`).
+- **The art already on the site is never marked or signed** (George, 3 Nov 2026: new art only): rewriting the 2,900 or
+  so served pictures would add about their size (some 560 MB) to this public repo's history. So no `--all` pass.
+
+## Our names as trade marks
+
+™ goes after VGraphics, Exitwise and Palermo Noir, the names the trade mark searches found free (Games repo
+`docs/legal/trademarks.md`), on the website's pages (George, 3 Nov 2026: "Yes, add ™"): in every heading that names
+them and at their first mention in the page's text. Quizfall gets none (George, 3 Nov 2026: "Yes, not Quizfall"). `tools/lib/marks.mjs` decides where, and the template writes them
+(`build-pages`, `build-wiki` and `build-devlog` pass every page through it), so a page.json, wiki.json or posts.json
+never types a ™. A hand-made page carries them itself (`node tools/add-marks.mjs [page ...]` writes them in, after a
+merge too); check-site's `trademark` rule holds every page to it.
+
+- Only the page's `<main>`: never titles, descriptions, structured data, menus, the footer, link labels, buttons,
+  kickers, chips or quotes, nor a possessive ("Exitwise's").
+- Not on a product's screens (its play, TV, join and demo pages, the hub, the try pages: inside the product), nor in the
+  privacy policies and map rules the products' repos own. Not inside the games and apps, nor in store titles.
+- Never on VHub (another company registered that name), and never ® (none of ours is registered yet): check-site fails
+  both. The terms of use list the three as ours, VGraphics, Exitwise and Palermo Noir (`/terms/#marks`).
 
 ## Every picture once
 
@@ -695,3 +762,27 @@ No hero, section or card shows a picture that is shown anywhere else on the site
 - `tools/art-once-todo.json` lists the reuses found when the rule came in, each with its planned fix. A listed picture
   passes while it stays in the places its entry names. A new place fails. A fixed picture also fails until its entry is
   taken out, so the list only gets shorter. Never add an entry: give the new place its own picture.
+
+## Hosting
+
+The site moves from GitHub Pages to Hostinger's web hosting (George, 7 Nov 2026: "You have to migrate everything from
+github pages to hostinger ... We pay for the best hosting, get most out of it please."). This repo stays the source:
+the Deployer still pushes here, then uploads what changed to Hostinger over SSH, swaps it in whole and checks it live
+(its `site-hostinger` project copies the whole site; every other site project uploads its own change). Nothing is ever
+uploaded by hand.
+
+- `.htaccess` does there what Pages did: HTTPS, `404.html` for a missing page, `/x` serving `x.html` (before a folder
+  of the same name) and `/dir` going to `/dir/`. It adds the security headers (HSTS, nosniff, the referrer and
+  permissions policies, framing by our own pages only), keeps dotfiles (but `/.well-known/`), `tools/`, source and
+  secret files and PHP off the web, types Unity's files, and sets the caching: pages and data revalidate, names with a
+  content hash cache for a year, the rest ten minutes as on Pages. check-site fails when it is missing or lost a rule
+  (`tools/lib/htaccess.mjs`); change both together.
+- Every `Cache-Control` says `no-transform`: Hostinger's CDN (hcdn) rewrites images unless the response says so (it
+  re-encodes JPEGs, sends WebP to browsers that take it and strips the art's XMP rights) and minifies text. check-site
+  fails on a `Cache-Control` without it. Scripts are typed `text/javascript`, since LiteSpeed's own type for `.js` is
+  `application/x-javascript`.
+- `assets/hosting-check/` holds four tiny pre-compressed files (`.js.br`, `.js.gz`, `.wasm.br`, `.data.gz`) that the
+  Deployer's live check reads after every upload, to prove the Brotli and gzip rules work before a Unity build needs
+  them. Linked from no page.
+- Unity's builds today are `.unityweb` (decompression fallback): served as plain files, unpacked by Unity's loader,
+  revalidated on every visit, since their names stay the same from release to release.

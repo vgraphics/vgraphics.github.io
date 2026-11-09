@@ -1,6 +1,44 @@
 {
   "entries": [
     {
+      "version": "0.1.93576fe5",
+      "date": "2026-11-09",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner menus, smoother rooms",
+      "items": [
+        "The app and web page no longer show 'Coming soon' items, so the menus look cleaner and more finished.",
+        "Game rooms run more smoothly, and anyone who leaves now drops out cleanly.",
+        "The Narrator's captions now show the Seer's name exactly as it appears on her role card."
+      ],
+      "commit": "93576fe5"
+    },
+    {
+      "version": "0.1.b4c7957c",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Your nickname and rename are back",
+      "items": [
+        "Signed in without a name of your own? The nickname box and Change name are back on your phone."
+      ],
+      "commit": "b4c7957c"
+    },
+    {
+      "version": "0.1.102a3826",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Add friends from player cards",
+      "items": [
+        "Tap another player to open their card and add them as a friend — in the lobby, at the table, while you play, and after the game ends."
+      ],
+      "commit": "102a3826"
+    },
+    {
       "version": "0.1.c8630753",
       "date": "2026-11-02",
       "platforms": [

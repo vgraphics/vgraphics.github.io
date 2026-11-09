@@ -1,6 +1,125 @@
 {
   "entries": [
     {
+      "version": "1.0.38",
+      "date": "2026-11-09",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Your level on your account picture",
+      "items": [
+        "Settings now shows your level on your account picture, plus how many creators you've hidden."
+      ],
+      "commit": "22b52509"
+    },
+    {
+      "version": "1.0.37",
+      "date": "2026-11-07",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Rate the game and share ideas",
+      "items": [
+        "You can now rate Exitwise right inside the game, no trip to the store needed.",
+        "Every so often we'll check in to ask if you need a hand or have an idea to share."
+      ],
+      "commit": "06a040f1"
+    },
+    {
+      "version": "1.0.36",
+      "date": "2026-11-07",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Guardians' ink spell comes alive",
+      "items": [
+        "The guardians' ink spell now spreads across the board as a real ink splat that puffs in, drifts softly, and shrinks away as you free each trapped arrow."
+      ],
+      "commit": "78586fa9"
+    },
+    {
+      "version": "1.0.2",
+      "date": "2026-11-07",
+      "platforms": [
+        "iOS"
+      ],
+      "title": "Exitwise is now on the App Store for iPhone and iPad",
+      "items": [
+        "The same free arrow puzzle as on Android and in your browser: 600 levels in 17 worlds.",
+        "Sign in with Apple, and your progress is kept with your free VHub account.",
+        "On a new iPhone or iPad, open Settings and tap Restore purchases to get Remove Ads back."
+      ],
+      "link": {
+        "href": "https://apps.apple.com/app/id6830097641",
+        "label": "Exitwise on the App Store"
+      }
+    },
+    {
+      "version": "1.0.35",
+      "date": "2026-11-06",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "The guardian waits for your arrow",
+      "items": [
+        "The guardian now stays put until your arrow has passed through, then slides to its new spot.",
+        "In How to play, clearing a lesson now shows your progress — the lessons you've done so far and the next one up.",
+        "Settings, the contact form and pop-up dialogs now share a cleaner, more consistent look.",
+        "Your coins now show the first time you open the game, not just after visiting Settings.",
+        "If you sign in and we don't have your birth year, we'll now ask for it."
+      ],
+      "commit": "debd4d25"
+    },
+    {
+      "version": "1.0.a0a80710",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Guardian stones slide into place",
+      "items": [
+        "Guardian stones now wait for your arrow to pass through, then slide to their new spot.",
+        "Finish a lesson in How to play and you'll see your progress through all 21 and a button to the next one.",
+        "Pop-up dialogs, the How to play bubble and the support form now match the refreshed Settings look, with tidier spacing.",
+        "When you sign in, you may be asked for your birth year to finish setting up your account—or just tap 'Not now'."
+      ],
+      "commit": "a0a80710"
+    },
+    {
+      "version": "1.0.342418ea",
+      "date": "2026-11-05",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Smoother menus and dialogs",
+      "items": [
+        "Menus, pop-ups and expanding sections now open and close with smooth, consistent motion, and opening a quick answer no longer scrolls the page on its own.",
+        "Cloud save works again — if your progress had stopped syncing with a 'newer version' message, it now loads and saves to the cloud as before.",
+        "The Help and news screen is tidier: your support messages now sit on cards, each with its own title and chat-style bubbles, and the coin counter no longer overlaps the tabs.",
+        "On Android, the Back button now closes Settings, and closes any panel open on top of it first.",
+        "In Settings, your account card now shows your profile name — the same name on your profile and the boards — instead of the sign-in gamertag."
+      ],
+      "commit": "342418ea"
+    },
+    {
+      "version": "1.0.939dce0d",
+      "date": "2026-11-04",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Add friends by tapping players",
+      "items": [
+        "Tap another player in the leaderboards, rooms or match history to open their card and send them a friend request.",
+        "You now get a username automatically (like 'SwiftArrow482'), so you show up on the leaderboards right away—and you can change it once to a name of your own.",
+        "Settings has a cleaner new look, organised into two tabs: 'Settings' and 'Help and news'."
+      ],
+      "commit": "939dce0d"
+    },
+    {
       "version": "1.0.31",
       "date": "2026-11-03",
       "platforms": [

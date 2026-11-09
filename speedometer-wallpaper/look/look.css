@@ -1,0 +1,55 @@
+/* A look's page (look.html, look.js): where a try page's QR lands on a phone without the app. A screen, the look alone
+   with nothing to scroll: the style's picture in a phone beside its name and the ways to get it, under each other on a
+   phone held upright; a window too short for the picture (a phone on its side) leaves it and the words out. The text
+   stays hidden until the look has been read, so nothing flashes from "found" to "missing". */
+.screen-main > .embed { display: grid; place-items: center; min-height: 0; }
+.lk { width: min(100%, 880px); }
+.lk[data-state="loading"] .lk-info > :not(.lk-eyebrow) { visibility: hidden; }
+
+.lk-card {
+  --shot-h: clamp(220px, calc(100dvh - 260px), 520px);
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(24px, 5vw, 56px);
+}
+.lk-card[hidden], .lk-missing[hidden] { display: none; }
+
+/* The style as the app draws it, in a dark bezel like the try page's phone. */
+.lk-phone {
+  height: var(--shot-h);
+  aspect-ratio: 240 / 520;
+  padding: 7px;
+  border-radius: 30px;
+  background: linear-gradient(160deg, #2A2A2E, #050506 30%, #050506 70%, #222226);
+  box-shadow: 0 0 0 1px var(--line), var(--card-shadow), 0 40px 80px -40px #000;
+}
+.lk-phone img { display: block; width: 100%; height: 100%; border-radius: 23px; background: #0A090D; object-fit: cover; }
+.lk-phone img[hidden] { visibility: hidden; display: block; }
+
+.lk-info { display: grid; justify-items: start; gap: 12px; min-width: 0; }
+.lk-eyebrow { margin: 0; color: var(--accent); font: var(--label-weight) 0.9rem/1.1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
+.lk-name { margin: 0; font: var(--display-weight) clamp(2.2rem, 6vw, 4rem)/0.95 var(--font-display); text-transform: var(--display-case); letter-spacing: var(--display-tracking); overflow-wrap: anywhere; }
+.lk-kind { margin: -4px 0 0; color: var(--accent-2, var(--muted)); font: var(--label-weight) 0.95rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.08em; }
+.lk-text { margin: 0; max-width: 32em; color: var(--muted); }
+.lk-get { display: flex; flex-wrap: wrap; align-items: center; gap: 18px 24px; margin-top: 6px; }
+.lk-more { display: flex; flex-wrap: wrap; gap: 6px 22px; margin: 0; font: var(--label-weight) 0.95rem/1.2 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.06em; }
+.lk-more a { color: var(--ink); text-underline-offset: 4px; }
+.lk-more a[hidden] { display: none; }
+
+.lk-missing { display: grid; justify-items: center; gap: 14px; text-align: center; }
+.lk-missing .lk-text { max-width: 30em; }
+.lk-missing .lk-get { justify-content: center; }
+
+/* A phone held upright: the picture above, smaller, the rest under it. */
+@media (max-width: 640px) {
+  .lk-card { --shot-h: clamp(110px, calc(100dvh - 520px), 300px); grid-template-columns: minmax(0, 1fr); justify-items: center; gap: 18px; text-align: center; }
+  .lk-info { justify-items: center; }
+  .lk-get, .lk-more { justify-content: center; }
+  .lk-name { font-size: clamp(2rem, 10vw, 2.8rem); }
+}
+/* Too short for the picture and the words: the name and the ways to get it alone. */
+@media (max-height: 460px) {
+  .lk-phone, .lk-text { display: none; }
+  .lk-card { grid-template-columns: minmax(0, 1fr); }
+}

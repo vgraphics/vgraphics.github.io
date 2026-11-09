@@ -15,7 +15,7 @@
   <div class="head">
     <p class="kicker">Speedometer Live Wallpaper</p>
     <h1>Privacy policy</h1>
-    <p class="updated">Last updated <span class="lcd">31.10.2026</span></p>
+    <p class="updated">Last updated <span class="lcd">05.11.2026</span></p>
     <p class="intro">This policy explains what happens to your information when you use <strong>Speedometer Live Wallpaper</strong>
       (the "app") on Android. The app is made by VGraphics ("we", "us").</p>
   </div>
@@ -27,7 +27,7 @@
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11a7 7 0 0 1 14 0c0 4.8-7 11-7 11z"/><circle cx="12" cy="10" r="2.5"/></svg></span><b>Location only for speed and widgets</b><span>Only while on screen and never stored. Only the Weather widget sends a rough location (about 10 km) for its forecast.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M9 18V5l12-2v13"/><circle cx="6" cy="18" r="3"/><circle cx="18" cy="16" r="3"/></svg></span><b>Music &amp; calls stay on your phone</b><span>Future design only, with your permission: never stored or sent.</span></li>
     <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 15h18"/></svg></span><b>Ads on menus only</b><span>A small banner on the app's menu screens, and a short video only when you ask for a 24-hour style trial. Never on the wallpaper.</span></li>
-    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>Crash reports &amp; analytics</b><span>Firebase, without your name, location or readings.</span></li>
+    <li><span class="ico"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 19V9M10 19V5M16 19v-7M22 19H2"/></svg></span><b>Crash reports &amp; analytics</b><span>Firebase, without your name, location or exact readings.</span></li>
   </ul>
 
   <div class="layout">
@@ -35,7 +35,8 @@
       <p>On this page</p>
       <ol>
         <li><a href="#readings">Readings from your phone</a></li>
-        <li><a href="#location">Location (GPS mode)</a></li>
+        <li><a href="#location">Location (GPS and HUD mode)</a></li>
+        <li><a href="#hud">HUD mode and your car</a></li>
         <li><a href="#widgets">Widgets you add</a></li>
         <li><a href="#notifications">Music, calls &amp; messages</a></li>
         <li><a href="#device">Stored on your device</a></li>
@@ -64,14 +65,28 @@
       </section>
 
       <section id="location">
-        <h2>Location (GPS mode only)</h2>
+        <h2>Location (GPS mode and HUD mode)</h2>
         <p>
           The big gauge can show your speed using GPS. This is off until you choose GPS mode in Settings. The app then asks
           for location permission "while using the app", which Android also grants while the wallpaper is on your screen.
+          HUD mode, which shows your speed on the windscreen, always takes that speed from GPS, and only while HUD mode
+          is open: if you haven't allowed location yet, it asks on its own screen.
           The app never asks for location in the background. Your position is used on your phone only to work out your
           speed; it is not stored, not sent to us and not shared with anyone, including our advertising partner. You can
-          switch GPS mode off, or take the permission away in your phone's settings, at any time. Some widgets use your
+          switch GPS mode off, close HUD mode, or take the permission away in your phone's settings, at any time. Some widgets use your
           location too; see <a href="#widgets">Widgets you add</a>.
+        </p>
+      </section>
+
+      <section id="hud">
+        <h2>HUD mode and your car</h2>
+        <p>
+          HUD mode draws your speed flipped, full screen, so a phone lying on the dashboard reflects it in the windscreen.
+          Its speed comes from GPS, as described under Location, and only while it is open. If you turn on "Open by itself
+          in my car", Android's own device picker lets you choose your car, and the app asks for the "Nearby devices"
+          permission only then, so that it can notice when your phone joins that car's Bluetooth and open HUD mode. The
+          car's name and Bluetooth address are saved on your phone only, and the permission is used for nothing else.
+          Turn the setting off, or take the permission away in your phone's settings, at any time.
         </p>
       </section>
 
@@ -129,7 +144,8 @@
         <p>
           The app saves your settings (gauge mode, units, which date, time and lights to show), which designs you own, and
           which design you're trying for 24 hours and when that trial began, and what your widgets keep: the odometer,
-          your best 0&ndash;100 time, today's steps, the tilt's level and the last weather forecast. This stays in the
+          your best 0&ndash;100 time, today's steps, the tilt's level and the last weather forecast, and for HUD mode how your phone lies on the dashboard and, if you
+          link your car, its name and Bluetooth address. This stays in the
           app's storage on your phone. Uninstalling the app deletes it.
         </p>
       </section>
@@ -142,6 +158,9 @@
           gives you an account id. VHub keeps your account id, your email address, the VHub name and picture you choose,
           your level, XP and badges, and Speedometer's counts on your profile: how many days the wallpaper was on, how many
           styles you have, and how many layouts you made.
+        </p>
+        <p>
+          If your VHub account has no age yet, the app asks the year you were born, once, right after you sign in, so VHub can set your age band (under 13, 13&ndash;15, or 16 and over), which decides whether friends and names are on. VHub keeps only the age band, never the year, and the app doesn't send the year anywhere else. You can skip the question; it comes back the next time you open the app, and friends and names stay off until you answer.
         </p>
         <p>
           Signed in, the app also keeps a small record for you: the free style you picked as your sign-in gift, your free
@@ -208,7 +227,7 @@
           settings are used, when the wallpaper is first set, and on which days it's on your screen, so we can improve
           the app. Crashlytics sends a report when the app crashes, so we can fix it.
           They collect an app instance identifier, your device model, operating system and language, your approximate
-          country, and in-app events or crash details. They don't receive your location or your phone's readings. We use
+          country, and in-app events or crash details. They don't receive your location or your phone's readings: for HUD mode they get how long it was open, how many speed warnings it gave and your top speed in one of four bands (under 50, 50&ndash;90, 90&ndash;130 or over 130 km/h), never the speed itself. We use
           this only to improve the app, never to identify you or to show you ads. Your ad choices (below) also tell
           Firebase whether these events may be used to measure our own ads for the app on Google (Google's consent mode);
           where you haven't answered yet in the European Economic Area, the UK or Switzerland, they count as not allowed.
@@ -292,12 +311,7 @@
 
       <section id="contact">
         <h2>Contact</h2>
-        <p>The app is published by, and your data is controlled by:</p>
-        <address class="contact">
-          VGRAPHICS SINGLE MEMBER P.C. (VGraphics)<br>
-          Email: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a><br>
-          Registration details: <a href="https://vgraphics.gr/company/">vgraphics.gr/company</a>
-        </address>
+        <p>The data controller is VGRAPHICS SINGLE MEMBER P.C. (VGraphics). Contact: <a href="mailto:info@vgraphics.gr">info@vgraphics.gr</a>. Company details: <a href="/company/">vgraphics.gr/company/</a></p>
       </section>
     </div>
   </div>

@@ -90,7 +90,7 @@
       "id": "live",
       "eyebrow": "Live",
       "title": "Pulse, live",
-      "intro": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Pulse's layouts and colours.",
+      "intro": "A neon HUD of rings: every reading a ring of light around the big number, magenta on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Pulse's layouts and colours. Switch Original | HUD to see Pulse's HUD mode look.",
       "blocks": [
         {
           "type": "try",
@@ -100,12 +100,48 @@
           "referrer": "utm_source=vgraphics.gr&utm_medium=style_page",
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
+          "market": "/speedometer-wallpaper/layouts/",
+          "appLinks": {
+            "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
+            "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"
+          },
           "prices": {
             "premium": "€2.39"
           },
           "qr": {
             "src": "/speedometer-wallpaper/play/img/play-qr.svg",
             "alt": "A QR code that opens Speedometer Live Wallpaper on Google Play"
+          },
+          "hud": {
+            "label": "HUD mode",
+            "note": "Lay your phone flat on the dashboard, screen up, and read your speed on the windscreen. The styles marked HUD draw it (Horizon, Glass, Pulse and Vector): with one of them on show, pick one of its HUD layouts under Layouts, or switch Original | HUD, to see its HUD look right here, and back. Use my real speed first for your GPS speed.",
+            "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
+            "exit": "Exit",
+            "flip": "Flip",
+            "styles": [
+              "horizon",
+              "glass",
+              "pulse",
+              "vector"
+            ],
+            "layouts": [
+              {
+                "id": "number",
+                "name": "Number"
+              },
+              {
+                "id": "gauge_arc",
+                "name": "Gauge arc"
+              },
+              {
+                "id": "fighter",
+                "name": "Fighter"
+              },
+              {
+                "id": "centre_bar",
+                "name": "Centre bar"
+              }
+            ]
           },
           "startup": false,
           "style": "pulse",

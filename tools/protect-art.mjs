@@ -4,6 +4,9 @@
 //   node tools/protect-art.mjs [--sign] <path>...   those files or folders (a masters repo's too)
 //   node tools/protect-art.mjs --all [--sign]       every picture and song of ours on the site
 //   node tools/protect-art.mjs --check [<path>...]  only lists what is missing, and exits 1 if anything is
+//   node tools/protect-art.mjs --staged             the art the commit being made adds or changes: the rights mark, and
+//                                                   the credentials once VGraphics' signer is live, staged again; what
+//                                                   the git hooks in tools/hooks/ run on every commit and merge
 // The rights mark goes in first: signing seals the file, so the mark can't be added to a signed file afterwards.
 // The certificate and key stay in the Deployer's private secrets (lib/credentials.mjs SIGNER), never in this public
 // repo; a test signer ("test": true) signs only files outside it. c2patool comes from its GitHub release, checked against
@@ -37,15 +40,41 @@ function expand(path) {
   if (statSync(abs).isDirectory()) return readdirSync(abs, { recursive: true }).map((f) => join(abs, f)).filter((f) => statSync(f).isFile())
   return [abs]
 }
+// The art a commit (or a merge) adds or changes, as staged: only new art, never the art already on the site (George,
+// 3 Nov 2026). A file changed again after it was staged is left alone: protecting it would stage the newer version.
+function staged() {
+  const git = (...a) => execFileSync('git', a, { cwd: root, encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] })
+  return git('diff', '--cached', '--name-only', '-z', '--diff-filter=AMR').split('\0').filter(Boolean)
+    .filter((rel) => existsSync(join(root, rel)) && isOurArt(rel, join(root, rel)))
+    .filter((rel) => {
+      try {
+        git('diff', '--quiet', '--', rel)
+        return true
+      } catch {
+        console.log(`${rel}: changed again since it was staged, so not protected now (stage it again)`)
+        return false
+      }
+    })
+    .map((rel) => join(root, rel))
+}
+// With --staged, what this writes goes into the commit too.
+const stage = (abs) => {
+  if (flag('--staged')) execFileSync('git', ['add', '--', abs], { cwd: root })
+}
+
 // A site file is ours to mark by lib/credentials.mjs isOurArt; a file elsewhere (a masters repo) whenever it is a
 // picture or a song.
 const files = paths.length
   ? paths.flatMap(expand).filter((abs) => (inSite(abs) ? isOurArt(relative(root, abs), abs) : PICTURE.test(abs) || AUDIO.test(abs)))
   : flag('--all')
     ? execFileSync('git', ['ls-files', '-z'], { cwd: root, encoding: 'utf8' }).split('\0').filter(Boolean).map((rel) => join(root, rel)).filter((abs) => isOurArt(relative(root, abs), abs))
-    : newArt(root).map((rel) => join(root, rel))
+    : flag('--staged')
+      ? staged()
+      : newArt(root).map((rel) => join(root, rel))
 
 const where = (abs) => (inSite(abs) ? relative(root, abs) : abs).split(sep).join('/')
+// A commit without new art (most of them): nothing to say.
+if (flag('--staged') && !files.length) process.exit(0)
 
 if (flag('--check')) {
   const sign = !!signer() && !signer().test
@@ -58,8 +87,10 @@ if (flag('--check')) {
   process.exit(missing.length ? 1 : 0)
 }
 
-// With --sign, the signer is checked before anything is written.
-const s = flag('--sign') ? signer() : null
+// With --sign, the signer is checked before anything is written. With --staged it signs when the signer is VGraphics'
+// own (not a test one), and only marks until then.
+const live = signer()
+const s = flag('--sign') ? live : flag('--staged') && live && !live.test ? live : null
 if (flag('--sign')) {
   if (!s) throw new Error(`no signer: put signer.json, the certificate chain and the key in ${dirname(SIGNER)} (README "Rights in the files")`)
   const site = files.find(inSite)
@@ -77,6 +108,7 @@ for (const abs of files.filter((f) => MARKABLE.test(f))) {
     continue
   }
   writeFileSync(abs, withRightsMark(b, madeWith(where(abs))))
+  stage(abs)
   marked++
 }
 console.log(`rights mark: ${marked} file(s) marked${sealed.length ? `; ${sealed.length} signed without it (re-make them from their masters to mark them): ${sealed.slice(0, 5).join(', ')}` : ''}`)
@@ -98,6 +130,7 @@ if (s) {
       execFileSync(exe, ['--settings', settings, abs, '-m', def, '-o', out, '-f'], { stdio: ['ignore', 'ignore', 'pipe'] })
       if (!hasCredentials(readArt(out))) throw new Error(`${where(abs)}: c2patool wrote no credentials`)
       copyFileSync(out, abs)
+      stage(abs)
       signed++
     }
   } finally {

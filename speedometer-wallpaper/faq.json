@@ -1,7 +1,11 @@
 [
   {
     "q": "Does a live wallpaper drain my battery?",
-    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode."
+    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode and in HUD mode, and only to show your speed."
+  },
+  {
+    "q": "Can I see my speed on the windscreen, like a HUD?",
+    "a": "Yes, with HUD mode. Lay your phone flat on the dashboard in front of the wheel, screen up: the app goes full screen at full brightness and draws your speed flipped, so the windscreen reflects it the right way round. Pick Number, Gauge arc, Fighter or Centre bar in Horizon (free), Glass, Pulse or Vector; each one's page has an Original | HUD switch to see its HUD look first. Set it up while parked, and never touch the phone while you drive; HUD mode has no menus and no ads. It reads best at dusk, at night and on cloudy days. A windscreen shows the picture twice, from its two surfaces; a cheap HUD film on the glass fixes that."
   },
   {
     "q": "How does it know my speed, and how accurate is it?",
