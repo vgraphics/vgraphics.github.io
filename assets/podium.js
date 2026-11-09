@@ -18,7 +18,7 @@
       name.textContent = p.name || anonymous(p.uid);
       const pts = document.createElement("span");
       pts.className = "pts";
-      pts.textContent = p.stats.score.toLocaleString("en-US");
+      pts.textContent = p.stats.score2.toLocaleString("en-US");
       const lv = document.createElement("span");
       lv.className = "lv";
       lv.textContent = "Lv " + p.stats.highestLevel.toLocaleString("en-US");
@@ -26,6 +26,6 @@
       place.querySelector(".step").textContent = p.rank;
     });
     document.getElementById("podium-text").textContent = "Top players: " +
-      top.map(p => `${p.rank}. ${p.name || anonymous(p.uid)}, ${p.stats.score.toLocaleString("en-US")} points, level ${p.stats.highestLevel}`).join("; ") + ".";
+      top.map(p => `${p.rank}. ${p.name || anonymous(p.uid)}, ${p.stats.score2.toLocaleString("en-US")} points, level ${p.stats.highestLevel}`).join("; ") + ".";
   } catch (e) { /* keep the plain podium */ }
 })();
