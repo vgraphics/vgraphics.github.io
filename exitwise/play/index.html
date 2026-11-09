@@ -3,7 +3,7 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
-    <title>Play Exitwise</title>
+    <title>Play Exitwise online: free arrow puzzle in your browser</title>
     <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
     <!-- The site's own favicon (the round tower logo) and touch icon (the app icon), as every Exitwise page has them. -->
@@ -181,6 +181,10 @@
       footer a:hover, footer button:hover { text-decoration: underline; }
       footer .legal { margin-left: auto; color: var(--muted); font-size: 12px; overflow: hidden; text-overflow: ellipsis; }
       footer .legal a { color: var(--muted); font-weight: 400; }
+      /* The page's one heading, for search engines and screen readers only (the AdSense review, 9 Nov 2026): the game
+         alone stays on screen. The site's own .sr-only (assets/product.css), not display: none, which hides it from
+         screen readers too. */
+      .sr-only { position: absolute; width: 1px; height: 1px; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
       /* Phones: every link stays in the bar, closer together, and the legal line keeps "© year VGraphics"; it gives way
          first when the row runs out of room. */
       @media (max-width: 640px) {
@@ -379,6 +383,7 @@
     </script>
   </head>
   <body>
+    <h1 class="sr-only">Exitwise: Arrow Escape Puzzle</h1>
     <!-- The first screen: the game, its loader and, under it, the banner strip. -->
     <div id="first">
     <canvas id="unity-canvas" tabindex="-1"></canvas>
@@ -845,7 +850,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.22b52509",
+        productVersion: "1.0.289c5e0a",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));

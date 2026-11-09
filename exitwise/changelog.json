@@ -1,6 +1,18 @@
 {
   "entries": [
     {
+      "version": "1.0.289c5e0a",
+      "date": "2026-11-09",
+      "platforms": [
+        "Web"
+      ],
+      "title": "More time in boss fights",
+      "items": [
+        "Boss fights give you more time on the clock now, so the toughest levels feel fairer."
+      ],
+      "commit": "289c5e0a"
+    },
+    {
       "version": "1.0.38",
       "date": "2026-11-09",
       "platforms": [
