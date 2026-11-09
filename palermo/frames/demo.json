@@ -1,6 +1,7 @@
 {
   "title": "Palermo Noir demo · Play a guided game online",
   "description": "Try Palermo Noir, the hidden-role party game, alone and online: pick a role, play a whole game against bots, and a guide explains every night, dawn, talk, vote and verdict.",
+  "robots": "noindex",
   "social": {
     "title": "Palermo Noir demo · Play a guided game online",
     "description": "Pick a role and play a whole game of Palermo Noir against bots, with a guide that explains every moment.",

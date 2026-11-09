@@ -95,9 +95,13 @@ test('the three About pages are built from the template, linked from their menus
   }
 })
 
-test('Palermo Noir\'s About page keeps the demo\'s section out while the demo is private', () => {
+// The demo opened with the launch (George, 9 Nov 2026: "Deliver everything for everyone. The how to play demo and the
+// real rooms. When all delivered, open for everyone."): site.demo has no private key, so its section and links are public.
+test('Palermo Noir\'s About page shows the demo\'s section and links the demo, now the demo is public', () => {
   const { html } = render('palermo', 'about')
-  assert.equal(loadProduct('palermo').page.site.demo?.private, true, 'the demo is private today')
-  assert.ok(!html.includes('Try it alone first'), 'its demo section is left out')
-  assert.ok(!html.replace(/<template class="private">[\s\S]*?<\/template>/g, '').includes('href="/palermo/demo/"'), 'no public link to the demo')
+  assert.equal(loadProduct('palermo').page.site.demo?.private, undefined, 'the demo is public: site.demo has no private key')
+  const section = loadSubpage('palermo', 'about').page.sections.find((s) => s.demo)
+  assert.ok(section, 'the About page has its demo section')
+  assert.ok(html.includes(section.title), 'its demo section is shown')
+  assert.ok(html.includes('href="/palermo/demo/"'), 'a public link to the demo')
 })

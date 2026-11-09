@@ -4,7 +4,8 @@
 // with the rules that are its own (the Palermo coordinator, 2 and 3 Nov 2026: its title, description and canonical; its
 // route; no site header on any, the game drawing its own; the play and demo pages the frame and the slim bar
 // (← Palermo Noir · About · Privacy · © 2026 VGraphics), the TV and join pages the frame alone, their legal line in the
-// build; noindex on all but the demo, the play page's until George's launch call; no-select on every one).
+// build; noindex on every one, the About page carrying the SEO (the Palermo coordinator, 9 Nov 2026, for the launch);
+// no-select on every one).
 // Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
@@ -23,7 +24,7 @@ const PAGES = {
   play: { title: 'Play Palermo Noir online: the mafia party game in your browser', door: false, noindex: true },
   join: { title: 'Join the game · Palermo Noir', door: true, noindex: true },
   tv: { title: 'Palermo Noir · TV', door: true, noindex: true },
-  demo: { title: 'Palermo Noir demo · Play a guided game online', door: false, noindex: false },
+  demo: { title: 'Palermo Noir demo · Play a guided game online', door: false, noindex: true },
 }
 
 test("Palermo's play, join, TV and demo pages wait in palermo/frames/", () => {
@@ -42,7 +43,7 @@ for (const [name, want] of Object.entries(PAGES)) {
     assert.ok(html.includes(`<title>${want.title}</title>`), html.match(/<title>.*<\/title>/)?.[0])
     assert.ok(html.includes(`<meta name="description" content="${p.description}">`))
     assert.ok(html.includes(`<link rel="canonical" href="https://vgraphics.gr/palermo/${name}/">`))
-    assert.equal(/<meta name="robots" content="noindex">/.test(html), want.noindex, 'noindex on all but the demo')
+    assert.equal(/<meta name="robots" content="noindex">/.test(html), want.noindex, 'noindex on every one')
     const body = html.split('<body>')[1]
     // No site header, menu, avatar or skip link on any: the game draws its own. It loads the no-select piece itself.
     for (const piece of ['<header', '<nav', 'vhub-avatar', 'menu-toggle', 'class="skip"']) assert.ok(!body.includes(piece), `the ${name} page has ${piece}`)

@@ -58,8 +58,8 @@
     "footer": [
       { "label": "Privacy policy", "href": "/palermo/privacy.html" }
     ],
-    "playWhenOpen": { "label": "Play online", "href": "/palermo/play/" },
-    "demo": { "label": "Try the demo", "href": "/palermo/demo/", "private": true }
+    "play": { "label": "Play online", "href": "/palermo/play/" },
+    "demo": { "label": "Try the demo", "href": "/palermo/demo/" }
   },
   "hero": {
     "title": "Palermo Noir: the mafia party game for phones and a TV",
