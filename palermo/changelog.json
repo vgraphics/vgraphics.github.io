@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "0.1.93576fe5",
+      "date": "2026-11-09",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner menus, smoother rooms",
+      "items": [
+        "The app and web page no longer show 'Coming soon' items, so the menus look cleaner and more finished.",
+        "Game rooms run more smoothly, and anyone who leaves now drops out cleanly.",
+        "The Narrator's captions now show the Seer's name exactly as it appears on her role card."
+      ],
+      "commit": "93576fe5"
+    },
+    {
       "version": "0.1.b4c7957c",
       "date": "2026-11-04",
       "platforms": [
