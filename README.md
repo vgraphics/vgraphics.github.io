@@ -605,6 +605,25 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
 - **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
   data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
   same title or the same description. The canonical address is checked on every page.
+- **The SEO rules of 10 Nov 2026** (`tools/lib/seo.mjs`, which the generators and check-site share; George: "improve the
+  SEO of our pages so we get more visitors"). Every indexable page, the Unity play pages included: a title of 25 to 65
+  characters and a description of 100 to 165 (search results cut them); `og:locale` `en_US`; an og:image of at least
+  1200 px with its width, height and alt; `twitter:image`; `<meta name="robots" content="max-image-preview:large">` (the
+  generators write it and the locale, so a hand-made page copies both); a BreadcrumbList on every page but the home page
+  (which has Organization and WebSite); no skipped heading level (h1, then h2…); alt text on every picture; hreflang
+  pairs, when a page names alternates, that list themselves, name each other back and have an x-default; and no page that
+  no other page links to. Noindex pages are left out, as before.
+- **Keywords:** the words people search for, researched with free sources (`tools/seo-keywords.md`: Google's and Play's
+  suggestions and Search Console's queries, 10 Nov 2026). The shared pages' lists are in `tools/seo-keywords.json`; a
+  product declares its own as `"seo": { "keywords": […] }` in its `page.json`. The landing page's title, description and
+  h1 must each hold one, and each other page of the product its title or description; check-site fails a landing page
+  with an empty list. No meta keywords tag (Google ignores it) and no stuffing: the phrase goes into the sentence a
+  person would read.
+- **`tools/seo-known-gaps.json`** is the list of what a product's, the hub's or the Unity play page's own coordinator
+  still has to fix: one entry per page and check, with the owner. check-site fails on a gap that isn't on the list and on
+  a listed gap that is fixed, so the list only shrinks, and the shared pages (home, company, services, multiplayer,
+  devlog, privacy, terms, 404) never get an entry. Fixing a product's pages means removing its entries in the same
+  commit.
 - **Structured data (JSON-LD in each page's `<head>`):** the home page describes VGraphics (Organization: name, logo,
   the Google Play developer page and GitHub; its legal name, G.E.MI. and VAT numbers and town are the company page's)
   and the WebSite. Exitwise's page
