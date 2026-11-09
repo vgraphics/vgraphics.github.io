@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.289c5e0a",
+      "version": "1.0.39",
       "date": "2026-11-09",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "More time in boss fights",
