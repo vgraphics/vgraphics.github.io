@@ -1,6 +1,6 @@
 {
   "title": "Palermo Noir: Mafia Party Game for Phones and Your TV",
-  "description": "A hidden-role mafia party game for 6 to 14 friends: your phone holds your secret card, the TV shows the town, and a noir narrator runs every night. Free.",
+  "description": "A hidden-role mafia party game for 6 to 14 friends, free online: your phone holds your secret card, the TV shows the town, and a noir narrator runs every night.",
   "social": {
     "title": "Palermo Noir: the mafia party game for your TV",
     "description": "Hidden roles on your phones, the town on your TV, and a narrator who runs the night, so everyone plays. For 6 to 14 friends.",
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/palermo/#game",
         "name": "Palermo Noir",
         "url": "https://vgraphics.gr/palermo/",
-        "description": "A hidden-role mafia party game for 6 to 14 players in one room: each phone holds its player's secret role card, the TV shows the town, and a narrator runs every night and day, so everyone plays. In English and Greek.",
+        "description": "A hidden-role mafia party game for 6 to 14 players in one room: each phone holds its player's secret role card, the TV shows the town, and a narrator runs every night and day, so everyone plays. Free to play online in the browser, in English and Greek.",
         "image": "https://vgraphics.gr/palermo/img/card-1200x630.jpg",
         "genre": ["Party game", "Social deduction", "Hidden role"],
         "gamePlatform": ["Web browser"],
@@ -65,7 +65,8 @@
     "lead": "Hidden roles on your phones. <em>The town on your TV.</em>",
     "align": "center",
     "badges": [
-      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }
+      { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" }
     ],
     "art": {
       "alt": "A man in a fedora and a long coat stands at the wrought-iron railings of Palermo's seafront at night, a black cat on the rail beside him, looking over the moonlit sea towards the lamplit promenade, the palms, the cathedral dome and the dark mountain, drawn in gold engraved lines on dark navy",
@@ -96,7 +97,7 @@
       "id": "deal",
       "eyebrow": "Chapter 1 · The deal",
       "title": "One phone each, one TV for the room",
-      "intro": "You need 6 to 14 players, a phone each, and a screen the whole room can see: a smart TV's browser or a laptop on the TV. Nobody installs anything.",
+      "intro": "You need 6 to 14 players, a phone each, iPhone or Android, and a screen the whole room can see: a Samsung or LG smart TV from 2022 on, an Android TV, or a laptop on the TV over HDMI. Everything plays in the browser, so nobody installs anything.",
       "art": { "src": "img/scene-deal", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2143, "position": "50% 0%", "fade": { "top": "4%" },
         "alt": "Six players lean over a café table in a Palermo piazza at night: role cards dealt face down, a candle, an espresso, a black rose and a ballot box, the known killer lighting a match, the doctor, the police officer, the mayor, the lawyer and the madman with his mask, drawn in gold engraved lines on navy" },
       "figure": { "src": "img/cast/officer", "widths": [260, 520, 1040], "width": 1040, "height": 2711, "side": "right" },
@@ -105,8 +106,8 @@
         {
           "type": "steps",
           "items": [
-            "<b>Open a room.</b> The host opens Palermo Noir on their phone and taps Create a room.",
-            "<b>Put the town on the TV.</b> Tap Show on TV on any phone in the room, then open vgraphics.gr/tv in the TV's browser and type the TV code it gives. Friends scan the QR code on the screen to join.",
+            "<b>Open a room.</b> The host taps <a href=\"/palermo/play/\">Play online</a> in their phone's browser and creates a room.",
+            "<b>Put the town on the TV.</b> Tap Show on TV on any phone in the room, then open vgraphics.gr/tv in the TV's browser and type the TV code it gives. Friends scan the QR code on the screen to join. A TV whose browser can't keep up gets a lighter page by itself.",
             "<b>Choose the rules.</b> Classic, Quick or Full house, or your own: the host picks the roles and the timers, and the TV shows the roles in play.",
             "<b>Hold to see your card.</b> Everyone gets a secret role. Your card shows only while you hold it, and every card has the same frame."
           ]
@@ -243,7 +244,7 @@
           "items": [
             { "title": "No secret leaks", "text": "Every phone shows the same screens and asks for the same two taps at night, and your card shows only while you hold it.", "wiki": "the-night", "more": "How the night plays" },
             { "title": "A noir narrator", "text": "A deep voice on the TV tells every night and every dawn. It never says a name: the names are on the screen.", "wiki": "a-round", "more": "How a round plays" },
-            { "title": "Nothing to install", "text": "A smart TV's browser or a laptop on the TV, and the phones you already have.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
+            { "title": "Nothing to install", "text": "The browser on the phones you already have, and on a smart TV from 2022 on, an Android TV or a laptop on the TV.", "wiki": "phones-and-tv", "more": "Phones and the TV" }
           ]
         }
       ]
@@ -252,7 +253,7 @@
       "id": "whats-new",
       "title": "What's new",
       "intro": "Every update to the game, newest first.",
-      "blocks": [{ "type": "news", "empty": "Palermo Noir isn't out yet: its first release will show here, with every update after it." }]
+      "blocks": [{ "type": "news", "empty": "Every release of Palermo Noir shows here, newest first." }]
     },
     {
       "id": "faq",
@@ -273,9 +274,10 @@
   ],
   "cta": {
     "title": "Gather your town",
-    "text": "Palermo Noir comes to the web first, then to Android. Free, for 6 to 14 players with a phone each and one TV.<span data-demo> Until then, the demo seats you at a table of bots.</span>",
+    "text": "Rooms are open: play online in a phone's or a PC's browser, iPhones included, with an Android app to follow. Free, for 6 to 14 players with a phone each and one TV.<span data-demo> New to it? The demo seats you at a table of bots first.</span>",
     "badges": [
       { "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" },
+      { "href": "/palermo/play/", "label": "Play online" },
       "vhub"
     ]
   },

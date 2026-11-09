@@ -9,7 +9,11 @@
   },
   {
     "q": "What do we need to play?",
-    "a": "A phone each and one screen the whole room can see: a smart TV's browser, or a laptop on the TV. Any phone in the room taps Show on TV: open <b>vgraphics.gr/tv</b> on the screen and type the twelve-digit TV code it gives, or open its link. The screen then shows the room's code and a QR code, which friends scan to join. Nothing to install."
+    "a": "A phone each, iPhone or Android, and one screen the whole room can see: a smart TV's browser, or a laptop on the TV. Any phone in the room taps Show on TV: open <b>vgraphics.gr/tv</b> on the screen and type the twelve-digit TV code it gives, or open its link. The screen then shows the room's code and a QR code, which friends scan to join. Nothing to install: the whole game plays in the browser."
+  },
+  {
+    "q": "Which TVs can show the town?",
+    "a": "Samsung and LG smart TVs from 2022 on, an Android TV, or a laptop on the TV over HDMI open the full TV page in their browser. If a TV's browser can't keep up with it, the page switches by itself to a lighter TV page that still plays the whole game. Sets from before 2022 have browsers too old for Palermo Noir, and the screen says so: use a laptop on HDMI, an Android TV or a newer TV instead."
   },
   {
     "q": "Is it free?",
@@ -33,11 +37,11 @@
   },
   {
     "q": "Can we share how the night went?",
-    "a": "Yes. At the end of the guided demo, <b>Share the night</b> draws a picture of your own secret card to post or send, without naming who the killers were. When rooms open, every phone at the table gets it too: the town paper, a film poster, your secret card, the newsreel or the whole table, each with a QR code back to Palermo, and the TV shows a QR code so friends who only watched can share it as well. The phone draws the picture itself; nothing is uploaded."
+    "a": "Yes. When a game ends, <b>Share the night</b> on every phone at the table draws the evening as a picture to post or send: the town paper, a film poster, your secret card, the newsreel or the whole table, each with a QR code back to Palermo. The TV shows a QR code too, so friends who only watched can share it as well. The phone draws the picture itself; nothing is uploaded.<span data-demo> The guided demo ends with it as well, drawing your own secret card without naming who the killers were.</span>"
   },
   {
     "q": "When can we play?",
-    "a": "Rooms for your group open soon: on the web first, then on Android.<span data-demo> Until then, the guided demo seats you at a table of bots in your browser, today.</span> Every release shows under What's new on this page."
+    "a": "Now: rooms are open. Tap <a href=\"/palermo/play/\">Play online</a>, and the game runs in a phone's or a PC's browser, iPhones included. The host creates a room, friends join with its code or the QR code on the TV, and the TV opens <b>vgraphics.gr/tv</b>. Nothing to install; an Android app comes later.<span data-demo> To learn it alone first, the guided demo seats you at a table of bots, and its pause menu lets you resume, open Settings or exit whenever you like.</span> Every release shows under What's new on this page."
   },
   {
     "q": "What happens to our data?",

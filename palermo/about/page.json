@@ -37,7 +37,7 @@
     "title": "About Palermo Noir, the mafia party game for phones and a TV",
     "lead": "Every phone hides a secret card. <em>The TV runs the town.</em>",
     "align": "center",
-    "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }],
+    "badges": [{ "href": "/palermo/demo/", "label": "Try the demo", "note": "A guided game against bots" }, { "href": "/palermo/play/", "label": "Play online" }],
     "art": {
       "alt": "A Palermo piazza at night in gold lines on navy: a café's striped awning and its tables, a fountain between two lit street lamps, balconies hung with washing, a cathedral dome behind and a crescent moon",
       "wide": { "src": "/palermo/img/hero-about-wide", "widths": [960, 1280, 1920, 2560, 3840], "width": 3840, "height": 2195, "sizes": "max(100vw, 672px, min(75.6vw, 130.2vh))" },
@@ -59,7 +59,7 @@
           "items": [
             { "title": "Nobody sits out", "text": "A noir narrator leads each night and each morning, so the friend who used to run the game gets a card too. Later the first player out narrates the mornings, a Greek house rule kept on purpose." },
             { "title": "Secrets stay secret", "text": "No phone makes a sound, every screen looks the same after dark, and your card stays hidden unless you press and hold." },
-            { "title": "One screen for everyone", "text": "Any TV with a web browser, or a laptop plugged into one, shows the town: the dawn's news, the rumour, every accusation as it lands and the vote." }
+            { "title": "One screen for everyone", "text": "A Samsung or LG smart TV from 2022 on, an Android TV or a laptop on HDMI shows the town in its browser: the dawn's news, the rumour, every accusation as it lands and the vote. A TV that can't keep up gets a lighter page by itself." }
           ]
         }
       ]
@@ -115,7 +115,8 @@
           "type": "features",
           "items": [
             { "title": "Lost the thread?", "text": "Chapters take you back to any moment, to play it again." },
-            { "title": "Sound off?", "text": "Every word the narrator and the guide say runs as subtitles at the foot of the screen, so you can follow with the sound off." }
+            { "title": "Sound off?", "text": "Every word the narrator and the guide say runs as subtitles at the foot of the screen, so you can follow with the sound off." },
+            { "title": "Need a break?", "text": "Pause whenever you like: the pause menu lets you resume, open Settings or exit the demo." }
           ]
         }
       ]
@@ -123,8 +124,8 @@
     {
       "id": "rooms",
       "title": "Rooms and your VHub name",
-      "intro": "When rooms open, on the web first and then on Android, anyone can join as a guest. Sign in with a free VHub name and your games, your XP and your achievements stay with you, here and in every other VGraphics game.",
-      "blocks": [{ "type": "actions", "items": ["vhub"] }]
+      "intro": "Rooms are open: play online in a phone's or a PC's browser, iPhones included, with an Android app to follow. Anyone can join as a guest. Sign in with a free VHub name and your games, your XP and your achievements stay with you, here and in every other VGraphics game.",
+      "blocks": [{ "type": "actions", "items": [{ "href": "/palermo/play/", "label": "Play online" }, "vhub"] }]
     },
     {
       "id": "questions",
