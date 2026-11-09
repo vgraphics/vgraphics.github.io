@@ -1,9 +1,10 @@
 {
   "entries": [
     {
-      "version": "1.0.22b52509",
+      "version": "1.0.38",
       "date": "2026-11-09",
       "platforms": [
+        "Android",
         "Web"
       ],
       "title": "Your level on your account picture",
