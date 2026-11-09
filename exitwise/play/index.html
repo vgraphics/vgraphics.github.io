@@ -262,7 +262,7 @@
         // What the page offers the game (ArrowPuzzleAdSense.jslib) and its own statistics question below.
         var ads = window.exitwiseAds = {
           enabled: !!client,
-          // H5 Games Ads: the interstitial every 10 levels and the rewarded videos.
+          // H5 Games Ads: the interstitial every 6 levels (AdCadence) and the rewarded videos.
           breaks: !!client && (inGame || test),
           // The banner under the game (in test mode while the switch is off, only its space).
           banner: !!client && (!!slot || test),
@@ -284,7 +284,7 @@
         tag.src = "https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=" + encodeURIComponent(client);
         tag.setAttribute("data-ad-client", client);
         if (ads.breaks) {
-          // At most one ad every 30 s on average, the most AdSense allows: the game itself asks only every 10 levels.
+          // At most one ad every 30 s on average, the most AdSense allows: the game itself asks only every 6 levels.
           tag.setAttribute("data-ad-frequency-hint", "30s");
           if (test) tag.setAttribute("data-adbreak-test", "on");
         }
@@ -845,7 +845,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.06a040f1",
+        productVersion: "1.0.22b52509",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));
