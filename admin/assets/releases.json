@@ -2,6 +2,35 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "06462c961652d9d1d5a156b96cf4dffc4b828d50",
+      "at": "2026-11-09T22:23:38.746Z",
+      "files": [
+        "badge-DY4OywjB.js",
+        "controls-csYNBaZz.js",
+        "fields-BCOYcfCw.js",
+        "fields-Efj49ROr.css",
+        "firestore-BejbwixI.js",
+        "index-BM8RZf-P.js",
+        "index-BpOxKIta.js",
+        "index-CgRe8ati.css",
+        "index-Cnug8SBr.css",
+        "index-Ct_tc6W0.js",
+        "index-D25zhDh7.css",
+        "index-D2lTDYLX.js",
+        "index-D7BC7UM0.js",
+        "index-D88ftStL.js",
+        "index-DIlugXgh.css",
+        "index-EULt3-cL.js",
+        "index-VCQLnYQV.css",
+        "index-lyrWlwx9.js",
+        "model-B6OOHT3V.js",
+        "model-BhGN2KQT.js",
+        "picture-preview-Pa5Y1tjM.js",
+        "picture-preview-tU52PGzs.css",
+        "power-dialog-BM51iJK2.js"
+      ]
+    },
+    {
       "sha": "77b023e9e38f06f2b334c577b7e9c368bf902dac",
       "at": "2026-11-09T20:23:05.468Z",
       "files": [
@@ -57,35 +86,6 @@
         "picture-preview-Cb7e9XBg.js",
         "picture-preview-tU52PGzs.css",
         "power-dialog-DDu6Q6Yh.js"
-      ]
-    },
-    {
-      "sha": "644a79ffb0ffa716895934255a871b8ab1c10fc5",
-      "at": "2026-11-07T12:53:27.917Z",
-      "files": [
-        "badge-CHZ-5lbT.js",
-        "controls-BqFotCy_.js",
-        "fields-CzZFY5Zb.js",
-        "fields-Efj49ROr.css",
-        "firestore-g8RXcaG0.js",
-        "index-BRa66-AZ.js",
-        "index-BzlxO3YE.js",
-        "index-Cd3r50hz.css",
-        "index-CgRe8ati.css",
-        "index-DF2SaEQe.css",
-        "index-DWycK0dc.js",
-        "index-DpdNJnw1.js",
-        "index-Duh6gUcb.js",
-        "index-DyG3YWPA.js",
-        "index-Dz_zmJjB.js",
-        "index-H37up0Og.js",
-        "index-VCQLnYQV.css",
-        "index-ggw9uvlQ.css",
-        "model-BhGN2KQT.js",
-        "model-yJ83IupL.js",
-        "picture-preview-DuOgquo6.js",
-        "picture-preview-tU52PGzs.css",
-        "power-dialog-DwC6P7XG.js"
       ]
     }
   ]
