@@ -107,7 +107,7 @@
   <div class="pp-intro">
     <span class="kicker"><span class="dot" aria-hidden="true"></span> VHub</span>
     <h1>VHub privacy policy</h1>
-    <span class="pp-date">Last updated: 3 November 2026</span>
+    <span class="pp-date">Last updated: 9 November 2026</span>
     <p class="lede">VHub is one player account for every VGraphics game and app: your name and picture, a level and XP, achievements, friends and invites to rooms, and the VHub pages at <a href="/hub/">vgraphics.gr/hub</a>. This policy explains what VHub keeps about you, why, where, who sees it and for how long. Each game's own privacy policy covers what that game does besides VHub, such as its ads.</p>
   </div>
 
@@ -118,7 +118,7 @@
       <li>Your VHub name, picture, level, XP, achievements, stats and leaderboard places are public. Choose a name that isn't your real name.</li>
       <li>What you're playing, and a room you're in, is shown to your friends only, and you can turn that off.</li>
       <li>Photos are checked automatically before anyone sees them. Players can report names and pictures, and block each other.</li>
-      <li>VHub shows no ads, sells nothing about you, and runs no analytics or tracking of its own.</li>
+      <li>VHub shows no ads and sells nothing about you. The VHub pages run no analytics or tracking. VHub for Windows sends usage statistics and crash reports, and you can turn the statistics off in its Settings.</li>
       <li>Help tickets you send us (with any screenshots, and your email if you give one) are read only by VGraphics, with an AI assistant that may draft our answers.</li>
       <li>Our newsletter comes only after you confirm it, every issue has a one-tap unsubscribe, and we don't track opens or clicks.</li>
       <li>The data is kept with Google Firebase. The database and pictures are in the EU (Belgium).</li>
@@ -140,6 +140,7 @@
         <li><a href="#help">Help tickets</a></li>
         <li><a href="#news">Newsletter</a></li>
         <li><a href="#tracking">Ads, analytics and cookies</a></li>
+        <li><a href="#desktop">VHub for Windows</a></li>
         <li><a href="#how-long">How long</a></li>
         <li><a href="#delete">Deleting and a copy</a></li>
         <li><a href="#rights">Your rights</a></li>
@@ -194,6 +195,7 @@
         <h2>Why</h2>
         <p>We use this information to give you what you asked for when you use VHub: an account that works in every VGraphics game and app, your profile, XP, level and achievements, leaderboards, friends, rooms, invites and notifications. That is the legal basis for most of it (article 6(1)(b) of the GDPR).</p>
         <p>We also use it to keep VHub safe and fair: to check pictures, act on reports, enforce blocks, keep cheated results off the leaderboards, and find faults and abuse. That is our legitimate interest, and yours as a player (article 6(1)(f)).</p>
+        <p>VHub for Windows sends usage statistics and crash reports so that we can find faults and see which parts of the app work. That is our legitimate interest too (article 6(1)(f)), and you can turn usage statistics off at any time in the app's Settings.</p>
         <p>We answer your help tickets because you asked us to (article 6(1)(b)), and send the newsletter only with your consent, which you can take back at any time (article 6(1)(a)).</p>
         <p>We don't use your information for advertising, we don't sell it, and we don't make automated decisions about you beyond the checks described here.</p>
       </section>
@@ -206,6 +208,8 @@
           <li>Sign-in data is kept by Firebase Authentication, whose location can't be chosen; Google may process it outside the EU, such as in the United States.</li>
           <li>Pictures are checked by Google Cloud Vision before they are stored.</li>
           <li>Notifications to phones are delivered by Firebase Cloud Messaging.</li>
+          <li>Usage statistics from VHub for Windows go through our servers to Google Analytics, which may process them outside the EU, such as in the United States, under the same terms.</li>
+          <li>VHub for Windows and the games it installs are downloaded from GitHub (see VHub for Windows).</li>
           <li>Emails (answers to help tickets, the newsletter's confirmation and its issues) are sent from our mailbox at Hostinger, our email provider, which processes them on our behalf.</li>
           <li>To draft some answers to help tickets, the words of a ticket may be given to Claude, an AI assistant made by Anthropic (see Help tickets).</li>
         </ul>
@@ -264,7 +268,21 @@
 
       <section id="tracking">
         <h2>Ads, analytics and cookies</h2>
-        <p>VHub shows no ads and sends nothing to advertising networks. It has no analytics or tracking of its own, and the VHub pages set no cookies of their own: your sign-in is kept in your browser's storage by Firebase Authentication. While you're signed in, the VHub pages also keep your VHub name, your picture (your preset, or the address of your approved photo) and which frame your rank shows in this browser, so the vgraphics.gr menu can show your picture in its frame next to VHub; if you have a photo, those pages load it from VHub's storage at Google Firebase, as the VHub pages do. Signing out removes them. Google's sign-in script is loaded only when you press "Sign in with Google", and Google's own <a href="https://policies.google.com/privacy">privacy policy</a> covers it. "Sign in with Apple" opens Apple's own sign-in page in a window, which <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> covers. Each game asks for its own ad and analytics choices, as its own policy explains.</p>
+        <p>VHub shows no ads and sends nothing to advertising networks. The VHub pages have no analytics or tracking of their own (VHub for Windows sends usage statistics; see below), and they set no cookies of their own: your sign-in is kept in your browser's storage by Firebase Authentication. While you're signed in, the VHub pages also keep your VHub name, your picture (your preset, or the address of your approved photo) and which frame your rank shows in this browser, so the vgraphics.gr menu can show your picture in its frame next to VHub; if you have a photo, those pages load it from VHub's storage at Google Firebase, as the VHub pages do. Signing out removes them. Google's sign-in script is loaded only when you press "Sign in with Google", and Google's own <a href="https://policies.google.com/privacy">privacy policy</a> covers it. "Sign in with Apple" opens Apple's own sign-in page in a window, which <a href="https://www.apple.com/legal/privacy/">Apple's privacy policy</a> covers. Each game asks for its own ad and analytics choices, as its own policy explains.</p>
+      </section>
+
+      <section id="desktop">
+        <h2>VHub for Windows</h2>
+        <p>VHub for Windows is VHub's app for your computer. It installs, updates and starts VGraphics games and apps with your VHub account. Besides what this policy already describes, it keeps and sends the following.</p>
+        <ul>
+          <li><strong>Signing in:</strong> you sign in on vgraphics.gr in your browser, and the app keeps its sign-in in Windows Credential Manager on your computer. Signing out removes it.</li>
+          <li><strong>On your computer:</strong> the games and apps it installed and where, their versions, when you last played each, downloads in progress, the games you asked us to tell you about ("Notify me") and your settings. They stay on your computer; only the usage statistics below tell us about them.</li>
+          <li><strong>An install id:</strong> a random number the app makes the first time it runs, to count installs and to tell one computer's reports from another's. It isn't linked to your hardware or your name.</li>
+          <li><strong>Usage statistics</strong> (on unless you turn off "Send usage statistics" in the app's Settings, under Privacy): what happens in the app, such as opening it, signing in, installing, updating, starting and closing a game, and the app's own updates. Each comes with the game and its version, the app's version, the type of system, the install id and, while you're signed in, your VHub id. They go through our servers to Google Analytics, so the app holds no key of its own. They carry no advertising ids and are never used for advertising.</li>
+          <li><strong>Crash and error reports</strong> (always on): the error's message and where in the app it happened, the app's version, the type of system and the install id. Your VHub id is never kept with them. The first report of a new kind of error is emailed to us, without your VHub id or the install id.</li>
+          <li><strong>Downloads:</strong> the app, its updates and its games come from GitHub (github.com/vgraphics/vg--vhub-downloads), which sees your computer's IP address, as <a href="https://docs.github.com/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a> explains. The app also asks GitHub from time to time whether a new VHub is out.</li>
+          <li><strong>A game it starts</strong> gets your sign-in for that game alone, never VHub's own. What the game keeps is in its own policy.</li>
+        </ul>
       </section>
 
       <section id="how-long">
@@ -275,6 +293,7 @@
           <li>Match history: 12 months.</li>
           <li>Daily and monthly leaderboards: 60 days.</li>
           <li>Server logs: up to 30 days.</li>
+          <li>VHub for Windows: usage statistics are kept by Google Analytics for at most 14 months; crash and error reports are kept in our server logs for up to 30 days, and the count of each kind of error (without your VHub id) for 90 days after it last happened.</li>
           <li>Help tickets: until you delete them or your account, and at most one year after they close. A ticket linked to an idea or fix we plan is kept until the item ships or we drop it, then up to one more year.</li>
           <li>The newsletter: until you unsubscribe; a sign-up never confirmed is deleted after 7 days.</li>
           <li>Moderation records stay after an account is deleted (see below).</li>
