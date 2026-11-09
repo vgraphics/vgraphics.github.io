@@ -290,6 +290,7 @@
       "slug": "hints",
       "section": "basics",
       "name": "Hints",
+      "robots": "noindex",
       "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><g fill='#F2B705'><circle cx='24' cy='19.2' r='13.44'/><path d='M17.28 28.8h13.44l-.96 8.64H18.24z'/></g><path d='M20.16 43.2h7.68' stroke='#F2B705' stroke-width='3.84' stroke-linecap='round'/></svg>",
       "summary": "Lights up an arrow that can leave right now.",

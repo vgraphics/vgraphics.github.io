@@ -59,6 +59,7 @@
       "slug": "cpu-clock",
       "section": "big",
       "name": "CPU clock mode",
+      "robots": "noindex",
       "image": "/speedometer-wallpaper/img/renders/dial-future-cpu.webp",
       "summary": "How fast the processor runs, as a share of its top speed.",
       "what": ["In CPU clock mode the needle shows how fast the processor runs right now, as a percentage of its top speed."],

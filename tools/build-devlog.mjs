@@ -22,6 +22,7 @@ import { root } from './lib/product.mjs'
 import { markPage } from './lib/marks.mjs'
 
 const DESCRIPTION_MAX = 160
+const TITLE_MAX = 65
 const SITE = 'https://vgraphics.gr'
 const CARD = `${SITE}/assets/img/vgraphics-card-1200x630.jpg`
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -207,7 +208,11 @@ ${others.map(card).join('\n')}
     .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
     .more > h2 { font-size: 1.6rem; }
 ${CARD_STYLE}`
-  return page({ path, title: `${p.title} · VGraphics devlog`, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
+  // The blog's name follows the post's title only while the whole stays about 60 characters (README, "Search engines"):
+  // search results cut a longer one off.
+  const named = `${p.title} · VGraphics devlog`
+  const title = strip(named).length <= TITLE_MAX ? named : p.title
+  return page({ path, title, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
 }
 
 function indexPage() {
