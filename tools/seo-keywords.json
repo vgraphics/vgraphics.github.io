@@ -1,0 +1,12 @@
+{
+  "about": "The words people search for, for the pages that belong to no product (a product's own are in its page.json, \"seo.keywords\"). check-site holds each page's title and description to hold at least one of its keywords. Research of 10 Nov 2026 (tools/seo-keywords.md): Google's autocomplete and Play Store results, free sources only.",
+  "pages": {
+    "/": ["game studio", "app developer", "app development", "Exitwise", "Speedometer Live Wallpaper"],
+    "/games/": ["arrow puzzle", "mafia game", "party games", "Exitwise", "Palermo Noir"],
+    "/apps/": ["Android apps", "Speedometer Live Wallpaper", "car dashboard", "GPS speedometer"],
+    "/services/": ["app development", "game development", "Kotlin", "Unity"],
+    "/multiplayer/": ["multiplayer", "party game", "play with friends"],
+    "/company/": ["VGraphics", "game and app studio", "game studio"],
+    "/devlog/": ["devlog", "game development", "how our games"]
+  }
+}

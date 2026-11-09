@@ -1,6 +1,7 @@
 {
   "title": "Exitwise: Free Arrow Puzzle Game, Online, iPhone and Android",
   "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online, on iPhone and Android.",
+  "seo": { "keywords": [], "todo": "The words people search for, as they would type them (tools/seo-keywords.md has the research of 10 Nov 2026): the landing page's title, description and h1 must each hold one, and every other page's title or description. Fill it in, then remove this product's entry from tools/seo-known-gaps.json." },
   "social": {
     "title": "Exitwise: Arrow Escape Puzzle",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",

@@ -1,6 +1,7 @@
 {
   "title": "Palermo Noir: Mafia Party Game for Phones and Your TV",
   "description": "A hidden-role mafia party game for 6 to 14 friends: your phone holds your secret card, the TV shows the town, and a noir narrator runs every night. Free.",
+  "seo": { "keywords": [], "todo": "The words people search for, as they would type them (tools/seo-keywords.md has the research of 10 Nov 2026): the landing page's title, description and h1 must each hold one, and every other page's title or description. Fill it in, then remove this product's entry from tools/seo-known-gaps.json." },
   "social": {
     "title": "Palermo Noir: the mafia party game for your TV",
     "description": "Hidden roles on your phones, the town on your TV, and a narrator who runs the night, so everyone plays. For 6 to 14 friends.",
