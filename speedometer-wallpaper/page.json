@@ -1,6 +1,17 @@
 {
   "title": "HUD Speedometer Live Wallpaper: Car Dashboard for Android",
-  "description": "Turn your Android home screen into a car dashboard and your windscreen into a HUD: 19 live wallpaper styles with real gauges for GPS speed, battery and CPU.",
+  "description": "A car dashboard live wallpaper for Android, plus HUD mode: lay your phone on the dashboard and the windscreen reflects your GPS speed. 19 live styles.",
+  "seo": {
+    "keywords": [
+      "speedometer live wallpaper",
+      "hud speedometer",
+      "hud speedometer app",
+      "car hud speedometer",
+      "gps speedometer app",
+      "car dashboard live wallpaper",
+      "speedometer wallpaper for android"
+    ]
+  },
   "social": {
     "title": "HUD Speedometer Live Wallpaper",
     "description": "Your phone as a car dashboard in 19 live styles, and a HUD that puts your GPS speed on the windscreen.",
@@ -119,7 +130,7 @@
     "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
   },
   "hero": {
-    "title": "HUD Speedometer Live Wallpaper: a car dashboard on your Android phone, your speed on the windscreen",
+    "title": "HUD Speedometer Live Wallpaper: your Android phone as a car dashboard, and in HUD mode your speed reflected on the windscreen",
     "lead": "Your phone, as a <em>car dashboard</em> and a <em>windscreen HUD.</em>",
     "align": "left",
     "badges": [

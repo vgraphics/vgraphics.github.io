@@ -28,6 +28,7 @@ import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblem
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 import { markProblems } from './lib/marks.mjs'
 import { htaccessProblems } from './lib/htaccess.mjs'
+import { hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -216,6 +217,45 @@ for (const [what, seen] of [['title', seoTitles], ['description', seoDescription
       const others = list.filter((f) => f !== file)
       report(file, 'seo', `same ${what} as ${others[0]}${others.length > 1 ? ` and ${others.length - 1} more` : ''}: "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}"`)
     }
+  }
+}
+
+// What search engines want from a page's head and headings (George, 10 Nov 2026: "improve the SEO of our pages so we get
+// more visitors"; tools/lib/seo.mjs has the rules, README "Search engines"): title and description lengths, the
+// researched keywords (tools/seo-keywords.json for the shared pages, page.json "seo.keywords" for a product's), og:locale,
+// a 1200 px link preview picture with its alt text, the large-preview robots meta, a BreadcrumbList on every page but the
+// home page, no skipped heading level, alt text on every picture, hreflang pairs, and no page nothing links to. It holds
+// every page that may be indexed, the Unity pages the page loop skips included.
+// tools/seo-known-gaps.json lists, per page and check, what a product's, the hub's or a play page's own coordinator has
+// still to fix. It only shrinks: a gap that isn't listed fails, and a listed gap that is fixed fails until it is removed.
+// The shared pages (home, company, services, multiplayer, devlog, privacy, terms, 404) never get an entry.
+{
+  const known = JSON.parse(readFileSync(join(root, 'tools/seo-known-gaps.json'), 'utf8')).gaps
+  const sharedKeywords = JSON.parse(readFileSync(join(root, 'tools/seo-keywords.json'), 'utf8')).pages
+  const productSlugs = readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory() && existsSync(join(root, d.name, 'page.json'))).map((d) => d.name)
+  const byUrl = new Map()
+  const fileOf = new Map()
+  for (const file of new Set([...pages, ...unity.keys()])) {
+    const html = readFileSync(join(root, file), 'utf8')
+    const url = urlPath(file)
+    byUrl.set(url, html)
+    fileOf.set(url, file)
+  }
+  const indexable = new Map([...byUrl].filter(([url, html]) => url !== '/404.html' && !/<meta name="robots" content="[^"]*noindex/i.test(html)))
+  const found = new Map()
+  for (const [url, html] of indexable) {
+    for (const [check, message] of seoProblems({ html, url, root, keywords: keywordsFor(root, url, productSlugs, sharedKeywords) })) found.set(`${url} ${check}`, { url, check, message })
+  }
+  for (const url of orphanPages(byUrl, [...indexable.keys()])) found.set(`${url} orphan`, { url, check: 'orphan', message: 'no other page of the site links to it' })
+  for (const [url, message] of hreflangProblems(byUrl)) found.set(`${url} hreflang`, { url, check: 'hreflang', message })
+  const listed = new Map(known.map((g) => [`${g.page} ${g.check}`, g]))
+  for (const g of known) {
+    if (!g.owner || /^(platform|shared|site)/i.test(g.owner)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check}: an entry names the coordinator who owns the page (a product's, the hub's, the party games'), and the shared pages get none`)
+    if (!indexable.has(g.page)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check}: listed, but the page is gone or kept out of search: remove the entry`)
+    else if (!found.has(`${g.page} ${g.check}`)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check} is fixed: remove it from the list`)
+  }
+  for (const [key, g] of found) {
+    if (!listed.has(key)) report(fileOf.get(g.url), 'seo', `[${g.check}] ${g.message}`)
   }
 }
 

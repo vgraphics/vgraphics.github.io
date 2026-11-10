@@ -20,6 +20,7 @@ import { anchor } from './lib/partials.mjs'
 import { srcset } from './lib/hero.mjs'
 import { root } from './lib/product.mjs'
 import { markPage } from './lib/marks.mjs'
+import { INDEX_ROBOTS, OG_IMAGE_MIN_WIDTH, OG_LOCALE } from './lib/seo.mjs'
 
 const DESCRIPTION_MAX = 160
 const TITLE_MAX = 65
@@ -58,7 +59,7 @@ posts.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.tit
 const organization = { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'VGraphics', url: `${SITE}/` }
 
 function page({ path, title, description, ogTitle, ld, style, main, image }) {
-  const og = image ? { src: largest(image), width: image.widths.at(-1), height: Math.round((image.widths.at(-1) * image.height) / image.width), alt: image.alt }
+  const og = image && image.widths.at(-1) >= OG_IMAGE_MIN_WIDTH ? { src: largest(image), width: image.widths.at(-1), height: Math.round((image.widths.at(-1) * image.height) / image.width), alt: image.alt }
     : { src: CARD, width: 1200, height: 630, alt: 'VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.' }
   // With ™ after our names in the headings and at their first mention (tools/lib/marks.mjs).
   return markPage(path, `<!doctype html>
@@ -68,6 +69,7 @@ function page({ path, title, description, ogTitle, ld, style, main, image }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
+  <meta name="robots" content="${INDEX_ROBOTS}">
   <link rel="canonical" href="${SITE}${path}">
   <link rel="icon" href="/favicon.ico" sizes="32x32">
   <link rel="icon" href="/favicon.svg" type="image/svg+xml">
@@ -76,6 +78,7 @@ function page({ path, title, description, ogTitle, ld, style, main, image }) {
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="${path === '/devlog/' ? 'website' : 'article'}">
   <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">
   <meta property="og:title" content="${esc(ogTitle)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="${SITE}${path}">
@@ -217,7 +220,7 @@ ${CARD_STYLE}`
 
 function indexPage() {
   const path = '/devlog/'
-  const description = 'Notes from VGraphics on how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.'
+  const description = 'Game development notes from VGraphics: how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.'
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [

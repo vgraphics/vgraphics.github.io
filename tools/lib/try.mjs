@@ -161,15 +161,19 @@ export function tryBlock(b, page) {
   const json = JSON.stringify(config).replace(/</g, '\\u003c')
   const badge = `<a class="gp try-play" href="${esc(config.store)}" data-where="panel"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>`
   const step = (action, label, icon) => (config.style ? '' : `<button class="try-step" type="button" data-action="${action}" aria-label="${label}">${ICON[icon]}</button>`)
+  // The groups' heading level: h2 on a screen (the try page, where only the h1 comes before), h3 under a section's h2
+  // (a style's own page), so no level is skipped (check-site's heading order). The CSS styles them by class.
+  const g = page.screen ? 2 : 3
+  const heading = (id, text) => `<h${g} id="${id}" class="try-title">${text}</h${g}>`
   // A style's own page shows that style's layouts alone; the try page lists every style, its layouts under the list.
   const styles = config.style
     ? `<section class="try-group try-layouts" hidden aria-labelledby="try-layouts-title">
-              <h3 id="try-layouts-title">Layouts</h3>${layoutSets(b, 4)}
+              ${heading('try-layouts-title', 'Layouts')}${layoutSets(b, g + 1)}
             </section>`
     : `<section class="try-group" aria-labelledby="try-styles-title">
-              <h3 id="try-styles-title">Styles</h3>
+              ${heading('try-styles-title', 'Styles')}
               <ul class="try-styles"></ul>
-              <div class="try-layouts" hidden><h4>Layouts</h4>${layoutSets(b, 5)}
+              <div class="try-layouts" hidden><h${g + 1} class="try-subtitle">Layouts</h${g + 1}>${layoutSets(b, g + 2)}
               </div>
               ${l.unlock ? `<p class="try-unlock">${l.unlock}</p>` : ''}
             </section>`
@@ -202,11 +206,11 @@ export function tryBlock(b, page) {
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             ${styles}
             <section class="try-group" aria-labelledby="try-settings-title">
-              <h3 id="try-settings-title">Settings</h3>
+              ${heading('try-settings-title', 'Settings')}
               <div class="try-settings"></div>
             </section>
             <section class="try-group try-get" aria-labelledby="try-get-title">
-              <h3 id="try-get-title">${l.get ?? 'Set it as your wallpaper'}</h3>
+              ${heading('try-get-title', l.get ?? 'Set it as your wallpaper')}
               <p>${l.getNote ?? 'A browser can’t set your wallpaper. Get the app on Google Play and pick this style there.'}</p>
               <div class="try-get-row">
                 ${badge}

@@ -393,8 +393,9 @@
     catalog.settings.concat(style.looks).forEach(function (setting) {
       if (setting.section !== section) {
         section = setting.section;
-        var title = document.createElement('h4');
-        title.className = 'try-section';
+        // One level under the Settings group's own heading (h2 on the try page, h3 on a style's page).
+        var title = document.createElement('h' + (Number(($('#try-settings-title') || { tagName: 'H3' }).tagName.slice(1)) + 1));
+        title.className = 'try-section try-subtitle';
         title.textContent = section;
         settings.appendChild(title);
       }

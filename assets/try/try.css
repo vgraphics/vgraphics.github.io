@@ -183,8 +183,8 @@
 .try-toast-text small:empty { display: none; }
 
 .try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
-.try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
-.try-group h4 { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-title { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-subtitle { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
 
 .try-styles { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
 .try-styles button {
@@ -249,7 +249,7 @@
    title. A set, and the menu itself, grows in as it appears (a HUD style picked, the market's layouts in) and shrinks
    away as it goes (assets/faq.js showBox and hideBox). */
 .try-layouts { display: grid; gap: 14px; }
-.try-layouts > h4 { margin: 0; }
+.try-layouts > .try-subtitle { margin: 0; }
 .try-layout-set { display: grid; gap: 8px; }
 .try-layout-set[hidden] { display: none; }
 .try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }

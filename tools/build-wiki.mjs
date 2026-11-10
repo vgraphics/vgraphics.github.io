@@ -34,6 +34,8 @@ import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { compare } from './lib/compare.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
+import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
+import { imageSize } from './lib/image-size.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -109,7 +111,9 @@ function preview(w, product, slug, alt) {
   const a = slug && w.art[slug]
   if (a?.jpeg?.includes(1280)) return { src: `/${w.product.slug}/wiki/img/art/${slug}-1280.jpg`, width: 1280, height: Math.round((1280 * a.height) / a.width), alt }
   const card = product.page.social
-  return { src: w.product.image, alt: w.product.image === card?.image ? card.imageAlt : w.product.name }
+  // The picture's own size, so the preview states it (og:image:width and height).
+  const size = imageSize(join(root, w.product.image))
+  return { src: w.product.image, ...(size ?? {}), alt: w.product.image === card?.image ? card.imageAlt : w.product.name }
 }
 
 // ---------- Pictures ----------
@@ -162,15 +166,16 @@ function shell(w, product, { title, description, path, body, entry, image, prelo
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}">${entry?.robots ? `
-  <meta name="robots" content="${esc(entry.robots)}">` : ''}
+  <meta name="description" content="${esc(description)}">
+  <meta name="robots" content="${esc(entry?.robots ?? INDEX_ROBOTS)}">
   <link rel="canonical" href="https://vgraphics.gr${path}">
   ${iconLinks(product.page)}
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="VGraphics">${image?.src ? `
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">${image?.src ? `
   <meta property="og:image" content="https://vgraphics.gr${esc(image.src)}">${image.width ? `
   <meta property="og:image:width" content="${image.width}">
   <meta property="og:image:height" content="${image.height}">` : ''}

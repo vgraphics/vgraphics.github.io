@@ -91,6 +91,7 @@ import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { markPage } from './lib/marks.mjs'
+import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
@@ -509,14 +510,15 @@ export function render(slug, sub, source) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
   <title>${esc(p.title)}</title>
-  <meta name="description" content="${esc(p.description)}">${p.robots ? `
-  <meta name="robots" content="${esc(p.robots)}">` : ''}
+  <meta name="description" content="${esc(p.description)}">
+  <meta name="robots" content="${esc(p.robots ?? INDEX_ROBOTS)}">
   <meta name="theme-color" content="${t.tokens.page}">
   <meta name="color-scheme" content="${t.scheme}">
   <link rel="canonical" href="${url}">
   ${iconLinks(p)}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">
   <meta property="og:title" content="${esc(p.social.title)}">
   <meta property="og:description" content="${esc(p.social.description)}">
   <meta property="og:url" content="${url}">
