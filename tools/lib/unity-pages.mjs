@@ -23,6 +23,11 @@
 // - noindex: a TV or join page is kept out of search, as every door is.
 import { legalProblems } from './legal.mjs'
 import { playPageProblems } from './play-pages.mjs'
+import { isDoor } from './screens.mjs'
+
+// A product's TV or join page (/<product>/tv/, /<product>/tv-classic/ or /<product>/join/, or a page in those folders):
+// the list of folders is shared with the legal, help-mail and sitemap rules (tools/lib/screens.mjs).
+export { isDoor }
 
 const strip = (html) => html.replace(/<!--[\s\S]*?-->/g, '')
 // The page's own scripts, the ones without a src.
@@ -30,9 +35,6 @@ const inline = (html) => [...strip(html).matchAll(/<script\b([^>]*)>([\s\S]*?)<\
   .filter(([, attrs]) => !/\ssrc=/i.test(attrs) && !/type="application\/(?:ld\+)?json"/i.test(attrs)).map((m) => m[2]).join('\n')
 
 export const isUnityPage = (html) => /\bcreateUnityInstance\s*\(/.test(inline(html))
-
-// A product's TV or join page: /<product>/tv/ or /<product>/join/, or a page in those folders.
-export const isDoor = (path) => /^\/[^/]+\/(tv|join)\//.test(path)
 
 // The address a page's scripts give `key`, as Unity's templates write it: key: "Build/x" or key = "Build/x" (Exitwise's),
 // or key: buildUrl + "/x" with var buildUrl = "Build" (Unity's own template). null when it can't tell.

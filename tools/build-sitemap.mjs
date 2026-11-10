@@ -2,7 +2,8 @@
 // changed.
 // Usage: node tools/build-sitemap.mjs   (after adding, moving or removing a page; check-site fails until you do)
 // A page is left out when it has <meta name="robots" content="noindex"> (the 404 page, the room invite page), and the
-// admin page always, whatever its markup says (tools/lib/admin.mjs).
+// admin page and a product's TV and join pages (including Palermo Noir's old-TV page, /palermo/tv-classic/) always,
+// whatever their markup says (tools/lib/admin.mjs, tools/lib/screens.mjs).
 // <lastmod> is the date of the last commit that changed the page's file, or today while it has changes not committed
 // yet, so a page built and committed on the same day keeps its date through the commit and the merge. Run it again
 // after pages change (the Deployer's hub and party releases do); check-site checks which pages are listed, and that each
@@ -14,6 +15,7 @@ import { dirname, join, relative, sep } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { inAdminFolder } from './lib/admin.mjs'
 import { pieces } from './lib/product.mjs'
+import { isDoor } from './lib/screens.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // _mockups/ holds local design proposals that are never committed. Unlike check-site, the Deployer's play pages count.
@@ -46,8 +48,10 @@ function lastChanged() {
   return (file) => dates.get(file.split(sep).join('/')) ?? today
 }
 
-// Whether the page in `file` (its path in the repo) goes in the sitemap: not when it is noindex, and never the admin page.
-export const listed = (file, html) => !inAdminFolder(file) && !/<meta name="robots" content="[^"]*noindex/i.test(html)
+// Whether the page in `file` (its path in the repo) goes in the sitemap: not when it is noindex, and never the admin page
+// or a product's TV or join page (tools/lib/screens.mjs: /<product>/tv/, /<product>/tv-classic/, /<product>/join/).
+export const listed = (file, html) =>
+  !inAdminFolder(file) && !isDoor(`/${file.split(sep).join('/')}`) && !/<meta name="robots" content="[^"]*noindex/i.test(html)
 
 // sitemap.xml as it should be now. check-site compares the file with it.
 export function sitemap() {
