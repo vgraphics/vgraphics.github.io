@@ -46,7 +46,7 @@
         {
           "type": "features",
           "items": [
-            { "title": "Score", "text": "1,000 points for each level won, less for each heart lost and for the time taken." },
+            { "title": "Score", "text": "650 points plus 10 an arrow for each level won, less for hearts lost, time, helps (100) and continues (200)." },
             { "title": "Perfect", "text": "Levels won without losing a heart." },
             { "title": "Maps", "text": "Other players' custom maps cleared." },
             { "title": "Creators", "text": "Plays of their own maps by other players." }

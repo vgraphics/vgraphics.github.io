@@ -97,7 +97,7 @@ test('a board loads and names its players when the pictures\' script fails', asy
   assert.equal(asked[0].src, '/assets/vhub-avatars.js')
   asked[0].onerror()
   const { players } = await loading
-  assert.deepEqual(players.map((p) => [p.rank, p.name, p.stats.score]), [[1, 'Ann', 900], [2, null, 700], [3, 'Cara', 650]])
+  assert.deepEqual(players.map((p) => [p.rank, p.name, p.stats.score2]), [[1, 'Ann', 900], [2, null, 700], [3, 'Cara', 650]])
   assert.equal(asked[0].removed, true, 'the failed script leaves the page')
   assert.equal(boards.anonymous(players[1].uid), 'Player BOBB')
 

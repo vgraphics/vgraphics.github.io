@@ -21,8 +21,8 @@
     cell.className = "stat";
     let html, label;
     if (id === "score") {
-      html = `<span class="big">${fmt(s.score)}</span><span class="small">${s.score === 1 ? "point" : "points"}</span>`;
-      label = `${plural(s.score, "point", "points")}, level ${fmt(s.highestLevel)}`;
+      html = `<span class="big">${fmt(s.score2)}</span><span class="small">${s.score2 === 1 ? "point" : "points"}</span>`;
+      label = `${plural(s.score2, "point", "points")}, level ${fmt(s.highestLevel)}`;
     } else if (id === "perfect") {
       html = `<span class="big">${HEART}${fmt(s.perfectClears)}</span>`;
       label = plural(s.perfectClears, "perfect clear", "perfect clears");
@@ -73,7 +73,7 @@
   }
 
   function trophyStat(id, s) {
-    if (id === "score") return plural(s.score, "point", "points");
+    if (id === "score") return plural(s.score2, "point", "points");
     if (id === "perfect") return plural(s.perfectClears, "perfect clear", "perfect clears");
     if (id === "maps") return plural(s.customCleared, "map", "maps");
     return plural(s.creatorPlays, "play", "plays");

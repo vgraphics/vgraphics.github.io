@@ -23,7 +23,7 @@ window.ExitwiseBoards = (() => {
 
   // The page's ids, VHub's boards and the counters behind them, with the catalog's captions.
   const BOARDS = {
-    score: { board: "exitwise.score", title: "Score", caption: "Points for every level won: fewer hearts lost and faster wins earn more", column: "Score", field: "score", tiebreak: "highestLevel",
+    score: { board: "exitwise.score", title: "Score", caption: "Points for every level won: more arrows earn more; hearts lost, time, helps and continues cost points", column: "Score", field: "score2", tiebreak: "highestLevel",
       empty: "Nobody has a score yet. Win level 1 to get one." },
     perfect: { board: "exitwise.perfect", title: "Perfect", caption: "Levels won without losing a heart", column: "Perfect clears", field: "perfectClears",
       empty: "Win a level without losing a heart to get on this board." },
