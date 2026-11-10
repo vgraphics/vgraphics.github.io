@@ -26,7 +26,7 @@ import { anchor, closing, header, footer, iconLinks, quote } from './lib/partial
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
-import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
+import { entryTitle, INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { versionImages } from './lib/image-version.mjs'
 
@@ -69,15 +69,7 @@ function article(product, e, { description, path, image }) {
   return JSON.stringify(ld).replace(/</g, '\\u003c')
 }
 
-// An entry's search title: the first of wiki.json's "entryTitles" that fits in 60 characters, filled with the entry's
-// name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
-// patterns with {kind} are passed over. Else "<name> · <product> wiki".
-function entryTitle(w, e) {
-  const kind = w.sections.find((s) => s.id === e.section)?.kind
-  return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
-    .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
-    .find((t) => t.length <= 60) ?? `${e.name} · ${w.product.name} wiki`
-}
+// An entry's search title: its own "title" in wiki.json, else the entryTitles patterns (entryTitle, tools/lib/seo.mjs).
 
 // An entry's search description: its summary, then the sentences of "What it does" while they fit in 160 characters.
 // The first one that doesn't fit is cut at a word, so the description always says more than the summary. A short one

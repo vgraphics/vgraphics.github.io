@@ -28,8 +28,9 @@ import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblem
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 import { markProblems } from './lib/marks.mjs'
 import { htaccessProblems } from './lib/htaccess.mjs'
+import { leakedText } from './lib/leaked-text.mjs'
 import { codeImageRefs, imageGapProblems, imageVersionProblems, realFile } from './lib/image-version.mjs'
-import { hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
+import { entryTitleProblem, hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -174,6 +175,8 @@ for (const file of pages) {
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
   if (!/<meta name="viewport"/.test(html)) report(file, 'head', 'no viewport meta')
   if (!/<title>[^<\s][^<]*<\/title>/.test(html)) report(file, 'head', 'empty or missing <title>')
+  // A script that printed a value it never had leaves the word "undefined" on the page (Palermo's tip cards did).
+  for (const around of leakedText(html).slice(0, 3)) report(file, 'undefined-text', `the page shows the word "undefined" (a value a script never had): "…${around}…"`)
   if (file !== '404.html') {
     const want = `https://vgraphics.gr${urlPath(file)}`
     const got = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
@@ -1045,12 +1048,16 @@ for (const file of served) {
 
 // A wiki's playable boards (wiki.json "board", assets/wiki.js) hold only arrows the game can have: each head points the
 // way its body's last cell runs into it (Exitwise Core, Arrow.cs, whose constructor refuses any other), bombs too.
+// And an entry's own "title" is 25 to 65 characters (tools/lib/seo.mjs entryTitle).
 {
   const STEP = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] }
   for (const dir of readdirSync(root)) {
     const file = join(dir, 'wiki', 'wiki.json')
     if (!existsSync(join(root, file))) continue
     for (const e of JSON.parse(readFileSync(join(root, file), 'utf8')).entries ?? []) {
+      // An entry's own "title" (the question people search for) is held to the title length at its source too.
+      const titleProblem = entryTitleProblem(e)
+      if (titleProblem) report(file, 'entry-title', `${e.slug}: ${titleProblem}`)
       for (const a of [...(e.board?.arrows ?? []), ...(e.board?.bombs ?? [])]) {
         const [q, h] = a.cells.slice(-2), [dx, dy] = STEP[a.dir] ?? []
         if (h && q && (h[0] - q[0] !== dx || h[1] - q[1] !== dy)) report(file, 'board', `${e.slug}: the ${a.id} arrow points ${a.dir}, but its body runs into its head from ${q} to ${h}: the game has no such arrow (Arrow.cs), so turn its head or move its last cell`)

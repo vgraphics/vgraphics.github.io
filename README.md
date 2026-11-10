@@ -597,14 +597,18 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   "mafia game roles and rules" for Palermo Noir (in Greece the game itself is called Palermo); "speedometer live
   wallpaper", "car dashboard", "GPS speedometer" for Speedometer; "app development", "game development", "Greece",
   "Kotlin", "Unity" for the services. A landing page's h1 (for screen readers and search, under the painted logo) is its
-  `hero.title`, what the product is in those words. Wiki entries take theirs from their wiki.json's `entryTitles`
-  (the first that fits in 60 characters, with the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"),
-  and a short description ends with its `entryTail`.
+  `hero.title`, what the product is in those words. A wiki entry's own `title` in wiki.json comes first, so a product
+  can word it as the question people ask ("How does the colour gate work in Exitwise?"; 25 to 65 characters, check-site
+  rule `entry-title`); without one it takes the wiki.json's `entryTitles` (the first that fits in 60 characters, with
+  the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"), and a short description ends with its
+  `entryTail`.
 - **Link previews:** every page has og:title, og:description, og:image (with its size and alt) and a large Twitter
   card. A wiki entry shows its own painting (its 1280 px JPEG), a wiki index its own when it is one of the paintings.
 - **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
   data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
-  same title or the same description. The canonical address is checked on every page.
+  same title or the same description. The canonical address is checked on every page. It also fails a page whose
+  visible text (or title) holds the word `undefined`, a value a script never had (rule `undefined-text`,
+  `tools/lib/leaked-text.mjs`; scripts, JSON-LD, styles, comments, SVG and attributes don't count).
 - **The SEO rules of 10 Nov 2026** (`tools/lib/seo.mjs`, which the generators and check-site share; George: "improve the
   SEO of our pages so we get more visitors"). Every indexable page, the Unity play pages included: a title of 25 to 65
   characters and a description of 100 to 165 (search results cut them); `og:locale` `en_US`; an og:image of at least

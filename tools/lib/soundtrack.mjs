@@ -41,7 +41,8 @@ const largest = (img, ext) => `${img.src}-${img.widths.at(-1)}.${ext}`
 
 // The player's backdrop: the tall picture on narrow screens, the wide one elsewhere; lazy, so it waits for the scroll.
 function backdrop(bg, cover) {
-  if (!bg) return `<span class="ost-backdrop blur" aria-hidden="true"><img src="${esc(`${cover.src}-${cover.widths[0]}.webp`)}" alt="" loading="lazy" decoding="async"></span>`
+  // The cover is a square cut, so its smallest size is as wide as it is tall (the record's disc says the same).
+  if (!bg) return `<span class="ost-backdrop blur" aria-hidden="true"><img src="${esc(`${cover.src}-${cover.widths[0]}.webp`)}" alt="" width="${cover.widths[0]}" height="${cover.widths[0]}" loading="lazy" decoding="async"></span>`
   const sources = (img, media) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${esc(set(img, ext))}" sizes="(max-width: 619px) 100vw, 1120px">`).join('')
   return `<picture class="ost-backdrop" aria-hidden="true">${sources(bg.tall, '(max-width: 619px)')}${sources(bg.wide)}<img src="${esc(largest(bg.wide, 'webp'))}" alt="" loading="lazy" decoding="async"></picture>`
 }

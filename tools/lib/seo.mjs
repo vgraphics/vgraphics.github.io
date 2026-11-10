@@ -26,6 +26,29 @@ export const decode = (s) => s
 /** Text for comparing words: lower case, no ™, & and spacing folded. */
 export const plainText = (s) => decode(s).replace(/™/g, '').replace(/\s+/g, ' ').trim().toLowerCase()
 
+/** A wiki entry's search title (tools/build-wiki.mjs). Its own "title" in wiki.json comes first, so a product can word it
+ * as the question people ask ("How does the colour gate work in Exitwise?"; Platform job 26, from Exitwise); check-site
+ * holds it to TITLE_LENGTH. Else the first of wiki.json's "entryTitles" that fits in 60 characters, filled with the entry's
+ * name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
+ * patterns with {kind} are passed over. Else "<name> · <product> wiki". w: the wiki.json; e: one of its entries. */
+export function entryTitle(w, e) {
+  if (typeof e.title === 'string' && e.title.trim()) return e.title.trim()
+  const kind = w.sections.find((s) => s.id === e.section)?.kind
+  return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
+    .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
+    .find((t) => t.length <= 60) ?? `${e.name} · ${w.product.name} wiki`
+}
+
+/** What is wrong with an entry's own "title" in wiki.json, as a message (undefined when it has none or it is fine):
+ * it must be a string of TITLE_LENGTH characters, the length search results show. */
+export function entryTitleProblem(e) {
+  if (e.title === undefined) return undefined
+  const [min, max] = TITLE_LENGTH
+  if (typeof e.title !== 'string') return `the title is not a string`
+  const length = e.title.trim().length
+  return length < min || length > max ? `the title is ${length} characters, want ${min} to ${max} (search results cut it): "${e.title.slice(0, 50)}"` : undefined
+}
+
 const meta = (head, attr, name) => head.match(new RegExp(`<meta ${attr}="${name}" content="([^"]*)"`))?.[1]?.trim()
 
 /** Heading levels in order, as [level, text]: the page's body without scripts, styles and SVG. */

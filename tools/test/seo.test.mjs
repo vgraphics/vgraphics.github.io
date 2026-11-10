@@ -2,9 +2,10 @@
 // what a good page passes, and each rule failing on its own. Run: node --test tools/test/*.test.mjs
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
+import { existsSync, readdirSync, readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { hreflangProblems, INDEX_ROBOTS, keywordsFor, OG_LOCALE, orphanPages, seoProblems } from '../lib/seo.mjs'
+import { entryTitle, entryTitleProblem, hreflangProblems, INDEX_ROBOTS, keywordsFor, OG_LOCALE, orphanPages, seoProblems } from '../lib/seo.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
 const TITLE = 'Exitwise: a free arrow puzzle game for phones'
@@ -66,6 +67,54 @@ test('keywords come from the shared file for the pages that belong to no product
   const shared = { '/games/': ['arrow puzzle'] }
   assert.deepEqual(keywordsFor(root, '/games/', ['exitwise'], shared), { list: ['arrow puzzle'] })
   assert.deepEqual(keywordsFor(root, '/terms/', ['exitwise'], shared), {})
+})
+
+// A wiki entry's search title (Platform job 26, from Exitwise): its own "title" first, so a product can word it as the
+// question people ask; else the entryTitles patterns; else "<name> · <product> wiki".
+const WIKI = {
+  product: { name: 'Exitwise' },
+  sections: [{ id: 'obstacles', kind: 'obstacle' }, { id: 'rules' }],
+  entryTitles: ['{name} ({kind}) · Exitwise arrow puzzle wiki', '{name} ({kind}) · Exitwise wiki'],
+}
+
+test('a wiki entry\'s own title comes before the entryTitles patterns', () => {
+  const own = { name: 'Colour gate', section: 'obstacles', title: 'How does the colour gate work in Exitwise?' }
+  assert.equal(entryTitle(WIKI, own), 'How does the colour gate work in Exitwise?')
+  assert.equal(entryTitle(WIKI, { ...own, title: '  Padded title for the colour gate  ' }), 'Padded title for the colour gate')
+})
+
+test('a wiki entry without a title takes the first entryTitles pattern that fits in 60 characters', () => {
+  assert.equal(entryTitle(WIKI, { name: 'Rock', section: 'obstacles' }), 'Rock (obstacle) · Exitwise arrow puzzle wiki')
+  assert.equal(entryTitle(WIKI, { name: 'Rock', section: 'obstacles', title: '' }), 'Rock (obstacle) · Exitwise arrow puzzle wiki')
+  // too long for the first pattern (66 characters), so the second
+  assert.equal(entryTitle(WIKI, { name: 'Colour gate crossing point', section: 'obstacles' }), 'Colour gate crossing point (obstacle) · Exitwise wiki')
+  // a section without a kind passes the {kind} patterns over
+  assert.equal(entryTitle(WIKI, { name: 'Moves', section: 'rules' }), 'Moves · Exitwise wiki')
+})
+
+test('an entry\'s own title must be a string of the length search results show', () => {
+  assert.equal(entryTitleProblem({ slug: 'a' }), undefined)
+  assert.equal(entryTitleProblem({ slug: 'a', title: 'How does the colour gate work in Exitwise?' }), undefined)
+  assert.match(entryTitleProblem({ slug: 'a', title: 'Colour gate' }), /11 characters, want 25 to 65/)
+  assert.match(entryTitleProblem({ slug: 'a', title: 'x'.repeat(66) }), /66 characters, want 25 to 65/)
+  assert.equal(entryTitleProblem({ slug: 'a', title: 'x'.repeat(65) }), undefined)
+  assert.equal(entryTitleProblem({ slug: 'a', title: 'x'.repeat(25) }), undefined)
+  assert.match(entryTitleProblem({ slug: 'a', title: 42 }), /not a string/)
+})
+
+test('every entry of every wiki.json passes the title rule, and the titles are all different', () => {
+  const titles = new Map()
+  for (const dir of readdirSync(root)) {
+    const file = join(root, dir, 'wiki', 'wiki.json')
+    if (!existsSync(file)) continue
+    const w = JSON.parse(readFileSync(file, 'utf8'))
+    for (const e of w.entries ?? []) {
+      assert.equal(entryTitleProblem(e), undefined, `${dir}/wiki/wiki.json ${e.slug}`)
+      const title = entryTitle(w, e)
+      assert.ok(!titles.has(title), `${dir} ${e.slug} and ${titles.get(title)} have the same title: ${title}`)
+      titles.set(title, `${dir} ${e.slug}`)
+    }
+  }
 })
 
 test('hreflang alternates list themselves, name each other back and have an x-default', () => {
