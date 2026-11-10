@@ -1,16 +1,12 @@
 {
  "about": "What a product's, the hub's or a play page's own coordinator still has to fix for search (tools/lib/seo.mjs, README 'Search engines'). One entry per page and check, with the owner. check-site fails on a gap that is not listed here and on a listed gap that is fixed, so this list only shrinks; the shared pages (home, company, services, multiplayer, devlog, privacy, terms, 404) never get an entry.",
  "gaps": [
-  { "page":"/exitwise/", "check":"keywords", "owner":"Exitwise coordinator" },
   { "page":"/exitwise/play/", "check":"og-locale", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"og-image-alt", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"twitter-image", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"og-image-size", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"robots-preview", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"breadcrumb", "owner":"Games coordinator (Unity web build)" },
-  { "page":"/exitwise/privacy.html", "check":"description-length", "owner":"Exitwise coordinator" },
-  { "page":"/exitwise/storybook/", "check":"title-length", "owner":"Exitwise coordinator" },
-  { "page":"/exitwise/storybook/", "check":"description-length", "owner":"Exitwise coordinator" },
   { "page":"/palermo/", "check":"keywords", "owner":"Palermo Noir coordinator" },
   { "page":"/speedometer-wallpaper/about/", "check":"description-length", "owner":"Speedometer coordinator" },
   { "page":"/speedometer-wallpaper/", "check":"keywords", "owner":"Speedometer coordinator" },
