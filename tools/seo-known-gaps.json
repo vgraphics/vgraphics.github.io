@@ -7,7 +7,6 @@
   { "page":"/exitwise/play/", "check":"og-image-size", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"robots-preview", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"breadcrumb", "owner":"Games coordinator (Unity web build)" },
-  { "page":"/palermo/", "check":"keywords", "owner":"Palermo Noir coordinator" },
   { "page":"/speedometer-wallpaper/about/", "check":"description-length", "owner":"Speedometer coordinator" },
   { "page":"/speedometer-wallpaper/", "check":"keywords", "owner":"Speedometer coordinator" },
   { "page":"/speedometer-wallpaper/play/", "check":"heading-order", "owner":"Speedometer coordinator" },
