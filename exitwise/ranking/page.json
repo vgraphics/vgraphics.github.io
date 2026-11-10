@@ -58,7 +58,7 @@
   ],
   "cta": {
     "title": "Climb the ranking",
-    "text": "Win levels quickly and without losing hearts for Score, win them without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.",
+    "text": "For Score, win levels quickly, without losing hearts and without hints, powerups or continues: the more arrows a level has, the more it earns. Win without losing a heart for Perfect, and clear or publish custom maps for Maps and Creators.",
     "badges": ["app-store", "google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }]
   }
 }
