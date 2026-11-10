@@ -1,5 +1,7 @@
 User-agent: *
 Allow: /
+# VHub for Windows' test downloads, only while its install checks run (VHub desktop/TEST.md); removed with them.
+Disallow: /hub/desktop-test/
 
 # No AI training or text and data mining on vgraphics.gr: VGRAPHICS SINGLE MEMBER P.C. reserves these uses under
 # Article 4(3) of Directive (EU) 2019/790 (https://vgraphics.gr/terms/#ai). Search engines may still list every page.
