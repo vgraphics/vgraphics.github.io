@@ -13,7 +13,7 @@
   },
   {
     "q": "How does the score work?",
-    "a": "Every level you win earns 650 points plus 10 for each arrow you drive off the board, so bigger levels are worth more. Each heart lost costs 25, the time taken costs a little, each hint or powerup costs 100 and each continue 200, and a win never earns less than 100. Each level keeps the most you have earned on it, so a replay can only raise your score: the total of every level you've won, which the <a href=\"/exitwise/ranking/\">global ranking</a> orders players by. <a href=\"/exitwise/wiki/leaderboards/\">More about the boards</a>."
+    "a": "Every level you win earns points, and the more arrows it has, the more it earns: 650 plus 10 for each arrow on the board, so level 100's 104 arrows make it worth up to 1,690. From that, each heart lost costs 25, each hint or powerup 100, each continue 200, and the time a little (220 points a second, divided by the arrows), but a win always earns at least 100. Each level keeps the most you have earned on it, so a replay can only raise your score: the total of every level you've won, which the <a href=\"/exitwise/ranking/\">global ranking</a> orders players by. <a href=\"/exitwise/wiki/leaderboards/\">More about the boards</a>."
   },
   {
     "q": "How many levels are there?",
