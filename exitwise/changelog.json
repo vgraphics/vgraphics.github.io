@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "1.0.41",
+      "date": "2026-11-10",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Win cards now name your level",
+      "items": [
+        "Win cards now name the level you cleared, and the top bar steps aside for a cleaner screen while a card is open.",
+        "Discover Speedometer, another of our games — look for it in Settings and now and then as you play."
+      ],
+      "commit": "06222f86"
+    },
+    {
       "version": "1.0.91327a71",
       "date": "2026-11-10",
       "platforms": [
