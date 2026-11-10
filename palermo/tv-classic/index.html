@@ -1,0 +1,71 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <!-- The frozen TV page (src/tv/classic.ts; the WebGL design 7.6, WP13): today's web TV, for a TV whose browser can't
+         run the Unity TV at /palermo/tv/, which sends it here. Kept out of search: every link, QR and door names
+         /palermo/tv/. -->
+    <meta name="robots" content="noindex" />
+    <title>Palermo Noir · TV</title>
+    <link rel="canonical" href="https://vgraphics.gr/palermo/tv-classic/" />
+    <link rel="icon" href="../game/art/logo.svg" type="image/svg+xml" />
+    <!-- The site's cursors (every page on vgraphics.gr links it; palermo.css sets Palermo's); vite-ignore leaves the
+         site's own files to the site. -->
+    <link rel="stylesheet" href="/assets/cursors.css"  />
+    <!-- No text selection and no right-click, as on every page on vgraphics.gr (text fields excepted): the site's own script. -->
+    <script src="/assets/no-select.js" defer ></script>
+    <style>
+      html, body { margin: 0; height: 100%; overflow: hidden; background: #0A090D; }
+      /* The legal line, fine print along the screen's foot: a game's screen, this TV door included, says only "© VGraphics"
+         (George, 29 Oct 2026: "Apps just can say VGraphics."). The start screen gives it a row of its own at the foot of
+         its stage (door-layout.tsx, LegalRow), so the keys never sit on it. */
+      .party-legal { position: fixed; left: 0; right: 0; bottom: 0; z-index: 40; padding: 0.4em 1em;
+        color: rgba(239, 231, 212, 0.5); font: 14px/1.4 system-ui, sans-serif; text-align: center; }
+      .party-legal a { color: inherit; }
+      /* No selecting and no long-press menu (George, 26 Oct 2026: "Dont allow text selection and right clicking in any
+         page."): the kit's KitRoot does it for the whole page, with the right-click menu and the fields, and the shared
+         welcome for its art; this covers the legal line before the app has loaded. */
+      .party-legal { -webkit-user-select: none; user-select: none; -webkit-touch-callout: none; }
+    </style>
+    <script type="module" crossorigin src="/palermo/game/private-C-xJ5OT-.js"></script>
+    <script type="module" crossorigin src="/palermo/game/newsreel-CYK61-1E.js"></script>
+    <script type="module" crossorigin src="/palermo/game/door-layout-BAKfz43K.js"></script>
+    <script type="module" crossorigin src="/palermo/game/vote-opens-BVAEq26X.js"></script>
+    <script type="module" crossorigin src="/palermo/game/app-CU9SACVr.js"></script>
+    <script type="module" crossorigin src="/palermo/game/main-CKLcGJXM.js"></script>
+    <link rel="stylesheet" crossorigin href="/palermo/game/private-CAn0Nrkf.css">
+    <link rel="stylesheet" crossorigin href="/palermo/game/newsreel-sE5nnSXv.css">
+  </head>
+  <body>
+    <!-- The party games' shared welcome, from vgraphics.gr/tv/start-up/, as on /palermo/tv/: this game's key art, logo
+         and the squishy loading bar from the first frame, while the TV app loads and joins the room. No VGraphics intro
+         here: a TV comes to this page only from /palermo/tv/, whose start-up played it (or vgraphics.gr/tv's did), and
+         the welcome counts from its first frame on a page without one. The key art in every size, as /palermo/tv/ has
+         it (key-art.test.ts). -->
+    <div
+      id="party-welcome"
+      data-art="../game/art/key-wide.webp"
+      data-art-tall="../game/art/key-tall.webp"
+      data-art-srcset="../game/art/key-wide.webp 1920w, ../game/art/key-wide-2560.webp 2560w, ../game/art/key-wide-3840.webp 3840w, ../game/art/key-wide-7680.webp 7680w"
+      data-art-sizes="(min-aspect-ratio: 16/9) 100vw, 177.78vh"
+      data-art-tall-srcset="../game/art/key-tall.webp 1080w, ../game/art/key-tall-1440.webp 1440w, ../game/art/key-tall-1800.webp 1800w, ../game/art/key-tall-2160.webp 2160w, ../game/art/key-tall-3072.webp 3072w, ../game/art/key-tall-4320.webp 4320w"
+      data-art-tall-sizes="(max-aspect-ratio: 1080/1935) 55.82vh, 100vw"
+      data-logo="../game/art/logo.webp"
+      data-accent="#E8B65A"
+      data-accent-lip="#B8862E"
+      data-track="#13243A"
+      data-track-lip="#060D16"
+      data-groove="#08111C"
+      data-rim="#B8862E"
+    ></div>
+    <script src="../../tv/start-up/welcome.js"></script>
+    <div id="app"></div>
+    <!-- A product's legal line (the kit's PRODUCT_LEGAL_LINE), the same in every language, with nothing for the remote to
+         land on. Hidden while a game plays. -->
+    <footer id="party-legal" class="party-legal">&copy; 2026 VGraphics</footer>
+    <!-- vgraphics.gr's one ad switch, read before the app starts the kit's ads, as on /palermo/tv/. The site's own file,
+         so vite-ignore. -->
+    <script src="/assets/web-ads.js" ></script>
+  </body>
+</html>

@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "0.1.9635e17a",
+      "date": "2026-11-10",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Gather round the new table",
+      "items": [
+        "On a computer, the room before a game is now a hand-drawn noir table, with drinks and an ashtray, a notebook, and new glass and page sounds",
+        "The shared TV view now works on older smart TVs",
+        "When you cancel a friend request you sent, the undo message now names that player",
+        "The 'Coming soon' item no longer appears"
+      ],
+      "commit": "9635e17a"
+    },
+    {
       "version": "0.1.93576fe5",
       "date": "2026-11-09",
       "platforms": [

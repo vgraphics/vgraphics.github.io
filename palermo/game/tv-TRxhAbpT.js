@@ -1,1 +1,0 @@
-import{Q as t,G as m,R as p,u as r}from"./wordmark-Dcnfx_d6.js";import{E as s}from"./newsreel-hfDqoY7b.js";import{TvApp as e}from"./app-nK2hRIQ_.js";import"./door-layout-BzqD4pH8.js";import"./vote-opens-D5Q5Zrt4.js";t(m);s();const o=document.getElementById("app");o&&p(r(e,{}),o);
