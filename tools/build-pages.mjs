@@ -184,6 +184,8 @@ const LINK_ICONS = {
   book: line('<path d="M2.5 5h6a3.5 3.5 0 0 1 3.5 3.5V20a2.5 2.5 0 0 0-2.5-2.5h-7zM21.5 5h-6A3.5 3.5 0 0 0 12 8.5V20a2.5 2.5 0 0 1 2.5-2.5h7z"/>'),
   rules: line('<rect x="5" y="4" width="14" height="17" rx="2"/><path d="M9 3.5h6v2H9zM8.5 10h7M8.5 13.5h7M8.5 17h4"/>'),
   music: line('<path d="M9 18V5.5l11-2V16"/><circle cx="6.5" cy="18" r="2.5"/><circle cx="17.5" cy="16" r="2.5"/>'),
+  // A video on the product's YouTube channel (Speedometer's HUD trailer and Shorts, 11 Nov 2026)
+  video: line('<rect x="2.5" y="5" width="19" height="14" rx="3.5"/><path d="M10 9.3v5.4l4.6-2.7z"/>'),
 }
 
 const BLOCKS = {

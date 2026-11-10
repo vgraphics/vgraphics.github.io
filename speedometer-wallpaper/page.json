@@ -842,6 +842,32 @@
               "note": "Your real GPS speed, or a demo drive"
             }
           ]
+        },
+        {
+          "type": "links",
+          "label": "HUD mode videos on YouTube",
+          "items": [
+            {
+              "href": "https://www.youtube.com/watch?v=5826eJGdyu0",
+              "label": "Watch the HUD trailer",
+              "icon": "video"
+            },
+            {
+              "href": "https://www.youtube.com/shorts/7AkMoWSojYc",
+              "label": "Why is the speed upside down?",
+              "icon": "video"
+            },
+            {
+              "href": "https://www.youtube.com/shorts/GWIPO4gbH5s",
+              "label": "Four HUD looks",
+              "icon": "video"
+            },
+            {
+              "href": "https://www.youtube.com/shorts/dL0E1aWImck",
+              "label": "Seeing double?",
+              "icon": "video"
+            }
+          ]
         }
       ],
       "more": {
