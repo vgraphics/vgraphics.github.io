@@ -154,7 +154,7 @@
         <h2 id="payment-title"><span class="dot c-sun" aria-hidden="true"></span>Who takes the payment</h2>
         <ul>
           <li><strong>On the web, Paddle</strong> (Paddle.com Market Limited) is the seller and takes the payment. It collects what it needs for that, such as your email address, country and payment details, and uses them for the sale, the VAT, the receipt, fraud checks and refunds, under <strong>its own privacy policy</strong>. It is responsible for that data on its own account. It does not give us your card details.</li>
-          <li><strong>In the Android app, Google Play</strong> takes the payment under Google's privacy policy, and likewise gives us no card details. An iOS app, once there is one, would use Apple in the same way.</li>
+          <li><strong>In the Android app, Google Play</strong> takes the payment under Google's privacy policy, and likewise gives us no card details. With each purchase the app gives Google a one-way scrambled form of your VHub identifier (its SHA-256 hash), which Google keeps with the purchase so that it reaches only the account that made it; your identifier cannot be read back from it. Google gives the app a purchase token, which the app sends to VHub, and VHub checks it with Google before the item is yours. An iOS app, once there is one, would use Apple in the same way.</li>
           <li>The checkout carries your VHub identifier, so the purchase lands on the right account. Paddle or Google tells VHub that the order was paid or refunded, with the item, the price and currency, the time and the store's order number.</li>
         </ul>
       </section>
@@ -163,7 +163,7 @@
         <h2 id="vhub-title"><span class="dot c-coral" aria-hidden="true"></span>What VHub keeps</h2>
         <p>VHub, our player network, keeps these on your account, in Google Firebase in Belgium, as <a href="/hub/privacy.html">VHub's privacy policy</a> describes:</p>
         <ul>
-          <li><strong>Your orders:</strong> the item, the store (Paddle, Google Play or coins), the price and currency, the dates of the payment and of any refund, and the store's order number.</li>
+          <li><strong>Your orders:</strong> the item, the store (Paddle, Google Play or coins), the price and currency, the dates of the payment and of any refund, and the store's order number. Of a Google Play purchase VHub keeps no purchase token, only a one-way hash of it with the account it belongs to, so that one purchase never serves two accounts.</li>
           <li><strong>What you own,</strong> and which looks you have put on.</li>
           <li><strong>Your coins:</strong> your balance, and a list of each time coins were earned, spent, bought or taken back, with the game, the reason, the amount and the time.</li>
           <li>A check that your account is signed in (not a guest) and that your age group is 16 or over, before an order is accepted.</li>
@@ -197,7 +197,7 @@
 
       <section id="analytics" aria-labelledby="analytics-title">
         <h2 id="analytics-title"><span class="dot c-coral" aria-hidden="true"></span>Analytics</h2>
-        <p>Only if you allow analytics, and never for players under 16, the game counts that the store was opened, which item was looked at, and that a purchase, a refund or a look change happened, with the item and the price. These counts carry no name or email address. See <a href="/palermo/privacy.html#analytics">analytics and error reports</a>.</p>
+        <p>Only if you allow analytics, and never for players under 16, the game counts that the store was opened, which item was looked at, that a purchase was started, completed, cancelled or failed, that purchases were restored, and that a refund or a look change happened, with the item and the price. These counts carry no name or email address. See <a href="/palermo/privacy.html#analytics">analytics and error reports</a>.</p>
       </section>
 
       <section id="basis" aria-labelledby="basis-title">
