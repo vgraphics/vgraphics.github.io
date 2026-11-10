@@ -1007,6 +1007,43 @@
       ]
     },
     {
+      "id": "soundtrack",
+      "eyebrow": "The music",
+      "title": "Listen to the soundtrack",
+      "intro": "Two synth songs for driving at night: Chrome Groove, 80s electro-funk with a bouncy synth bass, hand claps and a bright hook, and Glass Highway, a driving four-on-the-floor track for the motorway after dark. Press play and keep reading; a small player stays with you down the page.",
+      "blocks": [
+        {
+          "type": "soundtrack",
+          "album": "Speedometer Live Wallpaper — Original Soundtrack",
+          "cover": {
+            "src": "img/cover",
+            "widths": [
+              320,
+              640
+            ],
+            "width": 640,
+            "height": 640,
+            "alt": "The Speedometer Live Wallpaper soundtrack cover: a phone with amber dashboard gauges standing on a car's dashboard, a rainy city at night behind the windscreen"
+          },
+          "background": null,
+          "youtube": "https://www.youtube.com/playlist?list=PLOPCQGvPkrSQ",
+          "soundcloud": "https://soundcloud.com/vgraphics/sets/speedometer-live-wallpaper-original-soundtrack",
+          "tracks": [
+            {
+              "title": "Chrome Groove",
+              "src": "audio/01-chrome-groove.m4a",
+              "duration": "2:14"
+            },
+            {
+              "title": "Glass Highway",
+              "src": "audio/02-glass-highway.m4a",
+              "duration": "0:51"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "privacy",
       "band": {
         "art": "<span class=\"lcd lamp\" aria-hidden=\"true\"><svg viewBox=\"0 0 40 24\"><g class=\"off\"><path d=\"M9 8a6 6 0 0 0 0 8M5.5 5a10.5 10.5 0 0 0 0 14M31 8a6 6 0 0 1 0 8M34.5 5a10.5 10.5 0 0 1 0 14\"/></g><g class=\"on\"><rect x=\"13\" y=\"1\" width=\"14\" height=\"22\" rx=\"2.6\"/><path d=\"M17.6 12.5v-2.2a2.4 2.4 0 0 1 4.8 0v2.2\"/><rect x=\"16.4\" y=\"12.5\" width=\"7.2\" height=\"5.6\" rx=\"1\" fill=\"currentColor\" stroke-width=\"1.4\"/></g></svg></span>",
