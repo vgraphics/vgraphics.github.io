@@ -75,8 +75,8 @@
 }
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor: url("/exitwise/theme/cursor.svg") 3 2, auto;
-    --cursor-link: url("/exitwise/theme/cursor-link.svg") 13 2, pointer;
-    --cursor-text: url("/exitwise/theme/cursor-text.svg") 16 16, text;
+    --cursor: url("/exitwise/theme/cursor.a3d4b8cf.svg") 3 2, auto;
+    --cursor-link: url("/exitwise/theme/cursor-link.e533067c.svg") 13 2, pointer;
+    --cursor-text: url("/exitwise/theme/cursor-text.af8f2b9d.svg") 16 16, text;
   }
 }
