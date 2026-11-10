@@ -1,0 +1,11 @@
+{
+ "about": "Code that names a local picture and can't carry its version (name.<hash>.ext, tools/lib/image-version.mjs): a script's string or a stylesheet's url() is not a page, so tools/version-images.mjs leaves it, and the picture is cached the ten minutes every unversioned address gets (.htaccess). One entry per file, or per folder when the path ends in a slash, with its owner and why. check-site fails on code that names a local picture without its version and is not listed here, and on an entry that no longer names one, so this list only shrinks. A fix: have the page that loads the script or stylesheet write the versioned address (or, for a built bundle, its build), then remove the entry.",
+ "gaps": [
+  { "path": "assets/mail-list.js", "owner": "Platform coordinator", "why": "the sign-up form script writes its three product icons' addresses at run time" },
+  { "path": "assets/vgraphics.css", "owner": "Platform coordinator", "why": "stylesheet url(): the cursor pictures and the Speedometer card's background" },
+  { "path": "exitwise/ranking/ranking.js", "owner": "Exitwise coordinator", "why": "the ranking script writes the store badge's address at run time" },
+  { "path": "hub/assets/", "owner": "VHub coordinator", "why": "VHub's Vite bundles, built with hashed names and published by the Deployer: pictures named in their strings" },
+  { "path": "palermo/game/", "owner": "Palermo Noir coordinator", "why": "the game's built stylesheets (backdrops, cursors), published by the Deployer's palermo-web run" },
+  { "path": "party-doors/", "owner": "Party games coordinator", "why": "the party doors' built stylesheets (cursors), published by the Deployer" }
+ ]
+}

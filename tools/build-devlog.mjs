@@ -19,6 +19,7 @@ import { join } from 'node:path'
 import { anchor } from './lib/partials.mjs'
 import { srcset } from './lib/hero.mjs'
 import { root } from './lib/product.mjs'
+import { versionImages } from './lib/image-version.mjs'
 import { markPage } from './lib/marks.mjs'
 import { INDEX_ROBOTS, OG_IMAGE_MIN_WIDTH, OG_LOCALE } from './lib/seo.mjs'
 
@@ -258,9 +259,10 @@ const dir = join(root, 'devlog')
 for (const e of readdirSync(dir, { withFileTypes: true })) {
   if (e.isDirectory() && !posts.some((p) => p.slug === e.name) && existsSync(join(dir, e.name, 'index.html'))) rmSync(join(dir, e.name), { recursive: true })
 }
-writeFileSync(join(dir, 'index.html'), indexPage())
+// Every picture a page names carries its file's version, name.<hash>.ext (tools/lib/image-version.mjs, .htaccess).
+writeFileSync(join(dir, 'index.html'), versionImages(indexPage(), { file: 'devlog/index.html' }))
 for (const p of posts) {
   mkdirSync(join(dir, p.slug), { recursive: true })
-  writeFileSync(join(dir, p.slug, 'index.html'), postPage(p))
+  writeFileSync(join(dir, p.slug, 'index.html'), versionImages(postPage(p), { file: `devlog/${p.slug}/index.html` }))
 }
 console.log(`devlog: index + ${posts.length} post${posts.length === 1 ? '' : 's'}`)

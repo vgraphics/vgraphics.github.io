@@ -601,14 +601,18 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   "mafia game roles and rules" for Palermo Noir (in Greece the game itself is called Palermo); "speedometer live
   wallpaper", "car dashboard", "GPS speedometer" for Speedometer; "app development", "game development", "Greece",
   "Kotlin", "Unity" for the services. A landing page's h1 (for screen readers and search, under the painted logo) is its
-  `hero.title`, what the product is in those words. Wiki entries take theirs from their wiki.json's `entryTitles`
-  (the first that fits in 60 characters, with the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"),
-  and a short description ends with its `entryTail`.
+  `hero.title`, what the product is in those words. A wiki entry's own `title` in wiki.json comes first, so a product
+  can word it as the question people ask ("How does the colour gate work in Exitwise?"; 25 to 65 characters, check-site
+  rule `entry-title`); without one it takes the wiki.json's `entryTitles` (the first that fits in 60 characters, with
+  the section's `kind`: "Rock (obstacle) · Exitwise arrow puzzle wiki"), and a short description ends with its
+  `entryTail`.
 - **Link previews:** every page has og:title, og:description, og:image (with its size and alt) and a large Twitter
   card. A wiki entry shows its own painting (its 1280 px JPEG), a wiki index its own when it is one of the paintings.
 - **check-site** fails a page search engines may index (no `noindex`) without a meta description, one h1, structured
   data, og:title, og:description, twitter:card, or an og:image that is a file on the site, and two such pages with the
-  same title or the same description. The canonical address is checked on every page.
+  same title or the same description. The canonical address is checked on every page. It also fails a page whose
+  visible text (or title) holds the word `undefined`, a value a script never had (rule `undefined-text`,
+  `tools/lib/leaked-text.mjs`; scripts, JSON-LD, styles, comments, SVG and attributes don't count).
 - **The SEO rules of 10 Nov 2026** (`tools/lib/seo.mjs`, which the generators and check-site share; George: "improve the
   SEO of our pages so we get more visitors"). Every indexable page, the Unity play pages included: a title of 25 to 65
   characters and a description of 100 to 165 (search results cut them); `og:locale` `en_US`; an og:image of at least
@@ -798,12 +802,35 @@ uploaded by hand.
   of the same name) and `/dir` going to `/dir/`. It adds the security headers (HSTS, nosniff, the referrer and
   permissions policies, framing by our own pages only), keeps dotfiles (but `/.well-known/`), `tools/`, source and
   secret files and PHP off the web, types Unity's files, and sets the caching: pages and data revalidate, names with a
-  content hash cache for a year, the rest ten minutes as on Pages. check-site fails when it is missing or lost a rule
-  (`tools/lib/htaccess.mjs`); change both together.
+  content hash cache for a year, so do versioned pictures (below), the rest ten minutes as on Pages. check-site fails
+  when it is missing or lost a rule (`tools/lib/htaccess.mjs`); change both together.
 - Every `Cache-Control` says `no-transform`: Hostinger's CDN (hcdn) rewrites images unless the response says so (it
   re-encodes JPEGs, sends WebP to browsers that take it and strips the art's XMP rights) and minifies text. check-site
   fails on a `Cache-Control` without it. Scripts are typed `text/javascript`, since LiteSpeed's own type for `.js` is
   `application/x-javascript`.
+- **Pictures are versioned, so they cache for a year** (George, 10 Nov 2026: PageSpeed's top hint was the ten minutes on
+  every image). Every local picture address in a page is `name.<first 8 hex of the file's sha256>.ext`
+  (`/exitwise/hero.1a2b3c4d.webp`), while the file keeps its plain name in git. `.htaccess` serves a versioned address
+  from the plain file (`RewriteRule`, only when no such file exists) and gives it `public, max-age=31536000,
+  immutable, no-transform`; an unversioned address keeps the ten minutes, so nothing but a versioned address is ever
+  cached long. The year-long header is set from a request flag (`VERSIONED_IMAGE`, `REDIRECT_VERSIONED_IMAGE` after the
+  internal rewrite), because `FilesMatch` sees the plain name; if the server ignores the flag, versioned pictures just
+  keep the ten minutes. The rewrite does not check the hash: HTML revalidates on every visit, so a changed picture
+  reaches the visitor with its new address, and check-site catches a stale one.
+  - The versioning is done by `tools/lib/image-version.mjs`. The page generators (`build-pages`, `build-wiki`,
+    `build-devlog`) call it on their finished HTML, so their inputs keep plain paths; `node tools/version-images.mjs`
+    does the same in place for every hand-made page (idempotent, `--check` only reports, Unity play builds are left
+    alone). It covers attributes (`src`, `href`, `srcset`, `poster`, `data-*`, `content`), style `url()`, and the
+    quoted pictures in a page's scripts and JSON-LD, for `https://vgraphics.gr/...` and relative addresses.
+  - **After a picture's bytes change** (new art, `tools/protect-art.mjs`, a Recraft export), run `node
+    tools/version-images.mjs` again and rebuild the generated pages: the picture's hash changed, and check-site fails
+    a page with the old one (`image-version`, naming the tool).
+  - Code that names a local picture (a script's string, a stylesheet's `url()`) is not a page and can't be rewritten;
+    those files are in `tools/image-version-known-gaps.json` with their owner, keep the ten minutes, and the list only
+    shrinks (check-site fails on code that names a picture and isn't listed, and on an entry that no longer does).
+    Pages the Deployer writes (the hub, the party and play pages) come back unversioned after its runs, so check-site
+    fails them until `version-images` is run: wiring that into the Deployer is a later job, with the cache lifetimes of
+    CSS and JS and the Unity play builds.
 - `assets/hosting-check/` holds four tiny pre-compressed files (`.js.br`, `.js.gz`, `.wasm.br`, `.data.gz`) that the
   Deployer's live check reads after every upload, to prove the Brotli and gzip rules work before a Unity build needs
   them. Linked from no page.

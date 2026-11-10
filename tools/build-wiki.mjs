@@ -26,8 +26,9 @@ import { anchor, closing, header, footer, iconLinks, quote } from './lib/partial
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
-import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
+import { entryTitle, INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
 import { imageSize } from './lib/image-size.mjs'
+import { versionImages } from './lib/image-version.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -68,15 +69,7 @@ function article(product, e, { description, path, image }) {
   return JSON.stringify(ld).replace(/</g, '\\u003c')
 }
 
-// An entry's search title: the first of wiki.json's "entryTitles" that fits in 60 characters, filled with the entry's
-// name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
-// patterns with {kind} are passed over. Else "<name> · <product> wiki".
-function entryTitle(w, e) {
-  const kind = w.sections.find((s) => s.id === e.section)?.kind
-  return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
-    .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
-    .find((t) => t.length <= 60) ?? `${e.name} · ${w.product.name} wiki`
-}
+// An entry's search title: its own "title" in wiki.json, else the entryTitles patterns (entryTitle, tools/lib/seo.mjs).
 
 // An entry's search description: its summary, then the sentences of "What it does" while they fit in 160 characters.
 // The first one that doesn't fit is cut at a word, so the description always says more than the summary. A short one
@@ -367,10 +360,11 @@ for (const slug of products) {
   for (const d of readdirSync(dir, { withFileTypes: true })) {
     if (d.isDirectory() && d.name !== 'img' && existsSync(join(dir, d.name, 'index.html'))) rmSync(join(dir, d.name), { recursive: true })
   }
-  writeFileSync(join(dir, 'index.html'), indexPage(w, product))
+  // Every picture a page names carries its file's version, name.<hash>.ext (tools/lib/image-version.mjs, .htaccess).
+  writeFileSync(join(dir, 'index.html'), versionImages(indexPage(w, product), { file: `${slug}/wiki/index.html` }))
   w.entries.forEach((e, i) => {
     mkdirSync(join(dir, e.slug), { recursive: true })
-    writeFileSync(join(dir, e.slug, 'index.html'), entryPage(w, product, e, i))
+    writeFileSync(join(dir, e.slug, 'index.html'), versionImages(entryPage(w, product, e, i), { file: `${slug}/wiki/${e.slug}/index.html` }))
   })
   console.log(`${slug}: wiki index + ${w.entries.length} entries`)
 }
