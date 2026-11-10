@@ -26,6 +26,7 @@ import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
+import { doorProblems } from './lib/screens.mjs'
 import { markProblems } from './lib/marks.mjs'
 import { htaccessProblems } from './lib/htaccess.mjs'
 import { hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
@@ -607,6 +608,16 @@ for (const file of served) {
 // robots.txt leaves it alone, so search engines can read the noindex.
 for (const file of served) {
   for (const m of adminProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'admin', m)
+}
+
+// A product's TV and join pages (tools/lib/screens.mjs: /<product>/tv/, Palermo Noir's old-TV page /<product>/tv-classic/,
+// /<product>/join/, and the pages in those folders) are kept out of search, whoever writes them: noindex in the markup,
+// and sitemap.xml never lists one (tools/build-sitemap.mjs). A Unity page's own noindex rule (above) holds the ones
+// that are Unity's. They are product screens with the short legal line (legal-footer, above), and carry no sign-up
+// (help-mail).
+for (const file of served) {
+  if (unity.has(file)) continue
+  for (const m of doorProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'noindex', m)
 }
 
 // Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise

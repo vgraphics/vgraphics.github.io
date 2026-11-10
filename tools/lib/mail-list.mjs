@@ -5,6 +5,11 @@
 // for VGraphics news and a Help link. assets/mail-list.js sends a
 // sign-up to VHub's `email` function; VHub mails the confirmation link (double opt-in). Nothing here is named
 // "newsletter": blockers hide such files and elements (check-site's `blockers`).
+import { DOOR_FOLDERS, inFolders } from './screens.mjs'
+
+// A product's play and demo pages and its TV and join pages (/<product>/tv/, its old-TV page /<product>/tv-classic/,
+// /<product>/join/, shared with the other rules: tools/lib/screens.mjs): the product alone, with no sign-up.
+const isSignUpFree = inFolders(['play', 'demo', ...DOOR_FOLDERS])
 
 // The site folders whose product has a newsletter topic: VHub's catalog id and the name its news goes by. A product
 // gets one when VHub's catalog lists it (Palermo Noir stays out while it is unlisted: its pages offer VGraphics news).
@@ -42,7 +47,7 @@ export function helpLink(slug) {
  */
 export function helpMailProblems(path, html) {
   if (path.startsWith('/hub/')) return []
-  if (/^\/[^/]+\/(play|tv|join|demo)\//.test(path)) {
+  if (isSignUpFree(path)) {
     return /<form class="mail-list[\s"]/.test(html) ? ['a play, TV, join or demo screen carries the sign-up for news: the product alone, its own menu has it'] : []
   }
   const foot = html.match(/<footer class="(?:foot|site-foot)\b[^"]*">[\s\S]*?<\/footer>/)?.[0]

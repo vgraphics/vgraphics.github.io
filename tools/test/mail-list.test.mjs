@@ -29,7 +29,7 @@ test("VHub's pages, its join page too, keep the company footer with its sign-up"
 })
 
 test("a game's play, TV, join and demo screens carry no sign-up", () => {
-  for (const path of ['/palermo/join/', '/palermo/tv/', '/exitwise/play/', '/palermo/demo/screen.html']) {
+  for (const path of ['/palermo/join/', '/palermo/tv/', '/palermo/tv-classic/', '/exitwise/play/', '/palermo/demo/screen.html']) {
     assert.deepEqual(helpMailProblems(path, page('<footer class="screen-foot">© 2026 VGraphics</footer>')), [], path)
     assert.equal(helpMailProblems(path, page(productFooter('palermo'))).length, 1, path)
     // What's new's row and the closing card's sign-up count too.

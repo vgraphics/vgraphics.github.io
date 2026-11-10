@@ -57,8 +57,8 @@ test('a page is Unity\'s when its own script calls createUnityInstance()', () =>
   assert.equal(isUnityPage(PAGE), true)
   assert.equal(isUnityPage('<html><body><p>Built with createUnityInstance()</p><!-- <script>createUnityInstance(c)</script> --></body></html>'), false)
   assert.equal(isUnityPage('<html><body><script src="Build/web.loader.js"></script></body></html>'), false)
-  for (const path of ['/palermo/tv/', '/palermo/join/', '/palermo/tv/index.html']) assert.equal(isDoor(path), true, path)
-  for (const path of ['/palermo/play/', '/palermo/demo/', '/tv/', '/join/']) assert.equal(isDoor(path), false, path)
+  for (const path of ['/palermo/tv/', '/palermo/join/', '/palermo/tv/index.html', '/palermo/tv-classic/', '/palermo/tv-classic/index.html']) assert.equal(isDoor(path), true, path)
+  for (const path of ['/palermo/play/', '/palermo/demo/', '/tv/', '/join/', '/tv-classic/', '/palermo/tv-classics/', '/palermo/tv-classic']) assert.equal(isDoor(path), false, path)
 })
 
 test('its framework, as the templates name it: a plain address, or Unity\'s own buildUrl + "/name"', () => {
@@ -85,6 +85,9 @@ test('a TV or join page: kept out of search, and it needs no About link', () => 
   assert.deepEqual(problems(door, { path: '/palermo/tv/' }).map(([rule]) => rule), ['noindex'])
   assert.deepEqual(problems(door.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n    <meta name="robots" content="noindex">'), { path: '/palermo/join/' }), [])
   assert.deepEqual(rules(problems(door)), ['play-alone'], 'a play page still needs it')
+  // the old-TV page is a TV page too: noindex, no About link
+  assert.deepEqual(problems(door, { path: '/palermo/tv-classic/' }).map(([rule]) => rule), ['noindex'])
+  assert.deepEqual(problems(door.replace('<meta charset="utf-8">', '<meta charset="utf-8">\n    <meta name="robots" content="noindex">'), { path: '/palermo/tv-classic/' }), [])
 })
 
 test('legal-footer: the company\'s numbers, or no "© <year> VGraphics", fail wherever the page is', () => {

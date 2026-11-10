@@ -12,6 +12,8 @@
 // One exception is in the text, not the footer (GDPR art. 13): a privacy policy names the data controller in the one
 // sentence CONTROLLER, the company's name without its numbers or town. check-site holds each kind of page to its line,
 // tools/lib/partials.mjs writes the template's, and the Deployer's projects write theirs.
+import { DOOR_FOLDERS, inFolders } from './screens.mjs'
+
 export const PRODUCT_LEGAL = '&copy; 2026 VGraphics'
 export const SITE_LEGAL = '&copy; 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a>'
 export const COMPANY_LEGAL = '&copy; 2026 VGRAPHICS SINGLE MEMBER P.C. All rights reserved · G.E.MI. no. 181823306000 · VAT no. EL802736373 · Kalamaria, Greece · <a href="/company/">Company information</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a>'
@@ -21,9 +23,12 @@ export const CONTROLLER = 'The data controller is VGRAPHICS SINGLE MEMBER P.C. (
 // pages (/<product>/play/, /<product>/tv/, /<product>/join/, /<product>/demo/, and the pages in those folders), the page
 // a look's QR code opens (/<product>/look/: Speedometer's, one screen with its Play and try-it links, the master's call
 // of 4 Nov 2026), VHub's web app, the hub (/hub/), all but its privacy policy (/hub/privacy.html), a website page, and
-// George's admin page (/admin/, VHub's admin app: tools/lib/admin.mjs), whose footer is only "© 2026 VGraphics".
+// George's admin page (/admin/, VHub's admin app: tools/lib/admin.mjs), whose footer is only "© 2026 VGraphics". A
+// product's TV and join folders (/<product>/tv/, its old-TV page /<product>/tv-classic/, /<product>/join/) are
+// DOOR_FOLDERS, shared with the noindex, help-mail and sitemap rules (tools/lib/screens.mjs).
+const inScreenFolder = inFolders(['play', 'demo', 'look', ...DOOR_FOLDERS])
 export const isProductScreen = (path) =>
-  /^\/[^/]+\/(play|tv|join|demo|look)\//.test(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html') || path.startsWith('/admin/')
+  inScreenFolder(path) || (path.startsWith('/hub/') && path !== '/hub/privacy.html') || path.startsWith('/admin/')
 
 /** The company page, the one page with the company's details. */
 export const isCompanyPage = (path) => path === '/company/'
