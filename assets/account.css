@@ -181,6 +181,22 @@
 .vm-seg-sizes button { padding: 0 8px; line-height: 1; }
 .vm-seg button[aria-checked="true"] { background: var(--vm-on); color: var(--vm-on-ink) !important; }
 .vm-seg button:focus-visible, .vm-games .vm-game:focus-visible, .vm-links a:focus-visible { outline: 2px solid var(--vm-on); outline-offset: 2px; }
+/* A choice too long for the menu's width (choice-layout.js): the name on top, then one full-width option card per
+   option, its label on one line, 44px tall, the chosen one in the product's colour with a filled dot (a cue that isn't
+   colour alone). Same radio group as the segmented control. */
+.vm-row-stack { flex-direction: column; align-items: stretch; gap: 8px; padding: 8px 0 10px; }
+.vm-cards { display: grid; gap: 6px; padding: 0; border-radius: 0; background: transparent; }
+.vm-cards button {
+  display: flex; align-items: center; gap: 10px; width: 100%; min-height: 44px; height: auto; padding: 6px 12px; text-align: left;
+  border: 1px solid var(--vm-line); border-radius: var(--radius-sm, 12px); background: var(--vm-surface-2);
+  font-size: 0.88rem; white-space: normal; overflow-wrap: anywhere;
+}
+.vm-cards button::before {
+  content: ""; flex: none; width: 14px; height: 14px; box-sizing: border-box; border-radius: 50%;
+  border: 2px solid currentColor; opacity: 0.7;
+}
+.vm-cards button[aria-checked="true"] { border-color: var(--vm-on); }
+.vm-cards button[aria-checked="true"]::before { opacity: 1; background: radial-gradient(circle, currentColor 0 3px, transparent 3.5px); }
 .vhub-menu :disabled { opacity: 0.55; cursor: var(--cursor, default); }
 
 /* The games and apps, in both lists: each one's store icon clipped to a rounded tile, the same size for all, then its
@@ -215,4 +231,7 @@
 @media (forced-colors: active) {
   .vhub-avatar, .vhub-menu { border: 1px solid CanvasText; }
   .vm-seg button[aria-checked="true"] { background: Highlight; color: HighlightText !important; }
+  .vm-cards button { border: 1px solid ButtonText; background: ButtonFace; color: ButtonText !important; }
+  .vm-cards button[aria-checked="true"] { border-color: Highlight; background: Highlight; color: HighlightText !important; }
+  .vm-cards button:focus-visible { outline: 2px solid Highlight; }
 }
