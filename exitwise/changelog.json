@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.0.40",
+      "date": "2026-11-10",
+      "platforms": [
+        "Android"
+      ],
+      "title": "New scoring rewards every arrow",
+      "items": [
+        "New scoring: clear arrows and finish fast to earn more, while hints and continues cost you points and the old 1000-point cap is gone — the board now shows what earns and costs points.",
+        "We have a fresh name — say hello to Exitwise: Arrow Puzzle Game.",
+        "We added Google AdMob to the ad partners that help keep the game free, and updated our privacy policy to match.",
+        "Behind the scenes, we can now see how each level is going, so we can keep making them better."
+      ],
+      "commit": "abc1fa96"
+    },
+    {
       "version": "1.0.39",
       "date": "2026-11-09",
       "platforms": [
