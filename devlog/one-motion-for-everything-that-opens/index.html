@@ -18,12 +18,12 @@
   <meta property="og:title" content="One motion for everything that opens">
   <meta property="og:description" content="Every menu, question and panel in our games, apps and this site opens in 260 ms and closes in 200. Why one shared motion, and the two bugs it fixed.">
   <meta property="og:url" content="https://vgraphics.gr/devlog/one-motion-for-everything-that-opens/">
-  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.f7b2ab6f.jpg">
-  <meta property="og:image:width" content="1200">
-  <meta property="og:image:height" content="630">
-  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta property="og:image" content="https://vgraphics.gr/devlog/img/one-motion-for-everything-that-opens-1280.79a72e97.jpg">
+  <meta property="og:image:width" content="1280">
+  <meta property="og:image:height" content="640">
+  <meta property="og:image:alt" content="Five frames of a question opening on the Exitwise page, from closed to open over 260 milliseconds">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.f7b2ab6f.jpg">
+  <meta name="twitter:image" content="https://vgraphics.gr/devlog/img/one-motion-for-everything-that-opens-1280.79a72e97.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -35,7 +35,7 @@
         "datePublished": "2026-11-10",
         "url": "https://vgraphics.gr/devlog/one-motion-for-everything-that-opens/",
         "mainEntityOfPage": "https://vgraphics.gr/devlog/one-motion-for-everything-that-opens/",
-        "image": "https://vgraphics.gr/assets/img/vgraphics-card-1200x630.f7b2ab6f.jpg",
+        "image": "https://vgraphics.gr/devlog/img/one-motion-for-everything-that-opens-1280.79a72e97.jpg",
         "inLanguage": "en",
         "author": {
           "@type": "Organization",
@@ -144,8 +144,16 @@
       <h1>One motion for everything that opens</h1>
       <p class="chip"><time datetime="2026-11-10">10 November 2026</time></p>
     </div>
+    <figure class="post-art">
+      <picture>
+        <source type="image/avif" srcset="/devlog/img/one-motion-for-everything-that-opens-640.56a457a9.avif 640w, /devlog/img/one-motion-for-everything-that-opens-1280.af1605b8.avif 1280w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <source type="image/webp" srcset="/devlog/img/one-motion-for-everything-that-opens-640.8662312b.webp 640w, /devlog/img/one-motion-for-everything-that-opens-1280.638477b2.webp 1280w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <img src="/devlog/img/one-motion-for-everything-that-opens-1280.79a72e97.jpg" srcset="/devlog/img/one-motion-for-everything-that-opens-640.e190976c.jpg 640w, /devlog/img/one-motion-for-everything-that-opens-1280.79a72e97.jpg 1280w" sizes="(min-width: 1100px) 1040px, 100vw" width="1280" height="640" alt="Five frames of a question opening on the Exitwise page, from closed to open over 260 milliseconds">
+      </picture>
+      <figcaption>The “How do I play?” question on the Exitwise™ page, sampled at 0, 65, 130, 195 and 260 ms: the answer grows and fades in while the arrow turns.</figcaption>
+    </figure>
     <div class="text">
-      <p class="lede">Click a question in the FAQ on any of our product pages and it opens in about a quarter of a second. Open a menu in Exitwise™, a card in Speedometer Live Wallpaper or a panel in VHub, and it moves exactly the same way. That's on purpose. Since early November, everything that expands or drops down, in every game, app and page we make, follows one written spec. This post is about the numbers in it, and why we bothered to write them down.</p>
+      <p class="lede">Click a question in the FAQ on any of our product pages and it opens in about a quarter of a second. Open a menu in Exitwise, a card in Speedometer Live Wallpaper or a panel in VHub, and it moves exactly the same way. That's on purpose. Since early November, everything that expands or drops down, in every game, app and page we make, follows one written spec. This post is about the numbers in it, and why we bothered to write them down.</p>
       <section id="the-numbers" aria-labelledby="the-numbers-title">
         <h2 id="the-numbers-title">The numbers<a class="anchor" href="#the-numbers" aria-label="Copy the link to The numbers"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
         <p>Opening takes 260 milliseconds. Closing takes 200, a little faster, because by the time you close something you've made up your mind, and the screen shouldn't keep you waiting. Both use the same curve, a strong ease-out (cubic-bezier(.2, .8, .2, 1)): the row covers most of its distance in the first frames and settles gently, so it feels quick without looking abrupt.</p>
