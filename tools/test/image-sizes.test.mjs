@@ -13,10 +13,12 @@ import { soundtrack } from '../lib/soundtrack.mjs'
 const imgs = (html) => [...html.matchAll(/<img\b[^>]*>/g)].map((m) => m[0])
 const attr = (tag, name) => tag.match(new RegExp(`\\s${name}="([^"]*)"`))?.[1]
 
-// Exitwise's own gallery block, as tools/build-pages.mjs writes it (its screenshots' blurhashes come from the cache)
-const page = JSON.parse(readFileSync(join(root, 'exitwise', 'page.json'), 'utf8'))
-const find = (o) => (Array.isArray(o) ? o : Object.values(o ?? {})).flatMap((x) => (x && typeof x === 'object' ? (x.type === 'gallery' && x.layout ? [x] : find(x)) : []))
-const [gallery] = find(page)
+// A product's own block of a type, as tools/build-pages.mjs writes it (the gallery's screenshots' blurhashes come from the cache)
+const blocks = (slug, type) => {
+  const walk = (o) => (Array.isArray(o) ? o : Object.values(o ?? {})).flatMap((x) => (x && typeof x === 'object' ? (x.type === type && (type !== 'gallery' || x.layout) ? [x] : walk(x)) : []))
+  return walk(JSON.parse(readFileSync(join(root, slug, 'page.json'), 'utf8')))
+}
+const [gallery] = blocks('exitwise', 'gallery')
 
 test('sizeAttrs reads the picture file\'s own width and height, and says nothing for a file it cannot read', () => {
   const file = join(root, 'exitwise', gallery.img, `${gallery.pickups[0].src}.webp`)
@@ -58,10 +60,23 @@ test('the soundtrack cover\'s blurred backdrop and record disc state a square si
   const block = { album: 'Album', cover: { src: 'img/cover', widths: [320, 640], width: 640, height: 640, alt: 'The cover' }, background: null, youtube: null, soundcloud: null, tracks: [{ title: 'One', src: 'audio/one.m4a', duration: '1:00' }] }
   const html = soundtrack(block, { slug: 'no-such-product', theme: { swatches: ['#fff'] } })
   const tags = imgs(html)
-  // the blurred backdrop, the record's disc, the cover and the track row's thumbnail
+  // the blurred backdrop, the record's disc, the cover and the mini-bar's thumbnail
   assert.equal(tags.length, 4)
   for (const tag of tags) assert.ok(Number(attr(tag, 'width')) > 0 && Number(attr(tag, 'height')) > 0, `no width and height: ${tag.slice(0, 120)}`)
   const blur = html.match(/<span class="ost-backdrop blur"[^>]*>(<img[^>]*>)/)[1]
   assert.equal(attr(blur, 'width'), '320')
   assert.equal(attr(blur, 'height'), '320')
+})
+
+test('the soundtrack\'s own background picture states the size of its file (Palermo\'s)', () => {
+  const [block] = blocks('palermo', 'soundtrack')
+  assert.ok(block.background?.wide, 'Palermo\'s soundtrack has its own background')
+  const html = soundtrack(block, { slug: 'palermo', theme: { swatches: ['#fff'] } })
+  const tag = html.match(/<picture class="ost-backdrop"[^>]*>[\s\S]*?(<img[^>]*>)<\/picture>/)[1]
+  const file = join(root, 'palermo', attr(tag, 'src'))
+  const own = imageSize(file)
+  assert.ok(own, `no file for ${attr(tag, 'src')}`)
+  assert.equal(`${attr(tag, 'width')}x${attr(tag, 'height')}`, `${own.width}x${own.height}`)
+  // every picture of the block states its size
+  for (const t of imgs(html)) assert.ok(Number(attr(t, 'width')) > 0 && Number(attr(t, 'height')) > 0, `no width and height: ${t.slice(0, 120)}`)
 })
