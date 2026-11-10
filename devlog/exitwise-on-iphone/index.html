@@ -1,0 +1,227 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Exitwise comes to iPhone and iPad · VGraphics devlog</title>
+  <meta name="description" content="Exitwise 1.0.2 is out for iPhone and iPad: the same 600 levels, Sign in with Apple and Restore purchases. Why EU players get the beta for now.">
+  <meta name="robots" content="max-image-preview:large">
+  <link rel="canonical" href="https://vgraphics.gr/devlog/exitwise-on-iphone/">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
+  <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
+  <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
+  <meta property="og:type" content="article">
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="en_US">
+  <meta property="og:title" content="Exitwise comes to iPhone and iPad">
+  <meta property="og:description" content="Exitwise 1.0.2 is out for iPhone and iPad: the same 600 levels, Sign in with Apple and Restore purchases. Why EU players get the beta for now.">
+  <meta property="og:url" content="https://vgraphics.gr/devlog/exitwise-on-iphone/">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg">
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "BlogPosting",
+        "headline": "Exitwise comes to iPhone and iPad",
+        "description": "Exitwise 1.0.2 is out for iPhone and iPad: the same 600 levels, Sign in with Apple and Restore purchases. Why EU players get the beta for now.",
+        "datePublished": "2026-11-10",
+        "url": "https://vgraphics.gr/devlog/exitwise-on-iphone/",
+        "mainEntityOfPage": "https://vgraphics.gr/devlog/exitwise-on-iphone/",
+        "image": "https://vgraphics.gr/assets/img/vgraphics-card-1200x630.jpg",
+        "inLanguage": "en",
+        "author": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "publisher": {
+          "@type": "Organization",
+          "@id": "https://vgraphics.gr/#organization",
+          "name": "VGraphics",
+          "url": "https://vgraphics.gr/"
+        },
+        "isPartOf": {
+          "@type": "Blog",
+          "@id": "https://vgraphics.gr/devlog/#blog",
+          "name": "VGraphics devlog"
+        }
+      },
+      {
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          {
+            "@type": "ListItem",
+            "position": 1,
+            "name": "VGraphics",
+            "item": "https://vgraphics.gr/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 2,
+            "name": "Devlog",
+            "item": "https://vgraphics.gr/devlog/"
+          },
+          {
+            "@type": "ListItem",
+            "position": 3,
+            "name": "Exitwise comes to iPhone and iPad",
+            "item": "https://vgraphics.gr/devlog/exitwise-on-iphone/"
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+  <script src="/assets/theme.js"></script>
+  <link rel="preload" href="/assets/fonts/bricolage-grotesque-latin.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="/assets/vgraphics.css">
+  <link rel="stylesheet" href="/assets/cursors.css">
+  <script src="/assets/menu.js" defer></script>
+  <style>
+    /* The devlog: a calm reading column on the company pages' paper, the post's product as its kicker. */
+    .intro { padding-block: var(--s5) var(--s4); display: grid; gap: var(--s2); justify-items: start; }
+    .intro h1 { font-size: clamp(2.2rem, 5.4vw, 3.8rem); max-width: 18em; text-wrap: balance; }
+    .text { display: grid; gap: var(--s4); max-width: 42em; padding-bottom: var(--s6); }
+    .text section { display: grid; gap: var(--s2); }
+    .text h2 { font-size: clamp(1.4rem, 2.6vw, 1.9rem); text-wrap: balance; }
+    .text p { font-size: 1.08rem; line-height: 1.7; }
+    .text .lede { font-size: clamp(1.15rem, 1.6vw, 1.3rem); max-width: none; }
+    .post-art { margin: 0 0 var(--s5); display: grid; gap: 10px; max-width: 1040px; }
+    .post-art img { display: block; width: 100%; height: auto; border-radius: var(--r-lg); border: 1px solid var(--line); background: var(--surface); }
+    .post-art figcaption { font-size: 0.92rem; color: var(--ink-2); }
+    .anchor { display: inline-grid; place-items: center; width: 44px; height: 44px; margin: -10px -10px -10px 2px; vertical-align: middle; color: var(--ink-2); opacity: 0; transition: opacity 150ms ease-out; }
+    .anchor svg { width: 0.5em; max-width: 22px; height: auto; }
+    .text h2:hover .anchor, .anchor:focus-visible { opacity: 1; }
+    @media (hover: none) { .anchor { opacity: 0.7; } }
+    .see { display: flex; flex-wrap: wrap; gap: 12px; padding-top: var(--s2); }
+    .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
+    .more > h2 { font-size: 1.6rem; }
+    .posts { display: grid; grid-template-columns: repeat(auto-fill, minmax(min(100%, 340px), 1fr)); gap: 18px; padding-bottom: var(--s7); }
+    .post-card { display: flex; flex-direction: column; gap: 12px; align-items: flex-start; padding: 26px; border-radius: var(--r-lg); background: var(--surface); border: 1px solid var(--line); }
+    .post-card h2 { font-size: 1.4rem; text-wrap: balance; }
+    .post-card h2 a { color: inherit; text-decoration: none; }
+    .post-card p { color: var(--ink-2); }
+    .post-card .btn { margin-top: auto; }
+    .post-meta { font-size: 0.82rem; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--ink-2); }
+  </style>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="/" aria-label="VGraphics home">
+      <picture>
+        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+      </picture>
+      <span>VGRAPHICS</span>
+    </a>
+    <nav class="site-nav" aria-label="Main">
+      <a class="n-games" href="/games/">Games</a>
+      <a class="n-apps" href="/apps/">Apps</a>
+      <a class="n-services" href="/services/">Services</a>
+      <a class="n-help" href="/hub/support/">Help</a>
+      <a class="cta" href="#contact">Contact</a>
+    </nav>
+    <button class="vhub-avatar" type="button" aria-haspopup="dialog" aria-label="Sign in to VHub"><span class="vhub-avatar-face" aria-hidden="true"><svg viewBox="339.250 238.250 298.000 291.750" aria-hidden="true" focusable="false"><path d="M528.806 238.776C540.432 237.926 552.868 238.894 564.552 238.548C581.31 238.05 597.378 241.667 611.012 251.809C624.565 261.908 633.5 277.022 635.812 293.765C637.217 303.315 637.503 340.929 635.433 349.939C634.086 355.706 631.54 361.125 627.963 365.843C620.561 375.583 611.15 379.843 599.429 381.541C578.369 382.218 554.858 381.672 533.617 381.611C528.672 357.238 516.281 344.209 491.258 340.543C491.488 322.851 491.154 305.149 491.281 287.455C491.325 281.327 491.258 275.156 492.522 269.13C493.756 263.258 496.339 257.753 500.067 253.051C507.685 243.462 517.195 240.021 528.806 238.776Z" fill="#EF6866"/><path d="M403.995 238.83C405.34 238.772 406.687 238.728 408.033 238.699C429.002 238.296 458.621 235.135 473.669 249.866C478.454 254.558 481.879 260.46 483.58 266.943C486.034 276.274 485.219 327.421 485.275 339.96C460.602 344.715 447.389 356.683 443.068 381.694L423.938 381.625C387.289 381.547 344.76 390.134 340.224 340.009C335.775 290.835 344.888 242.245 403.995 238.83Z" fill="#FCBB09"/><path d="M533.604 388.297C551.582 388.104 599.046 385.607 613.494 391.889C623.026 396.034 630.151 403.774 633.818 413.471C638.235 425.151 637.905 462.831 635.773 475.901C634.784 481.822 633.01 487.585 630.496 493.036C622.501 510.469 609.4 520.262 591.871 526.76C574.424 531.876 556.316 529.078 538.161 529.87C525.125 530.438 512.189 528.068 502.579 518.312C497.869 513.52 494.545 507.542 492.959 501.014C490.42 490.883 491.367 443.059 491.383 429.717C515.423 426.378 529.933 412.375 533.604 388.297Z" fill="#4C3B9D"/><path d="M420.692 388.13L442.952 387.955C447.191 413.659 460.191 425.04 485.23 429.747L485.305 483.779C485.243 497.212 483.569 508.778 473.313 518.707C468.436 523.421 462.405 526.769 455.825 528.414C446.881 530.651 416.177 529.662 405.018 529.579C367.154 529.531 338.464 499.279 340.299 461.526C341.365 440.478 335.326 415.971 352.147 399.482C368.237 383.709 399.064 388.068 420.692 388.13Z" fill="#4792EF"/></svg></span></button>
+  </div>
+</header>
+
+<main id="main" class="wrap">
+  <article class="post">
+    <div class="intro">
+      <span class="kicker"><span class="dots" aria-hidden="true"><i></i><i></i><i></i><i></i></span> Devlog · Exitwise</span>
+      <h1>Exitwise™ comes to iPhone and iPad</h1>
+      <p class="chip"><time datetime="2026-11-10">10 November 2026</time></p>
+    </div>
+    <div class="text">
+      <p class="lede">On 7 November Exitwise™ reached the App Store, for iPhone and iPad. It's the very game Android players and browser players already know, with all 600 levels across its 17 worlds. If you live in the European Union you won't find it in your App Store just yet, though. This post is about what the iPhone version brings, why Europe is waiting, and how to play it there in the meantime.</p>
+      <section id="one-game-three-places" aria-labelledby="one-game-three-places-title">
+        <h2 id="one-game-three-places-title">One game, three places<a class="anchor" href="#one-game-three-places" aria-label="Copy the link to One game, three places"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>Exitwise is built once, in Unity, and that one project makes the Android app, the iPhone app and the version that runs on this site. The rules of the puzzle sit in a part of the code that knows nothing about phones or browsers, with its own tests, so the iPhone didn't need a port of the game. It needed a new place to run it.</p>
+        <p>Each level grows from one fixed number, its seed, so level 237 on an iPhone is the same board as level 237 on Android or in a browser, arrow for arrow. That's what makes a per-level leaderboard fair: everyone on it solved the same puzzle.</p>
+      </section>
+      <section id="sign-in-with-apple" aria-labelledby="sign-in-with-apple-title">
+        <h2 id="sign-in-with-apple-title">Sign in with Apple<a class="anchor" href="#sign-in-with-apple" aria-label="Copy the link to Sign in with Apple"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>On Apple's devices, the sign-in button is Apple's own. Signing in is optional, and the game plays the same without it. What it gives you is a free <a href="/hub/">VHub</a> account, which keeps your progress safe and gives you one profile across all of our games.</p>
+      </section>
+      <section id="restore-purchases" aria-labelledby="restore-purchases-title">
+        <h2 id="restore-purchases-title">Restore purchases<a class="anchor" href="#restore-purchases" aria-label="Copy the link to Restore purchases"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>Exitwise is free. If you've bought Remove Ads, that's the kind of purchase that lasts, and Apple asks every app that sells one to offer a way to get it back on a new device. So Settings has Restore purchases: on a new iPhone or iPad, tap it, and Remove Ads comes back without paying again.</p>
+      </section>
+      <section id="why-not-in-the-eu-yet" aria-labelledby="why-not-in-the-eu-yet-title">
+        <h2 id="why-not-in-the-eu-yet-title">Why not in the EU yet<a class="anchor" href="#why-not-in-the-eu-yet" aria-label="Copy the link to Why not in the EU yet"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>Under the EU's Digital Services Act, an app that sells anything has to say who the trader behind it is, and Apple checks those details before the app can appear in any EU storefront. Ours are with Apple and still being checked. Until that's done, Exitwise isn't listed in EU App Stores. An EU visitor to our Exitwise page sees a line under the App Store badge saying so, so nobody taps through to a page that won't open.</p>
+      </section>
+      <section id="playing-in-the-eu-meanwhile" aria-labelledby="playing-in-the-eu-meanwhile-title">
+        <h2 id="playing-in-the-eu-meanwhile-title">Playing in the EU meanwhile<a class="anchor" href="#playing-in-the-eu-meanwhile" aria-label="Copy the link to Playing in the EU meanwhile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg></a></h2>
+        <p>There are two ways to play in the EU today. The first is the iPhone beta, through TestFlight, Apple's own app for testing builds: install TestFlight, open the invite link on <a href="/exitwise/">our Exitwise page</a>, and the game installs like any other. It's the real game, not a demo, and if you sign in, your progress stays with your VHub account whichever version you play.</p>
+        <p>The second needs nothing at all: Exitwise <a href="/exitwise/play/">runs in the browser</a>, on this site, on a phone or a computer. As soon as Apple finishes its check, the App Store version will open in the EU too, and we'll say so on the Exitwise page.</p>
+      </section>
+      <div class="see"><a class="btn btn-primary" href="/exitwise/">Exitwise</a><a class="btn btn-ghost" href="https://apps.apple.com/app/id6830097641">Exitwise on the App Store</a><a class="btn btn-ghost" href="/exitwise/play/">Play Exitwise online</a><a class="btn btn-ghost" href="/devlog/">All posts</a></div>
+    </div>
+  </article>
+  <section class="more" aria-labelledby="more-title">
+    <h2 id="more-title">More from the devlog</h2>
+    <div class="posts">
+    <article class="post-card">
+      <span class="post-meta">Exitwise · <time datetime="2026-11-10">10 November 2026</time></span>
+      <h2><a href="/devlog/asking-for-a-rating-once/">Asking for a rating once, at the right moment</a></h2>
+      <p>How Exitwise asks for a rating: the store's own card on your third opening, after a win, once. A few openings later, an offer of help. Nothing more.</p>
+      <a class="btn btn-ghost" href="/devlog/asking-for-a-rating-once/" aria-label="Read: Asking for a rating once, at the right moment">Read the post</a>
+    </article>
+    <article class="post-card">
+      <span class="post-meta">VGraphics · <time datetime="2026-11-10">10 November 2026</time></span>
+      <h2><a href="/devlog/one-motion-for-everything-that-opens/">One motion for everything that opens</a></h2>
+      <p>Every menu, question and panel in our games, apps and this site opens in 260 ms and closes in 200. Why one shared motion, and the two bugs it fixed.</p>
+      <a class="btn btn-ghost" href="/devlog/one-motion-for-everything-that-opens/" aria-label="Read: One motion for everything that opens">Read the post</a>
+    </article>
+    </div>
+  </section>
+</main>
+
+<footer class="site-foot">
+  <div class="wrap foot-cta" id="contact">
+    <div>
+      <h2>Let's talk</h2>
+      <p>A project you'd like built, feedback on a game, or a bug you found. Every email gets read.</p>
+    </div>
+    <a class="btn" href="mailto:support@vgraphics.gr">support@vgraphics.gr</a>
+  </div>
+  <div class="wrap foot-news">
+      <form class="mail-list" data-topic="vgraphics" data-product="vgraphics" data-wording="site-footer-1" novalidate>
+        <label class="mail-list-title" for="ml-vgraphics">Get VGraphics news by email</label>
+        <span class="mail-list-row"><input id="ml-vgraphics" type="email" name="email" autocomplete="email" placeholder="you@example.com" required><button class="btn" type="submit">Sign up</button></span>
+        <span class="mail-list-trap" aria-hidden="true"><input name="website" tabindex="-1" autocomplete="off"></span>
+        <span class="mail-list-fine">For people aged 16 and over. One email a month at most, and you can leave in one tap. <a href="/privacy/#website">Privacy</a></span>
+        <span class="mail-list-said" role="status"></span>
+      </form>
+  </div>
+  <div class="wrap foot-grid">
+    <div class="foot-brand">
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
+    </div>
+    <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>
+    <nav aria-labelledby="f-apps"><h2 id="f-apps"><span class="dot c-coral" aria-hidden="true"></span>Apps</h2><ul><li><a href="/apps/">All apps</a></li><li><a href="/speedometer-wallpaper/">Speedometer Live Wallpaper</a></li><li><a href="/speedometer-wallpaper/wiki/">Speedometer wiki</a></li></ul></nav>
+    <nav aria-labelledby="f-services"><h2 id="f-services"><span class="dot c-sky" aria-hidden="true"></span>Services</h2><ul><li><a href="/services/">What we build</a></li><li><a href="/multiplayer/">Multiplayer &amp; community</a></li><li><a href="/hub/">VHub</a></li></ul></nav>
+    <nav aria-labelledby="f-company"><h2 id="f-company"><span class="dot c-violet" aria-hidden="true"></span>Company</h2><ul><li><a href="/company/">Company information</a></li><li><a href="/privacy/">Privacy</a></li><li><a href="/terms/">Terms of use</a></li><li><a class="foot-help" href="/hub/support/">Help and ideas</a></li><li><a href="/exitwise/privacy.html">Exitwise privacy policy</a></li><li><a href="/speedometer-wallpaper/privacy.html">Speedometer privacy policy</a></li><li><a href="/palermo/privacy.html">Palermo Noir privacy policy</a></li><li><a href="/exitwise/map-rules.html">Exitwise map rules</a></li></ul></nav>
+  </div>
+  <div class="wrap legal">
+    <p>© 2026 VGraphics. All rights reserved · <a href="/company/">Company</a> · <a href="/privacy/">Privacy</a> · <a href="/terms/">Terms of use</a></p>
+    <p>Google Play and the Google Play logo are trademarks of Google LLC.</p>
+  </div>
+</footer>
+<script src="/assets/anchors.js" defer></script>
+</body>
+</html>

@@ -269,8 +269,8 @@
       "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><path d='M24 43.2C10.56 33.6.96 24 2.4 14.4 4.32 4.8 18.24 1.92 24 11.52 29.76 1.92 43.68 4.8 45.6 14.4 47.04 24 37.44 33.6 24 43.2z' fill='#FF5A6E'/></svg>",
       "summary": "You have 3. Tapping a blocked arrow costs one.",
-      "what": ["You start every level with 3 hearts. Tapping an arrow that's blocked costs a heart. When you run out, the attempt is over."],
-      "how": ["When you're out of hearts you can continue once with 100 coins for 3 hearts, or, on Android, watch a video for full hearts. Each continue works once per attempt.","Or tap Retry to start the level again."],
+      "what": ["You start every level with 3 hearts. Tapping an arrow that's blocked costs a heart. When you run out, the attempt is over.","Tapping a free arrow never costs anything. Because taking an arrow off the board never blocks another, the order you clear a board in can't trap you: every heart you lose starts with a tap on an arrow that wasn't free yet.","Hearts also decide what a win is worth. Each heart lost takes points off that level's score, and a win without losing one is a perfect clear: it pays 5 extra coins and counts on the Perfect board."],
+      "how": ["Before you tap, follow the arrow's line to the edge of the board. If anything sits in the way, another arrow, a rock or a gate of another colour, the arrow is blocked.","When you're out of hearts you can continue once with 100 coins for 3 hearts, or, on Android, watch a video for full hearts. Each continue works once per attempt.","Or tap Retry to start the level again with all 3 hearts."],
       "notes": ["A run with a continue doesn't go on the leaderboard."],
       "related": ["coins","remove-arrow","leaderboards"]
     },
@@ -290,12 +290,11 @@
       "slug": "hints",
       "section": "basics",
       "name": "Hints",
-      "robots": "noindex",
       "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><g fill='#F2B705'><circle cx='24' cy='19.2' r='13.44'/><path d='M17.28 28.8h13.44l-.96 8.64H18.24z'/></g><path d='M20.16 43.2h7.68' stroke='#F2B705' stroke-width='3.84' stroke-linecap='round'/></svg>",
       "summary": "Lights up an arrow that can leave right now.",
-      "what": ["A hint highlights an arrow whose path is clear, never one hidden under a shutter. You get 3 free hints; after that a hint costs 30 coins, or, on Android, a short video."],
-      "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues."],
+      "what": ["A hint picks out one arrow whose path off the board is clear right now and lights it up. Tap it and it slides away like any free arrow. A hint never points at an arrow hidden under a shutter, and on a guardian level it skips any arrow the guardian's ward is holding back, looking again after every hit, since a hit can move the ward.","Every player starts with 3 free hints. They're a stock you carry from level to level, not 3 per level. Once they're used, a hint costs 30 coins, or, on Android, a short video.","A hint can't lead you astray. In Exitwise, taking an arrow off the board never blocks another one: it can only open paths. So there is no wrong order to clear a board in, and any free arrow is a safe move. The hard part is spotting one, and that's all a hint does. It doesn't solve the level for you; it shows you one way forward."],
+      "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues, and they don't lower a run's points.","When you're not sure, a hint is cheaper than a guess: a blocked tap costs a heart, and every heart lost takes points off the level's score. A hint costs neither."],
       "related": ["auto-play","coins","leaderboards"]
     },
     {

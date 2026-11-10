@@ -103,11 +103,10 @@
       "slug": "cpu-clock",
       "section": "big",
       "name": "CPU clock mode",
-      "robots": "noindex",
       "image": "/speedometer-wallpaper/img/renders/dial-future-cpu.webp",
       "summary": "How fast the processor runs, as a share of its top speed.",
-      "what": ["In CPU clock mode the needle shows how fast the processor runs right now, as a percentage of its top speed."],
-      "how": ["Some phones don't allow apps to read the CPU clock. On those, the gauge shows -- instead of a number; use power or GPS speed instead."],
+      "what": ["In CPU clock mode the needle shows how hard your phone's processor is being pushed: how fast its cores are running right now, as a percentage of the fastest they can run.","A phone's processor has several cores, often of different sizes, and each one speeds up and slows down many times a second. The wallpaper reads every core's current speed and its top speed, adds them up, and shows the first total as a share of the second. A core with nothing to report counts as zero, so a phone resting on the home screen reads low, and a game or a big download pushes the needle up.","It takes a reading once a second and smooths it over about three seconds, so the needle sweeps like a real rev counter instead of twitching."],
+      "how": ["The percentage is about speed, not how busy the processor is. A phone saving battery can run busy cores slowly, so 40% doesn't mean 40% busy.","Some phones don't allow apps to read the CPU clock. On those, the gauge shows -- instead of a number, and it does the same when a phone reports a speed that can't be real, such as a core running faster than its own top speed. Use power or GPS speed instead."],
       "related": ["big-gauge","ram"]
     },
     {

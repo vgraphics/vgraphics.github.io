@@ -1,6 +1,161 @@
 {
   "posts": [
     {
+      "slug": "asking-for-a-rating-once",
+      "date": "2026-11-10",
+      "product": "Exitwise",
+      "title": "Asking for a rating once, at the right moment",
+      "description": "How Exitwise asks for a rating: the store's own card on your third opening, after a win, once. A few openings later, an offer of help. Nothing more.",
+      "lede": "Every game wants ratings, and most players have met one that wants them too much: a pop-up at launch, a “Do you love us?” question, the same request after every level. Exitwise 1.0.37, out on 7 November, is the first of our games to ask, and we wrote the rule down before we wrote the code. It fits on one line: ask once, at a good moment, with the store's own card, and after that offer help instead of asking again.",
+      "sections": [
+        {
+          "title": "What counts as an opening",
+          "paragraphs": [
+            "An opening is a cold start that reaches the game's first screen. Switching to another app and coming back doesn't count, so answering a message in the middle of a level never moves the count on. The count lives on your device and nowhere else. It isn't synced to your account, and nothing but the game on that phone reads it."
+          ]
+        },
+        {
+          "title": "The third opening, after a win",
+          "paragraphs": [
+            "On your third opening, Exitwise waits for a good moment, which in a puzzle game means a level won. Never at launch, never during play, never over an ad. When that moment comes, it calls Google Play's own rating card, the one with the stars that opens over the game, and nothing else.",
+            "There's no question of ours before it. That's partly taste and partly the rules. Google's guidelines for the in-app review card forbid asking anything before or while it shows, “Do you like the app?” included, and Apple's App Store guidelines allow only Apple's own prompt. A question that sorts happy players from unhappy ones before showing the card is exactly what those rules are written to stop, and it would make the ratings tell you less.",
+            "The store decides whether its card actually appears, because it keeps its own limit on how often one person sees it. So we call it once and never retry. If the third opening has no win in it, or another prompt is already waiting, the game tries on the fourth. After that it never brings it up again."
+          ]
+        },
+        {
+          "title": "Help on the sixth",
+          "paragraphs": [
+            "On the sixth opening (or the seventh, if the sixth is busy) the game asks something else: “Need help or have an idea?” Open a ticket takes you to our ticket desk, where you can report a bug, ask a question or tell us what you'd like to see, and then follow the answers. Not now closes it for good.",
+            "We ask this one ourselves, because no store has a card for it, and because the answer is worth more to us than a star. A rating says how someone felt. A ticket says what went wrong or what's missing, and it reaches the person who can fix it. In the browser there's no store card at all, so the web version of Exitwise makes only the help offer."
+          ]
+        },
+        {
+          "title": "One prompt per opening",
+          "paragraphs": [
+            "Exitwise already has a few questions of its own. After your third win it invites you to sign in, asks for your birth year if your account needs one, and offers the tutorial. Those always come first. A rating or a help offer that would land in the same opening waits for the next one, so you never get two prompts back to back.",
+            "A unit test walks through openings one to eight and checks all of it: the rating on the third (or the fourth), help on the sixth (or the seventh), each once, never two in one opening, and nothing while you play."
+          ]
+        },
+        {
+          "title": "Always one tap away",
+          "paragraphs": [
+            "A prompt that shows once is easy to miss, so Settings now has two rows that never go away: Rate us, which opens the game's store page, and Help & ideas, which opens the ticket desk. The Rate us row can't open the in-app card, because both stores forbid putting their card behind a button: with the card's own limit, the button would do nothing half the time.",
+            "The same rule applies to every game and app we make, so Speedometer Live Wallpaper and Palermo Noir will ask in the same way, in the same order."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/exitwise/", "label": "Exitwise" },
+        { "href": "/exitwise/play/", "label": "Play Exitwise online" },
+        { "href": "/exitwise/about/", "label": "About Exitwise" }
+      ]
+    },
+    {
+      "slug": "exitwise-on-iphone",
+      "date": "2026-11-10",
+      "product": "Exitwise",
+      "title": "Exitwise comes to iPhone and iPad",
+      "description": "Exitwise 1.0.2 is out for iPhone and iPad: the same 600 levels, Sign in with Apple and Restore purchases. Why EU players get the beta for now.",
+      "lede": "On 7 November Exitwise reached the App Store, for iPhone and iPad. It's the very game Android players and browser players already know, with all 600 levels across its 17 worlds. If you live in the European Union you won't find it in your App Store just yet, though. This post is about what the iPhone version brings, why Europe is waiting, and how to play it there in the meantime.",
+      "sections": [
+        {
+          "title": "One game, three places",
+          "paragraphs": [
+            "Exitwise is built once, in Unity, and that one project makes the Android app, the iPhone app and the version that runs on this site. The rules of the puzzle sit in a part of the code that knows nothing about phones or browsers, with its own tests, so the iPhone didn't need a port of the game. It needed a new place to run it.",
+            "Each level grows from one fixed number, its seed, so level 237 on an iPhone is the same board as level 237 on Android or in a browser, arrow for arrow. That's what makes a per-level leaderboard fair: everyone on it solved the same puzzle."
+          ]
+        },
+        {
+          "title": "Sign in with Apple",
+          "paragraphs": [
+            "On Apple's devices, the sign-in button is Apple's own. Signing in is optional, and the game plays the same without it. What it gives you is a free <a href=\"/hub/\">VHub</a> account, which keeps your progress safe and gives you one profile across all of our games."
+          ]
+        },
+        {
+          "title": "Restore purchases",
+          "paragraphs": [
+            "Exitwise is free. If you've bought Remove Ads, that's the kind of purchase that lasts, and Apple asks every app that sells one to offer a way to get it back on a new device. So Settings has Restore purchases: on a new iPhone or iPad, tap it, and Remove Ads comes back without paying again."
+          ]
+        },
+        {
+          "title": "Why not in the EU yet",
+          "paragraphs": [
+            "Under the EU's Digital Services Act, an app that sells anything has to say who the trader behind it is, and Apple checks those details before the app can appear in any EU storefront. Ours are with Apple and still being checked. Until that's done, Exitwise isn't listed in EU App Stores. An EU visitor to our Exitwise page sees a line under the App Store badge saying so, so nobody taps through to a page that won't open."
+          ]
+        },
+        {
+          "title": "Playing in the EU meanwhile",
+          "paragraphs": [
+            "There are two ways to play in the EU today. The first is the iPhone beta, through TestFlight, Apple's own app for testing builds: install TestFlight, open the invite link on <a href=\"/exitwise/\">our Exitwise page</a>, and the game installs like any other. It's the real game, not a demo, and if you sign in, your progress stays with your VHub account whichever version you play.",
+            "The second needs nothing at all: Exitwise <a href=\"/exitwise/play/\">runs in the browser</a>, on this site, on a phone or a computer. As soon as Apple finishes its check, the App Store version will open in the EU too, and we'll say so on the Exitwise page."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/exitwise/", "label": "Exitwise" },
+        { "href": "https://apps.apple.com/app/id6830097641", "label": "Exitwise on the App Store" },
+        { "href": "/exitwise/play/", "label": "Play Exitwise online" }
+      ]
+    },
+    {
+      "slug": "one-motion-for-everything-that-opens",
+      "date": "2026-11-10",
+      "product": "VGraphics",
+      "title": "One motion for everything that opens",
+      "description": "Every menu, question and panel in our games, apps and this site opens in 260 ms and closes in 200. Why one shared motion, and the two bugs it fixed.",
+      "lede": "Click a question in the FAQ on any of our product pages and it opens in about a quarter of a second. Open a menu in Exitwise, a card in Speedometer Live Wallpaper or a panel in VHub, and it moves exactly the same way. That's on purpose. Since early November, everything that expands or drops down, in every game, app and page we make, follows one written spec. This post is about the numbers in it, and why we bothered to write them down.",
+      "sections": [
+        {
+          "title": "The numbers",
+          "paragraphs": [
+            "Opening takes 260 milliseconds. Closing takes 200, a little faster, because by the time you close something you've made up your mind, and the screen shouldn't keep you waiting. Both use the same curve, a strong ease-out (cubic-bezier(.2, .8, .2, 1)): the row covers most of its distance in the first frames and settles gently, so it feels quick without looking abrupt.",
+            "While a row grows, what's inside it fades in over the same 260 ms. The chevron beside it turns half a circle with it, and on close it turns back the moment the close begins."
+          ]
+        },
+        {
+          "title": "Nothing snaps",
+          "paragraphs": [
+            "The rule we care about most is that nothing appears or disappears in a single frame. The text inside a closing row stays drawn until the row has shrunk around it, and the row clips what's inside while it moves. Click a row that's still moving and it turns round from wherever it is, height and fade included, instead of jumping to its end first."
+          ]
+        },
+        {
+          "title": "One open at a time",
+          "paragraphs": [
+            "Lists of questions keep one answer open at a time. Our first version did that by shutting the open answer instantly when you opened another, and it looked like a glitch: one row animated while the other blinked shut. Now opening a row runs the other row's own close at the same time, so one shrinks as the other grows."
+          ]
+        },
+        {
+          "title": "The page stays where you left it",
+          "paragraphs": [
+            "The second bug was harder to see. To keep the row you clicked under your pointer, an early version nudged the page's scroll while the rows changed height. It worked, and it felt wrong: you opened an answer and the page drifted under you. The spec now says a row never scrolls the page. While rows move, the browser's own scroll anchoring is switched off on whatever is scrolling, and put back a frame after they stop, so the rows below simply move with the heights. Exitwise's web version got this fix on 5 November."
+          ]
+        },
+        {
+          "title": "Menus and sheets",
+          "paragraphs": [
+            "Menus keep the same timing. A drop-down grows from its button as it fades in. A sheet on a phone rises from the bottom of the screen, and a dialog on a wide screen rises from just below its place. Where a platform already animates its own dialogs both ways, like Android's bottom sheets, we leave them as they are instead of fighting them."
+          ]
+        },
+        {
+          "title": "Less motion, if you ask for it",
+          "paragraphs": [
+            "If your device is set to reduce motion, nothing slides: rows and menus only fade, in 150 ms opening and 100 ms closing. Screen readers keep a row's open state until its close has finished, so what they announce matches what's on the screen."
+          ]
+        },
+        {
+          "title": "Why write it down",
+          "paragraphs": [
+            "We build with three very different toolkits: web pages, Unity and Android. Left alone, each would grow its own idea of “smooth”. A spec with numbers in it means each one can be checked against the same thing, and the FAQ on this site is the reference the others are measured against. Speedometer Live Wallpaper 2.0.14 brought it to the app on 4 November, and Exitwise's menus and pop-ups followed the next day."
+          ]
+        }
+      ],
+      "links": [
+        { "href": "/exitwise/", "label": "Exitwise" },
+        { "href": "/speedometer-wallpaper/", "label": "Speedometer Live Wallpaper" },
+        { "href": "/hub/", "label": "VHub" }
+      ]
+    },
+    {
       "slug": "speedometer-layout-builder",
       "date": "2026-11-03",
       "product": "Speedometer Live Wallpaper",
