@@ -16,6 +16,8 @@
 # bar, the punch-hole camera, a faint sheen and the painting's own grain, warped into the painted glass's corners. The
 # screen's light spills a little onto what's around it, whatever the painting has in front of the phone (a hand, a
 # clamp, the dashboard) is laid back on top, and made-up text the painting left on a phone's rim is filled in.
+# An entry's "reflections" ([{"screen", "quad": 4 corners, "strength", "blur", "glow"}]) put a screen on the
+# windscreen as well, as light on the glass (HUD mode: the phone flat on the dashboard, its speed read in the glass).
 #
 # Usage:
 #   python tools/make-wiki-screens.py <product> [slug ...]                  the masters (default: every entry)
@@ -273,6 +275,31 @@ def lay_phone(img, painting, phone, screens, overlays):
     img[y0:y1, x0:x1] = np.uint8(np.clip(region, 0, 1) * 255 + 0.5)
 
 
+def reflect(img, r, screens):
+    """A screen's reflection in the windscreen (HUD mode's whole point): the screen, as it reads, warped into [quad] on
+    the glass and laid on as light (screen blend, so its black is clear glass), at [strength], softened by [blur] px,
+    with a soft [glow] around its bright parts."""
+    quad = np.asarray(r['quad'], np.float32)
+    w, h = side_lengths(quad)
+    flat = np.asarray(screens[r['screen']].resize((round(w * SS), round(h * SS)), Image.LANCZOS), np.float32)
+    xs, ys = quad[:, 0], quad[:, 1]
+    pad = round(h * 0.25)
+    x0, y0 = max(0, int(xs.min()) - pad), max(0, int(ys.min()) - pad)
+    x1, y1 = min(img.shape[1], int(xs.max()) + pad + 1), min(img.shape[0], int(ys.max()) + pad + 1)
+    M = homography([(0, 0), (flat.shape[1], 0), (flat.shape[1], flat.shape[0]), (0, flat.shape[0])],
+                   (quad - (x0, y0)) * SS)
+    big = cv2.warpPerspective(flat, M, ((x1 - x0) * SS, (y1 - y0) * SS), flags=cv2.INTER_LINEAR,
+                              borderMode=cv2.BORDER_CONSTANT, borderValue=(0, 0, 0))
+    light = cv2.resize(big, (x1 - x0, y1 - y0), interpolation=cv2.INTER_AREA) / 255
+    if r.get('blur', 1.0):
+        light = cv2.GaussianBlur(light, (0, 0), r.get('blur', 1.0))
+    if r.get('glow', 0):
+        light = 1 - (1 - light) * (1 - cv2.GaussianBlur(light, (0, 0), h * 0.04) * r['glow'])
+    light = light * r.get('strength', 0.8)
+    region = img[y0:y1, x0:x1].astype(np.float32) / 255
+    img[y0:y1, x0:x1] = np.uint8(np.clip(1 - (1 - region) * (1 - light), 0, 1) * 255 + 0.5)
+
+
 def keep_mask(shape, phone, painting):
     """Where the painting stays on top: polygons (with an optional colour test, e.g. skin), each feathered by its
     own amount (an out-of-focus edge, like the dashboard's, wants a wide one)."""
@@ -316,6 +343,8 @@ def compose(product, slug, entry, screens, overlays):
     img = base.copy()
     for phone in entry['phones']:
         lay_phone(img, painting, phone, screens, overlays)
+    for r in entry.get('reflections', []):
+        reflect(img, r, screens)
     for phone in entry['phones']:
         k = keep_mask(img.shape, phone, painting)
         if k.any():
@@ -333,7 +362,8 @@ def check(product, slug, entry, out, folder):
     src = art_src(product)
     os.makedirs(folder, exist_ok=True)
     painted = Image.open(os.path.join(src, 'painted', slug + '.webp')).convert('RGB')
-    q = np.concatenate([np.asarray(p['glass']) for p in entry['phones']])
+    q = np.concatenate([np.asarray(p['glass']) for p in entry['phones']] +
+                       [np.asarray(r['quad']) for r in entry.get('reflections', [])])
     pad = 60
     box = (max(0, int(q[:, 0].min()) - pad), max(0, int(q[:, 1].min()) - pad),
            min(out.width, int(q[:, 0].max()) + pad), min(out.height, int(q[:, 1].max()) + pad))
@@ -378,8 +408,8 @@ def main(argv):
         only += [slug + '-tall' for slug in only]
     src = art_src(product)
     spec = json.load(open(os.path.join(src, 'screens.json'), encoding='utf-8'))
-    wanted = {phone['screen'] for slug, entry in spec['entries'].items() if not only or slug in only
-              for phone in entry['phones']}
+    wanted = {item['screen'] for slug, entry in spec['entries'].items() if not only or slug in only
+              for item in entry['phones'] + entry.get('reflections', [])}
     screens = {name: Image.open(os.path.join(src, 'screens', name + '.webp')).convert('RGB') for name in wanted}
     overlays = {name: Image.open(os.path.join(src, 'screens', f'overlay-{name}.webp')).convert('RGBA')
                 for name in ('status-bar', 'home')}

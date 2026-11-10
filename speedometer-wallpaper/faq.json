@@ -4,8 +4,31 @@
     "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode and in HUD mode, and only to show your speed."
   },
   {
-    "q": "Can I see my speed on the windscreen, like a HUD?",
-    "a": "Yes, with HUD mode. Lay your phone flat on the dashboard in front of the wheel, screen up: the app goes full screen at full brightness and draws your speed flipped, so the windscreen reflects it the right way round. Pick Number, Gauge arc, Fighter or Centre bar in Horizon (free), Glass, Pulse or Vector; each one's page has an Original | HUD switch to see its HUD look first. Set it up while parked, and never touch the phone while you drive; HUD mode has no menus and no ads. It reads best at dusk, at night and on cloudy days. A windscreen shows the picture twice, from its two surfaces; a cheap HUD film on the glass fixes that."
+    "q": "Can I use my phone as a car HUD, with my speed on the windscreen?",
+    "a": [
+      "Yes, with HUD mode, which turns your phone into a heads-up display for your car. Lay your phone flat on the dashboard in front of the wheel, screen up: the app goes full screen at full brightness and draws your speed flipped, so the windscreen reflects it the right way round. Pick Number, Gauge arc, Fighter or Centre bar in Horizon (free), Glass, Pulse or Vector; each one's page has an Original | HUD switch to see its HUD look first. Set it up while parked, and never touch the phone while you drive; HUD mode has no menus and no ads. It reads best at dusk, at night and on cloudy days.",
+      "<a href=\"/speedometer-wallpaper/wiki/hud-mode/\">HUD mode, step by step</a>, or <a href=\"/speedometer-wallpaper/play/#hud\">try HUD mode in your browser</a> first."
+    ]
+  },
+  {
+    "q": "Why do I see a double image in HUD mode?",
+    "a": "A windscreen has two glass surfaces, and each one reflects the phone, so your speed shows twice. Stick a HUD film on the inside of the windscreen, or set a HUD reflector plate on the dashboard, and you get one sharp image.",
+    "compare": {
+      "before": {
+        "src": "/speedometer-wallpaper/img/hud/film-pulse-without",
+        "label": "Without film",
+        "alt": "Pulse's Centre bar HUD on a bare windscreen at night: the speed, clock, trip and dots each show twice, a faint copy just above"
+      },
+      "after": {
+        "src": "/speedometer-wallpaper/img/hud/film-pulse-with",
+        "label": "With film",
+        "alt": "The same HUD with a HUD film on the windscreen: one sharp image of 60 km/h, the clock, trip and heading"
+      },
+      "widths": [640, 960],
+      "width": 960,
+      "height": 640,
+      "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right."
+    }
   },
   {
     "q": "How does it know my speed, and how accurate is it?",

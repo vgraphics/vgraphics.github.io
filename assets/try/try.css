@@ -183,8 +183,8 @@
 .try-toast-text small:empty { display: none; }
 
 .try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
-.try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
-.try-group h4 { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-title { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-subtitle { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
 
 .try-styles { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
 .try-styles button {
@@ -249,7 +249,7 @@
    title. A set, and the menu itself, grows in as it appears (a HUD style picked, the market's layouts in) and shrinks
    away as it goes (assets/faq.js showBox and hideBox). */
 .try-layouts { display: grid; gap: 14px; }
-.try-layouts > h4 { margin: 0; }
+.try-layouts > .try-subtitle { margin: 0; }
 .try-layout-set { display: grid; gap: 8px; }
 .try-layout-set[hidden] { display: none; }
 .try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
@@ -569,3 +569,59 @@
 @media (prefers-reduced-motion: reduce) {
   .try-hud-controls, .try-hud-controls.is-shown { transition-duration: 80ms; }
 }
+/* The demo drive's speed in HUD mode is marked as such: a small pill in the corner, under Exit and Flip, never in the
+   way of a tap. */
+.try-hud-demo {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #000 60%, transparent);
+  color: var(--ink);
+  font: var(--label-weight) 0.8rem/1.2 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+.try-hud-demo[hidden] { display: none; }
+
+/* A link into HUD mode (#hud): the invite under the phone, and the store's badge once HUD mode is left. Each comes and
+   goes as every expandable does (design canon §1, assets/faq.js showBox and hideBox, which try.js hudCard() calls). */
+.try-hud-card {
+  width: min(100%, 560px);
+  overflow: hidden;
+  border: var(--card-border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.try-hud-card[hidden] { display: none; }
+.try-hud-card-body { position: relative; display: grid; gap: 10px; padding: 16px 18px; }
+.try-hud-card-body p { margin: 0; color: var(--muted); }
+.try-hud-card-body .try-hud-card-title { padding-right: 36px; color: var(--ink); font: var(--label-weight) 1.05rem/1.25 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.04em; }
+.try-hud-invite .try-hud-card-title { padding-right: 0; }
+.try-hud-card-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.try-hud-go { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.try-hud-card .gp { justify-self: start; }
+.try-hud-card .gp img { height: 64px; }
+.try-hud-card-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: var(--cursor-link, pointer);
+}
+.try-hud-card-close:hover { color: var(--ink); }
+.try-hud-card-close svg { width: 18px; height: 18px; }
+.try-hud-card button:focus-visible, .try-hud-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* On the try page's screen, nothing scrolls: while a card shows, the phone on its side keeps the card's height too. */
+.screen .try:has(.try-hud-card:not([hidden])) .try-device[data-orientation="landscape"] { width: min(100%, 940px, max(240px, calc((100dvh - 560px) * 2340 / 1080))); }

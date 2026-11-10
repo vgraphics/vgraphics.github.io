@@ -6,10 +6,6 @@
   { "page":"/exitwise/play/", "check":"twitter-image", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"og-image-size", "owner":"Games coordinator (Unity web build)" },
   { "page":"/exitwise/play/", "check":"robots-preview", "owner":"Games coordinator (Unity web build)" },
-  { "page":"/exitwise/play/", "check":"breadcrumb", "owner":"Games coordinator (Unity web build)" },
-  { "page":"/speedometer-wallpaper/about/", "check":"description-length", "owner":"Speedometer coordinator" },
-  { "page":"/speedometer-wallpaper/", "check":"keywords", "owner":"Speedometer coordinator" },
-  { "page":"/speedometer-wallpaper/play/", "check":"heading-order", "owner":"Speedometer coordinator" },
-  { "page":"/speedometer-wallpaper/wiki/restoring-future/", "check":"title-length", "owner":"Speedometer coordinator" }
+  { "page":"/exitwise/play/", "check":"breadcrumb", "owner":"Games coordinator (Unity web build)" }
  ]
 }
