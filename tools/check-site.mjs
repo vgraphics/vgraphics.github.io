@@ -28,6 +28,7 @@ import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblem
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 import { markProblems } from './lib/marks.mjs'
 import { htaccessProblems } from './lib/htaccess.mjs'
+import { codeImageRefs, imageGapProblems, imageVersionProblems, realFile } from './lib/image-version.mjs'
 import { hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
@@ -162,7 +163,7 @@ function seo(file, html) {
   }
   const image = metaContent(head, 'property', 'og:image')
   if (!image) report(file, 'seo', 'no og:image (the link preview\'s picture)')
-  else if (!image.startsWith('https://vgraphics.gr/') || !existsSync(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length))))) {
+  else if (!image.startsWith('https://vgraphics.gr/') || !existsSync(realFile(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length)))))) {
     report(file, 'seo', `og:image ${image} is not a file on vgraphics.gr`)
   }
 }
@@ -207,8 +208,13 @@ for (const file of pages) {
     if (!clean) continue
     let target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
     if (clean.endsWith('/') || (existsSync(target) && statSync(target).isDirectory())) target = join(target, 'index.html')
-    if (!existsSync(target)) report(file, 'links', `broken link ${ref}`)
+    if (!existsSync(realFile(target))) report(file, 'links', `broken link ${ref}`)
   }
+  // Every local picture is named by its version, name.<hash>.ext, so the host can cache it for a year (George, 10 Nov 2026,
+  // the platform coordinator's job 23: "Yes, do it"): a picture that changes gets a new address. A page the template writes
+  // gets them from its generator (tools/build-pages.mjs, build-wiki.mjs, build-devlog.mjs), any other page from
+  // tools/version-images.mjs, which writes the current hash (run it again whenever a picture's bytes change).
+  for (const message of imageVersionProblems(html, { file, root })) report(file, 'image-version', message)
 }
 // Two pages to index with one title or one description compete for the same search, and Google shows neither well.
 for (const [what, seen] of [['title', seoTitles], ['description', seoDescriptions]]) {
@@ -544,7 +550,7 @@ for (const file of served) {
 for (const [file, text] of sheets) {
   for (const [, kind] of text.matchAll(/(?<![-\w])cursor:\s*(pointer|text|default)\b/g)) cursor(file, `sets cursor: ${kind}, the system's own: use ${SYSTEM[kind]}`)
   for (const [, name, url, x, y] of text.matchAll(/--(cursor(?:-link|-text)?):\s*url\(\s*"([^"]+)"\s*\)\s+(\d+)\s+(\d+)/g)) {
-    const picture = join(root, url.replace(/^\//, ''))
+    const picture = realFile(join(root, url.replace(/^\//, '')))
     if (!url.startsWith('/') || !existsSync(picture)) continue // a missing one is reported under css-urls
     const at = hotspot(readFileSync(picture, 'utf8'))
     if (typeof at === 'string') cursor(file, `--${name}'s ${url} ${at}`)
@@ -1030,7 +1036,7 @@ for (const file of served) {
     if (!src || !w || !h || /^(data:|[a-z]+:|\/\/)/i.test(src)) continue
     const clean = decodeURIComponent(src.replace(/[?#].*$/, ''))
     const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
-    const own = existsSync(target) ? imageSize(target) : null
+    const own = existsSync(realFile(target)) ? imageSize(realFile(target)) : null
     if (own && Math.abs((w / h) / (own.width / own.height) - 1) > 0.01) {
       report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
     }
@@ -1133,7 +1139,9 @@ function pictureUses(file) {
     } catch {}
     if (!PICTURE.test(clean)) return null
     const target = clean.startsWith('/') ? clean.slice(1) : join(dirname(file), clean)
-    return existsSync(join(root, target)) ? target.split(sep).join('/') : null
+    // The picture's file: its address may carry its version (name.<hash>.ext, tools/lib/image-version.mjs), which no file has.
+    const found = realFile(join(root, target))
+    return existsSync(found) ? relative(root, found).split(sep).join('/') : null
   }
   for (const m of html.slice(Math.max(0, html.search(/<body\b/))).matchAll(/<(\/?)([a-zA-Z][\w-]*)\b([^>]*)>/g)) {
     const [, close, name, attrs] = m
@@ -1312,8 +1320,27 @@ for (const file of files.filter((f) => /\.(css|html)$/.test(f))) {
     links++
     const clean = raw.replace(/[?#].*$/, '')
     const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
-    if (!existsSync(target)) report(file, 'css-urls', `missing ${raw}`)
+    if (!existsSync(realFile(target))) report(file, 'css-urls', `missing ${raw}`)
   }
+}
+
+// Versioned pictures (above, 'image-version'): a page names a picture as name.<hash>.ext, so the host caches it a year. Code
+// can't: a script's string or a stylesheet's url() is not a page, and a listing a script reads names pictures a script
+// loads at run time, so those pictures keep the ten minutes. tools/image-version-known-gaps.json lists each file (or a
+// folder, ending in "/") with its owner and why, and only shrinks: code that names a local picture without its version and
+// is not listed fails, and a listed entry that no longer names one fails until it is removed. The theme stylesheets the
+// template writes are held to their generator ('template' above), which versions their pictures.
+{
+  const listed = JSON.parse(readFileSync(join(root, 'tools/image-version-known-gaps.json'), 'utf8')).gaps
+  const generated = new Set(products().map((slug) => posix.join(slug, 'theme', 'theme.css')))
+  const code = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.css', '*.js', '*.mjs', '*.txt'], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 26 })
+    .split('\0').filter((f) => f && existsSync(join(root, f)) && !f.startsWith('tools/') && !f.startsWith('.claude/') && !generated.has(f) && !builtByUnity(f))
+  const found = []
+  for (const file of code) {
+    const n = codeImageRefs(readFileSync(join(root, file), 'utf8'), { file, root }).length
+    if (n) found.push([file, n])
+  }
+  for (const [file, message] of imageGapProblems(found, listed)) report(file, 'image-version', message)
 }
 
 const company = join(root, 'company', 'index.html')

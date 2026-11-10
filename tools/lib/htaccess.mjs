@@ -15,6 +15,10 @@ export const HTACCESS_RULES = [
   { what: 'no dotfiles but /.well-known/', lines: ['RewriteCond %{REQUEST_URI} !^/\\.well-known/', 'RewriteRule (^|/)\\. - [F]'] },
   { what: "no access to the site's tools", lines: ['RewriteRule ^tools(/|$) - [F]'] },
   { what: 'no source or secret files, and no PHP', lines: ['RewriteRule \\.(md|py|pyc|sh|ps1|bat|cmd|ts|tsx|map|env|ini|cfg|conf|log|bak|old|orig|swp|sql|sqlite|db|pem|key|crt|csr|p12|pfx|jks|keystore|php\\d?|phtml|phar)$ - [NC,F]'] },
+  {
+    what: 'versioned pictures (name.<hash>.ext) served from name.ext, and the request marked for the year-long cache',
+    lines: ['RewriteRule ^(.+)\\.[0-9a-f]{8}\\.(avif|webp|jpe?g|png|gif|svg|ico)$ $1.$2 [NC,E=VERSIONED_IMAGE:1,L]'],
+  },
   { what: 'addresses without .html (/x serves x.html)', lines: ['RewriteCond %{REQUEST_FILENAME} !-f', 'RewriteCond %{REQUEST_FILENAME}.html -f', 'RewriteRule ^(.*[^/])$ $1.html [L]'] },
   { what: 'folders without their slash (/dir goes to /dir/)', lines: ['RewriteCond %{REQUEST_FILENAME} -d', 'RewriteRule ^(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,NE]'] },
   { what: 'HSTS', lines: ['Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"'] },
@@ -33,6 +37,14 @@ export const HTACCESS_RULES = [
   { what: 'pages revalidated on every visit', lines: ['<FilesMatch "\\.(html|json|txt|xml|tsv|webmanifest)$">', 'Header set Cache-Control "no-cache, no-transform"'] },
   { what: "Unity's files revalidated (their names stay the same)", lines: ['<FilesMatch "(\\.(unityweb|wasm|br|gz)|\\.loader\\.js)$">'] },
   { what: 'hashed files cached for a year', lines: ['<FilesMatch "(\\.[0-9a-f]{8,}|^[0-9a-f]{16,})\\.[A-Za-z0-9]+$">', 'Header set Cache-Control "public, max-age=31536000, immutable, no-transform"'] },
+  {
+    what: 'versioned pictures cached for a year (marked by the rewrite and by SetEnvIf; an unversioned picture never gets it)',
+    lines: [
+      'SetEnvIfNoCase Request_URI "\\.[0-9a-f]{8}\\.(avif|webp|jpe?g|png|gif|svg|ico)$" VERSIONED_IMAGE=1',
+      'Header set Cache-Control "public, max-age=31536000, immutable, no-transform" env=VERSIONED_IMAGE',
+      'Header set Cache-Control "public, max-age=31536000, immutable, no-transform" env=REDIRECT_VERSIONED_IMAGE',
+    ],
+  },
   {
     what: "the map tiles' cache and CORS for Range requests",
     lines: [

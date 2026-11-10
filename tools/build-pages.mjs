@@ -78,6 +78,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, screenBar, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
+import { versionCode, versionImages } from './lib/image-version.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
@@ -575,8 +576,15 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
 `
   // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF. Our names
   // get their ™ in the headings and at their first mention (tools/lib/marks.mjs; not on the product's screens).
+  // Every picture the page (and the theme's stylesheet) names carries its file's version, name.<hash>.ext, so the host can
+  // cache it for a year (tools/lib/image-version.mjs, .htaccess).
   const file = path.endsWith('/') ? join(path.slice(1), 'index.html') : path.slice(1)
-  return { html: markPage(path, html.replace(/\r\n/g, '\n')), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
+  return {
+    html: versionImages(markPage(path, html.replace(/\r\n/g, '\n')), { file }),
+    file,
+    css: versionCode(themeCss(slug, t, product.cursors.tokens), { file: `${slug}/theme/theme.css` }),
+    problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)],
+  }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

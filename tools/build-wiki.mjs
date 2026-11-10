@@ -28,6 +28,7 @@ import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
 import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
 import { imageSize } from './lib/image-size.mjs'
+import { versionImages } from './lib/image-version.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
@@ -367,10 +368,11 @@ for (const slug of products) {
   for (const d of readdirSync(dir, { withFileTypes: true })) {
     if (d.isDirectory() && d.name !== 'img' && existsSync(join(dir, d.name, 'index.html'))) rmSync(join(dir, d.name), { recursive: true })
   }
-  writeFileSync(join(dir, 'index.html'), indexPage(w, product))
+  // Every picture a page names carries its file's version, name.<hash>.ext (tools/lib/image-version.mjs, .htaccess).
+  writeFileSync(join(dir, 'index.html'), versionImages(indexPage(w, product), { file: `${slug}/wiki/index.html` }))
   w.entries.forEach((e, i) => {
     mkdirSync(join(dir, e.slug), { recursive: true })
-    writeFileSync(join(dir, e.slug, 'index.html'), entryPage(w, product, e, i))
+    writeFileSync(join(dir, e.slug, 'index.html'), versionImages(entryPage(w, product, e, i), { file: `${slug}/wiki/${e.slug}/index.html` }))
   })
   console.log(`${slug}: wiki index + ${w.entries.length} entries`)
 }

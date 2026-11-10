@@ -7,6 +7,7 @@
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { imageSize } from './image-size.mjs'
+import { realFile } from './image-version.mjs'
 
 /** og:locale: every page is in English (one language per page). */
 export const OG_LOCALE = 'en_US'
@@ -82,7 +83,8 @@ export function seoProblems({ html, url, root, keywords = {} }) {
   if (!meta(head, 'name', 'twitter:image')) out.push(['twitter-image', 'no twitter:image'])
   const image = meta(head, 'property', 'og:image')
   if (image?.startsWith('https://vgraphics.gr/')) {
-    const file = join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length)))
+    // The picture's address may carry its version (name.<hash>.ext, tools/lib/image-version.mjs): its file is name.ext.
+    const file = realFile(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length))))
     const size = existsSync(file) && /\.(png|jpe?g|webp|gif|avif)$/i.test(file) ? imageSize(file) : null
     if (!meta(head, 'property', 'og:image:width') || !meta(head, 'property', 'og:image:height')) out.push(['og-image-size', 'no og:image:width and og:image:height'])
     if (size && size.width < OG_IMAGE_MIN_WIDTH) out.push(['og-image-size', `og:image is ${size.width} px wide, want at least ${OG_IMAGE_MIN_WIDTH}: ${image}`])

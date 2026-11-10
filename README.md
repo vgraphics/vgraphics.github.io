@@ -794,12 +794,35 @@ uploaded by hand.
   of the same name) and `/dir` going to `/dir/`. It adds the security headers (HSTS, nosniff, the referrer and
   permissions policies, framing by our own pages only), keeps dotfiles (but `/.well-known/`), `tools/`, source and
   secret files and PHP off the web, types Unity's files, and sets the caching: pages and data revalidate, names with a
-  content hash cache for a year, the rest ten minutes as on Pages. check-site fails when it is missing or lost a rule
-  (`tools/lib/htaccess.mjs`); change both together.
+  content hash cache for a year, so do versioned pictures (below), the rest ten minutes as on Pages. check-site fails
+  when it is missing or lost a rule (`tools/lib/htaccess.mjs`); change both together.
 - Every `Cache-Control` says `no-transform`: Hostinger's CDN (hcdn) rewrites images unless the response says so (it
   re-encodes JPEGs, sends WebP to browsers that take it and strips the art's XMP rights) and minifies text. check-site
   fails on a `Cache-Control` without it. Scripts are typed `text/javascript`, since LiteSpeed's own type for `.js` is
   `application/x-javascript`.
+- **Pictures are versioned, so they cache for a year** (George, 10 Nov 2026: PageSpeed's top hint was the ten minutes on
+  every image). Every local picture address in a page is `name.<first 8 hex of the file's sha256>.ext`
+  (`/exitwise/hero.1a2b3c4d.webp`), while the file keeps its plain name in git. `.htaccess` serves a versioned address
+  from the plain file (`RewriteRule`, only when no such file exists) and gives it `public, max-age=31536000,
+  immutable, no-transform`; an unversioned address keeps the ten minutes, so nothing but a versioned address is ever
+  cached long. The year-long header is set from a request flag (`VERSIONED_IMAGE`, `REDIRECT_VERSIONED_IMAGE` after the
+  internal rewrite), because `FilesMatch` sees the plain name; if the server ignores the flag, versioned pictures just
+  keep the ten minutes. The rewrite does not check the hash: HTML revalidates on every visit, so a changed picture
+  reaches the visitor with its new address, and check-site catches a stale one.
+  - The versioning is done by `tools/lib/image-version.mjs`. The page generators (`build-pages`, `build-wiki`,
+    `build-devlog`) call it on their finished HTML, so their inputs keep plain paths; `node tools/version-images.mjs`
+    does the same in place for every hand-made page (idempotent, `--check` only reports, Unity play builds are left
+    alone). It covers attributes (`src`, `href`, `srcset`, `poster`, `data-*`, `content`), style `url()`, and the
+    quoted pictures in a page's scripts and JSON-LD, for `https://vgraphics.gr/...` and relative addresses.
+  - **After a picture's bytes change** (new art, `tools/protect-art.mjs`, a Recraft export), run `node
+    tools/version-images.mjs` again and rebuild the generated pages: the picture's hash changed, and check-site fails
+    a page with the old one (`image-version`, naming the tool).
+  - Code that names a local picture (a script's string, a stylesheet's `url()`) is not a page and can't be rewritten;
+    those files are in `tools/image-version-known-gaps.json` with their owner, keep the ten minutes, and the list only
+    shrinks (check-site fails on code that names a picture and isn't listed, and on an entry that no longer does).
+    Pages the Deployer writes (the hub, the party and play pages) come back unversioned after its runs, so check-site
+    fails them until `version-images` is run: wiring that into the Deployer is a later job, with the cache lifetimes of
+    CSS and JS and the Unity play builds.
 - `assets/hosting-check/` holds four tiny pre-compressed files (`.js.br`, `.js.gz`, `.wasm.br`, `.data.gz`) that the
   Deployer's live check reads after every upload, to prove the Brotli and gzip rules work before a Unity build needs
   them. Linked from no page.
