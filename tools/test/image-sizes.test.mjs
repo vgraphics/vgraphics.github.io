@@ -58,7 +58,8 @@ test('the soundtrack cover\'s blurred backdrop and record disc state a square si
   const block = { album: 'Album', cover: { src: 'img/cover', widths: [320, 640], width: 640, height: 640, alt: 'The cover' }, background: null, youtube: null, soundcloud: null, tracks: [{ title: 'One', src: 'audio/one.m4a', duration: '1:00' }] }
   const html = soundtrack(block, { slug: 'no-such-product', theme: { swatches: ['#fff'] } })
   const tags = imgs(html)
-  assert.equal(tags.length, 3)
+  // the blurred backdrop, the record's disc, the cover and the track row's thumbnail
+  assert.equal(tags.length, 4)
   for (const tag of tags) assert.ok(Number(attr(tag, 'width')) > 0 && Number(attr(tag, 'height')) > 0, `no width and height: ${tag.slice(0, 120)}`)
   const blur = html.match(/<span class="ost-backdrop blur"[^>]*>(<img[^>]*>)/)[1]
   assert.equal(attr(blur, 'width'), '320')
