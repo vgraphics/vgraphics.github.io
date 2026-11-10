@@ -138,7 +138,7 @@
           <p class="sec-intro">A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black. This is the real wallpaper, drawn in your browser by the app's own code. Tap the big gauge, and try Horizon's layouts and colours. Switch Original | HUD to see Horizon's HUD mode look.</p>
         </div>
         <div class="try" data-state="idle">
-          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"horizon","layouts":"/speedometer-wallpaper/market/market.js","hud":{"styles":["horizon","glass","pulse","vector"],"layouts":["number","gauge_arc","fighter","centre_bar"]},"appLinks":{"look":"https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}","layout":"https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"}}</script>
+          <script type="application/json" class="try-config">{"product":"speedometer","name":"Speedometer Live Wallpaper","engine":"/speedometer-wallpaper/play/app/","store":"https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper","referrer":"utm_source=vgraphics.gr&utm_medium=style_page","measurementId":"G-Q9JL2TRH6Z","prices":{"premium":"€2.39"},"gpsLabel":"Use my real speed","startup":false,"style":"horizon","layouts":"/speedometer-wallpaper/market/market.js","hud":{"styles":["horizon","glass","pulse","vector"],"layouts":["number","gauge_arc","fighter","centre_bar"]},"appLinks":{"look":"https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}","layout":"https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"},"help":"/hub/support/?p=speedometer"}</script>
           <div class="try-stage">
             <div class="try-device" data-orientation="portrait">
               <div class="try-screen" role="img" aria-label="Speedometer Live Wallpaper, live: tap the big gauge to switch it">
@@ -149,6 +149,7 @@
                 <div class="try-busy" hidden><span></span></div>
                 <div class="try-hud-layer" hidden>
                   <p class="try-hud-tip" hidden>Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.</p>
+                  <span class="try-hud-demo" hidden>Demo</span>
                   <div class="try-hud-controls" hidden>
                     <button type="button" class="try-hud-exit" data-hud="exit">Exit</button>
                     <button type="button" class="try-hud-flip" data-hud="flip">Flip</button>
@@ -156,6 +157,17 @@
                 </div>
               </div>
             </div>
+            <div class="try-hud-card try-hud-invite" role="region" aria-labelledby="try-hud-invite-title" hidden><div class="try-hud-card-body">
+              <p class="try-hud-card-title" id="try-hud-invite-title">HUD mode, ready to start</p>
+              <p>Lay your phone flat on the dashboard in front of the wheel, screen up, turn its brightness all the way up and read your speed on the windscreen. Set it up while parked.</p>
+              <div class="try-hud-card-acts"><button class="try-tool try-hud-go" type="button" data-hud-go="gps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Start with my real speed</span></button><button class="try-tool" type="button" data-hud-go="demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg><span>Start the demo drive</span></button></div>
+            </div></div>
+            <div class="try-hud-card try-hud-end" role="region" aria-labelledby="try-hud-end-title" hidden><div class="try-hud-card-body">
+              <button class="try-hud-card-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <p class="try-hud-card-title" id="try-hud-end-title">Want it in your car?</p>
+              <p>HUD mode is free in the app, with Horizon’s four HUD looks, and it can open by itself when your phone joins your car’s Bluetooth.</p>
+              <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-where="hud"><img src="/assets/img/google-play-badge.f72611e2.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+            </div></div>
             <div class="try-tools">
               <button class="try-tool" type="button" data-action="rotate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M3 12a9 9 0 0 1 4-7.4M21 12a9 9 0 0 1-4 7.4"/><path d="M3 8v4h4M21 16v-4h-4"/></svg><span>Rotate</span></button>
               <button class="try-tool" type="button" data-action="icons" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>Home screen icons</span></button>
@@ -179,18 +191,20 @@
             <p class="try-note" data-note="gps" hidden></p>
             <p class="try-note" data-note="share" hidden aria-live="polite"></p>
             <section class="try-group try-layouts" hidden aria-labelledby="try-layouts-title">
-              <h3 id="try-layouts-title">Layouts</h3>
+              <h3 id="try-layouts-title" class="try-title">Layouts</h3>
                 <div class="try-layout-set try-layout-builtin"><h4 class="try-set-title">Built in</h4><div class="try-chips"></div></div>
                 <div class="try-layout-set try-layout-ready" hidden><h4 class="try-set-title">Ready-made</h4><div class="try-chips"></div></div>
                 <div class="try-layout-set try-layout-hud" hidden><h4 class="try-set-title"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg>HUD layouts</h4><div class="try-hud-layouts try-chips" role="radiogroup" aria-label="HUD layouts"><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="number">Number</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="gauge_arc">Gauge arc</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="fighter">Fighter</button><button class="try-chip" type="button" role="radio" aria-checked="false" data-hud-layout="centre_bar">Centre bar</button></div></div>
                 <div class="try-layout-set try-layout-market" hidden><h4 class="try-set-title">From the layout market</h4><div class="try-chips"></div><a class="try-market-more" href="/speedometer-wallpaper/layouts/">See the layout market</a></div>
             </section>
             <section class="try-group" aria-labelledby="try-settings-title">
-              <h3 id="try-settings-title">Settings</h3>
+              <h3 id="try-settings-title" class="try-title">Settings</h3>
               <div class="try-settings"></div>
+              <h4 class="try-section">Help</h4>
+              <a class="try-setting try-help" href="/hub/support/?p=speedometer"><span>Help &amp; ideas<small>A problem, a bug or an idea: send us a ticket and follow our answer</small></span></a>
             </section>
             <section class="try-group try-get" aria-labelledby="try-get-title">
-              <h3 id="try-get-title">Set it as your wallpaper</h3>
+              <h3 id="try-get-title" class="try-title">Set it as your wallpaper</h3>
               <p>A browser can’t set your wallpaper. Get the app on Google Play and it opens on this style the first time.</p>
               <div class="try-get-row">
                 <a class="gp try-play" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-where="panel"><img src="/assets/img/google-play-badge.f72611e2.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
@@ -222,6 +236,11 @@
             <h3 id="try-consent-title">Help improve Speedometer Live Wallpaper?</h3>
             <p>May we count how the demo is used (which styles you look at, how fast it loads, any errors), with Google Analytics? Nothing is counted until you say yes. <a href="/privacy/">Privacy</a></p>
             <div class="try-consent-buttons"><button type="button" data-answer="denied">No, thanks</button><button class="allow" type="button" data-answer="granted">Yes</button></div>
+          </div>
+          <div class="try-offer" role="dialog" aria-labelledby="try-offer-title" aria-describedby="try-offer-text" hidden>
+            <h3 id="try-offer-title">Need help or have an idea?</h3>
+            <p id="try-offer-text">Found a problem, a bug, or something you’d love us to add? Tell us. We read every ticket.</p>
+            <div class="try-consent-buttons"><button type="button" data-offer="later">Not now</button><button class="allow" type="button" data-offer="open">Open a ticket</button></div>
           </div>
         </div>
         

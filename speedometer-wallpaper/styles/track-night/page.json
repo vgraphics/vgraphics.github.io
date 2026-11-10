@@ -101,6 +101,7 @@
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
           "market": "/speedometer-wallpaper/layouts/",
+          "help": "/hub/support/?p=speedometer",
           "appLinks": {
             "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
             "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"

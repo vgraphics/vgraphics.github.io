@@ -62,6 +62,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/wiki_text.py` | Real words and numbers over the ones the AI drew in a wiki painting (readable text in art is never AI-drawn): an entry's `"text"` in `sources.json` gives each box to paint out and the words to set in the game's fonts. `make-wiki-art.py` runs it on the master and the tall picture; `python tools/wiki_text.py <product> <slug> <folder>` writes before and after crops (Python with Pillow, numpy, OpenCV and fontTools) |
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the playable boards' rock, bomb, portal, mirror, ice and gates) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
+| `tools/make-wiki-screens.py` | Lays the app's own screens (render-test goldens, demo-drive frames) into the phones of Speedometer's wiki paintings, and with an entry's `reflections` a screen on the windscreen as well (HUD mode); `screens.json` in the masters says which goes where. Usage in its header |
+| `tools/make-hud-film.py` | Writes Speedometer's "Seeing double?" pairs, HUD mode without and with a HUD film, from the app's own HUD stills: `python tools/make-hud-film.py [--stills <folder>]`, into `speedometer-wallpaper/img/hud/` (see "Before and after" below) |
 | `tools/make-key-art.py` | Writes a product's hero pictures (`<product>/img/key-art-wide-*` and `key-art-tall-*`, AVIF, WebP and JPEG) from its key art masters and prints their page.json entries: `python tools/make-key-art.py <product> <wide master> <tall master>`, or `--cut <x>` for a 9:16 cut of the wide one. Never larger than the master. |
 | `tools/make-product-card.py` | Draws a product's link-preview card `<product>/img/card-1200x630.jpg` from its key art and approved logo, with one line set in its own font: `python tools/make-product-card.py <product> <key art> <logo PNG> "<line>" [x]` |
 | `tools/make-cursors.mjs` | Draws every product's cursors and VGraphics' (see "Cursors" below): `node tools/make-cursors.mjs`, then `node tools/build-pages.mjs` |
@@ -567,6 +569,11 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   page.json (`faq.json`): `[{ "q": "plain words", "a": "trusted HTML, or a list of paragraphs" }]`, 6 to 10 of them.
   Each question opens its answer (details and summary, so it works without script), and the page's head carries them
   as FAQPage structured data.
+- **Before and after** (`tools/lib/compare.mjs`, `assets/compare.js`, drawn in `assets/product.css`; George, 10 Nov
+  2026, "film-before-after": KEEP): a question's `"compare"` in `faq.json`, or a wiki entry's, lays two pictures of
+  one shot over each other with a handle between them: drag or tap to move it, the arrow keys on its slider, and
+  without script it stays in the middle. `menu.js` loads `compare.js` on a page with one. Each pair is one place on
+  its page (every picture once). Speedometer's "Seeing double?" pairs come from `tools/make-hud-film.py`.
 - **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
   animation always. One open at a time."), **and so does every other expandable** (27 Oct 2026: "FAQs and every kind
   of expandable like that must always open/close with animation. Its a general rule."). `assets/faq.js`, which
@@ -647,9 +654,10 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   fails while a page is missing or extra, or has no date, but doesn't check the dates (the Deployer's What's new
   rewrites a landing page without the sitemap; it catches up on the next run), and when a listed address is no page,
   is noindex, or isn't its page's own canonical. `robots.txt` points to it.
-- **Search Console's 404s that stay:** `/assets/startup/` and `/speedometer-wallpaper/img/key-art-tall` are not links
-  but the try page's start-up settings (the start-up's folder, and the key art's name before its width), which Google
-  reads as addresses. Nothing belongs there, so they stay 404, which doesn't hurt the site. Same for the hub's
+- **Search Console's 404s that stay:** `/assets/startup/`, `/speedometer-wallpaper/img/key-art`,
+  `/speedometer-wallpaper/img/key-art-tall` and `/speedometer-wallpaper/play/app/` are not links but the try page's
+  start-up and engine settings (the start-up's folder, the key art's names before their widths, the engine's folder),
+  which Google reads as addresses. Nothing belongs there, so they stay 404, which doesn't hurt the site. Same for the hub's
   `/hub/boards/?b=…` under "Alternative page with proper canonical tag": a board picked in the address, whose canonical
   is `/hub/boards/` on purpose.
 - **Google Search Console:** the property `https://vgraphics.gr/` (URL prefix) on the VGraphics Google account, verified by the
