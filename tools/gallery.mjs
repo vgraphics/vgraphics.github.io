@@ -8,7 +8,15 @@
 //   "pickups"?: [{ src, x, y, wide?: [x, y], size, depth, turn }] (things from the game floating around),
 //   "items": [{ name, w, h, world, accent, tag, place, caption, text, alt, link?: { href, label } }] }
 
+import { join } from 'node:path'
 import { blurhashes } from './lib/blurhash.mjs'
+import { sizeAttrs } from './lib/image-size.mjs'
+import { root } from './lib/product.mjs'
+
+// ` width="W" height="H"` of a picture of the gallery, read from its file (name relative to the gallery's own folder, so
+// data.img + name), for every <img> that isn't a screenshot: the browser holds the picture's place before it loads and
+// nothing around it shifts (Platform job 26, from Exitwise: "write both from the image files"). '' without options.dir.
+const sized = (data, name) => (data.dir ? sizeAttrs(join(root, data.dir, data.img, name)) : '')
 
 const esc = (s) => String(s).replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' })[c])
 
@@ -41,7 +49,7 @@ function slide(data, shot, i) {
     `<span class="g-screen">${shotPicture(data, shot)}</span></button>`
   // A pedestal under the phone, its foot on the pedestal's rim.
   if (data.pedestals?.[shot.world] != null) {
-    art += `<img class="g-ped" src="${data.img}island-${shot.world}.webp" style="--sink: ${data.pedestals[shot.world]}%" alt="" loading="lazy" decoding="async">`
+    art += `<img class="g-ped" src="${data.img}island-${shot.world}.webp"${sized(data, `island-${shot.world}.webp`)} style="--sink: ${data.pedestals[shot.world]}%" alt="" loading="lazy" decoding="async">`
   }
   return `<li class="g-slide" data-world="${esc(shot.world)}" style="--accent: ${esc(shot.accent)}">` +
     `<figure class="g-fig">${art}${caption(shot)}</figure></li>`
@@ -51,7 +59,7 @@ function pickups(data) {
   if (!data.pickups?.length) return ''
   return '<span class="g-pickups">' + data.pickups.map((p) =>
     `<span class="g-pickup" style="--x: ${p.x}; --y: ${p.y};${p.wide ? ` --wx: ${p.wide[0]}; --wy: ${p.wide[1]};` : ''} --s: ${p.size}; --d: ${p.depth}; --t: ${p.turn}">` +
-    `<img src="${data.img}${p.src}.webp" alt="" width="${p.size}" loading="lazy" decoding="async"></span>`).join('') + '</span>'
+    `<img src="${data.img}${p.src}.webp" alt=""${sized(data, `${p.src}.webp`) || ` width="${p.size}"`} loading="lazy" decoding="async"></span>`).join('') + '</span>'
 }
 
 function sky(data) {
@@ -62,13 +70,13 @@ function sky(data) {
     `<source media="(max-aspect-ratio: 4/5)" type="image/avif" srcset="${set(s.tall, s.tallWidths, 'avif')}" sizes="100vw">` +
     `<source media="(max-aspect-ratio: 4/5)" type="image/webp" srcset="${set(s.tall, s.tallWidths, 'webp')}" sizes="100vw">` +
     `<source type="image/avif" srcset="${set(s.wide, s.widths, 'avif')}" sizes="min(100vw, 1720px)">` +
-    `<img src="${data.img}${s.wide}-${s.widths[1]}.webp" srcset="${set(s.wide, s.widths, 'webp')}" sizes="min(100vw, 1720px)" alt="" loading="lazy" decoding="async"></picture>`
+    `<img src="${data.img}${s.wide}-${s.widths[1]}.webp" srcset="${set(s.wide, s.widths, 'webp')}" sizes="min(100vw, 1720px)"${sized(data, `${s.wide}-${s.widths[1]}.webp`)} alt="" loading="lazy" decoding="async"></picture>`
 }
 
 // label: the id of the section heading that names the gallery.
 // options.dir: the page's folder, which block.img is relative to (for the screenshots' blurhashes)
 export function renderGallery(data, { label, dir } = {}) {
-  data = { ...data, items: data.items ?? data.shots }
+  data = { ...data, items: data.items ?? data.shots, dir }
   if (dir) {
     const mid = data.widths.find((w) => w >= 540) ?? data.widths.at(-1)
     const files = data.items.map((s) => `${data.img}${s.name}-${mid}.webp`)

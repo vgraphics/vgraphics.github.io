@@ -35,6 +35,14 @@ RewriteRule \.(br|gz)$ - [E=no-gzip:1,E=no-brotli:1]
 RewriteCond %{REQUEST_METHOD} =OPTIONS
 RewriteRule \.pmtiles$ - [R=204,L]
 
+# Versioned pictures (README "Hosting", tools/lib/image-version.mjs): a page names a picture as name.<hash>.ext, the first
+# 8 hex digits of the file's SHA-256, so its address changes with the picture and the browser keeps it a year. The file
+# keeps its name: name.<hash>.ext is served from name.ext (a file that really has such a name is served as it is). The
+# hash isn't checked here: check-site fails a page that names a stale one. The rewrite also marks the request, for the
+# year-long Cache-Control below.
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteRule ^(.+)\.[0-9a-f]{8}\.(avif|webp|jpe?g|png|gif|svg|ico)$ $1.$2 [NC,E=VERSIONED_IMAGE:1,L]
+
 # Addresses without .html, as on GitHub Pages: /x serves x.html (before a folder of the same name), /dir goes to /dir/.
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
@@ -111,6 +119,14 @@ Header set Cache-Control "public, max-age=600, no-transform"
 <FilesMatch "(\.[0-9a-f]{8,}|^[0-9a-f]{16,})\.[A-Za-z0-9]+$">
   Header set Cache-Control "public, max-age=31536000, immutable, no-transform"
 </FilesMatch>
+# A versioned picture's address names its content (the rewrite above): a year, immutable. Its file is name.ext, which the
+# FilesMatch above doesn't see, so the request is marked instead: by the rewrite (Apache renames its variable
+# REDIRECT_VERSIONED_IMAGE after an internal redirect) and by SetEnvIf, from the address asked for. Each mark is gated on
+# the versioned address, so an unversioned picture never gets the year: if none of them takes, a versioned one keeps the
+# ten minutes.
+SetEnvIfNoCase Request_URI "\.[0-9a-f]{8}\.(avif|webp|jpe?g|png|gif|svg|ico)$" VERSIONED_IMAGE=1
+Header set Cache-Control "public, max-age=31536000, immutable, no-transform" env=VERSIONED_IMAGE
+Header set Cache-Control "public, max-age=31536000, immutable, no-transform" env=REDIRECT_VERSIONED_IMAGE
 # Map tiles (/tiles/, one versioned .pmtiles file per map): long cache, Range requests, read by our own pages only.
 # Plain "set", as the "*" above is: the same header in Apache's two tables would be sent twice.
 <FilesMatch "\.pmtiles$">

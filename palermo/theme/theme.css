@@ -90,8 +90,8 @@
 }
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor: url("/palermo/theme/cursor.svg") 3 3, auto;
-    --cursor-link: url("/palermo/theme/cursor-link.svg") 13 2, pointer;
-    --cursor-text: url("/palermo/theme/cursor-text.svg") 5 27, text;
+    --cursor: url("/palermo/theme/cursor.9a872475.svg") 3 3, auto;
+    --cursor-link: url("/palermo/theme/cursor-link.82a767c0.svg") 13 2, pointer;
+    --cursor-text: url("/palermo/theme/cursor-text.aff67c94.svg") 5 27, text;
   }
 }

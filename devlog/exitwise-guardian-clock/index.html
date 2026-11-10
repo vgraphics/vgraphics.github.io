@@ -3,23 +3,27 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>One clock, not two: reworking the guardian fights in Exitwise · VGraphics devlog</title>
+  <title>One clock, not two: reworking the guardian fights in Exitwise</title>
   <meta name="description" content="Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.">
+  <meta name="robots" content="max-image-preview:large">
   <link rel="canonical" href="https://vgraphics.gr/devlog/exitwise-guardian-clock/">
-  <link rel="icon" href="/img/vgraphics-logo.png">
+  <link rel="icon" href="/favicon.203886c6.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.a2b30e0f.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.13547ca9.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="article">
   <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="en_US">
   <meta property="og:title" content="One clock, not two: reworking the guardian fights in Exitwise">
   <meta property="og:description" content="Exitwise's guardian levels showed two clocks at once. How we cut them to one, and why the ward's first bump is now free after 300 simulated runs.">
   <meta property="og:url" content="https://vgraphics.gr/devlog/exitwise-guardian-clock/">
-  <meta property="og:image" content="https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg">
-  <meta property="og:image:width" content="930">
-  <meta property="og:image:height" content="560">
-  <meta property="og:image:alt" content="Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows">
+  <meta property="og:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.f7b2ab6f.jpg">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.">
   <meta name="twitter:card" content="summary_large_image">
-  <meta name="twitter:image" content="https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg">
+  <meta name="twitter:image" content="https://vgraphics.gr/assets/img/vgraphics-card-1200x630.f7b2ab6f.jpg">
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
@@ -31,7 +35,7 @@
         "datePublished": "2026-11-03",
         "url": "https://vgraphics.gr/devlog/exitwise-guardian-clock/",
         "mainEntityOfPage": "https://vgraphics.gr/devlog/exitwise-guardian-clock/",
-        "image": "https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.jpg",
+        "image": "https://vgraphics.gr/devlog/img/exitwise-guardian-clock-930.568e8b57.jpg",
         "inLanguage": "en",
         "author": {
           "@type": "Organization",
@@ -117,8 +121,8 @@
   <div class="wrap">
     <a class="brand" href="/" aria-label="VGraphics home">
       <picture>
-        <source srcset="/img/vgraphics-logo-light.png" media="(prefers-color-scheme: dark)">
-        <img src="/img/vgraphics-logo.png" alt="" width="555" height="473">
+        <source srcset="/img/vgraphics-logo-light.57d7de6a.png" media="(prefers-color-scheme: dark)">
+        <img src="/img/vgraphics-logo.e9642cb6.png" alt="" width="555" height="473">
       </picture>
       <span>VGRAPHICS</span>
     </a>
@@ -142,9 +146,9 @@
     </div>
     <figure class="post-art" style="max-width: 930px">
       <picture>
-        <source type="image/avif" srcset="/devlog/img/exitwise-guardian-clock-640.avif 640w, /devlog/img/exitwise-guardian-clock-930.avif 930w" sizes="(min-width: 1100px) 1040px, 100vw">
-        <source type="image/webp" srcset="/devlog/img/exitwise-guardian-clock-640.webp 640w, /devlog/img/exitwise-guardian-clock-930.webp 930w" sizes="(min-width: 1100px) 1040px, 100vw">
-        <img src="/devlog/img/exitwise-guardian-clock-930.jpg" srcset="/devlog/img/exitwise-guardian-clock-640.jpg 640w, /devlog/img/exitwise-guardian-clock-930.jpg 930w" sizes="(min-width: 1100px) 1040px, 100vw" width="930" height="560" alt="Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows">
+        <source type="image/avif" srcset="/devlog/img/exitwise-guardian-clock-640.9e322662.avif 640w, /devlog/img/exitwise-guardian-clock-930.eda0a4a5.avif 930w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <source type="image/webp" srcset="/devlog/img/exitwise-guardian-clock-640.e1e37f56.webp 640w, /devlog/img/exitwise-guardian-clock-930.807f1b77.webp 930w" sizes="(min-width: 1100px) 1040px, 100vw">
+        <img src="/devlog/img/exitwise-guardian-clock-930.568e8b57.jpg" srcset="/devlog/img/exitwise-guardian-clock-640.8ae0123d.jpg 640w, /devlog/img/exitwise-guardian-clock-930.568e8b57.jpg 930w" sizes="(min-width: 1100px) 1040px, 100vw" width="930" height="560" alt="Exitwise level 160, a guardian fight against Puffcap, before version 1.0.24: a play timer reading 00:28 at the top left and a second clock reading 03:35 in the guardian's strip, above a board of coloured arrows">
       </picture>
       <figcaption>Level 160 against Puffcap before version 1.0.24: play time counting up at the top left, the curse counting down in the guardian's strip.</figcaption>
     </figure>
@@ -185,16 +189,16 @@
     <h2 id="more-title">More from the devlog</h2>
     <div class="posts">
     <article class="post-card">
-      <span class="post-meta">Speedometer Live Wallpaper · <time datetime="2026-11-03">3 November 2026</time></span>
-      <h2><a href="/devlog/speedometer-layout-builder/">Build your own dashboard: the Speedometer layout builder</a></h2>
-      <p>Speedometer Live Wallpaper now lets you build your own home-screen dashboard from 42 widgets. How snapping, overlaps and readable colours work.</p>
-      <a class="btn btn-ghost" href="/devlog/speedometer-layout-builder/" aria-label="Read: Build your own dashboard: the Speedometer layout builder">Read the post</a>
+      <span class="post-meta">Exitwise · <time datetime="2026-11-10">10 November 2026</time></span>
+      <h2><a href="/devlog/asking-for-a-rating-once/">Asking for a rating once, at the right moment</a></h2>
+      <p>How Exitwise asks for a rating: the store's own card on your third opening, after a win, once. A few openings later, an offer of help. Nothing more.</p>
+      <a class="btn btn-ghost" href="/devlog/asking-for-a-rating-once/" aria-label="Read: Asking for a rating once, at the right moment">Read the post</a>
     </article>
     <article class="post-card">
-      <span class="post-meta">VHub · <time datetime="2026-11-03">3 November 2026</time></span>
-      <h2><a href="/devlog/vhub-one-account/">One account across our games: what we learned building VHub</a></h2>
-      <p>Exitwise and Speedometer Live Wallpaper share one VHub account. Why accounts live apart from game data, how an app earns XP, and what broke.</p>
-      <a class="btn btn-ghost" href="/devlog/vhub-one-account/" aria-label="Read: One account across our games: what we learned building VHub">Read the post</a>
+      <span class="post-meta">Exitwise · <time datetime="2026-11-10">10 November 2026</time></span>
+      <h2><a href="/devlog/exitwise-on-iphone/">Exitwise™ comes to iPhone and iPad</a></h2>
+      <p>Exitwise 1.0.2 is out for iPhone and iPad: the same 600 levels, Sign in with Apple and Restore purchases. Why EU players get the beta for now.</p>
+      <a class="btn btn-ghost" href="/devlog/exitwise-on-iphone/" aria-label="Read: Exitwise comes to iPhone and iPad">Read the post</a>
     </article>
     </div>
   </section>
@@ -219,7 +223,7 @@
   </div>
   <div class="wrap foot-grid">
     <div class="foot-brand">
-      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
+      <a class="brand" href="/"><img src="/img/vgraphics-logo-light.57d7de6a.png" alt="" width="555" height="473" loading="lazy"><span>VGRAPHICS</span></a>
       <p>Games, apps and software, carefully made. An independent studio in Thessaloniki, Greece.</p>
     </div>
     <nav aria-labelledby="f-games"><h2 id="f-games"><span class="dot c-sun" aria-hidden="true"></span>Games</h2><ul><li><a href="/games/">All games</a></li><li><a href="/exitwise/">Exitwise</a></li><li><a href="/exitwise/play/">Play Exitwise in your browser</a></li><li><a href="/exitwise/ranking/">Exitwise global ranking</a></li><li><a href="/palermo/">Palermo Noir</a></li></ul></nav>

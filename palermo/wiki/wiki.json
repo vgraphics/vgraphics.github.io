@@ -114,7 +114,6 @@
    "slug": "hidden-killer",
    "section": "roles",
    "name": "Hidden Killer",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/hidden-killer.webp",
    "summary": "A killer the Police Officer doesn't know, and the Detective sees as innocent.",
    "quotes": [
@@ -129,6 +128,16 @@
     "You kill with the Known Killer every night from the second, but on the first night the Police Officer learns only the Known Killer's face, not yours.",
     "By default the Detective sees you as not a killer, a host rule. With 12 players or more there are two Hidden Killers, three killers in all."
    ],
+   "how": [
+    "You kill with the Known Killer every night from the second, so every morning is a chance to look as surprised as the town.",
+    "Stay out of the spotlight on the first night, when the Police Officer sees only the Known Killer's face. You are the killer the town does not know it is missing.",
+    "By default the Detective reads you as innocent, so a clean check is your cover story. Use it carefully: the town may remember the Detective's word."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "Let your partner take the heat",
+    "text": "The Known Killer is already on the Officer's list. Stay quiet, vote with the town and never defend your partner too hard."
+   },
    "facts": [
     [
      "Team",
@@ -290,7 +299,6 @@
    "slug": "detective",
    "section": "roles",
    "name": "Detective",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/detective.webp",
    "summary": "Each night, checks one player: killer or not.",
    "quotes": [
@@ -311,6 +319,16 @@
     "Each night from the second, you pick one player and your phone tells you at once whether they're a killer.",
     "The Henchman and the Kamikaze show as not a killer, and so does the Hidden Killer unless the host turns that rule off."
    ],
+   "how": [
+    "Each night from the second, pick one player. Your phone answers at once: killer or not a killer.",
+    "Remember what you cannot see: the Henchman and the Kamikaze read as not killers, and so does the Hidden Killer unless the host turned that rule off.",
+    "Decide when to tell the town. A clean check clears a friend; a killer check is a name the whole day will vote on."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "A clean check is not proof",
+    "text": "Share what you find with care: the killers are listening too, and they know you are the one with the answers."
+   },
    "facts": [
     [
      "Team",
@@ -348,7 +366,11 @@
    ],
    "what": [
     "One night of your choice, you look at a player and learn their role, not just their side. Any other night, tap Not tonight.",
-    "One look is all you get, so choose well, and keep it to yourself: the killers will want to know who has it."
+    "The look happens on your phone and nowhere else. At night, hold your secret actions to open them, pick a player, and their card turns over for you alone. Because you see the card itself, a look sees through the players who pass the Detective's check as not a killer: the Henchman, the Kamikaze and the Hidden Killer.",
+    "One look is all you get, so choose well, and keep it to yourself: the killers will want to know who has it. The narrator still calls the Seer every night, even once she's out of the game, so the TV never tells the town whether she's gone."
+   ],
+   "how": [
+    "An early look can steer the town's first votes; a late one can settle a close final vote. Either way, the hard part comes after: use what you've seen without giving yourself away."
    ],
    "facts": [
     [
@@ -375,7 +397,6 @@
    "slug": "bulletproof",
    "section": "roles",
    "name": "Bulletproof",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/bulletproof.webp",
    "summary": "Survives the killers' first attack on him.",
    "quotes": [
@@ -387,9 +408,19 @@
     }
    ],
    "what": [
-    "The first time the killers pick you, you live, and the dawn tells the town only that the night passed without a murder, as if the Doctor had saved you.",
-    "The second attack kills you as it would anyone."
+    "The Bulletproof is the Town role that survives the killers' first attack: the first time they pick you at night, you live, and the dawn tells the town only that the night passed without a murder, as if the Doctor had saved you.",
+    "The second attack kills you as it would anyone. Only you are told, on the morning after, that the shield took the hit; nobody else learns it."
    ],
+   "how": [
+    "Play like any citizen: talk, vote and read the town. You have no night action to tap.",
+    "If the Doctor protected you the night the killers came, the Doctor's save works first and your shield is still unused.",
+    "The morning after an attack, your phone tells you the shield is spent. From then on you are as mortal as everyone else."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "Don't boast about the shield",
+    "text": "A quiet dawn is a gift to the killers' guesswork too. Keep your secret and watch who seems surprised to see you alive."
+   },
    "facts": [
     [
      "Team",
@@ -415,7 +446,6 @@
    "slug": "henchman",
    "section": "roles",
    "name": "Henchman",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/henchman.webp",
    "summary": "Knows the killers, unknown to them, and wins with them.",
    "quotes": [
@@ -430,6 +460,16 @@
     "Your card names the killers, but they don't know you. You don't kill: you help from the shadows, steering the votes away from them and onto the town.",
     "You win when the killers win, but in their head count you count with everyone else, and the Detective sees you as not a killer."
    ],
+   "how": [
+    "Read your card: it names the killers. They do not know you, so you cannot signal them.",
+    "Steer the votes away from the killers and onto town players, without sounding like you know anything.",
+    "Never claim a role you were not dealt unless it clearly helps. If every killer goes out, you lose with them."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "Be the quiet help",
+    "text": "The Detective reads you as not a killer, so a check on you will look clean. Use that to push the town off the right track."
+   },
    "facts": [
     [
      "Team",
@@ -587,7 +627,6 @@
    "slug": "kamikaze",
    "section": "roles",
    "name": "Kamikaze",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/kamikaze.webp",
    "summary": "With the killers. Once, during a day, he blows himself up and takes one player with him.",
    "quotes": [
@@ -603,6 +642,16 @@
     "Once in the game, during a day's talk, use Explode in your Secret actions and pick a player: you both fall at once, in front of the whole town.",
     "The Detective sees you as not a killer."
    ],
+   "how": [
+    "You know the killers and they know you, but you do not take part in the night kills.",
+    "Once in the game, during a day's talk, open Secret actions on your phone, choose Explode and pick a player. You both fall at once, in front of the whole town.",
+    "Choose the moment: blow up the player who is closest to naming the killers, or the one the town trusts most."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "One bang, one target",
+    "text": "Explode when the Detective or the Officer is about to speak. A threat to the killers removed in the open turns the whole day."
+   },
    "facts": [
     [
      "Team",
@@ -628,7 +677,6 @@
    "slug": "madman",
    "section": "roles",
    "name": "Madman",
-   "robots": "noindex",
    "image": "/palermo/wiki/img/medals/madman.webp",
    "summary": "Wins alone if the town votes him out, and that ends the game.",
    "quotes": [
@@ -643,6 +691,16 @@
     "Make the town vote you out and you win alone, on the spot: the game ends there.",
     "Killed at night, you just die. You're on no one's side."
    ],
+   "how": [
+    "Your goal is the opposite of everyone else's: get the town to vote you out. You are on no one's team.",
+    "Look suspicious in small ways: dodge a question, change your story. Do not overdo it, because the killers may notice you first.",
+    "If the town does vote you out, you win alone on the spot and the game ends there. If the killers get you at night, you just die."
+   ],
+   "tip": {
+    "label": "Tip",
+    "title": "Look a little suspicious, not too much",
+    "text": "You want the town's vote, not a visit in the night."
+   },
    "facts": [
     [
      "Team",

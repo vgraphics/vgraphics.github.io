@@ -1,8 +1,9 @@
 {
   "title": "Exitwise: Free Arrow Puzzle Game, Online, iPhone and Android",
-  "description": "Tap an arrow and it slides off the board if its path is clear. A free arrow escape puzzle and logic game: 600 levels in 17 worlds, online, on iPhone and Android.",
+  "description": "A free arrow puzzle game: tap an arrow and it slides off the board if its path is clear. 600 levels of logic puzzles in 17 worlds, online, on iPhone and Android.",
+  "seo": { "keywords": ["arrow puzzle game", "arrow puzzle", "arrow escape puzzle", "free arrow puzzle game", "arrow puzzle game online", "logic puzzle game", "offline puzzle game"] },
   "social": {
-    "title": "Exitwise: Arrow Escape Puzzle",
+    "title": "Exitwise: Arrow Puzzle Game",
     "description": "Slide every arrow off the board. A calm, colorful logic puzzle with 600 levels in 17 worlds.",
     "image": "/exitwise/img/card-1200x630.jpg",
     "imageAlt": "Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door"
@@ -13,7 +14,7 @@
       {
         "@type": "VideoGame",
         "@id": "https://vgraphics.gr/exitwise/#game",
-        "name": "Exitwise: Arrow Escape Puzzle",
+        "name": "Exitwise: Arrow Puzzle Game",
         "alternateName": "Exitwise",
         "url": "https://vgraphics.gr/exitwise/",
         "description": "Tap an arrow and it slides off the board, but only if nothing is in its way. A free arrow puzzle and logic game with 600 levels in 17 worlds, with bombs, mirrors, portals and more, a guardian to free at the top of every world and a painted storybook, The Tangled Tower.",
@@ -90,10 +91,14 @@
       "youtubeGameplay": { "icon": "youtube", "label": "Exitwise gameplay and trailers on YouTube", "href": "https://www.youtube.com/playlist?list=PLaZLDmy6xgR4" }
     }
   },
-  "stores": { "appStore": "https://apps.apple.com/app/id6830097641", "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise" },
+  "stores": {
+    "appStore": "https://apps.apple.com/app/id6830097641",
+    "appStoreNote": "Not in EU App Stores yet: <a href=\"https://testflight.apple.com/join/T96CNFyP\">play the iPhone beta</a>",
+    "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"
+  },
   "hero": {
     "title": "Exitwise: the arrow escape puzzle game",
-    "lead": "Arrow Escape Puzzle",
+    "lead": "Arrow Puzzle Game",
     "align": "center",
     "badges": ["app-store", "google-play", { "href": "/exitwise/play/", "label": "Play in your browser", "note": "Play now, free" }],
     "art": {

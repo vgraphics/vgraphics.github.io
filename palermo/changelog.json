@@ -1,6 +1,35 @@
 {
   "entries": [
     {
+      "version": "0.1.9635e17a",
+      "date": "2026-11-10",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Gather round the new table",
+      "items": [
+        "On a computer, the room before a game is now a hand-drawn noir table, with drinks and an ashtray, a notebook, and new glass and page sounds",
+        "The shared TV view now works on older smart TVs",
+        "When you cancel a friend request you sent, the undo message now names that player",
+        "The 'Coming soon' item no longer appears"
+      ],
+      "commit": "9635e17a"
+    },
+    {
+      "version": "0.1.93576fe5",
+      "date": "2026-11-09",
+      "platforms": [
+        "Web"
+      ],
+      "title": "Cleaner menus, smoother rooms",
+      "items": [
+        "The app and web page no longer show 'Coming soon' items, so the menus look cleaner and more finished.",
+        "Game rooms run more smoothly, and anyone who leaves now drops out cleanly.",
+        "The Narrator's captions now show the Seer's name exactly as it appears on her role card."
+      ],
+      "commit": "93576fe5"
+    },
+    {
       "version": "0.1.b4c7957c",
       "date": "2026-11-04",
       "platforms": [

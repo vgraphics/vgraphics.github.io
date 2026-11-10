@@ -1,0 +1,1 @@
+import{aa as t,l as i,u as a,P as n}from"./index-Bxo59GOW.js";import{j as o}from"./support-logic-Bv9a8oCK.js";function c(){const{query:r}=t(),e=o(r.t);return i(()=>{location.replace(e)},[e]),a(n,{title:"Help desk",kicker:"VGraphics",children:a("p",{children:["The help desk is on the admin page now. ",a("a",{href:e,children:"Open it"}),"."]})})}export{c as default};

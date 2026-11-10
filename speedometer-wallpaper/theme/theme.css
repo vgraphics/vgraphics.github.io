@@ -99,8 +99,8 @@
 }
 @media (hover: hover) and (pointer: fine) {
   :root {
-    --cursor: url("/speedometer-wallpaper/theme/cursor.svg") 3 3, auto;
-    --cursor-link: url("/speedometer-wallpaper/theme/cursor-link.svg") 13 2, pointer;
-    --cursor-text: url("/speedometer-wallpaper/theme/cursor-text.svg") 16 16, text;
+    --cursor: url("/speedometer-wallpaper/theme/cursor.1afc4167.svg") 3 3, auto;
+    --cursor-link: url("/speedometer-wallpaper/theme/cursor-link.067e5fa8.svg") 13 2, pointer;
+    --cursor-text: url("/speedometer-wallpaper/theme/cursor-text.4ead32d6.svg") 16 16, text;
   }
 }

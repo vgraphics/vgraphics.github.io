@@ -14,7 +14,8 @@
 // yes: events wait in memory until the answer and are dropped on a no. Events: splash_shown (ms), web_ready (ms, bytes,
 // files), style_view, layout_view, setting_change, mode_change, gps_request, gps_result, cta_click (where, style),
 // share, qr_show (style, layout), fps_low, web_first_frame (ms from the phone coming into view to the wallpaper
-// showing), and exception for the page's and the engine's errors (20 at most). Our own test visits load nothing,
+// showing), help_prompt_shown (opening) and help_prompt_open (the help offer, with config.help), and exception for the
+// page's and the engine's errors (20 at most). Our own test visits load nothing,
 // whatever the answer (George, 31 Oct 2026: "Yes, players first"; Games docs/growth/real-players.md): a page served from this PC (localhost, 127.0.0.1,
 // [::1], *.localhost, a file) or a browser a script drives (navigator.webdriver: Playwright, Selenium). The question
 // and the switch stay as they are.
@@ -153,6 +154,8 @@
   var statistics = $('.try-statistics input');
   // It waits for faq.js to be in (or to have failed), so the rise always runs and the question is never lost.
   var askConsent = function () {
+    // This opening's prompt: the help offer waits for another one (design-canon.md §13, never two in one opening).
+    consentAsked = true;
     motionReady.then(function () {
       if (!consent || !consent.hidden) return;
       consent.hidden = false;
@@ -176,12 +179,82 @@
     if (answer === 'granted' || answer === 'denied') analytics.answer(answer);
   }
 
+  // Ask for a rating, then offer help (George, 7 Nov 2026; design-canon.md §13). The web has no store card, so only the
+  // help offer, and only with config.help (the try page, not a style's own page). Each page load that gets the demo
+  // running is an opening, counted in this browser (OPENS_KEY; a private window counts nothing and offers nothing). At
+  // the 6th opening (else the 7th), after a good moment (a style or a layout the visitor picked) and with nothing else
+  // on show (the QR sheet, HUD mode, full screen), "Need help or have an idea?" rises in from the corner, once ever:
+  // "Open a ticket" opens the ticket desk (config.help), "Not now" closes it. An opening that asked the statistics
+  // question has had its prompt.
+  var OPENS_KEY = 'vgtry.' + config.product + '.opens';
+  var HELP_ASKED_KEY = 'vgtry.' + config.product + '.help_asked';
+  var HELP_OPENINGS = [6, 7];
+  var HELP_SETTLE_MS = 1200;
+  var offer = config.help ? $('.try-offer') : null;
+  var opening = 0;
+  var consentAsked = false;
+  var offerTimer = null;
+  var countOpening = function () {
+    if (!offer || opening) return;
+    var opens = parseInt(stored(OPENS_KEY), 10);
+    opening = (opens > 0 ? opens : 0) + 1;
+    store(OPENS_KEY, String(opening));
+  };
+  var isInUse = function () {
+    var look = root.querySelector('.try-look');
+    return root.getAttribute('data-hud') === 'on' || !!document.fullscreenElement || !!(look && look.open) || document.hidden;
+  };
+  var offerHelp = function () {
+    if (!opening || consentAsked || HELP_OPENINGS.indexOf(opening) < 0 || stored(HELP_ASKED_KEY)) return;
+    // In use: the offer waits for the next pick.
+    if (isInUse()) return;
+    store(HELP_ASKED_KEY, '1');
+    motionReady.then(function () {
+      if (!offer.hidden) return;
+      offer.hidden = false;
+      if (motion) motion.showMenu(offer, null, true);
+      analytics.event('help_prompt_shown', { opening: opening });
+    });
+  };
+  var helpMoment = function () {
+    if (!offer || !opening) return;
+    clearTimeout(offerTimer);
+    offerTimer = setTimeout(offerHelp, HELP_SETTLE_MS);
+  };
+  var closeOffer = function (done) {
+    var closed = function () {
+      offer.hidden = true;
+      if (done) done();
+    };
+    if (!offer.hidden && motion) motion.hideMenu(offer, null, closed, true);
+    else closed();
+  };
+  if (offer) {
+    offer.querySelector('[data-offer="later"]').addEventListener('click', function () { closeOffer(); });
+    offer.querySelector('[data-offer="open"]').addEventListener('click', function () {
+      analytics.event('help_prompt_open');
+      closeOffer(function () { window.location.assign(config.help); });
+    });
+  }
+
   var app = null;
   var catalog = null;
   var last = { style: '', layout: '', mode: '' };
   var gpsAsked = false;
   var fpsReported = false;
   var readyAt = 0;
+  // wireHud()'s answer to a link straight into HUD mode (#hud), once the engine runs.
+  var offerHud = null;
+
+  // HUD mode's cards (the invite a #hud link opens, the store's card once HUD mode is left) come and go as the layout
+  // sets do (design canon §1): assets/faq.js's showBox and hideBox grow one in from nothing as it fades in and shrink it
+  // away a little faster, turned round from where it is when asked again while it moves; before faq.js is in, at once.
+  var hudCard = function (card, on) {
+    if (!card) return;
+    if (!motion) card.hidden = !on;
+    else if (on) motion.showBox(card);
+    else motion.hideBox(card);
+  };
 
   var setState = function (state) { root.setAttribute('data-state', state); };
   var styleOf = function (id) { return catalog.styles.filter(function (s) { return s.id === id; })[0] || catalog.styles[0]; };
@@ -381,8 +454,9 @@
     catalog.settings.concat(style.looks).forEach(function (setting) {
       if (setting.section !== section) {
         section = setting.section;
-        var title = document.createElement('h4');
-        title.className = 'try-section';
+        // One level under the Settings group's own heading (h2 on the try page, h3 on a style's page).
+        var title = document.createElement('h' + (Number(($('#try-settings-title') || { tagName: 'H3' }).tagName.slice(1)) + 1));
+        title.className = 'try-section try-subtitle';
         title.textContent = section;
         settings.appendChild(title);
       }
@@ -408,6 +482,8 @@
     if (style.id !== last.style) analytics.event('style_view', { style: style.id, free: style.free });
     else if (values.layout !== last.layout) analytics.event('layout_view', { style: style.id, layout: values.layout });
     if (last.mode && mode && mode !== last.mode) analytics.event('mode_change', { mode: mode, style: style.id });
+    // A style or a layout picked, not the look the page opened on: a good moment for the help offer.
+    if (last.style && (style.id !== last.style || values.layout !== last.layout)) helpMoment();
     last = { style: style.id, layout: values.layout, mode: mode };
   }
 
@@ -624,11 +700,21 @@
   // turns the phone on its side and draws that style's HUD look in it, read straight (the engine's app.hud, flip
   // "holder"); the layout chips change it there and then. Original puts the wallpaper back as it was, orientation
   // included; so does another style. HUD mode opened from the HUD look comes back to it. Counted as hud_view.
+  //
+  // A link straight into HUD mode (#hud, or #style=<id>&hud; George, 10 Nov 2026, "site-try-hud-link": KEEP) opens the
+  // page on the HUD look, with the invite under the phone: a tap on one of its buttons starts HUD mode, with the
+  // visitor's real speed or the demo drive's (a browser goes full screen only on a tap). The demo drive's speed is
+  // marked DEMO in HUD mode. Leaving HUD mode brings the store's badge, once a visit. Counted as try_hud_open and
+  // try_hud_get_app.
   function wireHud() {
     if (!config.hud) return;
     var layer = $('.try-hud-layer');
     var tip = $('.try-hud-tip');
     var controls = $('.try-hud-controls');
+    var demoPill = $('.try-hud-demo');
+    var invite = $('.try-hud-invite');
+    var end = $('.try-hud-end');
+    var endShown = false;
     var chips = root.querySelectorAll('[data-hud-layout]');
     var view = $('.try-view');
     var viewButtons = view ? view.querySelectorAll('[data-hud-view]') : [];
@@ -729,10 +815,13 @@
       tone.stop(sound.currentTime + BEEP_S);
     };
 
-    function start() {
+    function start(via) {
       isOn = true;
       openedAt = now();
       root.setAttribute('data-hud', 'on');
+      hudCard(invite, false);
+      hudCard(end, false);
+      if (demoPill) demoPill.hidden = app.values().source === 'gps';
       // The phone is turned for the windscreen; stop() turns it back (George, 4 Nov 2026: "Getting to hud mode can not
       // return to original mode.").
       orientationBefore = device.getAttribute('data-orientation') || 'portrait';
@@ -755,7 +844,7 @@
         }, function () {});
       }
       keepAwake();
-      analytics.event('hud_opened', { source: 'web', style: style(), layout: layout, gps: app.values().source === 'gps' });
+      analytics.event('hud_opened', { source: 'web', style: style(), layout: layout, gps: app.values().source === 'gps', via: via || 'button' });
     }
 
     function stop(reason) {
@@ -773,7 +862,19 @@
       if (wakeLock) wakeLock.release().catch(function () {});
       wakeLock = null;
       analytics.event('hud_closed', { reason: reason, duration_s: Math.round((now() - openedAt) / 1000) });
+      if (end && !endShown) {
+        endShown = true;
+        hudCard(end, true);
+      }
     }
+
+    // The page opened from a link to HUD mode: its look in the phone, and the invite to start it.
+    offerHud = function () {
+      if (isOn) return;
+      setView('hud');
+      hudCard(invite, true);
+      analytics.event('try_hud_open', { style: last.style });
+    };
 
     markLayout();
     Array.prototype.forEach.call(chips, function (chip) {
@@ -799,7 +900,20 @@
       syncView();
     }
     root.addEventListener('click', function (event) {
-      if (event.target.closest && event.target.closest('[data-action="hud"]')) start();
+      if (!event.target.closest) return;
+      if (event.target.closest('[data-action="hud"]')) start();
+      var go = event.target.closest('[data-hud-go]');
+      if (go) {
+        // With the real speed: asked for first, as Use my real speed does; HUD mode starts on the tap all the same.
+        if (go.getAttribute('data-hud-go') === 'gps' && app.values().source !== 'gps') {
+          gpsAsked = true;
+          analytics.event('gps_request', { style: last.style, via: 'hud_invite' });
+          app.source('gps');
+        }
+        start('invite');
+      }
+      if (event.target.closest('.try-hud-card-close')) hudCard(end, false);
+      if (event.target.closest('.try-hud-end a.gp')) analytics.event('try_hud_get_app', { style: last.style });
     });
     layer.addEventListener('click', function (event) {
       // Only the buttons: start() puts data-hud="on" on the block itself, which a tap on the bare screen would find.
@@ -860,6 +974,7 @@
     });
     wireHud();
     wireLayouts();
+    if (hudLink() && offerHud) offerHud();
 
     root.addEventListener('click', function (event) {
       var button = event.target.closest && event.target.closest('[data-action]');
@@ -1129,6 +1244,11 @@
     var hash = location.hash.replace(/^#/, '');
     return /(^|&)(style|layout)=/.test(hash) ? ofThisStyle(hash) : '';
   };
+  // A link straight into HUD mode: #hud, alone or after a look (#style=glass&hud). The engine reads only key=value
+  // pairs, so the word passes it by.
+  var hudLink = function () {
+    return !!config.hud && /(^|&)hud(&|$)/.test(location.hash.replace(/^#/, ''));
+  };
 
   // A market layout's link (#layout=<CODE>&style=<id>, the web market design §5.2): with the block's "layouts" script,
   // the page reads the layout before the engine starts, so it opens on it; the panel says whose it is. A code the
@@ -1209,7 +1329,9 @@
     if (!app.values().shared) analytics.error('market layout ' + layout.code + ': added, yet not shown');
   }
   var firstLook = function () {
-    return sharedLook() || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
+    // #hud alone opens on the first HUD style (Horizon, free in the app), not on the look last seen here.
+    var hud = hudLink() && !config.style ? 'style=' + config.hud.styles[0] : '';
+    return sharedLook() || hud || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
   };
 
   // The page's timeline, for measuring how long a visitor waits: performance marks (try:load, try:view, try:ready, and
@@ -1273,6 +1395,7 @@
       if (first.layout) showMarketLayout(first.layout, styleIn(first.look));
       wire();
       setState('running');
+      countOpening();
       analytics.event('web_ready', { ms: app.info.ms, bytes: app.info.bytes, files: app.info.files, style: last.style });
       return startup ? startup.ready() : null;
     }).then(function (shown) {
@@ -1299,6 +1422,7 @@
   // hash, so the page doesn't load again): the layout is read and shown then.
   window.addEventListener('hashchange', function () {
     if (!app) return;
+    if (hudLink() && offerHud) offerHud();
     var look = ofThisStyle(location.hash.replace(/^#/, ''));
     if (!MARKET_CODE.test(look)) return;
     marketLayout(look).then(function (layout) {
@@ -1328,8 +1452,8 @@
     else window.addEventListener('load', quiet);
   }
 
-  // The start-up plays when the phone comes into view, at once for a share link.
-  if (sharedLook()) {
+  // The start-up plays when the phone comes into view, at once for a share link or a link into HUD mode.
+  if (sharedLook() || hudLink()) {
     window.scrollTo({ top: window.scrollY + device.getBoundingClientRect().top - SCROLL_OFFSET });
     begin();
   } else if (window.IntersectionObserver) {

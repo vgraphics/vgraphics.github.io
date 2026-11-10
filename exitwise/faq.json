@@ -1,7 +1,7 @@
 [
   {
     "q": "Is Exitwise free?",
-    "a": "Yes, on iPhone and iPad, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs and Remove Ads, but every level can be won without paying."
+    "a": "Yes, on iPhone and iPad, on Android and in your browser. Ads keep it free: a small banner, an ad now and then between levels, and videos you can choose to watch for a reward. The shop sells coin packs, a starter pack and Remove Ads, but every level can be won without paying."
   },
   {
     "q": "How do I play?",
@@ -33,7 +33,7 @@
   },
   {
     "q": "Is Exitwise on iPhone and iPad?",
-    "a": "Yes: Exitwise is free on the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> for iPhone and iPad. In the app you sign in with Apple, and your progress is kept with your free VGraphics account (VHub). If you play in the browser with Google, link your Apple ID to that same account on the <a href=\"/hub/\">VHub page</a>, and your progress comes along to the app. You can also play it free in Safari at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>."
+    "a": "Yes: Exitwise is free on the <a href=\"https://apps.apple.com/app/id6830097641\">App Store</a> for iPhone and iPad. It isn't in the EU App Stores yet: until it is, <a href=\"https://testflight.apple.com/join/T96CNFyP\">join the iPhone beta</a> on TestFlight. In the app you sign in with Apple, and your progress is kept with your free VGraphics account (VHub). If you play in the browser with Google, link your Apple ID to that same account on the <a href=\"/hub/\">VHub page</a>, and your progress comes along to the app. You can also play it free in Safari at <a href=\"/exitwise/play/\">vgraphics.gr/exitwise/play/</a>."
   },
   {
     "q": "Does it work offline?",
@@ -45,11 +45,11 @@
   },
   {
     "q": "How do coins and hints work?",
-    "a": "Every level pays 10 coins, a hard level 30, and a perfect clear 5 more. The <a href=\"/exitwise/wiki/daily-challenge/\">daily challenge</a> and other players' maps pay too. Spend coins on hints, a continue or powerups. You get 3 free hints; after that a hint costs 30 coins, or on Android a short video."
+    "a": "Every level pays 10 coins, a hard level 30, and a perfect clear 5 more. The <a href=\"/exitwise/wiki/daily-challenge/\">daily challenge</a> and other players' maps pay too. Spend coins on <a href=\"/exitwise/wiki/hints/\">hints</a>, a continue or powerups such as <a href=\"/exitwise/wiki/remove-arrow/\">Remove arrow</a>. You get 3 free hints; after that a hint costs 30 coins, or on Android a short video."
   },
   {
     "q": "What can I buy, and do I keep it on a new phone?",
-    "a": "The shop sells four coin packs, from 300 coins for €0.99 to 5,000 for €9.99, and Remove Ads, which takes away the banner and the video every 10 levels. You pay through Google Play on Android and through the App Store on iPhone and iPad, and we never see your payment details. Bought coins never expire. They are saved with your game, so sign in to keep them on every device. Remove Ads comes back by itself on Android; on iPhone and iPad, open Settings and tap Restore purchases."
+    "a": "The shop sells four coin packs, from 300 coins for about €1 to 5,000 for about €10, and each button shows the price in your own currency. Your first coin pack gives double coins. Once you have won level 8, the shop also has a starter pack, 1,000 coins and 2 of each powerup for about €2, which you can buy once. Remove Ads takes away the banner and the video every 6 levels; videos you choose to watch for a reward stay. Now and then, between levels, the game suggests Remove Ads or the starter pack, never more than once each time you open it, and Not now is always one tap. You pay through Google Play on Android and through the App Store on iPhone and iPad, and we never see your payment details. Bought coins never expire. They are saved with your game, so sign in to keep them on every device. Remove Ads comes back by itself on Android; on iPhone and iPad, open Settings and tap Restore purchases."
   },
   {
     "q": "How do I play with friends?",

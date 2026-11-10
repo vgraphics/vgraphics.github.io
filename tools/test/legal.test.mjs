@@ -19,6 +19,15 @@ test('a product\'s play, TV, join, demo and look pages, the hub and the try page
   }
 })
 
+test('a product\'s old-TV page, /palermo/tv-classic/, is a TV screen like /palermo/tv/, with the short legal line', () => {
+  for (const path of ['/palermo/tv-classic/', '/palermo/tv-classic/index.html']) assert.equal(isProductScreen(path), true, path)
+  // only the folder itself: not a look-alike, not the company's own address, not the folder without its slash
+  for (const path of ['/tv-classic/', '/palermo/tv-classics/', '/palermo/tv-classic', '/palermo/tv-classi/', '/palermo/wiki/tv-classic/']) assert.equal(isProductScreen(path), false, path)
+  assert.deepEqual(legalProblems('/palermo/tv-classic/', '<footer id="party-legal" class="party-legal">&copy; 2026 VGraphics</footer>'), [])
+  const full = legalProblems('/palermo/tv-classic/', `<footer>${FULL}</footer>`)
+  assert.ok(full.some((m) => m.includes('"VAT no."')) && full.some((m) => m.includes('without its legal line')), full.join('\n'))
+})
+
 test('the website\'s pages, the company\'s /tv/ and /join/ doors and the hub\'s policy are not', () => {
   for (const path of ['/', '/tv/', '/join/', '/company/', '/privacy/', '/terms/', '/exitwise/', '/exitwise/wiki/',
     '/exitwise/wiki/worlds/', '/exitwise/privacy.html', '/palermo/gallery/', '/speedometer-wallpaper/styles/classic/', '/hub/privacy.html']) {

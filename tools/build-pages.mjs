@@ -21,11 +21,12 @@
 //   site                         { name, icon, parent: { name, href }, nav: [{ label, href, wide? }], footer: [...],
 //                                play? }, shared with the product's other pages; play: { label, href }, the product's
 //                                play or try page ("Play online", "Try online"), the header's last item, as a button
-//   stores                       { googlePlay, appStore?, appStoreSoon? }: the store links the "google-play" and
-//                                "app-store" badges point at (appStore: the App Store listing, drawn as Apple's official
-//                                badge, listed before "google-play" as Apple asks), or, while the App Store listing
-//                                isn't live, the words ("Coming soon") of an "app-store" badge that leads nowhere
-//                                (tools/lib/partials.mjs appStoreBadge)
+//   stores                       { googlePlay, appStore?, appStoreSoon?, appStoreNote? }: the store links the
+//                                "google-play" and "app-store" badges point at (appStore: the App Store listing, drawn as
+//                                Apple's official badge, listed before "google-play" as Apple asks), or, while the App
+//                                Store listing isn't live, the words ("Coming soon") of an "app-store" badge that leads
+//                                nowhere (tools/lib/partials.mjs appStoreBadge); appStoreNote (HTML): a line under every
+//                                row with the live badge, for storefronts that don't carry the app yet
 //   hero                         { title?, lead, align: center | left, badges, art }: the key art and its foot
 //     art                        { alt, tall, wide, ultra?, position, fade: { wide, tall }, placeholder }; each picture
 //                                is { src, widths, jpeg?, width, height, sizes? }, with src-<width>.avif and .webp files;
@@ -77,6 +78,7 @@ import { join } from 'node:path'
 import { pathToFileURL } from 'node:url'
 import { actions, anchor, closing, esc, footer, header, iconLinks, ICONS, ornament, quote, screenBar, vhubEntry } from './lib/partials.mjs'
 import { loadProduct, loadSubpage, products, root, subpages } from './lib/product.mjs'
+import { versionCode, versionImages } from './lib/image-version.mjs'
 import { checkTheme, themeCss } from './lib/theme.mjs'
 import { heroPicture, heroSection, wikiArt } from './lib/hero.mjs'
 import { soundtrack } from './lib/soundtrack.mjs'
@@ -90,6 +92,7 @@ import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { markPage } from './lib/marks.mjs'
+import { INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
 
 const set = (img, ext, widths) => widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).join(', ')
 const dims = (img) => ` width="${img.width}" height="${img.height}"`
@@ -508,14 +511,15 @@ export function render(slug, sub, source) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <!-- Written by tools/build-pages.mjs from page.json and theme/theme.json: edit those, then run it. -->
   <title>${esc(p.title)}</title>
-  <meta name="description" content="${esc(p.description)}">${p.robots ? `
-  <meta name="robots" content="${esc(p.robots)}">` : ''}
+  <meta name="description" content="${esc(p.description)}">
+  <meta name="robots" content="${esc(p.robots ?? INDEX_ROBOTS)}">
   <meta name="theme-color" content="${t.tokens.page}">
   <meta name="color-scheme" content="${t.scheme}">
   <link rel="canonical" href="${url}">
   ${iconLinks(p)}
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">
   <meta property="og:title" content="${esc(p.social.title)}">
   <meta property="og:description" content="${esc(p.social.description)}">
   <meta property="og:url" content="${url}">
@@ -572,8 +576,15 @@ ${JSON.stringify(faqData(questions), null, 2).replace(/</g, '\\u003c')}
 `
   // Pieces read from files (demo, icons) carry CRLF in a checkout with core.autocrlf; the page is always LF. Our names
   // get their ™ in the headings and at their first mention (tools/lib/marks.mjs; not on the product's screens).
+  // Every picture the page (and the theme's stylesheet) names carries its file's version, name.<hash>.ext, so the host can
+  // cache it for a year (tools/lib/image-version.mjs, .htaccess).
   const file = path.endsWith('/') ? join(path.slice(1), 'index.html') : path.slice(1)
-  return { html: markPage(path, html.replace(/\r\n/g, '\n')), file, css: themeCss(slug, t, product.cursors.tokens), problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)] }
+  return {
+    html: versionImages(markPage(path, html.replace(/\r\n/g, '\n')), { file }),
+    file,
+    css: versionCode(themeCss(slug, t, product.cursors.tokens), { file: `${slug}/theme/theme.css` }),
+    problems: [...checkTheme(t), ...product.cursors.problems.map((m) => `theme/${m}`)],
+  }
 }
 
 if (import.meta.url === pathToFileURL(process.argv[1]).href) {

@@ -17,6 +17,7 @@
 //   tracks      [{ title, src, duration: "m:ss" }], src an .m4a in <product>/audio/
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { sizeAttrs } from './image-size.mjs'
 import { esc } from './partials.mjs'
 import { root } from './product.mjs'
 
@@ -40,10 +41,14 @@ const set = (img, ext) => img.widths.map((w) => `${img.src}-${w}.${ext} ${w}w`).
 const largest = (img, ext) => `${img.src}-${img.widths.at(-1)}.${ext}`
 
 // The player's backdrop: the tall picture on narrow screens, the wide one elsewhere; lazy, so it waits for the scroll.
-function backdrop(bg, cover) {
-  if (!bg) return `<span class="ost-backdrop blur" aria-hidden="true"><img src="${esc(`${cover.src}-${cover.widths[0]}.webp`)}" alt="" loading="lazy" decoding="async"></span>`
+// The own background's <img> (the wide picture, which the tall cut shares its place with) states the file's size, as the
+// cover's blur does; the css sets its width and height to the panel's (object-fit: cover), so the attributes only hold
+// its place before it loads. slug: the product's folder, which the pictures' addresses are relative to.
+function backdrop(bg, cover, slug) {
+  // The cover is a square cut, so its smallest size is as wide as it is tall (the record's disc says the same).
+  if (!bg) return `<span class="ost-backdrop blur" aria-hidden="true"><img src="${esc(`${cover.src}-${cover.widths[0]}.webp`)}" alt="" width="${cover.widths[0]}" height="${cover.widths[0]}" loading="lazy" decoding="async"></span>`
   const sources = (img, media) => ['avif', 'webp'].map((ext) => `<source${media ? ` media="${media}"` : ''} type="image/${ext}" srcset="${esc(set(img, ext))}" sizes="(max-width: 619px) 100vw, 1120px">`).join('')
-  return `<picture class="ost-backdrop" aria-hidden="true">${sources(bg.tall, '(max-width: 619px)')}${sources(bg.wide)}<img src="${esc(largest(bg.wide, 'webp'))}" alt="" loading="lazy" decoding="async"></picture>`
+  return `<picture class="ost-backdrop" aria-hidden="true">${sources(bg.tall, '(max-width: 619px)')}${sources(bg.wide)}<img src="${esc(largest(bg.wide, 'webp'))}"${sizeAttrs(join(root, slug, largest(bg.wide, 'webp')))} alt="" loading="lazy" decoding="async"></picture>`
 }
 
 export function soundtrack(b, { slug, theme }) {
@@ -75,7 +80,7 @@ export function soundtrack(b, { slug, theme }) {
     .map(([k, name]) => `<a class="ost-link" href="${esc(b[k])}" aria-label="${esc(b.album)} on ${name}">${ICONS[k]}<span>${name}</span></a>`)
   return `<div class="ost" data-album="${esc(b.album)}" data-artwork="${esc(largest(c, 'webp'))}">
           <div class="ost-player">
-            ${backdrop(b.background, c)}
+            ${backdrop(b.background, c, slug)}
             <div class="ost-art">
               <span class="ost-vinyl" aria-hidden="true"><span class="ost-disc"><img src="${esc(`${c.src}-${c.widths[0]}.webp`)}" alt="" width="${c.widths[0]}" height="${c.widths[0]}" loading="lazy" decoding="async"></span></span>
               <picture class="ost-cover">

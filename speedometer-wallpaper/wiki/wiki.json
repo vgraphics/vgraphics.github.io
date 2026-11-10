@@ -1,12 +1,12 @@
 {
   "product": {"name":"Speedometer Live Wallpaper","slug":"speedometer-wallpaper","home":"/speedometer-wallpaper/","icon":"/speedometer-wallpaper/img/icon.png","logo":"/img/vgraphics-logo-light.png","image":"/speedometer-wallpaper/img/card.jpg","parent":{"name":"Apps","href":"/apps/"}},
   "title": "Speedometer wiki",
-  "intro": "Every gauge, light, style and setting on your dashboard: what it shows, and how to set it up.",
-  "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and style",
+  "intro": "Every gauge, light, style and setting on your dashboard, and HUD mode, the car HUD that puts your speed on the windscreen: what each one shows, and how to set it up.",
+  "metaTitle": "Speedometer Live Wallpaper wiki: gauges, styles and car HUD",
   "entryTitles": ["{name} ({kind}) · Speedometer Live Wallpaper wiki", "{name} · Speedometer Live Wallpaper wiki", "{name} · Speedometer wallpaper wiki"],
   "entryTail": "In Speedometer Live Wallpaper, the car dashboard wallpaper for Android.",
-  "metaDescription": "Every gauge, warning light, style and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
-  "source": "Written from the app's screens and strings, version 2.0.4 with 19 styles (Games main bb6ac7d4, 26 Oct 2026), after the 2.0.0 text of 17 Oct (Games main 39aa208).",
+  "metaDescription": "Every gauge, warning light, style and setting of Speedometer Live Wallpaper for Android, and HUD mode, the car HUD that shows your speed on the windscreen.",
+  "source": "Written from the app's screens and strings, version 2.0.4 with 19 styles (Games main bb6ac7d4, 26 Oct 2026), after the 2.0.0 text of 17 Oct (Games main 39aa208). HUD mode from its screens, strings (logic_resources strings_hud.xml) and HudSession (Games main a4614008, 10 Nov 2026).",
   "art": {"wiki": "index", "alt": "Three phones on a car's dashboard at night showing the Classic, Amber Night and Future designs, with rain and city lights on the windscreen", "position": "50% 40%", "placeholder": "linear-gradient(#0B121A, #040508)"},
   "nav": [
     {"label":"Overview","href":"/speedometer-wallpaper/"},
@@ -14,6 +14,7 @@
     {"label":"Privacy","href":"/speedometer-wallpaper/privacy.html"}
   ],
   "sections": [
+    {"id":"hud","title":"HUD mode","intro":"Your phone as a car HUD: lay it flat on the dashboard and read your speed on the windscreen."},
     {"id":"big","title":"The big gauge","intro":"The dial in the middle. It shows one of three things; pick it in the style's settings (Customize), tap it on your home screen, or use the Big gauge tile."},
     {"id":"gauges","title":"Small gauges","kind":"gauge","intro":"The four dials around it, and the little temperature dial."},
     {"id":"lights","title":"Warning lights","intro":"Lights on the big gauge and the small gauges. Each warning light can be switched off in Customize → Warning lamps."},
@@ -21,6 +22,49 @@
     {"id":"designs","title":"Styles","intro":"19 styles. Classic, Steel and Graphite are free; every other style is a one-time purchase, or comes with the Speedometer Plus subscription. Pick one on the Styles screen."}
   ],
   "entries": [
+    {
+      "slug": "hud-mode",
+      "section": "hud",
+      "name": "HUD mode",
+      "title": "HUD mode: a car HUD speedometer · Speedometer wiki",
+      "icon": "<svg viewBox='0 0 48 48'><path d='M6 30 10 9h28l4 21z' fill='none' stroke='#8FB3D9' stroke-width='3' stroke-linejoin='round'/><path d='M15.5 24a8.5 8.5 0 0 1 17 0' fill='none' stroke='#4BD6E8' stroke-width='3.5' stroke-linecap='round'/><circle cx='24' cy='23' r='2.4' fill='#4BD6E8'/><rect x='12' y='35' width='24' height='6' rx='2' fill='#FFB547'/></svg>",
+      "summary": "Your phone as a heads-up display for your car: lay it flat on the dashboard and read your GPS speed on the windscreen.",
+      "facts": [["Costs","Free in Horizon"],["Looks","Number, Gauge arc, Fighter, Centre bar"],["Speed","GPS, in km/h or mph"],["Reads best","At dusk, at night, on cloudy days"]],
+      "steps": [
+        {"text": "Open HUD mode: tap HUD mode on Home or in Styles, use the HUD mode tile in Quick Settings, or long-press the app's icon. The first time, a short setup asks one question per step."},
+        {"text": "Pick your look: Number, Gauge arc, Fighter or Centre bar, drawn by Horizon (free), Glass, Pulse or Vector, in the style's own colour or in Lime, Cyan, Ice white, Amber or Violet."},
+        {"text": "Say how the phone lies: top edge to the glass, top edge to you, or upright in a holder. Lying flat, your speed is drawn flipped, so the windscreen reflects it the right way round; in a holder it reads straight, with no flip."},
+        {"text": "While parked, lay the phone flat on the dashboard in front of the wheel, screen up, where it can't slide and clear of the airbags. Then drive and leave it alone: once you've stopped, tap it once for Exit and Flip."}
+      ],
+      "cta": {"title": "Try it in your browser", "text": "The try page runs HUD mode too: pick a look and watch it with your real GPS speed or a demo drive, before you install anything.", "href": "/speedometer-wallpaper/play/#hud", "label": "Try HUD mode in your browser"},
+      "what": [
+        "HUD mode turns your phone into a heads-up display for your car. It fills the screen with your speed alone, drawn flipped, so the windscreen in front of you reflects it the right way round: a car HUD with no extra box on the dashboard.",
+        "Four looks, four styles. Number, Gauge arc, Fighter and Centre bar, drawn by Horizon for free, or by Glass, Pulse and Vector with the style, Speedometer Plus or a 24-hour trial.",
+        "Your colour. Keep the style's own colour, or pick Lime, Cyan, Ice white, Amber or Violet, whichever reads best on your glass.",
+        "More on the glass. Add the clock, the trip, your heading and a speed warning: above the limit you set, the speed turns red and the phone beeps once. The app doesn't know the road's limit.",
+        "Opens in your car. Switch on Open by itself in my car and pick your car once: HUD mode opens when the phone joins its Bluetooth.",
+        "Looks after your phone. On a low battery a small Plug in mark shows once per drive. If the phone gets hot, HUD mode dims, then pauses to let it cool down, and comes back by itself."
+      ],
+      "compare": {
+        "title": "Seeing double?",
+        "text": "A windscreen has two glass surfaces, and each one reflects the phone, so a bare windscreen shows your speed twice. A HUD film on the inside of the glass, or a HUD reflector plate on the dashboard, leaves one sharp image.",
+        "before": {"src": "/speedometer-wallpaper/img/hud/film-glass-without", "label": "Without film", "alt": "Glass's Number HUD on a bare windscreen at night: 60 km/h, the clock, trip and heading each show twice, a faint copy just above"},
+        "after": {"src": "/speedometer-wallpaper/img/hud/film-glass-with", "label": "With film", "alt": "The same HUD with a HUD film on the windscreen: one sharp image of 60 km/h, the clock, trip and heading"},
+        "widths": [720, 1080, 1440],
+        "width": 1440,
+        "height": 810,
+        "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right."
+      },
+      "tip": {"label": "Before you drive", "title": "Set it up while parked", "text": "Lay the phone where it can't slide, clear of the airbags, and don't touch it while you drive. Check that your country allows a phone on the dashboard."},
+      "notes": [
+        "HUD mode reads best at dusk, at night and on cloudy days. In bright sun the reflection is faint.",
+        "It has no menus and no ads while you drive: one tap shows Exit and Flip.",
+        "Your speed comes from GPS while HUD mode is open, and it never leaves the phone. Until the phone has a fix, the glass shows NO GPS.",
+        "Each HUD style's page has an Original | HUD switch: <a href=\"/speedometer-wallpaper/styles/horizon/\">Horizon</a>, <a href=\"/speedometer-wallpaper/styles/glass/\">Glass</a>, <a href=\"/speedometer-wallpaper/styles/pulse/\">Pulse</a> and <a href=\"/speedometer-wallpaper/styles/vector/\">Vector</a>."
+      ],
+      "related": ["gps-speed","designs-screen","settings"],
+      "artAlt": "A phone lies flat on a car's dashboard at night, showing HUD mode's speed upside down, and the windscreen above it reflects the same HUD the right way round: 87 km/h on a green gauge arc, with the time, trip and heading, over a rainy city street"
+    },
     {
       "slug": "big-gauge",
       "section": "big",
@@ -61,8 +105,8 @@
       "name": "CPU clock mode",
       "image": "/speedometer-wallpaper/img/renders/dial-future-cpu.webp",
       "summary": "How fast the processor runs, as a share of its top speed.",
-      "what": ["In CPU clock mode the needle shows how fast the processor runs right now, as a percentage of its top speed."],
-      "how": ["Some phones don't allow apps to read the CPU clock. On those, the gauge shows -- instead of a number; use power or GPS speed instead."],
+      "what": ["In CPU clock mode the needle shows how hard your phone's processor is being pushed: how fast its cores are running right now, as a percentage of the fastest they can run.","A phone's processor has several cores, often of different sizes, and each one speeds up and slows down many times a second. The wallpaper reads every core's current speed and its top speed, adds them up, and shows the first total as a share of the second. A core with nothing to report counts as zero, so a phone resting on the home screen reads low, and a game or a big download pushes the needle up.","It takes a reading once a second and smooths it over about three seconds, so the needle sweeps like a real rev counter instead of twitching."],
+      "how": ["The percentage is about speed, not how busy the processor is. A phone saving battery can run busy cores slowly, so 40% doesn't mean 40% busy.","Some phones don't allow apps to read the CPU clock. On those, the gauge shows -- instead of a number, and it does the same when a phone reports a speed that can't be real, such as a core running faster than its own top speed. Use power or GPS speed instead."],
       "related": ["big-gauge","ram"]
     },
     {
@@ -152,12 +196,20 @@
       "slug": "high-temperature-light",
       "section": "lights",
       "name": "High temperature light",
-      "robots": "noindex",
       "image": "/speedometer-wallpaper/wiki/img/led3.webp",
-      "summary": "On the big gauge: the battery is hotter than your limit.",
-      "what": ["Lights when the battery is hotter than the high temperature: 45 °C unless you change it."],
-      "how": ["Customize → Warning lamps → High temperature level sets the limit."],
-      "related": ["battery-temperature","low-temperature-light"]
+      "summary": "On the big gauge: your phone's battery is hotter than the limit you set, 45 °C unless you change it.",
+      "facts": [["Lights above","45 °C, or your own limit"],["Reads","Your phone's battery temperature"],["Highest limit","70 °C"],["Hide it","Customize → Warning lamps"]],
+      "what": [
+        "The high temperature light, the high temp light for short, is one of the warning lights on the big gauge. It reads the temperature of your phone's battery, the same reading as the little C-to-H dial in the battery gauge, and lights the moment it climbs past your high limit. Once the battery cools back down to the limit, it goes out by itself.",
+        "It's about your phone, not your car. The light on your car's own dashboard, usually a thermometer standing in waves, warns that the engine is too hot; this one never knows the engine's temperature. If the car's light comes on, believe the car.",
+        "A phone heats up in a car faster than you'd think. Sun through the windscreen, fast charging, navigation and GPS, a bright screen and a thick case all add heat, and the top of a dashboard in summer gets far hotter than the air in the car.",
+        "When it lights, move the phone out of direct sun, unplug it or stop fast charging for a while, close the apps you aren't using and take off the case. Phones protect themselves too: a hot phone dims its screen, slows down and may pause charging until it cools.",
+        "The limit is yours. 45 °C is already warm for a phone battery, but you can set the limit anywhere up to 70 °C, or switch the light off. The battery dial moves with it: C is your low limit and H your high one, so the dial reaches H just as the light comes on.",
+        "In HUD mode the phone lies on the dashboard in the sun, so the app keeps an eye on the heat for you: it turns the HUD down first, pauses it to let the phone cool if the heat keeps climbing, then carries on by itself."
+      ],
+      "how": ["Customize → Warning lamps → High temperature level sets the limit: anywhere from 1 °C above the low temperature limit up to 70 °C.", "Switch the light off in the same place to hide it; the battery's little dial still shows the temperature."],
+      "tip": {"label": "In the car", "title": "The car's own light comes first", "text": "If the high temperature light on your car's real dashboard comes on, the engine is overheating: pull over where it's safe, switch the engine off and let it cool before you check anything. Never open a hot radiator cap."},
+      "related": ["battery-temperature","low-temperature-light","battery","hud-mode"]
     },
     {
       "slug": "low-temperature-light",
@@ -219,13 +271,14 @@
       "image": "/speedometer-wallpaper/wiki/img/settings.webp",
       "summary": "The app's settings, and each style's own in Customize.",
       "what": ["Tap the gear at the top of the home screen for the app's settings. Each style's own settings are in Customize, on the home screen and on the Styles screen."],
-      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","Every style: the speed unit and the clock (12 or 24 hours, and seconds), the same in every style, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Widgets: the second clock's city, your daily step goal, and Tilt level, which sets level for the Tilt widget with the phone in its mount.","Purchases: Speedometer Plus (every style and no ads) and Restore purchases.","Signed in to VHub, your settings follow you: on every phone you sign in on, and in the VHub menu at the top right of vgraphics.gr. Without signing in, they stay on this phone.","Privacy: Ad choices (where your region requires it) and the privacy policy. Help: Report a problem or an idea, which sends VGraphics a ticket (with a screenshot if you like) and shows our answers, and News by email. About: the Guide, Rate on Google Play and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
+      "how": ["Wallpaper: the style in use, Motion and battery (Saver, Balanced or Smooth) and the Big gauge tile.","Every style: the speed unit and the clock (12 or 24 hours, and seconds), the same in every style, and Copy settings to all styles, which gives every style one style's big gauge, units, clock, lamps and needle motion. Each style keeps its own layout and look.","Permissions: GPS speed (location) and Music, calls and messages (notification access).","Previews and feedback: live previews and vibration.","Widgets: the second clock's city, your daily step goal, and Tilt level, which sets level for the Tilt widget with the phone in its mount.","Purchases: Speedometer Plus (every style and no ads) and Restore purchases.","Signed in to VHub, your settings follow you: on every phone you sign in on, and in the VHub menu at the top right of vgraphics.gr. Without signing in, they stay on this phone.","Privacy: Ad choices (where your region requires it) and the privacy policy. Help: Help & ideas, which sends VGraphics a ticket (with a screenshot if you like) and shows our answers, Rate us, which opens the app on Google Play, and News by email. About: the Guide and the licences.","Customize, for one style: the big gauge's mode and top-speed mark, units, clock, warning lamps, music, calls and messages, and the look (colours, glow, background, needle feel and the start-up sweep). Changes show at once in the preview, and Reset puts the style's defaults back."],
       "related": ["big-gauge","designs-screen","date-and-time","low-battery-light"]
     },
     {
       "slug": "set-as-wallpaper",
       "section": "setup",
       "name": "Setting it as your wallpaper",
+      "title": "Setting it as your wallpaper · Speedometer Live Wallpaper",
       "image": "/speedometer-wallpaper/img/shot-home.webp",
       "summary": "Set as wallpaper, confirm, done; and how to get it back.",
       "what": ["Open the app and tap Set as wallpaper, then confirm on the preview. The button turns amber and reads On your home screen: the dashboard is now your wallpaper."],
@@ -279,6 +332,7 @@
       "slug": "restoring-future",
       "section": "designs",
       "name": "Restoring your styles on a new phone",
+      "title": "Restoring styles on a new phone · Speedometer Live Wallpaper",
       "image": "/speedometer-wallpaper/img/renders/settings-owned.webp",
       "summary": "Bought once, back by themselves on any phone with the same Google account.",
       "what": ["Every style you buy is a one-time purchase tied to your Google account. The app checks your purchases with Google Play every time you open it, so on a new phone signed in with the same account, they come back by themselves.","Speedometer Plus is a subscription on your Google account, and signed in to VHub, every device of your VHub account gets it too."],

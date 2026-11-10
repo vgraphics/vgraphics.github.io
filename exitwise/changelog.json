@@ -1,6 +1,76 @@
 {
   "entries": [
     {
+      "version": "1.0.91327a71",
+      "date": "2026-11-10",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New scoring counts your arrows",
+      "items": [
+        "Winning a level now scores you for every arrow and your time, while hints, continues and lost hearts cost points — and the old 1000-point cap is gone.",
+        "The game has a new name: Exitwise: Arrow Puzzle Game.",
+        "Our ads can now come from Google AdMob as well, now listed among the ad networks in the updated privacy policy.",
+        "Behind the scenes, Android and iPhone now report which level you reach correctly, so we can keep improving the game."
+      ],
+      "commit": "91327a71"
+    },
+    {
+      "version": "1.0.40",
+      "date": "2026-11-10",
+      "platforms": [
+        "Android"
+      ],
+      "title": "New scoring rewards every arrow",
+      "items": [
+        "New scoring: clear arrows and finish fast to earn more, while hints and continues cost you points and the old 1000-point cap is gone — the board now shows what earns and costs points.",
+        "We have a fresh name — say hello to Exitwise: Arrow Puzzle Game.",
+        "We added Google AdMob to the ad partners that help keep the game free, and updated our privacy policy to match.",
+        "Behind the scenes, we can now see how each level is going, so we can keep making them better."
+      ],
+      "commit": "abc1fa96"
+    },
+    {
+      "version": "1.0.39",
+      "date": "2026-11-09",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "More time in boss fights",
+      "items": [
+        "Boss fights give you more time on the clock now, so the toughest levels feel fairer."
+      ],
+      "commit": "289c5e0a"
+    },
+    {
+      "version": "1.0.38",
+      "date": "2026-11-09",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Your level on your account picture",
+      "items": [
+        "Settings now shows your level on your account picture, plus how many creators you've hidden."
+      ],
+      "commit": "22b52509"
+    },
+    {
+      "version": "1.0.37",
+      "date": "2026-11-07",
+      "platforms": [
+        "Android",
+        "Web"
+      ],
+      "title": "Rate the game and share ideas",
+      "items": [
+        "You can now rate Exitwise right inside the game, no trip to the store needed.",
+        "Every so often we'll check in to ask if you need a hand or have an idea to share."
+      ],
+      "commit": "06a040f1"
+    },
+    {
       "version": "1.0.36",
       "date": "2026-11-07",
       "platforms": [

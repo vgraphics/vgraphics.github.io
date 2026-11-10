@@ -3,6 +3,14 @@
 // (George, 24 Oct 2026: "These are stretched"). Returns { width, height }, or null for a file it can't read.
 import { readFileSync } from 'node:fs'
 
+// ` width="W" height="H"` for an <img> of the picture file, so the browser holds its place before it loads (no layout
+// shift) and check-site's stretch rule has its shape to hold; '' when the file can't be read. (Platform job 26, from
+// Exitwise: the gallery's pictures stated no size.)
+export function sizeAttrs(file) {
+  const size = imageSize(file)
+  return size ? ` width="${size.width}" height="${size.height}"` : ''
+}
+
 export function imageSize(file) {
   let b
   try {

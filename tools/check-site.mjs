@@ -26,8 +26,12 @@ import { buttonOverrides, buttonsOf, rulesOf } from './lib/buttons.mjs'
 import { aboutProblems, isPlayPage, playPageProblems } from './lib/play-pages.mjs'
 import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblems, frameSources, hasFrame } from './lib/frames.mjs'
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
+import { doorProblems } from './lib/screens.mjs'
 import { markProblems } from './lib/marks.mjs'
 import { htaccessProblems } from './lib/htaccess.mjs'
+import { leakedText } from './lib/leaked-text.mjs'
+import { codeImageRefs, imageGapProblems, imageVersionProblems, realFile } from './lib/image-version.mjs'
+import { entryTitleProblem, hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..')
 // Every HTML file GitHub Pages serves, whoever writes it (this repo, the template, the Deployer's hub/ and play pages):
@@ -161,7 +165,7 @@ function seo(file, html) {
   }
   const image = metaContent(head, 'property', 'og:image')
   if (!image) report(file, 'seo', 'no og:image (the link preview\'s picture)')
-  else if (!image.startsWith('https://vgraphics.gr/') || !existsSync(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length))))) {
+  else if (!image.startsWith('https://vgraphics.gr/') || !existsSync(realFile(join(root, decodeURIComponent(image.slice('https://vgraphics.gr/'.length)))))) {
     report(file, 'seo', `og:image ${image} is not a file on vgraphics.gr`)
   }
 }
@@ -172,6 +176,8 @@ for (const file of pages) {
   if (!/<html[^>]*\slang="[^"]+"/.test(html)) report(file, 'head', 'no <html lang>')
   if (!/<meta name="viewport"/.test(html)) report(file, 'head', 'no viewport meta')
   if (!/<title>[^<\s][^<]*<\/title>/.test(html)) report(file, 'head', 'empty or missing <title>')
+  // A script that printed a value it never had leaves the word "undefined" on the page (Palermo's tip cards did).
+  for (const around of leakedText(html).slice(0, 3)) report(file, 'undefined-text', `the page shows the word "undefined" (a value a script never had): "…${around}…"`)
   if (file !== '404.html') {
     const want = `https://vgraphics.gr${urlPath(file)}`
     const got = html.match(/<link rel="canonical" href="([^"]*)"/)?.[1]
@@ -206,8 +212,13 @@ for (const file of pages) {
     if (!clean) continue
     let target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
     if (clean.endsWith('/') || (existsSync(target) && statSync(target).isDirectory())) target = join(target, 'index.html')
-    if (!existsSync(target)) report(file, 'links', `broken link ${ref}`)
+    if (!existsSync(realFile(target))) report(file, 'links', `broken link ${ref}`)
   }
+  // Every local picture is named by its version, name.<hash>.ext, so the host can cache it for a year (George, 10 Nov 2026,
+  // the platform coordinator's job 23: "Yes, do it"): a picture that changes gets a new address. A page the template writes
+  // gets them from its generator (tools/build-pages.mjs, build-wiki.mjs, build-devlog.mjs), any other page from
+  // tools/version-images.mjs, which writes the current hash (run it again whenever a picture's bytes change).
+  for (const message of imageVersionProblems(html, { file, root })) report(file, 'image-version', message)
 }
 // Two pages to index with one title or one description compete for the same search, and Google shows neither well.
 for (const [what, seen] of [['title', seoTitles], ['description', seoDescriptions]]) {
@@ -216,6 +227,45 @@ for (const [what, seen] of [['title', seoTitles], ['description', seoDescription
       const others = list.filter((f) => f !== file)
       report(file, 'seo', `same ${what} as ${others[0]}${others.length > 1 ? ` and ${others.length - 1} more` : ''}: "${text.slice(0, 60)}${text.length > 60 ? '…' : ''}"`)
     }
+  }
+}
+
+// What search engines want from a page's head and headings (George, 10 Nov 2026: "improve the SEO of our pages so we get
+// more visitors"; tools/lib/seo.mjs has the rules, README "Search engines"): title and description lengths, the
+// researched keywords (tools/seo-keywords.json for the shared pages, page.json "seo.keywords" for a product's), og:locale,
+// a 1200 px link preview picture with its alt text, the large-preview robots meta, a BreadcrumbList on every page but the
+// home page, no skipped heading level, alt text on every picture, hreflang pairs, and no page nothing links to. It holds
+// every page that may be indexed, the Unity pages the page loop skips included.
+// tools/seo-known-gaps.json lists, per page and check, what a product's, the hub's or a play page's own coordinator has
+// still to fix. It only shrinks: a gap that isn't listed fails, and a listed gap that is fixed fails until it is removed.
+// The shared pages (home, company, services, multiplayer, devlog, privacy, terms, 404) never get an entry.
+{
+  const known = JSON.parse(readFileSync(join(root, 'tools/seo-known-gaps.json'), 'utf8')).gaps
+  const sharedKeywords = JSON.parse(readFileSync(join(root, 'tools/seo-keywords.json'), 'utf8')).pages
+  const productSlugs = readdirSync(root, { withFileTypes: true }).filter((d) => d.isDirectory() && existsSync(join(root, d.name, 'page.json'))).map((d) => d.name)
+  const byUrl = new Map()
+  const fileOf = new Map()
+  for (const file of new Set([...pages, ...unity.keys()])) {
+    const html = readFileSync(join(root, file), 'utf8')
+    const url = urlPath(file)
+    byUrl.set(url, html)
+    fileOf.set(url, file)
+  }
+  const indexable = new Map([...byUrl].filter(([url, html]) => url !== '/404.html' && !/<meta name="robots" content="[^"]*noindex/i.test(html)))
+  const found = new Map()
+  for (const [url, html] of indexable) {
+    for (const [check, message] of seoProblems({ html, url, root, keywords: keywordsFor(root, url, productSlugs, sharedKeywords) })) found.set(`${url} ${check}`, { url, check, message })
+  }
+  for (const url of orphanPages(byUrl, [...indexable.keys()])) found.set(`${url} orphan`, { url, check: 'orphan', message: 'no other page of the site links to it' })
+  for (const [url, message] of hreflangProblems(byUrl)) found.set(`${url} hreflang`, { url, check: 'hreflang', message })
+  const listed = new Map(known.map((g) => [`${g.page} ${g.check}`, g]))
+  for (const g of known) {
+    if (!g.owner || /^(platform|shared|site)/i.test(g.owner)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check}: an entry names the coordinator who owns the page (a product's, the hub's, the party games'), and the shared pages get none`)
+    if (!indexable.has(g.page)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check}: listed, but the page is gone or kept out of search: remove the entry`)
+    else if (!found.has(`${g.page} ${g.check}`)) report('tools/seo-known-gaps.json', 'seo', `${g.page} ${g.check} is fixed: remove it from the list`)
+  }
+  for (const [key, g] of found) {
+    if (!listed.has(key)) report(fileOf.get(g.url), 'seo', `[${g.check}] ${g.message}`)
   }
 }
 
@@ -504,7 +554,7 @@ for (const file of served) {
 for (const [file, text] of sheets) {
   for (const [, kind] of text.matchAll(/(?<![-\w])cursor:\s*(pointer|text|default)\b/g)) cursor(file, `sets cursor: ${kind}, the system's own: use ${SYSTEM[kind]}`)
   for (const [, name, url, x, y] of text.matchAll(/--(cursor(?:-link|-text)?):\s*url\(\s*"([^"]+)"\s*\)\s+(\d+)\s+(\d+)/g)) {
-    const picture = join(root, url.replace(/^\//, ''))
+    const picture = realFile(join(root, url.replace(/^\//, '')))
     if (!url.startsWith('/') || !existsSync(picture)) continue // a missing one is reported under css-urls
     const at = hotspot(readFileSync(picture, 'utf8'))
     if (typeof at === 'string') cursor(file, `--${name}'s ${url} ${at}`)
@@ -567,6 +617,16 @@ for (const file of served) {
 // robots.txt leaves it alone, so search engines can read the noindex.
 for (const file of served) {
   for (const m of adminProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'admin', m)
+}
+
+// A product's TV and join pages (tools/lib/screens.mjs: /<product>/tv/, Palermo Noir's old-TV page /<product>/tv-classic/,
+// /<product>/join/, and the pages in those folders) are kept out of search, whoever writes them: noindex in the markup,
+// and sitemap.xml never lists one (tools/build-sitemap.mjs). A Unity page's own noindex rule (above) holds the ones
+// that are Unity's. They are product screens with the short legal line (legal-footer, above), and carry no sign-up
+// (help-mail).
+for (const file of served) {
+  if (unity.has(file)) continue
+  for (const m of doorProblems(urlPath(file), readFileSync(join(root, file), 'utf8'))) report(file, 'noindex', m)
 }
 
 // Our names as trade marks (tools/lib/marks.mjs; George, 3 Nov 2026: "Yes, add ™"): ™ after VGraphics, Exitwise
@@ -990,7 +1050,7 @@ for (const file of served) {
     if (!src || !w || !h || /^(data:|[a-z]+:|\/\/)/i.test(src)) continue
     const clean = decodeURIComponent(src.replace(/[?#].*$/, ''))
     const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
-    const own = existsSync(target) ? imageSize(target) : null
+    const own = existsSync(realFile(target)) ? imageSize(realFile(target)) : null
     if (own && Math.abs((w / h) / (own.width / own.height) - 1) > 0.01) {
       report(file, 'stretch', `<img src="${src}"> says ${w} x ${h}, but the picture is ${own.width} x ${own.height}: give its real size, or cut the picture to that shape`)
     }
@@ -999,12 +1059,16 @@ for (const file of served) {
 
 // A wiki's playable boards (wiki.json "board", assets/wiki.js) hold only arrows the game can have: each head points the
 // way its body's last cell runs into it (Exitwise Core, Arrow.cs, whose constructor refuses any other), bombs too.
+// And an entry's own "title" is 25 to 65 characters (tools/lib/seo.mjs entryTitle).
 {
   const STEP = { U: [0, -1], D: [0, 1], L: [-1, 0], R: [1, 0] }
   for (const dir of readdirSync(root)) {
     const file = join(dir, 'wiki', 'wiki.json')
     if (!existsSync(join(root, file))) continue
     for (const e of JSON.parse(readFileSync(join(root, file), 'utf8')).entries ?? []) {
+      // An entry's own "title" (the question people search for) is held to the title length at its source too.
+      const titleProblem = entryTitleProblem(e)
+      if (titleProblem) report(file, 'entry-title', `${e.slug}: ${titleProblem}`)
       for (const a of [...(e.board?.arrows ?? []), ...(e.board?.bombs ?? [])]) {
         const [q, h] = a.cells.slice(-2), [dx, dy] = STEP[a.dir] ?? []
         if (h && q && (h[0] - q[0] !== dx || h[1] - q[1] !== dy)) report(file, 'board', `${e.slug}: the ${a.id} arrow points ${a.dir}, but its body runs into its head from ${q} to ${h}: the game has no such arrow (Arrow.cs), so turn its head or move its last cell`)
@@ -1093,7 +1157,9 @@ function pictureUses(file) {
     } catch {}
     if (!PICTURE.test(clean)) return null
     const target = clean.startsWith('/') ? clean.slice(1) : join(dirname(file), clean)
-    return existsSync(join(root, target)) ? target.split(sep).join('/') : null
+    // The picture's file: its address may carry its version (name.<hash>.ext, tools/lib/image-version.mjs), which no file has.
+    const found = realFile(join(root, target))
+    return existsSync(found) ? relative(root, found).split(sep).join('/') : null
   }
   for (const m of html.slice(Math.max(0, html.search(/<body\b/))).matchAll(/<(\/?)([a-zA-Z][\w-]*)\b([^>]*)>/g)) {
     const [, close, name, attrs] = m
@@ -1272,8 +1338,27 @@ for (const file of files.filter((f) => /\.(css|html)$/.test(f))) {
     links++
     const clean = raw.replace(/[?#].*$/, '')
     const target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
-    if (!existsSync(target)) report(file, 'css-urls', `missing ${raw}`)
+    if (!existsSync(realFile(target))) report(file, 'css-urls', `missing ${raw}`)
   }
+}
+
+// Versioned pictures (above, 'image-version'): a page names a picture as name.<hash>.ext, so the host caches it a year. Code
+// can't: a script's string or a stylesheet's url() is not a page, and a listing a script reads names pictures a script
+// loads at run time, so those pictures keep the ten minutes. tools/image-version-known-gaps.json lists each file (or a
+// folder, ending in "/") with its owner and why, and only shrinks: code that names a local picture without its version and
+// is not listed fails, and a listed entry that no longer names one fails until it is removed. The theme stylesheets the
+// template writes are held to their generator ('template' above), which versions their pictures.
+{
+  const listed = JSON.parse(readFileSync(join(root, 'tools/image-version-known-gaps.json'), 'utf8')).gaps
+  const generated = new Set(products().map((slug) => posix.join(slug, 'theme', 'theme.css')))
+  const code = execFileSync('git', ['ls-files', '--cached', '--others', '--exclude-standard', '-z', '--', '*.css', '*.js', '*.mjs', '*.txt'], { cwd: root, encoding: 'utf8', maxBuffer: 1 << 26 })
+    .split('\0').filter((f) => f && existsSync(join(root, f)) && !f.startsWith('tools/') && !f.startsWith('.claude/') && !generated.has(f) && !builtByUnity(f))
+  const found = []
+  for (const file of code) {
+    const n = codeImageRefs(readFileSync(join(root, file), 'utf8'), { file, root }).length
+    if (n) found.push([file, n])
+  }
+  for (const [file, message] of imageGapProblems(found, listed)) report(file, 'image-version', message)
 }
 
 const company = join(root, 'company', 'index.html')

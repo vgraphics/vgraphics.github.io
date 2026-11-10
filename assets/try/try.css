@@ -183,8 +183,8 @@
 .try-toast-text small:empty { display: none; }
 
 .try-group { display: grid; gap: 12px; padding-top: 18px; border-top: 1px solid var(--line); }
-.try-group h3 { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
-.try-group h4 { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-title { margin: 0; font: var(--label-weight) 1.05rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
+.try-group .try-subtitle { margin: 0 0 8px; font: var(--label-weight) 0.85rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); color: var(--muted); }
 
 .try-styles { display: grid; grid-template-columns: repeat(auto-fill, minmax(100px, 1fr)); gap: 12px; margin: 0; padding: 0; list-style: none; }
 .try-styles button {
@@ -249,7 +249,7 @@
    title. A set, and the menu itself, grows in as it appears (a HUD style picked, the market's layouts in) and shrinks
    away as it goes (assets/faq.js showBox and hideBox). */
 .try-layouts { display: grid; gap: 14px; }
-.try-layouts > h4 { margin: 0; }
+.try-layouts > .try-subtitle { margin: 0; }
 .try-layout-set { display: grid; gap: 8px; }
 .try-layout-set[hidden] { display: none; }
 .try-layout-set .try-set-title { display: flex; align-items: center; gap: 6px; margin: 0; color: var(--muted); font: var(--label-weight) 0.78rem/1 var(--label-font); text-transform: var(--label-case); letter-spacing: var(--label-tracking); }
@@ -318,8 +318,9 @@
 .try-fallback p { margin: 0; max-width: 34em; }
 .try-noscript { grid-column: 1 / -1; margin: 0; color: var(--muted); }
 
-/* The statistics question, in a corner, never over the phone's screen on wide windows. */
-.try-consent {
+/* The statistics question and the help offer (design-canon.md §13), in a corner, never over the phone's screen on wide
+   windows. Each comes in its own opening, never together. */
+.try-consent, .try-offer {
   position: fixed;
   right: 16px;
   bottom: 16px;
@@ -331,12 +332,17 @@
   background: var(--surface-2, var(--surface));
   box-shadow: var(--card-lift);
 }
-.try-consent[hidden] { display: none; }
-.try-consent h3 { margin: 0 0 6px; font: var(--label-weight) 1.1rem/1.1 var(--label-font); text-transform: var(--label-case); }
-.try-consent p { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
+.try-consent[hidden], .try-offer[hidden] { display: none; }
+.try-consent h3, .try-offer h3 { margin: 0 0 6px; font: var(--label-weight) 1.1rem/1.1 var(--label-font); text-transform: var(--label-case); }
+.try-consent p, .try-offer p { margin: 0 0 14px; color: var(--muted); font-size: 0.95rem; }
 .try-consent-buttons { display: flex; justify-content: flex-end; gap: 10px; }
-.try-consent button { min-height: 44px; padding: 0 18px; border: var(--card-border); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; cursor: var(--cursor-link, pointer); }
-.try-consent button.allow { background: var(--cta); border-color: var(--cta-edge, var(--cta)); color: var(--cta-ink); }
+.try-consent button, .try-offer button { min-height: 44px; padding: 0 18px; border: var(--card-border); border-radius: 999px; background: var(--surface); color: var(--ink); font: inherit; font-weight: 700; cursor: var(--cursor-link, pointer); }
+.try-consent button.allow, .try-offer button.allow { background: var(--cta); border-color: var(--cta-edge, var(--cta)); color: var(--cta-ink); }
+
+/* Settings › Help › Help & ideas: the ticket desk, a row like the settings above it. */
+.try-help { color: inherit; text-decoration: none; cursor: var(--cursor-link, pointer); }
+.try-help small { display: block; margin-top: 2px; color: var(--muted); font-size: 0.85rem; }
+.try-help:hover > span, .try-help:focus-visible > span { color: var(--accent); }
 
 /* The look's QR (try.js openLook): a modal sheet over a shade, in the middle of the window, on a phone at its foot. The
    code is dark modules on white with the standard's margin of 4 modules, as large as the window lets it be up to
@@ -419,7 +425,7 @@
   .try-quick .try-tool { width: auto; padding: 0 14px; }
   .try-quick .try-tool span { display: inline; }
   .try-qr { display: none; }
-  .try-consent { right: 8px; bottom: 8px; width: calc(100% - 16px); }
+  .try-consent, .try-offer { right: 8px; bottom: 8px; width: calc(100% - 16px); }
   .try-look { padding: 8px; }
   .try-look[open], .try-look.is-closing { place-items: end center; }
   .try-look-sheet { width: 100%; padding-bottom: calc(22px + env(safe-area-inset-bottom, 0px)); }
@@ -563,3 +569,59 @@
 @media (prefers-reduced-motion: reduce) {
   .try-hud-controls, .try-hud-controls.is-shown { transition-duration: 80ms; }
 }
+/* The demo drive's speed in HUD mode is marked as such: a small pill in the corner, under Exit and Flip, never in the
+   way of a tap. */
+.try-hud-demo {
+  position: absolute;
+  top: 16px;
+  left: 16px;
+  padding: 4px 10px;
+  border: 1px solid color-mix(in srgb, var(--ink) 40%, transparent);
+  border-radius: 999px;
+  background: color-mix(in srgb, #000 60%, transparent);
+  color: var(--ink);
+  font: var(--label-weight) 0.8rem/1.2 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  pointer-events: none;
+}
+.try-hud-demo[hidden] { display: none; }
+
+/* A link into HUD mode (#hud): the invite under the phone, and the store's badge once HUD mode is left. Each comes and
+   goes as every expandable does (design canon §1, assets/faq.js showBox and hideBox, which try.js hudCard() calls). */
+.try-hud-card {
+  width: min(100%, 560px);
+  overflow: hidden;
+  border: var(--card-border);
+  border-radius: 18px;
+  background: var(--surface);
+}
+.try-hud-card[hidden] { display: none; }
+.try-hud-card-body { position: relative; display: grid; gap: 10px; padding: 16px 18px; }
+.try-hud-card-body p { margin: 0; color: var(--muted); }
+.try-hud-card-body .try-hud-card-title { padding-right: 36px; color: var(--ink); font: var(--label-weight) 1.05rem/1.25 var(--label-font); text-transform: var(--label-case); letter-spacing: 0.04em; }
+.try-hud-invite .try-hud-card-title { padding-right: 0; }
+.try-hud-card-acts { display: flex; flex-wrap: wrap; gap: 8px; }
+.try-hud-go { border-color: var(--accent); background: color-mix(in srgb, var(--accent) 22%, var(--surface)); }
+.try-hud-card .gp { justify-self: start; }
+.try-hud-card .gp img { height: 64px; }
+.try-hud-card-close {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  display: grid;
+  place-items: center;
+  width: 36px;
+  height: 36px;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: none;
+  color: var(--muted);
+  cursor: var(--cursor-link, pointer);
+}
+.try-hud-card-close:hover { color: var(--ink); }
+.try-hud-card-close svg { width: 18px; height: 18px; }
+.try-hud-card button:focus-visible, .try-hud-card a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+/* On the try page's screen, nothing scrolls: while a card shows, the phone on its side keeps the card's height too. */
+.screen .try:has(.try-hud-card:not([hidden])) .try-device[data-orientation="landscape"] { width: min(100%, 940px, max(240px, calc((100dvh - 560px) * 2340 / 1080))); }

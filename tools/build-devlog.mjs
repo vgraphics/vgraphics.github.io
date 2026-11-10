@@ -19,9 +19,12 @@ import { join } from 'node:path'
 import { anchor } from './lib/partials.mjs'
 import { srcset } from './lib/hero.mjs'
 import { root } from './lib/product.mjs'
+import { versionImages } from './lib/image-version.mjs'
 import { markPage } from './lib/marks.mjs'
+import { INDEX_ROBOTS, OG_IMAGE_MIN_WIDTH, OG_LOCALE } from './lib/seo.mjs'
 
 const DESCRIPTION_MAX = 160
+const TITLE_MAX = 65
 const SITE = 'https://vgraphics.gr'
 const CARD = `${SITE}/assets/img/vgraphics-card-1200x630.jpg`
 const MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
@@ -57,7 +60,7 @@ posts.sort((a, b) => b.date.localeCompare(a.date) || a.title.localeCompare(b.tit
 const organization = { '@type': 'Organization', '@id': `${SITE}/#organization`, name: 'VGraphics', url: `${SITE}/` }
 
 function page({ path, title, description, ogTitle, ld, style, main, image }) {
-  const og = image ? { src: largest(image), width: image.widths.at(-1), height: Math.round((image.widths.at(-1) * image.height) / image.width), alt: image.alt }
+  const og = image && image.widths.at(-1) >= OG_IMAGE_MIN_WIDTH ? { src: largest(image), width: image.widths.at(-1), height: Math.round((image.widths.at(-1) * image.height) / image.width), alt: image.alt }
     : { src: CARD, width: 1200, height: 630, alt: 'VGraphics: games, apps and software, carefully made. Games, Apps, Services and VHub.' }
   // With ™ after our names in the headings and at their first mention (tools/lib/marks.mjs).
   return markPage(path, `<!doctype html>
@@ -67,12 +70,16 @@ function page({ path, title, description, ogTitle, ld, style, main, image }) {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
   <meta name="description" content="${esc(description)}">
+  <meta name="robots" content="${INDEX_ROBOTS}">
   <link rel="canonical" href="${SITE}${path}">
-  <link rel="icon" href="/img/vgraphics-logo.png">
+  <link rel="icon" href="/favicon.ico" sizes="32x32">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="/apple-touch-icon.png">
   <meta name="theme-color" content="#F6F2EA" media="(prefers-color-scheme: light)">
   <meta name="theme-color" content="#111016" media="(prefers-color-scheme: dark)">
   <meta property="og:type" content="${path === '/devlog/' ? 'website' : 'article'}">
   <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">
   <meta property="og:title" content="${esc(ogTitle)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="${SITE}${path}">
@@ -205,12 +212,16 @@ ${others.map(card).join('\n')}
     .more { display: grid; gap: var(--s3); border-top: 1px solid var(--line); padding-top: var(--s5); }
     .more > h2 { font-size: 1.6rem; }
 ${CARD_STYLE}`
-  return page({ path, title: `${p.title} · VGraphics devlog`, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
+  // The blog's name follows the post's title only while the whole stays about 60 characters (README, "Search engines"):
+  // search results cut a longer one off.
+  const named = `${p.title} · VGraphics devlog`
+  const title = strip(named).length <= TITLE_MAX ? named : p.title
+  return page({ path, title, description: p.description, ogTitle: p.title, ld, style, main, image: p.image })
 }
 
 function indexPage() {
   const path = '/devlog/'
-  const description = 'Notes from VGraphics on how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.'
+  const description = 'Game development notes from VGraphics: how Exitwise, Speedometer Live Wallpaper and our other games and apps are designed and built.'
   const ld = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -248,9 +259,10 @@ const dir = join(root, 'devlog')
 for (const e of readdirSync(dir, { withFileTypes: true })) {
   if (e.isDirectory() && !posts.some((p) => p.slug === e.name) && existsSync(join(dir, e.name, 'index.html'))) rmSync(join(dir, e.name), { recursive: true })
 }
-writeFileSync(join(dir, 'index.html'), indexPage())
+// Every picture a page names carries its file's version, name.<hash>.ext (tools/lib/image-version.mjs, .htaccess).
+writeFileSync(join(dir, 'index.html'), versionImages(indexPage(), { file: 'devlog/index.html' }))
 for (const p of posts) {
   mkdirSync(join(dir, p.slug), { recursive: true })
-  writeFileSync(join(dir, p.slug, 'index.html'), postPage(p))
+  writeFileSync(join(dir, p.slug, 'index.html'), versionImages(postPage(p), { file: `devlog/${p.slug}/index.html` }))
 }
 console.log(`devlog: index + ${posts.length} post${posts.length === 1 ? '' : 's'}`)

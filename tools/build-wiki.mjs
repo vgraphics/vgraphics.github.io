@@ -19,17 +19,28 @@
 // Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp/.jpg (wide) and
 // <slug>-tall-<width>.avif/.webp/.jpg (the 9:16 cut for portrait screens) with art.json, the sizes this script reads.
 // Every page's hero is the landing page's box (tools/lib/hero.mjs), so it is exactly as tall.
+//
+// An entry may also have: "title", a page title of its own (60 characters at most) when entryTitles' words don't say
+// what people search for; "cta" ({ title, text, href, label }), a panel with one button after its steps (Speedometer's
+// HUD mode: "Try HUD mode in your browser", its #hud link into the try page; George, 10 Nov 2026,
+// "site-try-hud-link": KEEP); and "compare" ({ title, text, ...a before-and-after, tools/lib/compare.mjs }), a section
+// with the two pictures and a handle between them (Speedometer's "Seeing double?", without and with a HUD film;
+// George, 10 Nov 2026, "film-before-after": KEEP).
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
 import { anchor, closing, header, footer, iconLinks, quote } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
+import { compare } from './lib/compare.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
+import { entryTitle, INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
+import { imageSize } from './lib/image-size.mjs'
+import { versionImages } from './lib/image-version.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
-const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', story: 'The story',big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
+const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', story: 'The story', hud: 'HUD mode', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
 
 // The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
 // the product › Wiki, then the entry. "<" is escaped so no text can close the script.
@@ -66,15 +77,7 @@ function article(product, e, { description, path, image }) {
   return JSON.stringify(ld).replace(/</g, '\\u003c')
 }
 
-// An entry's search title: the first of wiki.json's "entryTitles" that fits in 60 characters, filled with the entry's
-// name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
-// patterns with {kind} are passed over. Else "<name> · <product> wiki".
-function entryTitle(w, e) {
-  const kind = w.sections.find((s) => s.id === e.section)?.kind
-  return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
-    .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
-    .find((t) => t.length <= 60) ?? `${e.name} · ${w.product.name} wiki`
-}
+// An entry's search title: its own "title" in wiki.json, else the entryTitles patterns (entryTitle, tools/lib/seo.mjs).
 
 // An entry's search description: its summary, then the sentences of "What it does" while they fit in 160 characters.
 // The first one that doesn't fit is cut at a word, so the description always says more than the summary. A short one
@@ -100,7 +103,9 @@ function preview(w, product, slug, alt) {
   const a = slug && w.art[slug]
   if (a?.jpeg?.includes(1280)) return { src: `/${w.product.slug}/wiki/img/art/${slug}-1280.jpg`, width: 1280, height: Math.round((1280 * a.height) / a.width), alt }
   const card = product.page.social
-  return { src: w.product.image, alt: w.product.image === card?.image ? card.imageAlt : w.product.name }
+  // The picture's own size, so the preview states it (og:image:width and height).
+  const size = imageSize(join(root, w.product.image))
+  return { src: w.product.image, ...(size ?? {}), alt: w.product.image === card?.image ? card.imageAlt : w.product.name }
 }
 
 // ---------- Pictures ----------
@@ -153,15 +158,16 @@ function shell(w, product, { title, description, path, body, entry, image, prelo
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>${esc(title)}</title>
-  <meta name="description" content="${esc(description)}">${entry?.robots ? `
-  <meta name="robots" content="${esc(entry.robots)}">` : ''}
+  <meta name="description" content="${esc(description)}">
+  <meta name="robots" content="${esc(entry?.robots ?? INDEX_ROBOTS)}">
   <link rel="canonical" href="https://vgraphics.gr${path}">
   ${iconLinks(product.page)}
   <meta property="og:title" content="${esc(title)}">
   <meta property="og:description" content="${esc(description)}">
   <meta property="og:url" content="https://vgraphics.gr${path}">
   <meta property="og:type" content="website">
-  <meta property="og:site_name" content="VGraphics">${image?.src ? `
+  <meta property="og:site_name" content="VGraphics">
+  <meta property="og:locale" content="${OG_LOCALE}">${image?.src ? `
   <meta property="og:image" content="https://vgraphics.gr${esc(image.src)}">${image.width ? `
   <meta property="og:image:width" content="${image.width}">
   <meta property="og:image:height" content="${image.height}">` : ''}
@@ -286,6 +292,20 @@ function worldMap(w) {
       </div>
     </section>`
 }
+// "Try it": one button after the steps, to where the entry can be tried.
+function ctaBlock(e) {
+  const c = e.cta
+  if (!c) return ''
+  return `<section class="w-panel w-cta" aria-labelledby="h-try">${h2('h-try', esc(c.title))}<p>${c.text}</p><a class="w-btn" href="${esc(c.href)}">${esc(c.label)}</a></section>`
+}
+// A before-and-after with its words above it (tools/lib/compare.mjs).
+function compareBlock(e) {
+  const c = e.compare
+  if (!c) return ''
+  return `<section class="w-block" aria-labelledby="h-compare">${h2('h-compare', esc(c.title))}${c.text ? `<p class="w-muted">${c.text}</p>` : ''}
+      ${compare(c, '(min-width: 1000px) 760px, 92vw')}
+    </section>`
+}
 // "In the game": a phone on small screens; on wide ones the browser game's wide player, the world's level-map art
 // edge to edge with the game in the middle. A wide figure (wider than tall) is shown as it is. Each entry has a band of
 // its own, cut from another row of its world's map (tools/make-wiki-map-art.py), so no band is shown twice (George,
@@ -323,8 +343,8 @@ function entryPage(w, product, e, i) {
     <p class="w-lede">${e.summary}</p>${facts.length ? `
     <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}${(e.quotes || []).map((q) => `
     ${quote(q)}`).join('')}
-    ${stepsBlock(w, e)}
-    ${whatBlock(w, e)}
+    ${stepsBlock(w, e)}${ctaBlock(e)}
+    ${whatBlock(w, e)}${compareBlock(e)}
     ${tipBlock(w, e)}
     ${notesOf(e).length ? `<section class="w-block" aria-labelledby="h-notes">${h2('h-notes', `Good to know`)}<ul class="w-ticks">${notesOf(e).map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
     ${e.worldMap && w.worlds ? worldMap(w) : ''}
@@ -362,10 +382,11 @@ for (const slug of products) {
   for (const d of readdirSync(dir, { withFileTypes: true })) {
     if (d.isDirectory() && d.name !== 'img' && existsSync(join(dir, d.name, 'index.html'))) rmSync(join(dir, d.name), { recursive: true })
   }
-  writeFileSync(join(dir, 'index.html'), indexPage(w, product))
+  // Every picture a page names carries its file's version, name.<hash>.ext (tools/lib/image-version.mjs, .htaccess).
+  writeFileSync(join(dir, 'index.html'), versionImages(indexPage(w, product), { file: `${slug}/wiki/index.html` }))
   w.entries.forEach((e, i) => {
     mkdirSync(join(dir, e.slug), { recursive: true })
-    writeFileSync(join(dir, e.slug, 'index.html'), entryPage(w, product, e, i))
+    writeFileSync(join(dir, e.slug, 'index.html'), versionImages(entryPage(w, product, e, i), { file: `${slug}/wiki/${e.slug}/index.html` }))
   })
   console.log(`${slug}: wiki index + ${w.entries.length} entries`)
 }

@@ -1,9 +1,9 @@
 {
-  "title": "Try Speedometer Live Wallpaper online: GPS speedometer demo",
-  "description": "Try the Speedometer live wallpaper in your browser: every car dashboard style live, with your real GPS speed, battery and clock. Then get it on Google Play.",
+  "title": "Try Speedometer Live Wallpaper online: GPS speed and HUD demo",
+  "description": "Try the Speedometer live wallpaper in your browser: every car dashboard style and the HUD mode heads-up display, with your real GPS speed. Get it on Google Play.",
   "social": {
     "title": "Try Speedometer Live Wallpaper online",
-    "description": "The real live wallpaper, running in your browser: every car dashboard style, with your real speed, battery and clock.",
+    "description": "The real live wallpaper, running in your browser: every car dashboard style and its HUD mode, with your real speed, battery and clock.",
     "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
     "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
   },
@@ -15,7 +15,7 @@
         "@id": "https://vgraphics.gr/speedometer-wallpaper/play/#app",
         "name": "Speedometer Live Wallpaper, online demo",
         "url": "https://vgraphics.gr/speedometer-wallpaper/play/",
-        "description": "The Speedometer live wallpaper running in the browser: every car dashboard style, its layouts and settings, with the browser's real clock, battery and GPS speed where it has them, and a demo drive for the rest.",
+        "description": "The Speedometer live wallpaper running in the browser: every car dashboard style, its layouts and settings, and HUD mode, the heads-up display that puts your speed on the windscreen, with the browser's real clock, battery and GPS speed where it has them, and a demo drive for the rest.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "applicationCategory": "DesktopEnhancementApplication",
         "operatingSystem": "Any, in a browser with WebAssembly",
@@ -52,6 +52,7 @@
           "measurementId": "G-Q9JL2TRH6Z",
           "layouts": "/speedometer-wallpaper/market/market.js",
           "market": "/speedometer-wallpaper/layouts/",
+          "help": "/hub/support/?p=speedometer",
           "appLinks": {
             "look": "https://vgraphics.gr/speedometer-wallpaper/look/?style={style}&layout={layout}",
             "layout": "https://vgraphics.gr/speedometer-wallpaper/l/?c={code}"
@@ -80,6 +81,17 @@
             "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
             "exit": "Exit",
             "flip": "Flip",
+            "demo": "Demo",
+            "invite": {
+              "title": "HUD mode, ready to start",
+              "text": "Lay your phone flat on the dashboard in front of the wheel, screen up, turn its brightness all the way up and read your speed on the windscreen. Set it up while parked.",
+              "gps": "Start with my real speed",
+              "demo": "Start the demo drive"
+            },
+            "end": {
+              "title": "Want it in your car?",
+              "text": "HUD mode is free in the app, with Horizon’s four HUD looks, and it can open by itself when your phone joins your car’s Bluetooth."
+            },
             "styles": ["horizon", "glass", "pulse", "vector"],
             "layouts": [
               { "id": "number", "name": "Number" },

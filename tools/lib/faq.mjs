@@ -5,12 +5,15 @@
 // assets/faq.js, which menu.js loads, animates the opening and closing and keeps one open at a time (George, 26 Oct
 // 2026: "FAQ must open/close with animation always. One open at a time.").
 // The questions come from the block's items in page.json, or from the file its src names beside page.json (faq.json):
-// [{ q, a }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them. Words about the
-// product's demo in an answer, <span data-demo>…</span>, are left out while the demo is private (partials.mjs demoText).
+// [{ q, a, compare? }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them. Words about
+// the product's demo in an answer, <span data-demo>…</span>, are left out while the demo is private (partials.mjs
+// demoText). compare: a before-and-after under the answer's words (tools/lib/compare.mjs; Speedometer's "Seeing
+// double?" in its answer about the double image), which the structured data leaves out.
 // A block with "schema": false shows its questions without the FAQPage data (an About page's: the landing page's
 // questions are the product's FAQPage, and the About page asks other ones).
 import { existsSync, readFileSync } from 'node:fs'
 import { join } from 'node:path'
+import { compare, compareProblems } from './compare.mjs'
 import { demoText, esc, ICONS } from './partials.mjs'
 import { root } from './product.mjs'
 
@@ -33,6 +36,7 @@ export function readFaq(b, dir, site) {
     if (typeof i?.q !== 'string' || !i.q.trim()) problems.push(`question ${n + 1} has no q`)
     else if (/<[a-z]/i.test(i.q)) problems.push(`question ${n + 1}'s q has markup: a question is plain words`)
     if (!paragraphs(i?.a).length || paragraphs(i.a).some((p) => typeof p !== 'string' || !p.trim())) problems.push(`question ${n + 1} has no answer (a)`)
+    if (i?.compare) for (const m of compareProblems(i.compare)) problems.push(`question ${n + 1}'s compare: ${m}`)
   })
   const said = (a) => (Array.isArray(a) ? a.map((p) => demoText(site, p)) : demoText(site, a))
   return { items: problems.length ? [] : items.map((i) => ({ ...i, a: said(i.a) })), problems }
@@ -42,7 +46,7 @@ const paragraphs = (a) => (Array.isArray(a) ? a : a == null ? [] : [a])
 
 export function faq(items) {
   return `<div class="faq">
-          ${items.map((i) => `<details class="faq-item"><summary>${esc(i.q)}${ICONS.chevron}</summary><div class="faq-a">${paragraphs(i.a).map((p) => `<p>${p}</p>`).join('')}</div></details>`).join('\n          ')}
+          ${items.map((i) => `<details class="faq-item"><summary>${esc(i.q)}${ICONS.chevron}</summary><div class="faq-a">${paragraphs(i.a).map((p) => `<p>${p}</p>`).join('')}${i.compare ? compare(i.compare, '(min-width: 900px) 760px, 88vw') : ''}</div></details>`).join('\n          ')}
         </div>`
 }
 

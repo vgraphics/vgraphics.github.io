@@ -1,9 +1,20 @@
 {
-  "title": "Speedometer Live Wallpaper: GPS Car Dashboard for Android",
-  "description": "Turn your Android home screen into a car dashboard: 19 live wallpaper styles with real gauges for GPS speed, battery watts, CPU, RAM, signal and Wi-Fi.",
+  "title": "HUD Speedometer Live Wallpaper: Car Dashboard for Android",
+  "description": "A car dashboard live wallpaper for Android, plus HUD mode: lay your phone on the dashboard and the windscreen reflects your GPS speed. 19 live styles.",
+  "seo": {
+    "keywords": [
+      "speedometer live wallpaper",
+      "hud speedometer",
+      "hud speedometer app",
+      "car hud speedometer",
+      "gps speedometer app",
+      "car dashboard live wallpaper",
+      "speedometer wallpaper for android"
+    ]
+  },
   "social": {
-    "title": "Speedometer Live Wallpaper",
-    "description": "Your phone as a car dashboard, in 19 live styles: real gauges for power, CPU, GPS speed, battery, RAM, signal and Wi-Fi.",
+    "title": "HUD Speedometer Live Wallpaper",
+    "description": "Your phone as a car dashboard in 19 live styles, and a HUD that puts your GPS speed on the windscreen.",
     "image": "/speedometer-wallpaper/img/card-1200x630.jpg",
     "imageAlt": "Speedometer Live Wallpaper: a phone on a car's dashboard at night, showing the Amber Night gauges at 87 km/h, with rain and city lights on the windscreen"
   },
@@ -13,9 +24,10 @@
       {
         "@type": "MobileApplication",
         "@id": "https://vgraphics.gr/speedometer-wallpaper/#app",
+        "alternateName": "HUD Speedometer Live Wallpaper",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Its HUD mode, free, turns the phone into a heads-up display for your car: laid flat on the dashboard, it reflects your GPS speed on the windscreen. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -118,8 +130,8 @@
     "googlePlay": "https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper"
   },
   "hero": {
-    "title": "Speedometer Live Wallpaper: a car dashboard for your Android phone",
-    "lead": "Your phone, as a <em>car dashboard.</em>",
+    "title": "HUD Speedometer Live Wallpaper: your Android phone as a car dashboard, and in HUD mode your speed reflected on the windscreen",
+    "lead": "Your phone, as a <em>car dashboard</em> and a <em>windscreen HUD.</em>",
     "align": "left",
     "badges": [
       "google-play",
@@ -747,8 +759,8 @@
     {
       "id": "hud",
       "eyebrow": "HUD mode",
-      "title": "Your speed on the windscreen",
-      "intro": "Lay your phone flat on the dashboard in front of the wheel, screen up, and HUD mode draws your speed flipped, so the windscreen reflects it the right way round. Full screen, full brightness, GPS speed, and nothing to touch while you drive: tap once for Exit and Flip. Four layouts (Number, Gauge arc, Fighter, Centre bar), each drawn by the four neon styles, with the clock, trip, heading and your own speed warning. It reads best at dusk, at night and on cloudy days. Each of the four styles has an Original | HUD switch on its page, in the app and online, to see its HUD look first. <a href=\"/speedometer-wallpaper/play/\">Try HUD mode in your browser</a>.",
+      "title": "A car HUD: your speed on the windscreen",
+      "intro": "HUD mode turns your phone into a heads-up display for your car. Lay it flat on the dashboard in front of the wheel, screen up, and it draws your speed flipped, so the windscreen reflects it the right way round. Full screen, full brightness, GPS speed, and nothing to touch while you drive: tap once for Exit and Flip. Four layouts (Number, Gauge arc, Fighter, Centre bar), each drawn by the four neon styles, with the clock, trip, heading and your own speed warning. It reads best at dusk, at night and on cloudy days. Seeing a double image? Stick a HUD film on the inside of the windscreen. Each of the four styles has an Original | HUD switch on its page, in the app and online, to see its HUD look first.",
       "blocks": [
         {
           "type": "cards",
@@ -820,8 +832,22 @@
               "text": "HUD mode is free, with Horizon’s HUD looks for everyone. Glass, Pulse and Vector draw it when you have the style, Speedometer Plus or a 24-hour trial."
             }
           ]
+        },
+        {
+          "type": "actions",
+          "items": [
+            {
+              "href": "/speedometer-wallpaper/play/#hud",
+              "label": "Try HUD mode in your browser",
+              "note": "Your real GPS speed, or a demo drive"
+            }
+          ]
         }
-      ]
+      ],
+      "more": {
+        "href": "/speedometer-wallpaper/wiki/hud-mode/",
+        "label": "HUD mode, step by step, in the wiki →"
+      }
     },
     {
       "id": "layouts",
@@ -1029,7 +1055,7 @@
       "id": "faq",
       "eyebrow": "Help",
       "title": "Questions and answers",
-      "intro": "Quick answers about styles, battery, GPS speed and your data. The <a href=\"/speedometer-wallpaper/wiki/\">wiki</a> explains every gauge.",
+      "intro": "Quick answers about HUD mode, styles, battery, GPS speed and your data. The <a href=\"/speedometer-wallpaper/wiki/\">wiki</a> explains every gauge.",
       "blocks": [
         {
           "type": "faq",

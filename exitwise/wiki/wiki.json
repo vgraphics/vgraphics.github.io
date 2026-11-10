@@ -61,7 +61,7 @@
       "firstLevel": 41,
       "piece": "/exitwise/wiki/img/pieces/colour-gate.webp",
       "summary": "Lets only its own colour through, then opens for good.",
-      "what": ["A gate is one cell in blue or yellow (purple from level 101), drawn as a coloured frame with a symbol: a circle, a triangle or a diamond, so you can match it without relying on colour.","An arrow of the gate's colour passes through and the gate opens behind it for good; after that every arrow gets through. Arrows of other colours, and bombs, bump into a closed gate."],
+      "what": ["A colour gate (or color gate) is one cell in blue or yellow (purple from level 101), drawn as a coloured frame with a symbol: a circle, a triangle or a diamond, so you can match it without relying on colour.","An arrow of the gate's colour passes through and the gate opens behind it for good; after that every arrow gets through. Arrows of other colours, and bombs, bump into a closed gate."],
       "notes": ["Gates first appear on level 41, with one gate and a free arrow of its colour heading through it.","Later obstacles open gates too: a paint tile can give an arrow the gate's colour, and a key of its colour unlocks it at once (on a board with a key, its gates are drawn as locked doors).","In-game tip: \"Only a gate's own colour gets through.\""],
       "steps": [{"text":"A closed gate stops every arrow of another colour, and every bomb."},{"text":"Send the arrow with the gate’s colour and symbol through first."},{"text":"The gate opens behind it for good: now every arrow gets through."}],
       "board": {"cols":5,"rows":6,"gates":[{"cell":[2,2],"color":"blue"},{"cell":[4,4],"color":"yellow"}],"arrows":[{"id":"blue","cells":[[0,2],[1,2]],"dir":"R","color":"blue"},{"id":"yellow","cells":[[2,5],[2,4],[2,3]],"dir":"U","color":"yellow"},{"id":"yellow2","cells":[[0,4],[1,4]],"dir":"R","color":"yellow"},{"id":"purple","cells":[[4,0],[4,1]],"dir":"D","color":"purple"},{"id":"green","cells":[[0,0],[1,0]],"dir":"R","color":"green"}],"script":[{"hl":"yellow","say":"Yellow’s path runs into the blue gate: closed to it."},{"tap":"blue","say":"Blue passes its own gate, and the gate opens for good."},{"tap":"yellow","say":"Now every arrow gets through."}]},
@@ -232,7 +232,7 @@
       "name": "Remove arrow",
       "firstLevel": 45,
       "piece": "/exitwise/wiki/img/pieces/remove-arrow.webp",
-      "summary": "Removes any arrow you can see, even a blocked one, without costing a heart.",
+      "summary": "Removes the arrow you pick, any arrow you can see, even a blocked one, without costing a heart.",
       "what": ["Tap Remove arrow, then tap any arrow you can see: it disappears, even if it was blocked, and you don't lose a heart.","Whatever that arrow would have done on its way out still happens, all along its path, even past whatever blocked it: a bomb hits the first rock on its path, gates of its colour open (the colour it has there, after any paint tile), switches it passes are pressed, a two-colour gate uses up its pip, and every ice block and shutter counts down by one."],
       "how": ["Save it for the one arrow that blocks everything else.","A pack of 3 costs 250 coins."],
       "notes": ["It never takes an arrow hidden under a shutter, even partly hidden, because you can't see it. Tapping the shutter only rattles it and tells you hidden arrows can't be removed: nothing is used, and Remove arrow stays ready for an arrow you can see.","A run that uses a powerup doesn't go on the leaderboard.","Each powerup you use costs 100 points of that level's score."],
@@ -269,9 +269,9 @@
       "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><path d='M24 43.2C10.56 33.6.96 24 2.4 14.4 4.32 4.8 18.24 1.92 24 11.52 29.76 1.92 43.68 4.8 45.6 14.4 47.04 24 37.44 33.6 24 43.2z' fill='#FF5A6E'/></svg>",
       "summary": "You have 3. Tapping a blocked arrow costs one.",
-      "what": ["You start every level with 3 hearts. Tapping an arrow that's blocked costs a heart. When you run out, the attempt is over."],
-      "how": ["When you're out of hearts you can continue once with 100 coins for 3 hearts, or, on Android, watch a video for full hearts. Each continue works once per attempt.","Or tap Retry to start the level again."],
-      "notes": ["A run with a continue doesn't go on the leaderboard.","Each heart lost costs 25 points of that level's score, and each continue 200."],
+      "what": ["You start every level with 3 hearts. Tapping an arrow that's blocked costs a heart. When you run out, the attempt is over.","Tapping a free arrow never costs anything. Because taking an arrow off the board never blocks another, the order you clear a board in can't trap you: every heart you lose starts with a tap on an arrow that wasn't free yet.","Hearts also decide what a win is worth. Each heart lost takes 25 points off that level's score, and a win without losing one is a perfect clear: it pays 5 extra coins and counts on the Perfect board."],
+      "how": ["Before you tap, follow the arrow's line to the edge of the board. If anything sits in the way, another arrow, a rock or a gate of another colour, the arrow is blocked.","When you're out of hearts you can continue once with 100 coins for 3 hearts, or, on Android, watch a video for full hearts. Each continue works once per attempt.","Or tap Retry to start the level again with all 3 hearts."],
+      "notes": ["A run with a continue doesn't go on the leaderboard.","Each continue, with coins or a video, takes 200 points off that level's score."],
       "related": ["coins","remove-arrow","leaderboards"]
     },
     {
@@ -282,7 +282,7 @@
       "piece": "/exitwise/wiki/img/pieces/coins.webp",
       "summary": "Earned every level; spent on hints, continues and powerups.",
       "what": ["You start with 100 coins. Every level pays 10, a hard level 30, and a perfect clear (no mistakes) 5 more. The daily challenge pays 20, plus 5 for perfect, and your first clear of another player's custom map pays 10 to 30."],
-      "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.","Coin packs are also for sale in the app's shop."],
+      "how": ["Spend them on hints (30), a continue with 3 hearts (100), and powerup packs in the shop.","Coin packs are also for sale in the app's shop, each labelled with how many continues its coins buy. Your first coin pack gives double coins.","Once you have won level 8, the shop also has a one-time starter pack: 1,000 coins and 2 of each powerup."],
       "figure": {"src":"/exitwise/img/7-win.webp","alt":"The Level complete card: time 00:08, 2 hearts lost, 859 points and +10 coins","width":720,"height":1280,"caption":"Every win pays coins."},
       "related": ["hints","hearts","hard-levels","daily-challenge"]
     },
@@ -293,9 +293,8 @@
       "firstLevel": 1,
       "icon": "<svg viewBox='0 0 48 48'><g fill='#F2B705'><circle cx='24' cy='19.2' r='13.44'/><path d='M17.28 28.8h13.44l-.96 8.64H18.24z'/></g><path d='M20.16 43.2h7.68' stroke='#F2B705' stroke-width='3.84' stroke-linecap='round'/></svg>",
       "summary": "Lights up an arrow that can leave right now.",
-      "what": ["A hint highlights an arrow whose path is clear, never one hidden under a shutter. You get 3 free hints; after that a hint costs 30 coins, or, on Android, a short video."],
-      "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues."],
-      "notes": ["Each hint you use, free or paid, costs 100 points of that level's score."],
+      "what": ["A hint picks out one arrow whose path off the board is clear right now and lights it up. Tap it and it slides away like any free arrow. A hint never points at an arrow hidden under a shutter, and on a guardian level it skips any arrow the guardian's ward is holding back, looking again after every hit, since a hit can move the ward.","Every player starts with 3 free hints. They're a stock you carry from level to level, not 3 per level. Once they're used, a hint costs 30 coins, or, on Android, a short video.","A hint can't lead you astray. In Exitwise, taking an arrow off the board never blocks another one: it can only open paths. So there is no wrong order to clear a board in, and any free arrow is a safe move. The hard part is spotting one, and that's all a hint does. It doesn't solve the level for you; it shows you one way forward."],
+      "how": ["Hints are allowed on leaderboard runs, unlike powerups and continues, but each one you use, free or paid, takes 100 points off that level's score.","When you're not sure, a hint is safer than a guess: a blocked tap costs a heart, and losing all 3 ends the attempt. For the score, though, a hint costs more: 100 points, against 25 for a heart."],
       "related": ["auto-play","coins","leaderboards"]
     },
     {
