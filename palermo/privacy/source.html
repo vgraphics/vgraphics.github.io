@@ -36,8 +36,9 @@
       for a year.</li>
     <li>The TV holds no account and no information about anyone. It can only show the room it was opened for.</li>
     <li>We use Google Analytics, with cookies only if you allow them (and never for players under 16), and our own
-      error reports. Google Analytics never receives your name, your VHub account or your room's code.</li>
-    <li>The free game shows ads between games, never during one.</li>
+      error reports; the Android app uses Google Analytics for Firebase and Firebase Crashlytics the same way. Google
+      Analytics never receives your name, your VHub account or your room's code.</li>
+    <li>The free game shows ads between games, never during one, and never on the big screen.</li>
     <li>Deleting your VHub account deletes your data in this game too.</li>
   </ul>
 
@@ -186,19 +187,34 @@
           30 days.
         </p>
         <p>
-          The Android app, when it comes, will use Firebase Analytics and Firebase Crashlytics instead, and this policy
-          will say so before it does.
+          The Android app (on phones and on Android TV) uses Google Analytics for Firebase and Firebase Crashlytics instead,
+          services of Google Ireland Limited, in the game's own Firebase project. Analytics tells us how the app is used and
+          how games go, so we can improve them: which screens open, rooms and games started and finished, how many
+          players a room has, which roles are dealt, where phones lose their connection, and which ads were shown or why
+          none was. It follows the same rules as on the website: a phone of 16 and over is asked once, and you can change
+          your answer at any time with "Help make the game better" in the app's Settings. If you choose No thanks, if you
+          are under 16 or haven't given your age yet, and always on Android TV, Analytics keeps no identifier for the app
+          on your device, and Google receives only signals that can't recognise it. Analytics never receives your name,
+          your VHub account or your room's code, and its data is kept as long as the website's (above).
+        </p>
+        <p>
+          Crashlytics tells us when the app crashes or stops responding, so we can fix it. Each report holds what went
+          wrong and where in the code, the device's model and Android version, the app's version, the last steps the app
+          noted before the crash (screens and game events, never names or messages), the room it happened in (its internal
+          identifier, never its code) and the step of the game, with a random identifier for the app on that device. It is
+          sent whatever your analytics answer, since we can't keep the app working without it. Crash reports are kept for
+          90 days, then deleted. To stop both, uninstall the app; to have your reports deleted sooner, email us.
         </p>
       </section>
 
       <section id="ads">
         <h2>Advertising</h2>
         <p>
-          To keep the game free, it shows ads only between games: a short video on the TV when the host chooses Play
-          again (in the Android app, on the host's phone when it is the table, with no TV), and a small banner on the
-          phones in the room's lobby and on the end screen. Never during a game, and never before a room's first game.
-          The video on the TV is never personalized, and the TV never asks for consent. The ads are delivered by these
-          partners:
+          To keep the game free, it shows ads only between games: a small banner on the phones in the room's lobby and on
+          the end screen, and, in the Android app, one short video on every phone after each game, once the big screen
+          has shown who won. Never during a game. The big screen (a TV, a computer, a laptop or the Android TV app) never
+          shows an ad and never asks for consent: while the phones show their video, it counts down to the next game. A
+          phone playing in a browser shows no video. The ads are delivered by these partners:
         </p>
         <ul>
           <li><strong>On our website (vgraphics.gr):</strong> Google AdSense and Google's ad placements for web games.
