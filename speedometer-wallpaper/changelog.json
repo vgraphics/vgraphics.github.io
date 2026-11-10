@@ -1,6 +1,20 @@
 {
   "entries": [
     {
+      "version": "2.0.20",
+      "date": "2026-11-10",
+      "platforms": [
+        "Android"
+      ],
+      "title": "Map works indoors without GPS",
+      "items": [
+        "The map now shows your location indoors, drawing from an approximate position instead of getting stuck on \"Waiting for GPS\".",
+        "Redeem a Plus promo code in the Play Store and Plus unlocks as soon as you come back to the app.",
+        "A layout you save in the builder now comes back already selected on its style's page, and you can set it as your wallpaper straight from there."
+      ],
+      "commit": "3ff8ab32"
+    },
+    {
       "version": "2.0.18",
       "date": "2026-11-10",
       "platforms": [
