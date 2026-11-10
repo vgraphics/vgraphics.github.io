@@ -3,8 +3,12 @@
   <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, height=device-height, initial-scale=1.0, user-scalable=no, shrink-to-fit=yes">
-    <title>Play Exitwise online: free arrow puzzle in your browser</title>
-    <meta name="description" content="Play Exitwise, the arrow puzzle by VGraphics, in your browser. Sign in with Google to keep the same progress as on your phone.">
+    <!-- The words people search for (the site's tools/seo-keywords.md: "arrow puzzle game", with "play online" next to it
+         on this page, the only one that has the game itself), in the lengths the site's check-site holds every page to
+         (tools/lib/seo.mjs: a title of 25 to 65 characters, a description of 100 to 165). -->
+    <title>Exitwise: free arrow puzzle game to play online</title>
+    <meta name="description" content="Play online for free: Exitwise is the arrow puzzle game where you tap each arrow off the board in the right order. 600 levels in 17 worlds, nothing to install.">
+    <meta name="robots" content="max-image-preview:large">
     <link rel="canonical" href="https://vgraphics.gr/exitwise/play/">
     <!-- The site's own favicon (the round tower logo) and touch icon (the app icon), as every Exitwise page has them. -->
     <link rel="icon" href="/exitwise/assets/icon-32.png">
@@ -23,14 +27,20 @@
     <link rel="preload" as="image" type="image/webp" fetchpriority="high"
           media="(min-aspect-ratio: 501/1000) and (max-aspect-ratio: 1777/1000)"
           imagesrcset="art/key-art-1280.webp 1280w, art/key-art-1920.webp 1920w, art/key-art-2560.webp 2560w" imagesizes="177.78vh">
-    <!-- The preview chat apps and social sites show for a link. -->
+    <!-- The preview chat apps and social sites show for a link: the 1200 x 630 card every Exitwise page shares (George's
+         final key art, the site's exitwise/img/card-1200x630.jpg), with the same description of it. -->
     <meta property="og:type" content="website">
     <meta property="og:site_name" content="VGraphics">
-    <meta property="og:title" content="Play Exitwise">
+    <meta property="og:locale" content="en_US">
+    <meta property="og:title" content="Play Exitwise online, the free arrow puzzle game">
     <meta property="og:description" content="Play the Exitwise arrow puzzle in your browser, with the same progress as on your phone.">
     <meta property="og:url" content="https://vgraphics.gr/exitwise/play/">
-    <meta property="og:image" content="https://vgraphics.gr/exitwise/img/feature-1024x500.png">
+    <meta property="og:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
+    <meta property="og:image:width" content="1200">
+    <meta property="og:image:height" content="630">
+    <meta property="og:image:alt" content="Exitwise: a tower of colorful worlds, from a green meadow and candy land up through desert, a volcano and ice to purple crystals and a glowing door">
     <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:image" content="https://vgraphics.gr/exitwise/img/card-1200x630.jpg">
     <!-- What search engines read of the page now that it is the game alone (the master, 29 Oct 2026, from the AdSense
          review): the game itself, with its About page (vgraphics.gr/exitwise/about/, where the words about it are) and
          its store listing as the same game elsewhere. -->
@@ -42,13 +52,26 @@
         "description": "Exitwise, the free arrow puzzle, played in your browser: tap each arrow off the board in the right order, through 600 levels in 17 worlds, with the same progress as on Android once you sign in with Google.",
         "url": "https://vgraphics.gr/exitwise/play/",
         "sameAs": ["https://vgraphics.gr/exitwise/about/", "https://play.google.com/store/apps/details?id=com.vgraphics.exitwise"],
-        "image": "https://vgraphics.gr/exitwise/img/feature-1024x500.png",
+        "image": "https://vgraphics.gr/exitwise/img/card-1200x630.jpg",
         "genre": ["Puzzle", "Logic"],
         "gamePlatform": ["Web browser", "Android"],
         "playMode": ["SinglePlayer", "MultiPlayer"],
         "inLanguage": "en",
         "offers": { "@type": "Offer", "price": "0", "priceCurrency": "EUR" },
         "publisher": { "@type": "Organization", "@id": "https://vgraphics.gr/#organization", "name": "VGraphics", "url": "https://vgraphics.gr/" }
+      }
+    </script>
+    <!-- Where the page sits on the site, the same trail as every other Exitwise page (VGraphics > Games > Exitwise). -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "BreadcrumbList",
+        "itemListElement": [
+          { "@type": "ListItem", "position": 1, "name": "VGraphics", "item": "https://vgraphics.gr/" },
+          { "@type": "ListItem", "position": 2, "name": "Games", "item": "https://vgraphics.gr/games/" },
+          { "@type": "ListItem", "position": 3, "name": "Exitwise", "item": "https://vgraphics.gr/exitwise/" },
+          { "@type": "ListItem", "position": 4, "name": "Play online", "item": "https://vgraphics.gr/exitwise/play/" }
+        ]
       }
     </script>
     <!-- The vgraphics.gr play page (BuildScript.WebGLPortfolio). Google Analytics only runs once the player allows it
@@ -383,7 +406,7 @@
     </script>
   </head>
   <body>
-    <h1 class="sr-only">Exitwise: Arrow Escape Puzzle</h1>
+    <h1 class="sr-only">Exitwise: Arrow Puzzle Game</h1>
     <!-- The first screen: the game, its loader and, under it, the banner strip. -->
     <div id="first">
     <canvas id="unity-canvas" tabindex="-1"></canvas>
@@ -850,7 +873,7 @@
         streamingAssetsUrl: "StreamingAssets",
         companyName: "VGraphics",
         productName: "Exitwise",
-        productVersion: "1.0.289c5e0a",
+        productVersion: "1.0.91327a71",
       }, function (progress) {
         // Unity reports the download up to 0.9; the rest is the game starting.
         bar.show(Math.min(1, progress / 0.9));

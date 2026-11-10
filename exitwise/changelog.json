@@ -1,6 +1,21 @@
 {
   "entries": [
     {
+      "version": "1.0.91327a71",
+      "date": "2026-11-10",
+      "platforms": [
+        "Web"
+      ],
+      "title": "New scoring counts your arrows",
+      "items": [
+        "Winning a level now scores you for every arrow and your time, while hints, continues and lost hearts cost points — and the old 1000-point cap is gone.",
+        "The game has a new name: Exitwise: Arrow Puzzle Game.",
+        "Our ads can now come from Google AdMob as well, now listed among the ad networks in the updated privacy policy.",
+        "Behind the scenes, Android and iPhone now report which level you reach correctly, so we can keep improving the game."
+      ],
+      "commit": "91327a71"
+    },
+    {
       "version": "1.0.40",
       "date": "2026-11-10",
       "platforms": [
