@@ -25,7 +25,6 @@
   { "page":"/hub/privacy.html", "check":"robots-preview", "owner":"VHub coordinator" },
   { "page":"/hub/support/", "check":"og-locale", "owner":"VHub coordinator" },
   { "page":"/hub/support/", "check":"robots-preview", "owner":"VHub coordinator" },
-  { "page":"/palermo/", "check":"keywords", "owner":"Palermo Noir coordinator" },
   { "page":"/speedometer-wallpaper/about/", "check":"description-length", "owner":"Speedometer coordinator" },
   { "page":"/speedometer-wallpaper/", "check":"keywords", "owner":"Speedometer coordinator" },
   { "page":"/speedometer-wallpaper/play/", "check":"heading-order", "owner":"Speedometer coordinator" },
