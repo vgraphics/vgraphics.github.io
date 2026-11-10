@@ -16,7 +16,7 @@
   <div class="head">
     <p class="kicker">Palermo Noir</p>
     <h1>Privacy policy</h1>
-    <span class="updated">Last updated: 31 October 2026</span>
+    <span class="updated">Last updated: 10 November 2026</span>
     <p class="intro">
       This policy explains what happens to your information when you play <strong>Palermo Noir</strong> (the "game"),
       a party game for one room: each player uses their own phone, and a TV or another big screen shows the game. The
@@ -35,8 +35,8 @@
     <li>Rooms are deleted automatically a day after they close. A summary of each game with no players in it is kept
       for a year.</li>
     <li>The TV holds no account and no information about anyone. It can only show the room it was opened for.</li>
-    <li>We use Google Analytics, only if you allow it (and never for players under 16), and our own error reports.
-      Neither receives your name or your role.</li>
+    <li>We use Google Analytics, with cookies only if you allow them (and never for players under 16), and our own
+      error reports. Google Analytics never receives your name, your VHub account or your room's code.</li>
     <li>The free game shows ads between games, never during one.</li>
     <li>Deleting your VHub account deletes your data in this game too.</li>
   </ul>
@@ -88,8 +88,8 @@
         <ul>
           <li><strong>Under 13:</strong> the phone can't join a room. The answer is kept on the phone for 24 hours, so
             another year can't simply be tried at once, and then forgotten.</li>
-          <li><strong>13 to 15:</strong> we never ask for consent to analytics or personalised ads. Analytics stays in
-            its consent-denied mode and ads are never personalised (see below).</li>
+          <li><strong>13 to 15:</strong> we never ask for consent to analytics or personalised ads. Analytics works
+            without cookies and ads are never personalised (see below).</li>
           <li><strong>16 and over:</strong> the game asks once whether you allow analytics.</li>
         </ul>
         <p>The TV doesn't ask: no person signs in on it.</p>
@@ -155,27 +155,35 @@
           and which roles you've had (so the game knows when a role is new to you and which roles to unlock), the
           Suspect, Unsure and Trust pins you put on players in the Notebook, kept only for the room and game you're in,
           and your VHub session, which every VGraphics game on vgraphics.gr shares. Your finished games, roles and pins
-          never leave your device. Clearing the site's data in your browser deletes them.
+          never leave your device. If you allow analytics, Google Analytics also sets its own cookies (see below).
+          Clearing the site's data in your browser deletes them.
         </p>
       </section>
 
       <section id="analytics">
         <h2>Analytics and error reports</h2>
         <p>
-          We use Google Analytics (through Google Firebase) to see how the game is played: for example how many players a
-          room has, how long a game lasts, which side wins with which setup, and where phones lose their connection. It
-          receives no names, no VHub identifiers and no roles. If you are 16 or over and allow it, it uses an identifier
-          stored in your browser. If you say no, if you are under 16, and always on the TV, it runs in its consent-denied
-          mode: it stores nothing on your device and sends only basic signals without an identifier. You can change your
-          answer by clearing the site's data for vgraphics.gr in your browser: the game then asks again. See
-          <a href="https://firebase.google.com/support/privacy">Privacy and Security in Firebase</a>.
+          When you play Palermo Noir at vgraphics.gr (the play, join, TV and demo pages), we use Google Analytics 4, a
+          service of Google Ireland Limited, to count visits, see which screens are used and how games go (for example
+          how many players a room has, which roles are dealt and where phones lose their connection), and find errors
+          that stop the game. On a phone or a computer we ask first. If you are 16 or older and choose Allow, Google
+          Analytics may set its cookies to tell your browser's visits apart. If you choose No thanks, or you are under 16,
+          no analytics cookies are set, and Google receives only cookieless signals that can't recognise your browser. On
+          a TV and in the guided demo, analytics always works without cookies. You can change your answer at any time
+          with "Help make the game better" in the game's Settings. We never send room codes, TV keys, names, chat or your
+          VHub account to Google Analytics.
         </p>
         <p>
-          When something goes wrong in the game, it sends us an error report through our own server to Google Cloud
-          Logging, so we can fix it: the error and where in the code it happened, the game's version, the room's internal
-          identifier (not its code), the step of the game, your browser and its version, the kind of device (phone,
-          tablet, TV or computer) and the page's address without its query. Reports never contain names, roles or
-          anything secret, and they are kept for 30 days.
+          Google Analytics keeps the detailed event data for 2 months, and the data linked to a browser's cookies for 14
+          months after that browser's last visit. After that, only totals that can't be traced to anyone remain. See
+          Google's <a href="https://support.google.com/analytics/answer/6004245">Safeguarding your data</a>.
+        </p>
+        <p>
+          When something goes wrong, the game also sends an error report to our own server (Google Cloud), which keeps it
+          in Google Cloud Logging so we can fix it: the error's text without links or codes and where in the code it
+          happened, the page, the type of device (phone, tablet, TV or computer) and browser, the game's version, the
+          room it happened in (its internal identifier, never its code) and the step of the game. Reports are kept for
+          30 days.
         </p>
         <p>
           The Android app, when it comes, will use Firebase Analytics and Firebase Crashlytics instead, and this policy
@@ -187,30 +195,44 @@
         <h2>Advertising</h2>
         <p>
           To keep the game free, it shows ads only between games: a short video on the TV when the host chooses Play
-          again, and a small banner on the phones in the room's lobby and on the end screen. Never during a game, and
-          never before a room's first game. The video on the TV is never personalized, and the TV never asks for consent.
-          The ads are delivered by Google AdSense and Google's ad placements for web games.
-          Third-party vendors, including Google, use cookies to serve ads based on your earlier visits to our website or
-          other websites. Google's use of advertising cookies lets it and its partners serve ads based on your visits to
-          our website and/or other sites on the internet. You can opt out of personalized advertising in
-          <a href="https://www.google.com/settings/ads">Google's Ads Settings</a>. See
-          <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or apps
-          that use its services</a>.
+          again (in the Android app, on the host's phone when it is the table, with no TV), and a small banner on the
+          phones in the room's lobby and on the end screen. Never during a game, and never before a room's first game.
+          The video on the TV is never personalized, and the TV never asks for consent. The ads are delivered by these
+          partners:
         </p>
+        <ul>
+          <li><strong>On our website (vgraphics.gr):</strong> Google AdSense and Google's ad placements for web games.
+            Third-party vendors, including Google, use cookies to serve ads based on your earlier visits to our website or
+            other websites. Google's use of advertising cookies lets it and its partners serve ads based on your visits to
+            our website and/or other sites on the internet. You can opt out of personalized advertising in
+            <a href="https://www.google.com/settings/ads">Google's Ads Settings</a>. See
+            <a href="https://policies.google.com/technologies/partner-sites">How Google uses information from sites or
+            apps that use its services</a>.</li>
+          <li><strong>In the Android app:</strong> Google AdMob (Google Ireland Limited), which offers each ad to Google's
+            own advertisers and to two partners, ironSource Ads and Unity Ads (both Unity Technologies), and shows the
+            best offer. See the <a href="https://policies.google.com/privacy">Google Privacy Policy</a> and the
+            <a href="https://unity.com/legal/game-player-and-app-user-privacy-policy">Unity Game Player and App User
+            Privacy Policy</a>, which covers ironSource Ads too. The Android app sets no cookies.</li>
+        </ul>
         <p>
-          Google may automatically collect information such as your IP address (and the rough location it reveals), your
-          browser and device, your language, and how you interact with ads. It uses it to show ads, limit how often you
-          see the same ad, measure results, prevent fraud and, where you allow it, to personalize ads. We don't receive
-          this information about you personally.
+          These partners may automatically collect information such as your IP address (and the rough location it
+          reveals), your browser or phone and its settings, your language, and how you interact with ads. In the Android
+          app they also receive your phone's advertising ID, and ironSource Ads and Unity Ads may learn which other apps
+          are installed on it. They use this to show ads, limit how often you see the same ad, measure results, prevent
+          fraud and, where you allow it, to personalize ads. We don't receive this information about you personally.
         </p>
         <p>
           Where the law requires it (for example in the European Economic Area, the UK and Switzerland), Google's consent
           message asks for your consent before your data is used for personalized ads (see the
           <a href="https://policies.google.com/privacy">Google Privacy Policy</a>), and you can change your choice at any
           time with Ad choices in your phone's menu (Settings). Players aged 13 to 15 are never asked and only ever get
-          ads that aren't personalized. If you live in a US state with a consumer privacy law (such as California,
+          ads that aren't personalized; in the Android app, their phones show no ads at all, and neither does a phone
+          that hasn't given its age yet. If you live in a US state with a consumer privacy law (such as California,
           Colorado, Connecticut, Texas or Virginia), you can opt out of the sale or sharing of your personal information
-          for ads with the "Do Not Sell or Share My Personal Information" link that Google's consent tool shows.
+          for ads with the "Do Not Sell or Share My Personal Information" link that Google's consent tool shows (in the
+          Android app, under Settings → Ad choices). We pass your choices on to ironSource Ads and Unity Ads before they
+          offer an ad. You can also reset your advertising ID or turn off ad personalization at any time in your phone's
+          settings.
         </p>
       </section>
 
