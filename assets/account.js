@@ -495,7 +495,7 @@ function row(spec, index, store) {
   }
   const options = spec.options || [];
   const sizes = spec.draw === "textSize";
-  const cards = !sizes && isLongChoice(options.map((o) => text(o.label)));
+  const cards = !sizes && isLongChoice(options.map((o) => text(o.label)), text(spec.label));
   const group = el("div", { class: cards ? "vm-seg vm-cards" : `vm-seg${sizes ? " vm-seg-sizes" : ""}`, role: "radiogroup", "aria-labelledby": `${id}-name` });
   const buttons = options.map((o, i) =>
     el(

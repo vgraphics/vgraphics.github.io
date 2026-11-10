@@ -4,23 +4,27 @@
 import { test } from 'node:test'
 import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
-import { SEG_LIMIT_PX, isLongChoice, segmentedWidth } from '../../assets/choice-layout.js'
+import { ROW_GAP_PX, ROW_PX, isLongChoice, nameWidth, segmentedWidth } from '../../assets/choice-layout.js'
 
-test('short choices stay segmented', () => {
-  assert.equal(isLongChoice(['Off', 'On']), false)
-  assert.equal(isLongChoice(['Low', 'Medium', 'High']), false)
-  assert.equal(isLongChoice(['Auto', 'Light', 'Dark']), false)
-})
+// The real catalog's choices today (VHub catalog/palermo.json and speedometer.json), labels and names copied in.
+const catalog = [
+  ['Palermo Noir', 'Language', ['English', 'Greek'], false],
+  ['Palermo Noir', 'Motion', ['As the device', 'Calmer'], false],
+  ['Palermo Noir', 'Home look', ['The Promenade', 'The Fountain', 'The Rain', 'The Lamplighter'], true],
+  ['Speedometer', 'Speed', ['km/h', 'mph'], false],
+  ['Speedometer', 'Clock', ["Phone's", '12 h', '24 h'], false],
+]
+for (const [product, name, labels, cards] of catalog) {
+  test(`${product} "${name}" is ${cards ? 'cards' : 'segmented'}`, () => {
+    assert.equal(isLongChoice(labels, name), cards)
+  })
+}
 
-test("Palermo Noir's home look (4 long labels, about 450px) becomes cards", () => {
-  const labels = ['Classic noir', 'Storybook night', 'Gilded parlour', 'Rain-soaked street']
-  assert.ok(segmentedWidth(labels) > 400)
-  assert.equal(isLongChoice(labels), true)
-})
-
-test('the limit sits between a 3-word choice and a 4-label one; no options is never long', () => {
-  assert.ok(segmentedWidth(['Low', 'Medium', 'High']) < SEG_LIMIT_PX)
-  assert.equal(isLongChoice([]), false)
+test('the name counts: a long name pushes the same labels to cards, no options is never long', () => {
+  assert.equal(isLongChoice(['As the device', 'Calmer'], 'Motion'), false)
+  assert.equal(isLongChoice(['As the device', 'Calmer'], 'Reduce animation and movement'), true)
+  assert.ok(nameWidth('Motion') + ROW_GAP_PX + segmentedWidth(['As the device', 'Calmer']) <= ROW_PX)
+  assert.equal(isLongChoice([], 'Anything'), false)
 })
 
 test('account.js keeps the radio group and the stacked layout for long choices', () => {

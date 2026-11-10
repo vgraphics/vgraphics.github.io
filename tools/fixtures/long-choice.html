@@ -14,11 +14,12 @@
 import { isLongChoice } from "/assets/choice-layout.js";
 const specs = [
   { label: "Quality", options: ["Low", "Medium", "High"], value: 1 },
-  { label: "Home look", options: ["Classic noir", "Storybook night", "Gilded parlour", "Rain-soaked street"], value: 2 },
+  { label: "Motion", options: ["As the device", "Calmer"], value: 0 },
+  { label: "Home look", options: ["The Promenade", "The Fountain", "The Rain", "The Lamplighter"], value: 2 },
 ];
 const rows = document.getElementById("rows");
 specs.forEach((s, n) => {
-  const cards = isLongChoice(s.options);
+  const cards = isLongChoice(s.options, s.label);
   const row = document.createElement("div");
   row.className = cards ? "vm-row vm-row-stack" : "vm-row";
   row.innerHTML = `<span class="vm-row-words"><span class="vm-row-name" id="n${n}">${s.label}</span></span>`;
