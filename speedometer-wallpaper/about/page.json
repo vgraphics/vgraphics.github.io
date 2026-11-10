@@ -1,6 +1,6 @@
 {
   "title": "About Speedometer Live Wallpaper: car dashboard and HUD",
-  "description": "What the Speedometer live wallpaper does: a car dashboard on your Android home screen, a HUD on your windscreen, GPS speed, battery and CPU gauges. How to try it.",
+  "description": "What the Speedometer live wallpaper does: a car dashboard on your Android home screen, a car HUD (heads-up display) on your windscreen, GPS speed, battery and CPU gauges. How to try it.",
   "social": {
     "title": "About Speedometer Live Wallpaper",
     "description": "A working car dashboard behind your Android icons: what it reads, what's free, how to try it in your browser and a few questions answered.",
@@ -59,7 +59,7 @@
             { "title": "Gauges all around it", "text": "Battery level and temperature, memory in use, mobile signal, Wi-Fi and its link speed, a clock and a date, and warning lights for Bluetooth, charging and heat." },
             { "title": "Layouts of your own", "text": "Drag and resize any style's gauges and keep the arrangement, or open the layout market and use one that another driver built." },
             { "title": "Free to start", "text": "Classic, Steel and Graphite cost nothing. Each other style is a one-time purchase, and it follows your Google account to a new phone." },
-            { "title": "HUD mode", "text": "With the phone flat on the dashboard, the windscreen shows your speed in front of the road: four HUD layouts in the four neon styles, flipped for the glass, with the clock, trip, heading and a speed warning you set. Horizon's HUD looks are free, each of the four switches between Original and HUD on its page, and the try page runs HUD mode too, with your real GPS speed." }
+            { "title": "HUD mode", "text": "With the phone flat on the dashboard, the windscreen shows your speed in front of the road: four HUD layouts in the four neon styles, flipped for the glass, with the clock, trip, heading and a speed warning you set. Horizon's HUD looks are free, each of the four switches between Original and HUD on its page, and <a href=\"/speedometer-wallpaper/play/#hud\">the try page runs HUD mode too</a>, with your real GPS speed. <a href=\"/speedometer-wallpaper/wiki/hud-mode/\">HUD mode, step by step</a>." }
           ]
         }
       ]
@@ -76,10 +76,11 @@
             "Wait a few seconds while the engine loads: it is the app's own drawing code, running in your browser instead of on a phone.",
             "Tap the big gauge to cycle through power, CPU clock and speed, exactly as you would on your home screen.",
             "Flip through the styles in the panel, try each one's layouts, and change its colours, units and lights under Settings.",
-            "Rotate the phone, lay home-screen icons over it or go full screen. Then copy a link to the look you made and send it on, or show its QR code and scan it with your phone to open that style and layout in the app."
+            "Rotate the phone, lay home-screen icons over it or go full screen. Then copy a link to the look you made and send it on, or show its QR code and scan it with your phone to open that style and layout in the app.",
+            "For HUD mode, open Horizon, Glass, Pulse or Vector and switch it from Original to HUD, then start it with your real GPS speed or the demo drive. On a phone, lay it flat on the dashboard and read your speed on the windscreen."
           ]
         },
-        { "type": "actions", "items": [{ "href": "/speedometer-wallpaper/play/", "label": "Try online" }] }
+        { "type": "actions", "items": [{ "href": "/speedometer-wallpaper/play/", "label": "Try online" }, { "href": "/speedometer-wallpaper/play/#hud", "label": "Try HUD mode", "note": "Your speed on the windscreen" }] }
       ]
     },
     {
@@ -127,13 +128,14 @@
       "id": "explore",
       "eyebrow": "Keep exploring",
       "title": "More about Speedometer",
-      "intro": "Every gauge has its own page in the wiki, the layout market shows what other drivers built, and What's new lists each release.",
+      "intro": "Every gauge and HUD mode have their own pages in the wiki, the layout market shows what other drivers built, and What's new lists each release.",
       "blocks": [
         {
           "type": "actions",
           "items": [
             { "href": "/speedometer-wallpaper/", "label": "The overview", "note": "Every style" },
             { "href": "/speedometer-wallpaper/wiki/", "label": "The wiki", "note": "Each gauge explained" },
+            { "href": "/speedometer-wallpaper/wiki/hud-mode/", "label": "HUD mode", "note": "Set up the car HUD" },
             { "href": "/speedometer-wallpaper/layouts/", "label": "The layout market", "note": "Drivers' layouts" },
             { "href": "/devlog/speedometer-in-your-browser/", "label": "From the devlog", "note": "The real app in your browser" },
             { "href": "/speedometer-wallpaper/#whats-new", "label": "What's new", "note": "Each release" },

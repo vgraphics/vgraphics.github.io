@@ -1065,6 +1065,63 @@ html.card-open { overflow: hidden; }
 .faq-item[open].faq-closing > summary .chev, .news-list details[open].faq-closing > summary .chev { transform: none; transition-duration: 200ms; }
 .part > button[aria-expanded="false"] .chev { transition-duration: 200ms; }
 
+/* A before-and-after (tools/lib/compare.mjs, assets/compare.js): "after" fills the frame, "before" lies over it cut
+   at the handle (--at, from the left); a tag names each side at the top. An up or down swipe still scrolls the page. */
+.compare { display: grid; gap: 10px; max-width: 760px; margin: 0; }
+.faq-a .compare { margin-top: 4px; }
+.compare-frame {
+  --at: 50%;
+  position: relative;
+  overflow: hidden;
+  border-radius: var(--radius-sm);
+  background: #000;
+  box-shadow: var(--card-shadow);
+  touch-action: pan-y;
+  cursor: ew-resize;
+}
+.compare-frame picture, .compare-frame img { display: block; width: 100%; height: auto; }
+.compare-before { position: absolute; inset: 0; clip-path: inset(0 calc(100% - var(--at)) 0 0); }
+.compare-before img { height: 100%; object-fit: cover; }
+.compare-tag {
+  position: absolute;
+  top: 12px;
+  padding: 6px 10px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.6);
+  color: #FFFFFF;
+  font: var(--label-weight) 0.75rem/1 var(--label-font);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  transition: opacity 150ms ease-out;
+}
+.compare-tag-before { left: 12px; }
+.compare-tag-after { right: 12px; }
+.is-before-gone .compare-tag-before, .is-after-gone .compare-tag-after { opacity: 0; }
+.compare-handle { position: absolute; top: 0; bottom: 0; left: var(--at); width: 2px; margin-left: -1px; background: #FFFFFF; box-shadow: 0 0 10px rgb(0 0 0 / 0.5); pointer-events: none; }
+.compare-knob {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #14121A;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.4);
+  transform: translate(-50%, -50%);
+  transition: transform 150ms ease-out;
+}
+.compare-knob svg { width: 22px; height: 22px; }
+.compare-frame.is-dragging .compare-knob { transform: translate(-50%, -50%) scale(1.08); }
+/* The slider is there for the keys and screen readers; the frame takes the pointer. */
+.compare-range { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; pointer-events: none; }
+.compare-range:focus-visible ~ .compare-handle .compare-knob { outline: 3px solid var(--accent); outline-offset: 3px; }
+.compare figcaption { color: var(--muted); font-size: 0.95rem; }
+@media (prefers-reduced-motion: reduce) { .compare-knob, .compare-tag { transition: none; } }
+
 /* What's new, on every landing page (the "news" block, tools/lib/news.mjs; George, 28 Oct 2026, design A of four:
    the update card). On the page, one compact card: the newest update's date stamped in the product's colour, its
    headline and first line, the button and how many updates there are, on a small stack of cards that says there are

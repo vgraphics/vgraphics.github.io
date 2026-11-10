@@ -139,4 +139,6 @@
   if (document.querySelector(".vhub-avatar")) import("/assets/account.js").catch(() => {});
   // The footer's sign-up for news by email (tools/lib/mail-list.mjs), on a page that has one.
   if (document.querySelector("form.mail-list")) import("/assets/mail-list.js").catch(() => {});
+  // A before-and-after's handle (tools/lib/compare.mjs), on a page that has one.
+  if (document.querySelector(".compare")) import("/assets/compare.js").catch(() => {});
 })();

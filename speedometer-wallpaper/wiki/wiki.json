@@ -1,12 +1,12 @@
 {
   "product": {"name":"Speedometer Live Wallpaper","slug":"speedometer-wallpaper","home":"/speedometer-wallpaper/","icon":"/speedometer-wallpaper/img/icon.png","logo":"/img/vgraphics-logo-light.png","image":"/speedometer-wallpaper/img/card.jpg","parent":{"name":"Apps","href":"/apps/"}},
   "title": "Speedometer wiki",
-  "intro": "Every gauge, light, style and setting on your dashboard: what it shows, and how to set it up.",
-  "metaTitle": "Speedometer Live Wallpaper wiki: every gauge, light and style",
+  "intro": "Every gauge, light, style and setting on your dashboard, and HUD mode, the car HUD that puts your speed on the windscreen: what each one shows, and how to set it up.",
+  "metaTitle": "Speedometer Live Wallpaper wiki: gauges, styles and car HUD",
   "entryTitles": ["{name} ({kind}) · Speedometer Live Wallpaper wiki", "{name} · Speedometer Live Wallpaper wiki", "{name} · Speedometer wallpaper wiki"],
   "entryTail": "In Speedometer Live Wallpaper, the car dashboard wallpaper for Android.",
-  "metaDescription": "Every gauge, warning light, style and setting of Speedometer Live Wallpaper for Android: what each one shows, and how to set it up.",
-  "source": "Written from the app's screens and strings, version 2.0.4 with 19 styles (Games main bb6ac7d4, 26 Oct 2026), after the 2.0.0 text of 17 Oct (Games main 39aa208).",
+  "metaDescription": "Every gauge, warning light, style and setting of Speedometer Live Wallpaper for Android, and HUD mode, the car HUD that shows your speed on the windscreen.",
+  "source": "Written from the app's screens and strings, version 2.0.4 with 19 styles (Games main bb6ac7d4, 26 Oct 2026), after the 2.0.0 text of 17 Oct (Games main 39aa208). HUD mode from its screens, strings (logic_resources strings_hud.xml) and HudSession (Games main a4614008, 10 Nov 2026).",
   "art": {"wiki": "index", "alt": "Three phones on a car's dashboard at night showing the Classic, Amber Night and Future designs, with rain and city lights on the windscreen", "position": "50% 40%", "placeholder": "linear-gradient(#0B121A, #040508)"},
   "nav": [
     {"label":"Overview","href":"/speedometer-wallpaper/"},
@@ -14,6 +14,7 @@
     {"label":"Privacy","href":"/speedometer-wallpaper/privacy.html"}
   ],
   "sections": [
+    {"id":"hud","title":"HUD mode","intro":"Your phone as a car HUD: lay it flat on the dashboard and read your speed on the windscreen."},
     {"id":"big","title":"The big gauge","intro":"The dial in the middle. It shows one of three things; pick it in the style's settings (Customize), tap it on your home screen, or use the Big gauge tile."},
     {"id":"gauges","title":"Small gauges","kind":"gauge","intro":"The four dials around it, and the little temperature dial."},
     {"id":"lights","title":"Warning lights","intro":"Lights on the big gauge and the small gauges. Each warning light can be switched off in Customize → Warning lamps."},
@@ -21,6 +22,49 @@
     {"id":"designs","title":"Styles","intro":"19 styles. Classic, Steel and Graphite are free; every other style is a one-time purchase, or comes with the Speedometer Plus subscription. Pick one on the Styles screen."}
   ],
   "entries": [
+    {
+      "slug": "hud-mode",
+      "section": "hud",
+      "name": "HUD mode",
+      "title": "HUD mode: your phone as a car HUD · Speedometer wiki",
+      "icon": "<svg viewBox='0 0 48 48'><path d='M6 30 10 9h28l4 21z' fill='none' stroke='#8FB3D9' stroke-width='3' stroke-linejoin='round'/><path d='M15.5 24a8.5 8.5 0 0 1 17 0' fill='none' stroke='#4BD6E8' stroke-width='3.5' stroke-linecap='round'/><circle cx='24' cy='23' r='2.4' fill='#4BD6E8'/><rect x='12' y='35' width='24' height='6' rx='2' fill='#FFB547'/></svg>",
+      "summary": "Your phone as a heads-up display for your car: lay it flat on the dashboard and read your GPS speed on the windscreen.",
+      "facts": [["Costs","Free in Horizon"],["Looks","Number, Gauge arc, Fighter, Centre bar"],["Speed","GPS, in km/h or mph"],["Reads best","At dusk, at night, on cloudy days"]],
+      "steps": [
+        {"text": "Open HUD mode: tap HUD mode on Home or in Styles, use the HUD mode tile in Quick Settings, or long-press the app's icon. The first time, a short setup asks one question per step."},
+        {"text": "Pick your look: Number, Gauge arc, Fighter or Centre bar, drawn by Horizon (free), Glass, Pulse or Vector, in the style's own colour or in Lime, Cyan, Ice white, Amber or Violet."},
+        {"text": "Say how the phone lies: top edge to the glass, top edge to you, or upright in a holder. Lying flat, your speed is drawn flipped, so the windscreen reflects it the right way round; in a holder it reads straight, with no flip."},
+        {"text": "While parked, lay the phone flat on the dashboard in front of the wheel, screen up, where it can't slide and clear of the airbags. Then drive and leave it alone: once you've stopped, tap it once for Exit and Flip."}
+      ],
+      "cta": {"title": "Try it in your browser", "text": "The try page runs HUD mode too: pick a look and watch it with your real GPS speed or a demo drive, before you install anything.", "href": "/speedometer-wallpaper/play/#hud", "label": "Try HUD mode in your browser"},
+      "what": [
+        "HUD mode turns your phone into a heads-up display for your car. It fills the screen with your speed alone, drawn flipped, so the windscreen in front of you reflects it the right way round: a car HUD with no extra box on the dashboard.",
+        "Four looks, four styles. Number, Gauge arc, Fighter and Centre bar, drawn by Horizon for free, or by Glass, Pulse and Vector with the style, Speedometer Plus or a 24-hour trial.",
+        "Your colour. Keep the style's own colour, or pick Lime, Cyan, Ice white, Amber or Violet, whichever reads best on your glass.",
+        "More on the glass. Add the clock, the trip, your heading and a speed warning: above the limit you set, the speed turns red and the phone beeps once. The app doesn't know the road's limit.",
+        "Opens in your car. Switch on Open by itself in my car and pick your car once: HUD mode opens when the phone joins its Bluetooth.",
+        "Looks after your phone. On a low battery a small Plug in mark shows once per drive. If the phone gets hot, HUD mode dims, then pauses to let it cool down, and comes back by itself."
+      ],
+      "compare": {
+        "title": "Seeing double?",
+        "text": "A windscreen has two glass surfaces, and each one reflects the phone, so a bare windscreen shows your speed twice. A HUD film on the inside of the glass, or a HUD reflector plate on the dashboard, leaves one sharp image.",
+        "before": {"src": "/speedometer-wallpaper/img/hud/film-glass-without", "label": "Without film", "alt": "Glass's Number HUD on a bare windscreen at night: 60 km/h, the clock, trip and heading each show twice, a faint copy just above"},
+        "after": {"src": "/speedometer-wallpaper/img/hud/film-glass-with", "label": "With film", "alt": "The same HUD with a HUD film on the windscreen: one sharp image of 60 km/h, the clock, trip and heading"},
+        "widths": [720, 1080, 1440],
+        "width": 1440,
+        "height": 810,
+        "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right."
+      },
+      "tip": {"label": "Before you drive", "title": "Set it up while parked", "text": "Lay the phone where it can't slide, clear of the airbags, and don't touch it while you drive. Check that your country allows a phone on the dashboard."},
+      "notes": [
+        "HUD mode reads best at dusk, at night and on cloudy days. In bright sun the reflection is faint.",
+        "It has no menus and no ads while you drive: one tap shows Exit and Flip.",
+        "Your speed comes from GPS while HUD mode is open, and it never leaves the phone. Until the phone has a fix, the glass shows NO GPS.",
+        "Each HUD style's page has an Original | HUD switch: <a href=\"/speedometer-wallpaper/styles/horizon/\">Horizon</a>, <a href=\"/speedometer-wallpaper/styles/glass/\">Glass</a>, <a href=\"/speedometer-wallpaper/styles/pulse/\">Pulse</a> and <a href=\"/speedometer-wallpaper/styles/vector/\">Vector</a>."
+      ],
+      "related": ["gps-speed","designs-screen","settings"],
+      "artAlt": "A phone lies flat on a car's dashboard at night, showing HUD mode's speed upside down, and the windscreen above it reflects the same HUD the right way round: 87 km/h on a green gauge arc, with the time, trip and heading, over a rainy city street"
+    },
     {
       "slug": "big-gauge",
       "section": "big",

@@ -19,17 +19,25 @@
 // Pictures: tools/make-wiki-art.py writes <product>/wiki/img/art/<slug>-<width>.avif/.webp/.jpg (wide) and
 // <slug>-tall-<width>.avif/.webp/.jpg (the 9:16 cut for portrait screens) with art.json, the sizes this script reads.
 // Every page's hero is the landing page's box (tools/lib/hero.mjs), so it is exactly as tall.
+//
+// An entry may also have: "title", a page title of its own (60 characters at most) when entryTitles' words don't say
+// what people search for; "cta" ({ title, text, href, label }), a panel with one button after its steps (Speedometer's
+// HUD mode: "Try HUD mode in your browser", its #hud link into the try page; George, 10 Nov 2026,
+// "site-try-hud-link": KEEP); and "compare" ({ title, text, ...a before-and-after, tools/lib/compare.mjs }), a section
+// with the two pictures and a handle between them (Speedometer's "Seeing double?", without and with a HUD film;
+// George, 10 Nov 2026, "film-before-after": KEEP).
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
 import { anchor, closing, header, footer, iconLinks, quote } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
+import { compare } from './lib/compare.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
 
 const esc = (s) => String(s).replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;')
 const strip = (s) => String(s).replace(/<[^>]+>/g, '')
-const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', story: 'The story',big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
+const SECTION_LABEL = { traps: 'Obstacle', powerups: 'Powerup', basics: 'Basics', story: 'The story', hud: 'HUD mode', big: 'The big gauge', gauges: 'Small gauge', lights: 'Warning light', setup: 'Setup', designs: 'Style' }
 
 // The page's place on the site as structured data (search results show it as breadcrumbs): VGraphics › Games or Apps ›
 // the product › Wiki, then the entry. "<" is escaped so no text can close the script.
@@ -70,6 +78,7 @@ function article(product, e, { description, path, image }) {
 // name and its section's "kind" ("Rock (obstacle) · Exitwise arrow puzzle wiki"); in a section without a kind, the
 // patterns with {kind} are passed over. Else "<name> · <product> wiki".
 function entryTitle(w, e) {
+  if (e.title) return e.title
   const kind = w.sections.find((s) => s.id === e.section)?.kind
   return (w.entryTitles ?? []).filter((t) => kind || !t.includes('{kind}'))
     .map((t) => t.replace('{name}', e.name).replace('{kind}', kind))
@@ -286,6 +295,20 @@ function worldMap(w) {
       </div>
     </section>`
 }
+// "Try it": one button after the steps, to where the entry can be tried.
+function ctaBlock(e) {
+  const c = e.cta
+  if (!c) return ''
+  return `<section class="w-panel w-cta" aria-labelledby="h-try">${h2('h-try', esc(c.title))}<p>${c.text}</p><a class="w-btn" href="${esc(c.href)}">${esc(c.label)}</a></section>`
+}
+// A before-and-after with its words above it (tools/lib/compare.mjs).
+function compareBlock(e) {
+  const c = e.compare
+  if (!c) return ''
+  return `<section class="w-block" aria-labelledby="h-compare">${h2('h-compare', esc(c.title))}${c.text ? `<p class="w-muted">${c.text}</p>` : ''}
+      ${compare(c, '(min-width: 1000px) 760px, 92vw')}
+    </section>`
+}
 // "In the game": a phone on small screens; on wide ones the browser game's wide player, the world's level-map art
 // edge to edge with the game in the middle. A wide figure (wider than tall) is shown as it is. Each entry has a band of
 // its own, cut from another row of its world's map (tools/make-wiki-map-art.py), so no band is shown twice (George,
@@ -323,8 +346,8 @@ function entryPage(w, product, e, i) {
     <p class="w-lede">${e.summary}</p>${facts.length ? `
     <dl class="w-glance">${facts.map(([k, v]) => `<div><dt>${esc(k)}</dt><dd>${esc(v)}</dd></div>`).join('')}</dl>` : ''}${(e.quotes || []).map((q) => `
     ${quote(q)}`).join('')}
-    ${stepsBlock(w, e)}
-    ${whatBlock(w, e)}
+    ${stepsBlock(w, e)}${ctaBlock(e)}
+    ${whatBlock(w, e)}${compareBlock(e)}
     ${tipBlock(w, e)}
     ${notesOf(e).length ? `<section class="w-block" aria-labelledby="h-notes">${h2('h-notes', `Good to know`)}<ul class="w-ticks">${notesOf(e).map((x) => `<li>${x}</li>`).join('')}</ul></section>` : ''}
     ${e.worldMap && w.worlds ? worldMap(w) : ''}

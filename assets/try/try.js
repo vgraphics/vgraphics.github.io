@@ -182,6 +182,18 @@
   var gpsAsked = false;
   var fpsReported = false;
   var readyAt = 0;
+  // wireHud()'s answer to a link straight into HUD mode (#hud), once the engine runs.
+  var offerHud = null;
+
+  // HUD mode's cards (the invite a #hud link opens, the store's card once HUD mode is left) come and go as the layout
+  // sets do (design canon §1): assets/faq.js's showBox and hideBox grow one in from nothing as it fades in and shrink it
+  // away a little faster, turned round from where it is when asked again while it moves; before faq.js is in, at once.
+  var hudCard = function (card, on) {
+    if (!card) return;
+    if (!motion) card.hidden = !on;
+    else if (on) motion.showBox(card);
+    else motion.hideBox(card);
+  };
 
   var setState = function (state) { root.setAttribute('data-state', state); };
   var styleOf = function (id) { return catalog.styles.filter(function (s) { return s.id === id; })[0] || catalog.styles[0]; };
@@ -624,11 +636,21 @@
   // turns the phone on its side and draws that style's HUD look in it, read straight (the engine's app.hud, flip
   // "holder"); the layout chips change it there and then. Original puts the wallpaper back as it was, orientation
   // included; so does another style. HUD mode opened from the HUD look comes back to it. Counted as hud_view.
+  //
+  // A link straight into HUD mode (#hud, or #style=<id>&hud; George, 10 Nov 2026, "site-try-hud-link": KEEP) opens the
+  // page on the HUD look, with the invite under the phone: a tap on one of its buttons starts HUD mode, with the
+  // visitor's real speed or the demo drive's (a browser goes full screen only on a tap). The demo drive's speed is
+  // marked DEMO in HUD mode. Leaving HUD mode brings the store's badge, once a visit. Counted as try_hud_open and
+  // try_hud_get_app.
   function wireHud() {
     if (!config.hud) return;
     var layer = $('.try-hud-layer');
     var tip = $('.try-hud-tip');
     var controls = $('.try-hud-controls');
+    var demoPill = $('.try-hud-demo');
+    var invite = $('.try-hud-invite');
+    var end = $('.try-hud-end');
+    var endShown = false;
     var chips = root.querySelectorAll('[data-hud-layout]');
     var view = $('.try-view');
     var viewButtons = view ? view.querySelectorAll('[data-hud-view]') : [];
@@ -729,10 +751,13 @@
       tone.stop(sound.currentTime + BEEP_S);
     };
 
-    function start() {
+    function start(via) {
       isOn = true;
       openedAt = now();
       root.setAttribute('data-hud', 'on');
+      hudCard(invite, false);
+      hudCard(end, false);
+      if (demoPill) demoPill.hidden = app.values().source === 'gps';
       // The phone is turned for the windscreen; stop() turns it back (George, 4 Nov 2026: "Getting to hud mode can not
       // return to original mode.").
       orientationBefore = device.getAttribute('data-orientation') || 'portrait';
@@ -755,7 +780,7 @@
         }, function () {});
       }
       keepAwake();
-      analytics.event('hud_opened', { source: 'web', style: style(), layout: layout, gps: app.values().source === 'gps' });
+      analytics.event('hud_opened', { source: 'web', style: style(), layout: layout, gps: app.values().source === 'gps', via: via || 'button' });
     }
 
     function stop(reason) {
@@ -773,7 +798,19 @@
       if (wakeLock) wakeLock.release().catch(function () {});
       wakeLock = null;
       analytics.event('hud_closed', { reason: reason, duration_s: Math.round((now() - openedAt) / 1000) });
+      if (end && !endShown) {
+        endShown = true;
+        hudCard(end, true);
+      }
     }
+
+    // The page opened from a link to HUD mode: its look in the phone, and the invite to start it.
+    offerHud = function () {
+      if (isOn) return;
+      setView('hud');
+      hudCard(invite, true);
+      analytics.event('try_hud_open', { style: last.style });
+    };
 
     markLayout();
     Array.prototype.forEach.call(chips, function (chip) {
@@ -799,7 +836,20 @@
       syncView();
     }
     root.addEventListener('click', function (event) {
-      if (event.target.closest && event.target.closest('[data-action="hud"]')) start();
+      if (!event.target.closest) return;
+      if (event.target.closest('[data-action="hud"]')) start();
+      var go = event.target.closest('[data-hud-go]');
+      if (go) {
+        // With the real speed: asked for first, as Use my real speed does; HUD mode starts on the tap all the same.
+        if (go.getAttribute('data-hud-go') === 'gps' && app.values().source !== 'gps') {
+          gpsAsked = true;
+          analytics.event('gps_request', { style: last.style, via: 'hud_invite' });
+          app.source('gps');
+        }
+        start('invite');
+      }
+      if (event.target.closest('.try-hud-card-close')) hudCard(end, false);
+      if (event.target.closest('.try-hud-end a.gp')) analytics.event('try_hud_get_app', { style: last.style });
     });
     layer.addEventListener('click', function (event) {
       // Only the buttons: start() puts data-hud="on" on the block itself, which a tap on the bare screen would find.
@@ -860,6 +910,7 @@
     });
     wireHud();
     wireLayouts();
+    if (hudLink() && offerHud) offerHud();
 
     root.addEventListener('click', function (event) {
       var button = event.target.closest && event.target.closest('[data-action]');
@@ -1129,6 +1180,11 @@
     var hash = location.hash.replace(/^#/, '');
     return /(^|&)(style|layout)=/.test(hash) ? ofThisStyle(hash) : '';
   };
+  // A link straight into HUD mode: #hud, alone or after a look (#style=glass&hud). The engine reads only key=value
+  // pairs, so the word passes it by.
+  var hudLink = function () {
+    return !!config.hud && /(^|&)hud(&|$)/.test(location.hash.replace(/^#/, ''));
+  };
 
   // A market layout's link (#layout=<CODE>&style=<id>, the web market design §5.2): with the block's "layouts" script,
   // the page reads the layout before the engine starts, so it opens on it; the panel says whose it is. A code the
@@ -1209,7 +1265,9 @@
     if (!app.values().shared) analytics.error('market layout ' + layout.code + ': added, yet not shown');
   }
   var firstLook = function () {
-    return sharedLook() || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
+    // #hud alone opens on the first HUD style (Horizon, free in the app), not on the look last seen here.
+    var hud = hudLink() && !config.style ? 'style=' + config.hud.styles[0] : '';
+    return sharedLook() || hud || ofThisStyle(stored(LOOK_KEY) || '') || (config.style ? 'style=' + config.style : '');
   };
 
   // The page's timeline, for measuring how long a visitor waits: performance marks (try:load, try:view, try:ready, and
@@ -1299,6 +1357,7 @@
   // hash, so the page doesn't load again): the layout is read and shown then.
   window.addEventListener('hashchange', function () {
     if (!app) return;
+    if (hudLink() && offerHud) offerHud();
     var look = ofThisStyle(location.hash.replace(/^#/, ''));
     if (!MARKET_CODE.test(look)) return;
     marketLayout(look).then(function (layout) {
@@ -1328,8 +1387,8 @@
     else window.addEventListener('load', quiet);
   }
 
-  // The start-up plays when the phone comes into view, at once for a share link.
-  if (sharedLook()) {
+  // The start-up plays when the phone comes into view, at once for a share link or a link into HUD mode.
+  if (sharedLook() || hudLink()) {
     window.scrollTo({ top: window.scrollY + device.getBoundingClientRect().top - SCROLL_OFFSET });
     begin();
   } else if (window.IntersectionObserver) {

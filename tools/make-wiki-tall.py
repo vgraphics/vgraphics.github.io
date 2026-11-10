@@ -136,9 +136,10 @@ def screens_entry(product, slug, size, a, bx, by):
         if isinstance(v, list):
             return [walk(i) for i in v]
         if isinstance(v, dict):
-            return {key: (walk(val) if key in ('glass', 'keep', 'clean', 'poly') else val) for key, val in v.items()}
+            return {key: (walk(val) if key in ('glass', 'keep', 'clean', 'poly', 'quad') else val) for key, val in v.items()}
         return v
-    tall = {key: walk(val) if key in ('phones', 'clean', 'keep') else val for key, val in wide.items() if key != 'crop'}
+    tall = {key: walk(val) if key in ('phones', 'clean', 'keep', 'reflections') else val for key, val in wide.items()
+            if key != 'crop'}
     spec['entries'][f'{slug}-tall'] = tall
     json.dump(spec, open(path, 'w', encoding='utf-8', newline='\n'), indent=1, ensure_ascii=False)
 

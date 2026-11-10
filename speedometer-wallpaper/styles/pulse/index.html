@@ -148,6 +148,7 @@
                 <div class="try-busy" hidden><span></span></div>
                 <div class="try-hud-layer" hidden>
                   <p class="try-hud-tip" hidden>Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.</p>
+                  <span class="try-hud-demo" hidden>Demo</span>
                   <div class="try-hud-controls" hidden>
                     <button type="button" class="try-hud-exit" data-hud="exit">Exit</button>
                     <button type="button" class="try-hud-flip" data-hud="flip">Flip</button>
@@ -155,6 +156,17 @@
                 </div>
               </div>
             </div>
+            <div class="try-hud-card try-hud-invite" role="region" aria-labelledby="try-hud-invite-title" hidden><div class="try-hud-card-body">
+              <p class="try-hud-card-title" id="try-hud-invite-title">HUD mode, ready to start</p>
+              <p>Lay your phone flat on the dashboard in front of the wheel, screen up, turn its brightness all the way up and read your speed on the windscreen. Set it up while parked.</p>
+              <div class="try-hud-card-acts"><button class="try-tool try-hud-go" type="button" data-hud-go="gps"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="12" r="3.5"/><circle cx="12" cy="12" r="8"/><path d="M12 1v3M12 20v3M1 12h3M20 12h3"/></svg><span>Start with my real speed</span></button><button class="try-tool" type="button" data-hud-go="demo"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3.5 18.5L6 5.5h12l2.5 13z"/><path d="M8.8 14.2a3.6 3.6 0 1 1 6.4 0"/><path d="M12 13.2l1.6-2"/></svg><span>Start the demo drive</span></button></div>
+            </div></div>
+            <div class="try-hud-card try-hud-end" role="region" aria-labelledby="try-hud-end-title" hidden><div class="try-hud-card-body">
+              <button class="try-hud-card-close" type="button" aria-label="Close"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M6 6l12 12M18 6L6 18"/></svg></button>
+              <p class="try-hud-card-title" id="try-hud-end-title">Want it in your car?</p>
+              <p>HUD mode is free in the app, with Horizon’s four HUD looks, and it can open by itself when your phone joins your car’s Bluetooth.</p>
+              <a class="gp" href="https://play.google.com/store/apps/details?id=com.vgraphics.speedometerwallpaper" data-where="hud"><img src="/assets/img/google-play-badge.png" alt="Get it on Google Play" width="646" height="250" loading="lazy"></a>
+            </div></div>
             <div class="try-tools">
               <button class="try-tool" type="button" data-action="rotate"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="7" y="3" width="10" height="18" rx="2"/><path d="M3 12a9 9 0 0 1 4-7.4M21 12a9 9 0 0 1-4 7.4"/><path d="M3 8v4h4M21 16v-4h-4"/></svg><span>Rotate</span></button>
               <button class="try-tool" type="button" data-action="icons" aria-pressed="false"><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="7" height="7" rx="2"/><rect x="14" y="3" width="7" height="7" rx="2"/><rect x="3" y="14" width="7" height="7" rx="2"/><rect x="14" y="14" width="7" height="7" rx="2"/></svg><span>Home screen icons</span></button>

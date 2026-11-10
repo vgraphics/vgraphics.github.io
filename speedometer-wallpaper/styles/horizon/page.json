@@ -118,6 +118,17 @@
             "brightness": "Turn your screen’s brightness all the way up. Works best at dusk, at night and on cloudy days. Tap for Exit and Flip.",
             "exit": "Exit",
             "flip": "Flip",
+            "demo": "Demo",
+            "invite": {
+              "title": "HUD mode, ready to start",
+              "text": "Lay your phone flat on the dashboard in front of the wheel, screen up, turn its brightness all the way up and read your speed on the windscreen. Set it up while parked.",
+              "gps": "Start with my real speed",
+              "demo": "Start the demo drive"
+            },
+            "end": {
+              "title": "Want it in your car?",
+              "text": "HUD mode is free in the app, with Horizon’s four HUD looks, and it can open by itself when your phone joins your car’s Bluetooth."
+            },
             "styles": [
               "horizon",
               "glass",
