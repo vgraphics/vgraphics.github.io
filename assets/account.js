@@ -18,6 +18,7 @@
 import { vhubAvatars, vhubProfile, vhubSession } from "/assets/vhub-session.js";
 import { gameRow, shortName } from "/assets/vhub-games.js";
 import { hideMenu, showMenu } from "/assets/faq.js";
+import { isLongChoice } from "/assets/choice-layout.js";
 
 const button = document.querySelector(".vhub-avatar");
 const face = button && button.querySelector(".vhub-avatar-face");
@@ -473,7 +474,8 @@ async function settings(site, shown, here, again) {
   return { section, unwatch };
 }
 
-/** One setting's row: a switch for an on/off, a segmented control for a choice. */
+/** One setting's row: a switch for an on/off, a segmented control for a choice, and for a choice too long for the menu's
+ *  width (assets/choice-layout.js) a column of option cards: the same radio group, one full-width row per option. */
 function row(spec, index, store) {
   const fallback = spec.default ?? null;
   const value = store && Object.prototype.hasOwnProperty.call(store.values, spec.key) ? store.values[spec.key] : fallback;
@@ -492,7 +494,9 @@ function row(spec, index, store) {
     return { key: spec.key, fallback, node: el("label", { class: "vm-row" }, words, box), set: (v) => (box.checked = v === true) };
   }
   const options = spec.options || [];
-  const group = el("div", { class: `vm-seg${spec.draw === "textSize" ? " vm-seg-sizes" : ""}`, role: "radiogroup", "aria-labelledby": `${id}-name` });
+  const sizes = spec.draw === "textSize";
+  const cards = !sizes && isLongChoice(options.map((o) => text(o.label)));
+  const group = el("div", { class: cards ? "vm-seg vm-cards" : `vm-seg${sizes ? " vm-seg-sizes" : ""}`, role: "radiogroup", "aria-labelledby": `${id}-name` });
   const buttons = options.map((o, i) =>
     el(
       "button",
@@ -529,7 +533,7 @@ function row(spec, index, store) {
   });
   group.append(...buttons);
   pick(value);
-  return { key: spec.key, fallback, node: el("div", { class: "vm-row" }, words, group), set: pick };
+  return { key: spec.key, fallback, node: el("div", { class: cards ? "vm-row vm-row-stack" : "vm-row" }, words, group), set: pick };
 }
 
 function foot(site) {
