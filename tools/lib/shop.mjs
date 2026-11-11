@@ -5,23 +5,25 @@
 // - is https://www.amazon.de/dp/<ASIN>?tag=<Associates tracking id>;
 // - opens in a new tab as a paid link, target="_blank" rel="sponsored noopener";
 // - carries an "Ad" mark;
-// - sits above the Associates line, "As an Amazon Associate, VGraphics earns from qualifying purchases.", wherever it is.
-// The ASINs and the tag live here alone (the app keeps its own copy: logic_constants HudGearConstants in the Games repo).
-// OPEN: the film's ASIN and the amazon.de Associates tracking id aren't known yet. Their placeholders hold _TODO, and a
-// link holding one is never written: its chip, its row, its Ad mark and the Associates line all stay off until it's
-// real. check-site fails a page with an Amazon link that opens in the same tab, isn't sponsored, has no Associates line
-// or holds a placeholder (shopPageProblems), and a block naming an item this file doesn't know (shopProblems).
+// - sits above the Associates line, Amazon's own words: "As an Amazon Associate I earn from qualifying purchases.";
+// - names no price and makes no deal claim (prices change, and Amazon forbids showing a stale one).
+// The Associates account's listed places are vgraphics.gr and the Speedometer app: these links go nowhere else (no
+// emails, no PDFs). The ASINs and the tag live here alone (the app keeps its own copy: logic_constants
+// HudGearConstants in the Games repo). A new item's ASIN may hold _TODO until it's chosen; a link holding one is never
+// written: its chip, its row, its Ad mark and the Associates line stay off until it's real. check-site fails a page
+// with an Amazon link that opens in the same tab, isn't sponsored, has no Associates line or holds a placeholder
+// (shopPageProblems), and a block naming an item this file doesn't know (shopProblems).
 import { esc } from './partials.mjs'
 
 export const PLACEHOLDER = '_TODO'
-// OPEN: VGraphics' amazon.de Associates tracking id (George signs up; it ends in -21).
-export const ASSOCIATES_TAG = 'ASSOCIATES_TAG_TODO'
-export const DISCLOSURE = 'As an Amazon Associate, VGraphics earns from qualifying purchases.'
+// VGraphics' amazon.de Associates tracking id (account live 11 Nov 2026).
+export const ASSOCIATES_TAG = 'vgraphics-21'
+export const DISCLOSURE = 'As an Amazon Associate I earn from qualifying purchases.'
 
 // The things a page may link to, by id, each with its amazon.de ASIN.
 export const ITEMS = {
-  // OPEN: the HUD film George picks.
-  'speedometer-hud-film': { asin: 'FILM_ASIN_TODO' },
+  // "HUD 2x PET Car Head Up Screen Reflective Film" (George's pick, 11 Nov 2026: "1 (B0G24LVDRV)").
+  'speedometer-hud-film': { asin: 'B0G24LVDRV' },
   // JIMISHA non-slip dash mat, PU gel (George's pick on the gear-tips review page, 11 Nov 2026).
   'speedometer-dash-mat': { asin: 'B08C572S2B' },
 }
@@ -38,7 +40,9 @@ const ICONS = {
   mat: line('<rect x="2.5" y="14.5" width="19" height="4.5" rx="2.25"/><rect x="6.5" y="11" width="11" height="3.5" rx="1.2"/>'),
 }
 const AD = '<span class="ad-mark" aria-hidden="true">Ad</span>'
-const link = (id, label) => `href="${esc(shopUrl(id))}" target="_blank" rel="sponsored noopener" aria-label="${esc(`Ad: ${label} on Amazon (opens in a new tab)`)}"`
+// The screen reader hears where it goes: "on Amazon", unless the label says Amazon already ("See on Amazon").
+const where = (label) => (/amazon/i.test(label) ? label : `${label} on Amazon`)
+const link = (id, label) => `href="${esc(shopUrl(id))}" target="_blank" rel="sponsored noopener" aria-label="${esc(`Ad: ${where(label)} (opens in a new tab)`)}"`
 
 // The chip on a before-and-after's "after" side (tools/lib/compare.mjs): shop { item, label }.
 export const shopChip = (shop) => (shop && isReady(shop.item) ? `<a class="shop-chip" ${link(shop.item, shop.label)}>${AD}<span>${esc(shop.label)}</span>${EXTERNAL}</a>` : '')

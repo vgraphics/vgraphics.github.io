@@ -579,11 +579,13 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   "item", "label" }` puts an Amazon chip with an Ad mark on its "after" side, and a `gear` block (a section's tip:
   `{ "type": "gear", "title", "text", "compare", "items": [{ "item", "icon", "title", "text", "label" }] }`) adds a
   row per thing to buy, each with its button and Ad mark. Every link is `https://www.amazon.de/dp/<ASIN>?tag=<tag>`,
-  opens in a new tab as `rel="sponsored noopener"`, and has the Associates line under it ("As an Amazon Associate,
-  VGraphics earns from qualifying purchases."). The FAQPage data keeps the plain answer. The ASINs and the tag live
-  in `shop.mjs` alone; one that still holds `_TODO` (the film's ASIN and the tag, OPEN on 11 Nov) keeps its link, Ad
-  mark and Associates line off every page. check-site fails an Amazon link that opens in the same tab, isn't
-  sponsored, holds a placeholder or has no Associates line, and a block naming an item `shop.mjs` doesn't know.
+  opens in a new tab as `rel="sponsored noopener"`, and has the Associates line under it, in Amazon's own words ("As
+  an Amazon Associate I earn from qualifying purchases."). No prices or deal claims (Amazon forbids stale prices).
+  The FAQPage data keeps the plain answer. The tag is `vgraphics-21`; the account lists vgraphics.gr and the
+  Speedometer app as its places, so the links go nowhere else (no emails, no PDFs). The ASINs and the tag live in
+  `shop.mjs` alone; a new item whose ASIN still holds `_TODO` keeps its link, Ad mark and Associates line off every
+  page. check-site fails an Amazon link that opens in the same tab, isn't sponsored, holds a placeholder or has no
+  Associates line, and a block naming an item `shop.mjs` doesn't know.
 - **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
   animation always. One open at a time."), **and so does every other expandable** (27 Oct 2026: "FAQs and every kind
   of expandable like that must always open/close with animation. Its a general rule."). `assets/faq.js`, which

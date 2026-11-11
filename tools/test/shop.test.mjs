@@ -39,6 +39,26 @@ test('a link holding a placeholder is never written, with its Ad mark and Associ
   }
   assert.equal(isReady('no-such-item'), false)
   assert.equal(shopChip({ item: 'no-such-item', label: 'x' }), '')
+  // A new item before its ASIN is chosen (every real one is filled in since 11 Nov 2026).
+  ITEMS['test-new-gear'] = { asin: `NEW${PLACEHOLDER}` }
+  try {
+    assert.equal(isReady('test-new-gear'), false)
+    assert.equal(shopChip({ item: 'test-new-gear', label: 'Get it' }), '')
+    assert.equal(shopRow({ item: 'test-new-gear', icon: 'mat', title: 'T', text: 'W', label: 'See on Amazon' }), '')
+    assert.equal(disclosure(['test-new-gear']), '')
+  } finally {
+    delete ITEMS['test-new-gear']
+  }
+})
+
+test('the live links: the vgraphics-21 tag, the picked film and mat, no price on the page', () => {
+  assert.equal(ASSOCIATES_TAG, 'vgraphics-21')
+  assert.equal(shopUrl('speedometer-hud-film'), 'https://www.amazon.de/dp/B0G24LVDRV?tag=vgraphics-21')
+  assert.equal(shopUrl('speedometer-dash-mat'), 'https://www.amazon.de/dp/B08C572S2B?tag=vgraphics-21')
+  assert.equal(DISCLOSURE, 'As an Amazon Associate I earn from qualifying purchases.')
+  const row = shopRow({ item: 'speedometer-dash-mat', icon: 'mat', title: 'Phone sliding?', text: 'W', label: 'See on Amazon' })
+  assert.ok(row.includes('aria-label="Ad: See on Amazon (opens in a new tab)"'), row)
+  assert.doesNotMatch(row + shopChip({ item: 'speedometer-hud-film', label: 'Get the film' }), /€|\bEUR\b|\bprice\b|\bdeal\b/i)
 })
 
 test('the Associates line counts the links it sits under', () => {
