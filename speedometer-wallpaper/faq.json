@@ -39,6 +39,10 @@
     "a": "Yes. The gauges and GPS speed need no connection. Buying a style needs one, to reach Google Play, and so does the small banner inside the app."
   },
   {
+    "q": "Can I put Speedometer on my home screen?",
+    "a": "Yes, two ways. Set it as your live wallpaper for the whole dashboard, or add its home-screen widgets: Speedometer clock, the time and date or the style's own dial, and Speedometer music, the song that's playing with its buttons. Both are drawn in the style you use and change when you change style, with nothing to set up. Open Customize and tap Add to home screen, or touch and hold your home screen, tap Widgets and find Speedometer. The music widget's buttons work on every home screen, Samsung's included."
+  },
+  {
     "q": "Which phones does it work on?",
     "a": "Android phones and tablets with Android 8.0 or newer, of any shape: every style fits the screen upright or on its side, including flip phones' main screens and foldables' cover and inner screens. There's no iPhone version: live wallpapers are an Android feature."
   },
