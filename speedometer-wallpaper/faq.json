@@ -1,7 +1,7 @@
 [
   {
     "q": "Does a live wallpaper drain my battery?",
-    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only in GPS speed mode and in HUD mode, and only to show your speed."
+    "a": "Very little. It draws only while your home or lock screen is showing, and its gauges redraw only while a needle moves; behind an app, nothing runs. Pick Saver, Balanced or Smooth in the settings, and Android's Battery saver switches it to Saver by itself. Your location is used only while the wallpaper or HUD mode is on screen, for your speed and the widgets that need it."
   },
   {
     "q": "Can I use my phone as a car HUD, with my speed on the windscreen?",
@@ -60,7 +60,7 @@
   },
   {
     "q": "Why does the app ask for notification access?",
-    "a": "Only for the Future style, which shows the song that's playing with its cover, and your missed calls and unread messages. It reads them from your phone's notifications, on the phone, and nothing leaves it. Every other gauge works without the access."
+    "a": "For the Future style and three widgets, Now Playing, the music buttons and Calls and messages: they show the song that's playing, with its cover, and your missed calls and unread messages. The app reads them from your phone's notifications, on the phone, and none of it leaves the phone. Every other gauge works without the access."
   },
   {
     "q": "Can I try it before installing?",
@@ -68,7 +68,7 @@
   },
   {
     "q": "What data does the app collect?",
-    "a": "Very little. What the gauges read stays on your phone, and your location is used only for GPS speed. The app sends anonymous usage statistics and crash reports, and the banner's ads follow the consent choice you make. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
+    "a": "Very little. What the gauges read stays on your phone, and only the Weather and Map widgets send a rough location, never your exact point. The app sends anonymous usage statistics and crash reports, and the banner's ads follow the consent choice you make. The <a href=\"/speedometer-wallpaper/privacy.html\">privacy policy</a> has the details."
   },
   {
     "q": "Do my settings follow me to my other devices?",
