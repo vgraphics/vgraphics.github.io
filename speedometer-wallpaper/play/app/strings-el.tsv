@@ -438,8 +438,8 @@ screen__access__button_allowed__label	Επιτρέπεται
 screen__access__button_done__label	Τέλος
 screen__access__button_later__label	Όχι τώρα
 screen__access__button_open__label	Άνοιγμα ρυθμίσεων Android
-screen__access__hero__body	Το Future δείχνει το τραγούδι που παίζει, πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει. Το ίδιο κάνουν τα στοιχεία Τώρα παίζει και Κλήσεις και μηνύματα σε κάθε στιλ, και τα κουμπιά μουσικής ελέγχουν το τραγούδι. Πρώτα πρέπει να το επιτρέψει το Android.
-screen__access__hero__subtitle	Για το Future και τα στοιχεία μουσικής, κλήσεων και επόμενης στροφής
+screen__access__hero__body	Κάθε στιλ μπορεί να δείχνει το τραγούδι που παίζει, πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει, και την επόμενη στροφή σου: πρόσθεσε στη διάταξή του το Τώρα παίζει, τις Κλήσεις και μηνύματα ή την Επόμενη στροφή, και τα κουμπιά μουσικής για να ελέγχεις το τραγούδι. Πρώτα πρέπει να το επιτρέψει το Android.
+screen__access__hero__subtitle	Για τα στοιχεία μουσικής, κλήσεων και επόμενης στροφής, σε κάθε στιλ
 screen__access__message_no_settings	Αυτό το κινητό δεν έχει σελίδα για την πρόσβαση στις ειδοποιήσεις.
 screen__access__row_counts__subtitle	Μόνο πόσα είναι, ποτέ από ποιον ή τι γράφουν
 screen__access__row_counts__title	Αναπάντητες κλήσεις και αδιάβαστα μηνύματα
@@ -450,7 +450,7 @@ screen__access__row_privacy__title	Ό,τι διαβάζει μένει στο κ
 screen__access__row_song__subtitle	Τον τίτλο του, το εξώφυλλο και την ένταση
 screen__access__row_song__title	Το τραγούδι που παίζει
 screen__access__section_reads__label	Τι διαβάζει
-screen__access__status_on	Ενεργοποιήθηκε. Το Future και τα στοιχεία σου μπορούν τώρα να δείχνουν τη μουσική, τις κλήσεις και τα μηνύματά σου.
+screen__access__status_on	Ενεργοποιήθηκε. Τα στοιχεία σου μπορούν τώρα να δείχνουν τη μουσική, τις κλήσεις, τα μηνύματα και την επόμενη στροφή σου.
 screen__access__title	Μουσική, κλήσεις και μηνύματα
 screen__access__top_bar__title	Πρόσβαση στις ειδοποιήσεις
 screen__access__warning__body	Το Android θα σε προειδοποιήσει ότι η εφαρμογή μπορεί να διαβάζει όλες τις ειδοποιήσεις σου. Διαβάζει μόνο το τραγούδι, μετράει τις αναπάντητες κλήσεις και τα αδιάβαστα μηνύματα και διαβάζει την επόμενη στροφή όσο σε οδηγούν οι Χάρτες Google ή το Waze.
@@ -696,7 +696,7 @@ screen__guide__mode_cpu_clock__body	Πόσο γρήγορα δουλεύει ο 
 screen__guide__mode_gps_speed__body	Η ταχύτητά σου, με ένα κόκκινο σημάδι στη μέγιστη ταχύτητα της διαδρομής
 screen__guide__mode_power__body	Τα βατ που μπαίνουν στην μπαταρία ή, με ένα μείον μπροστά, όσα βγαίνουν από αυτήν
 screen__guide__music__access	Γι' αυτό, το Android πρέπει να δώσει στην εφαρμογή πρόσβαση στις ειδοποιήσεις. Άνοιξέ την στις Ρυθμίσεις εφαρμογής, στις Άδειες. Ό,τι διαβάζει δεν φεύγει ποτέ από το κινητό σου.
-screen__guide__music__body	Το στιλ Future δείχνει το τραγούδι που παίζει, και πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει. Μπορεί και κάθε άλλο στιλ: πρόσθεσε το Τώρα παίζει, τα κουμπιά μουσικής και τις Κλήσεις και μηνύματα όταν φτιάχνεις τη διάταξή του.
+screen__guide__music__body	Κάθε στιλ μπορεί να δείχνει το τραγούδι που παίζει, και πόσες κλήσεις έχασες και πόσα μηνύματα δεν έχεις διαβάσει: πρόσθεσε το Τώρα παίζει και τις Κλήσεις και μηνύματα όταν φτιάχνεις τη διάταξή του, και τα κουμπιά μουσικής για να ελέγχεις το τραγούδι.
 screen__guide__music_counts__subtitle	Μόνο πόσα είναι, ποτέ ποιος ή τι
 screen__guide__music_counts__title	Αναπάντητες κλήσεις και μηνύματα
 screen__guide__music_song__subtitle	Με το εξώφυλλό του και την ένταση
@@ -812,6 +812,12 @@ screen__help_ticket__status_opened_again	Άνοιξε ξανά.
 screen__help_ticket__status_other	Το αίτημα ενημερώθηκε.
 screen__help_ticket__title	Αίτημα %1$s
 screen__home__account_button__content_description	Λογαριασμός VHub
+screen__home__banner_new_layout__badge	Νέα
+screen__home__banner_new_layout__close__content_description	Κλείσιμο
+screen__home__banner_new_layout__full_screen__close__content_description	Κλείσιμο πλήρους οθόνης
+screen__home__banner_new_layout__picture__click_label	Δες τη σε πλήρη οθόνη
+screen__home__banner_new_layout__picture__content_description	Διάταξη %1$s, ζωντανά
+screen__home__banner_new_layout__text	Μια νέα διάταξη για την ταπετσαρία σου.
 screen__home__button_customize__label	Προσαρμογή
 screen__home__button_designs__subtitle	Classic, Future και άλλα
 screen__home__button_designs__title	ΣΤΙΛ

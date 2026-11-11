@@ -438,8 +438,8 @@ screen__access__button_allowed__label	Allowed
 screen__access__button_done__label	Done
 screen__access__button_later__label	Not now
 screen__access__button_open__label	Open Android settings
-screen__access__hero__body	Future shows the song that's playing and how many calls and messages you missed. So do the Now Playing and Calls and messages widgets in any style, and the music buttons control the song. Android has to allow it first.
-screen__access__hero__subtitle	For Future and the music, calls and Next turn widgets
+screen__access__hero__body	Any style can show the song that's playing, how many calls and messages you missed, and your next turn: add Now Playing, Calls and messages or Next turn to its layout, and the music buttons to control the song. Android has to allow it first.
+screen__access__hero__subtitle	For the music, calls and Next turn widgets, in any style
 screen__access__message_no_settings	This phone has no notification access page.
 screen__access__row_counts__subtitle	Only how many, never who or what they say
 screen__access__row_counts__title	Missed calls and messages
@@ -450,7 +450,7 @@ screen__access__row_privacy__title	What it reads stays on your phone
 screen__access__row_song__subtitle	Its title, cover and the volume
 screen__access__row_song__title	The song that's playing
 screen__access__section_reads__label	What it reads
-screen__access__status_on	Turned on. Future and your widgets can now show your music, calls and messages.
+screen__access__status_on	Turned on. Your widgets can now show your music, calls, messages and next turn.
 screen__access__title	Music, calls and messages
 screen__access__top_bar__title	Notification access
 screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song, counts missed calls and messages, and reads the next turn while Google Maps or Waze navigates.
@@ -698,7 +698,7 @@ screen__guide__mode_cpu_clock__body	How fast the processor runs, as a share of i
 screen__guide__mode_gps_speed__body	Your speed, with a red mark at the drive's top speed
 screen__guide__mode_power__body	Watts into the battery, or out of it with a minus
 screen__guide__music__access	For that, Android has to give the app notification access. Turn it on in App settings, under Permissions. What it reads never leaves your phone.
-screen__guide__music__body	The Future style shows the song that's playing, and how many calls you missed and messages you haven't read. Any style can too: add Now Playing, the music buttons and Calls and messages in its layout builder.
+screen__guide__music__body	Any style can show the song that's playing, and how many calls you missed and messages you haven't read: add Now Playing and Calls and messages in its layout builder, and the music buttons to control the song.
 screen__guide__music_counts__subtitle	Only how many, never who or what
 screen__guide__music_counts__title	Missed calls and messages
 screen__guide__music_song__subtitle	With its cover and the volume
@@ -814,6 +814,12 @@ screen__help_ticket__status_opened_again	Opened again.
 screen__help_ticket__status_other	Ticket updated.
 screen__help_ticket__title	Ticket %1$s
 screen__home__account_button__content_description	VHub account
+screen__home__banner_new_layout__badge	New
+screen__home__banner_new_layout__close__content_description	Close
+screen__home__banner_new_layout__full_screen__close__content_description	Close full screen
+screen__home__banner_new_layout__picture__click_label	See it full screen
+screen__home__banner_new_layout__picture__content_description	Layout %1$s, live
+screen__home__banner_new_layout__text	A new layout to try on your wallpaper.
 screen__home__button_customize__label	Customize
 screen__home__button_designs__subtitle	Classic, Future and more
 screen__home__button_designs__title	DESIGNS

@@ -4,7 +4,8 @@
       "version": "2.0.22",
       "date": "2026-11-11",
       "platforms": [
-        "Android"
+        "Android",
+        "Web"
       ],
       "title": "See new layouts right away",
       "items": [

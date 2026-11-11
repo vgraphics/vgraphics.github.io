@@ -2,6 +2,14 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "86ca6638097d4911fef22009053bb383fa7d8ff4",
+      "at": "2026-11-11T10:14:00.505Z",
+      "files": [
+        "56daf2f3d72f1ad70bcf.wasm",
+        "658820f72b4617efb380.wasm"
+      ]
+    },
+    {
       "sha": "f551df129a22cb001113dab56bb4ec8c436d1f39",
       "at": "2026-11-11T09:18:51.235Z",
       "files": [
@@ -15,14 +23,6 @@
       "files": [
         "658820f72b4617efb380.wasm",
         "779ef04f63ad71b39006.wasm"
-      ]
-    },
-    {
-      "sha": "a4cc51e2da9555d80ec232fecc6ad939ba983574",
-      "at": "2026-11-06T17:01:38.588Z",
-      "files": [
-        "658820f72b4617efb380.wasm",
-        "b0b3f8fc0211e77647f0.wasm"
       ]
     }
   ]
