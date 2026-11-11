@@ -258,7 +258,7 @@
       "icon": "<svg viewBox='0 0 48 48'><path d='M8 24h22' stroke='#1C9FD8' stroke-width='7' stroke-linecap='round'/><path d='M42 24l-13-10v20z' fill='#1C9FD8'/></svg>",
       "summary": "Tap an arrow with a clear path. Clear the board.",
       "what": ["Every arrow points somewhere. Tap one and it slides off the board along its path, but only if nothing is in its way. The path runs straight on, except where a mirror turns it or a portal carries it across the board.","Clear every arrow to win the level. Each arrow you clear can only free others, so a level can never become impossible."],
-      "how": ["Start with arrows whose path to the edge is already empty.","Big boards open zoomed in: pinch or scroll to zoom, and drag to move.","In the game, How to play opens from the map's top right, or from the Help and news tab in Settings."],
+      "how": ["Start with arrows whose path to the edge is already empty.","Big boards open zoomed in: pinch or scroll to zoom, and drag to move.","The bar at the top shows the level, your hearts, the time and the arrows left, in bold white letters with a dark outline like the Exitwise logo, so they stay clear on every world.","In the game, How to play opens from the map's top right, or from the Help and news tab in Settings."],
       "figure": {"src":"/exitwise/img/1-board.webp","alt":"Level 33 in the Jungle world: a zigzag board packed with bendy arrows in six colours","width":720,"height":1280,"caption":"Level 33, in the Jungle world."},
       "related": ["hearts","hints","board-shapes"]
     },
