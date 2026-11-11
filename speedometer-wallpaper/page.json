@@ -761,6 +761,27 @@
       ]
     },
     {
+      "id": "home-screen-widgets",
+      "eyebrow": "Home-screen widgets",
+      "title": "A clock widget and a music widget in your style",
+      "intro": "Two Android home-screen widgets put your Speedometer style on the home screen, with or without the live wallpaper. Each one is drawn in the style you use, with your colours and settings for it, and changes by itself when you pick another style. There is nothing to set up: open <b>Customize</b>, tap <b>Add to home screen</b> and pick one, or touch and hold your home screen, tap Widgets and find Speedometer.",
+      "blocks": [
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "Speedometer clock",
+              "text": "Stretched wide, the time big with the date, in the style's own type and colours. Square, the style's own dial with its hands on Android 12 and newer, and the time and date in a box on older phones. Your phone ticks it, so it costs no battery, and a tap opens the app with your style running live."
+            },
+            {
+              "title": "Speedometer music",
+              "text": "The song that's playing, with its cover, title and artist, and back, play and next buttons, drawn as your style draws its Now Playing card. The buttons work on every home screen, Samsung's included. A tap on the cover opens your music app. It uses the notification access Now Playing already asks for, and what it reads stays on your phone."
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "hud",
       "eyebrow": "HUD mode",
       "title": "A car HUD: your speed on the windscreen",
