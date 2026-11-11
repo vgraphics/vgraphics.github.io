@@ -60,7 +60,7 @@
   },
   {
     "q": "Why does the app ask for notification access?",
-    "a": "For the Future style and three widgets, Now Playing, the music buttons and Calls and messages: they show the song that's playing, with its cover, and your missed calls and unread messages. The app reads them from your phone's notifications, on the phone, and none of it leaves the phone. Every other gauge works without the access."
+    "a": "For four widgets that work in any style: Now Playing shows the song that's playing, with its cover, the music buttons control it, Calls and messages counts your missed calls and unread messages, and Next turn shows your next turn while Google Maps guides you. The Future style has the song and the counts built in, so it asks too. The app reads all of it from your phone's notifications, on the phone, and none of it leaves the phone. Every other gauge works without the access."
   },
   {
     "q": "Can I try it before installing?",

@@ -322,10 +322,10 @@
       "section": "designs",
       "name": "Music, calls and messages",
       "image": "/speedometer-wallpaper/img/future-kmh.webp",
-      "summary": "On Future, and in any style with the music widgets: the song that's playing, missed calls and new messages.",
-      "what": ["Future shows the song that's playing, with its cover and the media volume, and how many calls you missed and messages you haven't read. In any style, the Now Playing and Calls and messages widgets show them too, and the music buttons control the song.","For that, Android has to give the app notification access. Android warns that an app with it could read all your notifications: this one only reads the song that's playing and counts missed calls and messages. What it reads never leaves your phone."],
-      "how": ["The app asks after you pick or buy Future, or when you add one of those widgets in the layout builder. You can also turn it on in Customize → Music, calls and messages → Notification access, or in Settings → Permissions.","Without access, the music area reads MUSIC AND CALLS ARE OFF: the volume bar still works and the counts are hidden.","You can turn the access off any time in Android's settings."],
-      "notes": ["Calls and messages are counted from their notifications, never from your call log or your messages. Classic never asks for notification access."],
+      "summary": "In any style: the song that's playing, music buttons, missed calls and new messages.",
+      "what": ["In any style, the Now Playing widget shows the song that's playing, with its cover, the music buttons control it, and the Calls and messages widget shows how many calls you missed and messages you haven't read. Add them in the layout builder. The Future style has the song, the media volume and the counts built in.","For that, Android has to give the app notification access. Android warns that an app with it could read all your notifications: this one only reads the song that's playing, counts missed calls and messages, and, for the Next turn widget, reads the next turn while Google Maps guides you. What it reads never leaves your phone."],
+      "how": ["The app asks when you add one of those widgets in the layout builder, or after you pick or buy Future. You can also turn it on in Settings → Permissions, or in Future's Customize → Music, calls and messages → Notification access.","Without access, Now Playing and Future's music area read MUSIC AND CALLS ARE OFF, and Calls and messages reads CALLS AND MESSAGES ARE OFF. Future's volume bar still works.","You can turn the access off any time in Android's settings."],
+      "notes": ["Calls and messages are counted from their notifications, never from your call log or your messages. Without these widgets or Next turn, no style but Future asks for notification access."],
       "related": ["future-design","settings"]
     },
     {
