@@ -731,7 +731,7 @@
       "id": "widgets",
       "eyebrow": "Widgets",
       "title": "43 widgets for any style",
-      "intro": "Every style shows every widget, each in its own look. Add the ones you want in the <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">layout builder</a>: each one reads only while it's on your wallpaper, and only the weather sends anything, your rough location, rounded to about 10 km, to MET Norway for the forecast.",
+      "intro": "Every style shows every widget, each in its own look. Add the ones you want in the <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">layout builder</a>: each one reads only while it's on your wallpaper. Only the Weather and Map widgets send anything: a rough location, never your exact point. The weather's, rounded to about 10 km, goes to MET Norway for the forecast; the map asks our map host for the squares of about 2 km round you.",
       "blocks": [
         {
           "type": "features",
@@ -742,7 +742,7 @@
             },
             {
               "title": "On the road",
-              "text": "Trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer and climb rate, from GPS and the phone's own sensors. Nothing leaves your phone."
+              "text": "Trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer and climb rate, from GPS and the phone's own sensors, and a live map with Speedometer Pro. Only the map sends anything: a rough location, never your exact point."
             },
             {
               "title": "Where you are",
@@ -1059,7 +1059,7 @@
       "band": {
         "art": "<span class=\"lcd lamp\" aria-hidden=\"true\"><svg viewBox=\"0 0 40 24\"><g class=\"off\"><path d=\"M9 8a6 6 0 0 0 0 8M5.5 5a10.5 10.5 0 0 0 0 14M31 8a6 6 0 0 1 0 8M34.5 5a10.5 10.5 0 0 1 0 14\"/></g><g class=\"on\"><rect x=\"13\" y=\"1\" width=\"14\" height=\"22\" rx=\"2.6\"/><path d=\"M17.6 12.5v-2.2a2.4 2.4 0 0 1 4.8 0v2.2\"/><rect x=\"16.4\" y=\"12.5\" width=\"7.2\" height=\"5.6\" rx=\"1\" fill=\"currentColor\" stroke-width=\"1.4\"/></g></svg></span>",
         "title": "Your readings stay on your phone",
-        "text": "Nothing the gauges read is sent anywhere. Your location is used only for the speed in GPS mode, and only while the wallpaper is on screen. Future's music, calls and messages are read on the phone and stay there.",
+        "text": "Nothing the gauges read is sent anywhere. Your location is used only while the wallpaper or HUD mode is on screen, and only the Weather and Map widgets send any of it: a rough location, never your exact point. Future's music, calls and messages are read on the phone and stay there.",
         "link": {
           "href": "/speedometer-wallpaper/privacy.html",
           "label": "Privacy policy →"
