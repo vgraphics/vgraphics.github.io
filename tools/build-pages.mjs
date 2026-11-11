@@ -46,7 +46,8 @@
 //                                reasons (a "why" section's points, each a card with its wiki page's painting),
 //                                try (the product's web version, tools/lib/try.mjs), frame (a build another Pages repo
 //                                serves, full screen on a screen page, tools/lib/frames.mjs), storybook (the game's own
-//                                book, exitwise/storybook),
+//                                book, exitwise/storybook), gear (a tip with a before-and-after and things to buy for it
+//                                on Amazon, tools/lib/shop.mjs),
 //                                faq (questions and answers, tools/lib/faq.mjs) and news (what's new, tools/lib/news.mjs):
 //                                every landing page has a "What's new" and a "Questions and answers" section
 //   stage                        { tall, wide, position? }: a picture from the product's world behind a section's
@@ -88,6 +89,8 @@ import { miniboard } from './lib/miniboard.mjs'
 import { tryBlock } from './lib/try.mjs'
 import { frameBlock } from './lib/frames.mjs'
 import { faq, faqData, readFaq } from './lib/faq.mjs'
+import { compare } from './lib/compare.mjs'
+import { disclosure, shopRow } from './lib/shop.mjs'
 import { news, readNews } from './lib/news.mjs'
 import { renderGallery } from './gallery.mjs'
 import { imageSize } from './lib/image-size.mjs'
@@ -354,6 +357,21 @@ ${main.replace(/\s*<p class="kicker">[\s\S]*?<\/p>/, '').replace(/\s*<h1>[\s\S]*
   // head carries them as FAQPage structured data too, unless the block says "schema": false (an About page's: the
   // product's FAQPage is its landing page's, and the About page asks other questions).
   faq: (b, { dir, page }) => faq(readFaq(b, dir, page.site).items),
+
+  // A tip with a before-and-after and the things to buy for it (tools/lib/shop.mjs; Speedometer's "Seeing double?" in
+  // its HUD chapter, George, 11 Nov 2026, gear tips "C"): { type: "gear", title, text, compare (tools/lib/compare.mjs,
+  // its "shop" the chip on the "after" side), items?: [{ item, icon, title, text, label }] }, each item a row with its
+  // Amazon button and Ad mark. A link that still holds a placeholder is left out, row and all, and the Associates line
+  // shows under the links that are there, or not at all.
+  gear: (b) => {
+    const rows = (b.items ?? []).map(shopRow).filter(Boolean)
+    return `<div class="gear">
+          <h3>${esc(b.title)}</h3>
+          ${b.text ? `<p>${b.text}</p>` : ''}
+          ${compare(b.compare)}${rows.length ? `
+          <ul class="shop-rows">${rows.join('')}</ul>` : ''}${disclosure([b.compare.shop?.item, ...(b.items ?? []).map((i) => i.item)])}
+        </div>`
+  },
 
   // The product's releases, newest first, from the changelog.json the Deployer adds to (tools/lib/news.mjs).
   news: (b, { dir, page, slug }) => news(readNews(b, dir, page.site), b, page.site.name, slug),

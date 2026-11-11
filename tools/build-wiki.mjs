@@ -25,13 +25,15 @@
 // HUD mode: "Try HUD mode in your browser", its #hud link into the try page; George, 10 Nov 2026,
 // "site-try-hud-link": KEEP); and "compare" ({ title, text, ...a before-and-after, tools/lib/compare.mjs }), a section
 // with the two pictures and a handle between them (Speedometer's "Seeing double?", without and with a HUD film;
-// George, 10 Nov 2026, "film-before-after": KEEP).
+// George, 10 Nov 2026, "film-before-after": KEEP), its "shop" an Amazon chip on the "with" side and the Associates line
+// under it (tools/lib/shop.mjs; George, 11 Nov 2026, gear tips "C").
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
 import { anchor, closing, header, footer, iconLinks, quote } from './lib/partials.mjs'
 import { journey, lvBadge, piece, worldOf } from './lib/journey.mjs'
 import { compare } from './lib/compare.mjs'
+import { disclosure } from './lib/shop.mjs'
 import { heroPicture, heroSection, srcset, wikiArt } from './lib/hero.mjs'
 import { markPage } from './lib/marks.mjs'
 import { entryTitle, INDEX_ROBOTS, OG_LOCALE } from './lib/seo.mjs'
@@ -303,7 +305,7 @@ function compareBlock(e) {
   const c = e.compare
   if (!c) return ''
   return `<section class="w-block" aria-labelledby="h-compare">${h2('h-compare', esc(c.title))}${c.text ? `<p class="w-muted">${c.text}</p>` : ''}
-      ${compare(c, '(min-width: 1000px) 760px, 92vw')}
+      ${compare(c, '(min-width: 1000px) 760px, 92vw')}${disclosure([c.shop?.item])}
     </section>`
 }
 // "In the game": a phone on small screens; on wide ones the browser game's wide player, the world's level-map art

@@ -1,8 +1,9 @@
 """The "Seeing double?" pictures: the same HUD mode shot without a HUD film (the double image a bare windscreen gives)
 and with one (one sharp image), for the slider (assets/compare.js) on Speedometer's HUD wiki page and in the landing
-page's FAQ answer about the double image (George, 10 Nov 2026, "film-before-after": KEEP; no shop link).
+page's FAQ answer about the double image (George, 10 Nov 2026, "film-before-after": KEEP), and in the landing page's
+HUD chapter, where it carries the film's Amazon link (George, 11 Nov 2026, gear tips variation C; tools/lib/shop.mjs).
 
-    python tools/make-hud-film.py [--stills <folder>]
+    python tools/make-hud-film.py [--stills <folder>] [--shot <name> ...]   (every shot by default)
 
 Every pixel is the app's own drawing, never a painted one: the windscreen stills HudFramesTest renders with the app's
 HUD renderer (Promo/speedometer/hud/stills/<style>_<layout>_city.png, 1920x1080; how to make them again:
@@ -23,11 +24,12 @@ from scipy import ndimage
 SITE = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 OUT = os.path.join(SITE, 'speedometer-wallpaper', 'img', 'hud')
 LOOKS = ['glass_number', 'horizon_gauge_arc', 'pulse_centre_bar', 'vector_fighter']
-# Each shot: its look, the part of the still it shows (left, top, right, bottom) and the widths it's served at. Two
-# looks and two framings, so each place on the site has a picture of its own (check-site: every picture once).
+# Each shot: its look, the part of the still it shows (left, top, right, bottom) and the widths it's served at. Three
+# looks and three framings, so each place on the site has a picture of its own (check-site: every picture once).
 SHOTS = {
     'glass': ('glass_number', (240, 40, 1680, 850), [720, 1080, 1440]),   # the wiki's HUD page, 16:9
     'pulse': ('pulse_centre_bar', (480, 140, 1440, 780), [640, 960]),     # the landing page's FAQ answer, 3:2
+    'vector': ('vector_fighter', (320, 140, 1600, 860), [640, 960, 1280]),  # the landing page's HUD chapter, 16:9
 }
 SHIFT = 0.015      # how far up the second image sits, as a share of the still's height
 SOFT = 1.2         # its blur, in px
@@ -80,11 +82,15 @@ def save(arr, base, widths):
 def main():
     ap = argparse.ArgumentParser()
     ap.add_argument('--stills', help='the folder of HudFramesTest stills (Promo/speedometer/hud/stills beside the site)')
-    folder = ap.parse_args().stills or stills_folder()
+    ap.add_argument('--shot', action='append', choices=list(SHOTS), help='only this shot (again for more); all by default')
+    args = ap.parse_args()
+    folder = args.stills or stills_folder()
     stills = {look: load(folder, look) for look in LOOKS}
     back = scene(list(stills.values()))
     os.makedirs(OUT, exist_ok=True)
     for shot, (look, box, widths) in SHOTS.items():
+        if args.shot and shot not in args.shot:
+            continue
         left, top, right, bottom = box
         still = stills[look]
         for name, arr in (('without', doubled(still, back)), ('with', still)):

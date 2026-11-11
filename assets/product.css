@@ -1122,6 +1122,81 @@ html.card-open { overflow: hidden; }
 .compare figcaption { color: var(--muted); font-size: 0.95rem; }
 @media (prefers-reduced-motion: reduce) { .compare-knob, .compare-tag { transition: none; } }
 
+/* Amazon affiliate links (tools/lib/shop.mjs; George, 11 Nov 2026, gear tips "C"): a chip on a before-and-after's
+   "after" side, a tip's rows each with a button, the Ad mark beside each link, and the Associates line under them.
+   The gear block holds a tip's words, its before-and-after and its rows. */
+.gear { display: grid; gap: 14px; max-width: 760px; margin-top: 8px; }
+.gear > h3 { margin: 0; }
+.gear > p { margin: 0; color: var(--muted); }
+.ad-mark {
+  flex: none;
+  padding: 3px 6px;
+  border: 1px solid currentColor;
+  border-radius: 4px;
+  font: var(--label-weight) 0.6875rem/1 var(--label-font);
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  opacity: 0.8;
+}
+.shop-chip {
+  position: absolute;
+  right: 12px;
+  bottom: 12px;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 14px 0 10px;
+  border-radius: 999px;
+  background: rgb(0 0 0 / 0.72);
+  color: #FFFFFF;
+  font: var(--label-weight) 0.875rem/1 var(--label-font);
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgb(0 0 0 / 0.35);
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+.shop-chip:hover { background: rgb(0 0 0 / 0.86); }
+.shop-chip:active { transform: scale(0.97); }
+.shop-chip:focus-visible, .shop-btn:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; }
+.shop-chip svg, .shop-btn svg { flex: none; width: 16px; height: 16px; }
+.shop-rows { display: grid; gap: 10px; margin: 0; padding: 0; list-style: none; }
+.shop-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 12px 16px;
+  padding: 14px 16px;
+  border: var(--card-border);
+  border-radius: var(--radius-sm);
+  background: var(--surface);
+  box-shadow: var(--card-shadow);
+}
+.shop-icon { display: grid; flex: none; place-items: center; width: 48px; height: 48px; border-radius: var(--radius-sm); background: var(--surface-2); color: var(--accent); }
+.shop-icon svg { width: 28px; height: 28px; }
+.shop-words { display: grid; flex: 1 1 220px; gap: 2px; }
+.shop-words > span { color: var(--muted); }
+.shop-act { display: flex; flex: none; align-items: center; gap: 10px; color: var(--muted); }
+.shop-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  padding: 0 16px;
+  border: var(--card-border);
+  border-radius: var(--btn-radius, var(--radius-sm));
+  background: var(--surface-2);
+  color: var(--ink);
+  font-weight: 700;
+  text-decoration: none;
+  cursor: var(--cursor-link, pointer);
+  transition: background-color 150ms ease-out, transform 150ms ease-out;
+}
+.shop-btn:hover { background: color-mix(in srgb, var(--accent) 16%, var(--surface-2)); }
+.shop-btn:active { transform: scale(0.97); }
+.shop-disc { margin: 0; color: var(--muted); font-size: 0.85rem; }
+@media (prefers-reduced-motion: reduce) { .shop-chip, .shop-btn { transition: none; } }
+
 /* What's new, on every landing page (the "news" block, tools/lib/news.mjs; George, 28 Oct 2026, design A of four:
    the update card). On the page, one compact card: the newest update's date stamped in the product's colour, its
    headline and first line, the button and how many updates there are, on a small stack of cards that says there are

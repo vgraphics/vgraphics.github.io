@@ -817,6 +817,44 @@
           ]
         },
         {
+          "type": "gear",
+          "title": "Seeing double?",
+          "text": "A windscreen has two glass surfaces, and each one reflects the phone. A HUD film on the inside of the glass leaves one sharp image. Drag to compare.",
+          "compare": {
+            "before": {
+              "src": "/speedometer-wallpaper/img/hud/film-vector-without",
+              "label": "Without film",
+              "alt": "Vector's Fighter HUD on a bare windscreen at night: 60 km/h, the clock, trip, heading and both speed tapes each show twice, a faint copy just above"
+            },
+            "after": {
+              "src": "/speedometer-wallpaper/img/hud/film-vector-with",
+              "label": "With film",
+              "alt": "The same Fighter HUD with a HUD film on the windscreen: one sharp image of 60 km/h, the clock, trip, heading and speed tapes"
+            },
+            "widths": [
+              640,
+              960,
+              1280
+            ],
+            "width": 1280,
+            "height": 720,
+            "label": "Without film or with film",
+            "shop": {
+              "item": "speedometer-hud-film",
+              "label": "Get the film"
+            }
+          },
+          "items": [
+            {
+              "item": "speedometer-dash-mat",
+              "icon": "mat",
+              "title": "Phone sliding?",
+              "text": "A non-slip dash mat keeps it flat and still. No glue, no stickers.",
+              "label": "See on Amazon"
+            }
+          ]
+        },
+        {
           "type": "features",
           "items": [
             {

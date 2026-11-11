@@ -27,7 +27,11 @@
       "widths": [640, 960],
       "width": 960,
       "height": 640,
-      "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right."
+      "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right.",
+      "shop": {
+        "item": "speedometer-hud-film",
+        "label": "Get the film"
+      }
     }
   },
   {

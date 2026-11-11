@@ -63,7 +63,8 @@ Play Console, App Store Connect and the web game portals. This repo is **public*
 | `tools/make-wiki-worlds.py` | Makes the Worlds entry's wide master from George's island and its Recraft outpaint, the island crisp in the middle and the new sea shaded to meet it: `python tools/make-wiki-worlds.py`, then `make-wiki-art.py exitwise worlds` |
 | `tools/make-wiki-pieces.py` | Writes the small pictures of Exitwise's obstacles and powerups (and the playable boards' rock, bomb, portal, mirror, ice and gates) from the game's art: `python tools/make-wiki-pieces.py <Games repo>` after the game's pack changes |
 | `tools/make-wiki-screens.py` | Lays the app's own screens (render-test goldens, demo-drive frames) into the phones of Speedometer's wiki paintings, and with an entry's `reflections` a screen on the windscreen as well (HUD mode); `screens.json` in the masters says which goes where. Usage in its header |
-| `tools/make-hud-film.py` | Writes Speedometer's "Seeing double?" pairs, HUD mode without and with a HUD film, from the app's own HUD stills: `python tools/make-hud-film.py [--stills <folder>]`, into `speedometer-wallpaper/img/hud/` (see "Before and after" below) |
+| `tools/make-hud-film.py` | Writes Speedometer's "Seeing double?" pairs, HUD mode without and with a HUD film, from the app's own HUD stills: `python tools/make-hud-film.py [--stills <folder>] [--shot <name> ...]`, into `speedometer-wallpaper/img/hud/` (see "Before and after" below) |
+| `tools/lib/shop.mjs` | Amazon affiliate links (see "Before and after" below): the one place for every amazon.de ASIN and the Associates tag |
 | `tools/make-key-art.py` | Writes a product's hero pictures (`<product>/img/key-art-wide-*` and `key-art-tall-*`, AVIF, WebP and JPEG) from its key art masters and prints their page.json entries: `python tools/make-key-art.py <product> <wide master> <tall master>`, or `--cut <x>` for a 9:16 cut of the wide one. Never larger than the master. |
 | `tools/make-product-card.py` | Draws a product's link-preview card `<product>/img/card-1200x630.jpg` from its key art and approved logo, with one line set in its own font: `python tools/make-product-card.py <product> <key art> <logo PNG> "<line>" [x]` |
 | `tools/make-cursors.mjs` | Draws every product's cursors and VGraphics' (see "Cursors" below): `node tools/make-cursors.mjs`, then `node tools/build-pages.mjs` |
@@ -574,6 +575,15 @@ with titles, each is a chapter with its heading's link and a bullet on the stepp
   one shot over each other with a handle between them: drag or tap to move it, the arrow keys on its slider, and
   without script it stays in the middle. `menu.js` loads `compare.js` on a page with one. Each pair is one place on
   its page (every picture once). Speedometer's "Seeing double?" pairs come from `tools/make-hud-film.py`.
+- **Amazon affiliate links** (`tools/lib/shop.mjs`; George, 11 Nov 2026, gear tips "C"): a compare's `"shop": {
+  "item", "label" }` puts an Amazon chip with an Ad mark on its "after" side, and a `gear` block (a section's tip:
+  `{ "type": "gear", "title", "text", "compare", "items": [{ "item", "icon", "title", "text", "label" }] }`) adds a
+  row per thing to buy, each with its button and Ad mark. Every link is `https://www.amazon.de/dp/<ASIN>?tag=<tag>`,
+  opens in a new tab as `rel="sponsored noopener"`, and has the Associates line under it ("As an Amazon Associate,
+  VGraphics earns from qualifying purchases."). The FAQPage data keeps the plain answer. The ASINs and the tag live
+  in `shop.mjs` alone; one that still holds `_TODO` (the film's ASIN and the tag, OPEN on 11 Nov) keeps its link, Ad
+  mark and Associates line off every page. check-site fails an Amazon link that opens in the same tab, isn't
+  sponsored, holds a placeholder or has no Associates line, and a block naming an item `shop.mjs` doesn't know.
 - **The answers open and close with an animation, one at a time** (George, 26 Oct 2026: "FAQ must open/close with
   animation always. One open at a time."), **and so does every other expandable** (27 Oct 2026: "FAQs and every kind
   of expandable like that must always open/close with animation. Its a general rule."). `assets/faq.js`, which

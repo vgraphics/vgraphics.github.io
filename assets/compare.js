@@ -26,10 +26,12 @@ for (const frame of frames) {
   range.addEventListener("input", () => set(Number(range.value)));
 
   // A mouse moves the handle as it presses; a finger or pen once it moves sideways (an up or down swipe is the
-  // browser's, which then cancels the pointer), or where it lifts after a tap.
+  // browser's, which then cancels the pointer), or where it lifts after a tap. A press on a link in the frame (the
+  // Amazon chip, tools/lib/shop.mjs) is the link's: the handle stays where it is.
   let held = null;
   let moved = false;
   frame.addEventListener("pointerdown", (event) => {
+    if (event.target instanceof Element && event.target.closest("a")) return;
     if (held !== null || (event.pointerType === "mouse" && event.button !== 0)) return;
     held = event.pointerId;
     moved = false;

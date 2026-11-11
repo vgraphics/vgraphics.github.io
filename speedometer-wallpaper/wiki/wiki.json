@@ -53,7 +53,8 @@
         "widths": [720, 1080, 1440],
         "width": 1440,
         "height": 810,
-        "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right."
+        "caption": "Drag the handle: a bare windscreen on the left, one with a HUD film on the right.",
+        "shop": {"item": "speedometer-hud-film", "label": "Get the film"}
       },
       "tip": {"label": "Before you drive", "title": "Set it up while parked", "text": "Lay the phone where it can't slide, clear of the airbags, and don't touch it while you drive. Check that your country allows a phone on the dashboard."},
       "notes": [

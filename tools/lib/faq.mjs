@@ -8,7 +8,8 @@
 // [{ q, a, compare? }], q in plain words, a trusted HTML from this repo, one paragraph or a list of them. Words about
 // the product's demo in an answer, <span data-demo>…</span>, are left out while the demo is private (partials.mjs
 // demoText). compare: a before-and-after under the answer's words (tools/lib/compare.mjs; Speedometer's "Seeing
-// double?" in its answer about the double image), which the structured data leaves out.
+// double?" in its answer about the double image), which the structured data leaves out, as it leaves out the compare's
+// Amazon chip and the Associates line under it (tools/lib/shop.mjs; George, 11 Nov 2026, gear tips "C").
 // A block with "schema": false shows its questions without the FAQPage data (an About page's: the landing page's
 // questions are the product's FAQPage, and the About page asks other ones).
 import { existsSync, readFileSync } from 'node:fs'
@@ -16,6 +17,7 @@ import { join } from 'node:path'
 import { compare, compareProblems } from './compare.mjs'
 import { demoText, esc, ICONS } from './partials.mjs'
 import { root } from './product.mjs'
+import { disclosure } from './shop.mjs'
 
 // The block's questions, and what's wrong with them (check-site reports it): its items, else its src's file in the
 // page's folder. site: the product's page.json site, for the words about its demo.
@@ -46,7 +48,7 @@ const paragraphs = (a) => (Array.isArray(a) ? a : a == null ? [] : [a])
 
 export function faq(items) {
   return `<div class="faq">
-          ${items.map((i) => `<details class="faq-item"><summary>${esc(i.q)}${ICONS.chevron}</summary><div class="faq-a">${paragraphs(i.a).map((p) => `<p>${p}</p>`).join('')}${i.compare ? compare(i.compare, '(min-width: 900px) 760px, 88vw') : ''}</div></details>`).join('\n          ')}
+          ${items.map((i) => `<details class="faq-item"><summary>${esc(i.q)}${ICONS.chevron}</summary><div class="faq-a">${paragraphs(i.a).map((p) => `<p>${p}</p>`).join('')}${i.compare ? `${compare(i.compare, '(min-width: 900px) 760px, 88vw')}${disclosure([i.compare.shop?.item])}` : ''}</div></details>`).join('\n          ')}
         </div>`
 }
 

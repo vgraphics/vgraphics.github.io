@@ -16,6 +16,8 @@ import { esc, playButtons } from './lib/partials.mjs'
 import { demoPieces, documents, loadProduct, pieces, products, subpages } from './lib/product.mjs'
 import { imageSize } from './lib/image-size.mjs'
 import { readFaq } from './lib/faq.mjs'
+import { compareProblems } from './lib/compare.mjs'
+import { shopPageProblems, shopProblems } from './lib/shop.mjs'
 import { emptyProblems, readNews } from './lib/news.mjs'
 import { hasCredentials, hasRightsMark, MARKABLE, newArt, readArt, signer } from './lib/credentials.mjs'
 import { blockedBy, readRules } from './lib/blockers.mjs'
@@ -204,6 +206,9 @@ for (const file of pages) {
   for (const t of ['fonts.googleapis.com', 'fonts.gstatic.com', 'googletagmanager', 'gtag(']) {
     if (html.includes(t)) report(file, 'no-trackers', `contains ${t}`)
   }
+  // Amazon affiliate links (tools/lib/shop.mjs; George, 11 Nov 2026, gear tips "C"): each opens in a new tab as
+  // rel="sponsored noopener", none holds a placeholder, and the page says the Associates line.
+  for (const message of shopPageProblems(html)) report(file, 'shop', message)
 
   for (const [, ref] of html.matchAll(/\s(?:href|src)="([^"]*)"/g)) {
     if (!ref || /^(#|\/\/|[a-z]+:)/i.test(ref)) continue
@@ -781,6 +786,11 @@ for (const slug of products()) {
     if (b.type === 'faq') for (const m of readFaq(b, slug).problems) report(file, 'faq-news', m)
     if (b.type === 'news') for (const m of readNews(b, slug).problems) report(join(slug, b.src ?? 'changelog.json'), 'faq-news', m)
     if (b.type === 'news') for (const m of emptyProblems(b.empty)) report(file, 'faq-news', m)
+    // A gear block (tools/build-pages.mjs): its before-and-after, and each row's Amazon item (tools/lib/shop.mjs).
+    if (b.type === 'gear') {
+      for (const m of compareProblems(b.compare)) report(file, 'shop', `the gear block "${b.title}": ${m}`)
+      for (const [n, r] of (b.items ?? []).entries()) for (const m of shopProblems(r, `row ${n + 1}`)) report(file, 'shop', `the gear block "${b.title}": ${m}`)
+    }
   }
 }
 
