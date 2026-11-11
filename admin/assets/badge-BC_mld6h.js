@@ -1,0 +1,1 @@
+import{u as r}from"./index-OsoLbpZR.js";function e({tone:s,live:a,children:d}){return r("span",{class:`bdg bdg-${s}`,children:[r("i",{class:a?"live":void 0,"aria-hidden":"true"}),r("span",{class:"rd-sr",children:"Status: "}),d]})}export{e as B};
