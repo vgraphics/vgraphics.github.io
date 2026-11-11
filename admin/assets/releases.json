@@ -2,6 +2,39 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "d6f340daa90e9e0c7254ad9e1acc17ce915716a1",
+      "at": "2026-11-11T17:15:45.438Z",
+      "files": [
+        "badge-Aik72Dcb.js",
+        "controls-BwZh4wq_.js",
+        "fields-DhuVnfiC.js",
+        "firestore-Ch2gUrxn.js",
+        "gifts-CXz1_Dbb.css",
+        "gifts-DwY6N0tP.js",
+        "index-BKBU2gbS.js",
+        "index-BOUaMGrm.js",
+        "index-BRksnCSt.css",
+        "index-BZO4t39K.css",
+        "index-B_Xkh2nu.css",
+        "index-Byk-pCsu.js",
+        "index-CMNOmUdF.js",
+        "index-D25zhDh7.css",
+        "index-D4Q-Tgfn.js",
+        "index-D7u9EsCs.js",
+        "index-DkF4zKlk.js",
+        "index-HMI772O8.css",
+        "index-VCQLnYQV.css",
+        "index-bWFq98ZC.js",
+        "model-BhGN2KQT.js",
+        "model-DsXJpKe0.js",
+        "picture-preview-D0YDPEFN.js",
+        "picture-preview-tU52PGzs.css",
+        "power-BEcySaN-.js",
+        "power-Efj49ROr.css",
+        "power-dialog-ByrugYRJ.js"
+      ]
+    },
+    {
       "sha": "5237c6e4b832af5fab8c9fe7a2e5f4349b40a63e",
       "at": "2026-11-11T07:43:55.614Z",
       "files": [
@@ -59,66 +92,6 @@
         "picture-preview-EidXWD8M.js",
         "picture-preview-tU52PGzs.css",
         "power-dialog-DGUBq6dp.js"
-      ]
-    },
-    {
-      "sha": "19f1b52c5d55a64b41a45221ab15a4ecaca905d7",
-      "at": "2026-11-10T11:30:57.580Z",
-      "files": [
-        "badge-C0LiOuUO.js",
-        "controls-B5yG_6nF.js",
-        "fields-Ckz0TNKW.js",
-        "fields-Efj49ROr.css",
-        "firestore-C-S5WDSn.js",
-        "index-BRksnCSt.css",
-        "index-BZi9OkBU.js",
-        "index-BoC4mWwa.js",
-        "index-CUT1U62v.js",
-        "index-CgRe8ati.css",
-        "index-D25zhDh7.css",
-        "index-DGMIs2Y3.js",
-        "index-DTTu4XD1.js",
-        "index-Dvi53W39.js",
-        "index-EdOcznX1.js",
-        "index-KzRqEQhj.css",
-        "index-VCQLnYQV.css",
-        "index-fh2Agiw1.css",
-        "index-lPOSXsSn.js",
-        "model-BhGN2KQT.js",
-        "model-CKEAgbjK.js",
-        "picture-preview-C69dXD_9.js",
-        "picture-preview-tU52PGzs.css",
-        "power-dialog-DCZtURq2.js"
-      ]
-    },
-    {
-      "sha": "8b094be796a0c6c9d622a07fe576aa3c8aecc476",
-      "at": "2026-11-10T03:09:22.848Z",
-      "files": [
-        "badge-B2yIoNlP.js",
-        "controls-Cc5s8HaO.js",
-        "fields-B8J3LJXT.js",
-        "fields-Efj49ROr.css",
-        "firestore-XqNY49c-.js",
-        "index-BEffcycp.js",
-        "index-BKcRMIFs.js",
-        "index-BRksnCSt.css",
-        "index-B_948-mO.js",
-        "index-BlTahgh5.js",
-        "index-CKcf3Fq9.js",
-        "index-CO-Y-TIV.js",
-        "index-CgRe8ati.css",
-        "index-D25zhDh7.css",
-        "index-DUKaGbJ5.css",
-        "index-VCQLnYQV.css",
-        "index-_2-aa-am.js",
-        "index-fh2Agiw1.css",
-        "index-w2T1MQTE.js",
-        "model-BhGN2KQT.js",
-        "model-D8cCp8VH.js",
-        "picture-preview-D-EmdLSf.js",
-        "picture-preview-tU52PGzs.css",
-        "power-dialog-CZPl5JJG.js"
       ]
     }
   ]
