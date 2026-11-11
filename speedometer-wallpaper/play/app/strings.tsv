@@ -22,6 +22,14 @@ cluster__mode_power	PWR
 cluster__mode_speed	SPD
 cluster__temperature_cold	C
 cluster__temperature_hot	H
+component__cancel_subscription_sheet__body	%1$s is yours forever now. Your %2$s subscription still renews until you cancel it, so cancel it in Google Play to stop paying for it.
+component__cancel_subscription_sheet__button_later__label	Later
+component__cancel_subscription_sheet__button_open__label	Open Google Play
+component__cancel_subscription_sheet__title	Cancel your subscription
+component__help_offer_sheet__body	Found a problem, a bug, or something you'd love us to add? Tell us. We read every ticket.
+component__help_offer_sheet__button_later__label	Not now
+component__help_offer_sheet__button_open__label	Open a ticket
+component__help_offer_sheet__title	Need help or have an idea?
 component__hidden_creators_sheet__body	Their layouts don't show in the market for you.
 component__hidden_creators_sheet__button_show__label	Show again
 component__hidden_creators_sheet__empty	No hidden creators.
@@ -48,12 +56,21 @@ component__market_report_sheet__reason_other	Something else
 component__market_report_sheet__reason_spam	Spam, or a copy of someone else's
 component__market_report_sheet__title	Report this layout
 component__pass_sheet__body	Every style, now and later, and no ads. Styles you bought stay yours.
+component__pass_sheet__button_forever__label	%1$s once · yours forever
+component__pass_sheet__button_forever_no_price__label	Pay once · yours forever
+component__pass_sheet__button_forever_upgrade__label	Upgrade to Pro forever · %1$s
+component__pass_sheet__button_forever_upgrade_no_price__label	Upgrade to Pro forever
 component__pass_sheet__button_monthly__label	%1$s a month
 component__pass_sheet__button_monthly_no_price__label	Monthly
 component__pass_sheet__button_yearly__label	%1$s a year · 2 months free
 component__pass_sheet__button_yearly_no_price__label	Yearly · 2 months free
 component__pass_sheet__fine_print	Billed by Google Play, and renews until you cancel. Cancel anytime in Google Play. Signed in to VHub, every device of your account gets it.
+component__pass_sheet__forever_fine_print	Paid once through Google Play, with nothing to renew. It stays with your Google account. Signed in to VHub, every device of your account gets it.
+component__pass_sheet__pro_body	Everything in Plus, and the map widget on your wallpaper.
+component__pass_sheet__pro_title	Speedometer Pro
+component__pass_sheet__pro_upgrade__note	You have Plus: Pro takes its place, and Google Play counts the time you've already paid for.
 component__pass_sheet__title	Speedometer Plus
+component__pass_sheet__title_choose	Choose your plan
 component__status_badge__content_description	Status: %1$s
 component__trial_end__body	Your wallpaper went back to your own style. Keep %1$s for good, get every style with Speedometer Plus, or watch another video for 24 more hours.
 component__trial_end__button_buy__label	Buy %1$s · %2$s
@@ -243,6 +260,7 @@ hud__speed__none	– –
 layouts__asks__activity	Asks for physical activity.
 layouts__asks__calendar	Asks to read your calendar.
 layouts__asks__location	Asks for your location.
+layouts__asks__map	Asks for your location and uses the internet.
 layouts__asks__weather	Asks for your rough location and uses the internet.
 layouts__form__analog__name	Analog
 layouts__form__annunciator__name	Caption lights
@@ -258,20 +276,28 @@ layouts__form__counter__name	Counter
 layouts__form__dial__name	Dial
 layouts__form__digits__name	Digits
 layouts__form__event__name	Icon and time
+layouts__form__frame_rounded__name	Rounded
+layouts__form__frame_square__name	Square
 layouts__form__g_ball__name	G ball
 layouts__form__icon_row__name	Icons
 layouts__form__icon_text__name	Icon and text
 layouts__form__lamp_row__name	Row of lamps
 layouts__form__led_bar__name	LED bar
 layouts__form__level__name	Level
+layouts__form__map_strip__name	Strip
 layouts__form__meters__name	Bar meters
 layouts__form__moon__name	Moon
+layouts__form__nav_screen__name	Nav screen
 layouts__form__none__name	None
 layouts__form__pair__name	Two lines
 layouts__form__panel__name	Panel
 layouts__form__plate__name	Plate
+layouts__form__print_straight__name	Straight
+layouts__form__print_tilted__name	Tilted
 layouts__form__ring__name	Ring
 layouts__form__rings__name	Rings
+layouts__form__round_plain__name	Plain
+layouts__form__round_ring__name	With a ring
 layouts__form__single_lamp__name	One lamp
 layouts__form__small_dial__name	Small dial
 layouts__form__strip__name	Strip
@@ -281,11 +307,13 @@ layouts__form__tape__name	Tape
 layouts__form__text__name	Text
 layouts__form__text_thumbnail__name	Text with cover
 layouts__form__ticker__name	Ticker
+layouts__form__turn_arrow__name	Arrow
 layouts__form__weather__name	Sky and temperature
 layouts__group__day	Your day
 layouts__group__drive	On the road
 layouts__group__gauges	Gauges
 layouts__group__phone	The phone
+layouts__group__photos	Your photos
 layouts__group__place	Where you are
 layouts__ready__column	Column
 layouts__ready__fold_music	Fold music
@@ -340,6 +368,8 @@ layouts__widget__link_speed__description	How fast the Wi-Fi link runs.
 layouts__widget__link_speed__name	Link speed
 layouts__widget__main__description	The big reading: power, CPU clock or GPS speed.
 layouts__widget__main__name	Main gauge
+layouts__widget__map__description	The streets round you, heading-up, zooming out as you speed up. With Speedometer Pro.
+layouts__widget__map__name	Map
 layouts__widget__moon__description	Tonight's moon and its name.
 layouts__widget__moon__name	Moon
 layouts__widget__music_controls__description	Back, play or pause, and next, on the wallpaper. Keep app icons off them.
@@ -348,12 +378,20 @@ layouts__widget__next_alarm__description	The next alarm you have set.
 layouts__widget__next_alarm__name	Next alarm
 layouts__widget__next_event__description	Your next calendar event: its name and time. Read on the phone, never sent anywhere.
 layouts__widget__next_event__name	Next event
+layouts__widget__next_turn__description	The next turn while Google Maps or Waze navigates: the arrow, the distance and the street.
+layouts__widget__next_turn__name	Next turn
 layouts__widget__now_playing__description	The song that's playing, with its cover.
 layouts__widget__now_playing__name	Now Playing
 layouts__widget__odometer__description	Every km you have driven with the wallpaper on, kept on the phone.
 layouts__widget__odometer__name	Odometer
 layouts__widget__phone_meters__description	Signal, RAM, Wi-Fi, battery and temperature.
 layouts__widget__phone_meters__name	Phone status meters
+layouts__widget__photo_frame__description	A photo from your gallery or camera in a frame, square or rounded. It stays on this phone.
+layouts__widget__photo_frame__name	Photo frame
+layouts__widget__photo_print__description	A photo as an instant print, straight or tilted, with a line you write under it. It stays on this phone.
+layouts__widget__photo_print__name	Instant print
+layouts__widget__photo_round__description	A photo cut to a circle, plain or with a ring. It stays on this phone.
+layouts__widget__photo_round__name	Round photo
 layouts__widget__ram__description	Memory in use, the rev counter.
 layouts__widget__ram__name	RAM
 layouts__widget__second_clock__description	The time somewhere else: UTC or a city you pick in Settings.
@@ -395,25 +433,27 @@ notification__hud_car__text	Tap for HUD mode
 notification__hud_car__title	Your car is connected
 preview__future__song_artist	VGraphics
 preview__future__song_title	Night Drive
-screen__access__body	Future shows the song that's playing, with its cover and the volume, and how many calls you missed and messages you haven't read.\n\nFor that, Android has to give this app notification access. Android will warn that the app could read all your notifications: it only reads the song that's playing and counts missed calls and messages.\n\nNothing leaves your phone. You can turn the access off any time in Android's settings.
+screen__access__body	Future shows the song that's playing, with its cover and the volume, and how many calls you missed and messages you haven't read. So do the Now Playing and Calls and messages widgets in any style, and the music buttons control the song.\n\nFor that, Android has to give this app notification access. Android will warn that the app could read all your notifications: it only reads the song that's playing and counts missed calls and messages.\n\nWhat it reads never leaves your phone. You can turn the access off any time in Android's settings.
 screen__access__button_allowed__label	Allowed
 screen__access__button_done__label	Done
 screen__access__button_later__label	Not now
 screen__access__button_open__label	Open Android settings
-screen__access__hero__body	Future can show the song that's playing, and how many calls and messages you missed. Android has to allow it first.
-screen__access__hero__subtitle	For the Future style
+screen__access__hero__body	Future shows the song that's playing and how many calls and messages you missed. So do the Now Playing and Calls and messages widgets in any style, and the music buttons control the song. Android has to allow it first.
+screen__access__hero__subtitle	For Future and the music, calls and Next turn widgets
 screen__access__message_no_settings	This phone has no notification access page.
 screen__access__row_counts__subtitle	Only how many, never who or what they say
 screen__access__row_counts__title	Missed calls and messages
+screen__access__row_next_turn__subtitle	Next turn reads Google Maps' and Waze's navigation notification. It stays on your phone.
+screen__access__row_next_turn__title	The next turn
 screen__access__row_privacy__subtitle	Turn it off any time in Android's settings
-screen__access__row_privacy__title	Nothing leaves your phone
+screen__access__row_privacy__title	What it reads stays on your phone
 screen__access__row_song__subtitle	Its title, cover and the volume
 screen__access__row_song__title	The song that's playing
 screen__access__section_reads__label	What it reads
-screen__access__status_on	Turned on. Future now shows your music, calls and messages.
+screen__access__status_on	Turned on. Future and your widgets can now show your music, calls and messages.
 screen__access__title	Music, calls and messages
 screen__access__top_bar__title	Notification access
-screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song and counts missed calls and messages.
+screen__access__warning__body	Android will warn that the app could read all your notifications. It only reads the song, counts missed calls and messages, and reads the next turn while Google Maps or Waze navigates.
 screen__account__bonus_line	Sign in and pick a premium style, free
 screen__account__delete_wrong_account__message	That's a different Google account. Your VHub account signs in with %1$s: choose that one.
 screen__account__delete_wrong_account_no_email__message	That's a different Google account. Choose the Google account your VHub account signs in with.
@@ -481,7 +521,7 @@ screen__app_settings__gps_blocked__button_open_settings__label	Open settings
 screen__app_settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
 screen__app_settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
 screen__app_settings__gps_rationale__button_continue__label	Continue
-screen__app_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It's used only to read your speed and never leaves the phone.
+screen__app_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen, and so do the trip, heading, altitude and Map widgets. Only the Weather and Map widgets send a rough location, never your exact place.
 screen__app_settings__gps_rationale__title	GPS speed
 screen__app_settings__level_failed__message	Couldn't set the level. Stand the phone upright in its mount and try again.
 screen__app_settings__level_set__message	Level set. The Tilt widget now reads level as the phone sits.
@@ -503,10 +543,12 @@ screen__app_settings__news_pending__message	Check your inbox: tap the link to co
 screen__app_settings__news_unsubscribe_failed__message	Couldn't unsubscribe. Check your connection and try again.
 screen__app_settings__news_unsubscribed__message	Unsubscribed. No more VGraphics news by email.
 screen__app_settings__no_browser__message	No app on this phone can open that page.
-screen__app_settings__pass_not_on_sale__message	Speedometer Plus isn't on sale on Google Play yet. Try again later.
+screen__app_settings__pass_not_on_sale__message	This plan isn't on sale on Google Play yet. Try again later.
 screen__app_settings__pass_on__message	Speedometer Plus is on. Every style is yours.
 screen__app_settings__pass_pending__message	Payment pending. Speedometer Plus starts when it goes through.
 screen__app_settings__play_unavailable__message	Google Play isn't available right now.
+screen__app_settings__pro_on__message	Speedometer Pro is on. Every style and the map widget are yours.
+screen__app_settings__pro_pending__message	Payment pending. Speedometer Pro starts when it goes through.
 screen__app_settings__purchase_failed__message	The purchase didn't go through.
 screen__app_settings__restore_failed__message	Couldn't restore your purchases. Please try again.
 screen__app_settings__restored__message	Purchases restored from Google Play.
@@ -528,7 +570,7 @@ screen__app_settings__row_guide__subtitle	What every gauge and lamp shows
 screen__app_settings__row_guide__title	Guide
 screen__app_settings__row_help__subtitle	Something wrong, a bug or an idea? Tell us and follow our answers
 screen__app_settings__row_help__subtitle_answered	VGraphics answered you
-screen__app_settings__row_help__title	Report a problem or an idea
+screen__app_settings__row_help__title	Help & ideas
 screen__app_settings__row_hidden_creators__subtitle#one	%d creator
 screen__app_settings__row_hidden_creators__subtitle#other	%d creators
 screen__app_settings__row_hidden_creators__title	Hidden creators
@@ -538,21 +580,30 @@ screen__app_settings__row_level__button_set__label	Set
 screen__app_settings__row_level__subtitle	Put the phone in its mount, then tap Set. The Tilt widget reads level from there.
 screen__app_settings__row_level__title	Tilt level
 screen__app_settings__row_licences__title	Licences
+screen__app_settings__row_map_data__subtitle	© OpenStreetMap contributors, ODbL · Tiles: Protomaps
+screen__app_settings__row_map_data__title	Map data
+screen__app_settings__row_more_plans__subtitle	Pay once and keep it forever
+screen__app_settings__row_more_plans__title	More plans
+screen__app_settings__row_more_plans_pro__subtitle	Pro with the map widget, or pay once
 screen__app_settings__row_news__subtitle_off	Speedometer news, one email a month at most
 screen__app_settings__row_news__subtitle_on	Signed up · one email a month at most
 screen__app_settings__row_news__subtitle_pending	Check your inbox: tap the link we sent to confirm
 screen__app_settings__row_news__title	News by email
 screen__app_settings__row_pass__active	Active
+screen__app_settings__row_pass__forever	Forever
 screen__app_settings__row_pass__pending	Pending
 screen__app_settings__row_pass__subtitle	Every style and no ads, now and later
 screen__app_settings__row_pass__title	Speedometer Plus
 screen__app_settings__row_pass_account__subtitle	On through your VHub account
+screen__app_settings__row_pass_forever__subtitle	Yours forever
 screen__app_settings__row_pass_play__subtitle	On. Tap to manage it in Google Play
 screen__app_settings__row_previews__subtitle	Styles move in the gallery and on their pages
 screen__app_settings__row_previews__title	Live previews
 screen__app_settings__row_privacy_policy__subtitle	vgraphics.gr
 screen__app_settings__row_privacy_policy__title	Privacy policy
-screen__app_settings__row_rate__title	Rate on Google Play
+screen__app_settings__row_pro__title	Speedometer Pro
+screen__app_settings__row_rate__subtitle	Tell us what you think on Google Play
+screen__app_settings__row_rate__title	Rate us
 screen__app_settings__row_restore__subtitle	Bring back styles bought on this Google account
 screen__app_settings__row_restore__title	Restore purchases
 screen__app_settings__row_second_clock__title	Second clock
@@ -646,8 +697,8 @@ screen__guide__lamps__body	Each lamp lights only when it has something to tell y
 screen__guide__mode_cpu_clock__body	How fast the processor runs, as a share of its top speed
 screen__guide__mode_gps_speed__body	Your speed, with a red mark at the drive's top speed
 screen__guide__mode_power__body	Watts into the battery, or out of it with a minus
-screen__guide__music__access	For that, Android has to give the app notification access. Turn it on in App settings, under Permissions. Nothing leaves your phone.
-screen__guide__music__body	The Future style shows the song that's playing, and how many calls you missed and messages you haven't read.
+screen__guide__music__access	For that, Android has to give the app notification access. Turn it on in App settings, under Permissions. What it reads never leaves your phone.
+screen__guide__music__body	The Future style shows the song that's playing, and how many calls you missed and messages you haven't read. Any style can too: add Now Playing, the music buttons and Calls and messages in its layout builder.
 screen__guide__music_counts__subtitle	Only how many, never who or what
 screen__guide__music_counts__title	Missed calls and messages
 screen__guide__music_song__subtitle	With its cover and the volume
@@ -665,7 +716,7 @@ screen__guide__widgets__credit	Weather data from MET Norway (api.met.no), under 
 screen__guide__widgets__settings	Pick the second clock's city, your step goal and the tilt's level in App settings, under Widgets. Tap the music buttons on your home screen to play, pause or skip, on Samsung's home screen too. Keep app icons off them, so a tap there doesn't open an app instead.
 screen__guide__widgets_day__subtitle	Read on your phone and never sent anywhere
 screen__guide__widgets_day__title	Steps, alarm and calendar
-screen__guide__widgets_drive__subtitle	From GPS, like GPS speed. Nothing leaves your phone.
+screen__guide__widgets_drive__subtitle	From GPS, like GPS speed. Only the Map sends anything: a rough location, never your exact place.
 screen__guide__widgets_drive__title	Trip, speed and heading
 screen__guide__widgets_weather__subtitle	Your rough location, rounded to about 10 km, goes to MET Norway for the forecast
 screen__guide__widgets_weather__title	Weather
@@ -801,6 +852,7 @@ screen__hud__flip__top_to_driver	Top edge to you
 screen__hud__flip__top_to_driver__hint	Lying flat, screen up, its top edge towards you.
 screen__hud__flip__top_to_glass	Top edge to the glass
 screen__hud__flip__top_to_glass__hint	Lying flat, screen up, its top edge towards the windscreen.
+screen__hud__full_screen__button_close__content_description	Close full screen
 screen__hud__gps__button_allow__label	Allow
 screen__hud__gps__button_close__label	Not now
 screen__hud__gps__message	Your speed comes from GPS while HUD mode is open. It never leaves the phone.
@@ -816,6 +868,8 @@ screen__hud__safety__law	Check that your country allows a phone on the dashboard
 screen__hud__safety__park	Set HUD mode up while parked.
 screen__hud__safety__place	Lay the phone where it can't slide, clear of airbags.
 screen__hud__safety__title	Before you drive
+screen__hud_settings__button_full_screen__content_description	Full screen
+screen__hud_settings__button_get__label	Try or buy %1$s
 screen__hud_settings__button_open__label	Open HUD mode
 screen__hud_settings__car__label	Open by itself in my car
 screen__hud_settings__car__linked	Linked: %1$s
@@ -827,8 +881,15 @@ screen__hud_settings__color__title	Colour
 screen__hud_settings__extras__title	On the glass
 screen__hud_settings__film__text	A windscreen has two surfaces, so the picture shows twice. A cheap HUD film on the glass fixes it.
 screen__hud_settings__film__title	Seeing it twice?
+screen__hud_settings__flip__holder__label	Upright in a holder
 screen__hud_settings__flip__title	How the phone lies
+screen__hud_settings__flip__top_to_driver__label	Top edge to you
+screen__hud_settings__flip__top_to_glass__label	Top edge to the glass
 screen__hud_settings__heading__label	Heading
+screen__hud_settings__layout__centre_bar__label	Centre bar
+screen__hud_settings__layout__fighter__label	Fighter
+screen__hud_settings__layout__gauge_arc__label	Gauge arc
+screen__hud_settings__layout__number__label	Number
 screen__hud_settings__look__title	Look
 screen__hud_settings__more__title	More
 screen__hud_settings__safety__label	Read the safety card
@@ -910,7 +971,24 @@ screen__layout_builder__layers__move_back__action	Move back
 screen__layout_builder__layers__move_forward__action	Move forward
 screen__layout_builder__lock__content_description	Lock in place
 screen__layout_builder__made_for_other	Made for %1$s; may look small here.
+screen__layout_builder__map_trial__locked__message	The map comes with Speedometer Pro. Your free day is over.
+screen__layout_builder__map_trial__started__message	The map is yours to try free for 24 hours.
 screen__layout_builder__not_found__message	This layout isn't on this phone.
+screen__layout_builder__photo__across__label	Left and right
+screen__layout_builder__photo__body	It stays on this phone. It's never uploaded, and never in a layout you share or publish.
+screen__layout_builder__photo__button_camera__label	Camera
+screen__layout_builder__photo__button_done__label	Done
+screen__layout_builder__photo__button_gallery__label	Gallery
+screen__layout_builder__photo__button_remove__label	Remove photo
+screen__layout_builder__photo__caption__hint	A few words under the photo
+screen__layout_builder__photo__caption__label	Caption
+screen__layout_builder__photo__chip	Photo
+screen__layout_builder__photo__down__label	Up and down
+screen__layout_builder__photo__failed__message	Couldn't open that photo.
+screen__layout_builder__photo__no_camera__message	There's no camera app on this phone.
+screen__layout_builder__photo__percent__value	%1$d%%
+screen__layout_builder__photo__title	Your photo
+screen__layout_builder__photo__zoom__label	Zoom
 screen__layout_builder__preview_in__label	Preview in
 screen__layout_builder__preview_in__locked__content_description	%1$s, not yours yet
 screen__layout_builder__save__name__label	Name
@@ -1068,7 +1146,7 @@ screen__settings__gps_blocked__button_open_settings__label	Open settings
 screen__settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
 screen__settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
 screen__settings__gps_rationale__button_continue__label	Continue
-screen__settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone.
+screen__settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen, and so do the trip, heading, altitude and Map widgets. Only the Weather and Map widgets send a rough location, never your exact place.
 screen__settings__gps_rationale__title	GPS speed
 screen__settings__group_design__title	Design
 screen__settings__high_temperature__title	High temperature
@@ -1148,6 +1226,7 @@ screen__style__layouts__note_mine	Your own layout: Edit layout changes it, in ev
 screen__style__layouts__note_shared	Every style draws it its own way. Edit layout starts your own copy.
 screen__style__layouts__title	Layouts · %1$d
 screen__style__message_layout_used	%1$s now uses this layout.
+screen__style__message_picker_missing	This phone has no live wallpaper picker. Set it from your launcher's wallpaper settings.
 screen__style__mode_cpu__label	CPU
 screen__style__mode_power__label	Power
 screen__style__mode_speed__label	Speed
@@ -1162,6 +1241,10 @@ screen__style__preview_hud__content_description	%1$s's HUD look, as HUD mode dra
 screen__style__trial_note	On trial: %1$d h left. Buy it to keep it.
 screen__style__view_hud__label	HUD
 screen__style__view_original__label	Original
+screen__style__wallpaper_sheet__body	%1$s is your style now. Set Speedometer as your live wallpaper to see it on your home screen.
+screen__style__wallpaper_sheet__button_later__label	Not now
+screen__style__wallpaper_sheet__button_set__label	Set as wallpaper
+screen__style__wallpaper_sheet__title	Set Speedometer as your wallpaper?
 screen__style_settings__access__off	Off
 screen__style_settings__access__on	On
 screen__style_settings__access__subtitle	Lets %1$s show your music, calls and messages
@@ -1177,7 +1260,7 @@ screen__style_settings__gps_blocked__button_open_settings__label	Open settings
 screen__style_settings__gps_blocked__message	Location is turned off for this app. Allow precise location in the app's settings to use GPS speed.
 screen__style_settings__gps_needs_precise__message	GPS speed needs precise location. Choose "Precise" when Android asks.
 screen__style_settings__gps_rationale__button_continue__label	Continue
-screen__style_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone.
+screen__style_settings__gps_rationale__message	GPS speed needs your precise location while the wallpaper is on screen, and so do the trip, heading, altitude and Map widgets. Only the Weather and Map widgets send a rough location, never your exact place.
 screen__style_settings__gps_rationale__title	GPS speed
 screen__style_settings__lamp_bluetooth__subtitle	Lights while Bluetooth is on
 screen__style_settings__lamp_bluetooth__title	Bluetooth
@@ -1260,12 +1343,15 @@ screen__styles__market__subtitle	Layouts made by players, in any style
 screen__styles__market__title	Layout market
 screen__styles__message_failed	The purchase didn't go through.
 screen__styles__message_not_on_sale	%1$s isn't on sale on Google Play yet. Try again later.
-screen__styles__message_pass_not_on_sale	Speedometer Plus isn't on sale on Google Play yet. Try again later.
+screen__styles__message_pass_not_on_sale	This plan isn't on sale on Google Play yet. Try again later.
 screen__styles__message_pass_on	Speedometer Plus is on: every style is yours.
 screen__styles__message_pass_on_style	Speedometer Plus is on. %1$s is on your wallpaper.
 screen__styles__message_pass_pending	Payment pending. Speedometer Plus starts when it goes through.
 screen__styles__message_pending	Payment pending. %1$s unlocks when it goes through.
 screen__styles__message_play_unavailable	Google Play isn't available right now.
+screen__styles__message_pro_on	Speedometer Pro is on: every style and the map widget are yours.
+screen__styles__message_pro_on_style	Speedometer Pro is on. %1$s is on your wallpaper.
+screen__styles__message_pro_pending	Payment pending. Speedometer Pro starts when it goes through.
 screen__styles__message_selected	%1$s is on your wallpaper.
 screen__styles__message_trial_closed	The video closed early, so the trial didn't start.
 screen__styles__message_trial_failed	The trial couldn't start. Try again.
@@ -1385,6 +1471,13 @@ widgets__label__up	UP
 widgets__label__volume	VOLUME
 widgets__label__zero_to_100	0–100
 widgets__label__zero_to_60	0–60
+widgets__map__locked	Map with Speedometer Pro
+widgets__map__no_coverage	No map here yet
+widgets__map__sample_action	Turn right
+widgets__map__sample_arrival	Arrive 17:42
+widgets__map__sample_distance	300 m
+widgets__map__sample_street	Leoforos Nikis
+widgets__map__waiting	Waiting for GPS
 widgets__moon__first_quarter	FIRST QUARTER
 widgets__moon__full	FULL MOON
 widgets__moon__last_quarter	LAST QUARTER
@@ -1393,6 +1486,23 @@ widgets__moon__waning_crescent	WANING CRESCENT
 widgets__moon__waning_gibbous	WANING GIBBOUS
 widgets__moon__waxing_crescent	WAXING CRESCENT
 widgets__moon__waxing_gibbous	WAXING GIBBOUS
+widgets__next_turn__action_arrive	Destination ahead
+widgets__next_turn__action_keep_left	Keep left
+widgets__next_turn__action_keep_right	Keep right
+widgets__next_turn__action_left	Turn left
+widgets__next_turn__action_next_turn	Next turn
+widgets__next_turn__action_right	Turn right
+widgets__next_turn__action_roundabout_left	Roundabout, left
+widgets__next_turn__action_roundabout_right	Roundabout, right
+widgets__next_turn__action_roundabout_straight	Roundabout, straight on
+widgets__next_turn__action_sharp_left	Sharp left
+widgets__next_turn__action_sharp_right	Sharp right
+widgets__next_turn__action_slight_left	Bear left
+widgets__next_turn__action_slight_right	Bear right
+widgets__next_turn__action_straight	Go straight
+widgets__next_turn__action_u_turn	Make a U-turn
+widgets__next_turn__arrival	Arrive %1$s
+widgets__photo__empty	Add photo
 widgets__sky__clear	CLEAR
 widgets__sky__cloudy	CLOUDY
 widgets__sky__fog	FOG

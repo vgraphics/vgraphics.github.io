@@ -29,6 +29,14 @@
  *   app.hud.stop()         back to the wallpaper
  *   app.on(event, fn)      "change", "style", "loading", "gps", "fps", "error", "hud" ({ flip }), "hudwarning" (the
  *                          speed has just gone over the limit: the page beeps); returns a function that stops it
+ *   app.photo(kind, file)  (version 4) the photo on the shown layout's photo widget kind ("photo_frame", "photo_print",
+ *                          "photo_round"): a File, Blob, ArrayBuffer or typed array of a JPEG, PNG, WebP or GIF, or
+ *                          null to take it off. Resolves true once it shows, false for a kind that takes no photo or a
+ *                          file that can't be read. The photo stays in this page's memory: never sent, saved or logged.
+ *   app.photoPlace(kind, { focusX, focusY, zoom, caption })   (version 4) where the photo sits in its window (0..1 of
+ *                          the photo, 0.5 the middle), how far it is zoomed in (1 to 4) and the instant print's line (up
+ *                          to 32 letters); each one left out is its default (0.5, 0.5, 1, ""). false for a kind that
+ *                          takes no photo or a number that isn't one.
  *
  *   const stills = await VGTry.stills({ base, onProgress });   still pictures for a page of cards, with no wallpaper
  *   stills.draw({ style, data, width, height })   one moment of the demo drive with the market layout data in that
@@ -38,7 +46,8 @@
  *
  *   const editor = await VGTry.editor({ host, base, style, data, variantKey, moment, playing, onProgress });
  *                          (version 3) the layout editor's live engine; see docs/try-online/README.md, "Editor API".
- *                          One per page; rejects with an Error saying why. stills() may run beside it.
+ *                          One per page; rejects with an Error saying why. stills() may run beside it. (version 4)
+ *                          editor.photo and editor.photoPlace as app's; destroy() forgets the photos.
  *
  * start() and stills() reject when the engine can't run here (no WebAssembly GC: Safari before 18.2) or fails to load;
  * the page then shows its fallback. One engine serves a page: a page may start a wallpaper and draw stills too.
@@ -135,6 +144,42 @@
             });
         }
         return engineLoad;
+    }
+
+    /**
+     * A photo for a photo widget as the engine takes it, an ArrayBuffer: a File's or Blob's bytes, an ArrayBuffer, a
+     * typed array's bytes, or an empty one for null (the photo comes off). Read here, in the page, and sent nowhere.
+     */
+    function photoBytes(source) {
+        if (source == null) {
+            return Promise.resolve(new ArrayBuffer(0));
+        }
+        if (source instanceof ArrayBuffer) {
+            return Promise.resolve(source);
+        }
+        if (ArrayBuffer.isView(source)) {
+            return Promise.resolve(source.buffer.slice(source.byteOffset, source.byteOffset + source.byteLength));
+        }
+        if (typeof source.arrayBuffer === 'function') {
+            return source.arrayBuffer();
+        }
+        return Promise.reject(new Error('photo() takes a File, a Blob, an ArrayBuffer, a typed array or null'));
+    }
+
+    function numberOr(value, fallback) {
+        return typeof value === 'number' ? value : fallback;
+    }
+
+    /** photoPlace's call into the engine: each part left out is its default (the middle, not zoomed, no caption). */
+    function placePhoto(engine, kind, place) {
+        var chosen = place || {};
+        return engine.photoPlace(
+            String(kind),
+            numberOr(chosen.focusX, 0.5),
+            numberOr(chosen.focusY, 0.5),
+            numberOr(chosen.zoom, 1),
+            String(chosen.caption || '')
+        );
     }
 
     function start(options) {
@@ -247,6 +292,14 @@
                     isHud = false;
                     engine.hudStop();
                 }
+            },
+            photo: function (kind, source) {
+                return photoBytes(source).then(function (bytes) {
+                    return engine.photo(String(kind), bytes);
+                });
+            },
+            photoPlace: function (kind, place) {
+                return placePhoto(engine, kind, place);
             },
             on: on
         };
@@ -439,6 +492,17 @@
             catalog: function () {
                 return JSON.parse(engine.catalog());
             },
+            photo: function (kind, source) {
+                if (isDestroyed) {
+                    return Promise.reject(new Error('The editor was destroyed'));
+                }
+                return photoBytes(source).then(function (bytes) {
+                    return !isDestroyed && engine.photo(String(kind), bytes);
+                });
+            },
+            photoPlace: function (kind, place) {
+                return !isDestroyed && placePhoto(engine, kind, place);
+            },
             on: function (event, listener) {
                 if (event !== 'error') {
                     return function () {};
@@ -500,7 +564,7 @@
     }
 
     window.VGTry = {
-        version: 3,
+        version: 4,
         isSupported: isSupported,
         start: start,
         stills: stills,
