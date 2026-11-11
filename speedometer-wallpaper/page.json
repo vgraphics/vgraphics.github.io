@@ -27,7 +27,7 @@
         "alternateName": "HUD Speedometer Live Wallpaper",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Its HUD mode, free, turns the phone into a heads-up display for your car: laid flat on the dashboard, it reflects your GPS speed on the windscreen. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Its HUD mode, free, turns the phone into a heads-up display for your car: laid flat on the dashboard, it reflects your GPS speed on the windscreen. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with Speedometer Plus. Speedometer Pro adds a map widget with the streets round you.",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -452,7 +452,7 @@
       "id": "styles",
       "eyebrow": "Styles",
       "title": "19 dashboards to choose from",
-      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus, a monthly or yearly subscription for every style, including the styles still to come, and no ads. Each style brings its own layouts. Tap one to try it live in your browser.",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus: every style, including the styles still to come, and no ads. Speedometer Pro is Plus with the map widget. Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
@@ -722,6 +722,10 @@
             {
               "title": "Buy once, keep it",
               "text": "On a new phone with the same Google account, the styles you bought come back by themselves."
+            },
+            {
+              "title": "Speedometer Plus and Pro",
+              "text": "Plus is every style, now and later, and no ads: €0.99 a month, €9.99 a year or €29.99 once. Pro is everything in Plus and the map widget: €1.99 a month, €19.99 a year or €59.99 once. In the app, both are under Settings → Speedometer Plus and See plans on the Styles screen; Google Play shows your price."
             }
           ]
         }
@@ -742,7 +746,11 @@
             },
             {
               "title": "On the road",
-              "text": "Trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer and climb rate, from GPS and the phone's own sensors. And the Map, with Speedometer Pro: the OpenStreetMap streets round you, heading-up and zooming out as you speed up, as a round nav screen or a strip, in each style's own colours. It covers Greece for now, and it sends only a rough location, never your exact point."
+              "text": "Trip distance, average and top speed, drive time, a trip computer, a 0–100 timer, G-force, the odometer and climb rate, from GPS and the phone's own sensors."
+            },
+            {
+              "title": "The map, with Speedometer Pro",
+              "text": "The OpenStreetMap streets round you, heading-up and zooming out as you speed up, as a round nav screen or a strip, in each style's own colours. Try it free for 24 hours the first time you add it; then it comes with Speedometer Pro, and the map's Get Pro button shows Pro's plans. It covers Greece for now, and it sends only a rough location, never your exact point. <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">Adding widgets, step by step</a>."
             },
             {
               "title": "Where you are",

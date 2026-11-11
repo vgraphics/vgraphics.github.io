@@ -1,0 +1,28 @@
+{
+  "note": "VGR-86: the map widget's wiki page, written and waiting for its picture. tools/build-wiki.mjs needs a wiki painting for every entry (wiki/img/art/art.json, tools/make-wiki-art.py), and no map widget art exists yet; the site's rules say every page gets its own picture, never one used elsewhere. Art Expert: make a new Recraft Pro painting for the slug 'map-widget' (a phone on a car's dashboard showing a round heading-up street map in a style's colours, no real map data drawn from a screenshot unless it is our own), then add it with make-wiki-art.py, move the entry below into wiki.json (after 'designs-screen', section 'designs'), and point the links in faq.json and page.json that now go to /speedometer-wallpaper/wiki/designs-screen/ for the map to /speedometer-wallpaper/wiki/map-widget/. The landing page's map feature line has no picture for the same reason.",
+  "entry": {
+    "slug": "map-widget",
+    "section": "designs",
+    "name": "The map widget",
+    "title": "The map widget, with Speedometer Pro · Speedometer Live Wallpaper",
+    "artAlt": "",
+    "summary": "The streets round you on your wallpaper, heading-up, in your style's colours. Free for 24 hours, then with Speedometer Pro.",
+    "facts": [["Comes with", "Speedometer Pro"], ["Free trial", "24 hours, the first time"], ["Covers", "Greece, for now"], ["Map data", "OpenStreetMap"]],
+    "what": [
+      "The Map widget draws the OpenStreetMap streets round you on your wallpaper, heading-up and zooming out as you speed up, as a round nav screen or a strip, in each style's own colours. It covers Greece for now.",
+      "It follows your GPS location, or your phone's approximate location while GPS has none (indoors, say). Your place stays on your phone: the app asks our map host only for the squares of about 2 km round you, never your exact point, and keeps the pieces it gets on the phone."
+    ],
+    "how": [
+      "Open Styles, pick a style and tap Edit layout, or New layout, then Add widget → On the road → Map. Drag it where you want it and resize it with its red handle.",
+      "The first time you add it, the map is yours to try free for 24 hours.",
+      "After that it comes with Speedometer Pro. The map's message reads The map comes with Speedometer Pro, and its Get Pro button opens Pro's plans: €1.99 a month, €19.99 a year or €59.99 once and yours for good. Google Play shows the price in your country.",
+      "Speedometer Pro is everything in Speedometer Plus (every style, now and later, and no ads) and the map widget. With Plus, Pro takes its place and Google Play counts the time you've already paid for; with Plus for good, upgrading to Pro for good is €29.99.",
+      "You can also get Pro in Settings → Speedometer Plus (More plans while Plus is on), or with See plans on the Styles screen."
+    ],
+    "notes": [
+      "The map needs your precise location while the wallpaper is on screen, like GPS speed.",
+      "Signed in to VHub, Pro works on every device of your account, and Settings → Restore purchases brings it back on a new phone with the same Google account."
+    ],
+    "related": ["designs-screen", "gps-speed", "restoring-future"]
+  }
+}

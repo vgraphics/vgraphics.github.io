@@ -52,7 +52,18 @@
   },
   {
     "q": "Which styles are free?",
-    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, a monthly or yearly subscription that also turns the app's ads off. On a new phone with the same Google account, the styles you bought come back by themselves."
+    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, which also turns the app's ads off: €0.99 a month, €9.99 a year, or €29.99 once and yours for good. Speedometer Pro is Plus with the map widget. On a new phone with the same Google account, the styles you bought come back by themselves."
+  },
+  {
+    "q": "What is Speedometer Pro?",
+    "a": [
+      "Speedometer Pro is everything in Speedometer Plus (every style, including the styles still to come, and no ads in the app) and the map widget on your wallpaper. It's €1.99 a month, €19.99 a year, or €59.99 once and yours for good; Google Play shows the price in your country. If you have Plus, Pro takes its place and Google Play counts the time you've already paid for; if you have Plus for good, upgrading to Pro for good is €29.99.",
+      "To get it in the app, open Settings → Speedometer Plus, or See plans on the Styles screen: Choose your plan shows Plus and Pro side by side. With Plus already on, it's under Settings → More plans. Or tap Get Pro on the map's message in the layout builder. <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">The Styles screen</a> has the details."
+    ]
+  },
+  {
+    "q": "How do I get the map widget?",
+    "a": "Add the Map widget in the layout builder: the first time, it's yours to try free for 24 hours. After that it comes with Speedometer Pro, and the map's message has a Get Pro button that opens Pro's plans. The map shows the OpenStreetMap streets round you, heading-up and zooming out as you speed up, in your style's own colours. It covers Greece for now. <a href=\"/speedometer-wallpaper/wiki/designs-screen/\">Adding widgets, step by step</a>."
   },
   {
     "q": "Do I need an account?",
