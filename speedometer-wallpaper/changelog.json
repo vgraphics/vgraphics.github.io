@@ -1,6 +1,19 @@
 {
   "entries": [
     {
+      "version": "2.0.22",
+      "date": "2026-11-11",
+      "platforms": [
+        "Android"
+      ],
+      "title": "See new layouts right away",
+      "items": [
+        "When a new layout comes out, you'll now see it live in a banner on the app's main screen. Tap it to go straight to the layout, or close it and it won't come back.",
+        "The notification access screen and the Guide now make clear that music, calls and next-turn directions work in every style, not just Future."
+      ],
+      "commit": "86ca6638"
+    },
+    {
       "version": "2.0.21",
       "date": "2026-11-11",
       "platforms": [
