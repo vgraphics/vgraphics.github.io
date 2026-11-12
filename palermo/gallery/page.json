@@ -469,6 +469,43 @@
       ]
     },
     {
+      "id": "start-screens",
+      "title": "The start screens",
+      "intro": "Your phone's start screen is a night in Palermo, and you choose which: The Promenade, the key art that opens this gallery, or one of these three. In the game they move: the fountain's water falls, the rain shines on the street, and windows light up and go dark.",
+      "blocks": [
+        {
+          "type": "album",
+          "shape": "portrait",
+          "items": [
+            {
+              "title": "The Fountain",
+              "src": "/palermo/img/home-fountain-720.webp",
+              "full": "/palermo/img/home-fountain-2286.webp",
+              "width": 2286,
+              "height": 4096,
+              "alt": "Piazza Pretoria at night in gold engraved lines on navy: the Fontana Pretoria's marble basins, stairs and statues before the Baroque Palazzo delle Aquile and its clock tower, two wrought-iron lamps glowing over the wet cobbles"
+            },
+            {
+              "title": "The Rain",
+              "src": "/palermo/img/home-rain-720.webp",
+              "full": "/palermo/img/home-rain-2286.webp",
+              "width": 2286,
+              "height": 4096,
+              "alt": "The Quattro Canti on a rainy night in gold engraved lines on navy: two curved Baroque corner palaces with statues in their niches and eagles on their crowns, a lit archway at the end of the street, lamps shining in the puddles"
+            },
+            {
+              "title": "The Lamplighter",
+              "src": "/palermo/img/home-lamplighter-720.webp",
+              "full": "/palermo/img/home-lamplighter-2286.webp",
+              "width": 2286,
+              "height": 4096,
+              "alt": "The rooftops of Il Capo at night in gold engraved lines on navy, seen from a balustraded terrace: tiled roofs, balconies and lit windows climbing toward Palermo Cathedral's dome and Gothic towers"
+            }
+          ]
+        }
+      ]
+    },
+    {
       "id": "around-the-site",
       "title": "Around the site",
       "intro": "The pictures at the top of the other Palermo pages, the harbour at the foot of every page, and the soundtrack’s cover and courtyard.",
