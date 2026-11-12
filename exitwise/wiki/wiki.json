@@ -345,7 +345,7 @@
       "summary": "One board a day, the same for everyone, with monthly rewards.",
       "what": ["Each calendar day has one board, the same for every player. It's harder later in the week, and it has no obstacles.","You can play any day of the current month up to today. Only the first win of each day pays: 20 coins, plus 5 for perfect."],
       "how": ["Days you complete count towards this month's milestones: 2 days: 50 coins · 7 days: 100 coins · 13 days: 150 coins and an Auto-play · 19 days: 200 coins and a Grid lines · 25 days: 300 coins and a Magic wand.","Progress starts again each month.","When you finish, tap Share and pick Post or Story: your device's share sheet opens with a picture of the cleared board, every arrow flying out of it, your time, hearts and streak, and a QR code to play the same day, ready for Facebook, Instagram, WhatsApp, Messenger or any other app. Story makes the picture in the tall shape of stories. Where a browser can't share pictures, it downloads instead."],
-      "notes": ["Daily runs don't go on the level leaderboards."],
+      "notes": ["Daily runs don't go on the level leaderboards.","On Android, iPhone and iPad, Daily puzzle reminder in Settings sends a notification at the time you usually play to say the day's board is ready (never at night, and not on a day you've already played). The game offers it after your third win; a tap on the notification opens the daily challenge."],
       "figure": {"src":"/exitwise/img/6-daily.webp","alt":"The daily challenge calendar for October 2026, with the monthly milestone bar above it","width":720,"height":1280,"caption":"This month's calendar and milestones."},
       "related": ["coins","auto-play","magic-wand"]
     },

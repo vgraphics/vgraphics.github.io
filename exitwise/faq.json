@@ -40,6 +40,10 @@
     "a": "On Android, yes: the levels are on your phone, so you can play on the commute or on a plane. Your results wait on the phone and reach the leaderboards the next time you're online. Rooms, other players' maps and the global ranking need a connection."
   },
   {
+    "q": "Can Exitwise remind me to play the daily puzzle?",
+    "a": "Yes, on Android, iPhone and iPad, if you want it. After your third win the game offers a nudge; say yes and allow notifications, and once a day, at the time you usually play, a notification says your daily puzzle is ready. Tap it and the game opens on the daily challenge. It never comes at night, and it skips any day you have already played. Turn it on or off any time with Daily puzzle reminder in Settings."
+  },
+  {
     "q": "How do I keep my progress on a new phone, or in the browser?",
     "a": "Sign in to VHub, the free VGraphics account: tap the VHub button at the top right of the map, or Sign in on the account card in Settings. On Android and in the browser you sign in with Google, and on iPhone and iPad with Apple; on vgraphics.gr you can also sign in with Apple on the <a href=\"/hub/\">VHub page</a>, and the game in your browser then uses that account too. If you play with Google, link your Apple ID to that same VHub account on the VHub page (or Google to your Apple account), and either one opens it. The first time you sign in from the game, you get 100 coins. Once you are in, that button shows your VHub picture and opens your profile. Your saved game is kept in the cloud, so you can carry on from another phone or in your browser, signed in to the same account. Without signing in, your progress stays on the device."
   },
