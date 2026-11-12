@@ -101,3 +101,58 @@ test('indentation, CRLF and a byte-order mark make no difference', () => {
   assert.deepEqual(htaccessProblems('﻿' + site.replace(/\n/g, '\r\n').replace(/^/gm, '   ')), [])
   assert.ok(directives(site).length > HTACCESS_RULES.length)
 })
+
+// One hop for every address Google keeps (Search Console, 12 Nov 2026): www and http go straight to https://vgraphics.gr,
+// and the old WordPress addresses are 301s, before the "no PHP" rule would answer 403.
+const redirects = directives(site)
+  .map((l) => l.match(/^RewriteRule (\S+) (https:\/\/vgraphics\.gr\/\S*) \[([^\]]*R=301[^\]]*)\]$/))
+  .filter(Boolean)
+  .map(([, pattern, to]) => ({ rule: new RegExp(pattern), to }))
+const firstRedirect = (path) => redirects.find((r) => r.rule.test(path))?.to
+
+test('the old WordPress addresses and the old key-art addresses go to their pages in one 301', () => {
+  assert.equal(firstRedirect('index.php/contact/'), 'https://vgraphics.gr/#contact')
+  assert.equal(firstRedirect('index.php/contact'), 'https://vgraphics.gr/#contact')
+  assert.equal(firstRedirect('index.php/contact/index.html'), 'https://vgraphics.gr/#contact')
+  assert.equal(firstRedirect('index.php/about-2/'), 'https://vgraphics.gr/company/?')
+  assert.equal(firstRedirect('index.php/about-2/index.html'), 'https://vgraphics.gr/company/?')
+  for (const old of ['index.php', 'index.php/', 'index.php/category/news/', 'index.php/feed/', 'index.php/2019/05/hello-world/']) {
+    assert.equal(firstRedirect(old), 'https://vgraphics.gr/?', old)
+  }
+  assert.equal(firstRedirect('speedometer-wallpaper/img/key-art'), 'https://vgraphics.gr/speedometer-wallpaper/img/key-art-1920.jpg')
+  assert.equal(firstRedirect('speedometer-wallpaper/img/key-art-tall'), 'https://vgraphics.gr/speedometer-wallpaper/img/key-art-tall-1080.jpg')
+  for (const page of ['', 'exitwise/', 'company/', 'speedometer-wallpaper/img/key-art-1920.jpg', 'exitwise/index.php.txt']) {
+    assert.equal(firstRedirect(page), undefined, `${page} is not an old address`)
+  }
+})
+
+test('the key-art targets are files the site serves', async () => {
+  const { existsSync } = await import('node:fs')
+  for (const { to } of redirects.filter((r) => /\.jpg$/.test(r.to))) assert.ok(existsSync(join(root, to.replace('https://vgraphics.gr/', ''))), to)
+})
+
+test("the old WordPress folder of stand-in pages is gone: the 301s answer for it", async () => {
+  const { existsSync } = await import('node:fs')
+  assert.ok(!existsSync(join(root, 'index.php')))
+})
+
+test('rules out of order are named: www after HTTPS takes two hops, index.php after "no PHP" is a 403', () => {
+  const www = 'RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]'
+  const https = 'RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]'
+  const swapped = site.replace(www, '@@WWW@@').replace(https, www).replace('@@WWW@@', https)
+  assert.deepEqual(htaccessProblems(swapped), ['out of order: www before the HTTPS redirect, or http://www. takes two hops'])
+  const wp = 'RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]'
+  const late = site.replace(`${wp}\n`, '').replace('# Unity\'s pre-compressed files', `${wp}\n# Unity's pre-compressed files`)
+  assert.deepEqual(htaccessProblems(late), ['out of order: the old WordPress redirects before the "no PHP" rule, or /index.php answers 403'])
+})
+
+test('losing the one-hop www rule or the WordPress redirects is named', () => {
+  assert.match(htaccessProblems(site.replace('RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]', ''))[0], /^lost www to https:\/\/ on the bare domain in one hop/)
+  assert.match(htaccessProblems(site.replace('RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]', ''))[0], /^lost the old WordPress addresses/)
+})
+
+test('a folder with no page answers 404, and only a folder: files keep being served', () => {
+  const all = directives(site)
+  const at = all.indexOf('RewriteRule ^ - [R=404,L]')
+  assert.deepEqual(all.slice(at - 2, at), ['RewriteCond %{REQUEST_FILENAME} -d', 'RewriteCond %{REQUEST_FILENAME}/index.html !-f'])
+})
