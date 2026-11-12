@@ -5,7 +5,7 @@ import assert from 'node:assert/strict'
 import { readFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { directives, HTACCESS_RULES, htaccessProblems } from '../lib/htaccess.mjs'
+import { directives, HTACCESS_RULES, htaccessProblems, pieceAddresses, pieceProblems } from '../lib/htaccess.mjs'
 import { IMAGE_EXTENSIONS } from '../lib/image-version.mjs'
 
 const root = join(dirname(fileURLToPath(import.meta.url)), '..', '..')
@@ -82,7 +82,7 @@ test('only a versioned address is cached for a year: every other long Cache-Cont
     else if (/^Header .*Cache-Control .*max-age=31536000/.test(line) && !inside && !/ env=(REDIRECT_)?VERSIONED_IMAGE$/.test(line)) loose.push(line)
   }
   assert.deepEqual(loose, [], 'a year-long Cache-Control outside a FilesMatch must wait for env=VERSIONED_IMAGE, or every picture would get it')
-  const marked = directives(site).filter((l) => / env=/.test(l))
+  const marked = directives(site).filter((l) => /^Header set Cache-Control .* env=/.test(l))
   assert.deepEqual(marked.map((l) => l.match(/ env=(\S+)$/)[1]).sort(), ['REDIRECT_VERSIONED_IMAGE', 'VERSIONED_IMAGE'])
   // The ten minutes that every unversioned picture keeps is still the default, before the marked lines.
   const all = directives(site)
@@ -94,7 +94,7 @@ test('losing the versioned-picture rules is named', () => {
   assert.match(htaccessProblems(site.replace(rewrite, ''))[0], /^lost versioned pictures \(name\.<hash>\.ext\) served from name\.ext/)
   const year = 'Header set Cache-Control "public, max-age=31536000, immutable, no-transform" env=VERSIONED_IMAGE'
   assert.match(htaccessProblems(site.replace(year, ''))[0], /^lost versioned pictures cached for a year/)
-  assert.match(htaccessProblems(site.replace(/^SetEnvIfNoCase .*$/m, ''))[0], /^lost versioned pictures cached for a year/)
+  assert.match(htaccessProblems(site.replace(/^SetEnvIfNoCase .* VERSIONED_IMAGE=1$/m, ''))[0], /^lost versioned pictures cached for a year/)
 })
 
 test('indentation, CRLF and a byte-order mark make no difference', () => {
@@ -164,4 +164,29 @@ test('a folder with no page answers 404, and only a folder: files keep being ser
   const all = directives(site)
   const at = all.indexOf('RewriteRule ^ - [R=404,L]')
   assert.deepEqual(all.slice(at - 2, at), ['RewriteCond %{REQUEST_FILENAME} -d', 'RewriteCond %{REQUEST_FILENAME}/index.html !-f'])
+})
+
+test('page pieces (HTML without <html>) are kept out of search, with and without .html', () => {
+  const marked = pieceAddresses(site)
+  for (const piece of ['/exitwise/ranking/ranking.html', '/exitwise/ranking/ranking', '/speedometer-wallpaper/market-chapter.html', '/palermo/map/viewer']) {
+    assert.ok(marked.test(piece), piece)
+  }
+  for (const page of ['/exitwise/ranking/', '/exitwise/', '/speedometer-wallpaper/layouts/', '/exitwise/privacy.html', '/palermo/map/']) {
+    assert.ok(!marked.test(page), page)
+  }
+})
+
+test('a page piece the .htaccess does not name is a problem; a full page is not', () => {
+  const piece = ['exitwise/new/piece.html', '<div class="x">A bit of a page</div>']
+  const page = ['exitwise/new/index.html', '<!doctype html>\n<html lang="en"><head><title>A page</title></head></html>']
+  assert.deepEqual(pieceProblems(site, [page]), [])
+  assert.deepEqual(pieceProblems(site, [['exitwise/room/room.html', '<div class="invite"></div>']]), [])
+  assert.match(pieceProblems(site, [piece, page])[0], /^\/exitwise\/new\/piece\.html is a page piece/)
+  assert.match(pieceProblems(site.replace(/^SetEnvIfNoCase Request_URI .* PAGE_PIECE=1$/m, ''), [piece])[0], /^lost the PAGE_PIECE line/)
+})
+
+test('losing the noindex header for page pieces is named', () => {
+  const header = 'Header set X-Robots-Tag "noindex" env=PAGE_PIECE'
+  assert.ok(site.includes(header))
+  assert.match(htaccessProblems(site.replace(header, ''))[0], /^lost page pieces kept out of search/)
 })

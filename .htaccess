@@ -84,6 +84,14 @@ Header unset X-Powered-By
 # Any site may read our public files, as GitHub Pages allowed (nothing here uses cookies).
 Header set Access-Control-Allow-Origin "*"
 
+# Page pieces, not pages: the bits of HTML a page's script fetches (a ranking, an invite card, the Speedometer market's
+# blocks) or a build sets into its page (the intro demos). Served bare, with no title, header or text around them, they
+# read as empty pages, so search engines are told to leave them out (AdSense "Low-value content", 12 Nov 2026). Every
+# piece is named here, with or without .html: check-site fails when a served HTML file without <html> isn't
+# (tools/lib/htaccess.mjs).
+SetEnvIfNoCase Request_URI "^/(exitwise/(challenge/challenge|demo/board|ranking/ranking|room/room)|palermo/map/viewer|speedometer-wallpaper/(creators/creator|demo/gauge|l/layout|layouts/browse|look/look|market-chapter|styles/made-with))(\.html)?$" PAGE_PIECE=1
+Header set X-Robots-Tag "noindex" env=PAGE_PIECE
+
 # Types. Scripts as text/javascript: LiteSpeed's own type for .js is application/x-javascript.
 <IfModule mod_mime.c>
   AddType text/javascript .js .mjs

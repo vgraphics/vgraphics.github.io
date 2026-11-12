@@ -28,7 +28,7 @@ import { frameLegalProblems, framePageProblems, frameProblems, frameShellProblem
 import { isDoor, isUnityPage, unityFramework, unityPageProblems } from './lib/unity-pages.mjs'
 import { doorProblems } from './lib/screens.mjs'
 import { markProblems } from './lib/marks.mjs'
-import { htaccessProblems } from './lib/htaccess.mjs'
+import { htaccessProblems, pieceProblems } from './lib/htaccess.mjs'
 import { leakedText } from './lib/leaked-text.mjs'
 import { codeImageRefs, imageGapProblems, imageVersionProblems, realFile } from './lib/image-version.mjs'
 import { entryTitleProblem, hreflangProblems, keywordsFor, orphanPages, seoProblems } from './lib/seo.mjs'
@@ -1440,6 +1440,11 @@ if (existsSync(cname) && readFileSync(cname, 'utf8').trim() !== 'vgraphics.gr') 
 // The site on Hostinger reads .htaccess for what GitHub Pages did and for its security headers (tools/lib/htaccess.mjs).
 const htaccess = join(root, '.htaccess')
 for (const m of htaccessProblems(existsSync(htaccess) ? readFileSync(htaccess, 'utf8') : undefined)) report('.htaccess', 'hosting', m)
+// Page pieces (served HTML without <html>) stay out of search: the .htaccess names each one (AdSense "Low-value content").
+if (existsSync(htaccess)) {
+  const html = served.map((f) => [f, readFileSync(join(root, f), 'utf8')])
+  for (const m of pieceProblems(readFileSync(htaccess, 'utf8'), html)) report('.htaccess', 'page-pieces', m)
+}
 
 const appAds = join(root, 'app-ads.txt')
 if (!existsSync(appAds)) report('app-ads.txt', 'app-ads', 'missing')

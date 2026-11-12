@@ -53,6 +53,7 @@ export const HTACCESS_RULES = [
   { what: 'framing by our own pages only', lines: ['Header always set X-Frame-Options "SAMEORIGIN"', 'Header always set Content-Security-Policy "frame-ancestors \'self\'"'] },
   { what: 'no X-Powered-By', lines: ['Header always unset X-Powered-By'] },
   { what: 'public files readable from other sites, as on GitHub Pages', lines: ['Header set Access-Control-Allow-Origin "*"'] },
+  { what: 'page pieces kept out of search (noindex)', lines: ['Header set X-Robots-Tag "noindex" env=PAGE_PIECE'] },
   { what: 'scripts as text/javascript (LiteSpeed would send application/x-javascript)', lines: ['AddType text/javascript .js .mjs'] },
   { what: 'the WebAssembly type', lines: ['AddType application/wasm .wasm'] },
   { what: "Unity's Brotli files", lines: ['<FilesMatch "\\.br$">', 'Header set Content-Encoding br'] },
@@ -127,4 +128,25 @@ export function htaccessProblems(text) {
     (o) => `out of order: ${o.what}`,
   )
   return [...lost, ...misordered, ...transformable]
+}
+
+/** The line that marks the page pieces (SetEnvIfNoCase Request_URI "<regex>" PAGE_PIECE=1), as a RegExp, or null. */
+const PIECE_LINE = /^SetEnvIfNoCase Request_URI "(.+)" PAGE_PIECE=1$/
+
+export function pieceAddresses(text) {
+  const line = directives(text ?? '').find((l) => PIECE_LINE.test(l))
+  return line ? new RegExp(line.match(PIECE_LINE)[1], 'i') : null
+}
+
+/** A served HTML file without <html> is a page piece: a page's script fetches it, or a build sets it into a page. Bare,
+ * it reads as an empty page to a search engine (AdSense "Low-value content", 12 Nov 2026), so the .htaccess marks it
+ * noindex. `pieces` is [file, html] for every served HTML file (paths with /); one line per piece the mark misses, at
+ * its address with .html and without. */
+export function pieceProblems(text, pieces) {
+  const marked = pieceAddresses(text)
+  const bare = pieces.filter(([, html]) => !/<html[\s>]/i.test(html)).map(([file]) => file)
+  if (!marked) return bare.length ? [`lost the PAGE_PIECE line (SetEnvIfNoCase Request_URI "..." PAGE_PIECE=1) that keeps ${bare.length} page pieces out of search, such as /${bare[0]}`] : []
+  return bare
+    .filter((f) => !marked.test(`/${f}`) || !marked.test(`/${f.replace(/\.html$/, '')}`))
+    .map((f) => `/${f} is a page piece (no <html>) that the PAGE_PIECE line doesn't name, with and without .html: add it there, or search engines read it as an empty page`)
 }
