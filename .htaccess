@@ -10,6 +10,12 @@ AddDefaultCharset utf-8
 
 RewriteEngine On
 
+# One address for the site, in one hop (Search Console, 12 Nov 2026: two 301s for http://www.). www goes straight to
+# https:// on the bare domain, whatever the scheme, so it comes first; the certificate's HTTP challenges stay where they are.
+RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
+RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
+RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+
 # HTTPS. The CDN redirects at its edge too; X-Forwarded-Proto keeps this rule from looping behind it, and the
 # certificate's HTTP challenges stay on HTTP.
 RewriteCond %{HTTPS} !=on
@@ -17,12 +23,20 @@ RewriteCond %{HTTP:X-Forwarded-Proto} !https
 RewriteCond %{REQUEST_URI} !^/\.well-known/acme-challenge/
 RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
 
-# One address for the site: www goes to the bare domain.
-RewriteCond %{HTTP_HOST} ^www\.(.+)$ [NC]
-RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]
+# The old WordPress site's addresses, which Google still asks for (Search Console, Oct and Nov 2026): one 301 each to the
+# page that took its place (/index.php itself, its categories and feeds: the home page). They come before the "no PHP"
+# rule below, which would answer 403. QSD drops the old query (?p=12, ?feed=rss2), which would otherwise land after the
+# #contact fragment.
+RewriteRule ^index\.php/contact(/|/index\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE,QSD]
+RewriteRule ^index\.php/about(-2)?(/|/index\.html)?$ https://vgraphics.gr/company/ [R=301,L,QSD]
+RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/ [R=301,L,QSD]
+
+# Two old picture addresses of Speedometer's key art, without an extension, that Google keeps retrying: to the pictures.
+RewriteRule ^speedometer-wallpaper/img/key-art$ https://vgraphics.gr/speedometer-wallpaper/img/key-art-1920.jpg [R=301,L]
+RewriteRule ^speedometer-wallpaper/img/key-art-tall$ https://vgraphics.gr/speedometer-wallpaper/img/key-art-tall-1080.jpg [R=301,L]
 
 # Never served: dotfiles (but /.well-known/), the site's own tools, and source or secret files. The site is static, so
-# no PHP either (index.php/ is a folder of old WordPress addresses, served as pages).
+# no PHP either (the old WordPress addresses under /index.php are redirected above).
 RewriteCond %{REQUEST_URI} !^/\.well-known/
 RewriteRule (^|/)\. - [F]
 RewriteRule ^tools(/|$) - [F]
@@ -47,6 +61,11 @@ RewriteRule ^(.+)\.[0-9a-f]{8}\.(avif|webp|jpe?g|png|gif|svg|ico)$ $1.$2 [NC,E=V
 RewriteCond %{REQUEST_FILENAME} !-f
 RewriteCond %{REQUEST_FILENAME}.html -f
 RewriteRule ^(.*[^/])$ $1.html [L]
+# A folder with no page of its own (/assets/startup/, /party-doors/) is not found: a plain 404, never the 403 of
+# Options -Indexes. Only folders: every file inside them (a Unity build's) is served as before.
+RewriteCond %{REQUEST_FILENAME} -d
+RewriteCond %{REQUEST_FILENAME}/index.html !-f
+RewriteRule ^ - [R=404,L]
 RewriteCond %{REQUEST_FILENAME} -d
 RewriteRule ^(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,NE]
 

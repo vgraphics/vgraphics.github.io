@@ -1,6 +1,8 @@
 // The site's .htaccess on Hostinger (README "Hosting"): what GitHub Pages did for the site (HTTPS, the 404 page,
-// addresses without .html), its security headers, Unity's files and the caching. check-site fails when the file is
-// missing or lost one of these rules; the Deployer checks them live after every upload.
+// addresses without .html), one-hop redirects for www and the old WordPress addresses (Search Console, 12 Nov 2026),
+// its security headers, Unity's files and the caching. check-site fails when the file is missing, lost one of these
+// rules or has them out of order; the Deployer checks them live after every upload, and tools/check-live.mjs the
+// addresses Google reads.
 
 /** Each rule the file must keep: what it does, and the lines that say it (comments and spacing aside). */
 export const HTACCESS_RULES = [
@@ -9,8 +11,27 @@ export const HTACCESS_RULES = [
   { what: 'the 404 page', lines: ['ErrorDocument 404 /404.html'] },
   { what: 'the rewrite engine', lines: ['RewriteEngine On'] },
   {
+    what: 'www to https:// on the bare domain in one hop (before the HTTPS redirect)',
+    lines: ['RewriteCond %{HTTP_HOST} ^www\\.(.+)$ [NC]', 'RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]'],
+  },
+  {
     what: 'the HTTPS redirect (that never loops behind the CDN)',
     lines: ['RewriteCond %{HTTPS} !=on', 'RewriteCond %{HTTP:X-Forwarded-Proto} !https', 'RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]'],
+  },
+  {
+    what: "the old WordPress addresses as one 301 each (Search Console: they are not pages, and /index.php isn't a 403)",
+    lines: [
+      'RewriteRule ^index\\.php/contact(/|/index\\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE,QSD]',
+      'RewriteRule ^index\\.php/about(-2)?(/|/index\\.html)?$ https://vgraphics.gr/company/ [R=301,L,QSD]',
+      'RewriteRule ^index\\.php(/.*)?$ https://vgraphics.gr/ [R=301,L,QSD]',
+    ],
+  },
+  {
+    what: "Speedometer's two old key-art addresses as 301s to the pictures",
+    lines: [
+      'RewriteRule ^speedometer-wallpaper/img/key-art$ https://vgraphics.gr/speedometer-wallpaper/img/key-art-1920.jpg [R=301,L]',
+      'RewriteRule ^speedometer-wallpaper/img/key-art-tall$ https://vgraphics.gr/speedometer-wallpaper/img/key-art-tall-1080.jpg [R=301,L]',
+    ],
   },
   { what: 'no dotfiles but /.well-known/', lines: ['RewriteCond %{REQUEST_URI} !^/\\.well-known/', 'RewriteRule (^|/)\\. - [F]'] },
   { what: "no access to the site's tools", lines: ['RewriteRule ^tools(/|$) - [F]'] },
@@ -20,6 +41,10 @@ export const HTACCESS_RULES = [
     lines: ['RewriteRule ^(.+)\\.[0-9a-f]{8}\\.(avif|webp|jpe?g|png|gif|svg|ico)$ $1.$2 [NC,E=VERSIONED_IMAGE:1,L]'],
   },
   { what: 'addresses without .html (/x serves x.html)', lines: ['RewriteCond %{REQUEST_FILENAME} !-f', 'RewriteCond %{REQUEST_FILENAME}.html -f', 'RewriteRule ^(.*[^/])$ $1.html [L]'] },
+  {
+    what: 'a folder with no page answers 404, not the 403 of Options -Indexes',
+    lines: ['RewriteCond %{REQUEST_FILENAME}/index.html !-f', 'RewriteRule ^ - [R=404,L]'],
+  },
   { what: 'folders without their slash (/dir goes to /dir/)', lines: ['RewriteCond %{REQUEST_FILENAME} -d', 'RewriteRule ^(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,NE]'] },
   { what: 'HSTS', lines: ['Header always set Strict-Transport-Security "max-age=31536000; includeSubDomains"'] },
   { what: 'nosniff', lines: ['Header always set X-Content-Type-Options "nosniff"'] },
@@ -56,6 +81,26 @@ export const HTACCESS_RULES = [
   },
 ]
 
+/** Rules that only work in this order (mod_rewrite stops at the first redirect): each pair's first line must come
+ * before its second. */
+export const HTACCESS_ORDER = [
+  {
+    what: 'www before the HTTPS redirect, or http://www. takes two hops',
+    first: 'RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]',
+    then: 'RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]',
+  },
+  {
+    what: 'the old WordPress redirects before the "no PHP" rule, or /index.php answers 403',
+    first: HTACCESS_RULES.find((r) => r.what.startsWith('the old WordPress addresses')).lines[2],
+    then: HTACCESS_RULES.find((r) => r.what === 'no source or secret files, and no PHP').lines[0],
+  },
+  {
+    what: 'the 404 for a folder with no page before the slash redirect, or /folder goes to /folder/ first',
+    first: 'RewriteRule ^ - [R=404,L]',
+    then: 'RewriteRule ^(.*[^/])$ https://%{HTTP_HOST}/$1/ [R=301,L,NE]',
+  },
+]
+
 /** The file's directives, one per line, trimmed, without comments or blank lines. */
 export const directives = (text) =>
   text
@@ -78,5 +123,8 @@ export function htaccessProblems(text) {
   const transformable = lines
     .filter((l) => CACHE_CONTROL.test(l) && !/\bno-transform\b/i.test(l.match(CACHE_CONTROL)[1]))
     .map((l) => `a Cache-Control without no-transform (Hostinger's CDN would re-encode images and minify text): ${l}`)
-  return [...lost, ...transformable]
+  const misordered = HTACCESS_ORDER.filter((o) => have.has(o.first) && have.has(o.then) && lines.indexOf(o.first) > lines.indexOf(o.then)).map(
+    (o) => `out of order: ${o.what}`,
+  )
+  return [...lost, ...misordered, ...transformable]
 }

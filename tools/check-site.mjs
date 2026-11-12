@@ -211,6 +211,11 @@ for (const file of pages) {
     const clean = decodeURIComponent(ref.replace(/[?#].*$/, ''))
     if (!clean) continue
     let target = clean.startsWith('/') ? join(root, clean) : join(root, dirname(file), clean)
+    // A folder named without its slash is a 301 to /dir/ (.htaccess), which Search Console files as "Page with
+    // redirect": link the folder's own address. (/x is fine when x.html exists: the host serves it as it is.)
+    if (!clean.endsWith('/') && existsSync(target) && statSync(target).isDirectory() && !existsSync(`${target}.html`)) {
+      report(file, 'links', `links ${ref}, a folder without its trailing slash (a redirect): write ${ref.replace(/^([^?#]*)/, '$1/')}`)
+    }
     if (clean.endsWith('/') || (existsSync(target) && statSync(target).isDirectory())) target = join(target, 'index.html')
     if (!existsSync(realFile(target))) report(file, 'links', `broken link ${ref}`)
   }
