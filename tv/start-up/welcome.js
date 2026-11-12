@@ -23,7 +23,12 @@
 // underneath. The bar never shows more than the app has said, and fills no faster than the clock across those 2 s
 // (and the key art's own 2 s once it appears), so it starts empty and is full just as the welcome may go; then it
 // hops, and a timer holds the welcome until it has been up 2 s and the key art, if it came, has been seen for 2 s; then
-// it fades out over 300 ms and then(ms) gets how long it was up (the app logs splash_shown). PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
+// it fades out over 300 ms and then(ms) gets how long it was up (the app logs splash_shown).
+// On a page where the VGraphics intro plays (brand-intro.js, over its own box or over the welcome), the welcome and its
+// art are behind the film until it has faded: their 2 s count from then (vgintro:done and the intro's fade, after the
+// whole film or a tap that skips it), the bar waits empty until then, and a ready() during the film waits for it too
+// (QA on VGR-42, 12 Nov 2026: the key art left about 190 ms after the film). A page without the intro counts from the
+// welcome's first frame, as before. PartyWelcome.look({ art, artTall, artSrcset, artSizes, artTallSrcset, artTallSizes, accent, accentLip })
 // changes the art late (a new art without its own srcset drops the old one's); PartyWelcome.hide()
 // removes it at once. Plain ES5 and CSS that 2022 TV browsers (Chromium 85) run; only transforms and opacity move.
 //
@@ -45,6 +50,17 @@
   var FADE_MS = 300;
   var now = function () { return window.performance && performance.now ? performance.now() : Date.now(); };
   var startedAt = now(); // the welcome's first frame: this script runs as the page is parsed
+  var INTRO_MS = 5000; // the intro is over 5 s in at the latest (brand-intro.js stops itself at 4 s)
+  var INTRO_FADE_MS = 500; // brand-intro.js fades out over 500 ms from vgintro:done (a skip too)
+  var introEnded = -1; // when vgintro:done came
+  // When the welcome is first seen: its first frame on a page without the intro, the end of the intro's fade on a page
+  // with one, and Infinity while the intro still plays over it.
+  var seenAt = function () {
+    if (introEnded >= 0) return introEnded + INTRO_FADE_MS;
+    var intro = window.VGIntro;
+    if (!intro || (typeof intro.playing === "function" && !intro.playing())) return startedAt;
+    return now() < startedAt + INTRO_MS ? Infinity : startedAt + INTRO_MS;
+  };
   var reduce = window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches;
 
   var style = document.createElement("style");
@@ -261,7 +277,8 @@
   // on ahead while the bar waited for the app.
   var plan = function () {
     var t = now(), shown = at(t), goal = target;
-    if (goal <= shown) return;
+    if (goal <= shown || seenAt() === Infinity) return; // behind the film the bar waits where it is
+
     var catchUp = paced(t) > shown + 1e-3 ? 450 : 0;
     var go = function (t2) {
       var w = catchUp ? easeOut((t2 - t) / catchUp) : 1;
@@ -317,14 +334,19 @@
     target = Math.min(1, value);
     plan();
   };
-  // The key art has appeared: from where the bar is, full at the end of the art's 2 s.
-  var artCame = function () {
+  // When the welcome may go: 2 s after it was first seen, and 2 s after its key art was (an art that came behind the
+  // film is first seen as the film goes).
+  var goesAt = function () { return Math.max(seenAt(), shownAt) + SHOWN_MS; };
+  // The key art has appeared, or the intro has gone: from where the bar is, full just as the welcome may go.
+  var repace = function () {
+    if (seenAt() === Infinity) return;
     var t = now();
     base = at(t);
     from = t;
-    until = shownAt + SHOWN_MS;
+    until = goesAt();
     plan();
   };
+  var artCame = repace;
 
   var gone = false;
   var remove = function () {
@@ -339,7 +361,6 @@
   // at the latest (brand-intro.js stops itself at 4 s).
   var SILENT_MS = 12000; // past the intro: a page that never said a word has failed
   var SLOW_MS = 30000; // past the intro: a page that spoke but isn't ready loses the welcome anyway
-  var INTRO_MS = 5000;
   // A rejection that means code never came: a module that didn't link, a dynamic import that didn't load.
   var MISSING = /^SyntaxError|dynamically imported module|Importing a module script failed/i;
   var STORE = "party-welcome-failures:" + window.location.pathname;
@@ -429,10 +450,25 @@
     if (wait > 0) watch = setTimeout(watchdog, wait);
     else fail(spoke ? "slow" : "silent");
   };
+  // The intro starts to fade (after the whole film, or a tap that skipped it): the welcome's 2 s, and its art's, count
+  // from the end of that fade, the bar sets off, and a ready() that came during the film looks again.
+  var hold = 0; // a ready() waiting for its moment
+  var due = null;
+  var introGone = function () {
+    repace();
+    if (due && !gone) {
+      clearTimeout(hold);
+      due();
+    }
+  };
   document.addEventListener("vgintro:done", function () {
+    if (introEnded < 0) introEnded = now();
     introAt = Math.min(introAt, now());
     watchdog();
+    introGone();
   });
+  // An intro that never said it was done is taken as gone at its 5 s.
+  setTimeout(function () { if (introEnded < 0 && window.VGIntro) introGone(); }, INTRO_MS);
   // Parsed: the page's module scripts have run or failed. A page with no intro counts from the first frame.
   document.addEventListener("DOMContentLoaded", function () {
     listed = document.querySelectorAll('script[type="module"], link[rel="modulepreload"]');
@@ -490,21 +526,21 @@
       }
       progress(1);
       // The timer: the bar is full (at the end of the 2 s, or later if the app was) and its hop over, the welcome has
-      // been up 2 s, and the key art, if it came, has been seen for 2 s (no wait for an art that isn't there). It looks
-      // again when it fires, in case the art came meanwhile.
-      var due = function () {
+      // been seen 2 s, and the key art, if it came, has been seen for 2 s (no wait for an art that isn't there), all
+      // counted from the end of the intro on a page that has one. It looks again when it fires, in case the art came
+      // meanwhile, and when the intro goes.
+      due = function () {
         if (gone) return;
         var at = now();
-        var art = shownAt < 0 ? 0 : shownAt + SHOWN_MS - at;
-        var wait = Math.max(settled - at, startedAt + SHOWN_MS - at, art);
+        var wait = seenAt() === Infinity ? startedAt + INTRO_MS - at : Math.max(settled - at, goesAt() - at);
         if (wait > 0) {
-          setTimeout(due, wait);
+          hold = setTimeout(due, wait);
           return;
         }
         remove();
         if (then) then(Math.round(at - startedAt));
       };
-      setTimeout(due, 0);
+      hold = setTimeout(due, 0);
     },
     hide: function () {
       spoke = true;
