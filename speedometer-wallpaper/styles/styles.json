@@ -83,7 +83,7 @@
       "image": "carbon",
       "tagline": "A race dash: shift lights, the value huge on a race display with a rev bar, and bar meters.",
       "lead": "A race dash, <em>on carbon fibre.</em>",
-      "look": "Carbon is a race car's dash on fine twill carbon fibre: shift lights across the top, the reading huge on a race display with a bar under it, and bar meters for the rest, in white italic numbers with a red line.",
+      "look": "Carbon is a race car's dash on fine twill carbon fibre: shift lights across the top, the reading huge on a race display with a bar under it, and bar meters for the rest, in white italic numbers with a red line. A new ready-made layout made just for Carbon puts one big dial under the clock, with battery and temperature arcs side by side under it and a panel of warning lamps, on upright phones.",
       "summary": "a race dash with shift lights on carbon fibre",
       "seoTitle": "Race Car Dash",
       "hero": { "alt": "A phone on the carbon-fibre dashboard of a race car in a pit garage, showing the Carbon race dash", "position": "29% 45%", "placeholder": "linear-gradient(#C7CFD0, #595C62)" }
@@ -96,7 +96,7 @@
       "image": "vintage",
       "tagline": "A 1960s dashboard: a cream speedometer over a matching clock, both chrome-rimmed, on walnut.",
       "lead": "A 1960s dashboard, <em>in walnut and chrome.</em>",
-      "look": "Vintage is a 1960s sports car's dashboard: a cream enamel dial in a knurled chrome bezel over a matching clock, on walnut, with drum counters and jewel lamps in chrome cups. Chronograph, a ready-made layout made for Vintage and Aura, puts one big dial over the date and time, with readings and lamps under it, on upright phones.",
+      "look": "Vintage is a 1960s sports car's dashboard: a cream enamel dial in a knurled chrome bezel over a matching clock, on walnut, with drum counters and jewel lamps in chrome cups.",
       "summary": "a 1960s dashboard in walnut, chrome and cream enamel",
       "seoTitle": "1960s Car Dashboard",
       "hero": { "alt": "A phone in a chrome cradle on the walnut dashboard of a 1960s convertible at golden hour, showing the Vintage style", "position": "50% 45%", "placeholder": "linear-gradient(#ADACA2, #5E5853)" }
@@ -109,7 +109,7 @@
       "image": "amber_night",
       "tagline": "Night luxury: one big amber-lit dial over a dot-matrix information display.",
       "lead": "Night luxury, <em>lit in amber.</em>",
-      "look": "Amber Night is a luxury car's dash after dark: one big dial lit amber from its rim in a smoked black-chrome bezel, over an amber dot-matrix display on black quilted leather. Everything glows amber, and warnings glow orange-red.",
+      "look": "Amber Night is a luxury car's dash after dark: one big dial lit amber from its rim in a smoked black-chrome bezel, over an amber dot-matrix display on black quilted leather. Everything glows amber, and warnings glow orange-red. A new ready-made layout made just for Amber Night keeps a big clock and the date at the top, then one big dial for the speed, with battery and temperature dials and a row of lamps under it, on upright phones.",
       "summary": "a luxury night dash lit amber, with a dot-matrix display",
       "seoTitle": "Night Car Dash",
       "hero": { "alt": "A phone on the quilted leather dashboard of a luxury saloon under amber street lights at night, showing the Amber Night style", "position": "67% 45%", "placeholder": "linear-gradient(#452D23, #46251A)" }
@@ -161,7 +161,7 @@
       "image": "harbour",
       "tagline": "Marine instruments: brass rope-edge bezels around navy enamel on a teak deck, a gold needle and brass-framed counters.",
       "lead": "Marine brass, <em>on a teak deck.</em>",
-      "look": "Harbour is a boat's instrument panel: brass bezels with a rope edge around navy enamel dials on a teak deck, a gold needle, and counters in brass frames.",
+      "look": "Harbour is a boat's instrument panel: brass bezels with a rope edge around navy enamel dials on a teak deck, a gold needle, and counters in brass frames. A new ready-made layout made just for Harbour puts one big dial under the date, a compass, a clock and a g-ball in a row under it, then rings for the phone's meters and a row of lamps, on upright phones.",
       "summary": "marine brass and navy enamel gauges on a teak deck",
       "seoTitle": "Marine Brass Gauges",
       "hero": { "alt": "A phone in a brass mount on a yacht's teak console beside the ship's wheel at blue hour, showing the Harbour style", "position": "65% 45%", "placeholder": "linear-gradient(#4484B2, #413336)" }
@@ -174,7 +174,7 @@
       "image": "track_night",
       "tagline": "A race screen: a rev ladder, the value huge on an electric-blue band, and shift lights closing in from both sides.",
       "lead": "A race screen, <em>in electric blue.</em>",
-      "look": "Track Night is a modern race car's screen: a ladder of bars across the top, the reading huge on an electric-blue band, and shift lights that close in from both sides as it climbs.",
+      "look": "Track Night is a modern race car's screen: a ladder of bars across the top, the reading huge on an electric-blue band, and shift lights that close in from both sides as it climbs. A new ready-made layout made just for Track Night gives the speed its biggest dial, almost the phone's full width, under the clock, with three small dials for RAM, temperature and battery and a row of lamps under it, on upright phones.",
       "summary": "a race screen with shift lights, in electric blue",
       "seoTitle": "Race Screen",
       "hero": { "alt": "A phone in a clamp mount in a race car on a floodlit track at night, showing the Track Night race screen", "position": "50% 45%", "placeholder": "linear-gradient(#10181D, #354145)" }
@@ -213,7 +213,7 @@
       "image": "prism",
       "tagline": "An angular tech cluster: two slanted panels of faceted glass, blue for the reading and red for the revs, with tilted bar scales and a thin neon outline.",
       "lead": "An angular cluster <em>of faceted glass.</em>",
-      "look": "Prism is an angular tech cluster: two slanted panels of faceted glass, one blue and one red, with tilted bar scales and a thin neon outline.",
+      "look": "Prism is an angular tech cluster: two slanted panels of faceted glass, one blue and one red, with tilted bar scales and a thin neon outline. A new ready-made layout made just for Prism spreads the speed across a full-width arc under the clock, with a g-ball and a compass side by side and rings for the phone's meters under it, on upright phones.",
       "summary": "an angular cluster of faceted blue and red glass",
       "seoTitle": "Angular Tech Cluster",
       "hero": { "alt": "A phone on a black desk among blue and red neon glass sculptures, showing the Prism style", "position": "50% 45%", "placeholder": "linear-gradient(#050C1A, #15192F)" }
@@ -226,7 +226,7 @@
       "image": "aura",
       "tagline": "Premium sport dials: chrome rings, a warm glow behind white numerals and big digital numbers, on graphite leather.",
       "lead": "Premium sport dials, <em>on graphite leather.</em>",
-      "look": "Aura is a premium sports car's dials: chrome rings with a warm glow behind white numerals, and big digital numbers, all on graphite leather. Chronograph, a ready-made layout made for Vintage and Aura, puts one big dial over the date and time, with readings and lamps under it, on upright phones.",
+      "look": "Aura is a premium sports car's dials: chrome rings with a warm glow behind white numerals, and big digital numbers, all on graphite leather.",
       "summary": "premium sport dials with chrome rings on graphite leather",
       "seoTitle": "Premium Sport Dials",
       "hero": { "alt": "A phone in a chrome mount on a sports car's dashboard on an alpine pass at golden hour, showing the Aura style", "position": "65% 45%", "placeholder": "linear-gradient(#877A5D, #686150)" }
@@ -265,7 +265,7 @@
       "image": "horizon",
       "tagline": "A fighter jet's head-up display: sliding tapes, the value boxed between them and a time strip, green on black.",
       "lead": "A fighter jet's HUD, <em>in green on black.</em>",
-      "look": "Horizon is a fighter jet's head-up display: the readings slide past on tapes, the big value sits boxed between them, and a strip shows the time, all green on black.",
+      "look": "Horizon is a fighter jet's head-up display: the readings slide past on tapes, the big value sits boxed between them, and a strip shows the time, all green on black. A new ready-made layout made just for Horizon keeps a big clock and the date at the top, runs a bigger speed tape across the whole width, and puts battery and temperature dials and a row of lamps under it, on upright phones.",
       "summary": "a fighter jet's head-up display, green on black",
       "seoTitle": "Fighter Jet HUD",
       "hero": { "alt": "A phone in a jet's canopy above the clouds at last light, showing the Horizon head-up display", "position": "50% 45%", "placeholder": "linear-gradient(#0B4743, #122D29)" }

@@ -171,7 +171,7 @@
       "id": "look",
       "eyebrow": "The look",
       "title": "About Horizon",
-      "intro": "Horizon is a fighter jet's head-up display: the readings slide past on tapes, the big value sits boxed between them, and a strip shows the time, all green on black.",
+      "intro": "Horizon is a fighter jet's head-up display: the readings slide past on tapes, the big value sits boxed between them, and a strip shows the time, all green on black. A new ready-made layout made just for Horizon keeps a big clock and the date at the top, runs a bigger speed tape across the whole width, and puts battery and temperature dials and a row of lamps under it, on upright phones.",
       "blocks": [
         {
           "type": "gallery",
