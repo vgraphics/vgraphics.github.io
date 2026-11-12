@@ -25,7 +25,9 @@
 // HUD mode: "Try HUD mode in your browser", its #hud link into the try page; George, 10 Nov 2026,
 // "site-try-hud-link": KEEP); and "compare" ({ title, text, ...a before-and-after, tools/lib/compare.mjs }), a section
 // with the two pictures and a handle between them (Speedometer's "Seeing double?", without and with a HUD film;
-// George, 10 Nov 2026, "film-before-after": KEEP).
+// George, 10 Nov 2026, "film-before-after": KEEP). Its "image" is the medal beside "What it shows"; "imageAlt" gives
+// that medal its words when it shows something the lead doesn't name (Speedometer's music page: Rally's music dial,
+// George, 12 Nov 2026: "Rally").
 import { existsSync, mkdirSync, readdirSync, readFileSync, rmSync, writeFileSync } from 'node:fs'
 import { join } from 'node:path'
 import { loadProduct, root } from './lib/product.mjs'
@@ -261,7 +263,7 @@ function whatBlock(w, e) {
   const split = (p) => { const m = p.match(/^(.+?[.!?])\s+([\s\S]*)$/); return m ? [m[1], m[2]] : [p, ''] }
   return `<section class="w-block" aria-labelledby="h-what">${h2('h-what', `${w.whatTitle || (w.product.slug === 'exitwise' ? 'What it does' : 'What it shows')}`)}
       <div class="w-what">
-        <div class="w-what-lead">${piece(e, 'w-medal')}<p>${lead}</p></div>${rest.length ? `
+        <div class="w-what-lead">${piece(e, 'w-medal', e.imageAlt)}<p>${lead}</p></div>${rest.length ? `
         <div class="w-what-cards">${rest.map((p, i) => { const [h, t] = split(p); return `<div class="w-what-card" style="--k: var(--swatch-${(i % 6) + 1})"><b>${h}</b>${t ? `<p>${t}</p>` : ''}</div>` }).join('')}</div>` : ''}
       </div>
     </section>`

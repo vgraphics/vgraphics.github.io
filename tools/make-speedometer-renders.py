@@ -1,8 +1,9 @@
 """The app's real renders the Speedometer pages show beside their own: each place gets a picture of its own (George,
 26 Oct 2026: "Each art must be used only once!!"), written to speedometer-wallpaper/img/renders/.
 
-    python tools/make-speedometer-renders.py [--ref main] [--games <Games repo>] [--promo <frames folder>]
+    python tools/make-speedometer-renders.py [--ref main] [--games <Games repo>] [--promo <frames folder>] [name ...]
 
+Names make only those pictures (all of them by default), so a new one leaves the others as they are.
 Every picture is the app's own drawing, never a painted one:
 - "golden:<name>": logic_render's or feature_screens' screenshot goldens in the Games repo (read straight from git at
   --ref, no checkout needed);
@@ -10,6 +11,7 @@ Every picture is the app's own drawing, never a painted one:
   engine at the drive's speed; the frame number sets the speed).
 A "phone" is the whole screen at 540x1200, as the site's other phones; a "dial" is the big dial alone, a 480 px circle
 on a transparent ground, as img/dial-*.webp. Every design these come from draws its big dial at the same place.
+A "square" is a 480 px square cut of any screen, corners and all, for a wiki medal that keeps what is around its dial.
 The gallery (tools/make-gallery-images.py) takes its frames and floating dials from here too.
 A name never ends in a number (classic-119kmh, not classic-119): check-site reads <name>-<number> as one picture's
 sizes.
@@ -28,8 +30,8 @@ GOLDENS = {
 # nothing around it: Classic's small gauges and Future's clock sit just outside.
 DIAL = (540, 969)
 
-# name: (source, "phone", a dial's radius, or (radius, (x, y)) for a dial away from DIAL). Where each is shown is in
-# the comment beside it.
+# name: (source, "phone", a dial's radius, (radius, (x, y)) for a dial away from DIAL, or ("square", half its side,
+# (x, y))). Where each is shown is in the comment beside it.
 RENDERS = {
     # The landing page's gallery (make-gallery-images.py), one per slide and floating dial.
     "prism-119kmh": ("drive:prism/0520", "phone"),                             # GPS: Prism at 119 km/h
@@ -64,6 +66,10 @@ RENDERS = {
     "dial-rally-power": ("golden:logic/skin_rally_classic_power", (462, (538, 1006))),        # big-gauge-tile
     "dial-future-cpu": ("golden:logic/future_cpu", 465),                       # cpu-clock
     "settings-owned": ("golden:screens/app_settings_owned_allowed", "phone"),  # restoring-future
+    # Music in a style the page's hero doesn't show: Rally's dial with the music buttons, on its honeycomb grille (George,
+    # 12 Nov 2026, on the music page's badge: "Rally"; the crop of the Games repo's
+    # docs/site-art/speedometer-wallpaper/wiki/candidates/music-calls-messages/badge/medal-rally.png).
+    "medal-rally-music": ("golden:logic/widgets_music_on_dial_rally", ("square", 450, (540, 640))),  # music-calls-messages
 }
 
 
@@ -107,19 +113,35 @@ def dial(img, r, centre=DIAL):
     return out.resize((480, 480), Image.LANCZOS)
 
 
+def square(img, half, centre):
+    x, y = centre
+    if x - half < 0 or y - half < 0 or x + half > img.width or y + half > img.height:
+        sys.exit(f"a {2 * half} px square at {centre} doesn't fit a {img.size} screen")
+    return img.crop((x - half, y - half, x + half, y + half)).resize((480, 480), Image.LANCZOS)
+
+
 def main():
     parser = argparse.ArgumentParser(description=__doc__.split("\n\n")[0])
     parser.add_argument("--ref", default="main", help="Games repo branch or commit to read the goldens from")
     parser.add_argument("--games", help="the Games repo (found beside the site by default)")
     parser.add_argument("--promo", help="the demo drive's frames (Promo/speedometer/frames beside the site by default)")
+    parser.add_argument("names", nargs="*", help="only these pictures (every one by default)")
     args = parser.parse_args()
+    unknown = [n for n in args.names if n not in RENDERS]
+    if unknown:
+        sys.exit(f"no such picture: {', '.join(unknown)}")
+    todo = {n: RENDERS[n] for n in args.names} if args.names else RENDERS
     games = args.games or beside("Games", ".git")
-    promo = args.promo or beside(os.path.join("Promo", "speedometer", "frames"), "classic")
+    # The demo drive is looked for only when a picture comes from it.
+    drive = any(spec.startswith("drive:") for spec, _ in todo.values())
+    promo = args.promo or (beside(os.path.join("Promo", "speedometer", "frames"), "classic") if drive else None)
     os.makedirs(OUT, exist_ok=True)
-    for name, (spec, kind) in RENDERS.items():
+    for name, (spec, kind) in todo.items():
         img = source(spec, games, args.ref, promo)
         if kind == "phone":
             out = phone(img)
+        elif isinstance(kind, tuple) and kind[0] == "square":
+            out = square(img, *kind[1:])
         elif isinstance(kind, tuple):
             out = dial(img, *kind)
         else:
