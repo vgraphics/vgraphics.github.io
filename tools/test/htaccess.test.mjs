@@ -109,15 +109,16 @@ const redirects = directives(site)
   .filter(Boolean)
   .map(([, pattern, to]) => ({ rule: new RegExp(pattern), to }))
 const firstRedirect = (path) => redirects.find((r) => r.rule.test(path))?.to
+const wordpress = HTACCESS_RULES.find((r) => r.what.startsWith('the old WordPress addresses'))
 
 test('the old WordPress addresses and the old key-art addresses go to their pages in one 301', () => {
   assert.equal(firstRedirect('index.php/contact/'), 'https://vgraphics.gr/#contact')
   assert.equal(firstRedirect('index.php/contact'), 'https://vgraphics.gr/#contact')
   assert.equal(firstRedirect('index.php/contact/index.html'), 'https://vgraphics.gr/#contact')
-  assert.equal(firstRedirect('index.php/about-2/'), 'https://vgraphics.gr/company/?')
-  assert.equal(firstRedirect('index.php/about-2/index.html'), 'https://vgraphics.gr/company/?')
+  assert.equal(firstRedirect('index.php/about-2/'), 'https://vgraphics.gr/company/')
+  assert.equal(firstRedirect('index.php/about-2/index.html'), 'https://vgraphics.gr/company/')
   for (const old of ['index.php', 'index.php/', 'index.php/category/news/', 'index.php/feed/', 'index.php/2019/05/hello-world/']) {
-    assert.equal(firstRedirect(old), 'https://vgraphics.gr/?', old)
+    assert.equal(firstRedirect(old), 'https://vgraphics.gr/', old)
   }
   assert.equal(firstRedirect('speedometer-wallpaper/img/key-art'), 'https://vgraphics.gr/speedometer-wallpaper/img/key-art-1920.jpg')
   assert.equal(firstRedirect('speedometer-wallpaper/img/key-art-tall'), 'https://vgraphics.gr/speedometer-wallpaper/img/key-art-tall-1080.jpg')
@@ -141,14 +142,22 @@ test('rules out of order are named: www after HTTPS takes two hops, index.php af
   const https = 'RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]'
   const swapped = site.replace(www, '@@WWW@@').replace(https, www).replace('@@WWW@@', https)
   assert.deepEqual(htaccessProblems(swapped), ['out of order: www before the HTTPS redirect, or http://www. takes two hops'])
-  const wp = 'RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]'
-  const late = site.replace(`${wp}\n`, '').replace('# Unity\'s pre-compressed files', `${wp}\n# Unity's pre-compressed files`)
+  const wp = wordpress.lines[2]
+  assert.ok(site.includes(wp), 'the test names the line .htaccess has')
+  const late = site.replace(wp, '').replace("# Unity's pre-compressed files", `${wp}\n# Unity's pre-compressed files`)
   assert.deepEqual(htaccessProblems(late), ['out of order: the old WordPress redirects before the "no PHP" rule, or /index.php answers 403'])
 })
 
 test('losing the one-hop www rule or the WordPress redirects is named', () => {
   assert.match(htaccessProblems(site.replace('RewriteRule ^ https://%1%{REQUEST_URI} [R=301,L,NE]', ''))[0], /^lost www to https:\/\/ on the bare domain in one hop/)
-  assert.match(htaccessProblems(site.replace('RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]', ''))[0], /^lost the old WordPress addresses/)
+  for (const line of wordpress.lines) {
+    assert.ok(site.includes(line), `the test names the line .htaccess has: ${line}`)
+    assert.match(htaccessProblems(site.replace(line, ''))[0] ?? '', /^lost the old WordPress addresses/)
+  }
+})
+
+test("the old query is dropped (QSD), so it never lands after the #contact fragment", () => {
+  for (const line of wordpress.lines) assert.match(line, /\[[^\]]*\bQSD\b[^\]]*\]$/, line)
 })
 
 test('a folder with no page answers 404, and only a folder: files keep being served', () => {

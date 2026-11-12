@@ -25,10 +25,11 @@ RewriteRule ^ https://%{HTTP_HOST}%{REQUEST_URI} [R=301,L,NE]
 
 # The old WordPress site's addresses, which Google still asks for (Search Console, Oct and Nov 2026): one 301 each to the
 # page that took its place (/index.php itself, its categories and feeds: the home page). They come before the "no PHP"
-# rule below, which would answer 403. A "?" at the end drops the old query (?p=12, ?feed=rss2).
-RewriteRule ^index\.php/contact(/|/index\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE]
-RewriteRule ^index\.php/about(-2)?(/|/index\.html)?$ https://vgraphics.gr/company/? [R=301,L]
-RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]
+# rule below, which would answer 403. QSD drops the old query (?p=12, ?feed=rss2), which would otherwise land after the
+# #contact fragment.
+RewriteRule ^index\.php/contact(/|/index\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE,QSD]
+RewriteRule ^index\.php/about(-2)?(/|/index\.html)?$ https://vgraphics.gr/company/ [R=301,L,QSD]
+RewriteRule ^index\.php(/.*)?$ https://vgraphics.gr/ [R=301,L,QSD]
 
 # Two old picture addresses of Speedometer's key art, without an extension, that Google keeps retrying: to the pictures.
 RewriteRule ^speedometer-wallpaper/img/key-art$ https://vgraphics.gr/speedometer-wallpaper/img/key-art-1920.jpg [R=301,L]

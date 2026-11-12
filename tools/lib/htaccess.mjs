@@ -21,9 +21,9 @@ export const HTACCESS_RULES = [
   {
     what: "the old WordPress addresses as one 301 each (Search Console: they are not pages, and /index.php isn't a 403)",
     lines: [
-      'RewriteRule ^index\\.php/contact(/|/index\\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE]',
-      'RewriteRule ^index\\.php/about(-2)?(/|/index\\.html)?$ https://vgraphics.gr/company/? [R=301,L]',
-      'RewriteRule ^index\\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]',
+      'RewriteRule ^index\\.php/contact(/|/index\\.html)?$ https://vgraphics.gr/#contact [R=301,L,NE,QSD]',
+      'RewriteRule ^index\\.php/about(-2)?(/|/index\\.html)?$ https://vgraphics.gr/company/ [R=301,L,QSD]',
+      'RewriteRule ^index\\.php(/.*)?$ https://vgraphics.gr/ [R=301,L,QSD]',
     ],
   },
   {
@@ -91,7 +91,7 @@ export const HTACCESS_ORDER = [
   },
   {
     what: 'the old WordPress redirects before the "no PHP" rule, or /index.php answers 403',
-    first: 'RewriteRule ^index\\.php(/.*)?$ https://vgraphics.gr/? [R=301,L]',
+    first: HTACCESS_RULES.find((r) => r.what.startsWith('the old WordPress addresses')).lines[2],
     then: HTACCESS_RULES.find((r) => r.what === 'no source or secret files, and no PHP').lines[0],
   },
   {
