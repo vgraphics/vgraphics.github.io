@@ -171,7 +171,7 @@
       "id": "look",
       "eyebrow": "The look",
       "title": "About Glass",
-      "intro": "Glass has no round gauges at all: glowing cyan arcs and thin, letter-spaced digits float in corner brackets over smoked glass and faint scan lines. Warnings glow pink-red.",
+      "intro": "Glass has no round gauges at all: glowing cyan arcs and thin, letter-spaced digits float in corner brackets over smoked glass and faint scan lines. Warnings glow pink-red. Big type, a ready-made layout made for Glass, shows a large clock and date, a huge glowing speed reading, three readings and the song that's playing, upright or on its side.",
       "blocks": [
         {
           "type": "gallery",
