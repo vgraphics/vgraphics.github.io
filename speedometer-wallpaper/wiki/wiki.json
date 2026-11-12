@@ -72,7 +72,7 @@
       "image": "/speedometer-wallpaper/img/renders/dial-classic-31kmh.webp",
       "summary": "Your speed in km/h or mph, with a red mark at your top speed.",
       "what": ["In GPS speed mode the needle shows your speed. A red mark shows the top speed of the current drive.","GPS speed needs your precise location while the wallpaper is on screen. It is used only to read your speed and never leaves the phone."],
-      "how": ["Choose GPS speed in Customize → Big gauge; the app explains why it needs location, then Android asks. Pick \"Precise\" when it does.","Switch between km/h and mph in Customize → Units or in Settings → Speed unit: the unit is the same in every style, so changing it changes them all.","If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
+      "how": ["Right after you set the wallpaper, the app's Now drive and see it card asks for GPS: tap Allow GPS and Android asks. Pick \"Precise\" when it does. From then on the phone on the app's home screen shows your real speed too.","You can also choose GPS speed in Customize → Big gauge; the app explains why it needs location, then Android asks.","Switch between km/h and mph in Customize → Units or in Settings → Speed unit: the unit is the same in every style, so changing it changes them all.","If location is off for the app, the gauge can't read your speed: allow precise location in the app's settings."],
       "related": ["big-gauge","settings"]
     },
     {
@@ -228,7 +228,7 @@
       "name": "Setting it as your wallpaper",
       "image": "/speedometer-wallpaper/img/shot-home.webp",
       "summary": "Set as wallpaper, confirm, done; and how to get it back.",
-      "what": ["Open the app and tap Set as wallpaper, then confirm on the preview. The button turns amber and reads On your home screen: the dashboard is now your wallpaper."],
+      "what": ["Open the app and tap Set as wallpaper, then confirm on the preview. The button turns amber and reads On your home screen: the dashboard is now your wallpaper.","Then the Now drive and see it card asks for GPS, so the speed gauge shows your real speed on the road. Not now puts it away; GPS speed in Settings asks again any time."],
       "how": ["If you force-stop the app or clear its data, Android puts your old wallpaper back. Open the app and tap Set as wallpaper again.","The wallpaper never shows ads."],
       "notes": ["Speedometer Live Wallpaper is for Android phones and tablets only: iPhones don't allow live wallpapers from other apps."],
       "related": ["settings","designs-screen"]
