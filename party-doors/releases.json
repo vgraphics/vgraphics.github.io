@@ -2,6 +2,18 @@
   "about": "Written by the Deployer: each release's content-hashed files in this folder, newest first. Pages browsers still hold ask for them, so a release's files stay while it is one of the two before the newest, or was replaced less than a day ago.",
   "releases": [
     {
+      "sha": "016c146bbe667c8d043ed9c27c319b7d3266ad3a",
+      "at": "2026-11-13T09:31:04.468Z",
+      "files": [
+        "door-CQaP49NU.css",
+        "door-CWmmURY7.js",
+        "games-DGOGcB6S.js",
+        "join-B9EV-bLX.js",
+        "join-ggA8EaP1.js",
+        "tv-Dnh99j5i.js"
+      ]
+    },
+    {
       "sha": "dff5d7f9e7105cef6fcc943787dcedf8a140f604",
       "at": "2026-11-12T08:59:27.391Z",
       "files": [
@@ -23,18 +35,6 @@
         "join-BoV9N8JZ.js",
         "join-DIWwObIj.js",
         "tv-BJwBczPg.js"
-      ]
-    },
-    {
-      "sha": "8b094be796a0c6c9d622a07fe576aa3c8aecc476",
-      "at": "2026-11-10T03:15:12.540Z",
-      "files": [
-        "door-CQaP49NU.css",
-        "door-DnlZDedx.js",
-        "games-DGOGcB6S.js",
-        "join-Db7cDTCl.js",
-        "join-DvTW3-D8.js",
-        "tv-CmcMEkq9.js"
       ]
     }
   ]
