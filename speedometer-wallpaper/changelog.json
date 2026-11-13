@@ -1,6 +1,17 @@
 {
   "entries": [
     {
+      "version": "2.0.23",
+      "date": "2026-11-13",
+      "platforms": [
+        "Android"
+      ],
+      "items": [
+        "Improvements and fixes."
+      ],
+      "commit": "0230dc6b"
+    },
+    {
       "version": "2.0.22",
       "date": "2026-11-11",
       "platforms": [
