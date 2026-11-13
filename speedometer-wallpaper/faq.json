@@ -52,7 +52,15 @@
   },
   {
     "q": "Which styles are free?",
-    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, a monthly or yearly subscription that also turns the app's ads off. On a new phone with the same Google account, the styles you bought come back by themselves."
+    "a": "Classic, Steel and Graphite. Every other style is €2.39, once: that's the price with VAT in most of the euro area, and Google Play shows the price in your country. Or get every style, including the styles still to come, with Speedometer Plus, €0.99 a month or €9.99 a year, which also turns the app's ads off. On a new phone with the same Google account, the styles you bought come back by themselves."
+  },
+  {
+    "q": "Can I try a style on my phone before I buy it?",
+    "a": "Yes, two ways. On a style's page in the app, See it on my home screen opens Android's own wallpaper preview with that style, so you see it behind your icons; your wallpaper keeps your own style until the new one is yours. And ten styles (Future, Carbon, Amber Night, Rally, Cockpit, Harbour, Track Night, Pulse, Vector and Horizon) can be yours for 24 hours after a short video: the app says what the video gives before it plays, and each style has three free days. After the third, it's yours with Speedometer Plus or by buying it."
+  },
+  {
+    "q": "Is there a free trial of Speedometer Plus?",
+    "a": "Yes, for new subscribers: the first 7 days are free, on the monthly and on the yearly plan. Then Plus costs €0.99 a month or €9.99 a year (Google Play shows the price in your country) and renews until you cancel. Before the trial starts, the app shows the date of the first charge; to pay nothing, cancel before that date in Google Play under Subscriptions, or tap Speedometer Plus in the app's Settings."
   },
   {
     "q": "Where do I find the layouts other drivers made?",
@@ -60,7 +68,7 @@
   },
   {
     "q": "Do I need an account?",
-    "a": "No. There's nothing to sign up for: the styles you buy belong to your Google Play account."
+    "a": "No. There's nothing to sign up for: the styles you buy belong to your Google Play account. Signing in to VHub, the free VGraphics account, is up to you, and it brings two gifts: one of the ten styles you can try for a day, yours to keep, and a free month of Speedometer Plus that starts by itself. Every style is yours for 30 days. No card, nothing to cancel."
   },
   {
     "q": "Why does the app ask for notification access?",

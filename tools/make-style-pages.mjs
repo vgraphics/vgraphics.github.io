@@ -11,7 +11,8 @@
 // a write-up of its own (AdSense's "Low-value content" review, 27 Oct 2026). A style's "robots": null lets it in.
 // Usage: node tools/make-style-pages.mjs, then node tools/build-pages.mjs <product> and node tools/build-sitemap.mjs.
 // check-site fails while a page.json or the tiles differ from what this writes. Words take {name}, {others}, {price}
-// and {count}.
+// and {count}. A paid style with "trial": true (one a short video lends for 24 hours) takes words.paidTrial when the
+// product has it, else words.paid.
 import { existsSync, mkdirSync, readdirSync, readFileSync, writeFileSync } from 'node:fs'
 import { dirname, join } from 'node:path'
 import { pathToFileURL } from 'node:url'
@@ -48,7 +49,7 @@ function stylePage(slug, data, landing, demo, i) {
     return { ...t, image: { ...t.image, src: `/${slug}/${t.image.src}` } }
   }
   const next = [1, 2, 3, 4].map((n) => data.styles[(i + n) % data.styles.length])
-  const priced = s.free ? w.free : w.paid
+  const priced = s.free ? w.free : (s.trial && w.paidTrial) || w.paid
   const { type, startup, labels, hud, ...given } = demo
   const { unlock, ...words } = labels ?? {}
   // HUD mode's button only on the pages of the styles that draw it (Speedometer's neon styles).
