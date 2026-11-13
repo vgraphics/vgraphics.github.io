@@ -27,7 +27,7 @@
         "alternateName": "HUD Speedometer Live Wallpaper",
         "name": "Speedometer Live Wallpaper",
         "url": "https://vgraphics.gr/speedometer-wallpaper/",
-        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Its HUD mode, free, turns the phone into a heads-up display for your car: laid flat on the dashboard, it reflects your GPS speed on the windscreen. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription.",
+        "description": "A live wallpaper that turns your Android home screen into a car dashboard, in 19 styles from a 1960s walnut dashboard to a fighter jet's head-up display: a big gauge for power, CPU clock or GPS speed, with battery, RAM, signal and Wi-Fi gauges. Its HUD mode, free, turns the phone into a heads-up display for your car: laid flat on the dashboard, it reflects your GPS speed on the windscreen. Classic, Steel and Graphite are free; every other style is a one-time purchase of €2.39 with VAT in most of the euro area, or comes with the Speedometer Plus subscription (€0.99 a month or €9.99 a year, the first 7 days free for new subscribers).",
         "image": "https://vgraphics.gr/speedometer-wallpaper/img/card-1200x630.jpg",
         "screenshot": [
           "https://vgraphics.gr/speedometer-wallpaper/img/shot-kmh.webp",
@@ -452,7 +452,7 @@
       "id": "styles",
       "eyebrow": "Styles",
       "title": "19 dashboards to choose from",
-      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus, a monthly or yearly subscription for every style, including the styles still to come, and no ads. Each style brings its own layouts. Tap one to try it live in your browser.",
+      "intro": "Classic, Steel and Graphite are free. Every other style is €2.39, once (with VAT in most of the euro area; Google Play shows yours), or comes with Speedometer Plus. Each style brings its own layouts. Tap one to try it live in your browser.",
       "blocks": [
         {
           "type": "cards",
@@ -713,7 +713,7 @@
             },
             {
               "title": "Layouts, and your own",
-              "text": "Most styles come in several layouts, and ready-made ones work in every style. Build your own in the layout builder: add the widgets you want, drag and resize them, lock the ones you've placed and pinch to zoom in, then save it or share it in the layout market."
+              "text": "Most styles come in several layouts, and ready-made ones work in every style. Build your own in the layout builder: add the widgets you want, drag and resize them, lock the ones you've placed and pinch to zoom in, then save it or share it in the Marketplace."
             },
             {
               "title": "Music on the dashboard",
@@ -722,6 +722,31 @@
             {
               "title": "Buy once, keep it",
               "text": "On a new phone with the same Google account, the styles you bought come back by themselves."
+            }
+          ]
+        },
+        {
+          "type": "features",
+          "items": [
+            {
+              "title": "Speedometer Plus",
+              "text": "Every style, including the styles still to come, and no ads: €0.99 a month, or €9.99 a year to save 15%. Those are the prices with VAT in most of the euro area; Google Play shows yours."
+            },
+            {
+              "title": "7 days free to start",
+              "text": "New subscribers get the first 7 days of Plus free, on the monthly or the yearly plan. Then it's €0.99 a month or €9.99 a year, and it renews until you cancel. The app shows the date of the first charge before you start: cancel before it, in Google Play under Subscriptions, and you pay nothing."
+            },
+            {
+              "title": "See it on my home screen",
+              "text": "On a style's page in the app, See it on my home screen shows that style on your own phone, behind your icons, in Android's wallpaper preview. Your wallpaper keeps your own style until the new one is yours."
+            },
+            {
+              "title": "A free day, three times",
+              "text": "Future, Carbon, Amber Night, Rally, Cockpit, Harbour, Track Night, Pulse, Vector and Horizon can each be yours for 24 hours after a short video, and the app says what the video gives before it plays. Each style has three free days; after the third, it's yours with Plus or by buying it."
+            },
+            {
+              "title": "Gifts for signing in",
+              "text": "Sign in to VHub, the free VGraphics account, and pick one of those ten styles to keep, free. Your free month of Speedometer Plus starts by itself: every style is yours for 30 days. No card, nothing to cancel."
             }
           ]
         }
@@ -833,7 +858,7 @@
             },
             {
               "title": "Free",
-              "text": "HUD mode is free, with Horizon’s HUD looks for everyone. Glass, Pulse and Vector draw it when you have the style, Speedometer Plus or a 24-hour trial."
+              "text": "HUD mode is free, with Horizon’s HUD looks for everyone. Glass, Pulse and Vector draw it when you have the style or Speedometer Plus, and Pulse and Vector during their 24-hour trial too."
             }
           ]
         },
@@ -883,7 +908,7 @@
       "id": "layouts",
       "eyebrow": "From the layout market",
       "title": "Layouts made by drivers",
-      "intro": "Players build their own dashboards in the app and share them in the layout market. Every layout works with every style, and each one here is drawn by the app itself.",
+      "intro": "Players build their own dashboards in the app and share them in the Marketplace. To see them all in the app, tap Marketplace on Home, or the Marketplace card in Styles: sort by Popular, New or Top rated, filter by style and by phone, flip phone, foldable or tablet, and keep the ones you like with the heart. Every layout works with every style, and each one here is drawn by the app itself.",
       "blocks": [
         {
           "type": "embed",
