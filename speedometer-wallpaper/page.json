@@ -713,7 +713,7 @@
             },
             {
               "title": "Layouts, and your own",
-              "text": "Most styles come in several layouts, and ready-made ones work in every style. Build your own in the layout builder: add the widgets you want, drag and resize them, lock the ones you've placed and pinch to zoom in, then save it or share it in the layout market."
+              "text": "Most styles come in several layouts, and ready-made ones work in every style. Build your own in the layout builder: add the widgets you want, drag and resize them, lock the ones you've placed and pinch to zoom in, then save it or share it in the Marketplace."
             },
             {
               "title": "Music on the dashboard",
@@ -883,7 +883,7 @@
       "id": "layouts",
       "eyebrow": "From the layout market",
       "title": "Layouts made by drivers",
-      "intro": "Players build their own dashboards in the app and share them in the layout market. Every layout works with every style, and each one here is drawn by the app itself.",
+      "intro": "Players build their own dashboards in the app and share them in the Marketplace. To see them all in the app, tap Marketplace on Home, or the Marketplace card in Styles: sort by Popular, New or Top rated, filter by style and by phone, flip phone, foldable or tablet, and keep the ones you like with the heart. Every layout works with every style, and each one here is drawn by the app itself.",
       "blocks": [
         {
           "type": "embed",
