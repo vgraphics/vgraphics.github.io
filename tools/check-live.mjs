@@ -7,7 +7,8 @@
 // - every address in /sitemap.xml answers 200 itself (no redirect), names itself as its canonical, and is not noindex
 //   (meta robots or X-Robots-Tag);
 // - every same-site href and src on those pages answers 200: not a redirect, not a 4xx;
-// - http://, www. and http://www. of / and of a deep page are exactly one 301 to the https:// bare address;
+// - http:// and www. of / and of a deep page are exactly one 301 to the https:// bare address; http://www. is one 301
+//   too, or exactly http://www. -> 301 https://www. -> 301 the bare address (Hostinger's edge hop, see allowedChains);
 // - each old address Google still asks for (the WordPress ones, two old key-art pictures) is exactly one 301 to its page,
 //   and a folder with no page answers 404 (not the 403 of Options -Indexes).
 //
@@ -83,15 +84,63 @@ const absolute = (to, from) => {
 const rows = []
 const row = (check, url, ok, result) => rows.push({ check, url: url.replace(base, '') || '/', ok, result })
 
-/** Exactly one 301 from `from` to `to` (both absolute). */
+/** The redirect chains `from` may take to its page `to` (both absolute), each as the addresses its 301s send to.
+ * Always exactly one 301 straight to `to`. The one exception is an http://www. address: Hostinger's edge (hPanel's
+ * Force HTTPS / its CDN) sends it to https://www. before the request ever reaches our .htaccess, whose www rule then
+ * sends it on to the bare domain, so it takes two 301s and no .htaccess change can make it one. The Commander decided
+ * on 13 Nov 2026 (VGR-217) to keep it that way rather than change the live domain's Hostinger settings: Google follows
+ * up to 5 hops, and http://, https://www. and every old address stay one 301. So http://www. may also be exactly
+ * http://www.<host>/X -> 301 https://www.<host>/X -> 301 `to`; a third hop, a 302 or any other address still fails. */
+export function allowedChains(from, to) {
+  const chains = [[to]]
+  const u = new URL(from)
+  if (u.protocol === 'http:' && /^www\./i.test(u.hostname)) chains.push([`https://${u.host}${u.pathname}${u.search}`, to])
+  return chains
+}
+
+/** The answers met from `from` on, a redirect followed each time: one more than the longest allowed chain at most, so
+ * a third hop is seen and an endless loop is not followed. `get` is `ask` (the tests give it a fake site). */
+export async function walk(from, most, get = ask) {
+  const steps = []
+  let url = from
+  for (;;) {
+    // A #fragment is the browser's, never sent.
+    const a = await get(url.replace(/#.*$/, ''))
+    steps.push(a)
+    if (a.status < 300 || a.status > 399 || !a.location || steps.length > most) return steps
+    url = absolute(a.location, url)
+  }
+}
+
+/** Whether the answers `steps` (from walk) take `from` to `to` by one of its allowed chains, every hop a 301, ending on
+ * a page that answers 200: { ok, result } for the table. */
+export function chainVerdict(from, to, steps) {
+  const chains = allowedChains(from, to)
+  const want = chains.map((c) => (c.length === 1 ? `one 301 to ${c[0]}` : c.map((h) => `301 -> ${h}`).join(' then '))).join(', or ')
+  const hops = []
+  const trail = () => hops.map((h) => `301 -> ${h}`).join(' then ')
+  let url = from
+  for (const s of steps) {
+    if (s.status < 300 || s.status > 399 || !s.location) {
+      if (!hops.length) return { ok: false, result: `${said(s)}, want ${want}` }
+      if (!chains.some((c) => c.length === hops.length && c.every((h, i) => h === hops[i]))) return { ok: false, result: `${trail()}, want ${want}` }
+      if (s.status !== 200) return { ok: false, result: `${trail()}, which answers ${said(s)}` }
+      return { ok: true, result: hops.length === 1 ? trail() : `${trail()} (the first hop is Hostinger's edge, accepted 13 Nov 2026)` }
+    }
+    const next = absolute(s.location, url)
+    if (s.status !== 301) return { ok: false, result: `${hops.length ? `${trail()} then ` : ''}${s.status} -> ${next}, want ${want}` }
+    hops.push(next)
+    url = next
+  }
+  // The walk stopped on a redirect: more hops than any allowed chain.
+  return { ok: false, result: `${trail()}: ${hops.length} hops, want ${want}` }
+}
+
+/** `from` must reach `to` by one of its allowed chains (allowedChains): one 301, but for http://www. */
 async function oneHop(check, from, to) {
-  const a = await ask(from)
-  if (a.status !== 301) return row(check, from, false, `${said(a)}, want one 301 to ${to}`)
-  const got = absolute(a.location, from)
-  if (got !== to) return row(check, from, false, `301 -> ${got}, want ${to}`)
-  // The address it lands on is a page (no second hop). A #fragment is the browser's, never sent.
-  const end = await ask(to.replace(/#.*$/, ''))
-  row(check, from, end.status === 200, end.status === 200 ? `301 -> ${a.location}` : `301 -> ${a.location}, which answers ${said(end)}`)
+  const most = Math.max(...allowedChains(from, to).map((c) => c.length))
+  const { ok, result } = chainVerdict(from, to, await walk(from, most))
+  row(check, from, ok, result)
 }
 
 const main = async () => {
@@ -139,7 +188,7 @@ const main = async () => {
   const linkFailures = rows.filter((r) => r.check === 'link').length
   row('links', `${links.size} same-site links`, linkFailures === 0, linkFailures ? `${linkFailures} not 200` : 'all 200')
 
-  // http://, www. and http://www. in one hop, for / and one deep page.
+  // http://, www. and http://www. in one hop (http://www. may take Hostinger's edge hop first), for / and one deep page.
   const deep = new URL(pages.map((p) => new URL(p)).filter((u) => u.host === host).sort((a, b) => b.pathname.split('/').length - a.pathname.split('/').length)[0]?.href ?? `${base}/company/`)
   for (const path of ['/', deep.pathname]) {
     const to = `https://${host}${path}`
