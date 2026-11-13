@@ -7,9 +7,12 @@
         "Android"
       ],
       "items": [
-        "Improvements and fixes."
+        "New ready-made layouts, Big type among them.",
+        "Make your own HUD: place the speed, heading, clock and trip where you want them in the layout builder, then use it in HUD mode. Free in Horizon.",
+        "The Marketplace: find layouts on Home and in Styles, with stars."
       ],
-      "commit": "0230dc6b"
+      "commit": "0230dc6b",
+      "title": "Make your own HUD, and new layouts"
     },
     {
       "version": "2.0.22",
